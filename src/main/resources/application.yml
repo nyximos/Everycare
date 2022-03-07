@@ -4,7 +4,7 @@ spring:
       enabled: always
 
   datasource:
-    url: jdbc:oracle:thin:@EveryCare_high?TNS_ADMIN=/Users/net68/OneDrive/문서/GitHub/Wallet_EveryCare
+    url: jdbc:oracle:thin:@EveryCare_high?TNS_ADMIN=./src/main/resources/Wallet/Wallet_EveryCare
     username: admin
     password: Capstone4Team
     driver-class-name: oracle.jdbc.OracleDriver
