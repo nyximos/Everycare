@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @Entity
-@SequenceGenerator( name ="member_seq_generator",
+@SequenceGenerator( name = "member_seq_generator",
         sequenceName = "member_seq",
         initialValue = 1, allocationSize = 1)
 public class Member {

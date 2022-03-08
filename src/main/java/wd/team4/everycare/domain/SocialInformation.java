@@ -12,6 +12,7 @@ import javax.persistence.*;
 @ToString
 @NoArgsConstructor
 @Entity
+@Table(name = "social_information")
 @SequenceGenerator( name ="social_information_generator",
         sequenceName = "social_information_seq",
         initialValue = 1, allocationSize = 1)
