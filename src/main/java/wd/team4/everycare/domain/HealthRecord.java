@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @Entity
+@Table(name = "health_record")
 @SequenceGenerator(name = "health_record_seq_generator",
         sequenceName = "health_record_seq",
         initialValue = 1, allocationSize = 1)
