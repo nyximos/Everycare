@@ -9,7 +9,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 
 @Getter
@@ -20,7 +19,6 @@ import java.util.Date;
 @SequenceGenerator( name ="member_seq_generator",
         sequenceName = "member_seq",
         initialValue = 1, allocationSize = 1)
-
 public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq_generator")
@@ -59,14 +57,14 @@ public class Member {
     @Column(name = "member_address_detail", length = 255, nullable = false)
     private String addressDetail;
 
-    @Column(name = "member_admin_registration_date", nullable = false)
+    @Column(name = "member_admin_registration_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime adminRegistrationDate;
 
-    @Column(name = "member_bank", length = 45, nullable = false)
+    @Column(name = "member_bank", length = 45)
     private String bank;
 
-    @Column(name = "member_account_member", length = 255, nullable = false)
+    @Column(name = "member_account_member", length = 255)
     private String accountNumber;
 
 
