@@ -17,8 +17,7 @@ import java.util.List;
         sequenceName = "certification_classification_seq",
         initialValue = 1, allocationSize = 1)
 public class CertificationClassification {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "certification_classification_seq")
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "certification_classification_seq")
     @Column(name = "certification_classification_id")
     private Long id;
 

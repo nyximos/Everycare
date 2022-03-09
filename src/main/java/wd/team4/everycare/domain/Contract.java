@@ -21,8 +21,7 @@ import java.util.List;
         sequenceName = "contract_seq",
         initialValue = 1, allocationSize = 1)
 public class Contract {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contract_seq")
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contract_seq")
     @Column(name = "contract_id")
     private Long id;
 

@@ -18,8 +18,7 @@ import java.util.List;
         initialValue = 1, allocationSize = 1)
 
 public class HopefulRegion {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hopeful_region_seq")
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hopeful_region_seq")
     @Column(name = "hopeful_region_id")
     private Long id;
 

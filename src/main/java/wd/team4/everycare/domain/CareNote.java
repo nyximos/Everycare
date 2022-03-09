@@ -19,8 +19,7 @@ import java.util.List;
         sequenceName = "care_note_seq",
         initialValue = 1, allocationSize = 1)
 public class CareNote {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "care_note_seq")
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "care_note_seq")
     private Long id;
 
     @Column(name = "care_note_date")

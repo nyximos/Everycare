@@ -18,8 +18,7 @@ import java.time.LocalDateTime;
         sequenceName = "board_seq",
         initialValue = 1, allocationSize = 1)
 public class Board {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "board_seq")
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "board_seq")
     @Column(name = "board_id")
     private Long id;
 

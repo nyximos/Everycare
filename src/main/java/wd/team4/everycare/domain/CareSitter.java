@@ -19,9 +19,7 @@ import java.time.LocalDateTime;
         initialValue = 1, allocationSize = 1)
 
 public class CareSitter {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "care_sitter_seq_generator")
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "care_sitter_seq_generator")
     @Column(name = "care_sitter_profile_id")
     private Long id;
 

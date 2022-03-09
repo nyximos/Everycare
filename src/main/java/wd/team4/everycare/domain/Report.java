@@ -18,8 +18,7 @@ import java.util.List;
         sequenceName = "report_seq",
         initialValue = 1, allocationSize = 1)
 public class Report {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "report_seq")
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "report_seq")
     @Column(name = "report_id")
     private Long id;
 
