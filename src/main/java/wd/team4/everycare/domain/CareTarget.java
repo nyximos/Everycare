@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -66,5 +67,9 @@ public class CareTarget {
 
     @Column(name = "care_target_corona_test", nullable = false)
     private String coronaTest; // enum
+
+    @OneToMany
+    @JoinColumn(name = "care_target_health_information_id")
+    private List<CareTargetHealthInformation> careTargetHealthInformations;
 
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,5 +25,9 @@ public class HealthInformation {
 
     @Column(name = "health_information_name", nullable = false)
     private String name;
+
+    @OneToMany
+    @JoinColumn(name = "care_target_health_information_id")
+    private List<CareTargetHealthInformation> careTargetHealthInformations;
 
 }
