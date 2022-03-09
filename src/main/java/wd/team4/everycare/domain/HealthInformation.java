@@ -26,7 +26,7 @@ public class HealthInformation {
     @Column(name = "health_information_name", nullable = false)
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "healthInformation")
     @JoinColumn(name = "care_target_health_information_id")
     private List<CareTargetHealthInformation> careTargetHealthInformations;
 

@@ -28,6 +28,6 @@ public class JobOfferCareSitter {
 
     @ManyToOne
     @JoinColumn(name = "care_sitter_profile_id")
-    private CareSitterProfile careSitterProfile;
+    private CareSitter careSitter;
 
 }

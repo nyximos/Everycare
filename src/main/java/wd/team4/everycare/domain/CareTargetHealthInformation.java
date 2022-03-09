@@ -27,7 +27,7 @@ public class CareTargetHealthInformation {
     private CareTarget careTarget;
 
     @ManyToOne
-    @JoinColumn(name = "health_information")
+    @JoinColumn(name = "health_information_id")
     private HealthInformation healthInformation;
 
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,4 +27,9 @@ public class Bedge {
 
     @Column(name = "bedge_file_path", length = 255, nullable = false)
     private String filePath;
+
+    @OneToMany(mappedBy = "bedge")
+    @JoinColumn
+    private List<CareSitterBedge> careSitterBedges;
+
 }
