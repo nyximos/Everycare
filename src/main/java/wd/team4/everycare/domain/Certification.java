@@ -1,4 +1,4 @@
-package wd.team4.everycare;
+package wd.team4.everycare.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,7 +21,7 @@ public class Certification {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "certification_seq")
     @Column(name = "certification_id")
-    private String id;
+    private Long id;
 
     @Column(name = "certification_name")
     private String name;
@@ -33,4 +34,9 @@ public class Certification {
 
     @Column(name = "certification_is_approve", length = 5, nullable = false)
     private String approvement;
+
+    @OneToMany
+    @JoinColumn(name = "certificate_classification_id", nullable = false)
+    private List<Certification> certifications;
+
 }

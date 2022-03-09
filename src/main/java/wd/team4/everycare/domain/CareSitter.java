@@ -23,7 +23,7 @@ public class CareSitter {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "care_sitter_seq_generator")
     @Column(name = "care_sitter_profile_id")
-    private String id;
+    private Long id;
 
     @Column(name = "care_sitter_file_name")
     private String fileName;
@@ -58,11 +58,14 @@ public class CareSitter {
     @Column(name = "care_sitter_disclosure_status", length = 5, nullable = false) //enum
     private String disclosureStatus;
 
-    @Column(name = "care_sitter_created_at", nullable = false)
+    @Column(name = "care_sitter_created_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime createdAt;
 
-    @Column(name = "care_sitter_updated_at", nullable = false)
+    @Column(name = "care_sitter_updated_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime updatedAt;
+    /**
+     * TODO 회원ID 외래키 연결
+     * */
 }

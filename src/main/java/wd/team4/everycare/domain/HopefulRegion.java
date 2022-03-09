@@ -1,4 +1,4 @@
-package wd.team4.everycare;
+package wd.team4.everycare.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,11 +21,15 @@ public class HopefulRegion {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hopeful_region_seq")
     @Column(name = "hopeful_region_id")
-    private String id;
+    private Long id;
 
     @Column(name = "hopeful_region_name", length = 100, nullable = false)
     private String name;
 
     @Column(name = "hopeful_region_level", length = 10, nullable = false)
     private String regionLevel;
+
+    @OneToMany
+    @JoinColumn(name = "hopeful_region_id2")
+    private List<HopefulRegion> hopefulRegions;
 }
