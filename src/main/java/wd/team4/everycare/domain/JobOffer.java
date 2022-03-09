@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -49,4 +50,8 @@ public class JobOffer {
 
     @Column(name = "job_offer_comment", length = 500)
     private String comment;
+
+    @OneToMany(mappedBy = "jobOffer")
+    @JoinColumn(name = "job_offer_care_sitter_id")
+    private List<JobOfferCareSitter> jobOfferCareSitters;
 }
