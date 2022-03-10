@@ -28,8 +28,9 @@ public class Member {
     @Column(name = "member_password", length = 255, nullable = false)
     private String password;
 
-    @Column(name = "member_gender", nullable = false) // enum
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "member_gender", nullable = false)
+    private Gender gender;
 
     @Column(name = "member_birth", nullable = false)
     @DateTimeFormat(pattern = "yyyyMMdd")
@@ -45,8 +46,9 @@ public class Member {
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime createdAt;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "member_status", nullable = false)
-    private String status;  // enum
+    private String activityStatus;
 
     @Column(name = "member_zipcode", length = 45, nullable = false)
     private String zipcode;

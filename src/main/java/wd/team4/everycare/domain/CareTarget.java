@@ -28,8 +28,9 @@ public class CareTarget {
     @Column(name = "care_target_name", length = 30, nullable = false)
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "care_target_gender", nullable = false)
-    private String gender; // enum
+    private Gender gender;
 
     @Column(name = "care_target_birth", nullable = false)
     @DateTimeFormat(pattern = "yyyyMMdd")
@@ -57,16 +58,16 @@ public class CareTarget {
     private String comment;
 
     @Column(name = "care_target_pet", nullable = false)
-    private String pet; // enum
+    private int pet;
 
     @Column(name = "care_target_is_cctv_agrement", nullable = false)
-    private String isCctvAgrement; // enum
+    private int isCctvAgrement;
 
     @Column(name = "care_target_care_tjype", length = 50, nullable = false)
-    private String careType; // enum
+    private CareType careType;
 
     @Column(name = "care_target_corona_test", nullable = false)
-    private String coronaTest; // enum
+    private int coronaTest;
 
     @OneToMany
     @JoinColumn(name = "care_target_health_information_id")

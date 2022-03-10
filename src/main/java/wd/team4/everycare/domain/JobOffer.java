@@ -45,8 +45,9 @@ public class JobOffer {
     @Column(name = "job_offer_pay", nullable = false)
     private int pay;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "job_offer_desired_care_sitter_gender", nullable = false)
-    private String desiredCareSitterGender; // enum
+    private Gender desiredCareSitterGender;
 
     @Column(name = "job_offer_comment", length = 500)
     private String comment;

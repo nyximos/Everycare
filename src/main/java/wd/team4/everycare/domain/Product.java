@@ -42,7 +42,7 @@ public class Product {
     private String comment;
 
     @Column(name = "product_is_sale", nullable = false)
-    private String isSale; // enum
+    private int isSale;
 
     @Column(name = "product_created_at", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")

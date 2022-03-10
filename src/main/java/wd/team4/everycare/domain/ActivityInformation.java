@@ -37,7 +37,8 @@ public class ActivityInformation {
     @Column(name = "activity_information_file_path", length = 255)
     private String filePath;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "activity_information_unit", nullable = false)
-    private String unit; // enum
+    private ActivityUnit activityUnit;
 
 }
