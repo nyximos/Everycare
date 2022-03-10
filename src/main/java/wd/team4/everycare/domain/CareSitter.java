@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -63,7 +64,8 @@ public class CareSitter {
     @Column(name = "care_sitter_updated_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime updatedAt;
-    /**
-     * TODO 회원ID 외래키 연결
-     * */
+
+    @OneToMany
+    @JoinColumn(name = "member_id", nullable = false)
+    private List<Member> members;
 }

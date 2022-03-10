@@ -34,7 +34,7 @@ public class OrderProduct {
     @JoinColumn(name = "order_id")
     private List<Order> orders;
 
-    /**
-     * TODO 상품id 외래키 연결
-     * */
+    @OneToMany
+    @JoinColumn(name = "product_id", nullable = false)
+    private List<Product> products;
 }

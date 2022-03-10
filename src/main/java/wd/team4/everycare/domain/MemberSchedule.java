@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -39,7 +40,7 @@ public class MemberSchedule {
     @Column(name = "member_schedule_comment")
     private String comment;
 
-    /**
-     * TODO 회원id 외래키 연결결
-     **/
+    @OneToMany
+    @JoinColumn(name = "member_id", nullable = false)
+    private List<Member> members;
 }

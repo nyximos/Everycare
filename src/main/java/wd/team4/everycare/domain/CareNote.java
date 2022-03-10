@@ -46,7 +46,7 @@ public class CareNote {
     @JoinColumn(name = "care_sitter_profile_id", nullable = false)
     private List<CareSitter> careSitters;
 
-    /**
-     * TODO 회원Id 외래키 연결
-     * */
+    @OneToMany
+    @JoinColumn(name = "member_id", nullable = false)
+    private List<Member> members;
 }

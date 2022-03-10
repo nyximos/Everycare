@@ -71,8 +71,11 @@ public class Contract {
     @JoinColumn(name = "care_sitter_profile_id")
     private List<CareSitter> careSitters;
 
-    /**
-     * @TODO 구인ID, 회원ID, 외래키 연결
-     *
-     * */
+    @OneToMany
+    @JoinColumn(name = "member_id", nullable = false)
+    private List<Member> members;
+
+    @OneToMany
+    @JoinColumn(name = "job_offer_id", nullable = false)
+    private List<JobOffer> jobOffers;
 }

@@ -41,7 +41,7 @@ public class Report {
     @JoinColumn(name = "board_id", nullable = false)
     private List<Board> boards;
 
-    /**
-     * TODO 회원id 외래키 연결
-     * */
+    @OneToMany
+    @JoinColumn(name = "member_id", nullable = false)
+    private List<Member> members;
 }
