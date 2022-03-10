@@ -9,6 +9,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
@@ -69,5 +71,16 @@ public class Member {
     @Column(name = "member_account_member", length = 255)
     private String accountNumber;
 
+    @OneToOne(mappedBy = "member")
+    private SocialInformation socialInformation;
+
+    @OneToOne(mappedBy = "member")
+    private Store store;
+
+    @OneToMany(mappedBy = "member")
+    private List<CareTarget> careTargets = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<HealthRecord> healthRecords = new ArrayList<>();
 
 }

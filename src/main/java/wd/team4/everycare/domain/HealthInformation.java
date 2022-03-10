@@ -30,4 +30,6 @@ public class HealthInformation {
     @JoinColumn(name = "care_target_health_information_id")
     private List<CareTargetHealthInformation> careTargetHealthInformations;
 
+
+
 }

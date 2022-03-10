@@ -27,7 +27,7 @@ public class JobOfferCareSitter {
     private JobOffer jobOffer;
 
     @ManyToOne
-    @JoinColumn(name = "care_sitter_profile_id")
+    @JoinColumn(name = "care_sitter_id")
     private CareSitter careSitter;
 
 }

@@ -37,8 +37,16 @@ public class ActivityInformation {
     @Column(name = "activity_information_file_path", length = 255)
     private String filePath;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "activity_information_unit", nullable = false)
-    private ActivityUnit activityUnit;
+    @ManyToOne
+    @JoinColumn(name = "care_target_schedule_id")
+    private CareTargetSchedule careTargetSchedule;
+
+    @ManyToOne
+    @JoinColumn(name = "activity_classification_id")
+    private ActivityClassification activityClassification;
+
+    @ManyToOne
+    @JoinColumn(name = "detail_activity_id")
+    private DetailActivity detailActivity;
 
 }

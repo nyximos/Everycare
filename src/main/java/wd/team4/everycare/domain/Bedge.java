@@ -32,4 +32,8 @@ public class Bedge {
     @JoinColumn
     private List<CareSitterBedge> careSitterBedges;
 
+    @OneToOne
+    @JoinColumn(name = "activity_classification_id")
+    private ActivityClassification activityClassification;
+
 }

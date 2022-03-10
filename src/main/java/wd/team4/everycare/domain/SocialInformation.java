@@ -25,4 +25,9 @@ public class SocialInformation {
 
     @Column(name = "social_information_type", length = 255, nullable = false)
     private String type;
+
+    @OneToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
 }

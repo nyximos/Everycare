@@ -48,4 +48,8 @@ public class Product {
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime createdAt;
 
+    @ManyToOne
+    @JoinColumn(name = "store_id")
+    private Store store;
+
 }

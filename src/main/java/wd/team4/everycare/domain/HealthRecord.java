@@ -38,4 +38,16 @@ public class HealthRecord {
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime updatedAt;
 
+    @ManyToOne
+    @JoinColumn(name = "health_information_id")
+    private HealthInformation healthInformation;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @ManyToOne
+    @JoinColumn(name = "care_target_id")
+    private CareTarget careTarget;
+
 }

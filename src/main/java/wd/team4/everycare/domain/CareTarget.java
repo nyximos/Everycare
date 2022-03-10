@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -72,5 +73,15 @@ public class CareTarget {
     @OneToMany
     @JoinColumn(name = "care_target_health_information_id")
     private List<CareTargetHealthInformation> careTargetHealthInformations;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @OneToMany(mappedBy = "careTarget")
+    List<HealthRecord> healthRecords = new ArrayList<>();
+
+    @OneToMany(mappedBy = "careTarget")
+    List<CareTargetSchedule> careTargetSchedules = new ArrayList<>();
 
 }

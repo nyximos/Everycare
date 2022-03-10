@@ -53,6 +53,9 @@ public class JobOffer {
     private String comment;
 
     @OneToMany(mappedBy = "jobOffer")
-    @JoinColumn(name = "job_offer_care_sitter_id")
     private List<JobOfferCareSitter> jobOfferCareSitters;
+
+    @OneToOne(mappedBy = "jopOffer")
+    private List<CareTargetSchedule> careTargetSchedules;
+
 }

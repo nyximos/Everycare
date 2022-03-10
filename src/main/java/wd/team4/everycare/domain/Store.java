@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -57,5 +59,11 @@ public class Store {
     @Column(name = "store_customer_service_number", length = 45, nullable = false)
     private String customerServiceNumber;
 
+    @OneToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @OneToMany(mappedBy = "store")
+    List<Product> products = new ArrayList<>();
 
 }
