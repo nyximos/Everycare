@@ -28,8 +28,8 @@ public class Report {
     @Column(name = "report_type", length = 100, nullable = false)
     private String type;
 
-    @Column(name = "report_processing_status", length = 5)
-    private String processingStatus;
+    @Column(name = "report_processing_status")
+    private int processingStatus;
 
     @Column(name = "report_reason", nullable = false)
     private String reason;

@@ -46,7 +46,7 @@ public class Contract {
     private int pay;
 
     @Column(name = "contract_status", nullable = false)
-    private String status;
+    private int contractStatus;
 
     @Column(name = "contract_pay_amount", nullable = false)
     private int amount;
@@ -72,7 +72,7 @@ public class Contract {
     private List<CareSitter> careSitters;
 
     /**
-     * @TODO 구인ID, 회원ID, 소미꺼 연결되면 외래키 연결
+     * @TODO 구인ID, 회원ID, 외래키 연결
      *
      * */
 }

@@ -28,7 +28,7 @@ public class OrderProduct {
     private int amount;
 
     @Column(name = "order_product_is_review", length = 5)
-    private String review;
+    private int review;
 
     @ManyToMany
     @JoinColumn(name = "order_id")

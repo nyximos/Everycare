@@ -44,17 +44,17 @@ public class CareSitter {
     @Column(name = "care_sitter_desired_monthly_wage", length = 50, nullable = false)
     private String desiredMonthlyWage;
 
-    @Column(name = "care_sitter_cctv_agreement", length = 5, nullable = false)  //enum
-    private String cctvAgreement;
+    @Column(name = "care_sitter_cctv_agreement", nullable = false)  //enum
+    private int cctvAgreement;
 
-    @Column(name = "care_sitter_is_vaccinated", length = 5, nullable = false)   //enum
-    private String vaccination;
+    @Column(name = "care_sitter_is_vaccinated", nullable = false)   //enum
+    private int vaccination;
 
     @Column(name = "care_sitter_introduction", length = 1000, nullable = false)
     private String introduction;
 
-    @Column(name = "care_sitter_disclosure_status", length = 5, nullable = false) //enum
-    private String disclosureStatus;
+    @Column(name = "care_sitter_disclosure_status", nullable = false) //enum
+    private int disclosureStatus;
 
     @Column(name = "care_sitter_created_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
