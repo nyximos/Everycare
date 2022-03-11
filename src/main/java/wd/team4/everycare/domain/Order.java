@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -72,7 +73,7 @@ public class Order {
     @Column(name = "order_monthly_installment_plan")
     private int installmentPlan;
 
-    /**
-     * TODO 회원id 외래키 연결
-     * */
+    @OneToMany
+    @JoinColumn(name = "member_id", nullable = false)
+    private List<Member> members;
 }

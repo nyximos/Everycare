@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -47,7 +48,13 @@ public class Board {
 
     @Column(name = "board_file_path")
     private String filePath;
-    /**
-     * TODO 회원, 상품 외래키 연결
-     * */
+
+    @OneToMany
+    @JoinColumn(name = "member_id", nullable = false)
+    private List<Member> members;
+
+    @OneToMany
+    @JoinColumn(name = "product_id")
+    private List<Product> products;
+
 }
