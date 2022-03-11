@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -28,7 +29,11 @@ public class HopefulRegion {
     @Column(name = "hopeful_region_level", length = 10, nullable = false)
     private String regionLevel;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "hopeful_region_id2")
-    private List<HopefulRegion> hopefulRegions;
+    private HopefulRegion hopefulRegion;
+
+    @OneToMany
+    @JoinColumn(name = "hopeful_region_id")
+    private List<CareSitterHopefulRegion> careSitterHopefulRegions = new ArrayList<>();
 }

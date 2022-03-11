@@ -37,11 +37,11 @@ public class Report {
     @Column(name = "report_reported_person", length = 20, nullable = false)
     private String reportedPerson;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "board_id", nullable = false)
-    private List<Board> boards;
+    private Board board;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
-    private List<Member> members;
+    private Member member;
 }
