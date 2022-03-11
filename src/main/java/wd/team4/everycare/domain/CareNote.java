@@ -38,15 +38,15 @@ public class CareNote {
     @Column(name = "care_note_file_path")
     private String filePath;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "contract_id", nullable = false)
-    private List<Contract> contracts;
+    private Contract contract;
 
-    @OneToMany
+    @OneToOne
     @JoinColumn(name = "care_sitter_profile_id", nullable = false)
-    private List<CareSitter> careSitters;
+    private CareSitter careSitter;
 
-    @OneToMany
+    @OneToOne
     @JoinColumn(name = "member_id", nullable = false)
-    private List<Member> members;
+    private Member member;
 }

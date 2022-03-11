@@ -40,7 +40,7 @@ public class MemberSchedule {
     @Column(name = "member_schedule_comment")
     private String comment;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
-    private List<Member> members;
+    private Member member;
 }

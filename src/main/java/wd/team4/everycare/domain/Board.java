@@ -49,12 +49,12 @@ public class Board {
     @Column(name = "board_file_path")
     private String filePath;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
-    private List<Member> members;
+    private Member member;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "product_id")
-    private List<Product> products;
+    private Product product;
 
 }

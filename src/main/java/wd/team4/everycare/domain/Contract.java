@@ -67,15 +67,15 @@ public class Contract {
     @Column(name = "contract_monthly_installment_plan")
     private int monthlyInstallmentPlan;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "care_sitter_profile_id")
-    private List<CareSitter> careSitters;
+    private CareSitter careSitter;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
-    private List<Member> members;
+    private Member member;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "job_offer_id", nullable = false)
-    private List<JobOffer> jobOffers;
+    private JobOffer jobOffer;
 }

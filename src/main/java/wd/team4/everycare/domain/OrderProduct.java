@@ -30,11 +30,11 @@ public class OrderProduct {
     @Column(name = "order_product_is_review", length = 5)
     private int review;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "order_id")
-    private List<Order> orders;
+    private Order order;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
-    private List<Product> products;
+    private Product product;
 }

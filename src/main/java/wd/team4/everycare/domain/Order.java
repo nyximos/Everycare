@@ -73,7 +73,7 @@ public class Order {
     @Column(name = "order_monthly_installment_plan")
     private int installmentPlan;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
-    private List<Member> members;
+    private Member member;
 }
