@@ -19,7 +19,7 @@ import javax.persistence.*;
 
 public class Like {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "like_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "like_seq_generator")
     private Long id;
 
     @ManyToOne

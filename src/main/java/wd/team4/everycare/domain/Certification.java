@@ -20,7 +20,7 @@ import java.util.List;
 
 public class Certification {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "certification_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "certification_seq_generator")
     @Column(name = "certification_id")
     private Long id;
 

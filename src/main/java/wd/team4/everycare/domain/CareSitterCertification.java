@@ -18,7 +18,7 @@ import javax.persistence.*;
         initialValue = 1, allocationSize = 1)
 
 public class CareSitterCertification {
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "care_sitter_certification_seq")
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "care_sitter_certification_seq_generator")
     @Column(name = "care_sitter_certification_id")
     private Long id;
 

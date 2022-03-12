@@ -30,15 +30,6 @@ public class ActivityClassification {
     @Column(name = "activity_classification_level", length = 10, nullable = false)
     private String level;
 
-    @Column(name = "activity_classification_rating")
-    private int rating;
-
-    @Column(name = "activity_classification_review", length = 1000)
-    private String review;
-
-    @Column(name = "activity_classification_requirements", length = 500)
-    private String requirements;
-
     @ManyToOne
     @JoinColumn(name = "activity_classification_id2")
     private ActivityClassification activityClassification;

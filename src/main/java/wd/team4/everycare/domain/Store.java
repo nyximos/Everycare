@@ -19,7 +19,8 @@ import java.util.List;
         initialValue = 1, allocationSize = 1)
 public class Store {
 
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "store_seq_generator")
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "store_seq_generator")
     @Column(name = "store_id", nullable = false)
     private Long id;
 

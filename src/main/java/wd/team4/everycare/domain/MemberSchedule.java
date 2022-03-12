@@ -18,7 +18,7 @@ import java.util.List;
         sequenceName = "member_schedule_seq",
         initialValue = 1, allocationSize = 1)
 public class MemberSchedule {
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_schedule_seq")
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_schedule_seq_generator")
     @Column(name = "member_schedule_id", length = 30)
     private Long id;
 
