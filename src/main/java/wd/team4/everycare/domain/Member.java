@@ -49,7 +49,7 @@ public class Member {
     private LocalDateTime createdAt;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "member_status", nullable = false)
+    @Column(name = "member_activity_status", nullable = false)
     private ActivityStatus activityStatus;
 
     @Column(name = "member_zipcode", length = 45, nullable = false)

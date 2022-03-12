@@ -33,8 +33,9 @@ public class Certification {
     @Column(name = "certification_file_path", nullable = false)
     private String filePath;
 
+
     @Column(name = "certification_is_approve", nullable = false)
-    private int approvement;
+    private int approval;
 
     @ManyToOne
     @JoinColumn(name = "certificate_classification_id", nullable = false)

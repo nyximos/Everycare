@@ -20,6 +20,7 @@ import java.util.List;
         initialValue = 1, allocationSize = 1)
 public class CareNote {
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "care_note_seq_generator")
+    @Column(name = "care_note_id")
     private Long id;
 
     @Column(name = "care_note_date")

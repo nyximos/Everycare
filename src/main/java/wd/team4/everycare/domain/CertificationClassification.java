@@ -29,10 +29,8 @@ public class CertificationClassification {
     @Column(name = "certification_classification_level", length = 10)
     private String level;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "certification_classification_id2")
-    private CertificationClassification parent;
+    private CertificationClassification certificationClassification;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
-    private List<CertificationClassification> children;
 }

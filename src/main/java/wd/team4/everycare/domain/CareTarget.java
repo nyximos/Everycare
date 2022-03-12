@@ -55,16 +55,17 @@ public class CareTarget {
     @Column(name = "care_target_long_term_care_grade", nullable = false)
     private int longTermCareGrade;
 
-    @Column(name = "care_target_comment", length = 500)
+    @Column(name = "care_target_specifics", length = 500)
     private String comment;
 
     @Column(name = "care_target_pet", nullable = false)
     private int pet;
 
-    @Column(name = "care_target_is_cctv_agrement", nullable = false)
-    private int isCctvAgrement;
+    @Column(name = "care_target_is_cctv_agreement", nullable = false)
+    private int isCctvAgreement;
 
-    @Column(name = "care_target_care_tjype", length = 50, nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "care_target_care_type", length = 50, nullable = false)
     private CareType careType;
 
     @Column(name = "care_target_corona_test", nullable = false)

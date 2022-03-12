@@ -33,7 +33,7 @@ public class Store {
     @Column(name = "store_business_license_number", length = 10, nullable = false)
     private int businessLicenseNumber;
 
-    @Column(name = "store_email", length = 255, nullable = false)
+    @Column(name = "store_email", nullable = false)
     private String email;
 
     @Column(name = "store_operation_start_time", length = 4, nullable = false)
@@ -51,13 +51,13 @@ public class Store {
     @Column(name = "store_closed_day", length = 30, nullable = false)
     private String closedDay;
 
-    @Column(name = "store_company_corporation_name", length = 255, nullable = false)
+    @Column(name = "store_company_corporation_name", nullable = false)
     private String companyCorporationName;
 
     @Column(name = "store_representative_name", length = 30, nullable = false)
     private String representativeName;
 
-    @Column(name = "store_business_location", length = 255, nullable = false)
+    @Column(name = "store_business_location", nullable = false)
     private String businessLocation;
 
     @Column(name = "store_customer_service_number", length = 45, nullable = false)

@@ -24,8 +24,9 @@ public class HealthRecord {
     @Column(name = "health_record_id", nullable = false)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "health_record_status", nullable = false)
-    private String status;
+    private HealthStatus healthStatus;
 
     @Column(name = "health_record_detail_comment")
     private String detailComment;

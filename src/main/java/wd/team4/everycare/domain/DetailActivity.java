@@ -28,11 +28,11 @@ public class DetailActivity {
     @Column(name = "detail_activity_review", length = 1000)
     private String detailActivityReview;
 
-    @Column(name = "detailActivityRequirements", length = 500)
-    private String detailActivityRequirements;
+    @Column(name = "detailActivityRequirement", length = 500)
+    private String detailActivityRequirement;
 
     @ManyToOne
-    @JoinColumn(name = "activity_classification")
+    @JoinColumn(name = "activity_classification2", nullable = false)
     private ActivityClassification activityClassification;
 
 }

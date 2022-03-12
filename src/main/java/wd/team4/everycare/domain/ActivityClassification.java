@@ -34,5 +34,4 @@ public class ActivityClassification {
     @JoinColumn(name = "activity_classification_id2")
     private ActivityClassification activityClassification;
 
-
 }

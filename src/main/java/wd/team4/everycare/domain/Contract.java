@@ -61,7 +61,7 @@ public class Contract {
     @Column(name = "contract_card_number", length = 55)
     private String cardNumber;
 
-    @Column(name = "contract_card_approve")
+    @Column(name = "contract_pay_approve")
     private String payApprove;
 
     @Column(name = "contract_monthly_installment_plan")
