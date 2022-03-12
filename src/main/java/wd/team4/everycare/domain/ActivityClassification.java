@@ -39,17 +39,9 @@ public class ActivityClassification {
     @Column(name = "activity_classification_requirements", length = 500)
     private String requirements;
 
-    @OneToMany(mappedBy = "activityClassification")
-    private List<DetailActivity> detailActivities = new ArrayList<>();
-
     @ManyToOne
-    @JoinColumn(name = "activity_classification_id")
+    @JoinColumn(name = "activity_classification_id2")
     private ActivityClassification activityClassification;
 
-    @OneToMany(mappedBy = "activityClassification")
-    private List<ActivityClassification> activityClassifications = new ArrayList<>();
-
-    @OneToMany(mappedBy = "activityClassification")
-    private List<ActivityInformation> activityInformations = new ArrayList<>();
 
 }

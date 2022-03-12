@@ -40,7 +40,4 @@ public class Certification {
     @JoinColumn(name = "certificate_classification_id", nullable = false)
     private Certification certification;
 
-    @OneToMany
-    @JoinColumn(name = "certification_id", nullable = false)
-    private List<CareSitterCertification> careSitterCertifications = new ArrayList<>();
 }

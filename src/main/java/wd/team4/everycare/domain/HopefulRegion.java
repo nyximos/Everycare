@@ -32,8 +32,4 @@ public class HopefulRegion {
     @ManyToOne
     @JoinColumn(name = "hopeful_region_id2")
     private HopefulRegion hopefulRegion;
-
-    @OneToMany
-    @JoinColumn(name = "hopeful_region_id")
-    private List<CareSitterHopefulRegion> careSitterHopefulRegions = new ArrayList<>();
 }

@@ -26,7 +26,10 @@ public class Store {
     @Column(name = "store_name", length = 50, nullable = false)
     private String name;
 
-    @Column(name = "store_business_license_number", length = 10,nullable = false)
+    @Column(name = "store_url", nullable = false)
+    private String url;
+
+    @Column(name = "store_business_license_number", length = 10, nullable = false)
     private int businessLicenseNumber;
 
     @Column(name = "store_email", length = 255, nullable = false)
@@ -62,8 +65,5 @@ public class Store {
     @OneToOne
     @JoinColumn(name = "member_id")
     private Member member;
-
-    @OneToMany(mappedBy = "store")
-    List<Product> products = new ArrayList<>();
 
 }

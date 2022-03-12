@@ -61,7 +61,7 @@ public class Order {
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime paymentTime;
 
-    @Column(name = "order_credit_card_compnay")
+    @Column(name = "order_credit_card_company")
     private String cardCompany;
 
     @Column(name = "order_card_number", length = 55)

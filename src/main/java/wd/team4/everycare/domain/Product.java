@@ -29,8 +29,8 @@ public class Product {
     @Column(name = "product_price", nullable = false)
     private int price;
 
-    @Column(name = "product_inventory_qantity", nullable = false)
-    private int inventoryQantity;
+    @Column(name = "product_inventory_quantity", nullable = false)
+    private int inventoryQuantity;
 
     @Column(name = "product_file_name", length = 255, nullable = false)
     private String fileName;

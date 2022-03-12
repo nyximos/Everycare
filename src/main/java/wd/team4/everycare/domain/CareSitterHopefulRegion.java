@@ -22,7 +22,7 @@ public class CareSitterHopefulRegion {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "care_sitter_profile_id")
+    @JoinColumn(name = "care_sitter_id")
     private CareSitter careSitter;
 
     @ManyToOne

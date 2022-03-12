@@ -43,7 +43,7 @@ public class CareNote {
     private Contract contract;
 
     @OneToOne
-    @JoinColumn(name = "care_sitter_profile_id", nullable = false)
+    @JoinColumn(name = "care_sitter_id", nullable = false)
     private CareSitter careSitter;
 
     @OneToOne
