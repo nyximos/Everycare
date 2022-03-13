@@ -53,7 +53,4 @@ public class CareTargetSchedule {
     @JoinColumn(name = "job_offer_id")
     private JobOffer jobOffer;
 
-    @OneToMany(mappedBy = "careTargetSchedule")
-    private List<ActivityInformation> activityInformations = new ArrayList<>();
-
 }

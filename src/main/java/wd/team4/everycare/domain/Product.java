@@ -29,13 +29,13 @@ public class Product {
     @Column(name = "product_price", nullable = false)
     private int price;
 
-    @Column(name = "product_inventory_qantity", nullable = false)
-    private int inventoryQantity;
+    @Column(name = "product_inventory_quantity", nullable = false)
+    private int inventoryQuantity;
 
-    @Column(name = "product_file_name", length = 255, nullable = false)
+    @Column(name = "product_file_name", nullable = false)
     private String fileName;
 
-    @Column(name = "product_path", length = 255, nullable = false)
+    @Column(name = "product_file_Path", nullable = false)
     private String filePath;
 
     @Column(name = "product_comment", length = 1000, nullable = false)
@@ -51,5 +51,4 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
-
 }

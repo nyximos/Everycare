@@ -19,17 +19,21 @@ import java.util.List;
         initialValue = 1, allocationSize = 1)
 public class Store {
 
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "store_seq_generator")
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "store_seq_generator")
     @Column(name = "store_id", nullable = false)
     private Long id;
 
     @Column(name = "store_name", length = 50, nullable = false)
     private String name;
 
-    @Column(name = "store_business_license_number", length = 10,nullable = false)
+    @Column(name = "store_url", nullable = false)
+    private String url;
+
+    @Column(name = "store_business_license_number", length = 10, nullable = false)
     private int businessLicenseNumber;
 
-    @Column(name = "store_email", length = 255, nullable = false)
+    @Column(name = "store_email", nullable = false)
     private String email;
 
     @Column(name = "store_operation_start_time", length = 4, nullable = false)
@@ -47,13 +51,13 @@ public class Store {
     @Column(name = "store_closed_day", length = 30, nullable = false)
     private String closedDay;
 
-    @Column(name = "store_company_corporation_name", length = 255, nullable = false)
+    @Column(name = "store_company_corporation_name", nullable = false)
     private String companyCorporationName;
 
     @Column(name = "store_representative_name", length = 30, nullable = false)
     private String representativeName;
 
-    @Column(name = "store_business_location", length = 255, nullable = false)
+    @Column(name = "store_business_location", nullable = false)
     private String businessLocation;
 
     @Column(name = "store_customer_service_number", length = 45, nullable = false)
@@ -62,8 +66,5 @@ public class Store {
     @OneToOne
     @JoinColumn(name = "member_id")
     private Member member;
-
-    @OneToMany(mappedBy = "store")
-    List<Product> products = new ArrayList<>();
 
 }

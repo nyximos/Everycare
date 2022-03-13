@@ -17,12 +17,12 @@ import javax.persistence.*;
         sequenceName = "care_sitter_hopeful_region_seq",
         initialValue = 1, allocationSize = 1)
 public class CareSitterHopefulRegion {
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "care_sitter_hopeful_region_seq")
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "care_sitter_hopeful_region_seq_generator")
     @Column(name = "care_sitter_hopeful_region_id")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "care_sitter_profile_id")
+    @JoinColumn(name = "care_sitter_id")
     private CareSitter careSitter;
 
     @ManyToOne

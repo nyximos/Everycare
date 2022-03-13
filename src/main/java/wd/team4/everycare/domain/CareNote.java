@@ -19,7 +19,8 @@ import java.util.List;
         sequenceName = "care_note_seq",
         initialValue = 1, allocationSize = 1)
 public class CareNote {
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "care_note_seq")
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "care_note_seq_generator")
+    @Column(name = "care_note_id")
     private Long id;
 
     @Column(name = "care_note_date")
@@ -43,7 +44,7 @@ public class CareNote {
     private Contract contract;
 
     @OneToOne
-    @JoinColumn(name = "care_sitter_profile_id", nullable = false)
+    @JoinColumn(name = "care_sitter_id", nullable = false)
     private CareSitter careSitter;
 
     @OneToOne

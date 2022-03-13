@@ -19,7 +19,7 @@ import java.util.List;
         sequenceName = "order_seq",
         initialValue = 1, allocationSize = 1)
 public class Order {
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq")
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq_generator")
     @Column(name = "order_id")
     private Long id;
 
@@ -61,7 +61,7 @@ public class Order {
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime paymentTime;
 
-    @Column(name = "order_credit_card_compnay")
+    @Column(name = "order_credit_card_company")
     private String cardCompany;
 
     @Column(name = "order_card_number", length = 55)

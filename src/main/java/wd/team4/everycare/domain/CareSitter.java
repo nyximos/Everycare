@@ -22,7 +22,7 @@ import java.util.List;
 
 public class CareSitter {
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "care_sitter_seq_generator")
-    @Column(name = "care_sitter_profile_id")
+    @Column(name = "care_sitter_id")
     private Long id;
 
     @Column(name = "care_sitter_file_name")
@@ -70,11 +70,4 @@ public class CareSitter {
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    @OneToMany
-    @JoinColumn(name = "careSitter")
-    private List<CareSitterCertification> careSitterCertifications = new ArrayList<>();
-
-    @OneToMany
-    @JoinColumn(name = "hopeful_region_id")
-    private List<HopefulRegion> hopefulRegions = new ArrayList<>();
 }

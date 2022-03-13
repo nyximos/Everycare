@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -17,7 +18,8 @@ import java.util.List;
         sequenceName = "certification_classification_seq",
         initialValue = 1, allocationSize = 1)
 public class CertificationClassification {
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "certification_classification_seq")
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "certification_classification_seq_generator")
     @Column(name = "certification_classification_id")
     private Long id;
 
@@ -30,4 +32,5 @@ public class CertificationClassification {
     @ManyToOne
     @JoinColumn(name = "certification_classification_id2")
     private CertificationClassification certificationClassification;
+
 }

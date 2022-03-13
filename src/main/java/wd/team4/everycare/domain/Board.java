@@ -19,7 +19,7 @@ import java.util.List;
         sequenceName = "board_seq",
         initialValue = 1, allocationSize = 1)
 public class Board {
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "board_seq")
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "board_seq_generator")
     @Column(name = "board_id")
     private Long id;
 

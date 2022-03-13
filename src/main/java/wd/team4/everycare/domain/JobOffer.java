@@ -52,10 +52,12 @@ public class JobOffer {
     @Column(name = "job_offer_comment", length = 500)
     private String comment;
 
-    @OneToMany(mappedBy = "jobOffer")
-    private List<JobOfferCareSitter> jobOfferCareSitters;
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 
-    @OneToOne(mappedBy = "jopOffer")
-    private List<CareTargetSchedule> careTargetSchedules;
+    @ManyToOne
+    @JoinColumn(name = "care_target_id")
+    private CareTarget careTarget;
 
 }

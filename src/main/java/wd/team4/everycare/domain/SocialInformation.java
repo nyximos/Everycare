@@ -23,7 +23,7 @@ public class SocialInformation {
     @Column(name ="social_information_id", nullable = false)
     private String id;
 
-    @Column(name = "social_information_type", length = 255, nullable = false)
+    @Column(name = "social_information_type", nullable = false)
     private String type;
 
     @OneToOne

@@ -49,8 +49,8 @@ public class Member {
     private LocalDateTime createdAt;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "member_status", nullable = false)
-    private String activityStatus;
+    @Column(name = "member_activity_status", nullable = false)
+    private ActivityStatus activityStatus;
 
     @Column(name = "member_zipcode", length = 45, nullable = false)
     private String zipcode;
@@ -70,17 +70,5 @@ public class Member {
 
     @Column(name = "member_account_member", length = 255)
     private String accountNumber;
-
-    @OneToOne(mappedBy = "member")
-    private SocialInformation socialInformation;
-
-    @OneToOne(mappedBy = "member")
-    private Store store;
-
-    @OneToMany(mappedBy = "member")
-    private List<CareTarget> careTargets = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member")
-    private List<HealthRecord> healthRecords = new ArrayList<>();
 
 }

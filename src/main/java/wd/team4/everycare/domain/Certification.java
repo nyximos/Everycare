@@ -20,7 +20,7 @@ import java.util.List;
 
 public class Certification {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "certification_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "certification_seq_generator")
     @Column(name = "certification_id")
     private Long id;
 
@@ -33,14 +33,12 @@ public class Certification {
     @Column(name = "certification_file_path", nullable = false)
     private String filePath;
 
+
     @Column(name = "certification_is_approve", nullable = false)
-    private int approvement;
+    private int approval;
 
     @ManyToOne
     @JoinColumn(name = "certificate_classification_id", nullable = false)
     private Certification certification;
 
-    @OneToMany
-    @JoinColumn(name = "certification_id", nullable = false)
-    private List<CareSitterCertification> careSitterCertifications = new ArrayList<>();
 }

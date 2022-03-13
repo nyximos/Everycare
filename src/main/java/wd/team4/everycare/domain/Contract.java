@@ -21,7 +21,7 @@ import java.util.List;
         sequenceName = "contract_seq",
         initialValue = 1, allocationSize = 1)
 public class Contract {
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contract_seq")
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contract_seq_generator")
     @Column(name = "contract_id")
     private Long id;
 
@@ -61,14 +61,14 @@ public class Contract {
     @Column(name = "contract_card_number", length = 55)
     private String cardNumber;
 
-    @Column(name = "contract_card_approve")
+    @Column(name = "contract_pay_approve")
     private String payApprove;
 
     @Column(name = "contract_monthly_installment_plan")
     private int monthlyInstallmentPlan;
 
     @ManyToOne
-    @JoinColumn(name = "care_sitter_profile_id")
+    @JoinColumn(name = "care_sitter_id")
     private CareSitter careSitter;
 
     @ManyToOne
