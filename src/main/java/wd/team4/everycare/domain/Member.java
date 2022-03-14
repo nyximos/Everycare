@@ -27,7 +27,7 @@ public class Member {
     @Column(name ="member_id", length = 20, nullable = false)
     private String id;
 
-    @Column(name = "member_password", length = 255, nullable = false)
+    @Column(name = "member_password", nullable = false)
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -41,7 +41,7 @@ public class Member {
     @Column(name = "member_phone", length = 45, nullable = false)
     private String phone;
 
-    @Column(name = "member_email", length = 255, nullable = false)
+    @Column(name = "member_email", nullable = false)
     private String email;
 
     @Column(name = "member_created_at", nullable = false)
@@ -55,10 +55,10 @@ public class Member {
     @Column(name = "member_zipcode", length = 45, nullable = false)
     private String zipcode;
 
-    @Column(name = "member_address", length = 255, nullable = false)
+    @Column(name = "member_address", nullable = false)
     private String address;
 
-    @Column(name = "member_address_detail", length = 255, nullable = false)
+    @Column(name = "member_address_detail", nullable = false)
     private String addressDetail;
 
     @Column(name = "member_admin_registration_date")
@@ -68,7 +68,7 @@ public class Member {
     @Column(name = "member_bank", length = 45)
     private String bank;
 
-    @Column(name = "member_account_member", length = 255)
+    @Column(name = "member_account_member")
     private String accountNumber;
 
 }
