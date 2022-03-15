@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import wd.team4.everycare.config.SecurityConfig;
 import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.domain.MemberRole;
 import wd.team4.everycare.repository.MemberRepository;
 
 import java.time.LocalDate;
@@ -54,9 +55,13 @@ public class MemberTests {
                     .zipcode("12345")
                     .address("주소")
                     .addressDetail("상세주소")
+                    .role(MemberRole.MEMBER)
                     .build();
 
             System.out.println("member = " + member);
+
+            memberRepository.save(member);
+
         });
     }
 }

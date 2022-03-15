@@ -91,4 +91,8 @@ public class Member {
         this.bank = bank;
         this.accountNumber = accountNumber;
     }
+
+    public void changeMemberRole(MemberRole role) {
+        this.role = role;
+    }
 }
