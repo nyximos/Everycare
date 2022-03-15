@@ -20,18 +20,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests()
-                    .antMatchers("/**").permitAll()
-                    .antMatchers("/member/**").hasRole("USER")
-                    .and()
-                .formLogin();
-    }
-
-    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
+        auth.inMemoryAuthentication().withUser("user1")
+                .password("$2a$10$KKZ0C.KJxbqNFfmuGz0MNunkK7v1IvuSbHlXLWLuWuYFe87S.F5Yu")
+                .roles("USER");
     }
 
     @Override
