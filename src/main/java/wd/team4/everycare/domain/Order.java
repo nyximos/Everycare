@@ -15,6 +15,7 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @Entity
+@Table(name = "orders")
 @SequenceGenerator(name = "order_seq_generator",
         sequenceName = "order_seq",
         initialValue = 1, allocationSize = 1)
