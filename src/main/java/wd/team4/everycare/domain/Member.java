@@ -24,6 +24,9 @@ public class Member {
     @Column(name = "member_password", nullable = false)
     private String password;
 
+    @Column(name = "member_name", nullable = false)
+    private String name;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "member_gender", nullable = false)
     private Gender gender;
@@ -55,6 +58,10 @@ public class Member {
     @Column(name = "member_address_detail", nullable = false)
     private String addressDetail;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "member_role", length = 5, nullable = false)
+    private MemberRole role;
+
     @Column(name = "member_admin_registration_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime adminRegistrationDate;
@@ -66,9 +73,10 @@ public class Member {
     private String accountNumber;
 
     @Builder
-    public Member(String id, String password, Gender gender, LocalDate birth, String phone, String email, LocalDateTime createdAt, ActivityStatus activityStatus, String zipcode, String address, String addressDetail, LocalDateTime adminRegistrationDate, String bank, String accountNumber) {
+    public Member(String id, String password, String name, Gender gender, LocalDate birth, String phone, String email, LocalDateTime createdAt, ActivityStatus activityStatus, String zipcode, String address, String addressDetail, MemberRole role, LocalDateTime adminRegistrationDate, String bank, String accountNumber) {
         this.id = id;
         this.password = password;
+        this.name = name;
         this.gender = gender;
         this.birth = birth;
         this.phone = phone;
@@ -78,6 +86,7 @@ public class Member {
         this.zipcode = zipcode;
         this.address = address;
         this.addressDetail = addressDetail;
+        this.role = role;
         this.adminRegistrationDate = adminRegistrationDate;
         this.bank = bank;
         this.accountNumber = accountNumber;
