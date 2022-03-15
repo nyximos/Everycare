@@ -12,7 +12,7 @@ import javax.persistence.*;
 @ToString
 @NoArgsConstructor
 @Entity
-@Table(name = "like")
+@Table(name = "likes")
 @SequenceGenerator(name = "like_seq_generator",
         sequenceName = "like_seq",
         initialValue = 1, allocationSize = 1)
