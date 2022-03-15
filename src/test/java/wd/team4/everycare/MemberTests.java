@@ -2,15 +2,12 @@ package wd.team4.everycare;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import wd.team4.everycare.config.SecurityConfig;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.domain.MemberRole;
 import wd.team4.everycare.repository.MemberRepository;
@@ -22,9 +19,12 @@ import java.util.stream.IntStream;
 import static wd.team4.everycare.domain.ActivityStatus.ACTIVE;
 import static wd.team4.everycare.domain.Gender.M;
 
+@ExtendWith(SpringExtension.class)
+@AutoConfigureMockMvc
 @SpringBootTest
 public class MemberTests {
 
+    @Mock
     private MemberRepository memberRepository;
 
 //    private PasswordEncoder passwordEncoder;
