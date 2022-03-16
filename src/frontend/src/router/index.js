@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+import Match from '../pages/Match'
+import Profile from '../pages/Profile'
+
 Vue.use(VueRouter);
 const routes = [
     {
@@ -11,6 +14,16 @@ const routes = [
         path: '/',
         name: 'Main',
         component: () => import('@/pages/Main.vue')
+    },
+    {
+         path:'/match',
+         name:'match',
+         component:Match
+    },
+    {
+        path:'/profile',
+        name:'profile',
+        component:Profile
     }
 ];
 
