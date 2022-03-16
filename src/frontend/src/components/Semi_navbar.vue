@@ -1,5 +1,5 @@
 <template>
-<ul class="nav nav-tabs nav-justified">
+<ul class="nav nav-tabs nav-justified mt-3">
   <li class="nav-item">
     <a class="nav-link active" aria-current="page" href="#">등록</a>
   </li>

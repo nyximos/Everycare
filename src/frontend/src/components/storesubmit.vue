@@ -1,5 +1,6 @@
 <template>
-  <div class="card mt-4">
+  <div class="container" id="content">
+  <div class="card mt-5">
   <div class="card-header">
     쇼핑몰 정보
   </div>
@@ -83,13 +84,13 @@
       <div class="col"><input type="checkbox" name="" id="">토</div>
       <div class="col"><input type="checkbox" name="" id="">일</div>
       <div class="col"><input type="checkbox" name="" id="">❌</div>
-
 </div>
   </div>
 </div>
 <div class="d-grid col-4 mx-auto mt-5">
   <button class="btn btn-primary" type="button">신청</button>
 </div>  
+</div>
 </template>
 
 <script>
