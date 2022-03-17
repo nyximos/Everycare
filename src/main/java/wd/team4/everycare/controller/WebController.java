@@ -16,8 +16,9 @@ public class WebController {
         return "member";
     }
 
-    @GetMapping("admin")
+    @GetMapping("/admin")
     public String admin(){
         return "admin";
     }
+
 }

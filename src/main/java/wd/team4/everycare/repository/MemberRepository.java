@@ -6,4 +6,5 @@ import wd.team4.everycare.domain.Member;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member,String> {
+
 }
