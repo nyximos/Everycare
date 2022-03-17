@@ -24,42 +24,42 @@ public class Member {
     @Column(name = "member_password", nullable = false)
     private String password;
 
-    @Column(name = "member_name", nullable = false)
+    @Column(name = "member_name")
     private String name;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "member_gender", nullable = false)
+    @Column(name = "member_gender")
     private Gender gender;
 
-    @Column(name = "member_birth", nullable = false)
+    @Column(name = "member_birth")
     @DateTimeFormat(pattern = "yyyyMMdd")
     private LocalDate birth;
 
-    @Column(name = "member_phone", length = 45, nullable = false)
+    @Column(name = "member_phone", length = 45)
     private String phone;
 
-    @Column(name = "member_email", nullable = false)
+    @Column(name = "member_email")
     private String email;
 
-    @Column(name = "member_created_at", nullable = false)
+    @Column(name = "member_created_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime createdAt;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "member_activity_status", nullable = false)
+    @Column(name = "member_activity_status")
     private ActivityStatus activityStatus;
 
-    @Column(name = "member_zipcode", length = 45, nullable = false)
+    @Column(name = "member_zipcode", length = 45)
     private String zipcode;
 
-    @Column(name = "member_address", nullable = false)
+    @Column(name = "member_address")
     private String address;
 
-    @Column(name = "member_address_detail", nullable = false)
+    @Column(name = "member_address_detail")
     private String addressDetail;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "member_role", length = 5, nullable = false)
+    @Column(name = "member_role", length = 5)
     private MemberRole role;
 
     @Column(name = "member_admin_registration_date")
