@@ -28,207 +28,207 @@
       <a class="p-2 text-black" href="#">스포츠/레저</a>
     </nav>
 </div>
+<!--carousel-->
+<div class="container">
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="../images/care.jpg" class="d-block w-100" height="400px">
+    </div>
+    <div class="carousel-item">
+      <img src="../images/sitter.jpg" class="d-block w-100" height="400px">
+    </div>
+    <div class="carousel-item">
+      <img src="../images/year.jpg" class="d-block w-100" height="400px">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<!--ranking-->
+
+<div class="row">
+	<p class="fs-2 mt-5 fw-bold">지금 제일 잘 나가는 상품</p>
+      <div class="ranking col">
+	<img src="../images/year.jpg" class="rounded-circle mx-auto d-block" width="140" height="140">
+        <div class="text-center">
+		<h2 class="mt-2">체온계</h2>
+<button class="btn btn-secondary" href="#">View details &raquo;</button>
+		</div>
+      </div>
+
+      <div class="ranking col">
+        <img src="../images/year.jpg" class="rounded-circle mx-auto d-block" width="140" height="140">
+        <div class="text-center">
+		<h2 class="mt-2">체온계</h2>
+<button class="btn btn-secondary" href="#">View details &raquo;</button>
+		</div>
+      </div>
+
+     <div class="ranking col">
+        <img src="../images/sitter.jpg" class="rounded-circle mx-auto d-block" width="140" height="140">
+        <div class="text-center">
+		<h2 class="mt-2">체온계</h2>
+<button class="btn btn-secondary" href="#">View details &raquo;</button>
+		</div>
+    </div>
+</div>
 
 <!--body-->
-		<p class="display-6 text-center mt-4">🎄크리스마스 스페셜 에디션🎄</p>
-		<div class="row mt-3">
-			
-				<div class="card col" style="width: 18rem;">
-					<img src="/images/푸릇푸릇.PNG" class="card-img-top" alt="..." width="300px" height="200px">
+		<p class="display-6 text-center mt-5">💪 든든 코로나 방역 키트 💪</p>
+		<div class="row mt-5">
+				<div class="col" style="width: 18rem;">
+					<img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px">
 					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">Some quick example text to build on the card title and make up the bulk of
-							the card's content.</p>
+						<h5 class="card-title">신묘한 응원떡 2종 택1(15개입)</h5>
+						<p class="card-text text-muted">신묘한 힘 마약떡 (8개입), 기묘한 힘 인생떡 (8개입)</p>
+						<p class="card-cost">10900원</p>
 				</div>
 				</div>
-					<div class="col card" style="width: 18rem;">
-						<img src="images/코딱동.JPG" class="card-img-top" alt="..." width="300px" height="200px">
+					<div class="col" style="width: 18rem;">
+						<img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px">
 						<div class="card-body">
-							<h5 class="card-title">Card title</h5>
-							<p class="card-text">Some quick example text to build on the card title and make up the bulk
-								of the card's content.</p>
+							<h5 class="card-title">신묘한 대박떡 2종(4개입)</h5>
+							<p class="card-text text-muted">신묘한 힘 마약떡 (4개입), 기묘한 힘 인생떡 (4개입)</p>
+							<p class="card-cost">10900원</p>
 						</div>
 					</div>
-						<div class="card col" style="width: 18rem;">
-							<img src="images/부비동.JPG" class="card-img-top" alt="..." width="300px" height="200px">
+						<div class="col" style="width: 18rem;">
+							<img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px">
 							<div class="card-body">
-								<h5 class="card-title">Card title</h5>
-								<p class="card-text">Some quick example text to build on the card title and make up the
-									bulk of the card's content.</p>
+								<h5 class="card-title">아침햇살 크림떡(2box)</h5>
+								<p class="card-text text-muted">아침햇살을 담아 떡 한입으로 든든한 시작!</p>
+								<p class="card-cost">10900원</p>
 							</div>
 						</div>
 					</div>
 				
 				<p class="display-6 text-center mt-5">💫오늘만 특별 할인💫</p>
-				<div class="row justify-content-center mt-5">
-					<div class="col">
-						<div class="card" style="width: 18rem;">
-							<img src="/images/토끼동.JPG" class="card-img-top w-100" alt="..." width="300px" height="200px">
-							<div class="card-body text-center">
-								<h5 class="card-title">Card title</h5>
-								<p class="card-text">Some quick example text to build on the card title and make up the
-									bulk
-									of
-									the card's content.</p>
-								<a href="#" class="btn btn-success">Go somewhere</a>
-							</div>
-						</div>
-					</div>
-					<div class="col">
-						<div class="card" style="width: 18rem;">
-							<img src="images/다소곳동.JPG" class="card-img-top w-100" alt="..." width="300px" height="200px">
-							<div class="card-body text-center">
-								<h5 class="card-title">Card title</h5>
-								<p class="card-text">Some quick example text to build on the card title and make up the
-									bulk
-									of
-									the card's content.</p>
-								<a href="#" class="btn btn-success">Go somewhere</a>
-							</div>
-						</div>
-					</div>
-					<div class="col">
-						<div class="card" style="width: 18rem;">
-							<img src="/images/박진영.JPG" class="card-img-top w-100" alt="..." width="300px" height="200px">
-							<div class="card-body text-center">
-								<h5 class="card-title">Card title</h5>
-								<p class="card-text">Some quick example text to build on the card title and make up the bulkofthe card's content.</p>
-								<a href="#" class="btn btn-success">Go somewhere</a>
-							</div>
-						</div>
-					</div>
+				<div class="row mt-5">
+				<div class="col" style="width: 18rem;">
+					<img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px">
+					<div class="card-body">
+						<h5 class="card-title">신묘한 응원떡 2종 택1(15개입)</h5>
+						<p class="card-text text-muted">신묘한 힘 마약떡 (8개입), 기묘한 힘 인생떡 (8개입)</p>
+						<p class="card-cost">10900원</p>
 				</div>
-						<div class="row justify-content-center mt-5">
-							<div class="col">
-								<div class="card" style="width: 18rem;">
-									<img src="/images/부비동.JPG" class="card-img-top w-100" alt="..." width="300px" height="200px">
-									<div class="card-body text-center">
-										<h5 class="card-title">Card title</h5>
-										<p class="card-text">Some quick example text to build on the card title and make
-											up the bulk
-											of
-											the card's content.</p>
-										<a href="#" class="btn btn-success">Go somewhere</a>
-									</div>
-								</div>
-							</div>
-							<div class="col">
-								<div class="card" style="width: 18rem;">
-									<img src="/images/숭동.JPG" class="card-img-top w-100" alt="..." width="300px" height="200px">
-									<div class="card-body text-center">
-										<h5 class="card-title">Card title</h5>
-										<p class="card-text">Some quick example text to build on the card title and make
-											up the bulk
-											of
-											the card's content.</p>
-										<a href="#" class="btn btn-success">Go somewhere</a>
-									</div>
-								</div>
-							</div>
-							<div class="col">
-								<div class="card" style="width: 18rem;">
-									<img src="/images/째리동.JPG" class="card-img-top w-100" alt="..." width="300px" height="200px">
-									<div class="card-body text-center">
-										<h5 class="card-title">Card title</h5>
-										<p class="card-text">Some quick example text to build on the card title and make
-											up the bulk
-											of
-											the card's content.</p>
-										<a href="#" class="btn btn-success">Go somewhere</a>
-									</div>
-								</div>
+				</div>
+					<div class="col" style="width: 18rem;">
+						<img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px">
+						<div class="card-body">
+							<h5 class="card-title">신묘한 대박떡 2종(4개입)</h5>
+							<p class="card-text text-muted">신묘한 힘 마약떡 (4개입), 기묘한 힘 인생떡 (4개입)</p>
+							<p class="card-cost">10900원</p>
+						</div>
+					</div>
+						<div class="col" style="width: 18rem;">
+							<img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px">
+							<div class="card-body">
+								<h5 class="card-title">아침햇살 크림떡(2box)</h5>
+								<p class="card-text text-muted">아침햇살을 담아 떡 한입으로 든든한 시작!</p>
+								<p class="card-cost">10900원</p>
 							</div>
 						</div>
-						<img src="/images/dd.PNG" class="img-fluid mt-5 mb-5" alt="...">
+					</div>
+					<div class="row mt-5">
+				<div class="col" style="width: 18rem;">
+					<img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px">
+					<div class="card-body">
+						<h5 class="card-title">신묘한 응원떡 2종 택1(15개입)</h5>
+						<p class="card-text text-muted">신묘한 힘 마약떡 (8개입), 기묘한 힘 인생떡 (8개입)</p>
+						<p class="card-cost">10900원</p>
+				</div>
+				</div>
+					<div class="col" style="width: 18rem;">
+						<img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px">
+						<div class="card-body">
+							<h5 class="card-title">신묘한 대박떡 2종(4개입)</h5>
+							<p class="card-text text-muted">신묘한 힘 마약떡 (4개입), 기묘한 힘 인생떡 (4개입)</p>
+							<p class="card-cost">10900원</p>
+						</div>
+					</div>
+						<div class="col" style="width: 18rem;">
+							<img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px">
+							<div class="card-body">
+								<h5 class="card-title">아침햇살 크림떡(2box)</h5>
+								<p class="card-text text-muted">아침햇살을 담아 떡 한입으로 든든한 시작!</p>
+								<p class="card-cost">10900원</p>
+							</div>
+						</div>
+					</div>
 
 						<p class="display-6 text-center"><span class="fw-bold">생생한</span> 소비자 리뷰</p>
 						<p class="fs-6 text-center mt-3"> ▼ 아래 이미지를 클릭하면 자세한 리뷰 내용을 볼 수 있습니다.</p>
 						<div class="row justify-content-center">
-							<div class="col-2"><img src="/images/박진영.JPG" alt="..." class="w-100" width="300px"
+							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
 									height="100px"></div>
-							<div class="col-2"><img src="/images/딩딩동.JPG" alt="..." class="w-100" width="300px"
+							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
 									height="100px"></div>
-							<div class="col-2"><img src="/images/귤동.JPG" alt="..." class="w-100" width="300px"
+							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
 									height="100px"></div>
-							<div class="col-2"><img src="/images/째리동.JPG" alt="..." class="w-100" width="300px"
+							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
 									height="100px"></div>
-							<div class="col-2"><img src="/images/째리동.JPG" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-						</div>
-						<div class="row justify-content-center mt-3">
-							<div class="col-2"><img src="/images/박진영.JPG" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-							<div class="col-2"><img src="/images/딩딩동.JPG" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-							<div class="col-2"><img src="/images/코딱동.JPG" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-							<div class="col-2"><img src="/images/아재동.JPG" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-							<div class="col-2"><img src="/images/째리동.JPG" alt="..." class="w-100" width="300px"
+							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
 									height="100px"></div>
 						</div>
 						<div class="row justify-content-center mt-3">
-							<div class="col-2"><img src="/images/다소곳동.JPG" alt="..." class="w-100" width="300px"
+							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
 									height="100px"></div>
-							<div class="col-2"><img src="/images/깜놀.JPG" alt="..." class="w-100" width="300px"
+							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
 									height="100px"></div>
-							<div class="col-2"><img src="/images/귤동.JPG" alt="..." class="w-100" width="300px"
+							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
 									height="100px"></div>
-							<div class="col-2"><img src="/images/째리동.JPG" alt="..." class="w-100" width="300px"
+							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
 									height="100px"></div>
-							<div class="col-2"><img src="/images/숭동.JPG" alt="..." class="w-100" width="300px"
+							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
 									height="100px"></div>
 						</div>
 						<div class="row justify-content-center mt-3">
-							<div class="col-2"><img src="/images/박진영.JPG" alt="..." class="w-100" width="300px"
+							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
 									height="100px"></div>
-							<div class="col-2"><img src="/images/부비동.JPG" alt="..." class="w-100" width="300px"
+							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
 									height="100px"></div>
-							<div class="col-2"><img src="/images/귤동.JPG" alt="..." class="w-100" width="300px"
+							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
 									height="100px"></div>
-							<div class="col-2"><img src="/images/째리동.JPG" alt="..." class="w-100" width="300px"
+							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
 									height="100px"></div>
-							<div class="col-2"><img src="/images/토끼동.JPG" alt="..." class="w-100" width="300px"
+							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
 									height="100px"></div>
 						</div>
- 
-						<hr class="mt-5">
-						<div class="row mt-5">
-							<div class="col-3">
-								<label class="fs-5 text-muted fw-bolder">
-									<img src="images/새싹.jpg" alt="" width="30" height="24"
-										class="d-inline-block align-text-top">
-									푸릇푸릇고동동</label>
-							</div>
-							<div class="col-3">
-								<ul class="text-muted text-sm list-unstyled">
-									<li>상호명 및 호스팅 서비스 제공 : 고동동(주)</li>
-									<li>대표이사: 박지은</li>
-									<li>서울시 송파구 송파대로 570</li>
-									<li>사업자 등록번호 : 120-88-00767</li>
-									<li>통신판매업신고: 2017-서울송파-0680</li>
-									<a href="#" style="text-decoration: none; color:darkgray">사업자정보 확인 ></a>
-								</ul>
-							</div>
-							<div class="col-3">
-								<ul class="list-unstyled">
-									<li class="text-muted text-sm">365고객센터 | 전자금융거래분쟁처리 담당</li>
-									<li class="fs-5 fw-bolder">1577-7011</li>
-									<li class="text-muted text-sm">서울시 송파구 송파대로 570</li>
-									<li class="text-muted text-sm">email : help@coupang.com</li>
-								</ul>
-							</div>
-							<div class="col-3">
-								<ul class="fs-6 text-sm list-unstyled">
-									<li class="text-bolder">우리은행 채무지급보증 안내</li>
-									<li class="text-muted">당사는 고객님이 현금 결제한 금액에 대해</li>
-									<li class="text-muted">우리은행과 채무지급 보증 계약을 체결하여</li>
-									<li class="text-muted">안전거래를 보장하고 있습니다</li>
-									<a href="#" style="text-decoration: none; color:darkgray">서비스 가입사실 확인 ></a>
-								</ul>
-							</div>
+						<div class="row justify-content-center mt-3">
+							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
+									height="100px"></div>
+							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
+									height="100px"></div>
+							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
+									height="100px"></div>
+							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
+									height="100px"></div>
+							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
+									height="100px"></div>
 						</div>
-              </div>
+ </div>
+ <!--footer-->
+
+  <footer class="py-3 my-4">
+    <ul class="border-bottom pb-3 mb-3">
+    </ul>
+    <p class="text-center text-muted">&copy; Everycare</p>
+  </footer>
+
+</div>      
 </template>
 
 <script>
@@ -238,5 +238,8 @@ export default {
 </script>
 
 <style>
-
+.ranking > img:hover{
+    transform:scale(1.2, 1.2);  /* 가로2배 새로 1.5배 로 커짐 */
+    transition: transform.5s;  /* 커지는 시간 */
+	}
 </style>
