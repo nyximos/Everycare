@@ -2,7 +2,9 @@ package wd.team4.everycare.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import wd.team4.everycare.domain.Test;
 
 import java.util.logging.Logger;
 
@@ -10,10 +12,14 @@ import java.util.logging.Logger;
 @RequestMapping("/api")
 public class MemberController {
 
+    @ResponseBody
     @GetMapping("/test")
-    public String test(){
+    public Test test(){
         System.out.println("test");
-        return "test";
+        Test test = new Test();
+        test.setId("1");
+        test.setName("test");
+        return test;
     }
 
     @GetMapping("/hello")

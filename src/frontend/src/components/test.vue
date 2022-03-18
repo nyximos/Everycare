@@ -6,11 +6,25 @@
 
 <script>
 export default {
+    date() {
+        return {
+            test: ''
+        };
+    },
+    mounted() {
+        this.load();
+    },
     methods: {
-        get() {
-            this.axios.get('/test').then(response => {
-                this.connectData = response.data;
-            });
+        load() {
+            this.$http
+                .get('/api/test')
+                .then(response => {
+                    // this.test = response.data;
+                    console.log(response.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
     }
 };
