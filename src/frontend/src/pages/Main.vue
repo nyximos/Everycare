@@ -1,10 +1,10 @@
 <template>
-    <v-container fluid class="main">
+    <div>
         <Main />
-    </v-container>
+    </div>
 </template>
 <script>
-import Main from '@/components/main/index';
+import Main from '@/components/main.vue';
 export default {
     components: {
         Main

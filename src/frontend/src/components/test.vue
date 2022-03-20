@@ -1,6 +1,7 @@
 <template>
     <div>
         <p>hello</p>
+        <p>{{ test }}</p>
     </div>
 </template>
 
@@ -8,7 +9,7 @@
 export default {
     date() {
         return {
-            test: ''
+            test: {}
         };
     },
     mounted() {
@@ -18,9 +19,9 @@ export default {
         load() {
             this.$http
                 .get('/api/test')
-                .then(response => {
+                .then(res => {
                     // this.test = response.data;
-                    console.log(response.data);
+                    console.log(res);
                 })
                 .catch(err => {
                     console.log(err);
