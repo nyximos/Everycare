@@ -32,12 +32,15 @@
               <h4>CCTV</h4>
               <h4>백신접종</h4>
               <h4>자격증</h4>
-              <input type="file" value="등록">
+              <v-file-input accept="image/*" label="File input"></v-file-input>
           </div>
       </div>
-      <button type="button" class="btn">등록</button>
-      <button type="button" class="btn">취소</button>
+      <div class="text-center">
+          <V-btn class="ma-2" outlined color="indigo">등록</V-btn>
+          <V-btn class="ma-2" outlined color="indigo">취소</V-btn>
+      </div>
       <footer class="footer"></footer>
+      <input />
   </div>
 </template>
 
@@ -45,12 +48,20 @@
 export default {
 
 }
+
+
 </script>
 
 <style>
     .value-menu{
         font-size: 35px;
         margin: 30px 100px;
+        color: black;
+        border-top: 1px solid #dedede;
+        border-left: 1px solid #dedede;
+        border-right: 1px solid #dedede;
+        border-radius: 10px 10px 0 0;
+        background-color: #f4f4f4;
     }
 
     .value-section{
@@ -59,6 +70,7 @@ export default {
         justify-content: center;
         margin: 100px 150px;
         margin-top: 20px;
+        border: 1px solid black;
     }
     .value{
         display: flex;
@@ -68,6 +80,8 @@ export default {
     }
     .valeu-intro{
         margin-left: 30px;
+        border: 1px solid black;
+        
     }
 
     /*profile-section*/

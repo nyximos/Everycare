@@ -21,6 +21,7 @@ export default {
 
 <style>
   .con{
+    width: 300px;
     background-color:#f4f4f4;
     padding: 30px 15px;
   }

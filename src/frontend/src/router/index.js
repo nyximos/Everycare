@@ -3,6 +3,8 @@ import VueRouter from 'vue-router';
 
 import Match from '../pages/Match'
 import Profile from '../pages/Profile'
+import Careprofile from '../pages/Careprofile'
+import Carepeople from '../pages/Carepeople'
 
 Vue.use(VueRouter);
 const routes = [
@@ -24,6 +26,16 @@ const routes = [
         path:'/profile',
         name:'profile',
         component:Profile
+    },
+    {
+        path:'/careprofile',
+        name:'careprofile',
+        component:Careprofile
+    },
+    {
+        path:'/carepeople',
+        name:'carepeople',
+        component:Carepeople
     }
 ];
 
