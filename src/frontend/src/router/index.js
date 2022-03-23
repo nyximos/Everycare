@@ -4,6 +4,8 @@ import VueRouter from 'vue-router';
 import Match from '../pages/Match'
 import Profile from '../pages/Profile'
 import Careprofile from '../pages/Careprofile'
+import Careprofile1 from '../pages/Careprofile1'
+import Careprofile2 from '../pages/Careprofile2'
 import Carepeople from '../pages/Carepeople'
 
 Vue.use(VueRouter);
@@ -36,7 +38,17 @@ const routes = [
         path:'/carepeople',
         name:'carepeople',
         component:Carepeople
-    }
+    },
+    {
+        path:'/careprofile1',
+        name:'careprofile1',
+        component:Careprofile1
+    },
+    {
+        path:'/careprofile2',
+        name:'careprofile2',
+        component:Careprofile2
+    },
 ];
 
 const router = new VueRouter({

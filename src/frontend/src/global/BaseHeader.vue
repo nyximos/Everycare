@@ -6,6 +6,7 @@
           <li><router-link to="/Profile">케어프로필</router-link></li>
           <li><router-link to="/Careprofile">1</router-link></li>
           <li><router-link to="/Carepeople">케어대상인 조회</router-link></li>
+          <li><router-link to="/Schedule">스케줄/상태</router-link></li>
       </ul>
     </v-app-bar>
     

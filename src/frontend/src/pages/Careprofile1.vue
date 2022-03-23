@@ -1,15 +1,14 @@
 <template>
-      <Careprofile />
-      
+      <Careprofile1 />
 </template>
 
 <script>
-import Careprofile from '@/components/main/careprofile'
+import Careprofile1 from '@/components/main/careprofile1'
 
 
 export default {
   components: {
-       Careprofile     
+       Careprofile1
        },
 
 };
