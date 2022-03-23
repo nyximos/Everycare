@@ -2,9 +2,9 @@
     <div class="header">
         <div class="logo" @click="goMain()">logo</div>
         <div class="list">
-            <v-btn text color="white">케어매칭</v-btn>
-            <v-btn text color="white">케어노트</v-btn>
-            <v-btn text color="white">케어스토어</v-btn>
+            <v-btn text>케어매칭</v-btn>
+            <v-btn text>케어노트</v-btn>
+            <v-btn text>케어스토어</v-btn>
         </div>
         <div>
             <v-btn text>로그인</v-btn>
@@ -18,7 +18,7 @@ export default {
     methods: {
         goMain() {
             if (this.$router.history.current.fullPath == '/') {
-                console.log('dsdf');
+                console.log('go main');
             } else {
                 this.$router.push('/');
                 console.log('/');
@@ -33,12 +33,12 @@ export default {
     width: 100%;
     justify-content: space-between;
     height: 50px;
-    color: white;
-    background: #ec7676;
+    color: black;
+    background: #69f0ae;
     align-items: center;
 }
 .logo {
-    padding: 0 10;
+    padding-left: 10px;
     cursor: pointer;
 }
 .list {

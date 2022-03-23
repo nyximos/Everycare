@@ -1,8 +1,9 @@
-package wd.team4.everycare.dto.response;
+package wd.team4.everycare.jwt;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import wd.team4.everycare.dto.response.StatusEnum;
 
 @Getter
 @NoArgsConstructor

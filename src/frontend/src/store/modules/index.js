@@ -7,4 +7,13 @@ requireModule.keys().forEach(fileName => {
     module[moduleName] = requireModule(fileName).default;
 });
 
+// eslint-disable-next-line
+const state = {
+    auth: {
+        // 상태 'Auth'
+        token: null,
+        userId: null
+    }
+};
+
 export default modules;

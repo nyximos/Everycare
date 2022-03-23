@@ -15,7 +15,37 @@ const routes = [
     {
         path: '/login',
         name: 'Login',
-        component: () => import('@/pages/Login.vue')
+        component: () => import('@/pages/Login.vue'),
+        reEnter: (to, from, next) => {
+            const token = localStorage.getItem('jwt-access-token');
+            if (token !== null) next({ name: 'Main' });
+            else next();
+        }
+    },
+    {
+        path: '/caresitter',
+        name: 'FindCareSitter',
+        component: () => import('@/pages/FindCareSitter.vue'),
+        reEnter: (to, from, next) => {
+            const token = localStorage.getItem('jwt-access-token');
+            if (token !== null) next({ name: 'Main' });
+            else next();
+        }
+    },
+    {
+        path: '/works',
+        name: 'FindWork',
+        component: () => import('@/pages/FindWork.vue'),
+        reEnter: (to, from, next) => {
+            const token = localStorage.getItem('jwt-access-token');
+            if (token !== null) next({ name: 'Main' });
+            else next();
+        }
+    },
+    {
+        path: '/test',
+        name: 'Test',
+        component: () => import('@/pages/Test.vue')
     }
 ];
 

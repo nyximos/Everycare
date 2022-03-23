@@ -13,11 +13,11 @@
         </div>
 
         <div class="main-form">
-            <div @click="test('caresitter')" class="find-care-sitter">
+            <div @click="go('caresitter')" class="find-care-sitter">
                 케어시터 찾기
             </div>
             <v-divider vertical></v-divider>
-            <div @click="test('findwork')" class="find-job">
+            <div @click="go('works')" class="find-job">
                 일자리 찾기
             </div>
         </div>
@@ -33,8 +33,8 @@ export default {
         };
     },
     methods: {
-        test(link) {
-            this.$router.push(link);
+        go(link) {
+            this.$router.push('/' + link);
         }
     }
 };

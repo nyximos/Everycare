@@ -22,4 +22,11 @@ public interface CareSitterService {
                 .build();
         return careSitter;
     }
+
+    void removeCareSitter(Long id);
+
+    String isPresent(String id);
+
+    boolean isEmpty(String id);
+
 }
