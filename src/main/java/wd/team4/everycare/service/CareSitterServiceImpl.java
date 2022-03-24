@@ -9,6 +9,8 @@ import wd.team4.everycare.repository.CareSitterRepository;
 import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.service.interfaces.CareSitterService;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class CareSitterServiceImpl implements CareSitterService {
@@ -47,13 +49,13 @@ public class CareSitterServiceImpl implements CareSitterService {
 
     @Override
     public String isPresent(String id) {
-        Member member = memberRepository.findById(id).get();
-        return member.getId();
+        Optional<Member> member = memberRepository.findById(id);
+        return member.get().getId();
     }
 
     @Override
     public boolean isEmpty(String id) {
-        if(memberRepository.findById(id).isEmpty()) {
+        if(isEmpty(String.valueOf(memberRepository.findById(id)))) {
             return true;
         }
         return false;

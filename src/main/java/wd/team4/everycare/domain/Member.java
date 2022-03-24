@@ -2,22 +2,23 @@ package wd.team4.everycare.domain;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 @Getter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@SequenceGenerator( name = "member_seq_generator",
-        sequenceName = "member_seq",
-        initialValue = 1, allocationSize = 1)
 public class Member {
 
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq_generator")
+    @Id
     @Column(name ="member_id", length = 20, nullable = false)
     private String id;
 
@@ -58,9 +59,8 @@ public class Member {
     @Column(name = "member_address_detail")
     private String addressDetail;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "member_role", length = 5)
-    private MemberRole role;
+    private String role;
 
     @Column(name = "member_admin_registration_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
@@ -73,7 +73,7 @@ public class Member {
     private String accountNumber;
 
     @Builder
-    public Member(String id, String password, String name, Gender gender, LocalDate birth, String phone, String email, LocalDateTime createdAt, ActivityStatus activityStatus, String zipcode, String address, String addressDetail, MemberRole role, LocalDateTime adminRegistrationDate, String bank, String accountNumber) {
+    public Member(String id, String password, String name, Gender gender, LocalDate birth, String phone, String email, LocalDateTime createdAt, ActivityStatus activityStatus, String zipcode, String address, String addressDetail, String role, LocalDateTime adminRegistrationDate, String bank, String accountNumber) {
         this.id = id;
         this.password = password;
         this.name = name;
@@ -92,7 +92,19 @@ public class Member {
         this.accountNumber = accountNumber;
     }
 
-    public void changeMemberRole(MemberRole role) {
+    public void changeMemberRole(String role) {
         this.role = role;
+    }
+
+    public void encodePassword(String password){
+       this.password = password;
+    }
+
+    // ENUM으로 안하고 ,로 해서 구분해서 ROLE을 입력 -> 그걸 파싱!!
+    public List<String> getRoleList(){
+        if(this.role.length() > 0){
+            return Arrays.asList(this.role.split(","));
+        }
+        return new ArrayList<>();
     }
 }
