@@ -1,4 +1,4 @@
-package wd.team4.everycare.jwt;
+package wd.team4.everycare.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
