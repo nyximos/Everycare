@@ -19,7 +19,7 @@ public class CareSitterServiceImpl implements CareSitterService {
     private final MemberRepository memberRepository;
 
     @Override
-    public Long register(CareSitterDTO dto) {
+    public Long save(CareSitterDTO dto) {
         CareSitter careSitter = dtoToEntity(dto);
         careSitterRepository.save(careSitter);
         return careSitter.getId();
