@@ -27,4 +27,8 @@ public class MemberDTO {
         this.password = password;
         this.email = email;
     }
+
+    public void encodePassword(String password){
+        this.password = password;
+    }
 }
