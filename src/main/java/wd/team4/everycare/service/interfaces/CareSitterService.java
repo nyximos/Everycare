@@ -5,7 +5,7 @@ import wd.team4.everycare.dto.CareSitterDTO;
 
 public interface CareSitterService {
 
-    Long register(CareSitterDTO dto);
+    Long save(CareSitterDTO dto);
 
     default CareSitter dtoToEntity(CareSitterDTO dto){
         CareSitter careSitter = CareSitter.builder()
