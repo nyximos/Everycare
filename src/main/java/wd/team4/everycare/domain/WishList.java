@@ -12,14 +12,13 @@ import javax.persistence.*;
 @ToString
 @NoArgsConstructor
 @Entity
-@Table(name = "likes")
-@SequenceGenerator(name = "like_seq_generator",
-        sequenceName = "like_seq",
+@SequenceGenerator(name = "wishlist_seq_generator",
+        sequenceName = "wishlist_seq",
         initialValue = 1, allocationSize = 1)
 
-public class Like {
+public class WishList {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "like_seq_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "wishlist_seq_generator")
     private Long id;
 
     @ManyToOne

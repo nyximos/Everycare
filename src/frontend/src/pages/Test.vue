@@ -1,18 +1,19 @@
 <template>
-    <div>
-        <Main />
-    </div>
+    <v-container fluid class="main">
+        <Test />
+    </v-container>
 </template>
 <script>
-import Main from '@/components/main.vue';
+import Test from '@/components/test.vue';
 export default {
     components: {
-        Main
+        Test
     }
 };
 </script>
 <style scoped lang="scss">
 .main {
     min-height: 100vh;
+    background: #f8f8f8;
 }
 </style>

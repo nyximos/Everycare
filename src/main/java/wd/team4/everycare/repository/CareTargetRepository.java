@@ -2,8 +2,8 @@ package wd.team4.everycare.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.domain.CareTarget;
 
 @Repository
-public interface MemberRepository extends JpaRepository<Member, String> {
+public interface CareTargetRepository extends JpaRepository<CareTarget, Long> {
 }

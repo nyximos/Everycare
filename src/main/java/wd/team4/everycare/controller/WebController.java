@@ -10,14 +10,15 @@ public class WebController {
     public String index(){
         return "all";
     }
+//
+//    @GetMapping("/member")
+//    public String member(){
+//        return "member";
+//    }
+//
+//    @GetMapping("/admin")
+//    public String admin(){
+//        return "admin";
+//    }
 
-    @GetMapping("/member")
-    public String member(){
-        return "member";
-    }
-
-    @GetMapping("admin")
-    public String admin(){
-        return "admin";
-    }
 }

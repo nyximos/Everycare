@@ -1,9 +1,6 @@
 package wd.team4.everycare.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -46,16 +43,16 @@ public class CareSitter {
     @Column(name = "care_sitter_desired_monthly_wage", length = 50, nullable = false)
     private String desiredMonthlyWage;
 
-    @Column(name = "care_sitter_cctv_agreement", nullable = false)  //enum
+    @Column(name = "care_sitter_cctv_agreement", nullable = false)
     private int cctvAgreement;
 
-    @Column(name = "care_sitter_is_vaccinated", nullable = false)   //enum
+    @Column(name = "care_sitter_is_vaccinated", nullable = false)
     private int vaccination;
 
     @Column(name = "care_sitter_introduction", length = 1000, nullable = false)
     private String introduction;
 
-    @Column(name = "care_sitter_disclosure_status", nullable = false) //enum
+    @Column(name = "care_sitter_disclosure_status", nullable = false)
     private int disclosureStatus;
 
     @Column(name = "care_sitter_created_at")
@@ -67,7 +64,21 @@ public class CareSitter {
     private LocalDateTime updatedAt;
 
     @OneToOne
-    @JoinColumn(name = "member_id", nullable = false)
+    @JoinColumn(name = "member_id")
     private Member member;
 
+    @Builder
+    public CareSitter(String preferredType, String desiredDayWeek, String activityTime, String desiredHourlyWage, String desiredMonthlyWage, int cctvAgreement, int vaccination, String introduction, int disclosureStatus, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.preferredType = preferredType;
+        this.desiredDayWeek = desiredDayWeek;
+        this.activityTime = activityTime;
+        this.desiredHourlyWage = desiredHourlyWage;
+        this.desiredMonthlyWage = desiredMonthlyWage;
+        this.cctvAgreement = cctvAgreement;
+        this.vaccination = vaccination;
+        this.introduction = introduction;
+        this.disclosureStatus = disclosureStatus;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 }
