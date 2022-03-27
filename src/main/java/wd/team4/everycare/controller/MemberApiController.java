@@ -8,7 +8,6 @@ import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.member.MemberDTO;
 import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.service.MemberServiceImpl;
-import wd.team4.everycare.service.interfaces.MemberService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-// @CrossOrigin  // CORS 허용
+// @CrossOrigin(origins = "http://localhost:8087"*/32 m)  // CORS 허용
 public class MemberApiController {
 
     private final MemberRepository memberRepository;
