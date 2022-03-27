@@ -1,4 +1,4 @@
-package wd.team4.everycare.config.jwt;
+package wd.team4.everycare.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -14,14 +14,14 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api")
-public class CareSitterController {
+public class CareSitterApiController {
 
     @Autowired
     CareSitterServiceImpl careSitterService;
 
     @ResponseBody
     @PostMapping("/dashboard/caresitter")
-    public ResponseEntity<MyResponse> postCareSitter(
+    public ResponseEntity<MyResponse> saveCareSitter(
             @RequestBody CareSitterDTO careSitterDTO
     ) {
         LocalDateTime time = LocalDateTime.now();

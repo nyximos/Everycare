@@ -1,9 +1,6 @@
 package wd.team4.everycare.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -75,4 +72,22 @@ public class CareTarget {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Builder
+    public CareTarget(String name, Gender gender, LocalDate birth, Long height, Long weight, String zipcode, String address, String detailedAddress, int longTermCareGrade, String comment, int pet, int isCctvAgreement, CareType careType, int coronaTest, Member member) {
+        this.name = name;
+        this.gender = gender;
+        this.birth = birth;
+        this.height = height;
+        this.weight = weight;
+        this.zipcode = zipcode;
+        this.address = address;
+        this.detailedAddress = detailedAddress;
+        this.longTermCareGrade = longTermCareGrade;
+        this.comment = comment;
+        this.pet = pet;
+        this.isCctvAgreement = isCctvAgreement;
+        this.careType = careType;
+        this.coronaTest = coronaTest;
+        this.member = member;
+    }
 }

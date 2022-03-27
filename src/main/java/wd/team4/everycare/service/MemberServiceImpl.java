@@ -36,7 +36,6 @@ public class MemberServiceImpl implements MemberService {
                 .build();
     }
 
-
     public Optional<Member> isPresent(String id){
         Optional<Member> member = memberRepository.findById(id);
         if(member.isPresent()){
