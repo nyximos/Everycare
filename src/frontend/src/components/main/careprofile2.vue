@@ -54,7 +54,8 @@
                       <div class="con1 con03">
                           <h5 class="sub_title">자격증</h5>
                           <div class="">
-                              <input type="file">
+                              <br>
+                              <v-file-input label="File input" outlined dense></v-file-input>
                           </div>
                       </div>
                   </div>

@@ -1,12 +1,14 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Match from '../pages/Match'
+import Caresitters from '../pages/Caresitters'
 import Profile from '../pages/Profile'
 import Careprofile from '../pages/Careprofile'
 import Careprofile1 from '../pages/Careprofile1'
 import Careprofile2 from '../pages/Careprofile2'
 import Carepeople from '../pages/Carepeople'
+import Alarm from '../pages/Alarm'
+import Profile2 from '../pages/Profile2'
 
 Vue.use(VueRouter);
 const routes = [
@@ -20,9 +22,9 @@ const routes = [
         component: () => import('@/pages/Main.vue')
     },
     {
-         path:'/match',
-         name:'match',
-         component:Match
+         path:'/caresitters',
+         name:'caresitters',
+         component:Caresitters
     },
     {
         path:'/profile',
@@ -49,6 +51,16 @@ const routes = [
         name:'careprofile2',
         component:Careprofile2
     },
+    {
+        path:'/alarm',
+        name:'alarm',
+        component:Alarm
+    },
+    {
+        path:'/profile2',
+        name:'profile2',
+        component:Profile2
+    }
 ];
 
 const router = new VueRouter({

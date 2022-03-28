@@ -8,7 +8,7 @@
                 <ul>
                     <li>
                         <span class="name_form">이름</span>
-                        <input type="text">
+                        &nbsp;&nbsp;<input type="text">
                         &nbsp;&nbsp;&nbsp;&nbsp;          
                         <span class="gender_form">성별</span>
                         <v-btn class="ma-2" outlined small fab color="teal">남</v-btn>
@@ -47,14 +47,14 @@
                     </li>
                     <li>
                         <span>키</span>
-                        <input type="number">cm
+                        &nbsp;&nbsp;<input type="number" class="input_form_number">cm
                         &nbsp;&nbsp;
                         <span>몸무게</span>
-                        <input type="number">kg
+                        &nbsp;&nbsp;<input type="number" class="input_form_number">kg
                     </li>
                     <li>
                         <span>주소</span>
-                        <input type="text">
+                        &nbsp;&nbsp;<input type="text">
                         <button>우편찾기</button>
                     </li>
                     <li>
@@ -163,5 +163,8 @@ ul{
         width: 700px;
         height: 150px;
         border: 2px #e3e3e3 double;
+    }
+    .input_form_number{
+        text-align: right;
     }
 </style>

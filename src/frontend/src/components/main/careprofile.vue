@@ -23,10 +23,12 @@
                           </div>
                           <div class="con10_blank"></div>
                           <div class="r_content">
-                              <hr>
                               <br>
-                              <h2>이름</h2><p>김○○</p>
-                              <h2>성별</h2>
+                              <v-text-field v-model="name" :counter="5"  :error-messages="errors" label="Name" required></v-text-field>
+                               <v-radio-group v-model="row" row>
+                                    <v-radio label="남" value="radio-1"></v-radio>
+                                    <v-radio label="여" value="radio-2" ></v-radio>
+                                </v-radio-group>
                               <h2>나이</h2>
                               <br>
                               <h5>자기소개</h5>
