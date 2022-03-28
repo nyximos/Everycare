@@ -20,10 +20,6 @@
                             </span>
                             <span class="name">김OO
                                 <span class="age">50세</span>
-                                <span class="bar_star">
-                                    <span class="bg_star" style="width:100%"></span>
-                                    <span class="star_bar01"></span>
-                                </span>
                             </span>
                             <span class="area">서울 강남구,경기 성남시</span>
                                 <span class="pay">
