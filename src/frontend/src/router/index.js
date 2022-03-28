@@ -1,14 +1,12 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Caresitters from '../pages/Caresitters'
-import Profile from '../pages/Profile'
-import Careprofile from '../pages/Careprofile'
-import Careprofile1 from '../pages/Careprofile1'
-import Careprofile2 from '../pages/Careprofile2'
-import Carepeople from '../pages/Carepeople'
-import Alarm from '../pages/Alarm'
-import Profile2 from '../pages/Profile2'
+import Caresitters from '../pages/Caresitters';
+import Profile from '../pages/Profile';
+import Careprofile from '../pages/Careprofile';
+import Carepeople from '../pages/Carepeople';
+import Alarm from '../pages/Alarm';
+import Profile2 from '../pages/Profile2';
 
 Vue.use(VueRouter);
 const routes = [
@@ -22,44 +20,59 @@ const routes = [
         component: () => import('@/pages/Main.vue')
     },
     {
-         path:'/caresitters',
-         name:'caresitters',
-         component:Caresitters
+        path: '/login',
+        name: 'Login',
+        component: () => import('@/pages/Login.vue'),
+        reEnter: (to, from, next) => {
+            const token = localStorage.getItem('jwt-access-token');
+            if (token !== null) next({ name: 'Main' });
+            else next();
+        }
     },
     {
-        path:'/profile',
-        name:'profile',
-        component:Profile
+        path: '/caresitters',
+        name: 'caresitters',
+        component: Caresitters
     },
     {
-        path:'/careprofile',
-        name:'careprofile',
-        component:Careprofile
+        path: '/works',
+        name: 'FindWork',
+        component: () => import('@/pages/FindWork.vue'),
+        reEnter: (to, from, next) => {
+            const token = localStorage.getItem('jwt-access-token');
+            if (token !== null) next({ name: 'Main' });
+            else next();
+        }
     },
     {
-        path:'/carepeople',
-        name:'carepeople',
-        component:Carepeople
+        path: '/profile',
+        name: 'profile',
+        component: Profile
     },
     {
-        path:'/careprofile1',
-        name:'careprofile1',
-        component:Careprofile1
+        path: '/careprofile',
+        name: 'careprofile',
+        component: Careprofile
     },
     {
-        path:'/careprofile2',
-        name:'careprofile2',
-        component:Careprofile2
+        path: '/carepeople',
+        name: 'carepeople',
+        component: Carepeople
     },
     {
-        path:'/alarm',
-        name:'alarm',
-        component:Alarm
+        path: '/alarm',
+        name: 'alarm',
+        component: Alarm
     },
     {
-        path:'/profile2',
-        name:'profile2',
-        component:Profile2
+        path: '/profile2',
+        name: 'profile2',
+        component: Profile2
+    },
+    {
+        path: '/test',
+        name: 'Test',
+        component: () => import('@/pages/Test.vue')
     }
 ];
 
