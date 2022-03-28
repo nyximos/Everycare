@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Main</h1>
+        <h1>Main</h1>       
         <v-btn @click="showAlert()">Show Alert</v-btn>
     </div>
 </template>
