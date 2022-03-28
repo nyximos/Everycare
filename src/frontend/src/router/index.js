@@ -1,6 +1,13 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+import Caresitters from '../pages/Caresitters';
+import Profile from '../pages/Profile';
+import Careprofile from '../pages/Careprofile';
+import Carepeople from '../pages/Carepeople';
+import Alarm from '../pages/Alarm';
+import Profile2 from '../pages/Profile2';
+
 Vue.use(VueRouter);
 const routes = [
     {
@@ -23,14 +30,9 @@ const routes = [
         }
     },
     {
-        path: '/caresitter',
-        name: 'FindCareSitter',
-        component: () => import('@/pages/FindCareSitter.vue'),
-        reEnter: (to, from, next) => {
-            const token = localStorage.getItem('jwt-access-token');
-            if (token !== null) next({ name: 'Main' });
-            else next();
-        }
+        path: '/caresitters',
+        name: 'caresitters',
+        component: Caresitters
     },
     {
         path: '/works',
@@ -41,6 +43,31 @@ const routes = [
             if (token !== null) next({ name: 'Main' });
             else next();
         }
+    },
+    {
+        path: '/profile',
+        name: 'profile',
+        component: Profile
+    },
+    {
+        path: '/careprofile',
+        name: 'careprofile',
+        component: Careprofile
+    },
+    {
+        path: '/carepeople',
+        name: 'carepeople',
+        component: Carepeople
+    },
+    {
+        path: '/alarm',
+        name: 'alarm',
+        component: Alarm
+    },
+    {
+        path: '/profile2',
+        name: 'profile2',
+        component: Profile2
     },
     {
         path: '/test',
