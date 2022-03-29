@@ -25,5 +25,12 @@ spring:
 
 logging:
   level:
-    org.hibernate.SQL: debug
-    "[org.springframework.security]": DEBUG
+    org:
+      hibernate.SQL: debug
+      "[org.springframework.security]": DEBUG
+      apache:
+        coyote:
+          http11: debug
+
+file:
+  dir: 'C:/upload/'
