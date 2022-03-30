@@ -27,9 +27,7 @@ public class CareSitterServiceImpl implements CareSitterService {
 
     @Override
     public Long save(CareSitterFormDTO careSitterFormDTO) throws IOException {
-        System.out.println("careSitterFormDTO = " + careSitterFormDTO.toString());
         CareSitter careSitter = careSitterDtoToCareSitter(careSitterFormDTO);
-        System.out.println("careSitter = " + careSitter.toString());
         careSitterRepository.save(careSitter);
 
         UploadFile attachFile = fileStoreService.storeFile(careSitterFormDTO.getAttachFile());

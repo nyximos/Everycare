@@ -31,8 +31,6 @@ public class CareSitterApiController {
     public ResponseEntity<MyResponse> saveCareSitter(
             @ModelAttribute CareSitterFormDTO careSitterFormDTO
     ) throws IOException {
-        System.out.println("careSitterFormDTO = " + careSitterFormDTO.getPreferredType());
-        System.out.println("=======================careSitterFormDTO = " + careSitterFormDTO.toString());
 
         LocalDateTime time = LocalDateTime.now();
         careSitterFormDTO.createTime(time);
