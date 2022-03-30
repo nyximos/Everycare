@@ -33,4 +33,8 @@ public class SpringUploadController {
         }
         return "upload-form";
     }
+    @GetMapping("/caresitter")
+    public String saveCareSitter() {
+        return "upload-form2";
+    }
 }

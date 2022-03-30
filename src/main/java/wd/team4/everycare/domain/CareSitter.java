@@ -16,17 +16,10 @@ import java.util.List;
 @SequenceGenerator(name = "care_sitter_seq_generator",
         sequenceName = "care_sitter_seq",
         initialValue = 1, allocationSize = 1)
-
 public class CareSitter {
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "care_sitter_seq_generator")
     @Column(name = "care_sitter_id")
     private Long id;
-
-    @Column(name = "care_sitter_file_name")
-    private String fileName;
-
-    @Column(name = "care_sitter_file_path")
-    private String filePath;
 
     @Column(name = "care_sitter_preferred_care_type", length = 50, nullable = false)
     private String preferredType;

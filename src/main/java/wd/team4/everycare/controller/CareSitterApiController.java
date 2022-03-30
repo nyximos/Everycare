@@ -1,39 +1,49 @@
 package wd.team4.everycare.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import wd.team4.everycare.dto.CareSitterDTO;
+import wd.team4.everycare.dto.CareSitterFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.service.CareSitterServiceImpl;
+import wd.team4.everycare.service.FileStoreService;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
+
 
 @RestController
 @RequestMapping("/api")
 public class CareSitterApiController {
 
-    @Autowired
-    CareSitterServiceImpl careSitterService;
+    private final FileStoreService fileStoreService;
+    private final CareSitterServiceImpl careSitterService;
+
+    public CareSitterApiController(FileStoreService fileStoreService, CareSitterServiceImpl careSitterService) {
+        this.fileStoreService = fileStoreService;
+        this.careSitterService = careSitterService;
+    }
 
     @ResponseBody
     @PostMapping("/dashboard/caresitter")
     public ResponseEntity<MyResponse> saveCareSitter(
-            @RequestBody CareSitterDTO careSitterDTO
-    ) {
+            @ModelAttribute CareSitterFormDTO careSitterFormDTO
+    ) throws IOException {
+        System.out.println("careSitterFormDTO = " + careSitterFormDTO.getPreferredType());
+        System.out.println("=======================careSitterFormDTO = " + careSitterFormDTO.toString());
+
         LocalDateTime time = LocalDateTime.now();
-        careSitterDTO.createTime(time);
-        careSitterDTO.updateTime(time);
+        careSitterFormDTO.createTime(time);
+        careSitterFormDTO.updateTime(time);
 
-        careSitterService.save(careSitterDTO);
+        careSitterService.save(careSitterFormDTO);
 
-        MyResponse<CareSitterDTO> body = MyResponse.<CareSitterDTO>builder()
+        MyResponse<CareSitterFormDTO> body = MyResponse.<CareSitterFormDTO>builder()
                 .header(StatusEnum.OK)
                 .message("성공했슴다~")
-                .body(careSitterDTO)
+                .body(careSitterFormDTO)
                 .build();
 
         HttpHeaders headers = new HttpHeaders();

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="py-5 text-center">
+				<h2>케어시터 등록</h2>
+			</div>
+			<form th:action="@{/api/dashboard/caresitter}" th:method="post" enctype="multipart/form-data">
+				<ul>
+					<li>preferredType <input type="text" name="preferredType" /></li>
+					<li>desiredDayWeek <input type="text" name="desiredDayWeek" /></li>
+					<li>activityTime <input type="text" name="activityTime" /></li>
+					<li>desiredHourlyWage <input type="text" name="desiredHourlyWage" /></li>
+					<li>desiredMonthlyWage <input type="text" name="desiredMonthlyWage" /></li>
+					<li>cctvAgreement <input type="int" name="cctvAgreement" /></li>
+					<li>vaccination <input type="int" name="vaccination" /></li>
+					<li>introduction <input type="text" name="introduction" /></li>
+					<li>disclosureStatus <input type="int" name="disclosureStatus" /></li>
+					<li>첨부파일<input type="file" name="attachFile" /></li>
+					<li>이미지 파일들<input type="file" multiple="multiple" name="attachFiles" /></li>
+				</ul>
+				<input type="submit" />
+			</form>
+		</div>
+		<!-- /container -->
+	</body>
+</html>
