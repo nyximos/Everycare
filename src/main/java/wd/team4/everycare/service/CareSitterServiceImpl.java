@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.CareSitterImage;
-import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.CareSitterFormDTO;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.repository.CareSitterImageRepository;
@@ -13,6 +12,7 @@ import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.service.interfaces.CareSitterService;
 
 import java.io.IOException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -76,9 +76,9 @@ public class CareSitterServiceImpl implements CareSitterService {
     }
 
     @Override
-    public String isPresent(String id) {
-        Optional<Member> member = memberRepository.findById(id);
-        return member.get().getId();
+    public CareSitter isPresent(Long id) {
+        Optional<CareSitter> careSitter = careSitterRepository.findById(id);
+        return careSitter.get();
     }
 
     @Override
@@ -88,5 +88,13 @@ public class CareSitterServiceImpl implements CareSitterService {
         }
         return false;
     }
+
+    @Override
+    public List<CareSitterImage> findCareSitterImages(Long id) {
+        CareSitter careSitter = isPresent(id);
+        return careSitter.getCareSitterImages();
+
+    }
+
 
 }

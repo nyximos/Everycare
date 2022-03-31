@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
 @ToString
 @NoArgsConstructor
 @Entity
@@ -60,6 +59,9 @@ public class CareSitter {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @OneToMany(mappedBy = "careSitter")
+    private List<CareSitterImage> careSitterImages = new ArrayList<>();
+
     @Builder
     public CareSitter(String preferredType, String desiredDayWeek, String activityTime, String desiredHourlyWage, String desiredMonthlyWage, int cctvAgreement, int vaccination, String introduction, int disclosureStatus, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.preferredType = preferredType;
@@ -74,6 +76,4 @@ public class CareSitter {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
-
-
 }

@@ -17,8 +17,11 @@
 			vaccination: <span th:text="${careSitter.vaccination}"></span><br />
 			introduction: <span th:text="${careSitter.introduction}"></span><br />
 
-			첨부파일: <a th:if="${item.attachFile}" th:href="|/attach/${item.id}|" th:text="${item.getAttachFile().getUploadFileName()}" /><br />
-			<img th:each="imageFile : ${item.imageFiles}" th:src="|/images/${imageFile.getStoreFileName()}|" width="300" height="300" />
+			<div th:each="careSitterImage : ${careSitterImages}">
+				<a th:href="|/attach/${careSitterImage.id}|"
+				   th:text="${careSitterImage.getUploadFileName()}" /><br/>
+				<img th:src="|/images/${careSitterImage.getStoreFileName()}|"  width="300" height="300"/>
+			</div>
 		</div>
 		<!-- /container -->
 	</body>

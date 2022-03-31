@@ -6,6 +6,7 @@ import wd.team4.everycare.dto.CareSitterFormDTO;
 import wd.team4.everycare.dto.UploadFile;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface CareSitterService {
 
@@ -38,8 +39,9 @@ public interface CareSitterService {
 
     void removeCareSitter(Long id);
 
-    String isPresent(String id);
+    CareSitter isPresent(Long id);
 
     boolean isEmpty(String id);
 
+    List<CareSitterImage> findCareSitterImages(Long id);
 }

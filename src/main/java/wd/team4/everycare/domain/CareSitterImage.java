@@ -26,7 +26,7 @@ public class CareSitterImage {
     @Column(name = "care_sitter_image_store_file_name")
     private String storeFileName;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_sitter_id")
     private CareSitter careSitter;
 
