@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="py-5 text-center">
+				<h2>케어시터 조회</h2>
+			</div>
+			preferredType: <span th:text="${careSitter.preferredType}"></span><br />
+			desiredDayWeek: <span th:text="${careSitter.desiredDayWeek}"></span><br />
+			activityTime: <span th:text="${careSitter.activityTime}"></span><br />
+			desiredHourlyWage: <span th:text="${careSitter.desiredHourlyWage}"></span><br />
+			desiredMonthlyWage: <span th:text="${careSitter.desiredMonthlyWage}"></span><br />
+			cctvAgreement: <span th:text="${careSitter.cctvAgreement}"></span><br />
+			vaccination: <span th:text="${careSitter.vaccination}"></span><br />
+			introduction: <span th:text="${careSitter.introduction}"></span><br />
+
+			첨부파일: <a th:if="${item.attachFile}" th:href="|/attach/${item.id}|" th:text="${item.getAttachFile().getUploadFileName()}" /><br />
+			<img th:each="imageFile : ${item.imageFiles}" th:src="|/images/${imageFile.getStoreFileName()}|" width="300" height="300" />
+		</div>
+		<!-- /container -->
+	</body>
+</html>

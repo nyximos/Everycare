@@ -60,14 +60,4 @@ public class CareSitterApiController {
 
      */
 
-    /*
-    @ResponseBody
-    @DeleteMapping("/dashboard/caresitter/{id}")
-    public ResponseEntity<MyResponse> deleteCareSitter(@PathVariable("id") Long id){
-        careSitterService.removeCareSitter(id);
-
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
-    }
-     */
 }

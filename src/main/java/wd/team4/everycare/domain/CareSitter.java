@@ -56,7 +56,7 @@ public class CareSitter {
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime updatedAt;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
@@ -74,4 +74,6 @@ public class CareSitter {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+
+
 }

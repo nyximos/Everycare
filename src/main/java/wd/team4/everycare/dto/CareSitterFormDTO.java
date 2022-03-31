@@ -26,8 +26,6 @@ public class CareSitterFormDTO {
     private String memberId;
     private MultipartFile attachFile;
     private List<MultipartFile> attachFiles;
-    //private UploadFile uploadFile;
-    //private List<UploadFile> uploadFiles;
 
     public void createTime(LocalDateTime time) {
         this.createdAt = time;
@@ -35,9 +33,6 @@ public class CareSitterFormDTO {
     public void updateTime(LocalDateTime time){
         this.updatedAt = time;
     }
-
-    //public void uploadAttachFile(UploadFile uploadFile) { this.uploadFile = uploadFile; }
-    //public void uploadImageFiles(List<UploadFile> uploadFiles) { this.uploadFiles = uploadFiles; }
 
     @Builder(builderMethodName = "careSitterDTOBuilder")
     public CareSitterFormDTO(String preferredType, String desiredDayWeek, String activityTime, String desiredHourlyWage, String desiredMonthlyWage, int cctvAgreement, int vaccination, String introduction, LocalDateTime createdAt, LocalDateTime updatedAt, String memberId) {
