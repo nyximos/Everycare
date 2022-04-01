@@ -1,5 +1,6 @@
 package wd.team4.everycare.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -11,11 +12,11 @@ import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.service.CareTargetServiceImpl;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api")
 public class CareTargetApiController {
 
-    @Autowired
-    CareTargetServiceImpl careTargetService;
+    private final CareTargetServiceImpl careTargetService;
 
     @ResponseBody
     @PostMapping("/carenote/caretargets/new")

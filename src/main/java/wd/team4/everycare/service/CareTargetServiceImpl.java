@@ -1,5 +1,6 @@
 package wd.team4.everycare.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.dto.caretarget.CareTargetDTO;
@@ -12,13 +13,10 @@ import wd.team4.everycare.service.interfaces.CareTargetService;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CareTargetServiceImpl implements CareTargetService {
 
     private final CareTargetRepository careTargetRepository;
-
-    public CareTargetServiceImpl(CareTargetRepository careTargetRepository) {
-        this.careTargetRepository = careTargetRepository;
-    }
 
     @Override
     public CareTarget dtoToEntity(CareTargetDTO careTargetDTO) {

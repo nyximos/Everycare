@@ -1,6 +1,7 @@
 package wd.team4.everycare.domain;
 
 import lombok.*;
+import org.hibernate.annotations.Fetch;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -9,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
 @ToString
 @NoArgsConstructor
 @Entity
@@ -71,6 +71,9 @@ public class CareTarget {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @OneToMany(mappedBy = "careTarget")
+    private List<CareTargetImage> careTargetImages = new ArrayList<>();
 
     @Builder
     public CareTarget(String name, Gender gender, LocalDate birth, Long height, Long weight, String zipcode, String address, String detailedAddress, int longTermCareGrade, String comment, int pet, int isCctvAgreement, CareType careType, int coronaTest, Member member) {
