@@ -3,30 +3,58 @@ package wd.team4.everycare.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import wd.team4.everycare.domain.CareSitter;
-import wd.team4.everycare.domain.Member;
-import wd.team4.everycare.dto.CareSitterDTO;
+import wd.team4.everycare.domain.CareSitterImage;
+import wd.team4.everycare.dto.CareSitterFormDTO;
+import wd.team4.everycare.dto.UploadFile;
+import wd.team4.everycare.repository.CareSitterImageRepository;
 import wd.team4.everycare.repository.CareSitterRepository;
 import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.service.interfaces.CareSitterService;
 
+import java.io.IOException;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class CareSitterServiceImpl implements CareSitterService {
 
+    private final FileStoreService fileStoreService;
     private final CareSitterRepository careSitterRepository;
+    private final CareSitterImageRepository careSitterImageRepository;
     private final MemberRepository memberRepository;
 
     @Override
-    public Long save(CareSitterDTO dto) {
-        CareSitter careSitter = dtoToEntity(dto);
+    public Long save(CareSitterFormDTO careSitterFormDTO) throws IOException {
+        CareSitter careSitter = careSitterDtoToCareSitter(careSitterFormDTO);
         careSitterRepository.save(careSitter);
+
+        UploadFile attachFile = fileStoreService.storeFile(careSitterFormDTO.getAttachFile());
+        List<UploadFile> attachFiles = fileStoreService.storeFiles(careSitterFormDTO.getAttachFiles());
+
+        CareSitterImage careSitterImage = careSitterDtoToImage(careSitter, attachFile);
+        careSitterImageRepository.save(careSitterImage);
+
+        for (UploadFile file : attachFiles) {
+            CareSitterImage careSitterImage2 = careSitterDtoToImage(careSitter, file);
+            careSitterImageRepository.save(careSitterImage2);
+        }
+
         return careSitter.getId();
     }
 
     @Override
-    public CareSitter dtoToEntity(CareSitterDTO dto) {
+    public CareSitterImage careSitterDtoToImage(CareSitter careSitter, UploadFile attachFile) throws IOException {
+        return CareSitterImage.builder()
+                .uploadFileName(attachFile.getUploadFileName())
+                .storeFileName(attachFile.getStoreFileName())
+                .careSitter(careSitter)
+                .build();
+    }
+
+    @Override
+    public CareSitter careSitterDtoToCareSitter(CareSitterFormDTO dto) {
         return CareSitter.builder()
                 .preferredType(dto.getPreferredType())
                 .desiredDayWeek(dto.getDesiredHourlyWage())
@@ -48,9 +76,9 @@ public class CareSitterServiceImpl implements CareSitterService {
     }
 
     @Override
-    public String isPresent(String id) {
-        Optional<Member> member = memberRepository.findById(id);
-        return member.get().getId();
+    public CareSitter isPresent(Long id) {
+        Optional<CareSitter> careSitter = careSitterRepository.findById(id);
+        return careSitter.get();
     }
 
     @Override
@@ -60,5 +88,13 @@ public class CareSitterServiceImpl implements CareSitterService {
         }
         return false;
     }
+
+    @Override
+    public List<CareSitterImage> findCareSitterImages(Long id) {
+        CareSitter careSitter = isPresent(id);
+        return careSitter.getCareSitterImages();
+
+    }
+
 
 }

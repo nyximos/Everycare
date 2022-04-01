@@ -25,6 +25,6 @@ public class ExceptionApiController {
                 .header(StatusEnum.BAD_REQUEST)
                 .message("유효성 검사 실패")
                 .body(errors).build();
-        return new ResponseEntity(myResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity(myResponse, HttpStatus.OK);
     }
 }

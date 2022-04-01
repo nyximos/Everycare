@@ -20,7 +20,7 @@ public class CareTargetApiController {
     @ResponseBody
     @PostMapping("/carenote/caretargets/new")
     public ResponseEntity<MyResponse> saveCareTarget(
-            @RequestBody CareTargetDTO careTargetDTO
+            @ModelAttribute CareTargetDTO careTargetDTO
     ){
         careTargetService.save(careTargetDTO);
 
