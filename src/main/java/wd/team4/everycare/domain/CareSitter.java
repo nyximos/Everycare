@@ -9,24 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
 @ToString
 @NoArgsConstructor
 @Entity
 @SequenceGenerator(name = "care_sitter_seq_generator",
         sequenceName = "care_sitter_seq",
         initialValue = 1, allocationSize = 1)
-
 public class CareSitter {
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "care_sitter_seq_generator")
     @Column(name = "care_sitter_id")
     private Long id;
-
-    @Column(name = "care_sitter_file_name")
-    private String fileName;
-
-    @Column(name = "care_sitter_file_path")
-    private String filePath;
 
     @Column(name = "care_sitter_preferred_care_type", length = 50, nullable = false)
     private String preferredType;
@@ -63,9 +55,12 @@ public class CareSitter {
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime updatedAt;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @OneToMany(mappedBy = "careSitter")
+    private List<CareSitterImage> careSitterImages = new ArrayList<>();
 
     @Builder
     public CareSitter(String preferredType, String desiredDayWeek, String activityTime, String desiredHourlyWage, String desiredMonthlyWage, int cctvAgreement, int vaccination, String introduction, int disclosureStatus, LocalDateTime createdAt, LocalDateTime updatedAt) {

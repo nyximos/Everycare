@@ -5,6 +5,10 @@ spring:
   output:
     ansi:
       enabled: always
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 10MB
 
   datasource:
     url: jdbc:oracle:thin:@EveryCare_high?TNS_ADMIN=./src/main/resources/Wallet/Wallet_EveryCare
@@ -27,10 +31,10 @@ logging:
   level:
     org:
       hibernate.SQL: debug
-      "[org.springframework.security]": DEBUG
-      apache:
-        coyote:
-          http11: debug
+#      "[org.springframework.security]": DEBUG
+#      apache:
+#        coyote:
+#          http11: debug
 
 file:
   dir: 'C:/upload/'
