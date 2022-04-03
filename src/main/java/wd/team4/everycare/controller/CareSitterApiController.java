@@ -1,5 +1,6 @@
 package wd.team4.everycare.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,16 +16,12 @@ import java.time.LocalDateTime;
 
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api")
 public class CareSitterApiController {
 
     private final FileStoreService fileStoreService;
     private final CareSitterServiceImpl careSitterService;
-
-    public CareSitterApiController(FileStoreService fileStoreService, CareSitterServiceImpl careSitterService) {
-        this.fileStoreService = fileStoreService;
-        this.careSitterService = careSitterService;
-    }
 
     @ResponseBody
     @PostMapping("/dashboard/caresitter")

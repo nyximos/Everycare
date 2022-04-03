@@ -27,7 +27,7 @@ public class CareSitterWebController {
     private final FileStoreService fileStoreService;
 
     @GetMapping("/dashboard/caresitter")
-    public String saveCareSitter() {
+    public String newCareSitter() {
         return "caresitter-new";
     }
 
