@@ -32,7 +32,7 @@ public class CareSitterWebController {
     }
 
     @GetMapping("/caresitters/{id}")
-    public String careSitters(@PathVariable Long id, Model model) {
+    public String careSitterDetail(@PathVariable Long id, Model model) {
         Optional<CareSitter> careSitter = careSitterRepository.findById(id);
         if(careSitter.isEmpty()) return null;
 

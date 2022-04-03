@@ -6,6 +6,7 @@ import wd.team4.everycare.dto.CareTargetFormDTO;
 import wd.team4.everycare.dto.UploadFile;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface CareTargetService {
 
@@ -41,8 +42,10 @@ public interface CareTargetService {
 
     void removeCareTarget(Long id);
 
-    Long isPresent(Long id);
+    CareTarget isPresent(Long id);
 
     boolean isEmpty(Long id);
+
+    List<CareTargetImage> findCareTargetImages(Long id);
 
 }

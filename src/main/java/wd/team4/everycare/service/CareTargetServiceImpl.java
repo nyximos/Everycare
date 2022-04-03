@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetImage;
-import wd.team4.everycare.domain.Gender;
 import wd.team4.everycare.dto.CareTargetFormDTO;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.repository.CareTargetImageRepository;
@@ -64,9 +63,9 @@ public class CareTargetServiceImpl implements CareTargetService {
     }
 
     @Override
-    public Long isPresent(Long id) {
+    public CareTarget isPresent(Long id) {
         Optional<CareTarget> careTarget = careTargetRepository.findById(id);
-        return careTarget.get().getId();
+        return careTarget.get();
     }
 
     @Override
@@ -74,6 +73,12 @@ public class CareTargetServiceImpl implements CareTargetService {
         if(careTargetRepository.findById(id).isEmpty()){
             return true;
         } throw new CareTargetNotFoundException(id);
+    }
+
+    @Override
+    public List<CareTargetImage> findCareTargetImages(Long id) {
+        CareTarget careTarget = isPresent(id);
+        return careTarget.getCareTargetImages();
     }
 
 }
