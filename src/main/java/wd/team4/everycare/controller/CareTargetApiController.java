@@ -1,33 +1,35 @@
 package wd.team4.everycare.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import wd.team4.everycare.dto.caretarget.CareTargetDTO;
+import wd.team4.everycare.dto.CareTargetFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.service.CareTargetServiceImpl;
 
+import java.io.IOException;
+
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api")
 public class CareTargetApiController {
 
-    @Autowired
-    CareTargetServiceImpl careTargetService;
+    private final CareTargetServiceImpl careTargetService;
 
     @ResponseBody
     @PostMapping("/carenote/caretargets/new")
     public ResponseEntity<MyResponse> saveCareTarget(
-            @ModelAttribute CareTargetDTO careTargetDTO
-    ){
-        careTargetService.save(careTargetDTO);
+            @ModelAttribute CareTargetFormDTO careTargetFormDTO
+    ) throws IOException {
+        careTargetService.save(careTargetFormDTO);
 
-        MyResponse<CareTargetDTO> body = MyResponse.<CareTargetDTO>builder()
+        MyResponse<CareTargetFormDTO> body = MyResponse.<CareTargetFormDTO>builder()
                 .header(StatusEnum.OK)
                 .message("성공")
-                .body(careTargetDTO)
+                .body(careTargetFormDTO)
                 .build();
 
         HttpHeaders headers = new HttpHeaders();

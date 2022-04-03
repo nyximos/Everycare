@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>케어대상인 등록</h2>
+    </div>
+    <form th:action="@{/api/carenote/caretargets/new}" th:method="post" enctype="multipart/form-data">
+        <ul>
+            <li>name <input type="text" name="name" /></li>
+            <li>gender <input type="text" name="gender" /></li>
+            <li>birth <input type="date" name="birth" /></li>
+            <li>height <input type="number" name="height" /></li>
+            <li>weight <input type="number" name="weight" /></li>
+            <li>zipcode <input type="text" name="zipcode" /></li>
+            <li>address <input type="text" name="address" /></li>
+            <li>detailedAddress <input type="text" name="detailedAddress" /></li>
+            <li>longTermCareGrade <input type="number" name="longTermCareGrade" /></li>
+            <li>comment <input type="text" name="comment" /></li>
+            <li>pet <input type="number" name="pet" /></li>
+            <li>isCctvAgreement <input type="number" name="isCctvAgreement" /></li>
+            <li>careType <input type="text" name="careType" /></li>
+            <li>coronaTest <input type="number" name="coronaTest" /></li>
+            <li>첨부파일<input type="file" name="attachFile" /></li>
+            <li>이미지 파일들<input type="file" multiple="multiple" name="attachFiles" /></li>
+        </ul>
+        <input type="submit" />
+    </form>
+</div>
+<!-- /container -->
+</body>
+</html>

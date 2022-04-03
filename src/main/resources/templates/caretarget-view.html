@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+</head>
+<body>
+<div class="container">
+  <div class="py-5 text-center">
+    <h2>케어대상인 조회</h2>
+  </div>
+  name: <span th:text="${careTarget.name}"></span><br />
+  gender: <span th:text="${careTarget.gender}"></span><br />
+  birth: <span th:text="${careTarget.birth}"></span><br />
+  height: <span th:text="${careTarget.height}"></span><br />
+  weight: <span th:text="${careTarget.weight}"></span><br />
+  zipcode: <span th:text="${careTarget.zipcode}"></span><br />
+  address: <span th:text="${careTarget.address}"></span><br />
+  detailedAddress: <span th:text="${careTarget.detailedAddress}"></span><br />
+  longTermCareGrade: <span th:text="${careTarget.longTermCareGrade}"></span><br />
+  comment: <span th:text="${careTarget.comment}"></span><br />
+  pet: <span th:text="${careTarget.pet}"></span><br />
+  isCctvAgreement: <span th:text="${careTarget.isCctvAgreement}"></span><br />
+  careType: <span th:text="${careTarget.careType}"></span><br />
+  coronaTest: <span th:text="${careTarget.coronaTest}"></span><br />
+
+
+  <div th:each="careTargetImage : ${careTargetImages}">
+    <a th:href="|/attach/${careTargetImage.id}|"
+       th:text="${careTargetImage.getUploadFileName()}" /><br/>
+    <img th:src="|/images/${careTargetImage.getStoreFileName()}|"  width="300" height="300"/>
+  </div>
+</div>
+<!-- /container -->
+</body>
+</html>

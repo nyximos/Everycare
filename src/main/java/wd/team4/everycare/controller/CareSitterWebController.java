@@ -27,12 +27,12 @@ public class CareSitterWebController {
     private final FileStoreService fileStoreService;
 
     @GetMapping("/dashboard/caresitter")
-    public String saveCareSitter() {
-        return "upload-form2";
+    public String newCareSitter() {
+        return "caresitter-new";
     }
 
     @GetMapping("/caresitters/{id}")
-    public String careSitters(@PathVariable Long id, Model model) {
+    public String careSitterDetail(@PathVariable Long id, Model model) {
         Optional<CareSitter> careSitter = careSitterRepository.findById(id);
         if(careSitter.isEmpty()) return null;
 
