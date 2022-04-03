@@ -1,6 +1,7 @@
 package wd.team4.everycare.config.auth;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import wd.team4.everycare.domain.Member;
 
@@ -9,7 +10,7 @@ import java.util.Collection;
 
 /*
     시큐리티가 /login 주소 요청이 오면 낚아채서 로그인을 진행
-    로그인 진행 완료시 시큐리티 session을 만들어줌,  Security ContextHolder 라는 키값에 세션 정보를 저장
+    로그인 진행 완료시 Security session을 생성,  Security ContextHolder 라는 키값에 세션 정보를 저장
     시큐리티 session에 들어갈 수 있는 오브젝트 타입 -> Authentication 타입 객체
     Authentication 안에 User 정보가 있어야 됨.
     User 오브젝트 타입 -> UserDetails 타입 객체 , OAuth2User 타입도 가능
@@ -61,9 +62,7 @@ public class PrincipalDetails implements UserDetails{
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        member.getRoleList().forEach(r -> {
-            authorities.add(()->{ return r;});
-        });
+        authorities.add(new SimpleGrantedAuthority(member.getRole().getAuthority()));
         return authorities;
     }
 }

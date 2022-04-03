@@ -2,13 +2,14 @@ package wd.team4.everycare.dto.member;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @ToString
-@Getter
+@Getter @Setter
 public class MemberDTO {
 
     @NotBlank(message = "아이디가 입력되지 않았어요")
