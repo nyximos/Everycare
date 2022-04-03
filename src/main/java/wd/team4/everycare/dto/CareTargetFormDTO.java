@@ -1,8 +1,9 @@
 package wd.team4.everycare.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
-import wd.team4.everycare.domain.CareType;
 import wd.team4.everycare.domain.Gender;
 
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ public class CareTargetFormDTO {
 
     private String name;
     private Gender gender;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birth;
     private Long height;
     private Long weight;
@@ -27,13 +29,14 @@ public class CareTargetFormDTO {
     private String comment;
     private int pet;
     private int isCctvAgreement;
-    private CareType careType;
+    private String careType;
     private int coronaTest;
+//    private String member;
     private MultipartFile attachFile;
     private List<MultipartFile> attachFiles;
 
     @Builder(builderMethodName = "careTargetDTOBuilder")
-    public CareTargetFormDTO(String name, Gender gender, LocalDate birth, Long height, Long weight, String zipcode, String address, String detailedAddress, int longTermCareGrade, String comment, int pet, int isCctvAgreement, CareType careType, int coronaTest) {
+    public CareTargetFormDTO(String name, Gender gender, LocalDate birth, Long height, Long weight, String zipcode, String address, String detailedAddress, int longTermCareGrade, String comment, int pet, int isCctvAgreement, String careType, int coronaTest) {
         this.name = name;
         this.gender = gender;
         this.birth = birth;

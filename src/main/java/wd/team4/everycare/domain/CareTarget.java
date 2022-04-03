@@ -1,5 +1,6 @@
 package wd.team4.everycare.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -31,7 +32,7 @@ public class CareTarget {
     private Gender gender;
 
     @Column(name = "care_target_birth", nullable = false)
-    @DateTimeFormat(pattern = "yyyyMMdd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate birth;
 
     @Column(name = "care_target_height", nullable = false)
@@ -61,9 +62,8 @@ public class CareTarget {
     @Column(name = "care_target_is_cctv_agreement", nullable = false)
     private int isCctvAgreement;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "care_target_care_type", length = 50, nullable = false)
-    private CareType careType;
+    private String careType;
 
     @Column(name = "care_target_corona_test", nullable = false)
     private int coronaTest;
@@ -76,7 +76,7 @@ public class CareTarget {
     private List<CareTargetImage> careTargetImages = new ArrayList<>();
 
     @Builder
-    public CareTarget(String name, Gender gender, LocalDate birth, Long height, Long weight, String zipcode, String address, String detailedAddress, int longTermCareGrade, String comment, int pet, int isCctvAgreement, CareType careType, int coronaTest, Member member) {
+    public CareTarget(String name, Gender gender, LocalDate birth, Long height, Long weight, String zipcode, String address, String detailedAddress, int longTermCareGrade, String comment, int pet, int isCctvAgreement, String careType, int coronaTest, Member member) {
         this.name = name;
         this.gender = gender;
         this.birth = birth;

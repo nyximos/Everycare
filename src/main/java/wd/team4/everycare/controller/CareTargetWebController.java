@@ -14,7 +14,7 @@ public class CareTargetWebController {
     private final FileStoreService fileStoreService;
 
     @GetMapping("/carenote/caretargets/new")
-    public String newCaretarget() {
+    public String newCareTarget() {
         return "caretarget-new";
     }
 
