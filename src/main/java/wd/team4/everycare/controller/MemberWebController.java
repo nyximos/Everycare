@@ -19,6 +19,11 @@ public class MemberWebController {
         return "signup";
     }
 
+    @GetMapping("/signin")
+    public String signin(){
+        return "signin";
+    }
+
     // 모든 사람이 접근 가능
     @GetMapping("/home")
     public String home() {
