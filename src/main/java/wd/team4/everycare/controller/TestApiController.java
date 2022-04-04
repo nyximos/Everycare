@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api")
-public class TestController {
+public class TestApiController {
 
     @ResponseBody
     @GetMapping("/test")
