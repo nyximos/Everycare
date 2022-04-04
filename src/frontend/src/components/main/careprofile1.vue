@@ -148,8 +148,8 @@
                           </span>
                         </div>
                       </div>
-                      <router-link to="/Careprofile2"><v-btn class="ma-2" outlined color="indigo">다음</v-btn></router-link>
-                      <router-link to="/Careprofile"><v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
+                      <router-link to="/dashboard/caresitter2"><v-btn class="ma-2" outlined color="indigo">다음</v-btn></router-link>
+                      <router-link to="/dashboard/caresitter"><v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
                   </div>
               </div>
           </div>

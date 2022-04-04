@@ -14,7 +14,6 @@
 								</a>
 							</span>
 						</div>
-						
 							<ul class="infoList">
 								<li class="name"><strong>신○○</strong> <em>남자</em>  · 20세 (2003년생) <br></li>
 								<li class="address"><span class="info-title">주소</span>경남 거제시 <span class="star">******</span></li>

@@ -1,12 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Caresitters from '../pages/Caresitters';
-import Profile from '../pages/Profile';
-import Careprofile from '../pages/Careprofile';
-import Carepeople from '../pages/Carepeople';
-import Alarm from '../pages/Alarm';
-import Profile2 from '../pages/Profile2';
 
 Vue.use(VueRouter);
 const routes = [
@@ -30,11 +24,6 @@ const routes = [
         }
     },
     {
-        path: '/caresitters',
-        name: 'caresitters',
-        component: Caresitters
-    },
-    {
         path: '/works',
         name: 'FindWork',
         component: () => import('@/pages/FindWork.vue'),
@@ -44,36 +33,53 @@ const routes = [
             else next();
         }
     },
+    
     {
-        path: '/profile',
-        name: 'profile',
-        component: Profile
+        path: '/caresitters',
+        name: 'caresitters',
+        component: () => import('@/pages/Caresitters.vue')
+    },
+    
+    {
+        path: '/dashboard/caresitter',
+        name: 'careprofile',
+        component: () => import('@/pages/Careprofile.vue')
     },
     {
-        path: '/careprofile',
-        name: 'careprofile',
-        component: Careprofile
+        path: '/dashboard/caresitter1',
+        name: 'careprofile1',
+        component: () => import('@/pages/Careprofile1.vue')
+    },
+    {
+        path: '/dashboard/caresitter2',
+        name: 'careprofile2',
+        component: () => import('@/pages/Careprofile2.vue')
     },
     {
         path: '/carepeople',
         name: 'carepeople',
-        component: Carepeople
-    },
-    {
-        path: '/alarm',
-        name: 'alarm',
-        component: Alarm
+        component:() => import('@/pages/Carepeople.vue')
     },
     {
         path: '/profile2',
         name: 'profile2',
-        component: Profile2
+        component:() => import('@/pages/Profile2.vue')
     },
     {
         path: '/test',
         name: 'Test',
         component: () => import('@/pages/Test.vue')
-    }
+    },
+    {
+        path: '/registration',
+        name: 'registration',
+        component: () => import('@/pages/Registration.vue')
+    },
+    {
+        path: '/picture',
+        name: 'picture',
+        component: () => import('@/pages/Picture.vue')
+    },
 ];
 
 const router = new VueRouter({

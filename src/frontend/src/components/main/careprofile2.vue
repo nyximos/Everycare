@@ -63,7 +63,7 @@
               </div>
               <br><br>
                <router-link to="/"><v-btn class="ma-2" outlined color="indigo">등록</v-btn></router-link>
-                <router-link to="/Careprofile1"><v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
+                <router-link to="/dashboard/caresitter1"><v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
           </div>
           
       </div>

@@ -2,12 +2,10 @@
     <v-container fluid class="main">
         <Main />
         <ul>
-            <li class="menu"><router-link to="/Caresitters">케어매칭</router-link></li>
-            <li><router-link to="/Profile">케어프로필</router-link></li>
-            <li><router-link to="/Careprofile">케어시터프로필 등록</router-link></li>
+            <li><router-link to="/dashboard/caresitter">케어시터프로필 등록</router-link></li>
             <li><router-link to="/Carepeople">케어대상인 조회</router-link></li>
-            <li><router-link to="/Alarm">알림</router-link></li>
-            <li><router-link to="/Profile2">프로필상세</router-link></li>
+            <li><router-link to="/Registration">카드1</router-link></li>
+            <li><router-link to="/Picture">카드2</router-link></li>
         </ul>
     </v-container>
 </template>
