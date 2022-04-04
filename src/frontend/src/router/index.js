@@ -3,7 +3,6 @@ import VueRouter from 'vue-router';
 
 import Caresitters from '../pages/Caresitters';
 import Profile from '../pages/Profile';
-import Careprofile from '../pages/Careprofile';
 import Carepeople from '../pages/Carepeople';
 import Alarm from '../pages/Alarm';
 import Profile2 from '../pages/Profile2';
@@ -19,6 +18,11 @@ const routes = [
         name: 'Main',
         component: () => import('@/pages/Main.vue')
     },
+    // {
+    //     path: '/recruitions',
+    //     name: 'Recruitions',
+    //     component: () => import('@/pages/Recruitions.vue')
+    // },
     {
         path: '/login',
         name: 'Login',
@@ -50,9 +54,9 @@ const routes = [
         component: Profile
     },
     {
-        path: '/careprofile',
-        name: 'careprofile',
-        component: Careprofile
+        path: '/dashboard/caresitter',
+        name: '케어시터 프로필생성',
+        component: () => import('@/pages/Careprofile.vue')
     },
     {
         path: '/carepeople',

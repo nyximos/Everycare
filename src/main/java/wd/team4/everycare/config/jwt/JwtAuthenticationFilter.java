@@ -42,7 +42,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         LoginRequestDTO loginRequestDTO = null;
         try {
             loginRequestDTO = om.readValue(request.getInputStream(), LoginRequestDTO.class);
-        } catch (Exception e) {
+        } catch (NullPointerException e ) {
+            System.out.println("e.getMessage() = " + e.getMessage());
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("e = " + e.getMessage());
             e.printStackTrace();
         }
 

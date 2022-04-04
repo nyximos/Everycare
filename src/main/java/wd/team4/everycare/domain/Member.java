@@ -1,5 +1,6 @@
 package wd.team4.everycare.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,11 +30,15 @@ public class Member {
     private String name;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "member_role")
+    private MemberRole role;
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "member_gender")
     private Gender gender;
 
     @Column(name = "member_birth")
-    @DateTimeFormat(pattern = "yyyyMMdd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate birth;
 
     @Column(name = "member_phone", length = 45)
@@ -56,11 +61,8 @@ public class Member {
     @Column(name = "member_address")
     private String address;
 
-    @Column(name = "member_address_detail")
-    private String addressDetail;
-
-    @Column(name = "member_role", length = 5)
-    private String role;
+    @Column(name = "member_detailed_address")
+    private String detailedAddress;
 
     @Column(name = "member_admin_registration_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
@@ -73,10 +75,11 @@ public class Member {
     private String accountNumber;
 
     @Builder
-    public Member(String id, String password, String name, Gender gender, LocalDate birth, String phone, String email, LocalDateTime createdAt, ActivityStatus activityStatus, String zipcode, String address, String addressDetail, String role, LocalDateTime adminRegistrationDate, String bank, String accountNumber) {
+    public Member(String id, String password, String name, MemberRole role, Gender gender, LocalDate birth, String phone, String email, LocalDateTime createdAt, ActivityStatus activityStatus, String zipcode, String address, String detailedAddress, LocalDateTime adminRegistrationDate, String bank, String accountNumber) {
         this.id = id;
         this.password = password;
         this.name = name;
+        this.role = role;
         this.gender = gender;
         this.birth = birth;
         this.phone = phone;
@@ -85,26 +88,14 @@ public class Member {
         this.activityStatus = activityStatus;
         this.zipcode = zipcode;
         this.address = address;
-        this.addressDetail = addressDetail;
-        this.role = role;
+        this.detailedAddress = detailedAddress;
         this.adminRegistrationDate = adminRegistrationDate;
         this.bank = bank;
         this.accountNumber = accountNumber;
-    }
-
-    public void changeMemberRole(String role) {
-        this.role = role;
     }
 
     public void encodePassword(String password){
        this.password = password;
     }
 
-    // ENUM으로 안하고 ,로 해서 구분해서 ROLE을 입력 -> 그걸 파싱!!
-    public List<String> getRoleList(){
-        if(this.role.length() > 0){
-            return Arrays.asList(this.role.split(","));
-        }
-        return new ArrayList<>();
-    }
 }
