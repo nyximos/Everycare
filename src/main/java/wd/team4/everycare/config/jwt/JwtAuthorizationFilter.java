@@ -31,6 +31,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
+        System.out.println("인증이 필요한 주소 요청됨");
         String header = request.getHeader(JwtProperties.HEADER_STRING);
         if(header == null || !header.startsWith(JwtProperties.TOKEN_PREFIX)) {
             chain.doFilter(request, response);
@@ -41,7 +42,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
                 .replace(JwtProperties.TOKEN_PREFIX, "");
 
         // 토큰 검증 (이게 인증이기 때문에 AuthenticationManager도 필요 없음)
-        // 내가 SecurityContext에 집적접근해서 세션을 만들때 자동으로 UserDetailsService에 있는 loadByUsername이 호출됨.
+        // 내가 SecurityContext에 직접접근해서 세션을 만들때 자동으로 UserDetailsService에 있는 loadByUsername이 호출됨.
         String username = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(token)
                 .getClaim("username").asString();
 
@@ -60,7 +61,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
             // 강제로 시큐리티의 세션에 접근하여 값 저장
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
-
+        System.out.println("완료");
         chain.doFilter(request, response);
     }
 
