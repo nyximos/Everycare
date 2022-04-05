@@ -7,6 +7,8 @@ import wd.team4.everycare.dto.UploadFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -40,6 +42,8 @@ public class FileStoreService {
         String originalFilename = multipartFile.getOriginalFilename();
         String storeFileName = createStoreFileName(originalFilename);
         multipartFile.transferTo(new File(getFullPath(storeFileName)));
+//        Path path = Paths.get(getFullPath(storeFileName)).toAbsolutePath();
+//        multipartFile.transferTo(path.toFile());
         return new UploadFile(originalFilename, storeFileName);
     }
 

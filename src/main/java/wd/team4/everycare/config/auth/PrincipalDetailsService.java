@@ -19,7 +19,7 @@ public class PrincipalDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public PrincipalDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         System.out.println("PrincipalDetailsService : DB에 유저 있는지 확인 ");
         Optional<Member> member = memberRepository.findById(username);
 

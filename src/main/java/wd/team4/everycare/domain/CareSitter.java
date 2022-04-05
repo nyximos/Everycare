@@ -63,7 +63,7 @@ public class CareSitter {
     private List<CareSitterImage> careSitterImages = new ArrayList<>();
 
     @Builder
-    public CareSitter(String preferredType, String desiredDayWeek, String activityTime, String desiredHourlyWage, String desiredMonthlyWage, int cctvAgreement, int vaccination, String introduction, int disclosureStatus, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public CareSitter(String preferredType, String desiredDayWeek, String activityTime, String desiredHourlyWage, String desiredMonthlyWage, int cctvAgreement, int vaccination, String introduction, int disclosureStatus, LocalDateTime createdAt, LocalDateTime updatedAt, Member member) {
         this.preferredType = preferredType;
         this.desiredDayWeek = desiredDayWeek;
         this.activityTime = activityTime;
@@ -75,5 +75,6 @@ public class CareSitter {
         this.disclosureStatus = disclosureStatus;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.member = member;
     }
 }
