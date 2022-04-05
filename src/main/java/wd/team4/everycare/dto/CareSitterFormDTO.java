@@ -2,6 +2,7 @@ package wd.team4.everycare.dto;
 
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
+import wd.team4.everycare.domain.Member;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,19 +24,12 @@ public class CareSitterFormDTO {
     private String introduction;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private String memberId;
+    private Member member;
     private MultipartFile attachFile;
     private List<MultipartFile> attachFiles;
 
-    public void createTime(LocalDateTime time) {
-        this.createdAt = time;
-    }
-    public void updateTime(LocalDateTime time){
-        this.updatedAt = time;
-    }
-
     @Builder(builderMethodName = "careSitterDTOBuilder")
-    public CareSitterFormDTO(String preferredType, String desiredDayWeek, String activityTime, String desiredHourlyWage, String desiredMonthlyWage, int cctvAgreement, int vaccination, String introduction, LocalDateTime createdAt, LocalDateTime updatedAt, String memberId) {
+    public CareSitterFormDTO(String preferredType, String desiredDayWeek, String activityTime, String desiredHourlyWage, String desiredMonthlyWage, int cctvAgreement, int vaccination, String introduction, LocalDateTime createdAt, LocalDateTime updatedAt, Member member) {
         this.preferredType = preferredType;
         this.desiredDayWeek = desiredDayWeek;
         this.activityTime = activityTime;
@@ -46,7 +40,7 @@ public class CareSitterFormDTO {
         this.introduction = introduction;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.memberId = memberId;
+        this.member = member;
     }
 
     @Builder(builderMethodName = "careSitterImageDTOBuilder")
