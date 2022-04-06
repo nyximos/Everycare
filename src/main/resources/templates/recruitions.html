@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <div th:each="j : ${jobOffers}">
+            comment: <span th:text="${j.comment}"></span>
+            desiredActivityTime: <span th:text="${j.desiredActivityTime}"></span>
+            pay: <span th:text="${j.pay}"></span>
+            member: <span th:text="${j.careTarget.address}"></span>
+            desiredDayWeek: <span th:text="${j.desiredDayWeek}"></span>
+            startDate: <span th:text="${j.startDate}"></span>
+            endDate: <span th:text="${j.endDate}"></span>
+        </div>
+    </table>
+</body>
+</form>
+</body>
+</html>

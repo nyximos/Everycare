@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<span id="detailId" hidden th:text="${detail.id}"></span>
+케어 대상인 이름:
+<div th:text="${detail.careTarget.name}"></div>
+케어 대상인 성별:
+<div th:text="${detail.careTarget.gender}"></div>
+코멘트:
+<div id="comment" th:text="${detail.comment}"></div>
+희망 성별:
+<div th:text="${detail.desiredCareSitterGender}"></div>
+시작일:
+<div th:text="${detail.startDate}"></div>
+종료일:
+<div th:text="${detail.endDate}"></div>
+급여:
+<div th:text="${detail.pay}"></div>
+희망 시작:
+<div th:text="${detail.desiredStartTime}"></div>
+희망 활동시간:
+<div th:text="${detail.desiredActivityTime}"></div>
+희망 요일:
+<div th:text="${detail.desiredDayWeek}"></div>
+<button id="delete">삭제</button>
+</body>
+</html>
+<script th:inline="javascript">
+    $(function () {
+        $('#delete').on('click', function () {
+
+            const detailId = $('#detailId').text()
+
+
+            console.log(typeof detailId)
+
+            $.ajax({
+                url: '/api/recruitions/recruition',
+                type: 'POST',
+                'data': detailId,
+                contentType:'application/json',
+                dataType: 'json',
+            })
+                .done((res) => {
+                    alert('삭제되었습니다')
+                    console.log(res)
+                    location.href = "http://localhost:8086/recruitions"
+                })
+                .fail((err) => {
+                    console.log(err)
+                    alert('삭제 실패 하였습니다.')
+                    console.log(detailId)
+                })
+            /**
+             * TODO POST가 안된다...
+             * */
+        })
+    })
+</script>
