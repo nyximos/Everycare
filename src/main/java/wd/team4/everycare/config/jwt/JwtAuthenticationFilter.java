@@ -91,9 +91,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withSubject(principalDetailis.getUsername())  // 토큰 이름
                 .withExpiresAt(new Date(System.currentTimeMillis()+JwtProperties.EXPIRATION_TIME)) // 토큰 만료 시간
                 .withClaim("username", principalDetailis.getUser().getId()) // 내용
+//                .withClaim("email", principalDetailis.getUser().getEmail())
                 .sign(Algorithm.HMAC512(JwtProperties.SECRET)); // signature 서버만 아는 고유한 값 secret 넣기
 
-        response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX+jwtToken); // 클러이언트가 요청한 로그인에 대해 응답할 때 header에 토큰값을 넣음
+//        response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX+jwtToken); // 클러이언트가 요청한 로그인에 대해 응답할 때 header에 토큰값을 넣음
+        response.addHeader(JwtProperties.HEADER_STRING, jwtToken); // 클러이언트가 요청한 로그인에 대해 응답할 때 header에 토큰값을 넣음
     }
 
 }

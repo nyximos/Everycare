@@ -1,38 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8" />
-		<title>로그인</title>
-		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-	</head>
-	<body>
-		<h2>로그인</h2>
-		<input title="아이디" type="text" name="username" id="username" />
-		<input title="비밀번호" type="password" name="password" id="password" />
-		<button type="button" onclick="login()">Login</button>
+<head>
+    <meta charset="UTF-8"/>
+    <title>로그인</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<h2>로그인</h2>
+<input title="아이디" type="text" name="username" id="username"/>
+<input title="비밀번호" type="password" name="password" id="password"/>
+<button type="button" onclick="login()">Login</button>
 
-		<script th:inline="javascript">
-			const login = () => {
-				const username = document.getElementsByName('username')[0].value;
-				const password = document.getElementsByName('password')[0].value;
-				const json = {
-					username: username,
-					password: password,
-				};
-				axios
-					.post('/login', json)
-					.then((res) => {
-						// this.test = response.data;
-						console.log(res);
-						const authorization = res.headers.authorization;
-						sessionStorage.setItem('access_token', authorization);
-						const access_token = sessionStorage.getItem('access_token');
-						axios.defaults.headers.common['Authorization'] = access_token;
-					})
-					.catch((err) => {
-						console.log(err);
-					});
-			};
-		</script>
-	</body>
+<script th:inline="javascript">
+    const login = () => {
+        const username = document.getElementsByName('username')[0].value;
+        const password = document.getElementsByName('password')[0].value;
+        const json = {
+            username: username,
+            password: password,
+        };
+        axios
+            .post('/login', json)
+            .then((res) => {
+                // this.test = response.data;
+                console.log(res);
+                const authorization = res.headers.authorization;
+                sessionStorage.setItem('access_token', authorization);
+                const access_token = sessionStorage.getItem('access_token');
+                axios.defaults.headers.common['Authorization'] = access_token;
+
+                // === //
+                var base64Payload = access_token.split('.')[1]; //value 0 -> header, 1 -> payload, 2 -> VERIFY SIGNATURE
+                const decode = atob(base64Payload);
+                console.log(decode);
+
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+</script>
+</body>
 </html>

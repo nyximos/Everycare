@@ -33,14 +33,7 @@ public class CareSitterWebController {
 
     @GetMapping("/dashboard/caresitter")
     public String newCareSitter(HttpServletRequest request) {
-        String accessToken = request.getHeader("Authorization");
-        String token = accessToken.replace(JwtProperties.TOKEN_PREFIX, "");
-        Claims body = Jwts.parser().setSigningKey(JwtProperties.SECRET.getBytes(StandardCharsets.UTF_8))
-                .parseClaimsJws(token).getBody();
 
-        System.out.println(body.getSubject());
-        System.out.println(body);
-        System.out.println(body.get("username"));
 
         return "caresitter-new";
     }
