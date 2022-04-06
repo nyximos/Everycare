@@ -1,0 +1,45 @@
+server:
+  port: 8086
+
+spring:
+  output:
+    ansi:
+      enabled: always
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 10MB
+
+#  datasource:
+#    url: jdbc:oracle:thin:@EveryCare_high?TNS_ADMIN=./src/main/resources/Wallet/Wallet_EveryCare
+#    username: admin
+#    password: Capstone4Team
+#    driver-class-name: oracle.jdbc.OracleDriver
+
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/capstone
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+        show-sql: true
+        use_sql_comments: true
+
+
+logging:
+  level:
+    org:
+      hibernate.SQL: debug
+#      "[org.springframework.security]": DEBUG
+#      apache:
+#        coyote:
+#          http11: debug
+
+file:
+  dir: 'C:/upload/'
