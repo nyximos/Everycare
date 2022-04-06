@@ -3,6 +3,7 @@ package wd.team4.everycare.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.member.MemberDTO;
 import wd.team4.everycare.dto.member.SignupDTO;
@@ -21,6 +22,7 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+//    private final PrincipalDetails principalDetails;
 
     public MyResponse<SignupDTO> join(SignupDTO signupDTO) {
         // 1. memberRepository에 해당 아이디 가입되어있는지 확인
@@ -67,6 +69,11 @@ public class MemberServiceImpl implements MemberService {
     public Member signupDtoToEntity(SignupDTO signupDTO){
         return MemberService.super.signupDtoToEntity(signupDTO);
     }
+
+//    @Override
+//    public String getId(String authorization) {
+//        return principalDetails.getUsername();
+//    }
 
 
 }

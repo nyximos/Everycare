@@ -1,5 +1,6 @@
 package wd.team4.everycare.service.interfaces;
 
+import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.member.MemberDTO;
 import wd.team4.everycare.dto.member.SignupDTO;
@@ -34,4 +35,7 @@ public interface MemberService {
                 .build();
         return member;
     }
+
+//    String getId(String authorization);
+
 }
