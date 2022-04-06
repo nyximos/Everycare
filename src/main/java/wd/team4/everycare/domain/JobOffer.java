@@ -1,17 +1,16 @@
 package wd.team4.everycare.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.domain.CareTarget;
+import wd.team4.everycare.domain.Gender;
+import wd.team4.everycare.dto.JobOfferDTO;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Getter
-@Setter
 @ToString
 @NoArgsConstructor
 @Entity
@@ -21,7 +20,7 @@ import java.util.List;
         initialValue = 1, allocationSize = 1)
 public class JobOffer {
 
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "job_offer_generator")
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "job_offer_seq_generator")
     @Column(name = "job_offer_id", nullable = false)
     private Long id;
 
@@ -52,12 +51,27 @@ public class JobOffer {
     @Column(name = "job_offer_comment", length = 500)
     private String comment;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_target_id")
     private CareTarget careTarget;
 
+    @Builder
+    public JobOffer(Long id, LocalDate startDate, LocalDate endDate, String desiredDayWeek, String desiredStartTime, String desiredActivityTime, int pay, Gender desiredCareSitterGender, String comment) {
+        this.id = id;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.desiredDayWeek = desiredDayWeek;
+        this.desiredStartTime = desiredStartTime;
+        this.desiredActivityTime = desiredActivityTime;
+        this.pay = pay;
+        this.desiredCareSitterGender = desiredCareSitterGender;
+        this.comment = comment;
+    }
+
+    public JobOffer(Long id, LocalDate startDate, LocalDate endDate, String desiredDayWeek, String desiredStartTime, String desiredActivityTime, int pay, String comment, Gender desiredCareSitterGender) {
+    }
 }
