@@ -1,8 +1,7 @@
 <template>
     <v-app>
         <BaseHeader />
-        <router-view />
-        <BaseFooter />
+        <router-view></router-view>
         <BaseAlert />
     </v-app>
 </template>
