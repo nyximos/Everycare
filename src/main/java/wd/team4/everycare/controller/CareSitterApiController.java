@@ -56,17 +56,6 @@ public class CareSitterApiController {
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 
-//    @ResponseBody
-//    @PatchMapping("/api/dashboard/caresitter/{id}")
-//        public ResponseEntity<MyResponse> updateCareSitter(
-//                @PathVariable(name = "id") Long id,
-//                @ModelAttribute CareSitterFormDTO careSitterFormDTO,
-//                @AuthenticationPrincipal PrincipalDetails principalDetails
-//                ){
-//
-//    }
-
-
     /*
     @ResponseBody
     @PutMapping("/dashboard/caresitter")
