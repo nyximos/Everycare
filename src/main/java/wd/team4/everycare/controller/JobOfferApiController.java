@@ -26,6 +26,7 @@ public class JobOfferApiController {
         return null;
     }
 
+
     @PostMapping("/recruitions/recruition/{id}")
     public void deleteJobOffer(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                @ModelAttribute JobOfferDTO jobOfferDTO) {

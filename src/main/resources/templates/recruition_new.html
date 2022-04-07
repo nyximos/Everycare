@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -15,3 +17,11 @@
 </div>
 </body>
 </html>
+<script>
+    $.ajax({
+        type:"GET",
+        headers: {
+            "Authorization": sessionStorage.getItem('access_token')
+        },
+    })
+</script>
