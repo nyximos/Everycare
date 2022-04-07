@@ -1,154 +1,135 @@
 <template>
-  <div class="content">
-      <div class="modify">
-          <div class="div_modify">
-              <div class="rwrite">
-                  <div class="rwrite_div">
-                      <div class="page_btn">
-                          <span class="page_btn1 on"></span>
-                          <span class="page_btn1 "></span>
-                      </div>
-                      <div class="con10 con1">
-                          <h3 class="profile_title">Hope</h3>
-                      </div>
-                      <div class="con10_blank"></div>
-                      <div class="area_content01">
-                        <h5 class="sub_title">희망근무지역</h5>
-                      </div>
-                      <div>
-                        <ul class="work_area" style="display:block;">
-                          <li>
-                            <span class="area_stitle">1지망</span>
-                            <select name="" class="select_css">
-                              <option value="">시/도</option>
-                              <option value="서울">서울</option>
-                              <option value="경기">경기</option>
-                              <option value="인천">인천</option>
-                              <option value="부산">부산</option>
-                              <option value="대구">대구</option>
-                              <option value="대전">대전</option>
-                              <option value="울산">울산</option>
-                            </select>
-                            <select name="">
-                              <option value="">구/군</option>
-                            </select>
-                            <select name="">
-                              <option value="">동/읍/면</option>
-                            </select>
-                          </li>
-                          <li>
-                            <span class="area_stitle">2지망</span>
-                            <select name="" class="select_css">
-                              <option value="">시/도</option>
-                              <option value="서울">서울</option>
-                              <option value="경기">경기</option>
-                              <option value="인천">인천</option>
-                              <option value="부산">부산</option>
-                              <option value="대구">대구</option>
-                              <option value="대전">대전</option>
-                              <option value="울산">울산</option>
-                            </select>
-                            <select name="">
-                              <option value="">구/군</option>
-                            </select>
-                            <select name="">
-                              <option value="">동/읍/면</option>
-                            </select>
-                          </li>
-                          <li>
-                            <span class="area_stitle">3지망</span>
-                            <select name="" class="select_css">
-                              <option value="">시/도</option>
-                              <option value="서울">서울</option>
-                              <option value="경기">경기</option>
-                              <option value="인천">인천</option>
-                              <option value="부산">부산</option>
-                              <option value="대구">대구</option>
-                              <option value="대전">대전</option>
-                              <option value="울산">울산</option>
-                            </select>
-                            <select name="">
-                              <option value="">구/군</option>
-                            </select>
-                            <select name="">
-                              <option value="">동/읍/면</option>
-                            </select>
-                          </li>
-                        </ul>
-                      </div>
-                      <div class="area_day">
-                        <h5 class="sub_title">희망근무요일</h5>
-                        <div class="area6_r_day">
-                          <input type="button" value="월" class="r_day1" data-val="1">
-                          <input type="button" value="화" class="r_day1" data-val="2">
-                          <input type="button" value="수" class="r_day1" data-val="3">
-                          <input type="button" value="목" class="r_day1" data-val="4">
-                          <input type="button" value="금" class="r_day1" data-val="5">
-                          <input type="button" value="토" class="r_day1" data-val="6">
-                          <input type="button" value="일" class="r_day1" data-val="7">
-                          <input type="button" value="all" class="r_day1" data-val="7">
+ <div class="content">
+   <div class="modify">
+     <div class="div_modify">
+       <div class="rwrite">
+         <div class="rwrite_div">
+           <div class="page_btn">
+            <span class="page_btn1 on"></span>
+            <span class="page_btn1 "></span>
+            </div>
+            <div class="con10 con1">
+              <h3 class="profile_title">Hope</h3>
+            </div>
+            <div class="area_content01">
+              <h5 class="sub_title">희망근무지역</h5>        
+            </div>
+             <div>
+              <ul class="work_area" style="display:block;">
+                <li>
+                  <span class="area_stitle">1지망</span>
+                    <v-select
+                      v-model="hopeloc1"
+                      :items="hopelocation1"
+                      label="1지망"
+                      item-text="name"
+                      item-value="value">
+                    </v-select>
+                </li>
+                  <li>
+                   <span class="area_stitle">2지망</span>
+                    <v-select
+                      v-model="hopeloc2"
+                      :items="hopelocation2"
+                      label="2지망"
+                      item-text="name"
+                      item-value="value">
+                    </v-select>
+                  </li>
+                    <li>
+                     <span class="area_stitle">3지망</span>
+                        <v-select
+                          v-model="hopeloc3"
+                          :items="hopelocation3"
+                          label="3지망"
+                          item-text="name"
+                          item-value="value">
+                        </v-select>
+                    </li>
+                  </ul>
+                </div>
+                  <div class="area_day">
+                    <h5 class="sub_title">희망근무요일</h5>
+                      <div class="area6_r_day">
+                          <v-checkbox
+                          v-model="selected"
+                          value="Mon"
+                          label="월"
+                          ></v-checkbox
+                          ><v-checkbox
+                           v-model="selected"
+                           value="Tue"
+                          label="화">
+                          </v-checkbox>
+                          <v-checkbox
+                           v-model="selected"
+                           value="wed"
+                          label="수"
+                          ></v-checkbox>
+                          <v-checkbox
+                           v-model="selected"
+                           value="thur"
+                          label="목"
+                          ></v-checkbox>
+                          <v-checkbox
+                           v-model="selected"
+                           value="fri"
+                          label="금"
+                          ></v-checkbox>
+                          <v-checkbox
+                           v-model="selected"
+                           value="sat"
+                          label="토"
+                          ></v-checkbox>
+                          <v-checkbox
+                           v-model="selected"
+                           value="sun"
+                          label="일"
+                          ></v-checkbox>
+                          {{selected}}
                         </div>
                       </div>
                       <div class="area_time">
                         <h5 class="sub_title">희망시간</h5>
                         <div class="r_time_text" style="display:block;">
-                          <select name="" id="">
-                            <option value="시작시간">시작시간</option>
-                            <optgroup label="오전">
-                              <option value="01:00">오전 1:00</option>
-                              <option value="02:00">오전 2:00</option>
-                              <option value="03:00">오전 3:00</option>
-                              <option value="04:00">오전 4:00</option>
-                              <option value="05:00">오전 5:00</option>
-                            </optgroup>
-                          </select>
-                          <strong>부터</strong>&nbsp;&nbsp;
-                          <select name="" id="">
-                            <option value="끝나는시간">끝나는시간</option>
-                            <optgroup label="오전">
-                              <option value="01:00">오전 1:00</option>
-                              <option value="02:00">오전 2:00</option>
-                              <option value="03:00">오전 3:00</option>
-                              <option value="04:00">오전 4:00</option>
-                              <option value="05:00">오전 5:00</option>
-                            </optgroup>
-                          </select>
+                          <v-time-picker
+                          v-model="starttimepicker"
+                          ampm-in-title>
+                          </v-time-picker>
+                          {{starttimepicker}}
+                         <v-time-picker
+                         v-model="endtimepicker"
+                         ampm-in-title
+                         ></v-time-picker>
+                         {{endtimepicker}}
                         </div>
                       </div>
                       <div class="area_pay">
                         <h5 class="sub_title">급여</h5>
                         <div class="r_pay">
-                          <span class="r_pay1">
-                            <button type="button" class="pay_plan on" data-val="시간제">시간제</button>
-                            <select name="pay_time" id="pay_time" class="select_css04">
-                              <option value>선택</option>
-                              <option value="">9,160원</option>
-                              <option value="">10,000원</option>
-                              <option value="">11,000원</option>
-                              <option value="">12,000원</option>
-                              <option value="">13,000원</option>
-                              <option value="">14,000원</option>
-                              <option value="">직접선택</option>
-                            </select>
-                            <input type="text" name="pay_time_text" id="pay_time_text" class="text_css01" style value>
-                          </span>
-                          <span class="r_pay1">
-                            <button type="button" class="pay_plan on" data-val="월급제">월급제</button>
-                            <select name="pay_month" id="pay_month" class="select_css04">
-                              <option value>선택</option>
-                              <option value>50만원</option>
-                              <option value>60만원</option>
-                              <option value>70만원</option>
-                              <option value>80만원</option>
-                              <option value>90만원</option>
-                              <option value>100만원</option>
-                              <option value>직접입력</option>
-                            </select>
-                            <input type="text" name="pay_month_text" id="play_month_text" class="text_css01" style="display:none;" value>
-                          </span>
+                        <v-radio-group
+                        v-model="radios"
+                        mandatory
+                        row>
+                          <v-radio
+                          label="시급"
+                          value="hourpay">
+                          </v-radio>
+                          <v-radio
+                          label="월급"
+                          value="monthpay">
+                          </v-radio>
+                          </v-radio-group>
+                          <v-text-field
+                          v-model="pay"
+                          label="희망 시/월급을 입력하세요"
+                          ></v-text-field>
+                         
                         </div>
                       </div>
-                      <router-link to="/Careprofile2"><v-btn class="ma-2" outlined color="indigo">다음</v-btn></router-link>
+                      <router-link to="/Careprofile2">
+                      <v-btn class="ma-2" outlined color="indigo" @click="console">다음</v-btn>
+                      </router-link>
                       <router-link to="/Careprofile"><v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
                   </div>
               </div>
@@ -159,8 +140,53 @@
 
 <script>
 export default {
+data(){
+  return{
+    hopelocation1:[
+      {name: '서울', value: 'seoul'},
+      {name: '인천', value: 'incheon'},
+    ],
+    hopelocation2:[
+      {name: '대구', value: 'daegu'},
+      {name: '포항', value: 'pohang'},
+    ],
+    hopelocation3:[
+      {name: '울산', value: 'ulsan'},
+      {name: '제주', value: 'jeju'},
+    ],
+    hopeloc1:'',
+    hopeloc2:'',
+    hopeloc3:'',
+    selected: [],
+    starttimepicker:'',
+    endtimepicker:'',
+    radios:'',
+    pay:''
+    }
 
-}
+    },
+    methods:{
+      console(){
+        const userData = {
+          hopeloc1:this.hopeloc1,
+          hopeloc2:this.hopeloc2,
+          hopeloc3:this.hopeloc3,
+          hopeday:this.selected,
+          starttimepicker:this.starttimepicker,
+          endtimepicker:this.endtimepicker,
+          paytype : this.radios,
+          pay: this.pay
+        };
+        // console.log(userData);
+        try {
+            this.$store.commit('careprofileStore/set_user2', userData);
+            console.log(this.$store.state.careprofileStore.image)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    }
+  }
 </script>
 
 <style>

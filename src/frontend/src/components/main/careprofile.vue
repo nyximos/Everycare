@@ -19,34 +19,68 @@
                               </label>
                           </div>
                           <div class="div_text">
-                              <strong>사진</strong>을 등록해주세요
+                              <strong>사진</strong>
+                              <v-file-input
+                              v-model="image"
+                                truncate-length="22"
+                                label="사진을 넣으세요"
+                                ></v-file-input>
                           </div>
                           <div class="con10_blank"></div>
                           <div class="r_content">
                               <br>
-                              <v-text-field v-model="name" :counter="5"  :error-messages="errors" label="Name" required></v-text-field>
-                               <v-radio-group v-model="row" row>
-                                    <v-radio label="남" value="radio-1"></v-radio>
-                                    <v-radio label="여" value="radio-2" ></v-radio>
+                              <v-text-field v-model="name" label="Name" required></v-text-field>
+                               <v-radio-group v-model="radios" mandatory>
+                                    <v-radio label="남" value="Man"></v-radio>
+                                    <v-radio label="여" value="Woman"></v-radio>
                                 </v-radio-group>
                               <h2>나이</h2>
+                              <v-text-field v-model="age" label="Age" required></v-text-field>
                               <br>
                               <h5>자기소개</h5>
-                              <textarea class="content_add" placeholder="자기소개써주세요"></textarea>
+                              <textarea class="content_add" placeholder="자기소개써주세요" v-model="textarea"></textarea>
                           </div>
-                          <router-link to="/Careprofile1"><v-btn class="ma-2" outlined color="indigo">다음</v-btn></router-link>
-                          <router-link to="/"><v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
+                          <router-link :to="{name:'careprofile1'}">
+                          <v-btn class="ma-2" outlined color="indigo" @click="nextpage1">다음</v-btn>
+                          </router-link>
+                          <router-link to="/"> <v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
+                          </div>
                       </div>
                   </div>
               </div>
           </div>
       </div>
-  </div>
 </template>
 
 <script>
 export default {
-
+  name:'careprofilecom',
+  data(){
+     return{
+        image: [],
+        name:'',
+        radios:'',
+        age:'',
+        textarea:''
+     }
+  },
+  methods:{
+      nextpage1(){
+        const userData = {
+        image : this.image.name,
+        name:this.name,
+        sex:this.radios,
+        age:this.age,
+        textarea:this.textarea
+        }
+        try{
+          this.$store.commit('careprofileStore/set_user1', userData);
+          console.log(this.$store.state.careprofileStore.image);
+        } catch(error){
+           console.log(error); 
+        }
+    }
+  }
 }
 </script>
 

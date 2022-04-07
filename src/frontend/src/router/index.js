@@ -18,6 +18,21 @@ const routes = [
         name: 'Main',
         component: () => import('@/pages/Main.vue')
     },
+    {
+        path: '/careprofile',
+        name: 'careprofile',
+        component: () => import('@/pages/Careprofile.vue')
+    },
+    {
+        path: '/careprofile1',
+        name: 'careprofile1',
+        component: () => import('@/pages/Careprofile1.vue')
+    },
+    {
+        path: '/careprofile2',
+        name: 'careprofile2',
+        component: () => import('@/pages/Careprofile2.vue')
+    },
     // {
     //     path: '/recruitions',
     //     name: 'Recruitions',

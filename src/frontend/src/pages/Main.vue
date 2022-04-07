@@ -1,6 +1,7 @@
 <template>
     <v-container fluid class="main">
-        <Main />
+        <componentindex />
+        <componentmain />
         <ul>
             <li class="menu"><router-link to="/Caresitters">케어매칭</router-link></li>
             <li><router-link to="/Profile">케어프로필</router-link></li>
@@ -12,10 +13,12 @@
     </v-container>
 </template>
 <script>
-import Main from '@/components/main/index';
+import componentmain from '@/components/main'
+import componentindex from '@/components/main/index';
 export default {
     components: {
-        Main
+        componentindex,
+        componentmain
     }
 };
 </script>
