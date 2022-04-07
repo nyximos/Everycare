@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
@@ -40,7 +39,11 @@ public class CareSitterApiController {
         careSitterFormDTO.setCreatedAt(time);
         careSitterFormDTO.setUpdatedAt(time);
 
+        System.out.println("careSitterFormDTO = " + careSitterFormDTO);
+        System.out.println("principalDetails = " + principalDetails);
+
         Member user = principalDetails.getUser();
+        System.out.println("user = " + user);
         careSitterFormDTO.setMember(user);
 
         careSitterService.save(careSitterFormDTO);
