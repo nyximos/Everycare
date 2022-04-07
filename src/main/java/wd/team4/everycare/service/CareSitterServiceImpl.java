@@ -2,6 +2,7 @@ package wd.team4.everycare.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.CareSitterImage;
 import wd.team4.everycare.dto.CareSitterFormDTO;
@@ -18,12 +19,15 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CareSitterServiceImpl implements CareSitterService {
 
     private final FileStoreService fileStoreService;
     private final CareSitterRepository careSitterRepository;
     private final CareSitterImageRepository careSitterImageRepository;
     private final MemberRepository memberRepository;
+
+    // DB 조회일 경우 @Transactional(readOnly = true) 사용
 
     @Override
     public Long save(CareSitterFormDTO careSitterFormDTO) throws IOException {
@@ -67,6 +71,7 @@ public class CareSitterServiceImpl implements CareSitterService {
                 .disclosureStatus(1)
                 .createdAt(dto.getCreatedAt())
                 .updatedAt(dto.getUpdatedAt())
+                .member(dto.getMember())
                 .build();
     }
 

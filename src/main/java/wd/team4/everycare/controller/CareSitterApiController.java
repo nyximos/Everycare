@@ -12,6 +12,7 @@ import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.CareSitterFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
+import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.service.CareSitterServiceImpl;
 import wd.team4.everycare.service.FileStoreService;
 
@@ -25,6 +26,7 @@ import java.time.LocalDateTime;
 public class CareSitterApiController {
 
     private final CareSitterServiceImpl careSitterService;
+    private final MemberRepository memberRepository;
 
     @ResponseBody
     @PostMapping("/dashboard/caresitter")

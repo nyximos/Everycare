@@ -32,9 +32,7 @@ public class CareSitterWebController {
     private final FileStoreService fileStoreService;
 
     @GetMapping("/dashboard/caresitter")
-    public String newCareSitter(HttpServletRequest request) {
-
-
+    public String newCareSitter() {
         return "caresitter-new";
     }
 
