@@ -2,26 +2,49 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
-<h1>구인 글 등록</h1>
-<!--<div th:each="c : ${careTarget}">-->
-<!--    <span th:text="c.name"></span>-->
-<!--    <span th:text="c.gender"></span>-->
-<!--</div>-->
-<!--<div th:each="cs : ${careTargetSchedule}">-->
-<!--    <span th:text="cs.name"></span>-->
+<button id="popup_open_btn">모달창</button>
+<div id="">
+<!--        <ul th:each="c:${careTarget}">-->
+<!--            <li>이름: <span th:text="${c.name}"></span></li>-->
+<!--            <li>성별: <span th:text="${c.gender}"></span></li>-->
+<!--            <li>생년월일:<span th:text="${c.birth}"></span></li>-->
+<!--            <li>키:<span th:text="${c.height}"></span>cm&nbsp;&nbsp;-->
+<!--                몸무게:<span th:text="${c.weight}"></span>kg-->
+<!--            </li>-->
+<!--            <li>주소:<span th:text="${c.zipcode}"></span></li>-->
+<!--            <li>케어유형:<span th:text="${c.careType}"></span></li>-->
+<!--        </ul>-->
+    <button>등록</button>
 </div>
 </body>
 </html>
 <script>
+
+    const access_token = sessionStorage.getItem('access_token')
+    var base64Payload = access_token.split('.')[1]
+    const decode = atob(base64Payload)
+
+    console.log(typeof decode);
+    console.log(decode);
+
     $.ajax({
-        type:"GET",
+        url: '/api/recruitions/recruition/new',
+        type: "post",
         headers: {
-            "Authorization": sessionStorage.getItem('access_token')
+            "Authorization": access_token
         },
+        data:1,
+        contentType:'application/json'
+    })
+    .done((res)=>{
+        console.log(res)
     })
 </script>

@@ -5,6 +5,7 @@ import wd.team4.everycare.dto.CareTargetScheduleDTO;
 import wd.team4.everycare.dto.JobOfferDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetDTO;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,4 +38,6 @@ public interface JobOfferService {
                 .map(JobOfferDTO::toListEntity)
                 .collect(Collectors.toList());
     }
+
+
 }
