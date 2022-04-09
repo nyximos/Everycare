@@ -10,8 +10,7 @@
     <title>Document</title>
 </head>
 <body>
-<button id="popup_open_btn">모달창</button>
-<div id="">
+<div id="result">
 <!--        <ul th:each="c:${careTarget}">-->
 <!--            <li>이름: <span th:text="${c.name}"></span></li>-->
 <!--            <li>성별: <span th:text="${c.gender}"></span></li>-->
@@ -22,8 +21,8 @@
 <!--            <li>주소:<span th:text="${c.zipcode}"></span></li>-->
 <!--            <li>케어유형:<span th:text="${c.careType}"></span></li>-->
 <!--        </ul>-->
-    <button>등록</button>
 </div>
+    <button id="searchCareTarget">케어 대상인 찾기</button>
 </body>
 </html>
 <script>
@@ -35,16 +34,21 @@
     console.log(typeof decode);
     console.log(decode);
 
-    $.ajax({
-        url: '/api/recruitions/recruition/new',
-        type: "post",
-        headers: {
-            "Authorization": access_token
-        },
-        data:1,
-        contentType:'application/json'
+    $(function () {
+        $('#searchCareTarget').on('click', function () {
+            $.ajax({
+                url: '/api/recruitions/new',
+                type: "post",
+                headers: {
+                    "Authorization": access_token
+                },
+                contentType:'application/json',
+                dataType: 'json',
+            })
+                .done((res)=>{
+                    console.log(res)
+                })
+        })
     })
-    .done((res)=>{
-        console.log(res)
-    })
+
 </script>

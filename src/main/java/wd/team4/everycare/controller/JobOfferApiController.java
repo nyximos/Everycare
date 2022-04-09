@@ -36,8 +36,10 @@ public class JobOfferApiController {
         return null;
     }
 
-    @PostMapping("/recruitions/recruition/new")
+    @PostMapping("recruitions/new")
     public List<CareTarget> putCareTarget(Model model, HttpServletRequest request) {
+
+        List<CareTarget> searchCareTarget = null;
 
         String accessToken = request.getHeader("Authorization");
         if (accessToken != null) {
@@ -50,11 +52,9 @@ public class JobOfferApiController {
 
             System.out.println("username = " + username);
 
-            careTargetRepository.findAllByMember_Id(String.valueOf(username));
-        } else {
-            return null;
+            searchCareTarget = careTargetRepository.findAllByMember_Id(String.valueOf(username));
         }
-        return null;
+        return searchCareTarget;
     }
 
 
