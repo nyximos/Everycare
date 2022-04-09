@@ -34,15 +34,11 @@ public class CareSitterServiceImpl implements CareSitterService {
         CareSitter careSitter = careSitterDtoToCareSitter(careSitterFormDTO);
         careSitterRepository.save(careSitter);
 
-        UploadFile attachFile = fileStoreService.storeFile(careSitterFormDTO.getAttachFile());
         List<UploadFile> attachFiles = fileStoreService.storeFiles(careSitterFormDTO.getAttachFiles());
 
-        CareSitterImage careSitterImage = careSitterDtoToImage(careSitter, attachFile);
-        careSitterImageRepository.save(careSitterImage);
-
         for (UploadFile file : attachFiles) {
-            CareSitterImage careSitterImage2 = careSitterDtoToImage(careSitter, file);
-            careSitterImageRepository.save(careSitterImage2);
+            CareSitterImage careSitterImage = careSitterDtoToImage(careSitter, file);
+            careSitterImageRepository.save(careSitterImage);
         }
 
         return careSitter.getId();

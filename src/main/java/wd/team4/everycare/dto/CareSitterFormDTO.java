@@ -25,7 +25,6 @@ public class CareSitterFormDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private Member member;
-    private MultipartFile attachFile;
     private List<MultipartFile> attachFiles;
 
     @Builder(builderMethodName = "careSitterDTOBuilder")
@@ -44,8 +43,7 @@ public class CareSitterFormDTO {
     }
 
     @Builder(builderMethodName = "careSitterImageDTOBuilder")
-    public CareSitterFormDTO(MultipartFile attachFile, List<MultipartFile> attachFiles) {
-        this.attachFile = attachFile;
+    public CareSitterFormDTO(List<MultipartFile> attachFiles) {
         this.attachFiles = attachFiles;
     }
 }
