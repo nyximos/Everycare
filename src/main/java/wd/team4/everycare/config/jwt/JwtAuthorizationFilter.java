@@ -47,6 +47,11 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
                 encodeToken = c.getValue();
             }
         }
+        if(encodeToken == "") {
+            System.out.println("실패");
+            chain.doFilter(request, response);
+            return;
+        }
         System.out.println("encodeToken = " + encodeToken);
         String accessToken = URLDecoder.decode(encodeToken, "utf-8");
         System.out.println("accessToken = " + accessToken);
