@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{CareSitter/default}">
+<th:block layout:fragment="styles">
+    <link rel="stylesheet" href="/css/caresitter/test.css">
+    <script src="script/caresitter/test.js"></script>
+    <script th:inline="javascript">
+        let mbti = [[${mbti}]];
+    </script>
+</th:block>
+<div layout:fragment="content">
+테스트
+</div>
+</html>
