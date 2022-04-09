@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Everycare</title>
 </head>
 <body>
-  <h1>all</h1>
+    <header th:insert="header.html"></header>
+    <div>
+        <ul>
+            <li><a th:href="@{/caresitters}">케어시터찾기</a></li>
+            <li><a th:href="@{/jopoffer}">일자리찾기</a></li>
+        </ul>
+    </div>
+    <script th:inline="javascript">
+        /*<![CDATA]*/
+        var id = /*[[ ${session.id} ]]*/'';
+        console.log(id);
+        /*]]*/
+    </script>
 </body>
 </html>

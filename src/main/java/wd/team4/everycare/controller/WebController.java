@@ -10,6 +10,16 @@ public class WebController {
     public String index(){
         return "all";
     }
+
+    @GetMapping("/dashboard")
+    public String dashboard(){
+        return "dashboard";
+    }
+
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
 //
 //    @GetMapping("/member")
 //    public String member(){
