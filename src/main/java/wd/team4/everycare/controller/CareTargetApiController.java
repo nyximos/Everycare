@@ -4,7 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import wd.team4.everycare.config.auth.PrincipalDetails;
+import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.CareTargetFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
@@ -22,8 +25,13 @@ public class CareTargetApiController {
     @ResponseBody
     @PostMapping("/carenote/caretargets/new")
     public ResponseEntity<MyResponse> saveCareTarget(
-            @ModelAttribute CareTargetFormDTO careTargetFormDTO
+            @ModelAttribute CareTargetFormDTO careTargetFormDTO,
+            @AuthenticationPrincipal PrincipalDetails principalDetails
     ) throws IOException {
+
+        Member user = principalDetails.getUser();
+        careTargetFormDTO.setMember(user);
+
         careTargetService.save(careTargetFormDTO);
 
         MyResponse<CareTargetFormDTO> body = MyResponse.<CareTargetFormDTO>builder()

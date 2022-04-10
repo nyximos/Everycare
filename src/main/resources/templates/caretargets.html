@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+  <meta charset="UTF-8"/>
+  <title>케어 대상인 관리</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <th:block th:if="${careTargets} == null">
+    <li><a th:href="@{/carenote/caretargets/new}">케어 대상인 등록ㄴㄴ</a></li>
+  </th:block>
+  <th:block th:if="${careTargets} != null">
+    <div th:each="careTarget : ${careTargets}">
+      <li th:text="${careTarget.name}"></li>
+    </div>
+    <li><a th:href="@{/carenote/caretargets/new}">케어 대상인 등록ㅇㅇ</a></li>
+  </th:block></div>
+</body>
+</html>

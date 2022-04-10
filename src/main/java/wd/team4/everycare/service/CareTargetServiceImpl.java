@@ -4,10 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetImage;
+import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.CareTargetFormDTO;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.repository.CareTargetImageRepository;
 import wd.team4.everycare.repository.CareTargetRepository;
+import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.service.exception.CareTargetNotFoundException;
 import wd.team4.everycare.service.interfaces.CareTargetService;
 
@@ -22,22 +24,21 @@ public class CareTargetServiceImpl implements CareTargetService {
     private final FileStoreService fileStoreService;
     private final CareTargetRepository careTargetRepository;
     private final CareTargetImageRepository careTargetImageRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public Long save(CareTargetFormDTO careTargetFormDTO) throws IOException {
 
         CareTarget careTarget = careTargetDtoToEntity(careTargetFormDTO);
         careTargetRepository.save(careTarget);
+        System.out.println("=================================");
+        System.out.println("careTarget = " + careTarget.getName());
 
-        UploadFile attachFile = fileStoreService.storeFile(careTargetFormDTO.getAttachFile());
         List<UploadFile> attachFiles = fileStoreService.storeFiles((careTargetFormDTO.getAttachFiles()));
 
-        CareTargetImage careTargetImage = careTargetDtoToImage(careTarget, attachFile);
-        careTargetImageRepository.save(careTargetImage);
-
         for (UploadFile file : attachFiles) {
-            CareTargetImage careTargetImage2 = careTargetDtoToImage(careTarget, file);
-            careTargetImageRepository.save(careTargetImage2);
+            CareTargetImage careTargetImage = careTargetDtoToImage(careTarget, file);
+            careTargetImageRepository.save(careTargetImage);
         }
 
         return careTarget.getId();
@@ -73,6 +74,13 @@ public class CareTargetServiceImpl implements CareTargetService {
         if(careTargetRepository.findById(id).isEmpty()){
             return true;
         } throw new CareTargetNotFoundException(id);
+    }
+
+    @Override
+    public List<CareTarget> findCareTargets(String id){
+        Optional<Member> member = memberRepository.findById(id);
+        return member.get().getCareTargets();
+
     }
 
     @Override

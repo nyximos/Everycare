@@ -67,7 +67,7 @@ public class CareTarget {
     @Column(name = "care_target_corona_test", nullable = false)
     private int coronaTest;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 

@@ -18,12 +18,6 @@
         <div id="top_menu" sec:authorize="isAnonymous()">
             <a th:href="@{/signin}">로그인 |</a>
             <a th:href="@{/signup}">회원가입</a>
-            <div>
-                <ul>
-                    <li sec:authentication="name">name</li>
-                    <li sec:authentication="authorities">authorities</li>
-                </ul>
-            </div>
         </div>
 
         <nav>
@@ -40,14 +34,19 @@
 
             <div>
                 <div sec:authorize="isAuthenticated()">
-                    <li>
-                        <button onclick="logout()">로그아웃</button>
-                    </li>
-                    <li><a th:href="@{/dashboard}">마이페이지</a></li>
+
+                    <li><span sec:authentication="name">name</span><span>님 안녕하세요!</span></li>
+                    <!--                            <li sec:authentication="authorities">authorities</li>-->
                 </div>
+
+                <li>
+                    <button onclick="logout()">로그아웃</button>
+                </li>
+                <li><a th:href="@{/dashboard}">마이페이지</a></li>
             </div>
-        </ul>
     </div>
+    </ul>
+</div>
 </div>
 </body>
 </html>
