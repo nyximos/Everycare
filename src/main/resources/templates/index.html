@@ -4,36 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Everycare</title>
-    <style>
-        header{
-            width: 1000px;
-            height: 95px;
-            background-color: #69f0ae;
-            position: relative;
-        }
-        #content li{
-            display: inline;
-            margin-left: 50px;
-        }
-    </style>
 </head>
 <body>
-
-    <header th:insert="header.html"></header>
+<header th:insert="header.html"></header>
 
 
 <!--            <li><a th:href="@{/caresitters}"><img src="2.PNG" ></a></li>-->
 <!--            <li><a th:href="@{/jopoffer}"><img src="1.PNG" ></a></li>-->
-        <ul id="content">
-            <li><a th:href="@{/caresitters}">케어시터찾기</a></li>
-            <li><a th:href="@{/jopoffer}">일자리찾기</a></li>
-        </ul>
+<ul id="content">
+    <li><a th:href="@{/caresitters}">케어시터찾기</a></li>
+    <li><a th:href="@{/jopoffer}">일자리찾기</a></li>
+</ul>
 
-    <script th:inline="javascript">
-        /*<![CDATA]*/
-        var id = /*[[ ${session.id} ]]*/'';
-        console.log(id);
-        /*]]*/
-    </script>
+<script th:inline="javascript">
+    /*<![CDATA]*/
+    var id = /*[[ ${session.id} ]]*/'';
+    console.log(id);
+    /*]]*/
+</script>
 </body>
 </html>
