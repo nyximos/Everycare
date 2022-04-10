@@ -43,5 +43,7 @@ public interface CareSitterService {
 
     boolean isEmpty(String id);
 
+    CareSitter findCareSitter(String id);
+
     List<CareSitterImage> findCareSitterImages(Long id);
 }

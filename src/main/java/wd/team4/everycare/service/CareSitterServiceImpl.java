@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.CareSitterImage;
+import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.CareSitterFormDTO;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.repository.CareSitterImageRepository;
@@ -88,6 +89,13 @@ public class CareSitterServiceImpl implements CareSitterService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public CareSitter findCareSitter(String id) {
+        Optional<Member> member = memberRepository.findById(id);
+        CareSitter careSitter = member.get().getCareSitter();
+        return careSitter;
     }
 
     @Override

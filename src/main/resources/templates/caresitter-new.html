@@ -1,77 +1,80 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="utf-8" />
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <meta charset="utf-8"/>
 
-		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-		<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-	<body>
-	<header th:insert="header.html"></header>
-	<div class="container">
-			<div class="py-5 text-center">
-				<h2>케어시터 프로필 등록</h2>
-			</div>
-			<form>
-				<ul>
-					<li>preferredType <input type="text" name="preferredType" id="preferredType" /></li>
-					<li>desiredDayWeek <input type="text" name="desiredDayWeek" id="desiredDayWeek" /></li>
-					<li>activityTime <input type="text" name="activityTime" id="activityTime" /></li>
-					<li>desiredHourlyWage <input type="text" name="desiredHourlyWage" id="desiredHourlyWage" /></li>
-					<li>desiredMonthlyWage <input type="text" name="desiredMonthlyWage" id="desiredMonthlyWage" /></li>
-					<li>cctvAgreement <input type="int" name="cctvAgreement" id="cctvAgreement" /></li>
-					<li>vaccination <input type="int" name="vaccination" id="vaccination" /></li>
-					<li>introduction <input type="text" name="introduction" id="introduction" /></li>
-					<li>disclosureStatus <input type="int" name="disclosureStatus" id="disclosureStatus" /></li>
-					<li>이미지 파일들<input type="file" multiple="multiple" name="attachFiles" id="attachFiles" /></li>
-				</ul>
-<!--				<input type="submit" onclick="submit()"/>-->
-                <input id="tokenField" type="hidden" />
-                <input id="submitButton" type="button" value="제출"/>
-			</form>
-		</div>
-		<!-- /container -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<body>
+<div layout:fragment="caresitterNew">
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>케어시터 프로필 등록</h2>
+        </div>
+        <form>
+            <ul>
+                <li>preferredType <input type="text" name="preferredType" id="preferredType"/></li>
+                <li>desiredDayWeek <input type="text" name="desiredDayWeek" id="desiredDayWeek"/></li>
+                <li>activityTime <input type="text" name="activityTime" id="activityTime"/></li>
+                <li>desiredHourlyWage <input type="text" name="desiredHourlyWage" id="desiredHourlyWage"/></li>
+                <li>desiredMonthlyWage <input type="text" name="desiredMonthlyWage" id="desiredMonthlyWage"/></li>
+                <li>cctvAgreement <input type="int" name="cctvAgreement" id="cctvAgreement"/></li>
+                <li>vaccination <input type="int" name="vaccination" id="vaccination"/></li>
+                <li>introduction <input type="text" name="introduction" id="introduction"/></li>
+                <li>disclosureStatus <input type="int" name="disclosureStatus" id="disclosureStatus"/></li>
+                <li>이미지 파일들<input type="file" multiple="multiple" name="attachFiles" id="attachFiles"/></li>
+            </ul>
+            <!--				<input type="submit" onclick="submit()"/>-->
+            <input id="tokenField" type="hidden"/>
+            <input id="submitButton" type="button" value="제출"/>
+        </form>
+    </div>
+    <!-- /container -->
 
-		<script th:inline="javascript">
+    <script th:inline="javascript">
 
-            $('#submitButton').on('click',function() {
-				const formData = new FormData();
+        $('#submitButton').on('click', function () {
+            const formData = new FormData();
 
-				formData.append('preferredType', $('#preferredType').val());
-				formData.append('desiredDayWeek', $('#desiredDayWeek').val());
-				formData.append('activityTime', $('#activityTime').val());
-				formData.append('desiredHourlyWage', $('#desiredHourlyWage').val());
-				formData.append('desiredMonthlyWage', $('#desiredMonthlyWage').val());
-				formData.append('cctvAgreement', $('#cctvAgreement').val());
-				formData.append('vaccination', $('#vaccination').val());
-				formData.append('introduction', $('#introduction').val());
-				formData.append('disclosureStatus', $('#disclosureStatus').val());
+            formData.append('preferredType', $('#preferredType').val());
+            formData.append('desiredDayWeek', $('#desiredDayWeek').val());
+            formData.append('activityTime', $('#activityTime').val());
+            formData.append('desiredHourlyWage', $('#desiredHourlyWage').val());
+            formData.append('desiredMonthlyWage', $('#desiredMonthlyWage').val());
+            formData.append('cctvAgreement', $('#cctvAgreement').val());
+            formData.append('vaccination', $('#vaccination').val());
+            formData.append('introduction', $('#introduction').val());
+            formData.append('disclosureStatus', $('#disclosureStatus').val());
 
-				if ($('#attachFiles')[0].files[0] === undefined){
-					alert("이미지를 첨부해주세요!");
-					return false;
-				} else{
-					const size = document.getElementById('attachFiles').files.length;
-					for (let i = 0; i < size; i++) {
-						formData.append('attachFiles', $('#attachFiles')[0].files[i]);
-					}
-				}
+            if ($('#attachFiles')[0].files[0] === undefined) {
+                alert("이미지를 첨부해주세요!");
+                return false;
+            } else {
+                const size = document.getElementById('attachFiles').files.length;
+                for (let i = 0; i < size; i++) {
+                    formData.append('attachFiles', $('#attachFiles')[0].files[i]);
+                }
+            }
 
-				$.ajax({
-					url: "/api/dashboard/caresitter",
-					type: 'POST',
-					cache: false,
-					contentType: false,
-					processData: false,
-					enctype: 'multipart/form-data',
-					headers: {
-						"Authorization": sessionStorage.getItem('access_token')
-					},
-					data: formData,
-					async: false,
-				})
+            $.ajax({
+                url: "/api/dashboard/caresitter",
+                type: 'POST',
+                cache: false,
+                contentType: false,
+                processData: false,
+                enctype: 'multipart/form-data',
+                headers: {
+                    "Authorization": sessionStorage.getItem('access_token')
+                },
+                data: formData,
+                async: false,
+            })
 
-            });
+        });
 
-		</script>
-	</body>
+    </script>
+</div>
+</body>
 </html>

@@ -13,6 +13,7 @@ import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.CareSitterImage;
 import wd.team4.everycare.repository.CareSitterRepository;
+import wd.team4.everycare.service.CareSitterServiceImpl;
 import wd.team4.everycare.service.FileStoreService;
 import wd.team4.everycare.service.interfaces.CareSitterService;
 
@@ -24,14 +25,24 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CareSitterWebController {
 
-    private final CareSitterService careSitterService;
+    private final CareSitterServiceImpl careSitterService;
     private final CareSitterRepository careSitterRepository;
     private final FileStoreService fileStoreService;
 
     @GetMapping("/dashboard/caresitter")
-    public String newCareSitter() {
-        return "caresitter-new";
+    public String newCareSitter(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        String id = principalDetails.getUsername();
+        CareSitter careSitter = careSitterService.findCareSitter(id);
+        System.out.println("careSitter = " + careSitter);
+        model.addAttribute("careSitter", careSitter);
+        return "caresitter";
     }
+
+
+//    @GetMapping("/dashboard/caresitter")
+//    public String newCareSitter() {
+//        return "caresitter-new";
+//    }
 
     @GetMapping("/caresitters/{id}")
     public String careSitterDetail(@PathVariable Long id, Model model) {
