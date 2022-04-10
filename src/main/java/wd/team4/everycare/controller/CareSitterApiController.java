@@ -56,16 +56,25 @@ public class CareSitterApiController {
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 
-    /*
     @ResponseBody
     @PutMapping("/dashboard/caresitter")
     public ResponseEntity<MyResponse> putCareSitter(
-            @RequestBody CareSitterDTO careSitterDTO
-    ){
+            @RequestBody CareSitterFormDTO careSitterFormDTO
+    ) throws IOException {
         LocalDateTime time = LocalDateTime.now();
-        careSitterService.
+        careSitterFormDTO.setUpdatedAt(time);
+
+        careSitterService.save(careSitterFormDTO);
+
+        MyResponse<CareSitterFormDTO> body = MyResponse.<CareSitterFormDTO>builder()
+                .header(StatusEnum.OK)
+                .message("성공했슴다~")
+                .body(careSitterFormDTO)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 
-     */
 
 }
