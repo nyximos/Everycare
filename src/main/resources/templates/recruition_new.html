@@ -10,38 +10,31 @@
     <title>Document</title>
 </head>
 <body>
-<div id="result">
-<!--        <ul th:each="c:${careTarget}">-->
-<!--            <li>이름: <span th:text="${c.name}"></span></li>-->
-<!--            <li>성별: <span th:text="${c.gender}"></span></li>-->
-<!--            <li>생년월일:<span th:text="${c.birth}"></span></li>-->
-<!--            <li>키:<span th:text="${c.height}"></span>cm&nbsp;&nbsp;-->
-<!--                몸무게:<span th:text="${c.weight}"></span>kg-->
-<!--            </li>-->
-<!--            <li>주소:<span th:text="${c.zipcode}"></span></li>-->
-<!--            <li>케어유형:<span th:text="${c.careType}"></span></li>-->
-<!--        </ul>-->
+<div id="result" th:each="c:${careTarget}">
+        <ul>
+            <li hidden th:text="${c.id}"></li>
+            <li>name: <span th:text="${c.name}"></span></li>
+            <li>gender: <span th:text="${c.gender}"></span></li>
+            <li>birth:<span th:text="${c.birth}"></span></li>
+            <li>height:<span th:text="${c.height}"></span>cm&nbsp;&nbsp;
+                weight:<span th:text="${c.weight}"></span>kg
+            </li>
+            <li>address:<span th:text="${c.zipcode}"></span></li>
+            <li>careType:<span th:text="${c.careType}"></span></li>
+        </ul>
+    <button th:id="${c.id}" class="id">선택</button>
 </div>
-    <button id="searchCareTarget">케어 대상인 찾기</button>
 </body>
 </html>
-<script>
-
-    const access_token = sessionStorage.getItem('access_token')
-    var base64Payload = access_token.split('.')[1]
-    const decode = atob(base64Payload)
-
-    console.log(typeof decode);
-    console.log(decode);
+<script th:inline="javascript">
 
     $(function () {
-        $('#searchCareTarget').on('click', function () {
+        $('.id').on('click', function () {
+            var getId=$(this).attr("id")
             $.ajax({
-                url: '/api/recruitions/new',
                 type: "post",
-                headers: {
-                    "Authorization": access_token
-                },
+                url: '/api/recruitions/recruition/'+getId,
+                data: JSON.stringify({ "id" : getId}),
                 contentType:'application/json',
                 dataType: 'json',
             })

@@ -36,29 +36,21 @@
 
             const detailId = $('#detailId').text()
 
-
             console.log(typeof detailId)
+            console.log(detailId)
 
             $.ajax({
-                url: '/api/recruitions/recruition',
-                type: 'POST',
-                data: detailId,
-                contentType:'application/json',
+                url: '/api/recruitions/recruitions/' + detailId,
+                type: "POST",
+                data: JSON.stringify({'id': detailId}),
                 dataType: 'json',
+                contentType:'application/json',
             })
                 .done((res) => {
+                    console.log(res.ok);
                     alert('삭제되었습니다')
-                    console.log(res)
                     location.href = "http://localhost:8086/recruitions"
                 })
-                .fail((err) => {
-                    console.log(err)
-                    alert('삭제 실패 하였습니다.')
-                    console.log(detailId)
-                })
-            /**
-             * TODO POST가 안된다...
-             * */
         })
     })
 </script>

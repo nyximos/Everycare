@@ -60,6 +60,13 @@ public class JobOfferWebController {
     @GetMapping("/recruitions/new")
     public String newJobOffer(Model model, HttpServletRequest request, @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
+        Member user = principalDetails.getUser();
+        System.out.println("user = " + user);
+
+        List<CareTarget> findCareTarget = careTargetRepository.findAllByMember_Id(user.getId());
+        model.addAttribute("careTarget", findCareTarget);
+        System.out.println("findCareTarget = " + findCareTarget);
+
 
 //        String accessToken = request.getHeader("Authorization");
 //        if (accessToken != null) {
@@ -72,9 +79,6 @@ public class JobOfferWebController {
 //
 //            System.out.println("username = " + username);
 //
-//            List<CareTarget> findCareTarget = careTargetRepository.findAllByMember_Id(String.valueOf(username));
-//            model.addAttribute("careTarget", findCareTarget);
-//            System.out.println("findCareTarget = " + findCareTarget);
 //        }
         return "recruition_new";
     }
