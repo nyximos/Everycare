@@ -1,33 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{margin: 0px; padding: 0px;}
+        ul {
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+        }
+
+        #logo{
+            position: absolute;
+            top: 30px;
+            left: 30px;
+        }
+        #top_menu{
+            position: absolute;
+            top: 20px;
+            right: 5px;
+            color: white;
+        }
+        #top_menu a{color: white;}
+        nav{
+            position: absolute;
+            bottom: 10px;
+            left: 220px;
+            font-size: 16px;
+        }
+        nav li {
+            display: inline;
+            margin-left: 30px;
+        }
+        nav li a{color: white;}
+    </style>
+</head>
+<body>
 <div class="header" th:fragment="header">
-    <div class="header-box">
-        <h1><a href="/" style="margin-left: 100px;"><span>Everycare</span></a></h1>
+        <h1><div id="logo"><a href="/"><span>Everycare</span></a></div></h1>
         <div>
+            <div id="top_menu" sec:authorize="isAnonymous()">
+                <a th:href="@{/signin}">로그인 |</a>
+                <a th:href="@{/signup}">회원가입</a>
+                <div>
+                    <ul>
+                        <li sec:authentication="name">name</li>
+                        <li sec:authentication="authorities">authorities</li>
+                    </ul>
+                </div>
+            </div>
+
+            <nav>
             <ul>
                 <li><a th:href="@{/}">케어매칭</a></li>
                 <li><a th:href="@{/carenote}">케어노트</a></li>
                 <li><a th:href="@{/store}">케어스토어</a></li>
                 <li><a th:href="@{/dashboard}">마이페이지</a></li>
             </ul>
+            </nav>
         </div>
+
         <div>
             <ul>
-                <li sec:authentication="name">name</li>
-                <li sec:authentication="authorities">authorities</li>
-            </ul>
-        </div>
-        <div>
-            <ul>
-                <div sec:authorize="isAnonymous()">
-                    <li><a th:href="@{/signin}">로그인</a></li>
-                    <li><a th:href="@{/signup}">회원가입</a></li>
-                </div>
+
                 <div>
                     <div sec:authorize="isAuthenticated()">
-                        <li><button onclick="logout()">로그아웃</button></li>
-                        <li><a href="#none">정보수정</a></li>
+                        <button onclick="logout()">로그아웃</button> |
+                        <a href="#none">정보수정</a>
                     </div>
                 </div>
             </ul>
         </div>
-    </div>
 </div>
+</body>
+</html>
