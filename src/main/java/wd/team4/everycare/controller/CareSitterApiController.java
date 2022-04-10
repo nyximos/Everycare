@@ -57,22 +57,17 @@ public class CareSitterApiController {
     }
 
     @ResponseBody
-    @PutMapping("/dashboard/caresitter")
+    @PatchMapping("/dashboard/caresitter/{id}")
     public ResponseEntity<MyResponse> putCareSitter(
-            @RequestBody CareSitterFormDTO careSitterFormDTO
+            @PathVariable("id") Long id,
+            @ModelAttribute CareSitterFormDTO careSitterFormDTO,
+            @AuthenticationPrincipal PrincipalDetails principalDetails
     ) throws IOException {
-        LocalDateTime time = LocalDateTime.now();
-        careSitterFormDTO.setUpdatedAt(time);
-
-        careSitterService.save(careSitterFormDTO);
-
-        MyResponse<CareSitterFormDTO> body = MyResponse.<CareSitterFormDTO>builder()
+        careSitterService.update(id, careSitterFormDTO);
+        MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("성공했슴다~")
-                .body(careSitterFormDTO)
                 .build();
-
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 }

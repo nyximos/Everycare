@@ -85,7 +85,7 @@ public class CareSitterServiceImpl implements CareSitterService {
 
     @Override
     public boolean isEmpty(String id) {
-        if(isEmpty(String.valueOf(memberRepository.findById(id)))) {
+        if (isEmpty(String.valueOf(memberRepository.findById(id)))) {
             return true;
         }
         return false;
@@ -103,6 +103,18 @@ public class CareSitterServiceImpl implements CareSitterService {
         CareSitter careSitter = isPresent(id);
         return careSitter.getCareSitterImages();
 
+    }
+
+    @Override
+    public String update(Long id, CareSitterFormDTO careSitterFormDTO) {
+        Optional<CareSitter> careSitter = careSitterRepository.findById(id);
+        CareSitter careSitterEntity = careSitter.orElse(null);
+        if (careSitterEntity == null) {
+            System.out.println("케어시터가 없으므로 종료해야함");
+            return "실패했씀다~";
+        }
+        careSitterEntity.updateInfo(careSitterFormDTO);
+        return "수정했슴다~";
     }
 
 

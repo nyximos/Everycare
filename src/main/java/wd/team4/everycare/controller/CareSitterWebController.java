@@ -15,7 +15,6 @@ import wd.team4.everycare.domain.CareSitterImage;
 import wd.team4.everycare.repository.CareSitterRepository;
 import wd.team4.everycare.service.CareSitterServiceImpl;
 import wd.team4.everycare.service.FileStoreService;
-import wd.team4.everycare.service.interfaces.CareSitterService;
 
 import java.net.MalformedURLException;
 import java.util.List;
@@ -35,14 +34,13 @@ public class CareSitterWebController {
         CareSitter careSitter = careSitterService.findCareSitter(id);
         System.out.println("careSitter = " + careSitter);
         model.addAttribute("careSitter", careSitter);
+
+        List<CareSitterImage> careSitterImages = careSitterService.findCareSitterImages(careSitter.getId());
+        if(careSitterImages!=null){
+            model.addAttribute("careSitterImages", careSitterImages);
+        }
         return "caresitter";
     }
-
-
-//    @GetMapping("/dashboard/caresitter")
-//    public String newCareSitter() {
-//        return "caresitter-new";
-//    }
 
     @GetMapping("/caresitters/{id}")
     public String careSitterDetail(@PathVariable Long id, Model model) {

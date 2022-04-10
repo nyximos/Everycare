@@ -19,7 +19,6 @@
                 <li><a th:href="@{/}">케어매칭</a></li>
                 <li><a th:href="@{/carenote}">케어노트</a></li>
                 <li><a th:href="@{/store}">케어스토어</a></li>
-                <li><a th:href="@{/dashboard}">마이페이지</a></li>
             </ul>
         </div>
         <div>
@@ -37,7 +36,7 @@
                 <div>
                     <div sec:authorize="isAuthenticated()">
                         <li><button onclick="logout()">로그아웃</button></li>
-                        <li><a href="#none">정보수정</a></li>
+                        <li><a th:href="@{/dashboard}">마이페이지</a></li>
                     </div>
                 </div>
             </ul>

@@ -23,7 +23,7 @@
             <li>vaccination <input type="int" name="vaccination" id="vaccination" th:value="${careSitter.vaccination}"/></li>
             <li>introduction <input type="text" name="introduction" id="introduction" th:value="${careSitter.introduction}"/></li>
             <li>disclosureStatus <input type="int" name="disclosureStatus" id="disclosureStatus" th:value="${careSitter.disclosureStatus}"/></li>
-            <li>이미지 파일들<input type="file" multiple="multiple" name="attachFiles" id="attachFiles" th:value="${careSitter.attachFiles}"/></li>
+            <li>이미지 파일들<input type="file" multiple="multiple" name="attachFiles" id="attachFiles"/></li>
         </ul>
         <!--				<input type="submit" onclick="submit()"/>-->
         <input id="tokenField" type="hidden" />
@@ -57,16 +57,18 @@
             }
         }
 
+        /*<![CDATA]*/
+        var id = /*[[ ${careSitter.id} ]]*/'';
+        console.log(id);
+        /*]]*/
+
         $.ajax({
-            url: "/api/dashboard/caresitter",
-            type: 'PUT',
+            url: "/api/dashboard/caresitter/"+id,
+            type: 'PATCH',
             cache: false,
             contentType: false,
             processData: false,
             enctype: 'multipart/form-data',
-            headers: {
-                "Authorization": sessionStorage.getItem('access_token')
-            },
             data: formData,
             async: false,
         })

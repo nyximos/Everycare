@@ -46,4 +46,6 @@ public interface CareSitterService {
     CareSitter findCareSitter(String id);
 
     List<CareSitterImage> findCareSitterImages(Long id);
+
+    String update(Long id, CareSitterFormDTO careSitterFormDTO);
 }
