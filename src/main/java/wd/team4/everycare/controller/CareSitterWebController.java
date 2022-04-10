@@ -3,11 +3,13 @@ package wd.team4.everycare.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
+import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.CareSitterImage;
 import wd.team4.everycare.repository.CareSitterRepository;
@@ -31,31 +33,6 @@ public class CareSitterWebController {
         return "caresitter-new";
     }
 
-//    @GetMapping("/dashboard/caresitter")
-//    public String newCareSitter(@RequestHeader String authorization) {
-//
-//        String loginId = memberService.getId(authorization);
-//        System.out.println("loginId = " + loginId);
-//        return "caresitter-new";
-//    }
-
-    /*
-    @GetMapping("/dashboard/caresitter")
-    public String newCareSitter(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-//        Object principal = SecurityContextHolder.getContext()
-//                .getAuthentication().getPrincipal();
-//        System.out.println(principalDetails.getUser());
-
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        System.out.println("principal : " + authentication.getPrincipal());
-//        System.out.println("Implementing class of UserDetails: " + authentication.getPrincipal().getClass());
-//        System.out.println("Implementing class of UserDetailsService: " + principalDetails.getClass());
-//        System.out.println(principalDetails.getUsername());
-        return "caresitter-new";
-    }
-    */
-
-
     @GetMapping("/caresitters/{id}")
     public String careSitterDetail(@PathVariable Long id, Model model) {
         Optional<CareSitter> careSitter = careSitterRepository.findById(id);
@@ -72,5 +49,19 @@ public class CareSitterWebController {
     @GetMapping("/images/{filename}")
     public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
         return new UrlResource("file:" + fileStoreService.getFullPath(filename));
+    }
+
+    @GetMapping("/dashboard/caresitter/{id}")
+    public String updateCareSitter(@PathVariable Long id, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
+
+        CareSitter careSitter = careSitterService.isPresent(id);
+        List<CareSitterImage> careSitterImages = careSitterService.findCareSitterImages(id);
+
+        model.addAttribute("careSitter", careSitter);
+        model.addAttribute("careSitterImages", careSitterImages);
+
+        model.addAttribute(careSitter);
+
+        return "caresitter-update";
     }
 }

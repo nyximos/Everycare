@@ -75,6 +75,4 @@ public class CareSitterApiController {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
-
-
 }
