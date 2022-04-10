@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 
 @Getter
-@ToString
 @NoArgsConstructor
 @Entity
 @SequenceGenerator(name = "care_sitter_image_seq_generator",

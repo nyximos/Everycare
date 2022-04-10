@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@ToString
 @NoArgsConstructor
 @Entity
 @Table(name = "care_target")
