@@ -65,9 +65,6 @@
                 contentType: false,
                 processData: false,
                 enctype: 'multipart/form-data',
-                headers: {
-                    "Authorization": sessionStorage.getItem('access_token')
-                },
                 data: formData,
                 async: false,
             })
