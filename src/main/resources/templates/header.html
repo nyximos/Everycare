@@ -31,22 +31,18 @@
 
     <div>
         <ul>
-
             <div>
                 <div sec:authorize="isAuthenticated()">
-
                     <li><span sec:authentication="name">name</span><span>님 안녕하세요!</span></li>
                     <!--                            <li sec:authentication="authorities">authorities</li>-->
+                    <li>
+                        <button onclick="logout()">로그아웃</button>
+                    </li>
+                    <li><a th:href="@{/dashboard}">마이페이지</a></li>
                 </div>
-
-                <li>
-                    <button onclick="logout()">로그아웃</button>
-                </li>
-                <li><a th:href="@{/dashboard}">마이페이지</a></li>
             </div>
+        </ul>
     </div>
-    </ul>
-</div>
 </div>
 </body>
 </html>
