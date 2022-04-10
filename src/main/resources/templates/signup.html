@@ -5,6 +5,10 @@
 <head>
     <meta charset="utf-8" />
     <title>회원가입</title>
+    <th:block layout:fragment="styles">
+        <!--        <script src="/css/signin.css"></script>-->
+        <script src="/js/signup.js"></script>
+    </th:block>
 </head>
 <body>
 <div layout:fragment="content">
@@ -27,7 +31,7 @@
                 <li>bank <input type="text" name="bank" /></li>
                 <li>accountNumber <input type="text" name="accountNumber" /></li>
             </ul>
-            <input type="submit" />
+            <input type="submit" value="회원가입"/>
         </form>
     </div>
 </div>
