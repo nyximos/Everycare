@@ -33,14 +33,6 @@
 <!-- /container -->
 
 <script th:inline="javascript">
-
-    $.ajax({
-        type:"GET",
-        headers: {
-            "Authorization": sessionStorage.getItem('access_token')
-        },
-    })
-
     $('#submitButton').on('click',function() {
         const formData = new FormData();
 
@@ -71,9 +63,6 @@
             contentType: false,
             processData: false,
             enctype: 'multipart/form-data',
-            headers: {
-                "Authorization": sessionStorage.getItem('access_token')
-            },
             data: formData,
             async: false,
         })
