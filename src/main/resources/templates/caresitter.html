@@ -15,15 +15,15 @@
             </div>
             <form>
                 <ul>
-                    <li>preferredType <input type="text" name="preferredType" id="preferredType"/></li>
-                    <li>desiredDayWeek <input type="text" name="desiredDayWeek" id="desiredDayWeek"/></li>
-                    <li>activityTime <input type="text" name="activityTime" id="activityTime"/></li>
-                    <li>desiredHourlyWage <input type="text" name="desiredHourlyWage" id="desiredHourlyWage"/></li>
-                    <li>desiredMonthlyWage <input type="text" name="desiredMonthlyWage" id="desiredMonthlyWage"/></li>
-                    <li>cctvAgreement <input type="int" name="cctvAgreement" id="cctvAgreement"/></li>
-                    <li>vaccination <input type="int" name="vaccination" id="vaccination"/></li>
-                    <li>introduction <input type="text" name="introduction" id="introduction"/></li>
-                    <li>disclosureStatus <input type="int" name="disclosureStatus" id="disclosureStatus"/></li>
+                    <li>선호 케어 유형 <input type="text" name="preferredType" id="preferredType"/></li>
+                    <li>희망 활동 요일 <input type="text" name="desiredDayWeek" id="desiredDayWeek"/></li>
+                    <li>활동 시간 <input type="text" name="activityTime" id="activityTime"/></li>
+                    <li>희망 시급 <input type="text" name="desiredHourlyWage" id="desiredHourlyWage"/></li>
+                    <li>희망 월급 <input type="text" name="desiredMonthlyWage" id="desiredMonthlyWage"/></li>
+                    <li>CCTV 동의여부 <input type="int" name="cctvAgreement" id="cctvAgreement"/></li>
+                    <li>백신접종 유무 <input type="int" name="vaccination" id="vaccination"/></li>
+                    <li>소개글  <input type="text" name="introduction" id="introduction"/></li>
+                    <li>공개여부 <input type="int" name="disclosureStatus" id="disclosureStatus"/></li>
                     <li>이미지 파일들<input type="file" multiple="multiple" name="attachFiles" id="attachFiles"/></li>
                 </ul>
                 <!--				<input type="submit" onclick="submit()"/>-->
@@ -65,9 +65,6 @@
                     contentType: false,
                     processData: false,
                     enctype: 'multipart/form-data',
-                    headers: {
-                        "Authorization": sessionStorage.getItem('access_token')
-                    },
                     data: formData,
                     async: false,
                 })
@@ -82,14 +79,14 @@
         <div class="py-5 text-center">
             <h2>케어시터 조회</h2>
         </div>
-        preferredType: <span th:text="${careSitter.preferredType}"></span><br/>
-        desiredDayWeek: <span th:text="${careSitter.desiredDayWeek}"></span><br/>
-        activityTime: <span th:text="${careSitter.activityTime}"></span><br/>
-        desiredHourlyWage: <span th:text="${careSitter.desiredHourlyWage}"></span><br/>
-        desiredMonthlyWage: <span th:text="${careSitter.desiredMonthlyWage}"></span><br/>
-        cctvAgreement: <span th:text="${careSitter.cctvAgreement}"></span><br/>
-        vaccination: <span th:text="${careSitter.vaccination}"></span><br/>
-        introduction: <span th:text="${careSitter.introduction}"></span><br/>
+        선호 케어 유형: <span th:text="${careSitter.preferredType}"></span><br/>
+        희망 활동 요일: <span th:text="${careSitter.desiredDayWeek}"></span><br/>
+        희망 활동 시간: <span th:text="${careSitter.activityTime}"></span><br/>
+        희망 시급: <span th:text="${careSitter.desiredHourlyWage}"></span><br/>
+        희망 월급: <span th:text="${careSitter.desiredMonthlyWage}"></span><br/>
+        CCTV 동의여부: <span th:text="${careSitter.cctvAgreement}"></span><br/>
+        백신접종 유무: <span th:text="${careSitter.vaccination}"></span><br/>
+        소개글: <span th:text="${careSitter.introduction}"></span><br/>
 
         <div th:each="careSitterImage : ${careSitterImages}">
             <a th:href="|/attach/${careSitterImage.id}|"

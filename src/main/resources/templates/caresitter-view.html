@@ -11,14 +11,14 @@
         <div class="py-5 text-center">
             <h2>케어시터 조회</h2>
         </div>
-        preferredType: <span th:text="${careSitter.preferredType}"></span><br/>
-        desiredDayWeek: <span th:text="${careSitter.desiredDayWeek}"></span><br/>
-        activityTime: <span th:text="${careSitter.activityTime}"></span><br/>
-        desiredHourlyWage: <span th:text="${careSitter.desiredHourlyWage}"></span><br/>
-        desiredMonthlyWage: <span th:text="${careSitter.desiredMonthlyWage}"></span><br/>
-        cctvAgreement: <span th:text="${careSitter.cctvAgreement}"></span><br/>
-        vaccination: <span th:text="${careSitter.vaccination}"></span><br/>
-        introduction: <span th:text="${careSitter.introduction}"></span><br/>
+        선호케어유형: <span th:text="${careSitter.preferredType}"></span><br/>
+        희망활동요일: <span th:text="${careSitter.desiredDayWeek}"></span><br/>
+        희망활동시간: <span th:text="${careSitter.activityTime}"></span><br/>
+        희망 시급: <span th:text="${careSitter.desiredHourlyWage}"></span><br/>
+        희망 월급: <span th:text="${careSitter.desiredMonthlyWage}"></span><br/>
+        CCTV 동의여부: <span th:text="${careSitter.cctvAgreement}"></span><br/>
+        백신접종유무: <span th:text="${careSitter.vaccination}"></span><br/>
+        소개글: <span th:text="${careSitter.introduction}"></span><br/>
 
         <div th:each="careSitterImage : ${careSitterImages}">
             <a th:href="|/attach/${careSitterImage.id}|"
