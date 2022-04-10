@@ -48,6 +48,20 @@ public class CareTargetApiController {
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 
+    @ResponseBody
+    @PatchMapping("/carenote/caretargets/{id}")
+    public ResponseEntity<MyResponse> patchCareTarget(
+            @PathVariable("id") Long id,
+            @ModelAttribute CareTargetFormDTO careTargetFormDTO
+    ){
+        careTargetService.update(id, careTargetFormDTO);
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공했슴다~")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
     @DeleteMapping("/carenote/caretargets/{id}")
     public ResponseEntity<MyResponse> deleteCareTarget(@PathVariable("id") Long id ){
         careTargetRepository.deleteById(id);

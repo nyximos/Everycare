@@ -50,5 +50,16 @@ public class CareTargetWebController {
         model.addAttribute("careTargetImages", careTargetImages);
         return "caretarget-view";
     }
+    @GetMapping("/carenote/caretargets/{id}/update")
+    public String updateCareTarget(@PathVariable Long id, Model model){
+        Optional<CareTarget> careTarget = careTargetRepository.findById(id);
+        if(careTarget.isEmpty()) return null;
+
+        List<CareTargetImage> careTargetImages = careTargetService.findCareTargetImages(id);
+
+        model.addAttribute("careTarget", careTarget.get());
+        model.addAttribute("careTargetImages", careTargetImages);
+        return "caretarget-update";
+    }
 
 }

@@ -51,4 +51,5 @@ public interface CareTargetService {
 
     List<CareTargetImage> findCareTargetImages(Long id);
 
+    String update(Long id, CareTargetFormDTO careTargetFormDTO);
 }

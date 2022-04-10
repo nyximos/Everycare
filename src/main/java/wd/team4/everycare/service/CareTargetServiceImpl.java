@@ -2,6 +2,7 @@ package wd.team4.everycare.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetImage;
 import wd.team4.everycare.domain.Member;
@@ -19,6 +20,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CareTargetServiceImpl implements CareTargetService {
 
     private final FileStoreService fileStoreService;
@@ -87,6 +89,19 @@ public class CareTargetServiceImpl implements CareTargetService {
     public List<CareTargetImage> findCareTargetImages(Long id) {
         CareTarget careTarget = isPresent(id);
         return careTarget.getCareTargetImages();
+    }
+
+    @Override
+    public String update(Long id, CareTargetFormDTO careTargetFormDTO) {
+        Optional<CareTarget> careTarget = careTargetRepository.findById(id);
+        CareTarget careTargetEntity = careTarget.orElse(null);
+        System.out.println(careTargetEntity.getName());
+        if(careTargetEntity == null) {
+            System.out.println("케어 대상인이 없으므로 종료");
+            return "실패";
+        }
+        careTargetEntity.updateInfo(careTargetFormDTO);
+        return "수정완료";
     }
 
 }

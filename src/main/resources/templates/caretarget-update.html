@@ -1,0 +1,92 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+  <meta charset="utf-8" />
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<body>
+<header th:insert="header.html"></header>
+<div layout:fragment="content">
+  <div class="container">
+    <div class="py-5 text-center">
+      <h2>케어 대상인 수정</h2>
+    </div>
+    <form>
+      <ul>
+        <li>이름 <input type="text" name="name" id="name" th:value="${careTarget.name}" /></li>
+        <li>성별 <input type="text" name="gender" id="gender" th:value="${careTarget.gender}"/></li>
+        <li>생년월일 <input type="date" name="birth" id="birth" th:value="${careTarget.birth}"/></li>
+        <li>키 <input type="number" name="height" id="height" th:value="${careTarget.height}"/></li>
+        <li>몸무게 <input type="number" name="weight" id="weight" th:value="${careTarget.weight}"/></li>
+        <li>우편번호 <input type="text" name="zipcode" id="zipcode" th:value="${careTarget.zipcode}"/></li>
+        <li>주소 <input type="text" name="address" id="address"th:value="${careTarget.address}" /></li>
+        <li>상세 주소 <input type="text" name="detailedAddress" id="detailedAddress" th:value="${careTarget.detailedAddress}"/></li>
+        <li>장기 요양 등급 <input type="number" name="longTermCareGrade" id="longTermCareGrade" th:value="${careTarget.longTermCareGrade}"/></li>
+        <li>설명 <input type="text" name="comment" id="comment" th:value="${careTarget.comment}"/></li>
+        <li>반려동물 유무 <input type="number" name="pet" id="pet" th:value="${careTarget.pet}"/></li>
+        <li>CCTV 여부 <input type="number" name="isCctvAgreement" id="isCctvAgreement" th:value="${careTarget.isCctvAgreement}"/></li>
+        <li>케어 유형 <input type="text" name="careType" id="careType" th:value="${careTarget.careType}"/></li>
+        <li>백신접종 유무 <input type="number" name="coronaTest" id="coronaTest" th:value="${careTarget.coronaTest}"/></li>
+        <li>이미지 파일들<input type="file" multiple="multiple" name="attachFiles" id="attachFiles"/></li>
+      </ul>
+      <!--				<input type="submit" onclick="submit()"/>-->
+      <input id="tokenField" type="hidden" />
+      <input id="submitButton" type="button" value="제출"/>
+    </form>
+  </div>
+  <!-- /container -->
+
+  <script th:inline="javascript">
+
+    $('#submitButton').on('click',function() {
+      const formData = new FormData();
+
+      formData.append('name', $('#name').val());
+      formData.append('gender', $('#gender').val());
+      formData.append('birth', $('#birth').val());
+      formData.append('height', $('#height').val());
+      formData.append('weight', $('#weight').val());
+      formData.append('zipcode', $('#zipcode').val());
+      formData.append('address', $('#address').val());
+      formData.append('detailedAddress', $('#detailedAddress').val());
+      formData.append('longTermCareGrade', $('#longTermCareGrade').val());
+      formData.append('comment', $('#comment').val());
+      formData.append('pet', $('#pet').val());
+      formData.append('isCctvAgreement', $('#isCctvAgreement').val());
+      formData.append('careType', $('#careType').val());
+      formData.append('coronaTest', $('#coronaTest').val());
+
+      if ($('#attachFiles')[0].files[0] === undefined) {
+        alert("이미지를 첨부해주세요!");
+        return false;
+      } else {
+        const size = document.getElementById('attachFiles').files.length;
+        for (let i = 0; i < size; i++) {
+          formData.append('attachFiles', $('#attachFiles')[0].files[i]);
+        }
+      }
+
+      /*<![CDATA]*/
+      var id = /*[[ ${careTarget.id} ]]*/'';
+      console.log(id);
+      /*]]*/
+
+      $.ajax({
+        url: "/api/carenote/caretargets/"+id,
+        type: 'PATCH',
+        cache: false,
+        contentType: false,
+        processData: false,
+        enctype: 'multipart/form-data',
+        data: formData,
+        async: false,
+      })
+      location.href="/carenote/caretargets";
+    });
+
+  </script>
+</div>
+</body>
+</html>
