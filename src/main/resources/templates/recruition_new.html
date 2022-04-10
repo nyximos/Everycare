@@ -10,37 +10,79 @@
     <title>Document</title>
 </head>
 <body>
-<div id="result" th:each="c:${careTarget}">
-        <ul>
-            <li hidden th:text="${c.id}"></li>
-            <li>name: <span th:text="${c.name}"></span></li>
-            <li>gender: <span th:text="${c.gender}"></span></li>
-            <li>birth:<span th:text="${c.birth}"></span></li>
-            <li>height:<span th:text="${c.height}"></span>cm&nbsp;&nbsp;
-                weight:<span th:text="${c.weight}"></span>kg
-            </li>
-            <li>address:<span th:text="${c.zipcode}"></span></li>
-            <li>careType:<span th:text="${c.careType}"></span></li>
-        </ul>
+<div th:each="c:${careTarget}">
+    <ul>
+        <li hidden th:text="${c.id}"></li>
+        <li>name: <span th:text="${c.name}"></span></li>
+        <li>gender: <span th:text="${c.gender}"></span></li>
+        <li>birth:<span th:text="${c.birth}"></span></li>
+        <li>height:<span th:text="${c.height}"></span>cm&nbsp;&nbsp;
+            weight:<span th:text="${c.weight}"></span>kg
+        </li>
+        <li>address:<span th:text="${c.zipcode}"></span></li>
+        <li>careType:<span th:text="${c.careType}"></span></li>
+    </ul>
     <button th:id="${c.id}" class="id">선택</button>
+</div>
+<div>
+    <ul class="result"></ul>
 </div>
 </body>
 </html>
 <script th:inline="javascript">
 
+    let careTargetId
+    let scheduleId
+
+    //구인글 신청위한 데이터 가져오기
     $(function () {
         $('.id').on('click', function () {
-            var getId=$(this).attr("id")
+            careTargetId = $(this).attr("id")
             $.ajax({
                 type: "post",
-                url: '/api/recruitions/recruition/'+getId,
-                data: JSON.stringify({ "id" : getId}),
-                contentType:'application/json',
+                url: '/api/recruitions/recruition/' + careTargetId,
+                data: JSON.stringify({"id": careTargetId}),
+                contentType: 'application/json',
                 dataType: 'json',
+                async:false,
             })
-                .done((res)=>{
+                .done((res) => {
                     console.log(res)
+                    for (const resKey in res) {
+                        let arr = res[resKey]
+                        $('.result').append(`<li>스케줄 이름 : ${arr.name}</li><li>시작시간 : ${arr.startTime}</li><li>종료 시간 : ${arr.endTime}</li> <br>
+                        <select class="gender">
+                            <option value="W">W</option>
+                            <option value="M">M</option>
+                        </select>
+                        <textarea class="comment" cols="30" rows="10"></textarea>
+                        <button class="offer" id="${arr.id}">신청</button>`)
+                    }
                 })
+        })
+    })
+
+    // 구인글 신청
+    $(function () {
+        $('.offer').on('click', function () {
+            console.log('되냐')
+            scheduleId = $(this).attr("id")
+            $.ajax({
+                type: 'post',
+                url: '/api/recruitions/new',
+                data:{
+                    'careTargetId' : careTargetId,
+                    'ScheduleId' : scheduleId,
+                    'care_type' : $('.gender').val(),
+                    'comment' : $('.comment').val()
+                },
+                contentType: 'application/json',
+                async: false
+            }).done((res)=>{
+                console.log(res)
+            }).fail((err)=>{
+                console.log(err)
+            })
         })
     })
 

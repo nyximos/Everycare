@@ -10,7 +10,5 @@ import java.util.Optional;
 
 public interface CareTargetScheduleRepository extends JpaRepository<CareTargetSchedule, Integer> {
 
-    CareTargetScheduleDTO findByCareTarget_Id(Long id);
-
     List<CareTargetSchedule> findByCareTarget_Id(Long id);
 }
