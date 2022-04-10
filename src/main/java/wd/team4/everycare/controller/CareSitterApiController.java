@@ -58,11 +58,10 @@ public class CareSitterApiController {
 
     @ResponseBody
     @PatchMapping("/dashboard/caresitter/{id}")
-    public ResponseEntity<MyResponse> putCareSitter(
+    public ResponseEntity<MyResponse> patchCareSitter(
             @PathVariable("id") Long id,
-            @ModelAttribute CareSitterFormDTO careSitterFormDTO,
-            @AuthenticationPrincipal PrincipalDetails principalDetails
-    ) throws IOException {
+            @ModelAttribute CareSitterFormDTO careSitterFormDTO
+    ){
         careSitterService.update(id, careSitterFormDTO);
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)

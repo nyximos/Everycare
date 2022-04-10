@@ -2,14 +2,18 @@ package wd.team4.everycare.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Fetch;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.CareTargetFormDTO;
+import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@DynamicUpdate
 @Getter
 @NoArgsConstructor
 @Entity
@@ -67,11 +71,11 @@ public class CareTarget {
     @Column(name = "care_target_corona_test", nullable = false)
     private int coronaTest;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "careTarget")
+    @OneToMany(mappedBy = "careTarget", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CareTargetImage> careTargetImages = new ArrayList<>();
 
     @Builder
@@ -91,5 +95,50 @@ public class CareTarget {
         this.careType = careType;
         this.coronaTest = coronaTest;
         this.member = member;
+    }
+
+    public void updateInfo(CareTargetFormDTO careTargetFormDTO) {
+        if(StringUtils.isNotBlank(careTargetFormDTO.getName())) {
+            this.name = careTargetFormDTO.getName();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(careTargetFormDTO.getGender()))) {
+            this.gender = careTargetFormDTO.getGender();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(careTargetFormDTO.getBirth()))) {
+            this.birth = careTargetFormDTO.getBirth();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(careTargetFormDTO.getHeight()))) {
+            this.height = careTargetFormDTO.getHeight();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(careTargetFormDTO.getWeight()))) {
+            this.weight = careTargetFormDTO.getWeight();
+        }
+        if(StringUtils.isNotBlank(careTargetFormDTO.getZipcode())) {
+            this.zipcode = careTargetFormDTO.getZipcode();
+        }
+        if(StringUtils.isNotBlank(careTargetFormDTO.getDetailedAddress())) {
+            this.address = careTargetFormDTO.getAddress();
+        }
+        if(StringUtils.isNotBlank(careTargetFormDTO.getDetailedAddress())) {
+            this.detailedAddress = careTargetFormDTO.getDetailedAddress();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(careTargetFormDTO.getLongTermCareGrade()))) {
+            this.longTermCareGrade = careTargetFormDTO.getLongTermCareGrade();
+        }
+        if(StringUtils.isNotBlank(careTargetFormDTO.getComment())) {
+            this.comment = careTargetFormDTO.getComment();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(careTargetFormDTO.getPet()))) {
+            this.pet = careTargetFormDTO.getPet();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(careTargetFormDTO.getIsCctvAgreement()))) {
+            this.isCctvAgreement = careTargetFormDTO.getIsCctvAgreement();
+        }
+        if(StringUtils.isNotBlank(careTargetFormDTO.getCareType())) {
+            this.careType = careTargetFormDTO.getCareType();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(careTargetFormDTO.getCoronaTest()))) {
+            this.coronaTest = careTargetFormDTO.getCoronaTest();
+        }
     }
 }

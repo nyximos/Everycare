@@ -2,12 +2,15 @@ package wd.team4.everycare.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetImage;
+import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.CareTargetFormDTO;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.repository.CareTargetImageRepository;
 import wd.team4.everycare.repository.CareTargetRepository;
+import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.service.exception.CareTargetNotFoundException;
 import wd.team4.everycare.service.interfaces.CareTargetService;
 
@@ -17,27 +20,27 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CareTargetServiceImpl implements CareTargetService {
 
     private final FileStoreService fileStoreService;
     private final CareTargetRepository careTargetRepository;
     private final CareTargetImageRepository careTargetImageRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public Long save(CareTargetFormDTO careTargetFormDTO) throws IOException {
 
         CareTarget careTarget = careTargetDtoToEntity(careTargetFormDTO);
         careTargetRepository.save(careTarget);
+        System.out.println("=================================");
+        System.out.println("careTarget = " + careTarget.getName());
 
-        UploadFile attachFile = fileStoreService.storeFile(careTargetFormDTO.getAttachFile());
         List<UploadFile> attachFiles = fileStoreService.storeFiles((careTargetFormDTO.getAttachFiles()));
 
-        CareTargetImage careTargetImage = careTargetDtoToImage(careTarget, attachFile);
-        careTargetImageRepository.save(careTargetImage);
-
         for (UploadFile file : attachFiles) {
-            CareTargetImage careTargetImage2 = careTargetDtoToImage(careTarget, file);
-            careTargetImageRepository.save(careTargetImage2);
+            CareTargetImage careTargetImage = careTargetDtoToImage(careTarget, file);
+            careTargetImageRepository.save(careTargetImage);
         }
 
         return careTarget.getId();
@@ -76,9 +79,29 @@ public class CareTargetServiceImpl implements CareTargetService {
     }
 
     @Override
+    public List<CareTarget> findCareTargets(String id){
+        Optional<Member> member = memberRepository.findById(id);
+        return member.get().getCareTargets();
+
+    }
+
+    @Override
     public List<CareTargetImage> findCareTargetImages(Long id) {
         CareTarget careTarget = isPresent(id);
         return careTarget.getCareTargetImages();
+    }
+
+    @Override
+    public String update(Long id, CareTargetFormDTO careTargetFormDTO) {
+        Optional<CareTarget> careTarget = careTargetRepository.findById(id);
+        CareTarget careTargetEntity = careTarget.orElse(null);
+        System.out.println(careTargetEntity.getName());
+        if(careTargetEntity == null) {
+            System.out.println("케어 대상인이 없으므로 종료");
+            return "실패";
+        }
+        careTargetEntity.updateInfo(careTargetFormDTO);
+        return "수정완료";
     }
 
 }
