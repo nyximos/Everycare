@@ -9,8 +9,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Getter
-@Setter
-@ToString
 @NoArgsConstructor
 @Entity
 @Table(name = "health_information")

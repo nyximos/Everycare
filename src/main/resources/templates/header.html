@@ -1,46 +1,16 @@
-<!doctype html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style>
-        *{margin: 0px; padding: 0px;}
-        ul {
-            list-style: none;
-        }
-        a{
-            text-decoration: none;
-        }
-
-        #logo{
-            position: absolute;
-            top: 30px;
-            left: 30px;
-        }
-        #top_menu{
-            position: absolute;
-            top: 20px;
-            right: 5px;
-            color: white;
-        }
-        #top_menu a{color: white;}
-        nav{
-            position: absolute;
-            bottom: 10px;
-            left: 220px;
-            font-size: 16px;
-        }
-        nav li {
-            display: inline;
-            margin-left: 30px;
-        }
-        nav li a{color: white;}
-    </style>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Everycare</title>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <th:block layout:fragment="styles">
+            <script src="/js/header.js"></script>
+        </th:block>
+    </head>
 <div class="header" th:fragment="header">
         <h1><div id="logo"><a href="/"><span>Everycare</span></a></div></h1>
         <div>
@@ -60,7 +30,6 @@
                 <li><a th:href="@{/}">케어매칭</a></li>
                 <li><a th:href="@{/carenote}">케어노트</a></li>
                 <li><a th:href="@{/store}">케어스토어</a></li>
-                <li><a th:href="@{/dashboard}">마이페이지</a></li>
             </ul>
             </nav>
         </div>
@@ -70,8 +39,8 @@
 
                 <div>
                     <div sec:authorize="isAuthenticated()">
-                        <button onclick="logout()">로그아웃</button> |
-                        <a href="#none">정보수정</a>
+                        <li><button onclick="logout()">로그아웃</button></li>
+                        <li><a th:href="@{/dashboard}">마이페이지</a></li>
                     </div>
                 </div>
             </ul>

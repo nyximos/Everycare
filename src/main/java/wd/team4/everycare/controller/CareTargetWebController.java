@@ -20,7 +20,6 @@ public class CareTargetWebController {
 
     private final CareTargetService careTargetService;
     private final CareTargetRepository careTargetRepository;
-    private final FileStoreService fileStoreService;
 
     @GetMapping("/carenote/caretargets/new")
     public String newCareTarget() {

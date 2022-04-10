@@ -10,9 +10,8 @@
   <style>
     @import "/css/header.css";
   </style>
-  <script src="/js/header.js"></script>
   <th:block layout:fragment="css"></th:block>
-  <th:block layout:fragment="script"></th:block>
+  <th:block type="text/javascript layout:fragment=script"></th:block>
 </head>
 <body>
   <th:block th:replace="header :: header"></th:block>

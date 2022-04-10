@@ -10,8 +10,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
-@ToString
 @NoArgsConstructor
 @Entity
 @Table(name = "health_record")

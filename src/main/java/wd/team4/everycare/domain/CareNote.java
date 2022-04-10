@@ -11,8 +11,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Getter
-@Setter
-@ToString
 @NoArgsConstructor
 @Entity
 @SequenceGenerator(name = "care_note_seq_generator",

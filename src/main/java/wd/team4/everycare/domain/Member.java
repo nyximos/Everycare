@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 
 
 @Getter
-@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Member {
@@ -69,6 +68,9 @@ public class Member {
 
     @Column(name = "member_account_member")
     private String accountNumber;
+
+    @OneToOne(mappedBy = "member")
+    private CareSitter careSitter;
 
     @Builder
     public Member(String id, String password, String name, MemberRole role, Gender gender, LocalDate birth, String phone, String email, LocalDateTime createdAt, ActivityStatus activityStatus, String zipcode, String address, String detailedAddress, LocalDateTime adminRegistrationDate, String bank, String accountNumber) {
