@@ -1,9 +1,13 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
 <head>
   <meta charset="utf-8" />
+  <title>회원가입</title>
 </head>
 <body>
+<div layout:fragment="content">
 <div class="container">
   <div class="py-5 text-center">
     <h2>회원 가입</h2>
@@ -25,6 +29,7 @@
     </ul>
     <input type="submit" />
   </form>
+</div>
 </div>
 <!-- /container -->
 </body>

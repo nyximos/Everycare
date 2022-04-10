@@ -9,7 +9,7 @@
 	<header th:insert="header.html"></header>
 	<div class="container">
 			<div class="py-5 text-center">
-				<h2>케어시터 등록</h2>
+				<h2>케어시터 프로필 등록</h2>
 			</div>
 			<form>
 				<ul>
@@ -22,7 +22,6 @@
 					<li>vaccination <input type="int" name="vaccination" id="vaccination" /></li>
 					<li>introduction <input type="text" name="introduction" id="introduction" /></li>
 					<li>disclosureStatus <input type="int" name="disclosureStatus" id="disclosureStatus" /></li>
-					<li>첨부파일<input type="file" name="attachFile" id="attachFile" /></li>
 					<li>이미지 파일들<input type="file" multiple="multiple" name="attachFiles" id="attachFiles" /></li>
 				</ul>
 <!--				<input type="submit" onclick="submit()"/>-->
@@ -33,13 +32,6 @@
 		<!-- /container -->
 
 		<script th:inline="javascript">
-
-			$.ajax({
-				type:"GET",
-				headers: {
-					"Authorization": sessionStorage.getItem('access_token')
-				},
-			})
 
             $('#submitButton').on('click',function() {
 				const formData = new FormData();
