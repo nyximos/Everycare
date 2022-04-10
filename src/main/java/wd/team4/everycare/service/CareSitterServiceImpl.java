@@ -102,7 +102,6 @@ public class CareSitterServiceImpl implements CareSitterService {
     public List<CareSitterImage> findCareSitterImages(Long id) {
         CareSitter careSitter = isPresent(id);
         return careSitter.getCareSitterImages();
-
     }
 
     @Override

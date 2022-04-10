@@ -33,11 +33,13 @@ public class CareSitterWebController {
         String id = principalDetails.getUsername();
         CareSitter careSitter = careSitterService.findCareSitter(id);
         System.out.println("careSitter = " + careSitter);
-        model.addAttribute("careSitter", careSitter);
 
-        List<CareSitterImage> careSitterImages = careSitterService.findCareSitterImages(careSitter.getId());
-        if(careSitterImages!=null){
-            model.addAttribute("careSitterImages", careSitterImages);
+        if(careSitter!=null){
+            model.addAttribute("careSitter", careSitter);
+            List<CareSitterImage> careSitterImages = careSitterService.findCareSitterImages(careSitter.getId());
+            if(careSitterImages!=null){
+                model.addAttribute("careSitterImages", careSitterImages);
+            }
         }
         return "caresitter";
     }
