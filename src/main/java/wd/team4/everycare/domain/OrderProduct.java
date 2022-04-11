@@ -9,8 +9,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Getter
-@Setter
-@ToString
 @NoArgsConstructor
 @Entity
 @SequenceGenerator(name = "order_product_seq_generator",

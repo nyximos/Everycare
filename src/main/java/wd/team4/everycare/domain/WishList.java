@@ -8,8 +8,6 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @Getter
-@Setter
-@ToString
 @NoArgsConstructor
 @Entity
 @SequenceGenerator(name = "wishlist_seq_generator",

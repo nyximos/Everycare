@@ -7,10 +7,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
-@ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Member {
@@ -69,6 +70,12 @@ public class Member {
 
     @Column(name = "member_account_member")
     private String accountNumber;
+
+    @OneToOne(mappedBy = "member")
+    private CareSitter careSitter;
+
+    @OneToMany(mappedBy = "member")
+    private List<CareTarget> careTargets = new ArrayList<>();
 
     @Builder
     public Member(String id, String password, String name, MemberRole role, Gender gender, LocalDate birth, String phone, String email, LocalDateTime createdAt, ActivityStatus activityStatus, String zipcode, String address, String detailedAddress, LocalDateTime adminRegistrationDate, String bank, String accountNumber) {

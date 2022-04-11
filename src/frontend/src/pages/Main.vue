@@ -1,7 +1,12 @@
 <template>
     <v-container fluid class="main">
+<<<<<<< HEAD
         <componentpage/>
         <Main />
+=======
+        <componentindex />
+        <componentmain />
+>>>>>>> main
         <ul>
             <li class="menu"><router-link to="/Caresitters">케어매칭</router-link></li>
             <li><router-link to="/Profile">케어프로필</router-link></li>
@@ -13,12 +18,21 @@
     </v-container>
 </template>
 <script>
+<<<<<<< HEAD
 import componentpage from '@/components/main.vue'
 import Main from '@/components/main/index';
 export default {
     components: {
         Main,
         componentpage
+=======
+import componentmain from '@/components/main'
+import componentindex from '@/components/main/index';
+export default {
+    components: {
+        componentindex,
+        componentmain
+>>>>>>> main
     }
 };
 </script>

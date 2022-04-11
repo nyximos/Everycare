@@ -8,7 +8,17 @@ public class WebController {
 
     @GetMapping("/")
     public String index(){
-        return "all";
+        return "index";
+    }
+
+    @GetMapping("/dashboard")
+    public String dashboard(){
+        return "dashboard";
+    }
+
+    @GetMapping("/login")
+    public String login(){
+        return "login";
     }
 //
 //    @GetMapping("/member")

@@ -20,17 +20,29 @@
                           </div>
                           <div class="div_text">
                               <strong>사진</strong>
+<<<<<<< HEAD
                               <!-- <v-file-input
                                 truncate-length="22"
                                 label="사진을 넣으세요"
                                 @change="selectFile"
                                 ></v-file-input> -->
+=======
+                              <v-file-input
+                              v-model="image"
+                                truncate-length="22"
+                                label="사진을 넣으세요"
+                                ></v-file-input>
+>>>>>>> main
                           </div>
                           <div class="con10_blank"></div>
                           <div class="r_content">
                               <br>
                               <v-text-field v-model="name" label="Name" required></v-text-field>
+<<<<<<< HEAD
                                <v-radio-group v-model="row" mandatory>
+=======
+                               <v-radio-group v-model="radios" mandatory>
+>>>>>>> main
                                     <v-radio label="남" value="Man"></v-radio>
                                     <v-radio label="여" value="Woman"></v-radio>
                                 </v-radio-group>
@@ -40,7 +52,13 @@
                               <h5>자기소개</h5>
                               <textarea class="content_add" placeholder="자기소개써주세요" v-model="textarea"></textarea>
                           </div>
+<<<<<<< HEAD
                           <v-btn class="ma-2" outlined color="indigo" @click="nextpage1">다음</v-btn>
+=======
+                          <router-link :to="{name:'careprofile1'}">
+                          <v-btn class="ma-2" outlined color="indigo" @click="nextpage1">다음</v-btn>
+                          </router-link>
+>>>>>>> main
                           <router-link to="/"> <v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
                           </div>
                       </div>
@@ -55,24 +73,42 @@ export default {
   name:'careprofilecom',
   data(){
      return{
+<<<<<<< HEAD
         name:'',
         row:'',
+=======
+        image: [],
+        name:'',
+        radios:'',
+>>>>>>> main
         age:'',
         textarea:''
      }
   },
   methods:{
       nextpage1(){
+<<<<<<< HEAD
         const caredata = {
         name:this.name,
         row:this.row,
+=======
+        const userData = {
+        image : this.image.name,
+        name:this.name,
+        sex:this.radios,
+>>>>>>> main
         age:this.age,
         textarea:this.textarea
         }
         try{
+<<<<<<< HEAD
           console.log(caredata);
           this.$store.commit('careprofileStore/carePro', caredata);
           console.log(this.$store.state.careprofileStore.name);
+=======
+          this.$store.commit('careprofileStore/set_user1', userData);
+          console.log(this.$store.state.careprofileStore.image);
+>>>>>>> main
         } catch(error){
            console.log(error); 
         }

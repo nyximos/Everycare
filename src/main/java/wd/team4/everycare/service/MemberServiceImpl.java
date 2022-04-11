@@ -1,8 +1,12 @@
 package wd.team4.everycare.service;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import wd.team4.everycare.config.auth.PrincipalDetails;
+import wd.team4.everycare.config.jwt.JwtProperties;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.member.MemberDTO;
 import wd.team4.everycare.dto.member.SignupDTO;
@@ -13,6 +17,8 @@ import wd.team4.everycare.service.exception.MemberHasExistException;
 import wd.team4.everycare.service.exception.MemberNotFoundException;
 import wd.team4.everycare.service.interfaces.MemberService;
 
+import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 @Service
@@ -21,6 +27,7 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+//    private final PrincipalDetails principalDetails;
 
     public MyResponse<SignupDTO> join(SignupDTO signupDTO) {
         // 1. memberRepository에 해당 아이디 가입되어있는지 확인
@@ -68,5 +75,21 @@ public class MemberServiceImpl implements MemberService {
         return MemberService.super.signupDtoToEntity(signupDTO);
     }
 
+//    @Override
+//    public String getId(String authorization) {
+//        return principalDetails.getUsername();
+//    }
+
+    public void getUser(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization");
+//        String token = accessToken.replace(JwtProperties.TOKEN_PREFIX, "");
+        Claims body = Jwts.parser().setSigningKey(JwtProperties.SECRET.getBytes(StandardCharsets.UTF_8))
+                .parseClaimsJws(accessToken).getBody();
+
+        System.out.println(body.getSubject());
+        System.out.println(body.getExpiration());
+        System.out.println(body.get("username"));
+
+    }
 
 }

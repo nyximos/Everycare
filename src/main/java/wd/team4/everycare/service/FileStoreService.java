@@ -7,8 +7,6 @@ import wd.team4.everycare.dto.UploadFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -25,27 +23,31 @@ public class FileStoreService {
 
     public List<UploadFile> storeFiles(List<MultipartFile> multipartFiles)
             throws IOException {
-        List<UploadFile> storeFileResult = new ArrayList<>();
-        for (MultipartFile multipartFile : multipartFiles) {
-            if (!multipartFile.isEmpty()) {
-                storeFileResult.add(storeFile(multipartFile));
+        if (multipartFiles != null) {
+            List<UploadFile> storeFileResult = new ArrayList<>();
+            for (MultipartFile multipartFile : multipartFiles) {
+                if (!multipartFile.isEmpty()) {
+                    storeFileResult.add(storeFile(multipartFile));
+                }
             }
+            return storeFileResult;
+        }else {
+            return null;
         }
-        return storeFileResult;
     }
 
     public UploadFile storeFile(MultipartFile multipartFile) throws IOException
     {
-        if (multipartFile.isEmpty()) {
+        if(multipartFile != null) {
+            String originalFilename = multipartFile.getOriginalFilename();
+            String storeFileName = createStoreFileName(originalFilename);
+            multipartFile.transferTo(new File(getFullPath(storeFileName)));
+            return new UploadFile(originalFilename, storeFileName);
+        }else{
             return null;
         }
-        String originalFilename = multipartFile.getOriginalFilename();
-        String storeFileName = createStoreFileName(originalFilename);
-        multipartFile.transferTo(new File(getFullPath(storeFileName)));
-//        Path path = Paths.get(getFullPath(storeFileName)).toAbsolutePath();
-//        multipartFile.transferTo(path.toFile());
-        return new UploadFile(originalFilename, storeFileName);
     }
+
 
     private String createStoreFileName(String originalFilename) {
         String ext = extractExt(originalFilename);

@@ -8,8 +8,6 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @Getter
-@Setter
-@ToString
 @NoArgsConstructor
 @Entity
 @Table(name = "care_sitter_certification")

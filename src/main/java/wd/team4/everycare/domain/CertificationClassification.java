@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
-@ToString
 @NoArgsConstructor
 @Entity
 @SequenceGenerator(name = "certification_classification_seq_generator",

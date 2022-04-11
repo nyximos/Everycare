@@ -25,8 +25,8 @@ public class CareSitterFormDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private Member member;
-    private MultipartFile attachFile;
     private List<MultipartFile> attachFiles;
+    private int disclosureStatus;
 
     @Builder(builderMethodName = "careSitterDTOBuilder")
     public CareSitterFormDTO(String preferredType, String desiredDayWeek, String activityTime, String desiredHourlyWage, String desiredMonthlyWage, int cctvAgreement, int vaccination, String introduction, LocalDateTime createdAt, LocalDateTime updatedAt, Member member) {
@@ -44,8 +44,7 @@ public class CareSitterFormDTO {
     }
 
     @Builder(builderMethodName = "careSitterImageDTOBuilder")
-    public CareSitterFormDTO(MultipartFile attachFile, List<MultipartFile> attachFiles) {
-        this.attachFile = attachFile;
+    public CareSitterFormDTO(List<MultipartFile> attachFiles) {
         this.attachFiles = attachFiles;
     }
 }

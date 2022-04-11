@@ -19,10 +19,32 @@ const routes = [
         component: () => import('@/pages/Main.vue')
     },
     {
+<<<<<<< HEAD
         path: '/signup',
         name: 'signup',
         component: () => import('@/pages/Signup.vue')
     },
+=======
+        path: '/careprofile',
+        name: 'careprofile',
+        component: () => import('@/pages/Careprofile.vue')
+    },
+    {
+        path: '/careprofile1',
+        name: 'careprofile1',
+        component: () => import('@/pages/Careprofile1.vue')
+    },
+    {
+        path: '/careprofile2',
+        name: 'careprofile2',
+        component: () => import('@/pages/Careprofile2.vue')
+    },
+    // {
+    //     path: '/recruitions',
+    //     name: 'Recruitions',
+    //     component: () => import('@/pages/Recruitions.vue')
+    // },
+>>>>>>> main
     {
         path: '/login',
         name: 'Login',
