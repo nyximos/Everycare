@@ -24,6 +24,11 @@ const routes = [
         component: () => import('@/pages/Job_list.vue')
     },
     {
+        path: '/createwrite',
+        name: 'CreateWrite',
+        component: () => import('@/pages/CreateWrite.vue')
+    },
+    {
         path: '/careprofile',
         name: 'careprofile',
         component: () => import('@/pages/Careprofile.vue')
