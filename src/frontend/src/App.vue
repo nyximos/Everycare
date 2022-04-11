@@ -3,6 +3,7 @@
         <BaseHeader />
         <router-view></router-view>
         <BaseAlert />
+        <BaseFooter/>
     </v-app>
 </template>
 <script>

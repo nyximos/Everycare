@@ -41,7 +41,7 @@
                               <textarea class="content_add" placeholder="자기소개써주세요" v-model="textarea"></textarea>
                           </div>
                           <v-btn class="ma-2" outlined color="indigo" @click="nextpage1">다음</v-btn>
-                           <v-btn class="ma-2" outlined color="indigo">취소</v-btn>
+                          <router-link to="/"> <v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
                           </div>
                       </div>
                   </div>
@@ -55,23 +55,24 @@ export default {
   name:'careprofilecom',
   data(){
      return{
-        name:this.name,
-        row:this.row,
-        age:this.age,
-        textarea:this.textarea
+        name:'',
+        row:'',
+        age:'',
+        textarea:''
      }
   },
   methods:{
       nextpage1(){
-        const data = {
+        const caredata = {
         name:this.name,
         row:this.row,
         age:this.age,
         textarea:this.textarea
         }
         try{
-          console.log(data);
-          this.$store.commit('careProfile', data);
+          console.log(caredata);
+          this.$store.commit('careprofileStore/carePro', caredata);
+          console.log(this.$store.state.careprofileStore.name);
         } catch(error){
            console.log(error); 
         }

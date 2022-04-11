@@ -1,5 +1,6 @@
 <template>
     <v-container fluid class="main">
+        <componentpage/>
         <Main />
         <ul>
             <li class="menu"><router-link to="/Caresitters">케어매칭</router-link></li>
@@ -12,10 +13,12 @@
     </v-container>
 </template>
 <script>
+import componentpage from '@/components/main.vue'
 import Main from '@/components/main/index';
 export default {
     components: {
-        Main
+        Main,
+        componentpage
     }
 };
 </script>

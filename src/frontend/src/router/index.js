@@ -18,11 +18,11 @@ const routes = [
         name: 'Main',
         component: () => import('@/pages/Main.vue')
     },
-    // {
-    //     path: '/recruitions',
-    //     name: 'Recruitions',
-    //     component: () => import('@/pages/Recruitions.vue')
-    // },
+    {
+        path: '/signup',
+        name: 'signup',
+        component: () => import('@/pages/Signup.vue')
+    },
     {
         path: '/login',
         name: 'Login',

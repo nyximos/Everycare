@@ -1,5 +1,12 @@
 import axios from 'axios';
 
+function registerUser(updata) {
+    const url = '/api/signup';
+    console.log(updata)
+    return axios.post(url, updata);
+}
+export{ registerUser };
+
 //create an axios instance
 const request = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL
