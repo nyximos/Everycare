@@ -5,7 +5,7 @@
     <table border="1" width="600px" cellpadding="15px" frame=void>
         <tr>
             <th id="id-line" width=20%>아이디</th>
-            <td id="id-text" width=30%>{{id}}</td>
+            <td id="id-text" width=30%>{{this.$store.state.userStore.id}}</td>
             <th id="pw-line" width=20%>비밀번호</th>
             <td id="pw-text" width=30%><button></button></td>
         </tr>

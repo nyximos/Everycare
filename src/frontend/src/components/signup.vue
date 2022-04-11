@@ -3,7 +3,7 @@
         <form name="signUpForm" class="form" role="form">
             <br>
             <h2>회원가입</h2>
-            {{ this.$store.state.userStore.upid }}
+            {{ this.$store.state.userStore.id }}
             <div id="ininput">
             <input type="text" v-model="id" name="username" class="form-control input-lg" placeholder="아이디" ng-required="true" />
             <input type="password" v-model="password" name="password" class="form-control input-lg" placeholder="패스워드" ng-required="true" />
@@ -35,7 +35,7 @@ export default {
         return {};
     },
     methods: {
-        signup() {
+        async signup() {
             const updata = {
                 id: this.id,
                 password: this.password,
@@ -51,10 +51,24 @@ export default {
             try {
                 console.log(updata);
                 this.$store.commit('userStore/sgnUp', updata);
-                registerUser(updata);
+                const response = await registerUser(updata);
+                console.log(response);
+                this.initForm();
             } catch (error) {
                 console.log(error);
             }
+        },
+        initForm(){
+            this.id='';
+            this.password='';
+            this.name='';
+            this.birth='';
+            this.gender='';
+            this.phone='';
+            this.email='';
+            this.zipcode='';
+            this.address='';
+            this.detailedAddress='';
         }
     }
 };
