@@ -1,29 +1,28 @@
 package wd.team4.everycare.controller;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import wd.team4.everycare.config.auth.PrincipalDetails;
-import wd.team4.everycare.config.jwt.JwtProperties;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.dto.response.MyListResponse;
+import wd.team4.everycare.dto.response.MyOptionalResponse;
+import wd.team4.everycare.dto.response.MyResponse;
+import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.CareTargetRepository;
 import wd.team4.everycare.repository.CareTargetScheduleRepository;
 import wd.team4.everycare.repository.JobOfferRepository;
 import wd.team4.everycare.service.JobOfferServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,37 +36,64 @@ public class JobOfferWebController {
     private final CareTargetScheduleRepository careTargetScheduleRepository;
 
     @GetMapping("/recruitions")
-    public String getJobOffer(Model model) {
+    public ResponseEntity<MyListResponse> getJobOffer() {
+
         List<JobOffer> jobOffers = jobOfferService.getJobOffer();
-        model.addAttribute("jobOffers", jobOffers);
-        System.out.println(jobOffers.size());
-        return "recruitions";
+
+        MyListResponse<JobOffer> body = MyListResponse.<JobOffer>builder()
+                .header(StatusEnum.OK)
+                .message("조회 성공")
+                .body(jobOffers)
+                .build();
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyListResponse>(body, headers, HttpStatus.OK);
     }
 
     @GetMapping("/recruitions/recruition/{id}")
-    public String getDetailJobOffer(@PathVariable("id") Long id, Model model) {
-        Optional<JobOffer> detailJobOffer = jobOfferRepository.findById(id);
-        if (detailJobOffer.isPresent()) {
-            //값 있으면 추가
-            model.addAttribute("detail", detailJobOffer.get());
+    public ResponseEntity<MyOptionalResponse> getDetailJobOffer(@PathVariable("id") Long id) {
+
+        Optional<JobOffer> findJobOffer = jobOfferService.getDetailJobOffer(id);
+        if (findJobOffer.isPresent()) {
+            MyOptionalResponse<JobOffer> body = MyOptionalResponse.<JobOffer>builder()
+                    .header(StatusEnum.OK)
+                    .message("상세 조회 성공")
+                    .body(findJobOffer)
+                    .build();
+            HttpHeaders headers = new HttpHeaders();
+
+            return new ResponseEntity<MyOptionalResponse>(body, headers, HttpStatus.OK);
         } else {
-            return null;
+            MyOptionalResponse<JobOffer> body = MyOptionalResponse.<JobOffer>builder()
+                    .header(StatusEnum.NOT_FOUND)
+                    .message("상세 조회 실패! 구인글이 없습니다.")
+                    .body(null)
+                    .build();
+            HttpHeaders headers = new HttpHeaders();
+            return new ResponseEntity<MyOptionalResponse>(body, headers, HttpStatus.NOT_FOUND);
         }
-        return "recruition_detail";
     }
 
 
     @GetMapping("/recruitions/new")
-    public String newJobOffer(Model model, HttpServletRequest request, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public ResponseEntity<MyListResponse> newJobOffer(@AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         Member user = principalDetails.getUser();
         System.out.println("user = " + user);
 
         List<CareTarget> findCareTarget = careTargetRepository.findAllByMember_Id(user.getId());
-        model.addAttribute("careTarget", findCareTarget);
-        System.out.println("findCareTarget = " + findCareTarget);
+        Optional<CareTarget> careTarget_id = careTargetRepository.findByMember_Id(user.getId());
 
+        System.out.println("careTarget_id = " + careTarget_id);
 
+//        MyListResponse<CareTarget> body = MyListResponse.<CareTarget>builder()
+//                .header(StatusEnum.OK)
+//                .message("조회 성공")
+//                .body(findCareTarget)
+//                .body()
+//                .build();
+//        HttpHeaders headers = new HttpHeaders();
+//        return new ResponseEntity<MyListResponse>(body, headers, HttpStatus.OK);
+        return null;
 //        String accessToken = request.getHeader("Authorization");
 //        if (accessToken != null) {
 //            System.out.println("accessToken = " + accessToken);
@@ -78,8 +104,6 @@ public class JobOfferWebController {
 //            Object username = body.get("username");
 //
 //            System.out.println("username = " + username);
-//
 //        }
-        return "recruition_new";
     }
 }

@@ -8,9 +8,10 @@ import wd.team4.everycare.domain.Gender;
 import wd.team4.everycare.domain.JobOffer;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter @Setter
-public class JobOfferDTO{
+public class JobOfferDTO {
 
     private Long id;
     private String comment;                     //코멘트

@@ -5,7 +5,6 @@ import wd.team4.everycare.dto.CareTargetScheduleDTO;
 import wd.team4.everycare.dto.JobOfferDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetDTO;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -14,8 +13,7 @@ public interface JobOfferService {
 
     List<JobOffer> getJobOffer();
     Optional<JobOffer> getDetailJobOffer(Long id);
-    JobOffer modifyJobOffer(Long id, JobOfferDTO jobOfferDTO);
-    JobOffer save(Long id, CareTargetDTO careTargetDTO, CareTargetScheduleDTO scheduleDTO);
+//    JobOffer save(Long id, CareTargetDTO careTargetDTO, CareTargetScheduleDTO scheduleDTO);
     void deleteJobOffer(Long id);
 
     default JobOffer dtoToEntity(JobOfferDTO dto) {
