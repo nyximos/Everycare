@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Caresitters from '../pages/Caresitters';
-import Profile from '../pages/Profile';
-import Carepeople from '../pages/Carepeople';
-import Alarm from '../pages/Alarm';
-import Profile2 from '../pages/Profile2';
+// import Caresitters from '../pages/Caresitters';
+// import Profile from '../pages/Profile';
+// import Carepeople from '../pages/Carepeople';
+// import Alarm from '../pages/Alarm';
+// import Profile2 from '../pages/Profile2';
 
 Vue.use(VueRouter);
 const routes = [
@@ -17,6 +17,41 @@ const routes = [
         path: '/',
         name: 'Main',
         component: () => import('@/pages/Main.vue')
+    },
+    {
+        path: '/signup',
+        name: 'signup',
+        component: () => import('@/pages/Signup.vue')
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: () => import('@/pages/Login.vue'),
+        reEnter: (to, from, next) => {
+            const token = localStorage.getItem('jwt-access-token');
+            if (token !== null) next({ name: 'Main' });
+            else next();
+        }
+    },
+    {
+        path: '/caresitters',
+        name: 'caresitters',
+        component:() => import('@/pages/Caresitters.vue')
+    },
+    {
+        path: '/works',
+        name: 'FindWork',
+        component: () => import('@/pages/FindWork.vue'),
+        reEnter: (to, from, next) => {
+            const token = localStorage.getItem('jwt-access-token');
+            if (token !== null) next({ name: 'Main' });
+            else next();
+        }
+    },
+    {
+        path: '/profile',
+        name: 'profile',
+        component:() => import('@/pages/Profile.vue')
     },
     {
         path: '/careprofile',
@@ -33,60 +68,20 @@ const routes = [
         name: 'careprofile2',
         component: () => import('@/pages/Careprofile2.vue')
     },
-    // {
-    //     path: '/recruitions',
-    //     name: 'Recruitions',
-    //     component: () => import('@/pages/Recruitions.vue')
-    // },
-    {
-        path: '/login',
-        name: 'Login',
-        component: () => import('@/pages/Login.vue'),
-        reEnter: (to, from, next) => {
-            const token = localStorage.getItem('jwt-access-token');
-            if (token !== null) next({ name: 'Main' });
-            else next();
-        }
-    },
-    {
-        path: '/caresitters',
-        name: 'caresitters',
-        component: Caresitters
-    },
-    {
-        path: '/works',
-        name: 'FindWork',
-        component: () => import('@/pages/FindWork.vue'),
-        reEnter: (to, from, next) => {
-            const token = localStorage.getItem('jwt-access-token');
-            if (token !== null) next({ name: 'Main' });
-            else next();
-        }
-    },
-    {
-        path: '/profile',
-        name: 'profile',
-        component: Profile
-    },
-    {
-        path: '/dashboard/caresitter',
-        name: '케어시터 프로필생성',
-        component: () => import('@/pages/Careprofile.vue')
-    },
     {
         path: '/carepeople',
         name: 'carepeople',
-        component: Carepeople
+        component:() => import('@/pages/Carepeople')
     },
     {
         path: '/alarm',
         name: 'alarm',
-        component: Alarm
+        component: () => import('@/pages/Alarm')
     },
     {
         path: '/profile2',
         name: 'profile2',
-        component: Profile2
+        component: () => import('@/pages/Profile2')
     },
     {
         path: '/test',
