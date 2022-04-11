@@ -1,10 +1,11 @@
 <template>
     <div class="login-component">
         <div class="login-box">
-            <div class="login-title"><span class="login-title-L">L</span>ogin</div>
+            <div class="login-title"><span class="login-title-L">L</span>ogin{{this.$store.state.userStore.id}}</div>
             <div>
                 <div class="login-input-botton">
                     <v-text-field v-model="Id" label="Id" placeholder="Placeholder" dense outlined></v-text-field>
+                    
                     <v-text-field v-model="Password" type="password" label="Password" placeholder="Placeholder" dense outlined></v-text-field>
                 </div>
                 <div><v-btn @click="login" color="accent" elevation="2" class="login-button">Login</v-btn></div>
@@ -31,7 +32,7 @@ export default {
     },
     methods: {
         login() {
-            if (this.Id === 'asdf' && this.Password === 'asdf') {
+            if (this.Id === this.$store.state.userStore.id && this.Password === this.$store.state.userStore.password) {
                 this.$router.push('/');
                 sessionStorage.setItem('isLogin', true);
             } else {
