@@ -15,6 +15,8 @@ import wd.team4.everycare.domain.Result;
 import wd.team4.everycare.dto.CareTargetAndScheduleDTO;
 import wd.team4.everycare.dto.CareTargetScheduleDTO;
 import wd.team4.everycare.dto.JobOfferDTO;
+import wd.team4.everycare.dto.caretarget.CareTargetDTO;
+import wd.team4.everycare.dto.response.MyListResponse;
 import wd.team4.everycare.dto.response.MyOptionalResponse;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
@@ -55,14 +57,19 @@ public class JobOfferApiController {
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 
-    @PostMapping("/recruitions/new")
-    public JobOfferDTO regJobOffer(CareTargetAndScheduleDTO dto, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        System.out.println("dto.getComment() = " + dto.getComment());
-        System.out.println("dto.getCareTargetId() = " + dto.getCareTargetId());
-        System.out.println("dto.getGender() = " + dto.getGender());
-        System.out.println("dto.getCareTargetScheduleId() = " + dto.getCareTargetScheduleId());
+    @PostMapping("/recruitions/schedules")
+    public ResponseEntity<MyListResponse> regJobOffer(CareTargetDTO careTargetDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        Long careTargetId = careTargetDTO.getId();
 
-        return null;
+        List<CareTargetSchedule> findSchedule = careTargetScheduleRepository.findByCareTarget_Id(careTargetId);
+
+        MyListResponse<CareTargetSchedule> body = MyListResponse.<CareTargetSchedule>builder()
+                .header(StatusEnum.OK)
+                .message("스케줄 조회 성공")
+                .body(findSchedule)
+                .build();
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyListResponse>(body, headers, HttpStatus.OK);
     }
 }
 

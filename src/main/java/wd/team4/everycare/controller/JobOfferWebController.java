@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import wd.team4.everycare.config.auth.PrincipalDetails;
@@ -16,14 +15,12 @@ import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.response.MyListResponse;
 import wd.team4.everycare.dto.response.MyOptionalResponse;
-import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.CareTargetRepository;
 import wd.team4.everycare.repository.CareTargetScheduleRepository;
 import wd.team4.everycare.repository.JobOfferRepository;
 import wd.team4.everycare.service.JobOfferServiceImpl;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
@@ -82,29 +79,13 @@ public class JobOfferWebController {
         System.out.println("user = " + user);
 
         List<CareTarget> findCareTarget = careTargetRepository.findAllByMember_Id(user.getId());
-        List<CareTargetSchedule> findSchedule = careTargetScheduleRepository.findByCareTarget(findCareTarget);
+        MyListResponse<CareTarget> body = MyListResponse.<CareTarget>builder()
+                .header(StatusEnum.OK)
+                .message("조회 성공")
+                .body(findCareTarget)
+                .build();
+        HttpHeaders headers = new HttpHeaders();
 
-        System.out.println("findSchedule = " + findSchedule);
-
-//        MyListResponse<CareTarget> body = MyListResponse.<CareTarget>builder()
-//                .header(StatusEnum.OK)
-//                .message("조회 성공")
-//                .body(findCareTarget)
-//                .body()
-//                .build();
-//        HttpHeaders headers = new HttpHeaders();
-//        return new ResponseEntity<MyListResponse>(body, headers, HttpStatus.OK);
-        return null;
-//        String accessToken = request.getHeader("Authorization");
-//        if (accessToken != null) {
-//            System.out.println("accessToken = " + accessToken);
-//
-//            Claims body = Jwts.parser().setSigningKey(JwtProperties.SECRET.getBytes(StandardCharsets.UTF_8))
-//                    .parseClaimsJws(accessToken).getBody();
-//
-//            Object username = body.get("username");
-//
-//            System.out.println("username = " + username);
-//        }
+        return new ResponseEntity<MyListResponse>(body, headers, HttpStatus.OK);
     }
 }
