@@ -5,15 +5,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.StoreFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
+import wd.team4.everycare.repository.StoreRepository;
 import wd.team4.everycare.service.StoreServiceImpl;
 
 @RestController
@@ -22,6 +20,7 @@ import wd.team4.everycare.service.StoreServiceImpl;
 public class StoreApiController {
 
     private final StoreServiceImpl storeService;
+    private final StoreRepository storeRepository;
 
     @PostMapping("/store")
     public ResponseEntity<MyResponse> createStore(
@@ -42,5 +41,15 @@ public class StoreApiController {
 
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/store/{id}")
+    public ResponseEntity<MyResponse> deletesStore(@PathVariable("id") Long id){
+        storeRepository.deleteById(id);
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공했슴다~")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 }
