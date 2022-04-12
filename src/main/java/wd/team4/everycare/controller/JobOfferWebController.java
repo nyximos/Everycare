@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.CareTarget;
+import wd.team4.everycare.domain.CareTargetSchedule;
 import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.response.MyListResponse;
@@ -81,9 +82,9 @@ public class JobOfferWebController {
         System.out.println("user = " + user);
 
         List<CareTarget> findCareTarget = careTargetRepository.findAllByMember_Id(user.getId());
-        Optional<CareTarget> careTarget_id = careTargetRepository.findByMember_Id(user.getId());
+        List<CareTargetSchedule> findSchedule = careTargetScheduleRepository.findByCareTarget(findCareTarget);
 
-        System.out.println("careTarget_id = " + careTarget_id);
+        System.out.println("findSchedule = " + findSchedule);
 
 //        MyListResponse<CareTarget> body = MyListResponse.<CareTarget>builder()
 //                .header(StatusEnum.OK)

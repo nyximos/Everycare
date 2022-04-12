@@ -5,10 +5,8 @@ import org.springframework.stereotype.Repository;
 import wd.team4.everycare.domain.CareTarget;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface CareTargetRepository extends JpaRepository<CareTarget, Long> {
     List<CareTarget> findAllByMember_Id(String memberId);
-    Optional<CareTarget> findByMember_Id(String memberId);
 }
