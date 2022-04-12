@@ -1,7 +1,6 @@
 package wd.team4.everycare.config;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,14 +31,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .formLogin()
                     .disable()
                 .httpBasic().disable()
-
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), memberRepository))
                 .authorizeRequests()
                 .antMatchers("/api/signup/**")
-                .permitAll()
+                    .permitAll()
+                .antMatchers("/dashboard/**")
+                    .access("hasRole('ROLE_MEMBER') or hasRole('ROLE_ADMIN')")
                 .antMatchers("/api/**")
-                .access("hasRole('ROLE_MEMBER') or hasRole('ROLE_ADMIN')")
-                .anyRequest().permitAll();
+                .permitAll()
+               .anyRequest().permitAll();
     }
 }

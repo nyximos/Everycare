@@ -2,6 +2,7 @@ package wd.team4.everycare.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.CareSitterImage;
 import wd.team4.everycare.dto.CareSitterFormDTO;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CareSitterServiceImpl implements CareSitterService {
 
     private final FileStoreService fileStoreService;
@@ -25,20 +27,18 @@ public class CareSitterServiceImpl implements CareSitterService {
     private final CareSitterImageRepository careSitterImageRepository;
     private final MemberRepository memberRepository;
 
+    // DB 조회일 경우 @Transactional(readOnly = true) 사용
+
     @Override
     public Long save(CareSitterFormDTO careSitterFormDTO) throws IOException {
         CareSitter careSitter = careSitterDtoToCareSitter(careSitterFormDTO);
         careSitterRepository.save(careSitter);
 
-        UploadFile attachFile = fileStoreService.storeFile(careSitterFormDTO.getAttachFile());
         List<UploadFile> attachFiles = fileStoreService.storeFiles(careSitterFormDTO.getAttachFiles());
 
-        CareSitterImage careSitterImage = careSitterDtoToImage(careSitter, attachFile);
-        careSitterImageRepository.save(careSitterImage);
-
         for (UploadFile file : attachFiles) {
-            CareSitterImage careSitterImage2 = careSitterDtoToImage(careSitter, file);
-            careSitterImageRepository.save(careSitterImage2);
+            CareSitterImage careSitterImage = careSitterDtoToImage(careSitter, file);
+            careSitterImageRepository.save(careSitterImage);
         }
 
         return careSitter.getId();
@@ -67,6 +67,7 @@ public class CareSitterServiceImpl implements CareSitterService {
                 .disclosureStatus(1)
                 .createdAt(dto.getCreatedAt())
                 .updatedAt(dto.getUpdatedAt())
+                .member(dto.getMember())
                 .build();
     }
 

@@ -6,11 +6,12 @@
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<body>
-		<div class="container">
+	<header th:insert="header.html"></header>
+	<div class="container">
 			<div class="py-5 text-center">
 				<h2>케어시터 등록</h2>
 			</div>
-			<form th:action="@{/api/dashboard/caresitter}" th:method="post" enctype="multipart/form-data">
+			<form>
 				<ul>
 					<li>preferredType <input type="text" name="preferredType" id="preferredType" /></li>
 					<li>desiredDayWeek <input type="text" name="desiredDayWeek" id="desiredDayWeek" /></li>
@@ -28,17 +29,20 @@
                 <input id="tokenField" type="hidden" />
                 <input id="submitButton" type="button" value="제출"/>
 			</form>
-			<div>
-				<button onclick="getSession()">세션가지고와</button>
-			</div>
 		</div>
 		<!-- /container -->
 
 		<script th:inline="javascript">
 
-            $('#submitButton').on('click',function(){
+			$.ajax({
+				type:"GET",
+				headers: {
+					"Authorization": sessionStorage.getItem('access_token')
+				},
+			})
+
+            $('#submitButton').on('click',function() {
 				const formData = new FormData();
-				const attachFiles = new Array();
 
 				formData.append('preferredType', $('#preferredType').val());
 				formData.append('desiredDayWeek', $('#desiredDayWeek').val());
@@ -49,48 +53,33 @@
 				formData.append('vaccination', $('#vaccination').val());
 				formData.append('introduction', $('#introduction').val());
 				formData.append('disclosureStatus', $('#disclosureStatus').val());
-				// formData.append('attachFile', $('#attachFile'));
-				// formData.append('attachFile', document.getElementById('attachFile')[0].files[0]);
-				formData.append('attachFile', $('#attachFile')[0].files[0]);
-				// console.log($('#attachFile')[0].files[0])
 
-				// Array.from($('#attachFile')[0].files).map(e => formData.append('attachFile', e));
-
-				const size = document.getElementById('attachFiles').files.length;
-				for (let i = 0; i < size; i++) {
-					formData.append('attachFiles', $('#attachFile')[0].files[i]);
+				if ($('#attachFiles')[0].files[0] === undefined){
+					alert("이미지를 첨부해주세요!");
+					return false;
+				} else{
+					const size = document.getElementById('attachFiles').files.length;
+					for (let i = 0; i < size; i++) {
+						formData.append('attachFiles', $('#attachFiles')[0].files[i]);
+					}
 				}
 
-				// var attachFile = $("input[name='attachFile']");
-				// var file = attachFile[0].files;
-				//
-				// formData.append('attachFile', file);
-
-
-
-
-
-
 				$.ajax({
-                    url: "/api/dashboard/caresitter",
-                    type: 'POST',
+					url: "/api/dashboard/caresitter",
+					type: 'POST',
 					cache: false,
 					contentType: false,
 					processData: false,
 					enctype: 'multipart/form-data',
-                    // contentType: 'application/json',
-                    headers: {
-                        "Authorization": sessionStorage.getItem('access_token')
-                    },
-                    data: formData,
-                    async: false
-                })});
+					headers: {
+						"Authorization": sessionStorage.getItem('access_token')
+					},
+					data: formData,
+					async: false,
+				})
 
+            });
 
-			const getSession = () => {
-				const data = sessionStorage.getItem('access_token');
-				console.log(data)
-			}
 		</script>
 	</body>
 </html>
