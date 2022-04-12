@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+  <meta charset="utf-8" />
+  <title>회원가입</title>
+  <th:block layout:fragment="styles">
+    <!--        <script src="/css/signin.css"></script>-->
+    <script src="/js/signup.js"></script>
+  </th:block>
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="container">
+    <div class="py-5 text-center">
+      <h2>회원 가입</h2>
+    </div>
+    <form th:action="@{/api/store}" th:method="post" enctype="multipart/form-data">
+      <ul>
+        <li>스토어명 <input type="text" name="name" /></li>
+        <li>홈페이지 주소 <input type="text" name="url" /></li>
+        <li>사업자 등록 번호 <input type="text" name="businessLicenseNumber" /></li>
+        <li>이메일 <input type="email" name="email" /></li>
+        <li>운영 시작 시간 <input type="time" name="operationStartTime" /></li>
+        <li>운영 종료 시간 <input type="time" name="operationEndTime" /></li>
+        <li>점심 시작 시간 <input type="time" name="lunchStartTime" /></li>
+        <li>점심 종료 시간 <input type="time" name="lunchEndTime" /></li>
+        <li>휴일 <input type="text" name="closedDay" /></li>
+        <li>업체 법인 명 <input type="text" name="companyCorporationName" /></li>
+        <li>대표자명 <input type="text" name="representativeName" /></li>
+        <li>사업장 소재지 <input type="text" name="businessLocation" /></li>
+        <li>고객센터 번호 <input type="text" name="customerServiceNumber" /></li>
+      </ul>
+      <input type="submit" value="등록"/>
+    </form>
+  </div>
+</div>
+<!-- /container -->
+</body>
+</html>

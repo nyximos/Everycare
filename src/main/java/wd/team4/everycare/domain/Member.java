@@ -74,6 +74,9 @@ public class Member {
     @OneToOne(mappedBy = "member")
     private CareSitter careSitter;
 
+    @OneToOne(mappedBy = "member")
+    private Store store;
+
     @OneToMany(mappedBy = "member")
     private List<CareTarget> careTargets = new ArrayList<>();
 

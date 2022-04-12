@@ -1,9 +1,7 @@
 package wd.team4.everycare.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -34,16 +32,16 @@ public class Store {
     @Column(name = "store_email", nullable = false)
     private String email;
 
-    @Column(name = "store_operation_start_time", length = 4, nullable = false)
+    @Column(name = "store_operation_start_time", length = 5, nullable = false)
     private String operationStartTime;
 
-    @Column(name = "store_operation_end_time", length = 4, nullable = false)
+    @Column(name = "store_operation_end_time", length = 5, nullable = false)
     private String operationEndTime;
 
-    @Column(name = "store_lunch_start_time", length = 4, nullable = false)
+    @Column(name = "store_lunch_start_time", length = 5, nullable = false)
     private String lunchStartTime;
 
-    @Column(name = "store_lunch_end_time", length = 4, nullable = false)
+    @Column(name = "store_lunch_end_time", length = 5, nullable = false)
     private String lunchEndTime;
 
     @Column(name = "store_closed_day", length = 30, nullable = false)
@@ -61,8 +59,26 @@ public class Store {
     @Column(name = "store_customer_service_number", length = 45, nullable = false)
     private String customerServiceNumber;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Builder
+    public Store(Long id, String name, String url, int businessLicenseNumber, String email, String operationStartTime, String operationEndTime, String lunchStartTime, String lunchEndTime, String closedDay, String companyCorporationName, String representativeName, String businessLocation, String customerServiceNumber, Member member) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+        this.businessLicenseNumber = businessLicenseNumber;
+        this.email = email;
+        this.operationStartTime = operationStartTime;
+        this.operationEndTime = operationEndTime;
+        this.lunchStartTime = lunchStartTime;
+        this.lunchEndTime = lunchEndTime;
+        this.closedDay = closedDay;
+        this.companyCorporationName = companyCorporationName;
+        this.representativeName = representativeName;
+        this.businessLocation = businessLocation;
+        this.customerServiceNumber = customerServiceNumber;
+        this.member = member;
+    }
 }
