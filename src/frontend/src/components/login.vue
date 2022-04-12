@@ -24,11 +24,11 @@ export default {
     components: {
         // Main
     },
-    mounted() {
-        if (sessionStorage.getItem('isLogin') == 'true') {
-            this.$router.push('/');
-        }
-    },
+    // mounted() {
+    //     if (sessionStorage.getItem('isLogin') == 'true') {
+    //         this.$router.push('/');
+    //     }
+    // },
     methods: {
         login() {
             if (this.Id === 'asdf' && this.Password === 'asdf') {
