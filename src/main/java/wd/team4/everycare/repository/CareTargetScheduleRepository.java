@@ -12,6 +12,6 @@ import java.util.Optional;
 public interface CareTargetScheduleRepository extends JpaRepository<CareTargetSchedule, Integer> {
 
     List<CareTargetSchedule> findByCareTarget_Id(Long id);
-    @Query("select cs from CareTargetSchedule cs where cs.careTarget = :careTargets")
-    List<CareTargetSchedule> findByCareTarget(List<CareTarget> careTargets);
+//    @Query("select cs from CareTargetSchedule cs where cs.careTarget = :careTargets")
+//    List<CareTargetSchedule> findByCareTarget(List<CareTarget> careTargets);
 }

@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Getter
 public class CareTargetDTO {
 
+    private Long id;
     private String name;
     private Gender gender;
     private LocalDate birth;
