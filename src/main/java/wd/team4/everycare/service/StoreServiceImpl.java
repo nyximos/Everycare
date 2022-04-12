@@ -8,6 +8,8 @@ import wd.team4.everycare.dto.StoreFormDTO;
 import wd.team4.everycare.repository.StoreRepository;
 import wd.team4.everycare.service.interfaces.StoreService;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -21,6 +23,18 @@ public class StoreServiceImpl implements StoreService {
         storeRepository.save(store);
 
         return store.getId();
+    }
+
+    @Override
+    public String update(Long id, StoreFormDTO storeFormDTO) {
+        Optional<Store> store = storeRepository.findById(id);
+        Store storeEntity = store.orElse(null);
+        if(storeEntity == null){
+            System.out.println("없음");
+            return "실패";
+        }
+        storeEntity.updateInfo(storeFormDTO);
+        return null;
     }
 
 }

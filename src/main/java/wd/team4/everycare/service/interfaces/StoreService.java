@@ -6,4 +6,6 @@ public interface StoreService {
 
     Long save(StoreFormDTO storeFormDTO);
 
+    String update(Long id, StoreFormDTO storeFormDTO);
+
 }

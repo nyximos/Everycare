@@ -2,11 +2,14 @@ package wd.team4.everycare.domain;
 
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
+import wd.team4.everycare.dto.StoreFormDTO;
+import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@DynamicUpdate
 @Getter
 @NoArgsConstructor
 @Entity
@@ -80,5 +83,35 @@ public class Store {
         this.businessLocation = businessLocation;
         this.customerServiceNumber = customerServiceNumber;
         this.member = member;
+    }
+
+    public void updateInfo(StoreFormDTO storeFormDTO){
+        if (StringUtils.isNotBlank(storeFormDTO.getName()))
+            this.name = storeFormDTO.getName();
+        if (StringUtils.isNotBlank(storeFormDTO.getUrl()))
+            this.url = storeFormDTO.getUrl();
+        if (StringUtils.isNotBlank(String.valueOf(storeFormDTO.getBusinessLicenseNumber())))
+            this.businessLicenseNumber = storeFormDTO.getBusinessLicenseNumber();
+        if (StringUtils.isNotBlank(storeFormDTO.getEmail()))
+            this.email = storeFormDTO.getEmail();
+        if (StringUtils.isNotBlank(storeFormDTO.getOperationStartTime()))
+            this.operationStartTime = storeFormDTO.getOperationStartTime();
+        if (StringUtils.isNotBlank(storeFormDTO.getOperationEndTime()))
+            this.operationEndTime = storeFormDTO.getOperationEndTime();
+        if (StringUtils.isNotBlank(storeFormDTO.getLunchStartTime()))
+            this.lunchStartTime = storeFormDTO.getLunchStartTime();
+        if (StringUtils.isNotBlank(storeFormDTO.getLunchEndTime()))
+            this.lunchEndTime = storeFormDTO.getLunchEndTime();
+        if (StringUtils.isNotBlank(storeFormDTO.getClosedDay()))
+            this.closedDay = storeFormDTO.getClosedDay();
+        if (StringUtils.isNotBlank(storeFormDTO.getCompanyCorporationName()))
+            this.companyCorporationName = storeFormDTO.getCompanyCorporationName();
+        if (StringUtils.isNotBlank(storeFormDTO.getRepresentativeName()))
+            this.representativeName = storeFormDTO.getRepresentativeName();
+        if (StringUtils.isNotBlank(storeFormDTO.getBusinessLocation()))
+            this.businessLocation = storeFormDTO.getBusinessLocation();
+        if (StringUtils.isNotBlank(storeFormDTO.getCustomerServiceNumber()))
+            this.customerServiceNumber = storeFormDTO.getCustomerServiceNumber();
+
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.dto.CareSitterFormDTO;
 import wd.team4.everycare.dto.StoreFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
@@ -43,7 +44,22 @@ public class StoreApiController {
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 
-    @DeleteMapping("/store/{id}")
+    @ResponseBody
+    @PatchMapping("/store/account/{id}")
+    public ResponseEntity<MyResponse> patchStore(
+            @PathVariable("id") Long id,
+            @ModelAttribute StoreFormDTO storeFormDTO
+    ){
+        storeService.update(id, storeFormDTO);
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공했슴다~")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/store/account/{id}")
     public ResponseEntity<MyResponse> deletesStore(@PathVariable("id") Long id){
         storeRepository.deleteById(id);
         MyResponse body = MyResponse.builder()
