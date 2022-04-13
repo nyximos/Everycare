@@ -82,7 +82,12 @@
 						<ul class="fullList">
 							<li>
 								<span class="title">희망근무지</span>
-								<span class="result">부산남구</span>
+								<p class="result">
+									1순위:{{this.$store.state.careprofileStore.hopeloc1}}&nbsp;&nbsp;&nbsp; 
+									2순위:{{this.$store.state.careprofileStore.hopeloc2}}&nbsp;&nbsp;&nbsp;
+									3순위:{{this.$store.state.careprofileStore.hopeloc3}}
+								</p>
+						
 							</li>
 							<li>
 								<span class="title">희망업직종</span>
@@ -92,7 +97,7 @@
 					</div>
 					<div id="ResumePR" class="resumeView">
 						<h2>자기소개서</h2>
-						<div class="ResumeOpenBox"><span class="lockIcon"></span><p class="first">{{this.$store.state.careprofileStore.comment}}</p></div>
+						<div class="ResumeOpenBox"><span class="lockIcon"></span><p class="first">{{this.$store.state.careprofileStore.textarea}}</p></div>
 					</div>
                     <div id="#" class="resumeView">
                         <h2>후기</h2>
@@ -250,6 +255,7 @@ export default {
     line-height: 1.5;
 }
 
+
 #ResumeTerms .resumeView-table {
 	overflow:hidden;
 	width:100%;
@@ -296,11 +302,12 @@ export default {
 	font-weight:bold;
 	line-height:1.5;
 	}
+	
 
-#ResumeTerms ul.fullList li span.result {
+#ResumeTerms ul.fullList li p.result {
 	overflow:hidden;
 	display:block;
-	font-size:14px;
+	font-size:20px;
 	line-height:1.5
 	}
 

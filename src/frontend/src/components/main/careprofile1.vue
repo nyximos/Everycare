@@ -145,14 +145,14 @@ data(){
 
     },
     methods:{
-      categoryChange(key,sel){
-        if(key == "seoul"){
-          document. = this.area1;
+      // categoryChange(key,sel){
+      //   if(key == "seoul"){
+      //     document. = this.area1;
           
         
-        }
+      //   }
        
-      },
+      // },
       console(){
         const userData = {
           hopeloc1:this.hopeloc1,

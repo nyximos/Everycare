@@ -1,11 +1,11 @@
 export default {
     namespaced: true,
     state: {
-        image: '나는 이미지!',
+        image: '',
         name: '',
         sex: '',
         age: '',
-        comment: '',
+        intro: '',
         hopeloc1: '',
         hopeloc2: '',
         hopeloc3: '',
@@ -26,7 +26,7 @@ export default {
             state.name = userData.name;
             state.sex = userData.sex;
             state.age = userData.age;
-            state.comment = userData.comment;
+            state.intro = userData.intro;
         },
         set_user2(state, userData){
             state.hopeloc1 = userData.hopeloc1;

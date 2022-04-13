@@ -5,9 +5,9 @@
     </div>
     <div class="rlist">
         <div class="list_more">
-            <ul class="ul01">
-                <li class="li01">
-                    <a href="">
+            <ul class="ul01" v-if="$store.state.careprofileStore.length > 0">
+                <li class="li01" v-for="userData in $store.state.careprofileStore" :key="userData.name">
+                        
                         <span class="tab01">
                             <span class="img01">
                                 <img src="@/assets/user.png" class="vertical">
@@ -18,8 +18,8 @@
                                 학습,등하원
                                 <span class="edit_date">1시간전</span>
                             </span>
-                            <span class="name">김OO
-                                <span class="age">50세</span>
+                            <span class="name">{{this.$store.state.careprofileStore.name}}
+                                <span class="age">{{this.$store.state.careprofileStore.age}}</span>
                             </span>
                             <span class="area">서울 강남구,경기 성남시</span>
                                 <span class="pay">
@@ -34,7 +34,7 @@
                             <span class="text01">10년이상</span>
                             <span class="text01">신생아(0~6개월)</span>
                         </span>
-                    </a>
+
                 </li>
             </ul>
         </div>

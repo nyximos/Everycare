@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Caresitters from '../pages/Caresitters';
+
 import Carepeople from '../pages/Carepeople';
 import Alarm from '../pages/Alarm';
 import Profile2 from '../pages/Profile2';
@@ -50,7 +50,7 @@ const routes = [
     {
         path: '/caresitters',
         name: 'caresitters',
-        component: Caresitters
+        component: () => import('@/pages/Caresitters.vue')
     },
     {
         path: '/works',

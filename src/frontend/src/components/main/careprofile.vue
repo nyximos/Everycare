@@ -15,15 +15,15 @@
                       <div class="area_profile">
                           <div class="div_img">
                               <label for="input_file">
-                                  <img :src="avatar" class="img-avatar">
-                                  <!-- <img src="@/assets/user.png"> -->
+                                  <!-- <img :src="avatar" class="img-avatar"> -->
+                                  <img src="@/assets/user.png">
                               </label>
                           </div>
                           <div class="div_text">
-                                 <span><input type="file" v-bind:src="image" id="uppic" accept="image/gif,image/jpg,image/png" @change="changeImage($event)" ref="avatarInput" class="uppic"></span>
+                                 <!-- <span><input type="file" v-bind:src="image" id="uppic" accept="image/gif,image/jpg,image/png" @change="changeImage($event)" ref="avatarInput" class="uppic"></span> -->
                              
                               
-                              <!-- <v-file-input v-model="image" truncate-length="22" label="사진을 넣으세요"  @change="changeImage($event)" ></v-file-input> -->
+                              <v-file-input v-model="image" truncate-length="22" label="사진을 넣으세요"  @change="changeImage($event)" ></v-file-input>
                           </div>
                           <div class="con10_blank"></div>
                           <div class="r_content">
@@ -34,10 +34,10 @@
                                     <v-radio label="여" value="Woman"></v-radio>
                                 </v-radio-group>
                               <h2>나이</h2>
-                              <v-text-field v-model="age" label="Age" required></v-text-field>
+                              <v-text-field v-model.number="age" label="Age" required></v-text-field>
                               <br>
                               <h5>자기소개</h5>
-                              <textarea class="content_add" placeholder="자기소개써주세요" v-model="textarea"></textarea>
+                              <textarea class="content_add" placeholder="자기소개써주세요" v-model="intro"></textarea>
                           </div>
                           <!-- <router-link :to="{name: 'careprofile1'}"> -->
                                 <v-btn class="ma-2" outlined color="indigo" @click="nextpage1">다음</v-btn>
@@ -61,7 +61,7 @@ export default {
         name:'',
         radios:'',
         age:'',
-        textarea:''
+        intro:''
      }
   },
   methods:{
@@ -83,17 +83,16 @@ export default {
         name:this.name,
         sex:this.radios,
         age:this.age,
-        textarea:this.textarea
+        intro:this.intro
         }
         try{
             if(this.image.name ==""){
                 alert("사진을 넣어주세요!");
-                this.image.name.focus();
+                
                 return;
             }
             if(this.name == ""){
                 alert("이름을 입력해주세요!"); 
-                this.name.focus();
                 return;
             }
             if(this.radio ==""){
