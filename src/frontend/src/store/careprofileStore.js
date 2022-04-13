@@ -2,7 +2,7 @@ export default {
     namespaced: true,
     state: {
         image: '나는 이미지!',
-        name: '나는바보다22',
+        name: '',
         sex: '',
         age: '',
         comment: '',

@@ -18,19 +18,24 @@
               <ul class="work_area" style="display:block;">
                 <li>
                   <span class="area_stitle">1지망</span>
-                    <v-select
+                    <v-select name="sido1" id="sido1"
                       v-model="hopeloc1"
                       :items="hopelocation1"
-                      label="1지망"
+                      label="시/도"
                       item-text="name"
-                      item-value="value">
+                      item-value="value"
+                      onchange="categoryChange(this.value,area_2)" on>
+
                     </v-select>
+                    <select name="area_2">
+                      <option value="">선택</option>
+                    </select>
                 </li>
                   <li>
                    <span class="area_stitle">2지망</span>
                     <v-select
                       v-model="hopeloc2"
-                      :items="hopelocation2"
+                      :items="hopelocation1"
                       label="2지망"
                       item-text="name"
                       item-value="value">
@@ -40,7 +45,7 @@
                      <span class="area_stitle">3지망</span>
                         <v-select
                           v-model="hopeloc3"
-                          :items="hopelocation3"
+                          :items="hopelocation1"
                           label="3지망"
                           item-text="name"
                           item-value="value">
@@ -51,85 +56,38 @@
                   <div class="area_day">
                     <h5 class="sub_title">희망근무요일</h5>
                       <div class="area6_r_day">
-                          <v-checkbox
-                          v-model="selected"
-                          value="Mon"
-                          label="월"
-                          ></v-checkbox
-                          ><v-checkbox
-                           v-model="selected"
-                           value="Tue"
-                          label="화">
-                          </v-checkbox>
-                          <v-checkbox
-                           v-model="selected"
-                           value="wed"
-                          label="수"
-                          ></v-checkbox>
-                          <v-checkbox
-                           v-model="selected"
-                           value="thur"
-                          label="목"
-                          ></v-checkbox>
-                          <v-checkbox
-                           v-model="selected"
-                           value="fri"
-                          label="금"
-                          ></v-checkbox>
-                          <v-checkbox
-                           v-model="selected"
-                           value="sat"
-                          label="토"
-                          ></v-checkbox>
-                          <v-checkbox
-                           v-model="selected"
-                           value="sun"
-                          label="일"
-                          ></v-checkbox>
+                          <v-checkbox v-model="selected" value="월요일" label="월"></v-checkbox>
+                          <v-checkbox v-model="selected" value="화요일" label="화"></v-checkbox>
+                          <v-checkbox v-model="selected" value="수요일" label="수"></v-checkbox>
+                          <v-checkbox v-model="selected" value="목요일" label="목"></v-checkbox>
+                          <v-checkbox v-model="selected" value="금요일" label="금"></v-checkbox>
+                          <v-checkbox v-model="selected" value="토요일" label="토"></v-checkbox>
+                          <v-checkbox v-model="selected" value="일요일" label="일"></v-checkbox>
                           {{selected}}
                         </div>
                       </div>
                       <div class="area_time">
                         <h5 class="sub_title">희망시간</h5>
                         <div class="r_time_text" style="display:block;">
-                          <v-time-picker
-                          v-model="starttimepicker"
-                          ampm-in-title>
-                          </v-time-picker>
-                          {{starttimepicker}}
-                         <v-time-picker
-                         v-model="endtimepicker"
-                         ampm-in-title
-                         ></v-time-picker>
-                         {{endtimepicker}}
+                          <v-time-picker v-model="starttimepicker" ampm-in-title></v-time-picker>
+                         <v-time-picker v-model="endtimepicker" ampm-in-title></v-time-picker>
                         </div>
                       </div>
                       <div class="area_pay">
                         <h5 class="sub_title">급여</h5>
                         <div class="r_pay">
-                        <v-radio-group
-                        v-model="radios"
-                        mandatory
-                        row>
-                          <v-radio
-                          label="시급"
-                          value="hourpay">
+                        <v-radio-group v-model="radios" mandatory row>
+                          <v-radio label="시급" value="hourpay">
                           </v-radio>
-                          <v-radio
-                          label="월급"
-                          value="monthpay">
+                          <v-radio label="월급" value="monthpay">
                           </v-radio>
                           </v-radio-group>
-                          <v-text-field
-                          v-model="pay"
-                          label="희망 시/월급을 입력하세요"
+                          <v-text-field v-model="pay" label="희망 시/월급을 입력하세요"
                           ></v-text-field>
-                         
+                          <!-- <span>{{this.$store.state.careprofileStore.name}}</span> -->
                         </div>
                       </div>
-                      <router-link to="/Careprofile2">
                       <v-btn class="ma-2" outlined color="indigo" @click="console">다음</v-btn>
-                      </router-link>
                       <router-link to="/Careprofile"><v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
                   </div>
               </div>
@@ -139,21 +97,42 @@
 </template>
 
 <script>
+
 export default {
 data(){
   return{
     hopelocation1:[
       {name: '서울', value: 'seoul'},
       {name: '인천', value: 'incheon'},
-    ],
-    hopelocation2:[
+      {name: '부산', value: 'busan'},
       {name: '대구', value: 'daegu'},
-      {name: '포항', value: 'pohang'},
-    ],
-    hopelocation3:[
+      {name: '충남', value: 'chungnam'},
+      {name: '충북', value: 'chungbuk'},
+      {name: '광주', value: 'gwangju'},
+      {name: '대전', value: 'daejeon'},
       {name: '울산', value: 'ulsan'},
+      {name: '강원', value: 'gangwon'},
+      {name: '경기', value: 'gyeonggi'},
+      {name: '경남', value: 'gyeongnam'},
+      {name: '경북', value: 'gyeongbuk'},
+      {name: '전남', value: 'jeonnam'},
+      {name: '전북', value: 'jeonbuk'},
       {name: '제주', value: 'jeju'},
     ],
+    area1 : [
+      {name:'강남구', value:'강남구'},
+      {name:'강남구', value:'강남구'},
+      {name:'강남구', value:'강남구'},
+      {name:'강남구', value:'강남구'}
+    ],
+    area2:[
+      {name:'강북구', value:'강북구'},
+      {name:'강북구', value:'강북구'},
+      {name:'강북구', value:'강북구'},
+      {name:'강북구', value:'강북구'},
+    ],
+
+    
     hopeloc1:'',
     hopeloc2:'',
     hopeloc3:'',
@@ -166,6 +145,14 @@ data(){
 
     },
     methods:{
+      categoryChange(key,sel){
+        if(key == "seoul"){
+          document. = this.area1;
+          
+        
+        }
+       
+      },
       console(){
         const userData = {
           hopeloc1:this.hopeloc1,
@@ -179,8 +166,30 @@ data(){
         };
         // console.log(userData);
         try {
-            this.$store.commit('careprofileStore/set_user2', userData);
-            console.log(this.$store.state.careprofileStore.image)
+            if(this.hopeloc1 ==""){
+                alert("희망근무지역을 선택해주세요!");
+                this.hopeloc1.focus();
+                return;
+            }
+            if(this.selected == ""){
+                alert("희망근무요알을 선택해주세요!"); 
+                return;
+            }
+            if(this.starttimpicker ==""){
+                 alert("희망시간을 선택해주세요!");
+                 return;
+            }
+            if(this.endtimpicker ==""){
+                 alert("희망시간을 입력해주세요!");
+                 return; 
+            }
+            if(this.pay ==""){
+              alert("급여를 입력해주세요");
+              return;
+            }else{
+            this.$store.commit('careprofileStore/set_user2', userData)
+            this.$router.push({ path: '/dashboard/careprofile2' })
+            }
         } catch (error) {
           console.log(error)
         }

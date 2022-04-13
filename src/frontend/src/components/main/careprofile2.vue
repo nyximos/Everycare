@@ -142,9 +142,9 @@
                   
               </div>
               <br><br>
-               <router-link :to="{name: 'Main'}">
+               <!-- <router-link :to="{name: 'Main'}"> -->
                <v-btn class="ma-2" outlined color="indigo" @click="clickme">등록</v-btn>
-               </router-link>
+               <!-- </router-link> -->
                 <router-link to="/Careprofile1"><v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
           </div>
           
@@ -177,10 +177,30 @@ data(){
           }
           console.log(userData)
           try {
+              if(this.caretype ==""){
+                alert("선호유형을 선택주세요!");
+        
+                return;
+            }
+            if(this.ageselect == ""){
+                alert("연령을 선택해주세요!"); 
+              
+                return;
+            }
+            if(this.cctv ==""){
+                 alert("cctv 동의여부를 선택해주세요!");
+                 return;
+            }
+            if(this.vaccine ==""){
+                 alert("백신을 선택해주세요!");
+                 return;
+            }else{
               this.$store.commit('careprofileStore/set_user3', userData);
               console.log('데이터 저장')
               console.log(this.$store.state.careprofileStore.image)
               console.log('이미지 받았다~')
+              this.$router.push({ path: '/Main' })
+            }
           } catch (error) {
               console.log(error)
           }

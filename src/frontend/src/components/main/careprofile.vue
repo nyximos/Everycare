@@ -15,16 +15,15 @@
                       <div class="area_profile">
                           <div class="div_img">
                               <label for="input_file">
-                                  <img src="@/assets/user.png">
+                                  <img :src="avatar" class="img-avatar">
+                                  <!-- <img src="@/assets/user.png"> -->
                               </label>
                           </div>
                           <div class="div_text">
-                              <strong>사진</strong>
-                              <v-file-input
-                              v-model="image"
-                                truncate-length="22"
-                                label="사진을 넣으세요"
-                                ></v-file-input>
+                                 <span><input type="file" v-bind:src="image" id="uppic" accept="image/gif,image/jpg,image/png" @change="changeImage($event)" ref="avatarInput" class="uppic"></span>
+                             
+                              
+                              <!-- <v-file-input v-model="image" truncate-length="22" label="사진을 넣으세요"  @change="changeImage($event)" ></v-file-input> -->
                           </div>
                           <div class="con10_blank"></div>
                           <div class="r_content">
@@ -40,9 +39,9 @@
                               <h5>자기소개</h5>
                               <textarea class="content_add" placeholder="자기소개써주세요" v-model="textarea"></textarea>
                           </div>
-                          <router-link :to="{name:'careprofile1'}">
-                          <v-btn class="ma-2" outlined color="indigo" @click="nextpage1">다음</v-btn>
-                          </router-link>
+                          <!-- <router-link :to="{name: 'careprofile1'}"> -->
+                                <v-btn class="ma-2" outlined color="indigo" @click="nextpage1">다음</v-btn>
+                          <!-- </router-link> -->
                           <router-link to="/"> <v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
                           </div>
                       </div>
@@ -57,6 +56,7 @@ export default {
   name:'careprofilecom',
   data(){
      return{
+        avatar:require('@/assets/user.png'),
         image: [],
         name:'',
         radios:'',
@@ -65,7 +65,19 @@ export default {
      }
   },
   methods:{
+      changeImage(e){
+        var file = e.target.files[0]
+        var reader = new FileReader()
+        var that = this
+        reader.readAsDataURL(file)
+        reader.onload = function(){
+            that.avatar = this.result
+        }
+    },
+    
+     
       nextpage1(){
+          
         const userData = {
         image : this.image.name,
         name:this.name,
@@ -74,11 +86,35 @@ export default {
         textarea:this.textarea
         }
         try{
+            if(this.image.name ==""){
+                alert("사진을 넣어주세요!");
+                this.image.name.focus();
+                return;
+            }
+            if(this.name == ""){
+                alert("이름을 입력해주세요!"); 
+                this.name.focus();
+                return;
+            }
+            if(this.radio ==""){
+                 alert("성별을 입력해주세요!");
+                 return;
+            }
+            if(this.age ==""){
+                 alert("나이를 입력해주세요!");
+                 return;
+            }else{
           this.$store.commit('careprofileStore/set_user1', userData);
           console.log(this.$store.state.careprofileStore.image);
+            this.$router.push({ path: '/dashboard/careprofile1' })
+
+
+            }
+            
         } catch(error){
            console.log(error); 
         }
+        
     }
   }
 }
