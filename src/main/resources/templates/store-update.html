@@ -56,23 +56,39 @@
       formData.append('businessLocation', $('#businessLocation').val());
       formData.append('customerServiceNumber', $('#customerServiceNumber').val());
 
+      /*<![CDATA]*/
+      var id = /*[[ ${store.id} ]]*/'';
+      console.log(id);
+      /*]]*/
 
-        $('#deleteButton').on('click', function () {
+      $.ajax({
+        url: "/api/store/account/"+id,
+        type: 'PATCH',
+        cache: false,
+        contentType: false,
+        processData: false,
+        enctype: 'multipart/form-data',
+        data: formData,
+        async: false,
+      })
+      location.href="/dashboard/caresitter"
 
-            $.ajax({
-                url: "/api/store/"+id,
-                type: 'DELETE',
-                cache: false,
-                data: {
-                    "id":id
-                },
-                dataType:"json",
-                async: false,
-            })
+      $('#deleteButton').on('click', function () {
 
-            location.href = "/store";
-        })
-    });
+          $.ajax({
+              url: "/api/store/account/"+id,
+              type: 'DELETE',
+              cache: false,
+              data: {
+                  "id":id
+              },
+              dataType:"json",
+              async: false,
+          })
+
+          location.href = "/store";
+      })
+  });
 
   </script>
 </div>
