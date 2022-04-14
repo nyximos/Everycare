@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -102,6 +103,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         Cookie cookieToken = new Cookie(JwtProperties.HEADER_STRING, encodeToken);
         cookieToken.setMaxAge(JwtProperties.EXPIRATION_TIME / 1000);
         response.addCookie(cookieToken);
+//        response.setHeader(HttpHeaders.SET_COOKIE, String.format("%s=%s; SameSite=None", JwtProperties.HEADER_STRING,encodeToken));
+
     }
 
 }

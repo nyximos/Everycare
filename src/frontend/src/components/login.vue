@@ -4,8 +4,8 @@
             <div class="login-title"><span class="login-title-L">L</span>ogin</div>
             <div>
                 <div class="login-input-botton">
-                    <v-text-field v-model="Id" label="Id" placeholder="Placeholder" dense outlined></v-text-field>
-                    <v-text-field v-model="Password" type="password" label="Password" placeholder="Placeholder" dense outlined></v-text-field>
+                    <v-text-field v-model="username" label="Id" placeholder="Placeholder" dense outlined></v-text-field>
+                    <v-text-field v-model="password" type="password" label="Password" placeholder="Placeholder" dense outlined></v-text-field>
                 </div>
                 <div><v-btn @click="login" color="accent" elevation="2" class="login-button">Login</v-btn></div>
             </div>
@@ -17,8 +17,12 @@
 export default {
     data() {
         return {
-            Id: '',
-            Password: ''
+            username: '',
+            password: '',
+            json: {
+                username: 'e',
+                password: 'ee'
+            }
         };
     },
     components: {
@@ -31,12 +35,19 @@ export default {
     },
     methods: {
         login() {
-            if (this.Id === 'asdf' && this.Password === 'asdf') {
-                this.$router.push('/');
-                sessionStorage.setItem('isLogin', true);
-            } else {
-                alert('으악');
-            }
+            console.log(this.json);
+            this.$http
+                .post('http://localhost:8086/login', this.json)
+                .then(res => {
+                    // this.test = response.data;
+                    console.log(res);
+                    console.log(this.json);
+                    // location.href = '/';
+                })
+                .catch(err => {
+                    console.log(err);
+                    console.log(this.json);
+                });
         }
     }
 };
