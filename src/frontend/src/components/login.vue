@@ -37,7 +37,9 @@ export default {
         login() {
             console.log(this.json);
             this.$http
-                .post('http://localhost:8086/login', this.json)
+                .post('https://localhost:8086/login', this.json, {
+                    withCredentials: true
+                })
                 .then(res => {
                     // this.test = response.data;
                     console.log(res);
