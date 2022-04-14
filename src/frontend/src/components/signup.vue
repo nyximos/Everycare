@@ -1,6 +1,7 @@
 <template>
     <div>
-        <form name="signUpForm" class="form" role="form">
+        <form>
+        <!-- <form name="signUpForm" class="form" role="form"> -->
             <br>
             <h2>회원가입</h2>
             {{ this.$store.state.userStore.id }}
@@ -21,14 +22,14 @@
             <input class="form-control" v-model="detailedAddress" type="text" placeholder="상세주소" aria-label="default input example" />
             <br />
             </div>
-        </form>
+        <!-- </form> -->
         <button id="upbtn" class="btn btn-lg btn-primary btn-block signup-btn" type="submit" @click="signup">회원가입</button>
-        
+        </form>
     </div>
 </template>
 
 <script>
-import { registerUser } from '@/api/core/index.js';
+import { registerUser } from '@/api/core/index';
 
 export default {
     data() {
@@ -51,9 +52,7 @@ export default {
             try {
                 console.log(updata);
                 this.$store.commit('userStore/sgnUp', updata);
-                const response = await registerUser(updata);
-                console.log(response);
-                this.initForm();
+                registerUser(updata);
             } catch (error) {
                 console.log(error);
             }
@@ -88,57 +87,4 @@ input{
     left: 21%;
     bottom: 15px;
 }
-/*
-input.ng-invalid {
-  border: 5px solid red;
-}
-#signup-box{
-    text-align: center;
-    width: 500px;
-    position: relative;
-    left: 200px;
-    top: 100px;
-}
-#genbox{
-    position: relative;
-    right:200px;
-    bottom:12px;
-}
-.form-select{
-    width: 100px;
-}
-#number2{
-    width: 150px;
-    position: relative;
-    left: 110px;
-    bottom: 38px;
-}
-#number3{
-    width: 150px;
-    position: relative;
-    left: 270px;
-    bottom: 76px;
-}
-#birth{
-    position: relative;
-    bottom: 50px;
-}
-#address{
-    width: 100px;
-    position: relative;
-    
-}
-#addr1{
-    position: relative;
-    bottom: 38px;
-    right: 90px;
-}
-#addr2{
-    position: relative;
-    bottom: 15px;
-}
-#email{
-    position: relative;
-    bottom: 26px;
-}*/
 </style>

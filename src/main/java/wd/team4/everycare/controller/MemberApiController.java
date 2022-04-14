@@ -37,7 +37,7 @@ public class MemberApiController {
 
     @PostMapping("/signup")
     public String join(@Valid @RequestBody SignupDTO signupDTO) {
-        System.out.println("in");
+
         LocalDateTime time = LocalDateTime.now();
         signupDTO.setCreatedAt(time);
         signupDTO.setActivityStatus(ActivityStatus.ACTIVE);

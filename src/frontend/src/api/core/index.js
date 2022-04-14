@@ -1,15 +1,27 @@
 import axios from 'axios';
 
+const instance = axios.create({
+    baseURL: '/api'
+})
+
 function registerUser(updata) {
-    const url = '/api/signup';
-    console.log(updata)
-    return axios.post(url, updata);
+    //const url = '/api/signup';
+    //axios.post('/api/signup', updata)
+    instance.post('/signup', updata)
 }
-export{ registerUser };
+
+function loginUser(userdata){
+    const url = 'http://localhost:8086/login'
+    return axios.post(url, userdata)
+                .then((res)=>{
+                    console.log(res);
+                })
+}
+ export{ registerUser, loginUser };
 
 //create an axios instance
 const request = axios.create({
-    baseURL: process.env.VUE_APP_BASE_URL
+    baseURL: process.env.VUE_APP_BASE_URL,
 });
 
 // Alter defaults after instance has been created
