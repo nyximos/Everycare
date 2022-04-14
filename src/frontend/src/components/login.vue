@@ -13,14 +13,14 @@
     </div>
 </template>
 <script>
-import { loginUser } from '@/api/core/index';
+// import { loginUser } from '@/api/core/index';
+import axios from 'axios';
 
 export default {
     data() {
         return {
-            username: '',
-            password: '',
-            logMessage: ''
+            Id:'',
+            Password:''
         };
     },
     components: {
@@ -37,10 +37,14 @@ export default {
                 username: this.Id,
                 password: this.Password
             };
-            const response = await loginUser(userdata);
-            console.log(response);
+            // const response = await loginUser(userdata);
+            // console.log(response);
             this.$store.commit('userStore2/sgnIn', userdata);
            // this.logMessage = `${config.data.username}님`;
+           axios.post('/login', userdata)
+           .then((res)=>{
+                    console.log(res);
+                })
             this.$router.push('/');
 
             if (this.Id === '') {
