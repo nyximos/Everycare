@@ -10,14 +10,15 @@ function registerUser(updata) {
     instance.post('signup', updata)
 }
 
-function loginUser(updata){
-    instance.post('signin',updata)
+function loginUser(userdata){
+    const url = '/login'
+    return axios.post(url, userdata)
 }
 export{ registerUser, loginUser };
 
 //create an axios instance
 const request = axios.create({
-    baseURL: process.env.VUE_APP_BASE_URL
+    baseURL: process.env.VUE_APP_BASE_URL,
 });
 
 // Alter defaults after instance has been created

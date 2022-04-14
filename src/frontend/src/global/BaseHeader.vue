@@ -1,20 +1,34 @@
 <template>
-    <div class="header">
-        <div class="logo" @click="goMain()">logo</div>
-        <div class="list">
-            <v-btn text>케어매칭</v-btn>
-            <v-btn text>케어노트</v-btn>
-            <v-btn text>케어스토어</v-btn>
+    <header>
+        <div class="header">
+            <div class="logo" @click="goMain()">logo</div>
+            <div class="list">
+                <v-btn text>케어매칭</v-btn>
+                <v-btn text>케어노트</v-btn>
+                <v-btn text>케어스토어</v-btn>
+            </div>
+            <div>
+                <template v-if="isUserLogin">
+                    <span class="username">{{ $store.state.username }}</span>
+                    <a href="javascript:;" @click="logoutUser">로그아웃</a>
+                </template>
+
+                <template v-else>
+                    <router-link to="/login">로그인</router-link>
+                    <router-link to="/signup">회원가입</router-link>
+                </template>
+            </div>
         </div>
-        <div>
-            <v-btn text>로그인</v-btn>
-            <v-btn text>회원가입</v-btn>
-        </div>
-    </div>
+    </header>
 </template>
 
 <script>
 export default {
+    computed: {
+        isUserLogin() {
+            return this.$store.getters.isLogin;
+        }
+    },
     methods: {
         goMain() {
             if (this.$router.history.current.fullPath == '/') {
@@ -23,6 +37,10 @@ export default {
                 this.$router.push('/');
                 console.log('/');
             }
+        },
+        logoutUser(){
+            this.$stroe.commit('clearUsername');
+            this.$router.push('/');
         }
     }
 };

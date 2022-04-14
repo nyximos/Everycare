@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { registerUser } from '@/api/core/index.js';
+import { registerUser } from '@/api/core/index';
 
 export default {
     data() {
