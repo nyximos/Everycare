@@ -4,11 +4,11 @@ export default{
         username:'',
         password:''
     },
-    // getters:{
+    getters:{
     //    isLogin(state){
     //        return state.username !== ''
     //    }
-    // },
+    },
     mutations:{
         sgnIn(state, userdata){
             state.username = userdata.username;

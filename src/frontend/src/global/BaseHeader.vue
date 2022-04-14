@@ -8,15 +8,9 @@
                 <v-btn text>케어스토어</v-btn>
             </div>
             <div>
-                <!-- <template v-if="isUserLogin"> -->
-                    <!-- <span class="username">{{ $store.state.username }}</span>
-                    <a href="javascript:;" @click="logoutUser">로그아웃</a> -->
-                <!-- </template> -->
-
-                <!-- <template v-else> -->
+                    
                     <router-link to="/login">로그인</router-link>
                     <router-link to="/signup">회원가입</router-link>
-                <!-- </template> -->
             </div>
         </div>
     </header>
@@ -25,9 +19,7 @@
 <script>
 export default {
     computed: {
-        // isUserLogin() {
-        //     return this.$store.getters.isLogin;
-        // }
+
     },
     methods: {
         goMain() {
@@ -39,7 +31,7 @@ export default {
             }
         },
         logoutUser(){
-            this.$stroe.commit('clearUsername');
+            this.$stroe.commit('userStore2/clearUsername');
             this.$router.push('/');
         }
     }

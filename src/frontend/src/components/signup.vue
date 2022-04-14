@@ -1,5 +1,6 @@
 <template>
     <div>
+        <form>
         <!-- <form name="signUpForm" class="form" role="form"> -->
             <br>
             <h2>회원가입</h2>
@@ -23,13 +24,13 @@
             </div>
         <!-- </form> -->
         <button id="upbtn" class="btn btn-lg btn-primary btn-block signup-btn" type="submit" @click="signup">회원가입</button>
-        
+        </form>
     </div>
 </template>
 
 <script>
-// import { registerUser } from '@/api/core/index';
-import axios from 'axios'
+import { registerUser } from '@/api/core/index';
+
 export default {
     data() {
         return {};
@@ -51,13 +52,7 @@ export default {
             try {
                 console.log(updata);
                 this.$store.commit('userStore/sgnUp', updata);
-                // registerUser(updata);
-               axios.post('/signup', updata)
-               .then((res)=>{
-                   console.log(res)
-                   this.initForm();
-               })
-                
+                registerUser(updata);
             } catch (error) {
                 console.log(error);
             }
