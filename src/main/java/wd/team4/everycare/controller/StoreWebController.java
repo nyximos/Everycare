@@ -1,12 +1,15 @@
 package wd.team4.everycare.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Store;
 import wd.team4.everycare.repository.StoreRepository;
+import wd.team4.everycare.service.StoreServiceImpl;
 
 import java.util.Optional;
 
@@ -14,6 +17,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class StoreWebController {
 
+    private final StoreServiceImpl storeService;
     private final StoreRepository storeRepository;
 
     @GetMapping("/store")
@@ -21,9 +25,16 @@ public class StoreWebController {
         return "store";
     }
 
-    @GetMapping("/store/new")
-    public String newStore(){
-        return "store-new";
+    @GetMapping("/store/account")
+    public String newStore(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        String id = principalDetails.getUsername();
+        Store store = storeService.findStore(id);
+
+        if(store!=null){
+            model.addAttribute("store", store);
+        }
+
+        return "store-account";
     }
 
     @GetMapping("/store/{id}")

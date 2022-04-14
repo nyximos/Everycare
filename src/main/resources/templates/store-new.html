@@ -18,7 +18,7 @@
     </div>
     <form th:action="@{/api/store}" th:method="post" enctype="multipart/form-data">
       <ul>
-        <li>스토어명 <input type="text" name="name" id=name"" /></li>
+        <li>스토어명 <input type="text" name="name" id="name" /></li>
         <li>홈페이지 주소 <input type="text" name="url" id="url" /></li>
         <li>사업자 등록 번호 <input type="number" name="businessLicenseNumber" id="businessLicenseNumber" /></li>
         <li>이메일 <input type="email" name="email" id="email" /></li>
@@ -83,8 +83,6 @@
         formData.append('businessLocation', $('#businessLocation').val());
         formData.append('customerServiceNumber', $('#customerServiceNumber').val());
 
-        console.log(closedDay);
-
         $.ajax({
           url: "/api/store",
           type: 'POST',
@@ -95,8 +93,7 @@
           data: formData,
           async: false,
         })
-
-        // location.href = "/store";
+        location.href = "/store";
       })
     });
   </script>

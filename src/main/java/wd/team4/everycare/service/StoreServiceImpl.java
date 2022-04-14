@@ -3,8 +3,10 @@ package wd.team4.everycare.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.domain.Store;
 import wd.team4.everycare.dto.StoreFormDTO;
+import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.repository.StoreRepository;
 import wd.team4.everycare.service.interfaces.StoreService;
 
@@ -15,6 +17,7 @@ import java.util.Optional;
 @Transactional
 public class StoreServiceImpl implements StoreService {
 
+    private final MemberRepository memberRepository;
     private final StoreRepository storeRepository;
 
     @Override
@@ -35,6 +38,13 @@ public class StoreServiceImpl implements StoreService {
         }
         storeEntity.updateInfo(storeFormDTO);
         return null;
+    }
+
+    @Override
+    public Store findStore(String id) {
+        Optional<Member> member = memberRepository.findById(id);
+        Store store = member.get().getStore();
+        return store;
     }
 
 }
