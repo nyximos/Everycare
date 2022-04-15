@@ -24,7 +24,6 @@ import java.time.LocalDateTime;
 public class CareSitterApiController {
 
     private final CareSitterServiceImpl careSitterService;
-    private final MemberRepository memberRepository;
 
     @ResponseBody
     @PostMapping("/dashboard/caresitter")
