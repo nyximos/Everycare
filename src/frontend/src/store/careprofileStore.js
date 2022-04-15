@@ -1,47 +1,6 @@
 export default {
     namespaced: true,
     state: {
-<<<<<<< HEAD
-        image: '',
-        name: '',
-        row: '',
-        age: '',
-        textarea: '',
-        hopelocation: '',
-        hopeday: '',
-        hopetime: '',
-        pay: '',
-        hopetype: '',
-        hopeage: '',
-        vaccine: '',
-        cctv: '',
-        certification: ''
-    },
-    mutations: {
-        carePro(state, caredata) {
-            state.name = caredata.name;
-            state.age = caredata.age;
-            state.row = caredata.row;
-            state.textarea = caredata.textarea;
-        },
-        carePro1(state, caredata) {
-            state.hopelocation = caredata.hopelocation;
-            state.hopetime = caredata.hopetime;
-            state.hopeday = caredata.hopeday;
-            state.pay = caredata.pay;
-        },
-        carePro2(state, caredata) {
-            state.hopetype = caredata.hopetype;
-            state.hopeage = caredata.hopeage;
-            state.vaccine = caredata.vaccine;
-            state.cctv = caredata.cctv;
-            state.certification = caredata.certification;
-        },
-    },
-    actions: {},
-    getters: {}
-};
-=======
         image: '나는 이미지!',
         name: '나는바보다22',
         sex: '',
@@ -90,4 +49,3 @@ export default {
     actions: {},
     getters: {}
 };
->>>>>>> main

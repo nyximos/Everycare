@@ -7,7 +7,7 @@ const instance = axios.create({
 function registerUser(updata) {
     //const url = '/api/signup';
     //axios.post('/api/signup', updata)
-    instance.post('/signup', updata)
+    instance.post('signup', updata)
 }
 
 function loginUser(userdata){

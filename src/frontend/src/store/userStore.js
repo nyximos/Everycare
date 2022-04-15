@@ -13,7 +13,7 @@ export default{
         detailedAddress:''
     },
     mutations:{
-        sgnUp(state, updata){
+        signUp(state, updata){
             state.id = updata.id;
             state.password = updata.password;
             state.name = updata.name;
