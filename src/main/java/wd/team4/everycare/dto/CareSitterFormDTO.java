@@ -17,6 +17,7 @@ import java.util.List;
 public class CareSitterFormDTO {
 
     private String preferredType;
+    private String hopefulRegion;
     private String desiredDayWeek;
     private String activityTime;
     private String desiredHourlyWage;
@@ -31,8 +32,9 @@ public class CareSitterFormDTO {
     private int disclosureStatus;
 
     @Builder(builderMethodName = "careSitterDTOBuilder")
-    public CareSitterFormDTO(String preferredType, String desiredDayWeek, String activityTime, String desiredHourlyWage, String desiredMonthlyWage, int cctvAgreement, int vaccination, String introduction, LocalDateTime createdAt, LocalDateTime updatedAt, Member member) {
+    public CareSitterFormDTO(String preferredType, String hopefulRegion, String desiredDayWeek, String activityTime, String desiredHourlyWage, String desiredMonthlyWage, int cctvAgreement, int vaccination, String introduction, LocalDateTime createdAt, LocalDateTime updatedAt, Member member) {
         this.preferredType = preferredType;
+        this.hopefulRegion = hopefulRegion;
         this.desiredDayWeek = desiredDayWeek;
         this.activityTime = activityTime;
         this.desiredHourlyWage = desiredHourlyWage;
@@ -53,6 +55,7 @@ public class CareSitterFormDTO {
     public CareSitter toCareSitter() {
         return CareSitter.builder()
                 .preferredType(this.preferredType)
+                .hopefulRegion(this.hopefulRegion)
                 .desiredDayWeek(this.desiredDayWeek)
                 .activityTime(this.activityTime)
                 .desiredHourlyWage(this.desiredHourlyWage)
