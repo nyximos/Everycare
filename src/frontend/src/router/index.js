@@ -19,6 +19,7 @@ const routes = [
         component: () => import('@/pages/Main.vue')
     },
     {
+        
         path: '/joblist',
         name: 'Job_list',
         component: () => import('@/pages/Job_list.vue')
@@ -28,6 +29,7 @@ const routes = [
         name: 'CreateWrite',
         component: () => import('@/pages/CreateWrite.vue')
     },
+
     {
         path: '/careprofile',
         name: 'careprofile',

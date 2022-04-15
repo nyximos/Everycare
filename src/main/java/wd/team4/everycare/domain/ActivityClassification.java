@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
-@ToString
 @NoArgsConstructor
 @Entity
 @Table(name = "activity_classification")

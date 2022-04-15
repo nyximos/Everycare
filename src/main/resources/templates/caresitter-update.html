@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<body>
+<header th:insert="header.html"></header>
+<div layout:fragment="content">
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>케어시터 프로필 수정</h2>
+    </div>
+    <form>
+        <ul>
+            <li>선호 케어 유형: <input type="text" name="preferredType" id="preferredType" th:value="${careSitter.preferredType}" /></li>
+            <li>희망 활동 요일: <input type="text" name="desiredDayWeek" id="desiredDayWeek" th:value="${careSitter.desiredDayWeek}"/></li>
+            <li>희망 활동 시간: <input type="text" name="activityTime" id="activityTime" th:value="${careSitter.activityTime}"/></li>
+            <li>희망 시급: <input type="text" name="desiredHourlyWage" id="desiredHourlyWage" th:value="${careSitter.desiredHourlyWage}"/></li>
+            <li>희망 월급: <input type="text" name="desiredMonthlyWage" id="desiredMonthlyWage" th:value="${careSitter.desiredMonthlyWage}"/></li>
+            <li>CCTV 동의여부:  <input type="int" name="cctvAgreement" id="cctvAgreement" th:value="${careSitter.cctvAgreement}"/></li>
+            <li>백신접종 유무:  <input type="int" name="vaccination" id="vaccination" th:value="${careSitter.vaccination}"/></li>
+            <li>소개글:  <input type="text" name="introduction" id="introduction" th:value="${careSitter.introduction}"/></li>
+            <li>공개 여부: <input type="int" name="disclosureStatus" id="disclosureStatus" th:value="${careSitter.disclosureStatus}"/></li>
+            <li>이미지 파일들<input type="file" multiple="multiple" name="attachFiles" id="attachFiles"/></li>
+        </ul>
+        <!--				<input type="submit" onclick="submit()"/>-->
+        <input id="tokenField" type="hidden" />
+        <input id="submitButton" type="button" value="제출"/>
+    </form>
+</div>
+<!-- /container -->
+
+<script th:inline="javascript">
+
+    $('#submitButton').on('click',function() {
+        const formData = new FormData();
+
+        formData.append('preferredType', $('#preferredType').val());
+        formData.append('desiredDayWeek', $('#desiredDayWeek').val());
+        formData.append('activityTime', $('#activityTime').val());
+        formData.append('desiredHourlyWage', $('#desiredHourlyWage').val());
+        formData.append('desiredMonthlyWage', $('#desiredMonthlyWage').val());
+        formData.append('cctvAgreement', $('#cctvAgreement').val());
+        formData.append('vaccination', $('#vaccination').val());
+        formData.append('introduction', $('#introduction').val());
+        formData.append('disclosureStatus', $('#disclosureStatus').val());
+
+        if ($('#attachFiles')[0].files[0] === undefined){
+            alert("이미지를 첨부해주세요!");
+            return false;
+        } else{
+            const size = document.getElementById('attachFiles').files.length;
+            for (let i = 0; i < size; i++) {
+                formData.append('attachFiles', $('#attachFiles')[0].files[i]);
+            }
+        }
+
+        /*<![CDATA]*/
+        var id = /*[[ ${careSitter.id} ]]*/'';
+        console.log(id);
+        /*]]*/
+
+        $.ajax({
+            url: "/api/dashboard/caresitter/"+id,
+            type: 'PATCH',
+            cache: false,
+            contentType: false,
+            processData: false,
+            enctype: 'multipart/form-data',
+            data: formData,
+            async: false,
+        })
+
+        location.href="/"
+
+    });
+
+</script>
+</div>
+</body>
+</html>

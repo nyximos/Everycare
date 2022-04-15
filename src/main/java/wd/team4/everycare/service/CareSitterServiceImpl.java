@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.CareSitterImage;
+import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.CareSitterFormDTO;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.repository.CareSitterImageRepository;
@@ -84,17 +85,35 @@ public class CareSitterServiceImpl implements CareSitterService {
 
     @Override
     public boolean isEmpty(String id) {
-        if(isEmpty(String.valueOf(memberRepository.findById(id)))) {
+        if (isEmpty(String.valueOf(memberRepository.findById(id)))) {
             return true;
         }
         return false;
     }
 
     @Override
+    public CareSitter findCareSitter(String id) {
+        Optional<Member> member = memberRepository.findById(id);
+        CareSitter careSitter = member.get().getCareSitter();
+        return careSitter;
+    }
+
+    @Override
     public List<CareSitterImage> findCareSitterImages(Long id) {
         CareSitter careSitter = isPresent(id);
         return careSitter.getCareSitterImages();
+    }
 
+    @Override
+    public String update(Long id, CareSitterFormDTO careSitterFormDTO) {
+        Optional<CareSitter> careSitter = careSitterRepository.findById(id);
+        CareSitter careSitterEntity = careSitter.orElse(null);
+        if (careSitterEntity == null) {
+            System.out.println("케어시터가 없으므로 종료해야함");
+            return "실패했씀다~";
+        }
+        careSitterEntity.updateInfo(careSitterFormDTO);
+        return "수정했슴다~";
     }
 
 

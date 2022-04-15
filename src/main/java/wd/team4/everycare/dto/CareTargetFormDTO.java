@@ -1,10 +1,10 @@
 package wd.team4.everycare.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 import wd.team4.everycare.domain.Gender;
+import wd.team4.everycare.domain.Member;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -31,12 +31,11 @@ public class CareTargetFormDTO {
     private int isCctvAgreement;
     private String careType;
     private int coronaTest;
-//    private String member;
-    private MultipartFile attachFile;
+    private Member member;
     private List<MultipartFile> attachFiles;
 
     @Builder(builderMethodName = "careTargetDTOBuilder")
-    public CareTargetFormDTO(String name, Gender gender, LocalDate birth, Long height, Long weight, String zipcode, String address, String detailedAddress, int longTermCareGrade, String comment, int pet, int isCctvAgreement, String careType, int coronaTest) {
+    public CareTargetFormDTO(String name, Gender gender, LocalDate birth, Long height, Long weight, String zipcode, String address, String detailedAddress, int longTermCareGrade, String comment, int pet, int isCctvAgreement, String careType, int coronaTest, Member member) {
         this.name = name;
         this.gender = gender;
         this.birth = birth;
@@ -51,11 +50,11 @@ public class CareTargetFormDTO {
         this.isCctvAgreement = isCctvAgreement;
         this.careType = careType;
         this.coronaTest = coronaTest;
+        this.member = member;
     }
 
     @Builder(builderMethodName = "careTargetImageDTOBuilder")
-    public CareTargetFormDTO(MultipartFile attachFile, List<MultipartFile> attachFiles) {
-        this.attachFile = attachFile;
+    public CareTargetFormDTO(List<MultipartFile> attachFiles) {
         this.attachFiles = attachFiles;
     }
 }

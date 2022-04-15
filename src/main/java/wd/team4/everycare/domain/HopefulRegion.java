@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
-@ToString
 @NoArgsConstructor
 @Entity
 @SequenceGenerator(name = "hopeful_region_seq_generator",

@@ -1,35 +1,84 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
 <head>
     <meta charset="utf-8" />
 </head>
 <body>
+<div layout:fragment="content">
 <div class="container">
     <div class="py-5 text-center">
         <h2>케어대상인 등록</h2>
     </div>
-    <form th:action="@{/api/carenote/caretargets/new}" th:method="post" enctype="multipart/form-data">
+    <form>
         <ul>
-            <li>name <input type="text" name="name" /></li>
-            <li>gender <input type="text" name="gender" /></li>
-            <li>birth <input type="date" name="birth" /></li>
-            <li>height <input type="number" name="height" /></li>
-            <li>weight <input type="number" name="weight" /></li>
-            <li>zipcode <input type="text" name="zipcode" /></li>
-            <li>address <input type="text" name="address" /></li>
-            <li>detailedAddress <input type="text" name="detailedAddress" /></li>
-            <li>longTermCareGrade <input type="number" name="longTermCareGrade" /></li>
-            <li>comment <input type="text" name="comment" /></li>
-            <li>pet <input type="number" name="pet" /></li>
-            <li>isCctvAgreement <input type="number" name="isCctvAgreement" /></li>
-            <li>careType <input type="text" name="careType" /></li>
-            <li>coronaTest <input type="number" name="coronaTest" /></li>
-            <li>첨부파일<input type="file" name="attachFile" /></li>
-            <li>이미지 파일들<input type="file" multiple="multiple" name="attachFiles" /></li>
+            <li>이름 <input type="text" name="name" id="name"/></li>
+            <li>성별 <input type="text" name="gender" id="gender"/></li>
+            <li>생년월일 <input type="date" name="birth" id="birth"/></li>
+            <li>키 <input type="number" name="height" id="height"/></li>
+            <li>몸무게 <input type="number" name="weight" id="weight"/></li>
+            <li>우편번호 <input type="text" name="zipcode" id="zipcode"/></li>
+            <li>주소 <input type="text" name="address" id="address"/></li>
+            <li>상세 주소 <input type="text" name="detailedAddress" id="detailedAddress"/></li>
+            <li>장기 요양 등급 <input type="number" name="longTermCareGrade" id="longTermCareGrade"/></li>
+            <li>설명 <input type="text" name="comment" id="comment"/></li>
+            <li>반려동물 유무 <input type="number" name="pet" id="pet"/></li>
+            <li>CCTV 여부 <input type="number" name="isCctvAgreement" id="isCctvAgreement"/></li>
+            <li>케어 유형 <input type="text" name="careType" id="careType"/></li>
+            <li>백신접종 유무 <input type="number" name="coronaTest" id="coronaTest"/></li>
+            <li>이미지 파일들<input type="file" multiple="multiple" name="attachFiles" id="attachFiles"/></li>
         </ul>
-        <input type="submit" />
+        <input id="tokenField" type="hidden"/>
+        <input id="submitButton" type="button" value="등록"/>
     </form>
 </div>
+
 <!-- /container -->
+<script th:inline="javascript">
+
+    $('#submitButton').on('click', function () {
+        const formData = new FormData();
+
+        formData.append('name', $('#name').val());
+        formData.append('gender', $('#gender').val());
+        formData.append('birth', $('#birth').val());
+        formData.append('height', $('#height').val());
+        formData.append('weight', $('#weight').val());
+        formData.append('zipcode', $('#zipcode').val());
+        formData.append('address', $('#address').val());
+        formData.append('detailedAddress', $('#detailedAddress').val());
+        formData.append('longTermCareGrade', $('#longTermCareGrade').val());
+        formData.append('comment', $('#comment').val());
+        formData.append('pet', $('#pet').val());
+        formData.append('isCctvAgreement', $('#isCctvAgreement').val());
+        formData.append('careType', $('#careType').val());
+        formData.append('coronaTest', $('#coronaTest').val());
+
+        if ($('#attachFiles')[0].files[0] === undefined) {
+            alert("이미지를 첨부해주세요!");
+            return false;
+        } else {
+            const size = document.getElementById('attachFiles').files.length;
+            for (let i = 0; i < size; i++) {
+                formData.append('attachFiles', $('#attachFiles')[0].files[i]);
+            }
+        }
+
+        $.ajax({
+            url: "/api/carenote/caretargets/new",
+            type: 'POST',
+            cache: false,
+            contentType: false,
+            processData: false,
+            enctype: 'multipart/form-data',
+            data: formData,
+            async: false,
+        })
+        location.href="/carenote/caretargets"
+    });
+
+</script>
+</div>
 </body>
 </html>

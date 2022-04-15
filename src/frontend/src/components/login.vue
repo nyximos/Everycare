@@ -13,29 +13,41 @@
     </div>
 </template>
 <script>
-// import Main from '@/components/main/index';
+import { loginUser } from '@/api/core/index';
+
 export default {
     data() {
         return {
-            Id: '',
-            Password: ''
+            Id:'',
+            Password:''
         };
     },
     components: {
         // Main
     },
-    mounted() {
-        if (sessionStorage.getItem('isLogin') == 'true') {
-            this.$router.push('/');
-        }
-    },
+    // mounted() {
+    //     if (sessionStorage.getItem('isLogin') == 'true') {
+    //         this.$router.push('/');
+    //     }
+    // },
     methods: {
-        login() {
-            if (this.Id === 'asdf' && this.Password === 'asdf') {
-                this.$router.push('/');
-                sessionStorage.setItem('isLogin', true);
-            } else {
-                alert('으악');
+        async login() {
+            const userdata = {
+                username: this.Id,
+                password: this.Password
+            };
+            const response = await loginUser(userdata);
+            console.log(response);
+            this.$store.commit('userStore2/sgnIn', userdata);
+           // this.logMessage = `${config.data.username}님`;
+            this.$router.push('/');
+
+            if (this.Id === '') {
+                alert('아이디를 입력하세요.');
+                return;
+            } else if (this.Password === '') {
+                alert('비밀번호를 입력하세요.');
+                return;
             }
         }
     }
@@ -48,7 +60,7 @@ export default {
 }
 .login-component {
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%); // x축 y축
     width: 300px;
