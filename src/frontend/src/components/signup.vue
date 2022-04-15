@@ -34,7 +34,24 @@ import { registerUser } from '@/api/core/index';
 export default {
     data() {
         return {
-            
+            image: '',
+        name: '',
+        sex: '',
+        age: '',
+        comment: '',
+        hopeloc1: '',
+        hopeloc2: '',
+        hopeloc3: '',
+        hopeday: '',
+        starttimepicker: '',
+        endtimepicker: '',
+        paytype: '',
+        pay: '',
+        hopetype:'',
+        hopeage:'',
+        vaccine:'',
+        cctv:'',
+        certification:''
         };
     },
     methods: {

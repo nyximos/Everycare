@@ -5,9 +5,9 @@ export default{
         password:''
     },
     getters:{
-    //    isLogin(state){
-    //        return state.username !== ''
-    //    }
+       isLogin(state){
+           return state.username !== ''
+       }
     },
     mutations:{
         sgnIn(state, userdata){

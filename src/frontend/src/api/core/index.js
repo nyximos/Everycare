@@ -8,14 +8,14 @@ function registerUser(updata){
                 })
 }
 
-function loginUser(userdata){
-    const url = 'https://localhost:8086/login'
-    return axios.post(url, userdata)
-                .then((res)=>{
-                    console.log(res);
-                })
-}
- export{ registerUser, loginUser };
+// function loginUser(userdata){
+//     const url = 'https://localhost:8086/login'
+//     return axios.post(url, userdata)
+//                 .then((res)=>{
+//                     console.log(res);
+//                 })
+// }
+ export{ registerUser };
 
 //create an axios instance
 const request = axios.create({

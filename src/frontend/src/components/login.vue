@@ -14,7 +14,7 @@
 </template>
 <script>
 //import { loginUser } from '@/api/core/index';
-
+import axios from 'axios';
 export default {
     data() {
         return {
@@ -36,9 +36,13 @@ export default {
     // },
     methods: {
         login() {
+            const userdata={
+                username:this.username,
+                password:this.password
+            }
             console.log(this.json);
             this.$http
-                .post('https://localhost:8086/login', this.json, {
+                axios.post('https://localhost:8086/login', userdata, {
                     withCredentials: true
                 })
                 .then(res => {
@@ -51,6 +55,7 @@ export default {
                     console.log(err);
                     console.log(this.json);
                 });
+                this.$router.push("/");
         }
     }
 };

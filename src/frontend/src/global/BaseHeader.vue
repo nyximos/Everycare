@@ -24,11 +24,6 @@
 export default {
     data() {
         return {
-            computed: {
-                cookie(){
-                    return document.cookie
-                }
-            },
             methods: {
                 goMain() {
                     if (this.$router.history.current.fullPath == '/') {
@@ -49,6 +44,11 @@ export default {
                 }
             }
         };
+    },
+    computed: {
+        cookie() {
+            return document.cookie;
+        }
     }
 };
 </script>
