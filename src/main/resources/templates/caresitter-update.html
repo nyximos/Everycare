@@ -19,10 +19,10 @@
             <li>희망 활동 시간: <input type="text" name="activityTime" id="activityTime" th:value="${careSitter.activityTime}"/></li>
             <li>희망 시급: <input type="text" name="desiredHourlyWage" id="desiredHourlyWage" th:value="${careSitter.desiredHourlyWage}"/></li>
             <li>희망 월급: <input type="text" name="desiredMonthlyWage" id="desiredMonthlyWage" th:value="${careSitter.desiredMonthlyWage}"/></li>
-            <li>CCTV 동의여부:  <input type="int" name="cctvAgreement" id="cctvAgreement" th:value="${careSitter.cctvAgreement}"/></li>
-            <li>백신접종 유무:  <input type="int" name="vaccination" id="vaccination" th:value="${careSitter.vaccination}"/></li>
+            <li>CCTV 동의여부:  <input type="number" name="cctvAgreement" id="cctvAgreement" th:value="${careSitter.cctvAgreement}"/></li>
+            <li>백신접종 유무:  <input type="number" name="vaccination" id="vaccination" th:value="${careSitter.vaccination}"/></li>
             <li>소개글:  <input type="text" name="introduction" id="introduction" th:value="${careSitter.introduction}"/></li>
-            <li>공개 여부: <input type="int" name="disclosureStatus" id="disclosureStatus" th:value="${careSitter.disclosureStatus}"/></li>
+            <li>공개 여부: <input type="number" name="disclosureStatus" id="disclosureStatus" th:value="${careSitter.disclosureStatus}"/></li>
             <li>이미지 파일들<input type="file" multiple="multiple" name="attachFiles" id="attachFiles"/></li>
         </ul>
         <!--				<input type="submit" onclick="submit()"/>-->

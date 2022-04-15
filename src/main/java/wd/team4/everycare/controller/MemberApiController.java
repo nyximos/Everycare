@@ -22,9 +22,6 @@ public class MemberApiController {
     private final MemberRepository memberRepository;
     private final MemberServiceImpl memberService;
 
-    // Tip : JWT를 사용하면 UserDetailsService를 호출하지 않기 때문에 @AuthenticationPrincipal 사용 불가능.
-    // 왜냐하면 @AuthenticationPrincipal은 UserDetailsService에서 리턴될 때 만들어지기 때문이다.
-
     // 유저 혹은 매니저 혹은 어드민이 접근 가능
     @GetMapping("/user")
     public String user(Authentication authentication) {
@@ -36,7 +33,7 @@ public class MemberApiController {
     }
 
     @PostMapping("/signup")
-    public String join(@Valid @ModelAttribute SignupDTO signupDTO) {
+    public String join(@Valid @RequestBody SignupDTO signupDTO) {
 
         LocalDateTime time = LocalDateTime.now();
         signupDTO.setCreatedAt(time);

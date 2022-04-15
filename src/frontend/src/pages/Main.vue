@@ -1,7 +1,7 @@
 <template>
     <v-container fluid class="main">
-        <componentindex />
-        <componentmain />
+        <componentpage/>
+        <Main />
         <ul>
             <li><router-link to="/dashboard/Careprofile">케어시터프로필 등록</router-link></li>
             <li><router-link to="/Carepeople">케어대상인 조회</router-link></li>
@@ -10,12 +10,12 @@
     </v-container>
 </template>
 <script>
-import componentmain from '@/components/main'
-import componentindex from '@/components/main/index';
+import componentpage from '@/components/main.vue'
+import Main from '@/components/main/index';
 export default {
     components: {
-        componentindex,
-        componentmain
+        Main,
+        componentpage
     }
 };
 </script>

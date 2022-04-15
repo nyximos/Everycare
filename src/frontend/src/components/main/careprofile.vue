@@ -21,15 +21,13 @@
                           </div>
                           <div class="div_text">
                                  <!-- <span><input type="file" v-bind:src="image" id="uppic" accept="image/gif,image/jpg,image/png" @change="changeImage($event)" ref="avatarInput" class="uppic"></span> -->
-                             
-                              
                               <v-file-input v-model="image" truncate-length="22" label="사진을 넣으세요"  @change="changeImage($event)" ></v-file-input>
-                          </div>
+=                          </div>
                           <div class="con10_blank"></div>
                           <div class="r_content">
                               <br>
                               <v-text-field v-model="name" label="Name" required></v-text-field>
-                               <v-radio-group v-model="radios" mandatory>
+                               <v-radio-group v-model="row" mandatory>
                                     <v-radio label="남" value="Man"></v-radio>
                                     <v-radio label="여" value="Woman"></v-radio>
                                 </v-radio-group>
@@ -59,7 +57,7 @@ export default {
         avatar:require('@/assets/user.png'),
         image: [],
         name:'',
-        radios:'',
+        row:'',
         age:'',
         intro:''
      }
@@ -77,11 +75,12 @@ export default {
     
      
       nextpage1(){
-          
+
         const userData = {
         image : this.image.name,
+
         name:this.name,
-        sex:this.radios,
+        row:this.row,
         age:this.age,
         intro:this.intro
         }
@@ -106,10 +105,7 @@ export default {
           this.$store.commit('careprofileStore/set_user1', userData);
           console.log(this.$store.state.careprofileStore.image);
             this.$router.push({ path: '/dashboard/careprofile1' })
-
-
             }
-            
         } catch(error){
            console.log(error); 
         }
