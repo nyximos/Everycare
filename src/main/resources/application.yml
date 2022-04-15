@@ -1,5 +1,10 @@
 server:
   port: 8086
+  ssl:
+    key-store: bootsecurity.p12
+    key-store-type: PKCS12
+    key-store-password: everycare
+    key-alias: bootsecurity
 
 spring:
   output:
@@ -24,7 +29,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate:
         format_sql: true

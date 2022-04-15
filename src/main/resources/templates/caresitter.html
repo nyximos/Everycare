@@ -20,10 +20,10 @@
                     <li>활동 시간 <input type="text" name="activityTime" id="activityTime"/></li>
                     <li>희망 시급 <input type="text" name="desiredHourlyWage" id="desiredHourlyWage"/></li>
                     <li>희망 월급 <input type="text" name="desiredMonthlyWage" id="desiredMonthlyWage"/></li>
-                    <li>CCTV 동의여부 <input type="int" name="cctvAgreement" id="cctvAgreement"/></li>
-                    <li>백신접종 유무 <input type="int" name="vaccination" id="vaccination"/></li>
+                    <li>CCTV 동의여부 <input type="number" name="cctvAgreement" id="cctvAgreement"/></li>
+                    <li>백신접종 유무 <input type="number" name="vaccination" id="vaccination"/></li>
                     <li>소개글  <input type="text" name="introduction" id="introduction"/></li>
-                    <li>공개여부 <input type="int" name="disclosureStatus" id="disclosureStatus"/></li>
+                    <li>공개여부 <input type="number" name="disclosureStatus" id="disclosureStatus"/></li>
                     <li>이미지 파일들<input type="file" multiple="multiple" name="attachFiles" id="attachFiles"/></li>
                 </ul>
                 <!--				<input type="submit" onclick="submit()"/>-->
@@ -75,7 +75,7 @@
     </th:block>
     <th:block th:if="${careSitter} != null">
         <div class="py-5 text-center">
-            <h2>케어시터 조회</h2>
+            <h2>케어시터 프로필 조회</h2>
         </div>
         선호 케어 유형: <span th:text="${careSitter.preferredType}"></span><br/>
         희망 활동 요일: <span th:text="${careSitter.desiredDayWeek}"></span><br/>

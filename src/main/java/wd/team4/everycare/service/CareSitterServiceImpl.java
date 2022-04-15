@@ -32,7 +32,7 @@ public class CareSitterServiceImpl implements CareSitterService {
 
     @Override
     public Long save(CareSitterFormDTO careSitterFormDTO) throws IOException {
-        CareSitter careSitter = careSitterDtoToCareSitter(careSitterFormDTO);
+        CareSitter careSitter = careSitterFormDTO.toCareSitter();
         careSitterRepository.save(careSitter);
 
         List<UploadFile> attachFiles = fileStoreService.storeFiles(careSitterFormDTO.getAttachFiles());
@@ -43,38 +43,6 @@ public class CareSitterServiceImpl implements CareSitterService {
         }
 
         return careSitter.getId();
-    }
-
-    @Override
-    public CareSitterImage careSitterDtoToImage(CareSitter careSitter, UploadFile attachFile) throws IOException {
-        return CareSitterImage.builder()
-                .uploadFileName(attachFile.getUploadFileName())
-                .storeFileName(attachFile.getStoreFileName())
-                .careSitter(careSitter)
-                .build();
-    }
-
-    @Override
-    public CareSitter careSitterDtoToCareSitter(CareSitterFormDTO dto) {
-        return CareSitter.builder()
-                .preferredType(dto.getPreferredType())
-                .desiredDayWeek(dto.getDesiredHourlyWage())
-                .activityTime(dto.getActivityTime())
-                .desiredHourlyWage(dto.getDesiredHourlyWage())
-                .desiredMonthlyWage(dto.getDesiredMonthlyWage())
-                .cctvAgreement(dto.getCctvAgreement())
-                .vaccination(dto.getVaccination())
-                .introduction(dto.getIntroduction())
-                .disclosureStatus(1)
-                .createdAt(dto.getCreatedAt())
-                .updatedAt(dto.getUpdatedAt())
-                .member(dto.getMember())
-                .build();
-    }
-
-    @Override
-    public void removeCareSitter(Long id) {
-        careSitterRepository.deleteById(id);
     }
 
     @Override
@@ -116,5 +84,12 @@ public class CareSitterServiceImpl implements CareSitterService {
         return "수정했슴다~";
     }
 
-
+    @Override
+    public CareSitterImage careSitterDtoToImage(CareSitter careSitter, UploadFile attachFile) throws IOException {
+        return CareSitterImage.builder()
+                .uploadFileName(attachFile.getUploadFileName())
+                .storeFileName(attachFile.getStoreFileName())
+                .careSitter(careSitter)
+                .build();
+    }
 }

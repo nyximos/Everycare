@@ -1,0 +1,63 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>스토어정보</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>스토어 정보</h2>
+        </div>
+        <li>스토어명 <span th:text="${store.name}"></span></li>
+        <li>홈페이지 주소 <span th:text="${store.url}"></span></li>
+        <li>사업자 등록 번호  <span th:text="${store.businessLicenseNumber}"></span></li>
+        <li>이메일  <span th:text="${store.email}"></span></li>
+        <li>운영 시작 시간  <span th:text="${store.operationStartTime}"></span></li>
+        <li>운영 종료 시간  <span th:text="${store.operationEndTime}"></span></li>
+        <li>점심 시작 시간  <span th:text="${store.lunchStartTime}"></span></li>
+        <li>점심 종료 시간  <span th:text="${store.lunchEndTime}"></span></li>
+        <li>휴일  <span th:text="${store.closedDay}"></span></li>
+        <li>업체 법인 명  <span th:text="${store.companyCorporationName}"></span></li>
+        <li>대표자명  <span th:text="${store.representativeName}"></span></li>
+        <li>사업장 소재지  <span th:text="${store.businessLocation}"></span></li>
+        <li>고객센터 번호  <span th:text="${store.customerServiceNumber}"></span></li>
+
+        <input id="updateButton" type="button" value="수정"/>
+        <input id="deleteButton" type="button" value="삭제"/>
+
+    </div>
+
+    <!-- /container -->
+
+    <script th:inline="javascript">
+        /*<![CDATA]*/
+        var id = /*[[ ${store.id} ]]*/'';
+        /*]]*/
+        $('#updateButton').on('click', function () {
+            location.href = "/store/"+id+"/update";
+        })
+
+        $('#deleteButton').on('click', function () {
+
+            $.ajax({
+                url: "/api/store/"+id,
+                type: 'DELETE',
+                cache: false,
+                data: {
+                    "id":id
+                },
+                dataType:"json",
+                async: false,
+            })
+
+            location.href = "/store";
+        })
+
+    </script>
+</div>
+</body>
+</html>

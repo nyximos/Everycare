@@ -4,9 +4,8 @@
             <div class="login-title"><span class="login-title-L">L</span>ogin{{this.$store.state.userStore.id}}</div>
             <div>
                 <div class="login-input-botton">
-                    <v-text-field v-model="Id" label="Id" placeholder="Placeholder" dense outlined></v-text-field>
-                    
-                    <v-text-field v-model="Password" type="password" label="Password" placeholder="Placeholder" dense outlined></v-text-field>
+                    <v-text-field v-model="username" label="Id" placeholder="Placeholder" dense outlined></v-text-field>
+                    <v-text-field v-model="password" type="password" label="Password" placeholder="Placeholder" dense outlined></v-text-field>
                 </div>
                 <div><v-btn @click="login" color="accent" elevation="2" class="login-button">Login</v-btn></div>
             </div>
@@ -14,13 +13,17 @@
     </div>
 </template>
 <script>
-import { loginUser } from '@/api/core/index';
+//import { loginUser } from '@/api/core/index';
 
 export default {
     data() {
         return {
-            Id:'',
-            Password:''
+            username: '',
+            password: '',
+            json: {
+                username: 'e',
+                password: 'ee'
+            }
         };
     },
     components: {
@@ -32,24 +35,22 @@ export default {
     //     }
     // },
     methods: {
-        async login() {
-            const userdata = {
-                username: this.Id,
-                password: this.Password
-            };
-            const response = await loginUser(userdata);
-            console.log(response);
-            this.$store.commit('userStore2/sgnIn', userdata);
-           // this.logMessage = `${config.data.username}님`;
-            this.$router.push('/');
-
-            if (this.Id === '') {
-                alert('아이디를 입력하세요.');
-                return;
-            } else if (this.Password === '') {
-                alert('비밀번호를 입력하세요.');
-                return;
-            }
+        login() {
+            console.log(this.json);
+            this.$http
+                .post('https://localhost:8086/login', this.json, {
+                    withCredentials: true
+                })
+                .then(res => {
+                    // this.test = response.data;
+                    console.log(res);
+                    console.log(this.json);
+                    // location.href = '/';
+                })
+                .catch(err => {
+                    console.log(err);
+                    console.log(this.json);
+                });
         }
     }
 };

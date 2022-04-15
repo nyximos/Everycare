@@ -2,13 +2,15 @@ package wd.team4.everycare.dto;
 
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
+import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.Member;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
-@Getter @Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -47,4 +49,22 @@ public class CareSitterFormDTO {
     public CareSitterFormDTO(List<MultipartFile> attachFiles) {
         this.attachFiles = attachFiles;
     }
+
+    public CareSitter toCareSitter() {
+        return CareSitter.builder()
+                .preferredType(this.preferredType)
+                .desiredDayWeek(this.desiredDayWeek)
+                .activityTime(this.activityTime)
+                .desiredHourlyWage(this.desiredHourlyWage)
+                .desiredMonthlyWage(this.desiredMonthlyWage)
+                .cctvAgreement(this.cctvAgreement)
+                .vaccination(this.vaccination)
+                .introduction(this.introduction)
+                .disclosureStatus(1)
+                .createdAt(this.createdAt)
+                .updatedAt(this.updatedAt)
+                .member(this.member)
+                .build();
+    }
+
 }
