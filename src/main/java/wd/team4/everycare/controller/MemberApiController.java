@@ -33,7 +33,7 @@ public class MemberApiController {
     }
 
     @PostMapping("/signup")
-    public String join(@Valid @RequestBody SignupDTO signupDTO) {
+    public String join(@Valid @ModelAttribute SignupDTO signupDTO) {
 
         LocalDateTime time = LocalDateTime.now();
         signupDTO.setCreatedAt(time);

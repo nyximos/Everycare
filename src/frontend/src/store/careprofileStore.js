@@ -1,24 +1,7 @@
 export default {
     namespaced: true,
     state: {
-        image: '나는 이미지!',
-        name: '나는바보다22',
-        sex: '',
-        age: '',
-        comment: '',
-        hopeloc1: '',
-        hopeloc2: '',
-        hopeloc3: '',
-        hopeday: '',
-        starttimepicker: '',
-        endtimepicker: '',
-        paytype: '',
-        pay: '',
-        hopetype:'',
-        hopeage:'',
-        vaccine:'',
-        cctv:'',
-        certification:''
+        
     },
     mutations: {
         set_user1(state, userData) {
