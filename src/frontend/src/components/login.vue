@@ -13,7 +13,8 @@
     </div>
 </template>
 <script>
-// import Main from '@/components/main/index';
+import { loginUser } from '@/api/core/index';
+
 export default {
     data() {
         return {
@@ -28,11 +29,11 @@ export default {
     components: {
         // Main
     },
-    mounted() {
-        if (sessionStorage.getItem('isLogin') == 'true') {
-            this.$router.push('/');
-        }
-    },
+    // mounted() {
+    //     if (sessionStorage.getItem('isLogin') == 'true') {
+    //         this.$router.push('/');
+    //     }
+    // },
     methods: {
         login() {
             console.log(this.json);
@@ -61,7 +62,7 @@ export default {
 }
 .login-component {
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%); // x축 y축
     width: 300px;
