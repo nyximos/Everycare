@@ -81,7 +81,7 @@ public class Member {
     private List<CareTarget> careTargets = new ArrayList<>();
 
     @Builder
-    public Member(String id, String password, String name, MemberRole role, Gender gender, LocalDate birth, String phone, String email, LocalDateTime createdAt, ActivityStatus activityStatus, String zipcode, String address, String detailedAddress, LocalDateTime adminRegistrationDate, String bank, String accountNumber) {
+    public Member(String id, String password, String name, MemberRole role, Gender gender, LocalDate birth, String phone, String email, LocalDateTime createdAt, ActivityStatus activityStatus, String zipcode, String address, String detailedAddress, String bank, String accountNumber) {
         this.id = id;
         this.password = password;
         this.name = name;
@@ -95,7 +95,6 @@ public class Member {
         this.zipcode = zipcode;
         this.address = address;
         this.detailedAddress = detailedAddress;
-        this.adminRegistrationDate = adminRegistrationDate;
         this.bank = bank;
         this.accountNumber = accountNumber;
     }
@@ -104,4 +103,8 @@ public class Member {
        this.password = password;
     }
 
+    public void registrationAdmin(LocalDateTime time){
+        this.role = MemberRole.ROLE_ADMIN;
+        this.adminRegistrationDate = time;
+    }
 }
