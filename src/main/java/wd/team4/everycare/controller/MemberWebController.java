@@ -24,21 +24,4 @@ public class MemberWebController {
         return "signin";
     }
 
-    // 모든 사람이 접근 가능
-    @GetMapping("/home")
-    public String home() {
-        return "<h1>home</h1>";
-    }
-
-    // 매니저 혹은 어드민이 접근 가능
-    @GetMapping("/manager/reports")
-    public String reports() {
-        return "<h1>reports</h1>";
-    }
-
-    // 어드민이 접근 가능
-    @GetMapping("/admin/users")
-    public List<Member> users(){
-        return memberRepository.findAll();
-    }
 }
