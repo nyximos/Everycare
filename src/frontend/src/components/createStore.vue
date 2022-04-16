@@ -168,7 +168,7 @@ methods:{
       closeTime: this.closeTime,
       lunchstartTime: this.lunchstartTime,
       lunchendTime: this.lunchendTime,
-      e7: this.e7
+      e7: this.e7.toString()
     }
     console.log(storeinfo)
     this.$http
