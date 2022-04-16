@@ -19,6 +19,11 @@ const routes = [
         component: () => import('@/pages/Main.vue')
     },
     {
+        path: '/createstore',
+        name: 'createStore',
+        component: () => import('@/pages/Storesubmit.vue')
+    },
+    {
         
         path: '/joblist',
         name: 'Job_list',
