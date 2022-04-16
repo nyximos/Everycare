@@ -27,6 +27,9 @@ public class CareSitter {
     @Column(name = "care_sitter_preferred_care_type", length = 50, nullable = false)
     private String preferredType;
 
+    @Column(name = "care_sitter_hopeful_region", nullable = false)
+    private String hopefulRegion;
+
     @Column(name = "care_sitter_desired_day_week", length = 50, nullable = false)
     private String desiredDayWeek;
 
@@ -67,8 +70,9 @@ public class CareSitter {
     private List<CareSitterImage> careSitterImages = new ArrayList<>();
 
     @Builder
-    public CareSitter(String preferredType, String desiredDayWeek, String activityTime, String desiredHourlyWage, String desiredMonthlyWage, int cctvAgreement, int vaccination, String introduction, int disclosureStatus, LocalDateTime createdAt, LocalDateTime updatedAt, Member member) {
+    public CareSitter(String preferredType, String hopefulRegion, String desiredDayWeek, String activityTime, String desiredHourlyWage, String desiredMonthlyWage, int cctvAgreement, int vaccination, String introduction, int disclosureStatus, LocalDateTime createdAt, LocalDateTime updatedAt, Member member) {
         this.preferredType = preferredType;
+        this.hopefulRegion = hopefulRegion;
         this.desiredDayWeek = desiredDayWeek;
         this.activityTime = activityTime;
         this.desiredHourlyWage = desiredHourlyWage;
@@ -85,6 +89,8 @@ public class CareSitter {
     public void updateInfo(CareSitterFormDTO careSitterFormDTO) {
         if (StringUtils.isNotBlank(careSitterFormDTO.getPreferredType()))
             this.preferredType = careSitterFormDTO.getPreferredType();
+        if (StringUtils.isNotBlank(careSitterFormDTO.getHopefulRegion()))
+            this.hopefulRegion = careSitterFormDTO.getHopefulRegion();
         if (StringUtils.isNotBlank(careSitterFormDTO.getDesiredDayWeek()))
             this.desiredDayWeek = careSitterFormDTO.getDesiredDayWeek();
         if (StringUtils.isNotBlank(careSitterFormDTO.getActivityTime()))

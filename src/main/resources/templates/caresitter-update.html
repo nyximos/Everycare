@@ -15,7 +15,17 @@
     <form>
         <ul>
             <li>선호 케어 유형: <input type="text" name="preferredType" id="preferredType" th:value="${careSitter.preferredType}" /></li>
-            <li>희망 활동 요일: <input type="text" name="desiredDayWeek" id="desiredDayWeek" th:value="${careSitter.desiredDayWeek}"/></li>
+            <li>희망 활동 지역 <input type="text" name="hopefulRegion" id="hopefulRegion" th:value="${careSitter.hopefulRegion}" /></li>
+            <li>
+                희망 활동 요일
+                <label><input type="checkbox" name="desiredDayWeek" value="일" class="desiredDayWeek">일</label>
+                <label><input type="checkbox" name="desiredDayWeek" value="월" class="desiredDayWeek">월</label>
+                <label><input type="checkbox" name="desiredDayWeek" value="화" class="desiredDayWeek">화</label>
+                <label><input type="checkbox" name="desiredDayWeek" value="수" class="desiredDayWeek">수</label>
+                <label><input type="checkbox" name="desiredDayWeek" value="목" class="desiredDayWeek">목</label>
+                <label><input type="checkbox" name="desiredDayWeek" value="금" class="desiredDayWeek">금</label>
+                <label><input type="checkbox" name="desiredDayWeek" value="토" class="desiredDayWeek">토</label>
+            </li>
             <li>희망 활동 시간: <input type="text" name="activityTime" id="activityTime" th:value="${careSitter.activityTime}"/></li>
             <li>희망 시급: <input type="text" name="desiredHourlyWage" id="desiredHourlyWage" th:value="${careSitter.desiredHourlyWage}"/></li>
             <li>희망 월급: <input type="text" name="desiredMonthlyWage" id="desiredMonthlyWage" th:value="${careSitter.desiredMonthlyWage}"/></li>
@@ -34,47 +44,67 @@
 
 <script th:inline="javascript">
 
-    $('#submitButton').on('click',function() {
-        const formData = new FormData();
+    let desiredDayWeek = [[${desiredDayWeek}]];
 
-        formData.append('preferredType', $('#preferredType').val());
-        formData.append('desiredDayWeek', $('#desiredDayWeek').val());
-        formData.append('activityTime', $('#activityTime').val());
-        formData.append('desiredHourlyWage', $('#desiredHourlyWage').val());
-        formData.append('desiredMonthlyWage', $('#desiredMonthlyWage').val());
-        formData.append('cctvAgreement', $('#cctvAgreement').val());
-        formData.append('vaccination', $('#vaccination').val());
-        formData.append('introduction', $('#introduction').val());
-        formData.append('disclosureStatus', $('#disclosureStatus').val());
+    $(function() {
+        $(desiredDayWeek).each(function (index, item) {
+            $('input[value=' + item + ']').prop("checked", true);
+        });
 
-        if ($('#attachFiles')[0].files[0] === undefined){
-            alert("이미지를 첨부해주세요!");
-            return false;
-        } else{
-            const size = document.getElementById('attachFiles').files.length;
-            for (let i = 0; i < size; i++) {
-                formData.append('attachFiles', $('#attachFiles')[0].files[i]);
+        $('#submitButton').on('click', function () {
+            const formData = new FormData();
+
+            if ($('input[type="checkbox"]:checked').length === 0) {
+                alert("희망 활동 요일을 선택해주십시오.");
+                return;
             }
-        }
 
-        /*<![CDATA]*/
-        var id = /*[[ ${careSitter.id} ]]*/'';
-        console.log(id);
-        /*]]*/
+            let desiredDayWeek = [];
 
-        $.ajax({
-            url: "/api/dashboard/caresitter/"+id,
-            type: 'PATCH',
-            cache: false,
-            contentType: false,
-            processData: false,
-            enctype: 'multipart/form-data',
-            data: formData,
-            async: false,
+            $('input[type=checkbox]:checked').each(function () {
+                desiredDayWeek.push($(this).val())
+            })
+
+            formData.append('preferredType', $('#preferredType').val());
+            formData.append('hopefulRegion', $('#hopefulRegion').val());
+            formData.append('desiredDayWeek', $('#desiredDayWeek').val());
+            formData.append('activityTime', $('#activityTime').val());
+            formData.append('desiredHourlyWage', $('#desiredHourlyWage').val());
+            formData.append('desiredMonthlyWage', $('#desiredMonthlyWage').val());
+            formData.append('cctvAgreement', $('#cctvAgreement').val());
+            formData.append('vaccination', $('#vaccination').val());
+            formData.append('introduction', $('#introduction').val());
+            formData.append('disclosureStatus', $('#disclosureStatus').val());
+
+            if ($('#attachFiles')[0].files[0] === undefined) {
+                alert("이미지를 첨부해주세요!");
+                return false;
+            } else {
+                const size = document.getElementById('attachFiles').files.length;
+                for (let i = 0; i < size; i++) {
+                    formData.append('attachFiles', $('#attachFiles')[0].files[i]);
+                }
+            }
+
+            /*<![CDATA]*/
+            var id = /*[[ ${careSitter.id} ]]*/'';
+            console.log(id);
+            /*]]*/
+
+            $.ajax({
+                url: "/api/dashboard/caresitter/" + id,
+                type: 'PATCH',
+                cache: false,
+                contentType: false,
+                processData: false,
+                enctype: 'multipart/form-data',
+                data: formData,
+                async: false,
+            })
+
+            location.href = "/"
+
         })
-
-        location.href="/"
-
     });
 
 </script>

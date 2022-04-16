@@ -1,11 +1,11 @@
-    // 쿠키 삭제
-    const delCookie = function delCookie_by_name(name){
-    let date = new Date();
-    date.setDate(date.getDate() - 100);
-    let Cookie = `${name}=;Expires=${date.toUTCString()}`
-    document.cookie = Cookie;
-}
-    const logout = () => {
-    delCookie("Authorization");
+const logout = () => {
+    $.ajax({
+        url: "/api/token",
+        type: 'DELETE',
+        cache: false,
+        contentType: false,
+        processData: false,
+        async: false,
+    })
     location.href="/"
 }
