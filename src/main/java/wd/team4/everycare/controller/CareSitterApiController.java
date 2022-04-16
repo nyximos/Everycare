@@ -11,7 +11,6 @@ import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.CareSitterFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
-import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.service.CareSitterServiceImpl;
 
 import java.io.IOException;

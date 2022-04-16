@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+    <meta charset="utf-8" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <body>
-    <h1>admin</h1>
+<header th:insert="header.html"></header>
+<div>
+    <ul>
+        <li><a th:href="@{/admin/members}">회원 관리</a></li>
+        <li><a th:href="@{/admin/reports}">신고 관리</a></li>
+        <li><a th:href="@{/admin/stores}">스토어 관리</a></li>
+        <li><a th:href="@{/admin/certifications}">케어시터 자격증 승인</a></li>
+        <li><a th:href="@{/admin/health-info}">건강 정보 관리</a></li>
+    </ul>
+</div>
 </body>
 </html>
