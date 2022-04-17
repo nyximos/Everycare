@@ -5,6 +5,7 @@
       <hr>
       <v-card-text>
         <div>
+            {{storeId}}
           <v-text-field
           label="스토어명"
           v-model="storeName"
@@ -145,25 +146,30 @@
           :disabled="!formIsValid"
           text
           color="primary"
-          @click="submit"
+          @click="edit"
         >
-          Submit
+          edit
         </v-btn>
-        <div v-if="cantsee">
-          <editStore :storeId="storeId"/>
-        </div>
   </div>
 </template>
 
 <script>
-import editStore from '@/components/editStore'
 export default {
-  components:{
-    editStore
-  },
+mounted() {
+      this.$http
+    .get('/api/store/account', {
+    withCredentials: true
+    })
+    .then(res => {
+      const result = res.data.body;
+      console.log(result)
+    })
+      .catch(err => {
+       console.log(err);
+    });
+},
 data(){
   return{
-    cantsee: false,
     storeName: '',
     storeUrl: '',
     businessNumber: '',
@@ -189,9 +195,11 @@ data(){
     ]
   }
 },
+
 methods:{
-  submit(){
+  edit(){
     var formData = new FormData();
+
     formData.append('name',this.storeName);
     formData.append('url', this.storeUrl);
     formData.append('businessLicenseNumber', this.businessNumber);
@@ -207,7 +215,7 @@ methods:{
     formData.append('customerServiceNumber', this.callcenterNumber);
 
     this.$http
-    .post('/api/store',formData, {
+    .patch(`/api/store/account/${this.$store.state.userStore.storeId}`,formData, {
     withCredentials: true
     })
      .then(res => {

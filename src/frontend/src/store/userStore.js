@@ -10,7 +10,8 @@ export default{
         email:'',
         zipcode:'',
         address:'',
-        detailedAddress:''
+        detailedAddress:'',
+        storeId: ''
     },
     mutations:{
         sgnUp(state, updata){
@@ -24,6 +25,7 @@ export default{
             state.zipcode = updata.zipcode;
             state.address = updata.address;
             state.detailedAddress = updata.detailedAddress;
+            state.storeId = updata.storeId
          }
     }
 }

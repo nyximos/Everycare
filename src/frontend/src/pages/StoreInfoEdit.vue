@@ -1,25 +1,16 @@
 <template>
-<div>
-<div class="row">
-	<Navbar />
-</div>
-<div class="row">
-<div class="col-2"><Sidebar /></div>
-<div class="col-10"><Storesubmit /></div>
-</div>
-</div>
+<v-container>
+	<h2>수정화면</h2>
+<storeEdit />
+</v-container>
 
 </template>
 
 <script>
-import Navbar from '@/components/navbar.vue';
-import Sidebar from '@/components/sidebar.vue';
-import Storesubmit from '@/components/storesubmit.vue';
+import storeEdit from '@/components/editStore.vue';
 export default {
 components:{
-	Navbar,
-	Sidebar,
-	Storesubmit
+	storeEdit
 }
 }
 </script>

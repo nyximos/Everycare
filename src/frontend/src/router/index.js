@@ -24,6 +24,11 @@ const routes = [
         component: () => import('@/pages/Storesubmit.vue')
     },
     {
+        path: '/store/account',
+        name: 'storeEdit',
+        component: () => import('@/pages/StoreInfoEdit.vue')
+    },
+    {
         
         path: '/joblist',
         name: 'Job_list',
