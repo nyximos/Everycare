@@ -71,6 +71,7 @@ public class StoreServiceImpl implements StoreService {
                     .message("스토어가 존재하지 않습니다.").build();
         }
         StoreFormDTO storeFormDTO = StoreFormDTO.builder()
+                .id(storeEntity.getId())
                 .name(storeEntity.getName())
                 .url(storeEntity.getUrl())
                 .businessLicenseNumber(storeEntity.getBusinessLicenseNumber())

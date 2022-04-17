@@ -150,6 +150,13 @@
         >
           edit
         </v-btn>
+        <v-btn
+          text
+          color="primary"
+          @click="drop"
+        >
+          삭제
+        </v-btn>
   </div>
 </template>
 
@@ -157,19 +164,22 @@
 export default {
 mounted() {
       this.$http
-    .get('/api/store/account', {
+    .get(`/api/stores/${this.id}`, {
     withCredentials: true
     })
     .then(res => {
       const result = res.data.body;
       console.log(result)
+      this.id = result.id;
     })
       .catch(err => {
        console.log(err);
     });
 },
+
 data(){
   return{
+    id : 4,
     storeName: '',
     storeUrl: '',
     businessNumber: '',
@@ -199,7 +209,7 @@ data(){
 methods:{
   edit(){
     var formData = new FormData();
-
+    formData.append('id', this.id);
     formData.append('name',this.storeName);
     formData.append('url', this.storeUrl);
     formData.append('businessLicenseNumber', this.businessNumber);
@@ -215,7 +225,7 @@ methods:{
     formData.append('customerServiceNumber', this.callcenterNumber);
 
     this.$http
-    .patch(`/api/store/account/${this.$store.state.userStore.storeId}`,formData, {
+    .patch(`/api/store/account/${this.id}`,formData, {
     withCredentials: true
     })
      .then(res => {
@@ -225,6 +235,16 @@ methods:{
        console.log(err);
     });
   },
+  drop(){
+    this.$http.delete(`/api/store/account/${this.id}`,{
+      withCredentials: true
+    })
+    .then((res)=> {
+      console.log(res)
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }
 },
 computed:{
         formIsValid () {

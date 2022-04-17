@@ -24,7 +24,7 @@ const routes = [
         component: () => import('@/pages/Storesubmit.vue')
     },
     {
-        path: '/store/account',
+        path: '/stores/:id',
         name: 'storeEdit',
         component: () => import('@/pages/StoreInfoEdit.vue')
     },
