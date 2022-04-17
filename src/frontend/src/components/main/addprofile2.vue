@@ -15,7 +15,7 @@
 						</div>
 						
 							<ul class="infoList">
-								<li class="name"><strong>{{this.$store.state.careprofileStore.name}}</strong> <em>{{this.$store.state.careprofileStore.sex}}</em>  ·{{this.$store.state.careprofileStore.age}}(2003년생) <br></li>
+								<li class="name"><strong>{{$store.state.careprofileStore.name}}</strong> <em>{{$store.state.careprofileStore.sex}}</em>  ·{{$store.state.careprofileStore.age}}(2003년생) <br></li>
 								<li class="address"><span class="info-title">주소</span>경남 거제시 <span class="star">******</span></li>
 								<li class="contact">
 								<span class="info-title">연락처</span>010-****-****
@@ -27,11 +27,11 @@
 						<h2>정보</h2>
 						<div class="infoArea first"> 	
 							<div class="nameArea">
-								<dt class="title">CCTV 동의여부:{{this.$store.state.careprofileStore.cctv}}	</dt>
+								<dt class="title">CCTV 동의여부:{{$store.state.careprofileStore.cctv}}	</dt>
 								<!-- <p class="date">CCTV 동의여부:{{this.$store.state.careprofileStore.cctv}}</p> -->
 							</div> 	
 							<dl class="infoDetail"> 		
-								<dt class="title">백신접종: <span>{{this.$store.state.careprofileStore.vaccine}}</span></dt> 
+								<dt class="title">백신접종: <span>{{$store.state.careprofileStore.vaccine}}</span></dt> 
 								
 								<dd class="date"><strong> 자격증</strong></dd> 
 								<dd class="kind">
@@ -62,18 +62,18 @@
 								<tr>
 									<td>
 										<dl class="item">
-											<dt class="title">{{this.$store.state.careprofileStore.hopeday}}</dt>
+											<dt class="title">{{$store.state.careprofileStore.hopeday}}</dt>
 										</dl>
 									</td>
 									<td>
 										<dl class="item">
-											<dt class="title">{{this.$store.state.careprofileStore.starttimepicker}}~{{this.$store.state.careprofileStore.endtimepicker}}</dt>
+											<dt class="title">{{$store.state.careprofileStore.starttimepicker}}~{{this.$store.state.careprofileStore.endtimepicker}}</dt>
 										</dl>
 									</td>
 									<td>
 										<dl class="item">
-											<dt class="title">{{this.$store.state.careprofileStore.pay}}</dt>
-											<dd>{{this.$store.state.careprofileStore.paytype}}</dd>
+											<dt class="title">{{$store.state.careprofileStore.pay}}</dt>
+											<dd>{{$store.state.careprofileStore.paytype}}</dd>
 										</dl>
 									</td>
 								</tr>
@@ -83,21 +83,21 @@
 							<li>
 								<span class="title">희망근무지</span>
 								<p class="result">
-									1순위:{{this.$store.state.careprofileStore.hopeloc1}}&nbsp;&nbsp;&nbsp; 
-									2순위:{{this.$store.state.careprofileStore.hopeloc2}}&nbsp;&nbsp;&nbsp;
-									3순위:{{this.$store.state.careprofileStore.hopeloc3}}
+									1순위:{{$store.state.careprofileStore.hopeloc1}}&nbsp;&nbsp;&nbsp; 
+									2순위:{{$store.state.careprofileStore.hopeloc2}}&nbsp;&nbsp;&nbsp;
+									3순위:{{$store.state.careprofileStore.hopeloc3}}
 								</p>
 						
 							</li>
 							<li>
 								<span class="title">희망업직종</span>
-								<span class="result">{{this.$store.state.careprofileStore.hopetype}}</span>
+								<span class="result">{{$store.state.careprofileStore.hopetype}}</span>
 							</li>
 						</ul>
 					</div>
 					<div id="ResumePR" class="resumeView">
 						<h2>자기소개서</h2>
-						<div class="ResumeOpenBox"><span class="lockIcon"></span><p class="first">{{this.$store.state.careprofileStore.textarea}}</p></div>
+						<div class="ResumeOpenBox"><span class="lockIcon"></span><p class="first">{{$store.state.careprofileStore.intro}}</p></div>
 					</div>
                     <div id="#" class="resumeView">
                         <h2>후기</h2>

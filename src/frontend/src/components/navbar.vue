@@ -6,7 +6,7 @@
     
       <ul class="navbar-nav nav justify-content-end">
         <li class="nav-item">
-          <router-link to="/caresitters">케어매칭</router-link>
+          <a class="nav-link" href="/caressitters">케어노트</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">케어노트</a>

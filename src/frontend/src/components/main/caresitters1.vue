@@ -3,11 +3,10 @@
      <div class="title">
         시터찾기
     </div>
-    <div class="rlist">
+    <!-- <div class="rlist">
         <div class="list_more">
-            <ul class="ul01" v-if="$store.state.careprofileStore.length > 0">
-                <li class="li01" v-for="userData in $store.state.careprofileStore" :key="userData.name">
-                        
+            <ul class="ul01">
+                <li class="li01" v-for="(userData,idx) in $store.state.careprofileStore" :key="idx">
                         <span class="tab01">
                             <span class="img01">
                                 <img src="@/assets/user.png" class="vertical">
@@ -18,8 +17,8 @@
                                 학습,등하원
                                 <span class="edit_date">1시간전</span>
                             </span>
-                            <span class="name">{{this.$store.state.careprofileStore.name}}
-                                <span class="age">{{this.$store.state.careprofileStore.age}}</span>
+                            <span class="name">{{userData.name}}
+                                <span class="age">{{userData.age}}</span>
                             </span>
                             <span class="area">서울 강남구,경기 성남시</span>
                                 <span class="pay">
@@ -33,12 +32,14 @@
                             <span class="icon03">추가접종</span>
                             <span class="text01">10년이상</span>
                             <span class="text01">신생아(0~6개월)</span>
-                        </span>
-
+                        </span>       
                 </li>
             </ul>
         </div>
-    </div>
+    </div> -->
+    <v-card v-for="(userData,index) in $store.state.careprofileStore" :key="index">
+        <p>{{userData.name}}</p>
+    </v-card>
     <div class="text-center">
     <v-pagination v-model="page" :length="4" circle></v-pagination>
   </div>
@@ -49,7 +50,7 @@
 export default {
     data(){
         return{
-            page:1,
+            page:1,   
         }
     },
 }

@@ -1,9 +1,10 @@
+// import axios from 'axios'
 export default {
     namespaced: true,
     state: {
         image: '',
         name: '',
-        sex: '',
+        gender: '',
         age: '',
         intro: '',
         hopeloc1: '',
@@ -13,7 +14,8 @@ export default {
         starttimepicker: '',
         endtimepicker: '',
         paytype: '',
-        pay: '',
+        desiredHourlyWage: '',
+        desiredMonthlyWage:'',
         hopetype:'',
         hopeage:'',
         vaccine:'',
@@ -24,7 +26,7 @@ export default {
         set_user1(state, userData) {
             state.image = userData.image;
             state.name = userData.name;
-            state.sex = userData.sex;
+            state.gender = userData.gender;
             state.age = userData.age;
             state.intro = userData.intro;
         },
@@ -33,19 +35,26 @@ export default {
             state.hopeloc2 = userData.hopeloc2;
             state.hopeloc3 = userData.hopeloc3;
             state.hopeday = userData.hopeday;
-            state.starttimepicker = userData.starttimepicker;
-            state.endtimepicker = userData.endtimepicker;
+            state.activityTime = userData.starttimepicker + userData.endtimepicker;
             state.paytype = userData.paytype;
-            state.pay = userData.pay;
+            state.desiredHourlyWage = userData.desiredHourlyWage;
+            state.desiredMonthlyWage = userData.desiredMonthlyWage;
         },
         set_user3(state, userData){
             state.hopetype = userData.hopetype;
-            state.hopeage = userData.hopeage;
-            state.vaccine = userData.vaccine;
-            state.cctv = userData.cctv;
+            state.preferredType = userData.preferredType;
+            state.vaccination = userData.vaccination;
+            state.cctvAgreement = userData.cctvAgreement;
             state.certification = userData.certification;
         }
     },
-    actions: {},
+    actions: {
+        // requestuserData({commit}){
+        // axios.post('/api/dashboard/caresitter')
+        // .then(response=>{
+        //     commit()
+        // })
+        // }
+    },
     getters: {}
 };

@@ -24,7 +24,6 @@ const routes = [
    },
     {
         path: '/dashboard/careprofile',
-
         name: 'careprofile',
         component: () => import('@/pages/Careprofile.vue')
     },

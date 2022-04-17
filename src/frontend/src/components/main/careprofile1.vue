@@ -82,8 +82,8 @@
                           <v-radio label="월급" value="monthpay">
                           </v-radio>
                           </v-radio-group>
-                          <v-text-field v-model="pay" label="희망 시/월급을 입력하세요"
-                          ></v-text-field>
+                          <v-text-field v-model="desireHourlyWage" label="시급제"></v-text-field>
+                          <v-text-field v-model="desireMonthWage" label="월급제"></v-text-field>
                           <!-- <span>{{this.$store.state.careprofileStore.name}}</span> -->
                         </div>
                       </div>
@@ -102,22 +102,22 @@ export default {
 data(){
   return{
     hopelocation1:[
-      {name: '서울', value: 'seoul'},
-      {name: '인천', value: 'incheon'},
-      {name: '부산', value: 'busan'},
-      {name: '대구', value: 'daegu'},
-      {name: '충남', value: 'chungnam'},
-      {name: '충북', value: 'chungbuk'},
-      {name: '광주', value: 'gwangju'},
-      {name: '대전', value: 'daejeon'},
-      {name: '울산', value: 'ulsan'},
-      {name: '강원', value: 'gangwon'},
-      {name: '경기', value: 'gyeonggi'},
-      {name: '경남', value: 'gyeongnam'},
-      {name: '경북', value: 'gyeongbuk'},
-      {name: '전남', value: 'jeonnam'},
-      {name: '전북', value: 'jeonbuk'},
-      {name: '제주', value: 'jeju'},
+      {name: '서울', value: '서울'},
+      {name: '인천', value: '인천'},
+      {name: '부산', value: '부산'},
+      {name: '대구', value: '대구'},
+      {name: '충남', value: '충남'},
+      {name: '충북', value: '충북'},
+      {name: '광주', value: '광주'},
+      {name: '대전', value: '대전'},
+      {name: '울산', value: '울산'},
+      {name: '강원', value: '강원'},
+      {name: '경기', value: '경기'},
+      {name: '경남', value: '경남'},
+      {name: '경북', value: '경북'},
+      {name: '전남', value: '전남'},
+      {name: '전북', value: '전북'},
+      {name: '제주', value: '제주'},
     ],
     area1 : [
       {name:'강남구', value:'강남구'},
@@ -140,7 +140,8 @@ data(){
     starttimepicker:'',
     endtimepicker:'',
     radios:'',
-    pay:''
+    desiredHourlyWage:'',
+    desiredMonthWage:''
     }
 
     },
@@ -159,10 +160,10 @@ data(){
           hopeloc2:this.hopeloc2,
           hopeloc3:this.hopeloc3,
           hopeday:this.selected,
-          starttimepicker:this.starttimepicker,
-          endtimepicker:this.endtimepicker,
+          activityTime:this.starttimepicker + this.endtimepicker,
           paytype : this.radios,
-          pay: this.pay
+          desiredHourlyWage: this.desiredHourlyWage,
+          desiredMonthlyWage: this.desiredMonthlyWage
         };
         // console.log(userData);
         try {

@@ -13,7 +13,7 @@
     </div>
 </template>
 <script>
-import { loginUser } from '@/api/core/index';
+// import { loginUser } from '@/api/core/index';
 
 export default {
     data() {
