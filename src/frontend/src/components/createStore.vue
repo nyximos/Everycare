@@ -8,12 +8,16 @@
           <v-text-field
           label="스토어명"
           v-model="storeName"
+          name="name"
+          id="name"
           ></v-text-field>
         </div>
         <div>
           <v-text-field 
           label="사이트 URL"
           v-model="storeUrl"
+          name="url"
+          id="url"
           ></v-text-field>
         </div>
       </v-card-text>
@@ -25,30 +29,40 @@
         <div>
           <v-text-field
           label="사업자 등록번호"
-          v-model="businessNumber"></v-text-field>
+          v-model="businessNumber"
+          name="businessLicenseNumber"
+          id="businessLicenseNumber"></v-text-field>
         </div>
         <div>
           <v-text-field 
           label="업체(법인) 명"
-          v-model="businessName">
+          v-model="businessName"
+          name="companyCorporationName"
+          id="companyCorporationName">
           </v-text-field>
         </div>
         <div>
           <v-text-field 
           label="대표자명"
-          v-model="ceoName">
+          v-model="ceoName"
+          name="representativeName"
+          id="representativeName">
           </v-text-field>
         </div>
         <div>
           <v-text-field 
           label="사업장 소재지"
-          v-model="businessLocation">
+          v-model="businessLocation"
+          name="businessLocation"
+          id="businessLocation">
           </v-text-field>
         </div>
         <div>
           <v-text-field 
           label="이메일"
-          v-model="email">
+          v-model="email"
+          name="email"
+          id="email">
           </v-text-field>
         </div>
       </v-card-text>
@@ -60,14 +74,19 @@
         <div>
           <v-text-field
           label="고객센터 번호"
-          v-model="callcenterNumber">
+          v-model="callcenterNumber"
+          name="customerServiceNumber"
+          id="customerServiceNumber">
           </v-text-field>
         </div>
         <div>
           <v-row>
           <v-col cols="4">운영 시작시간</v-col>
           <v-col cols="6">
-            <input type="time" v-model="openTime">
+            <input type="time"
+            v-model="openTime"
+            name="operationStartTime"
+            id="operationStartTime">
             </v-col>
           </v-row>
         </div>
@@ -75,33 +94,43 @@
           <v-row>
           <v-col cols="4">운영 종료시간</v-col>
           <v-col cols="6">
-            <input type="time" v-model="closeTime"></v-col>
+            <input type="time" 
+            v-model="closeTime"
+            name="operationEndTime"
+            id="operationEndTime"></v-col>
           </v-row>
         </div>
         <div>
           <v-row>
           <v-col cols="4">점심 시작시간</v-col>
           <v-col cols="6">
-            <input type="time" v-model="lunchstartTime"></v-col>
+            <input type="time"
+            v-model="lunchstartTime"
+            name="lunchStartTime"
+            id="lunchStartTime"></v-col>
           </v-row>
         </div>
         <div>
           <v-row>
           <v-col cols="4">점심 종료시간</v-col>
           <v-col cols="6">
-            <input type="time" v-model="lunchendTime"></v-col>
+            <input type="time" 
+            v-model="lunchendTime"
+            name="lunchEndTime"
+            id="lunchEndTime"></v-col>
           </v-row>
         </div>
       <v-row>
         <v-col cols="12">
           <v-select
-            v-model="e7"
+            v-model="closedDay"
             :items="states"
             label="휴일"
             item-text="name"
             item-value="value"
             multiple
-            chips>
+            chips
+            name="closeDay">
             </v-select>
         </v-col>
       </v-row>
@@ -139,7 +168,7 @@ data(){
     closeTime: '',
     lunchstartTime: '',
     lunchendTime: '',
-    e7: [],
+    closedDay: [],
     states: [
       {name:'월', value:'월'},
       {name:'화', value:'화'},
@@ -156,19 +185,19 @@ data(){
 methods:{
   submit(){
     const storeinfo = {
-      storeName: this.storeName,
-      storeUrl : this.storeUrl,
-      businessNumber: this.businessNumber,
-      businessName: this.businessName,
-      ceoName: this.ceoName,
+      name: this.storeName,
+      url : this.storeUrl,
+      businessLicenseNumber: this.businessNumber,
+      companyCorporationName: this.businessName,
+      representativeName: this.ceoName,
       businessLocation: this.businessLocation,
       email: this.email,
-      callcenterNumber: this.callcenterNumber,
-      openTime: this.openTime,
-      closeTime: this.closeTime,
-      lunchstartTime: this.lunchstartTime,
-      lunchendTime: this.lunchendTime,
-      e7: this.e7.toString()
+      customerServiceNumber: this.callcenterNumber,
+      operationStartTime: this.openTime,
+      operationEndTime: this.closeTime,
+      lunchStartTime: this.lunchstartTime,
+      lunchEndTime: this.lunchendTime,
+      closedDay: this.closedDay.toString()
     }
     console.log(storeinfo)
     this.$http
@@ -181,6 +210,23 @@ methods:{
       .catch(err => {
        console.log(err);
     });
+    // const formData = new FormData();
+
+    // formData.append('name', $('#name').val());
+    // formData.append('url', $('#url').val());
+    // formData.append('businessLicenseNumber', $('#businessLicenseNumber').val());
+    // formData.append('email', $('#email').val());
+    // formData.append('operationStartTime', $('#operationStartTime').val());
+    // formData.append('operationEndTime', $('#operationEndTime').val());
+    // formData.append('lunchStartTime', $('#lunchStartTime').val());
+    // formData.append('lunchEndTime', $('#lunchEndTime').val());
+    // formData.append('closedDay', $('#closedDay option:selected').val());
+    // formData.append('companyCorporationName', $('#companyCorporationName').val());
+    // formData.append('representativeName', $('#representativeName').val());
+    // formData.append('businessLocation', $('#businessLocation').val());
+    // formData.append('customerServiceNumber', $('#customerServiceNumber').val());
+
+    // console.log(formData)
   }
 },
 computed:{
@@ -198,7 +244,7 @@ computed:{
           this.closeTime &&
           this.lunchstartTime &&
           this.lunchendTime &&
-          this.e7 
+          this.closedDay 
         )},
 }
 }
