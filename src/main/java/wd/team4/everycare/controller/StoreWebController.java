@@ -11,6 +11,7 @@ import wd.team4.everycare.domain.Store;
 import wd.team4.everycare.repository.StoreRepository;
 import wd.team4.everycare.service.StoreServiceImpl;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -21,14 +22,16 @@ public class StoreWebController {
     private final StoreRepository storeRepository;
 
     @GetMapping("/store")
-    public String store(){
+    public String store(Model model){
+        List<Store> stores = storeRepository.findAll();
+        model.addAttribute("stores", stores);
         return "store";
     }
 
     @GetMapping("/store/account")
     public String newStore(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
         String id = principalDetails.getUsername();
-        Store store = storeService.findStore(id);
+        Store store = storeService.findStoreByMember(id);
 
         if(store!=null){
             model.addAttribute("store", store);
