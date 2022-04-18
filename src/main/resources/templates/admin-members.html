@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>회원 관리</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>회원 관리</h2>
+            <div>
+                <div th:each="member : ${members}">
+                    <ul>
+                        <li>아이디: <span th:text="${member.id}"></span></li>
+                        <li>이름: <span th:text="${member.name}"></span></li>
+                        <li>회원가입일: <span th:text="${member.createdAt}"></span></li>
+                        <li>활동상태: <span th:text="${member.activityStatus}"></span></li>
+                        <li>권한: <span th:text="${member.role}"></span></li>
+                        <li>관리자 등록일: <span th:text="${member.adminRegistrationDate}"></span></li>
+                        <input th:id="'administratorDeletion(' + ${member.id} + ')'" type="button" value="관리자 권한삭제"/>
+                        <input id="adminRegistration" th:onclick="adminRegistration([[${member.id}]])" type="button" value="관리자 등록"/>
+<!--                        활동상태 select로 만들기 정지:STOP 활동중:ACTIVE 탈퇴:WITHDRAWAL-->
+                        <li>활동상태 <input type="activityStatus" name="activityStatus" id="activityStatus"/></li>
+                        <input id="changeActivityStatus" type="button" value="활동상태 변경"/>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+        <script th:inline="javascript">
+
+            function adminRegistration(id){
+                console.log(id);
+                $.ajax({
+                    url: "/api/admin/members/"+id,
+                    type: 'POST',
+                    success: function (){
+                        location.href = "/admin/members"
+                    }
+                })
+            }
+
+        </script>
+</div>
+</body>
+</html>

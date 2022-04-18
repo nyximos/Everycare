@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="UTF-8">
+  <title>EveryCare</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <style>
+    @import "/css/header.css";
+  </style>
+  <th:block layout:fragment="css"></th:block>
+  <th:block type="text/javascript" layout:fragment="script" ></th:block>
+</head>
+<body>
+  <th:block th:replace="header :: header"></th:block>
+  <th:block layout:fragment="content"></th:block>
+  <th:block th:replace="footer :: footer"></th:block>
+</body>
+</html>

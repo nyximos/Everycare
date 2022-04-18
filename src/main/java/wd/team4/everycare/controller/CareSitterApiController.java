@@ -11,7 +11,6 @@ import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.CareSitterFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
-import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.service.CareSitterServiceImpl;
 
 import java.io.IOException;
@@ -24,7 +23,6 @@ import java.time.LocalDateTime;
 public class CareSitterApiController {
 
     private final CareSitterServiceImpl careSitterService;
-    private final MemberRepository memberRepository;
 
     @ResponseBody
     @PostMapping("/dashboard/caresitter")
@@ -56,16 +54,17 @@ public class CareSitterApiController {
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 
-    /*
     @ResponseBody
-    @PutMapping("/dashboard/caresitter")
-    public ResponseEntity<MyResponse> putCareSitter(
-            @RequestBody CareSitterDTO careSitterDTO
+    @PatchMapping("/dashboard/caresitter/{id}")
+    public ResponseEntity<MyResponse> patchCareSitter(
+            @PathVariable("id") Long id,
+            @ModelAttribute CareSitterFormDTO careSitterFormDTO
     ){
-        LocalDateTime time = LocalDateTime.now();
-        careSitterService.
+        careSitterService.update(id, careSitterFormDTO);
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공했슴다~")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
-
-     */
-
 }

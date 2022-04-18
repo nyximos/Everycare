@@ -26,6 +26,7 @@ public interface CareTargetService {
                 .isCctvAgreement(careTargetFormDTO.getIsCctvAgreement())
                 .careType(careTargetFormDTO.getCareType())
                 .coronaTest(careTargetFormDTO.getCoronaTest())
+                .member(careTargetFormDTO.getMember())
                 .build();
         return careTarget;
     }
@@ -46,6 +47,9 @@ public interface CareTargetService {
 
     boolean isEmpty(Long id);
 
+    List<CareTarget> findCareTargets(String id);
+
     List<CareTargetImage> findCareTargetImages(Long id);
 
+    String update(Long id, CareTargetFormDTO careTargetFormDTO);
 }

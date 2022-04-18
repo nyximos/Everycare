@@ -2,19 +2,22 @@ package wd.team4.everycare.dto;
 
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
+import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.Member;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
-@Getter @Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class CareSitterFormDTO {
 
     private String preferredType;
+    private String hopefulRegion;
     private String desiredDayWeek;
     private String activityTime;
     private String desiredHourlyWage;
@@ -26,10 +29,12 @@ public class CareSitterFormDTO {
     private LocalDateTime updatedAt;
     private Member member;
     private List<MultipartFile> attachFiles;
+    private int disclosureStatus;
 
     @Builder(builderMethodName = "careSitterDTOBuilder")
-    public CareSitterFormDTO(String preferredType, String desiredDayWeek, String activityTime, String desiredHourlyWage, String desiredMonthlyWage, int cctvAgreement, int vaccination, String introduction, LocalDateTime createdAt, LocalDateTime updatedAt, Member member) {
+    public CareSitterFormDTO(String preferredType, String hopefulRegion, String desiredDayWeek, String activityTime, String desiredHourlyWage, String desiredMonthlyWage, int cctvAgreement, int vaccination, String introduction, LocalDateTime createdAt, LocalDateTime updatedAt, Member member) {
         this.preferredType = preferredType;
+        this.hopefulRegion = hopefulRegion;
         this.desiredDayWeek = desiredDayWeek;
         this.activityTime = activityTime;
         this.desiredHourlyWage = desiredHourlyWage;
@@ -46,4 +51,23 @@ public class CareSitterFormDTO {
     public CareSitterFormDTO(List<MultipartFile> attachFiles) {
         this.attachFiles = attachFiles;
     }
+
+    public CareSitter toCareSitter() {
+        return CareSitter.builder()
+                .preferredType(this.preferredType)
+                .hopefulRegion(this.hopefulRegion)
+                .desiredDayWeek(this.desiredDayWeek)
+                .activityTime(this.activityTime)
+                .desiredHourlyWage(this.desiredHourlyWage)
+                .desiredMonthlyWage(this.desiredMonthlyWage)
+                .cctvAgreement(this.cctvAgreement)
+                .vaccination(this.vaccination)
+                .introduction(this.introduction)
+                .disclosureStatus(1)
+                .createdAt(this.createdAt)
+                .updatedAt(this.updatedAt)
+                .member(this.member)
+                .build();
+    }
+
 }

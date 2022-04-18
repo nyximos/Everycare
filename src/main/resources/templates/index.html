@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Everycare</title>
+</head>
+<body>
+<header th:insert="header.html"></header>
+
+
+<!--            <li><a th:href="@{/caresitters}"><img src="2.PNG" ></a></li>-->
+<!--            <li><a th:href="@{/jopoffer}"><img src="1.PNG" ></a></li>-->
+<ul id="content">
+    <li><a th:href="@{/caresitters}">케어시터찾기</a></li>
+    <li><a th:href="@{/jopoffer}">일자리찾기</a></li>
+</ul>
+
+<script th:inline="javascript">
+    /*<![CDATA]*/
+    var id = /*[[ ${session.id} ]]*/'';
+    console.log(id);
+    /*]]*/
+</script>
+</body>
+</html>

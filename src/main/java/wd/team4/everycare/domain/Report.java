@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-@Setter
-@ToString
 @NoArgsConstructor
 @Entity
 @SequenceGenerator(name = "report_seq_generator",

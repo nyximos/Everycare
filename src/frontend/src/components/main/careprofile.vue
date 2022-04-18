@@ -20,17 +20,17 @@
                           </div>
                           <div class="div_text">
                               <strong>사진</strong>
-                              <v-file-input
-                              v-model="image"
+                              <!-- <v-file-input
                                 truncate-length="22"
                                 label="사진을 넣으세요"
-                                ></v-file-input>
+                                @change="selectFile"
+                                ></v-file-input> -->
                           </div>
                           <div class="con10_blank"></div>
                           <div class="r_content">
                               <br>
                               <v-text-field v-model="name" label="Name" required></v-text-field>
-                               <v-radio-group v-model="radios" mandatory>
+                               <v-radio-group v-model="row" mandatory>
                                     <v-radio label="남" value="Man"></v-radio>
                                     <v-radio label="여" value="Woman"></v-radio>
                                 </v-radio-group>
@@ -40,9 +40,7 @@
                               <h5>자기소개</h5>
                               <textarea class="content_add" placeholder="자기소개써주세요" v-model="textarea"></textarea>
                           </div>
-                          <router-link :to="{name:'careprofile1'}">
                           <v-btn class="ma-2" outlined color="indigo" @click="nextpage1">다음</v-btn>
-                          </router-link>
                           <router-link to="/"> <v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
                           </div>
                       </div>
@@ -57,25 +55,24 @@ export default {
   name:'careprofilecom',
   data(){
      return{
-        image: [],
         name:'',
-        radios:'',
+        row:'',
         age:'',
         textarea:''
      }
   },
   methods:{
       nextpage1(){
-        const userData = {
-        image : this.image.name,
+        const caredata = {
         name:this.name,
-        sex:this.radios,
+        row:this.row,
         age:this.age,
         textarea:this.textarea
         }
         try{
-          this.$store.commit('careprofileStore/set_user1', userData);
-          console.log(this.$store.state.careprofileStore.image);
+          console.log(caredata);
+          this.$store.commit('careprofileStore/carePro', caredata);
+          console.log(this.$store.state.careprofileStore.name);
         } catch(error){
            console.log(error); 
         }

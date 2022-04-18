@@ -1,35 +1,22 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
 <head>
     <meta charset="UTF-8"/>
-    <title>signin</title>
+    <title>로그인</title>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <th:block layout:fragment="styles">
+<!--        <script src="/css/signin.css"></script>-->
+        <script src="/js/signin.js"></script>
+    </th:block>
 </head>
 <body>
-<h2>로그인</h2>
-<input title="아이디" type="text" name="username" id="username"/>
-<input title="비밀번호" type="password" name="password" id="password"/>
-<button type="button" onclick="login()">Login</button>
-
-<script th:inline="javascript">
-    const login = () => {
-        const username = document.getElementsByName('username')[0].value;
-        const password = document.getElementsByName('password')[0].value;
-        const json = {
-            username: username,
-            password: password,
-        };
-        axios
-            .post('/login', json)
-            .then((res) => {
-                // this.test = response.data;
-                console.log(res);
-                location.href="/"
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
-</script>
+<div layout:fragment="content">
+    <h2>로그인</h2>
+    <input title="아이디" type="text" name="username" id="username"/>
+    <input title="비밀번호" type="password" name="password" id="password"/>
+    <button type="button" onclick="login()">Login</button>
+</div>
 </body>
 </html>

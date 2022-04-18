@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.CareSitterImage;
+import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.CareSitterFormDTO;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.repository.CareSitterImageRepository;
@@ -31,7 +32,7 @@ public class CareSitterServiceImpl implements CareSitterService {
 
     @Override
     public Long save(CareSitterFormDTO careSitterFormDTO) throws IOException {
-        CareSitter careSitter = careSitterDtoToCareSitter(careSitterFormDTO);
+        CareSitter careSitter = careSitterFormDTO.toCareSitter();
         careSitterRepository.save(careSitter);
 
         List<UploadFile> attachFiles = fileStoreService.storeFiles(careSitterFormDTO.getAttachFiles());
@@ -45,38 +46,6 @@ public class CareSitterServiceImpl implements CareSitterService {
     }
 
     @Override
-    public CareSitterImage careSitterDtoToImage(CareSitter careSitter, UploadFile attachFile) throws IOException {
-        return CareSitterImage.builder()
-                .uploadFileName(attachFile.getUploadFileName())
-                .storeFileName(attachFile.getStoreFileName())
-                .careSitter(careSitter)
-                .build();
-    }
-
-    @Override
-    public CareSitter careSitterDtoToCareSitter(CareSitterFormDTO dto) {
-        return CareSitter.builder()
-                .preferredType(dto.getPreferredType())
-                .desiredDayWeek(dto.getDesiredHourlyWage())
-                .activityTime(dto.getActivityTime())
-                .desiredHourlyWage(dto.getDesiredHourlyWage())
-                .desiredMonthlyWage(dto.getDesiredMonthlyWage())
-                .cctvAgreement(dto.getCctvAgreement())
-                .vaccination(dto.getVaccination())
-                .introduction(dto.getIntroduction())
-                .disclosureStatus(1)
-                .createdAt(dto.getCreatedAt())
-                .updatedAt(dto.getUpdatedAt())
-                .member(dto.getMember())
-                .build();
-    }
-
-    @Override
-    public void removeCareSitter(Long id) {
-        careSitterRepository.deleteById(id);
-    }
-
-    @Override
     public CareSitter isPresent(Long id) {
         Optional<CareSitter> careSitter = careSitterRepository.findById(id);
         return careSitter.get();
@@ -84,18 +53,43 @@ public class CareSitterServiceImpl implements CareSitterService {
 
     @Override
     public boolean isEmpty(String id) {
-        if(isEmpty(String.valueOf(memberRepository.findById(id)))) {
+        if (isEmpty(String.valueOf(memberRepository.findById(id)))) {
             return true;
         }
         return false;
     }
 
     @Override
+    public CareSitter findCareSitter(String id) {
+        Optional<Member> member = memberRepository.findById(id);
+        CareSitter careSitter = member.get().getCareSitter();
+        return careSitter;
+    }
+
+    @Override
     public List<CareSitterImage> findCareSitterImages(Long id) {
         CareSitter careSitter = isPresent(id);
         return careSitter.getCareSitterImages();
-
     }
 
+    @Override
+    public String update(Long id, CareSitterFormDTO careSitterFormDTO) {
+        Optional<CareSitter> careSitter = careSitterRepository.findById(id);
+        CareSitter careSitterEntity = careSitter.orElse(null);
+        if (careSitterEntity == null) {
+            System.out.println("케어시터가 없으므로 종료해야함");
+            return "실패했씀다~";
+        }
+        careSitterEntity.updateInfo(careSitterFormDTO);
+        return "수정했슴다~";
+    }
 
+    @Override
+    public CareSitterImage careSitterDtoToImage(CareSitter careSitter, UploadFile attachFile) throws IOException {
+        return CareSitterImage.builder()
+                .uploadFileName(attachFile.getUploadFileName())
+                .storeFileName(attachFile.getStoreFileName())
+                .careSitter(careSitter)
+                .build();
+    }
 }

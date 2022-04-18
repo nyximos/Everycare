@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -101,7 +102,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         System.out.println("encodeToken = " + encodeToken);
         Cookie cookieToken = new Cookie(JwtProperties.HEADER_STRING, encodeToken);
         cookieToken.setMaxAge(JwtProperties.EXPIRATION_TIME / 1000);
+        cookieToken.setHttpOnly(true);
+        cookieToken.setPath("/");
         response.addCookie(cookieToken);
+        // 쿠키 저장 후 다시 꺼내서 samesite 적용
+        String header = response.getHeader(HttpHeaders.SET_COOKIE);
+        response.setHeader(HttpHeaders.SET_COOKIE, String.format("%s; Secure; %s", header, "SameSite=None"));
     }
 
 }

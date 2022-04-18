@@ -1,20 +1,140 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<title>Title</title>
-	</head>
-	<body>
-		<form action="/api/dashboard/caresitter" method="post">
-			<input type="text" name="preferredType" />
-			<input type="text" name="desiredDayWeek"/>
-			<input type="text" name="activityTime"/>
-			<input type="text" name="desiredHourlyWage"/>
-			<input type="text" name="desiredMonthlyWage"/>
-			<input type="number" name="cctvAgreement"/>
-			<input type="number" name="vaccination"/>
-			<input type="text" name="introduction"/>
-			<input type="text" name="memberId"/>
-		</form>
-	</body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>케어시터 프로필</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <th:block th:if="${careSitter} == null">
+        <div class="container">
+            <div class="py-5 text-center">
+                <h2>케어시터 프로필 등록</h2>
+            </div>
+            <form>
+                <ul>
+                    <li>선호 케어 유형 <input type="text" name="preferredType" id="preferredType"/></li>
+                    <li>희망 활동 지역 <input type="text" name="hopefulRegion" id="hopefulRegion"/></li>
+                    <li>
+                        희망 활동 요일
+                        <label><input type="checkbox" name="desiredDayWeek" value="일" class="desiredDayWeek">일</label>
+                        <label><input type="checkbox" name="desiredDayWeek" value="월" class="desiredDayWeek">월</label>
+                        <label><input type="checkbox" name="desiredDayWeek" value="화" class="desiredDayWeek">화</label>
+                        <label><input type="checkbox" name="desiredDayWeek" value="수" class="desiredDayWeek">수</label>
+                        <label><input type="checkbox" name="desiredDayWeek" value="목" class="desiredDayWeek">목</label>
+                        <label><input type="checkbox" name="desiredDayWeek" value="금" class="desiredDayWeek">금</label>
+                        <label><input type="checkbox" name="desiredDayWeek" value="토" class="desiredDayWeek">토</label>
+                    </li>
+                    <li>희망 활동 시간 <input type="text" name="activityTime" id="activityTime"/></li>
+                    <li>희망 시급 <input type="text" name="desiredHourlyWage" id="desiredHourlyWage"/></li>
+                    <li>희망 월급 <input type="text" name="desiredMonthlyWage" id="desiredMonthlyWage"/></li>
+                    <li>CCTV 동의여부 <input type="number" name="cctvAgreement" id="cctvAgreement"/></li>
+                    <li>백신접종 유무 <input type="number" name="vaccination" id="vaccination"/></li>
+                    <li>소개글  <input type="text" name="introduction" id="introduction"/></li>
+                    <li>공개여부 <input type="number" name="disclosureStatus" id="disclosureStatus"/></li>
+                    <li>이미지 파일들<input type="file" multiple="multiple" name="attachFiles" id="attachFiles"/></li>
+                </ul>
+                <!--				<input type="submit" onclick="submit()"/>-->
+                <input id="tokenField" type="hidden"/>
+                <input id="submitButton" type="button" value="등록"/>
+            </form>
+        </div>
+        <!-- /container -->
+
+        <script th:inline="javascript">
+            let desiredDayWeek = [[${desiredDayWeek}]];
+
+            $(function() {
+                $(desiredDayWeek).each(function (index, item) {
+                    $('input[value=' + item + ']').prop("checked", true);
+                });
+
+                $('#submitButton').on('click', function () {
+                    const formData = new FormData();
+
+                    if ($('input[type="checkbox"]:checked').length === 0) {
+                        alert("희망 활동 요일을 선택해주십시오.");
+                        return;
+                    }
+
+                    let desiredDayWeek = [];
+
+                    $('input[type=checkbox]:checked').each(function () {
+                        desiredDayWeek.push($(this).val())
+                    })
+
+                    formData.append('preferredType', $('#preferredType').val());
+                    formData.append('hopefulRegion', $('#hopefulRegion').val());
+                    formData.append('desiredDayWeek', desiredDayWeek.toString());
+                    formData.append('desiredDayWeek', $('#desiredDayWeek').val());
+                    formData.append('activityTime', $('#activityTime').val());
+                    formData.append('desiredHourlyWage', $('#desiredHourlyWage').val());
+                    formData.append('desiredMonthlyWage', $('#desiredMonthlyWage').val());
+                    formData.append('cctvAgreement', $('#cctvAgreement').val());
+                    formData.append('vaccination', $('#vaccination').val());
+                    formData.append('introduction', $('#introduction').val());
+                    formData.append('disclosureStatus', $('#disclosureStatus').val());
+
+                    if ($('#attachFiles')[0].files[0] === undefined) {
+                        alert("이미지를 첨부해주세요!");
+                        return false;
+                    } else {
+                        const size = document.getElementById('attachFiles').files.length;
+                        for (let i = 0; i < size; i++) {
+                            formData.append('attachFiles', $('#attachFiles')[0].files[i]);
+                        }
+                    }
+
+                    $.ajax({
+                        url: "/api/dashboard/caresitter",
+                        type: 'POST',
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        enctype: 'multipart/form-data',
+                        data: formData,
+                        async: false,
+                    })
+                    location.href = "/dashboard/caresitter"
+                })
+            });
+
+        </script>
+    </th:block>
+    <th:block th:if="${careSitter} != null">
+        <div class="py-5 text-center">
+            <h2>케어시터 프로필 조회</h2>
+        </div>
+        선호 케어 유형: <span th:text="${careSitter.preferredType}"></span><br/>
+        희망 활동 지역: <span th:text="${careSitter.hopefulRegion}"></span><br/>
+        희망 활동 요일: <span th:text="${careSitter.desiredDayWeek}"></span><br/>
+        희망 활동 시간: <span th:text="${careSitter.activityTime}"></span><br/>
+        희망 시급: <span th:text="${careSitter.desiredHourlyWage}"></span><br/>
+        희망 월급: <span th:text="${careSitter.desiredMonthlyWage}"></span><br/>
+        CCTV 동의여부: <span th:text="${careSitter.cctvAgreement}"></span><br/>
+        백신접종 유무: <span th:text="${careSitter.vaccination}"></span><br/>
+        소개글: <span th:text="${careSitter.introduction}"></span><br/>
+
+        <div th:each="careSitterImage : ${careSitterImages}">
+            <a th:href="|/attach/${careSitterImage.id}|"
+               th:text="${careSitterImage.getUploadFileName()}"/><br/>
+            <img th:src="|/images/${careSitterImage.getStoreFileName()}|" width="300" height="300"/>
+        </div>
+        <input id="update" type="button" value="수정"/>
+        <script th:inline="javascript">
+            $('#update').on('click', function () {
+                /*<![CDATA]*/
+                var id = /*[[ ${careSitter.id} ]]*/'';
+                console.log(id);
+                /*]]*/
+                location.href = "/dashboard/caresitter/"+id;
+            })
+
+        </script>
+
+    </th:block>
+</div>
+</body>
 </html>

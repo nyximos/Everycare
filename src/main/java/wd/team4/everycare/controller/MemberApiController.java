@@ -1,15 +1,24 @@
 package wd.team4.everycare.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
+import wd.team4.everycare.config.jwt.JwtProperties;
 import wd.team4.everycare.domain.ActivityStatus;
 import wd.team4.everycare.domain.MemberRole;
 import wd.team4.everycare.dto.member.SignupDTO;
+import wd.team4.everycare.dto.response.MyResponse;
+import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.service.MemberServiceImpl;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 
@@ -19,11 +28,24 @@ import java.time.LocalDateTime;
 // @CrossOrigin(origins = "http://localhost:8087"*/32 m)  // CORS 허용
 public class MemberApiController {
 
-    private final MemberRepository memberRepository;
     private final MemberServiceImpl memberService;
 
-    // Tip : JWT를 사용하면 UserDetailsService를 호출하지 않기 때문에 @AuthenticationPrincipal 사용 불가능.
-    // 왜냐하면 @AuthenticationPrincipal은 UserDetailsService에서 리턴될 때 만들어지기 때문이다.
+    // 쿠키에 저장된 토큰 삭제
+    @DeleteMapping("/token")
+    public ResponseEntity logout(HttpServletRequest request, HttpServletResponse response) {
+        Cookie cookie = new Cookie(JwtProperties.HEADER_STRING, null);
+        cookie.setMaxAge(0);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        String header = response.getHeader(HttpHeaders.SET_COOKIE);
+        response.setHeader(HttpHeaders.SET_COOKIE, String.format("%s; Secure; %s", header, "SameSite=None"));
+        MyResponse<Object> message = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("로그아웃 성공")
+                .build();
+        return new ResponseEntity(message, HttpStatus.OK);
+    }
 
     // 유저 혹은 매니저 혹은 어드민이 접근 가능
     @GetMapping("/user")
