@@ -1,6 +1,6 @@
 <template>
     <div>
-        
+        <form>
         <!-- <form name="signUpForm" class="form" role="form"> -->
             <br>
             <h2>회원가입</h2>
@@ -24,7 +24,7 @@
             </div>
         <!-- </form> -->
         <button id="upbtn" class="btn btn-lg btn-primary btn-block signup-btn" type="submit" @click="signup">회원가입</button>
-       
+        </form>
     </div>
 </template>
 
@@ -33,29 +33,10 @@ import { registerUser } from '@/api/core/index';
 
 export default {
     data() {
-        return {
-            image: '',
-        name: '',
-        sex: '',
-        age: '',
-        comment: '',
-        hopeloc1: '',
-        hopeloc2: '',
-        hopeloc3: '',
-        hopeday: '',
-        starttimepicker: '',
-        endtimepicker: '',
-        paytype: '',
-        pay: '',
-        hopetype:'',
-        hopeage:'',
-        vaccine:'',
-        cctv:'',
-        certification:''
-        };
+        return {};
     },
     methods: {
-        signup() {
+        async signup() {
             const updata = {
                 id: this.id,
                 password: this.password,
@@ -70,7 +51,7 @@ export default {
             };
             try {
                 console.log(updata);
-                this.$store.commit('userStore/signUp', updata);
+                this.$store.commit('userStore/sgnUp', updata);
                 registerUser(updata);
             } catch (error) {
                 console.log(error);

@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>Main</h1>       
-        <v-btn @click="showAlert()">Show Alert</v-btn><h1>sss</h1>
+        <v-btn @click="showAlert()">Show Alert</v-btn>
     </div>
 </template>
 <script>

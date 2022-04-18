@@ -31,6 +31,7 @@ export default {
 nav {
 	width: 100%;
 	height:70px;
+
 }
 
 
