@@ -3,6 +3,7 @@ package wd.team4.everycare.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.dto.CareTargetScheduleDTO;
 import wd.team4.everycare.dto.JobOfferDTO;
@@ -34,6 +35,12 @@ public class JobOfferServiceImpl implements JobOfferService {
     public Optional<JobOffer> getDetailJobOffer(Long id) {
         Optional<JobOffer> findJobOffer = jobOfferRepository.findById(id);
             return findJobOffer;
+    }
+
+    @Override
+    public JobOffer save(PrincipalDetails principalDetails, CareTargetDTO careTargetDTO, CareTargetScheduleDTO scheduleDTO) {
+        JobOfferDTO jobOfferDTO = new JobOfferDTO();
+//        jobOfferDTO.setStartDate(scheduleDTO.getStartTime());
     }
 
     @Override

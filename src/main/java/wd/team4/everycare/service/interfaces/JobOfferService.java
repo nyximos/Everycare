@@ -1,5 +1,7 @@
 package wd.team4.everycare.service.interfaces;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.dto.CareTargetScheduleDTO;
 import wd.team4.everycare.dto.JobOfferDTO;
@@ -13,7 +15,7 @@ public interface JobOfferService {
 
     List<JobOffer> getJobOffer();
     Optional<JobOffer> getDetailJobOffer(Long id);
-//    JobOffer save(Long id, CareTargetDTO careTargetDTO, CareTargetScheduleDTO scheduleDTO);
+    JobOffer save(@AuthenticationPrincipal PrincipalDetails principalDetails, CareTargetDTO careTargetDTO, CareTargetScheduleDTO scheduleDTO);
     void deleteJobOffer(Long id);
 
     default JobOffer dtoToEntity(JobOfferDTO dto) {

@@ -5,19 +5,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
-import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetSchedule;
 import wd.team4.everycare.domain.JobOffer;
-import wd.team4.everycare.domain.Result;
-import wd.team4.everycare.dto.CareTargetAndScheduleDTO;
-import wd.team4.everycare.dto.CareTargetScheduleDTO;
-import wd.team4.everycare.dto.JobOfferDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetDTO;
 import wd.team4.everycare.dto.response.MyListResponse;
-import wd.team4.everycare.dto.response.MyOptionalResponse;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.CareTargetRepository;
@@ -25,7 +18,6 @@ import wd.team4.everycare.repository.CareTargetScheduleRepository;
 import wd.team4.everycare.service.JobOfferServiceImpl;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -72,5 +64,3 @@ public class JobOfferApiController {
         return new ResponseEntity<MyListResponse>(body, headers, HttpStatus.OK);
     }
 }
-
- 

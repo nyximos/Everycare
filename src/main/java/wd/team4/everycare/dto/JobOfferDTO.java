@@ -37,6 +37,9 @@ public class JobOfferDTO {
         this.comment = comment;
     }
 
+    public JobOfferDTO() {
+    }
+
     public JobOffer toListEntity(){
         return new JobOffer(id, startDate, endDate, desiredDayWeek, desiredStartTime, desiredActivityTime, pay, comment, desiredCareSitterGender);
     }
