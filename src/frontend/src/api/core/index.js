@@ -1,23 +1,21 @@
 import axios from 'axios';
 
-const instance = axios.create({
-    baseURL: '/api'
-})
-
-function registerUser(updata) {
-    //const url = '/api/signup';
-    //axios.post('/api/signup', updata)
-    instance.post('/signup', updata)
-}
-
-function loginUser(userdata){
-    const url = 'http://localhost:8086/login'
-    return axios.post(url, userdata)
+function registerUser(updata){
+    const url = 'https://localhost:8086/signup'
+    return axios.post(url, updata)
                 .then((res)=>{
                     console.log(res);
                 })
 }
- export{ registerUser, loginUser };
+
+// function loginUser(userdata){
+//     const url = 'https://localhost:8086/login'
+//     return axios.post(url, userdata)
+//                 .then((res)=>{
+//                     console.log(res);
+//                 })
+// }
+ export{ registerUser };
 
 //create an axios instance
 const request = axios.create({

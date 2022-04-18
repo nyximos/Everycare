@@ -23,6 +23,11 @@ const routes = [
         name: 'signup',
         component: () => import('@/pages/Signup.vue')
    },
+   {
+        path: '/myinfo',
+        name: 'myinfo',
+        component:() => import('@/pages/Myinfo.vue')
+   },
     {
         path: '/careprofile',
         name: 'careprofile',
