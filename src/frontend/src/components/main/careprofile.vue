@@ -81,7 +81,7 @@ export default {
         name:this.name,
         gender:this.gender,
         age:this.age,
-        intro:this.intro
+        introduction:this.introdction
 
         }
         try{

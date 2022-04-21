@@ -28,8 +28,8 @@
                             <v-checkbox v-model="caretype" value="clean" label="청소"></v-checkbox>
                           <h5 class="sub_title1">연령</h5>
                         <div class="r_seeking_age">
-                            <v-checkbox v-model="preferredType" value="newborn" label="신생아(0-6 month)"></v-checkbox>
-                            <v-checkbox v-model="preferredType" value="baby" label="영아(7-36 month)"></v-checkbox>
+                          <v-checkbox v-model="preferredType" value="newborn" label="신생아(0-6 month)"></v-checkbox>
+                          <v-checkbox v-model="preferredType" value="baby" label="영아(7-36 month)"></v-checkbox>
                           <v-checkbox v-model="preferredType" value="child" label="유아(4-7 year)"></v-checkbox>
                           <v-checkbox v-model="preferredType" value="children" label="초등학생"></v-checkbox>
                           <v-checkbox v-model="preferredType" value="student" label="중고등학생"></v-checkbox>

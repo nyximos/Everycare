@@ -1,4 +1,5 @@
-// import axios from 'axios'
+import axios from 'axios'
+
 export default {
     namespaced: true,
     state: {
@@ -6,7 +7,7 @@ export default {
         name: '',
         gender: '',
         age: '',
-        intro: '',
+        introduction: '',
         hopeloc1: '',
         hopeloc2: '',
         hopeloc3: '',
@@ -18,7 +19,7 @@ export default {
         desiredMonthlyWage:'',
         hopetype:'',
         preferredType:'',
-        vaccine:'',
+        vaccination:'',
         cctv:'',
         certification:''
     },
@@ -28,7 +29,7 @@ export default {
             state.name = userData.name;
             state.gender = userData.gender;
             state.age = userData.age;
-            state.intro = userData.intro;
+            state.introduction = userData.introduction;
         },
         set_user2(state, userData){
             state.hopeloc1 = userData.hopeloc1;

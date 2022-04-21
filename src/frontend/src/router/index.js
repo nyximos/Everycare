@@ -33,6 +33,16 @@ const routes = [
         component: () => import('@/pages/Careprofile1.vue')
     },
     {
+        path: '/caresitterprofile_delete',
+        name: 'caresitterprofile_delete',
+        component: () => import('@/pages/Caresitterprofile.vue')
+    },
+    {
+        path: '/profile_update',
+        name: 'profile_update',
+        component: () => import('@/pages/Profile_update.vue')
+    },
+    {
         path: '/dashboard/careprofile2',
         name: 'careprofile2',
         component: () => import('@/pages/Careprofile2.vue')
