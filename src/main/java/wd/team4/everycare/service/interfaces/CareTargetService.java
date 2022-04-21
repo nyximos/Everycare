@@ -3,6 +3,7 @@ package wd.team4.everycare.service.interfaces;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetImage;
 import wd.team4.everycare.dto.CareTargetFormDTO;
+import wd.team4.everycare.dto.CareTargetViewDTO;
 import wd.team4.everycare.dto.UploadFile;
 
 import java.io.IOException;
@@ -52,4 +53,6 @@ public interface CareTargetService {
     List<CareTargetImage> findCareTargetImages(Long id);
 
     String update(Long id, CareTargetFormDTO careTargetFormDTO);
+
+    CareTargetViewDTO findCareTarget(Long id);
 }
