@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 export default {
     namespaced: true,
     state: {
@@ -11,7 +9,7 @@ export default {
         hopeloc1: '',
         hopeloc2: '',
         hopeloc3: '',
-        hopeday: '',
+        desiredDayWeek: '',
         starttimepicker: '',
         endtimepicker: '',
         paytype: '',
@@ -35,7 +33,7 @@ export default {
             state.hopeloc1 = userData.hopeloc1;
             state.hopeloc2 = userData.hopeloc2;
             state.hopeloc3 = userData.hopeloc3;
-            state.hopeday = userData.hopeday;
+            state.desiredDayWeek = userData.desiredDayWeek;
             state.activityTime = userData.starttimepicker + userData.endtimepicker;
             state.paytype = userData.paytype;
             state.desiredHourlyWage = userData.desiredHourlyWage;
@@ -60,6 +58,7 @@ export default {
                 cctvAgreement:this.cctvAgreement,
                 vaccination:this.vaccination,
                 introduction:this.introduction,
+                careSitterImages:this.image
             }
             console.log(userData)
             this.$http
