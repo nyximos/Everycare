@@ -93,7 +93,7 @@
               </div>
               <br><br>
                <!-- <router-link :to="{name: 'Main'}"> -->
-               <v-btn class="ma-2" outlined color="indigo" @click="clickme">등록</v-btn>
+               <v-btn class="ma-2" outlined color="indigo" @click="submit">등록</v-btn>
                <!-- </router-link> -->
                 <router-link to="/Careprofile1"><v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
           </div>
@@ -117,7 +117,7 @@ data(){
     }
   },
   methods:{
-      clickme(){
+      submit(){
           const userData={
               caretype:this.caretype,
               preferredType:this.preferredType,

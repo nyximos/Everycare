@@ -17,7 +17,7 @@ export default {
         desiredHourlyWage: '',
         desiredMonthlyWage:'',
         hopetype:'',
-        hopeage:'',
+        preferredType:'',
         vaccine:'',
         cctv:'',
         certification:''
@@ -49,6 +49,28 @@ export default {
         }
     },
     actions: {
+        submit(){
+            const userData={
+                preferredType:this.preferredType,
+                desiredDayWeek:this.desiredDayWeek,
+                activityTime:this.activityTime,
+                desiredHourlyWage:this.desiredHourlyWage,
+                desiredMonthlyWage:this.desiredMonthlyWage,
+                cctvAgreement:this.cctvAgreement,
+                vaccination:this.vaccination,
+                introduction:this.introduction,
+            }
+            console.log(userData)
+            this.$http
+            .post('/api/dashboard/caresitter',userData,{
+                withCredentials:true
+            })
+            .then(res=>{
+                console.log(res);
+            }).catch(err=>{
+                console.log(err)
+            })
+        }
         // requestuserData({commit}){
         // axios.post('/api/dashboard/caresitter')
         // .then(response=>{
