@@ -12,6 +12,7 @@ import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.repository.StoreRepository;
 import wd.team4.everycare.service.interfaces.StoreService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,12 +54,28 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public MyResponse<Object> findAllStores() {
         List<Store> stores = storeRepository.findAll();
+
+        /*
+        // List<Store>가 있는지 확인!
+        // DTO 배열 만들기
+        List<StoreFormDTO> storeFormDTOs = new ArrayList<>();
+        // DTO 배열에 변환해서 넣기
+        for(Store s : stores) {
+            // DTO로 변경
+            StoreFormDTO storeFormDTO = s.toDTO();
+            // DTO를 배열에 넣기
+            storeFormDTOs.add(storeFormDTO);
+        }
+
+        stores.stream().map(store -> store.toDTO).forEach(storeFormDTOs::add);
+
+        */
+
         // ResponseEntity 의 body 에 myResponse가 들어감.
         return MyResponse.builder()
                 .header(StatusEnum.OK)
                 .body(stores)
-                .message("ㅅㄱ").build();
-
+                .message("성공").build();
     }
 
     @Override
