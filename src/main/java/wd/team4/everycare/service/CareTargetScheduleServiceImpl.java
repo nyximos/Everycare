@@ -6,8 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetSchedule;
 import wd.team4.everycare.dto.CareTargetScheduleDTO;
-import wd.team4.everycare.dto.response.MyResponse;
-import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.CareTargetRepository;
 import wd.team4.everycare.repository.CareTargetScheduleRepository;
 import wd.team4.everycare.service.interfaces.CareTargetScheduleService;

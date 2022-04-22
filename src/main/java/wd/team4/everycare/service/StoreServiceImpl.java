@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.domain.Store;
+import wd.team4.everycare.dto.StoreAdminViewDTO;
 import wd.team4.everycare.dto.StoreFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
@@ -12,6 +13,7 @@ import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.repository.StoreRepository;
 import wd.team4.everycare.service.interfaces.StoreService;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +28,11 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public Long save(StoreFormDTO storeFormDTO) {
+        LocalDateTime time = LocalDateTime.now();
+
         Store store = storeFormDTO.toStore();
+        store.approvedByAdmin(0);
+        store.saveRegistrationTime(time);
         storeRepository.save(store);
 
         return store.getId();
@@ -87,25 +93,25 @@ public class StoreServiceImpl implements StoreService {
                     .header(StatusEnum.BAD_REQUEST)
                     .message("스토어가 존재하지 않습니다.").build();
         }
-        StoreFormDTO storeFormDTO = StoreFormDTO.builder()
-                .name(storeEntity.getName())
-                .url(storeEntity.getUrl())
-                .businessLicenseNumber(storeEntity.getBusinessLicenseNumber())
-                .email(storeEntity.getEmail())
-                .operationStartTime(storeEntity.getOperationStartTime())
-                .operationEndTime(storeEntity.getOperationEndTime())
-                .lunchStartTime(storeEntity.getLunchStartTime())
-                .lunchEndTime(storeEntity.getLunchEndTime())
-                .closedDay(storeEntity.getClosedDay())
-                .companyCorporationName(storeEntity.getCompanyCorporationName())
-                .representativeName(storeEntity.getRepresentativeName())
-                .businessLocation(storeEntity.getBusinessLocation())
-                .customerServiceNumber(storeEntity.getCustomerServiceNumber())
-                .build();
+        StoreFormDTO storeFormDTO = storeEntity.toFormDTO();
         return MyResponse.builder()
                 .header(StatusEnum.OK)
                 .body(storeFormDTO)
                 .message("스토어 조회 완료").build();
+    }
+
+    @Override
+    public List<StoreAdminViewDTO> findStoresThatRequiresApproval() {
+        List<Store> stores = storeRepository.findAllByAdminApproval(0);
+        List<StoreAdminViewDTO> storeAdminViewDTOs = new ArrayList<>();
+
+        if(stores.isEmpty()){
+            return null;
+        }
+
+        stores.stream().map(store -> store.toAdminViewDTO()).forEach(storeAdminViewDTOs::add);
+
+        return storeAdminViewDTOs;
     }
 
 }

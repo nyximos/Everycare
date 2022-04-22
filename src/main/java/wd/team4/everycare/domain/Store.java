@@ -2,10 +2,13 @@ package wd.team4.everycare.domain;
 
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.StoreAdminViewDTO;
 import wd.team4.everycare.dto.StoreFormDTO;
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +65,13 @@ public class Store {
     @Column(name = "store_customer_service_number", length = 45, nullable = false)
     private String customerServiceNumber;
 
+    @Column(name = "store_created_at", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
+    private LocalDateTime createdAt;
+
+    @Column(name = "store_admin_approval", nullable = false )
+    private int adminApproval;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -112,6 +122,54 @@ public class Store {
             this.businessLocation = storeFormDTO.getBusinessLocation();
         if (StringUtils.isNotBlank(storeFormDTO.getCustomerServiceNumber()))
             this.customerServiceNumber = storeFormDTO.getCustomerServiceNumber();
-
     }
+
+    public void approvedByAdmin (int approval){
+        this.adminApproval = approval;
+    }
+
+    public void saveRegistrationTime(LocalDateTime time) {
+        this.createdAt = time;
+    }
+
+    public StoreFormDTO toFormDTO() {
+        return StoreFormDTO.builder()
+                .name(this.name)
+                .url(this.url)
+                .businessLicenseNumber(this.businessLicenseNumber)
+                .email(this.email)
+                .operationStartTime(this.operationStartTime)
+                .operationEndTime(this.operationEndTime)
+                .lunchStartTime(this.lunchStartTime)
+                .lunchEndTime(this.lunchEndTime)
+                .closedDay(this.closedDay)
+                .companyCorporationName(this.companyCorporationName)
+                .representativeName(this.representativeName)
+                .businessLocation(this.businessLocation)
+                .customerServiceNumber(this.customerServiceNumber)
+                .build();
+    }
+
+    public StoreAdminViewDTO toAdminViewDTO() {
+        return StoreAdminViewDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .url(this.url)
+                .businessLicenseNumber(this.businessLicenseNumber)
+                .email(this.email)
+                .operationStartTime(this.operationStartTime)
+                .operationEndTime(this.operationEndTime)
+                .lunchStartTime(this.lunchStartTime)
+                .lunchEndTime(this.lunchEndTime)
+                .closedDay(this.closedDay)
+                .companyCorporationName(this.companyCorporationName)
+                .representativeName(this.representativeName)
+                .businessLocation(this.businessLocation)
+                .customerServiceNumber(this.customerServiceNumber)
+                .createdAt(this.createdAt)
+                .member(this.member)
+                .build();
+    }
+
+
 }
