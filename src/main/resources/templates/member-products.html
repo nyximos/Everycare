@@ -16,10 +16,13 @@
         </th:block>
         <th:block th:if="${products} != null">
             <div th:each="product : ${products}"
-                 th:onclick="'location.href=\''+ @{/carenote/caretargets/{id}(id=${product.id})} + '\''">
+                 th:onclick="'location.href=\''+ @{/dashboard/store/products/{id}(id=${product.id})} + '\''">
                 <li th:text="${product.id}"></li>
                 <li th:text="${product.name}"></li>
-                <li th:text="${product.name}"></li>
+                <li th:text="${product.price}"></li>
+                <li th:text="${product.inventoryQuantity}"></li>
+                <li th:text="${product.isSale}"></li>
+                <img th:src="|/images/${product.getStoreFileName()}|" width="300" height="300"/>
             </div>
             <li><a th:href="@{/dashboard/store/products/new}">상품 등록</a></li>
         </th:block>

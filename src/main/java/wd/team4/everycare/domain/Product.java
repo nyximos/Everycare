@@ -3,6 +3,7 @@ package wd.team4.everycare.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.product.MemberProductsViewDTO;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -56,4 +57,16 @@ public class Product {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductImage> productImages = new ArrayList<>();
+
+    public MemberProductsViewDTO toMemberProductsViewDTO() {
+        return MemberProductsViewDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .price(this.price)
+                .inventoryQuantity(this.inventoryQuantity)
+                .isSale(this.isSale)
+                .uploadFileName(this.uploadFileName)
+                .storeFileName(this.storeFileName)
+                .build();
+    }
 }
