@@ -31,7 +31,7 @@ public class StoreServiceImpl implements StoreService {
         LocalDateTime time = LocalDateTime.now();
 
         Store store = storeFormDTO.toStore();
-        store.approvedByAdmin(0);
+        store.approvedByAdmin(0, null);
         store.saveRegistrationTime(time);
         storeRepository.save(store);
 
@@ -112,6 +112,18 @@ public class StoreServiceImpl implements StoreService {
         stores.stream().map(store -> store.toAdminViewDTO()).forEach(storeAdminViewDTOs::add);
 
         return storeAdminViewDTOs;
+    }
+
+    @Override
+    public StoreAdminViewDTO webFindStore(Long id) {
+        Optional<Store> store = storeRepository.findById(id);
+        Store storeEntity = store.orElse(null);// 있으면 get() 엔티티꺼내고, 없으면 null을 넣는다.
+        if(storeEntity==null){
+            return null;
+        } else {
+            StoreAdminViewDTO storeAdminViewDTO = storeEntity.toAdminViewDTO();
+            return storeAdminViewDTO;
+        }
     }
 
 }

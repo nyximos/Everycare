@@ -72,6 +72,10 @@ public class Store {
     @Column(name = "store_admin_approval", nullable = false )
     private int adminApproval;
 
+    @Column(name = "store_approval_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
+    private LocalDateTime approvalDate;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
@@ -124,8 +128,9 @@ public class Store {
             this.customerServiceNumber = storeFormDTO.getCustomerServiceNumber();
     }
 
-    public void approvedByAdmin (int approval){
+    public void approvedByAdmin (int approval, LocalDateTime date){
         this.adminApproval = approval;
+        this.approvalDate = date;
     }
 
     public void saveRegistrationTime(LocalDateTime time) {
