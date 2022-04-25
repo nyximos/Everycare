@@ -101,110 +101,58 @@
         </script>
 </th:block>
 <th:block th:if="${store} != null">
+
     <div class="container">
         <div class="py-5 text-center">
-            <h2>스토어 정보 수정</h2>
+            <h2>스토어 정보</h2>
         </div>
-        <form>
-            <ul>
-                <li>스토어명 <input type="text" name="name" id="name" th:value="${store.name}"/></li>
-                <li>홈페이지 주소 <input type="text" name="url" id="url" th:value="${store.url}"/></li>
-                <li>사업자 등록 번호 <input type="number" name="businessLicenseNumber" id="businessLicenseNumber" th:value="${store.businessLicenseNumber}"/></li>
-                <li>이메일 <input type="email" name="email" id="email" th:value="${store.email}"/></li>
-                <li>운영 시작 시간 <input type="time" name="operationStartTime" id="operationStartTime" th:value="${store.operationStartTime}"/></li>
-                <li>운영 종료 시간 <input type="time" name="operationEndTime" id="operationEndTime" th:value="${store.operationEndTime}"/></li>
-                <li>점심 시작 시간 <input type="time" name="lunchStartTime" id="lunchStartTime" th:value="${store.lunchStartTime}"></li>
-                <li>점심 종료 시간 <input type="time" name="lunchEndTime" id="lunchEndTime" th:value="${store.lunchEndTime}"/></li>
-                <li>
-                    휴무일
-                    <label><input type="checkbox" name="closedDay" value="일" class="closedDay">일</label>
-                    <label><input type="checkbox" name="closedDay" value="월" class="closedDay">월</label>
-                    <label><input type="checkbox" name="closedDay" value="화" class="closedDay">화</label>
-                    <label><input type="checkbox" name="closedDay" value="수" class="closedDay">수</label>
-                    <label><input type="checkbox" name="closedDay" value="목" class="closedDay">목</label>
-                    <label><input type="checkbox" name="closedDay" value="금" class="closedDay">금</label>
-                    <label><input type="checkbox" name="closedDay" value="토" class="closedDay">토</label>
-                </li>
-                <li>업체 법인 명 <input type="text" name="companyCorporationName" id="companyCorporationName" th:value="${store.companyCorporationName}"/></li>
-                <li>대표자명 <input type="text" name="representativeName" id="representativeName" th:value="${store.representativeName}"/></li>
-                <li>사업장 소재지 <input type="text" name="businessLocation" id="businessLocation" th:value="${store.businessLocation}"/></li>
-                <li>고객센터 번호 <input type="text" name="customerServiceNumber" id="customerServiceNumber" th:value="${store.customerServiceNumber}"/></li>
-            </ul>
-            <input id="updateButton" type="button" value="수정"/>
-            <input id="deleteButton" type="button" value="삭제"/>
-        </form>
+        <li>스토어명 <span th:text="${store.name}"></span></li>
+        <li>홈페이지 주소 <span th:text="${store.url}"></span></li>
+        <li>사업자 등록 번호  <span th:text="${store.businessLicenseNumber}"></span></li>
+        <li>이메일  <span th:text="${store.email}"></span></li>
+        <li>운영 시작 시간  <span th:text="${store.operationStartTime}"></span></li>
+        <li>운영 종료 시간  <span th:text="${store.operationEndTime}"></span></li>
+        <li>점심 시작 시간  <span th:text="${store.lunchStartTime}"></span></li>
+        <li>점심 종료 시간  <span th:text="${store.lunchEndTime}"></span></li>
+        <li>휴일  <span th:text="${store.closedDay}"></span></li>
+        <li>업체 법인 명  <span th:text="${store.companyCorporationName}"></span></li>
+        <li>대표자명  <span th:text="${store.representativeName}"></span></li>
+        <li>사업장 소재지  <span th:text="${store.businessLocation}"></span></li>
+        <li>고객센터 번호  <span th:text="${store.customerServiceNumber}"></span></li>
+
+        <input id="updateButton" type="button" value="수정"/>
+        <input id="deleteButton" type="button" value="삭제"/>
+
     </div>
-        <script th:inline="javascript">
-            let closedDay = [[${closedDay}]];
 
-            /*<![CDATA]*/
-            var id = /*[[ ${store.id} ]]*/'';
-            console.log(id);
-            /*]]*/
+    <!-- /container -->
 
-            $(function(){
-                $(closedDay).each(function (index, item) {
-                    $('input[value=' + item + ']').prop("checked", true);
-                });
+    <script th:inline="javascript">
+        /*<![CDATA]*/
+        var id = /*[[ ${store.id} ]]*/'';
+        /*]]*/
+        $('#updateButton').on('click', function () {
+            location.href = "/dashboard/store/account/update";
+        })
 
-                $('#updateButton').on('click',function() {
-                    const formData = new FormData();
+        $('#deleteButton').on('click', function () {
 
-                    if ($('input[type="checkbox"]:checked').length === 0) {
-                        alert("휴무일을 선택해주십시오.");
-                        return;
-                    }
+            $.ajax({
+                url: "/api/store/"+id,
+                type: 'DELETE',
+                cache: false,
+                data: {
+                    "id":id
+                },
+                dataType:"json",
+                async: false,
+            })
 
-                    let closedDay = [];
+            location.href = "/store";
+        })
 
-                    $('input[type=checkbox]:checked').each(function () {
-                        closedDay.push($(this).val())
-                    })
+    </script>
 
-                    formData.append('name', $('#name').val());
-                    formData.append('url', $('#url').val());
-                    formData.append('businessLicenseNumber', $('#businessLicenseNumber').val());
-                    formData.append('email', $('#email').val());
-                    formData.append('operationStartTime', $('#operationStartTime').val());
-                    formData.append('operationEndTime', $('#operationEndTime').val());
-                    formData.append('lunchStartTime', $('#lunchStartTime').val());
-                    formData.append('lunchEndTime', $('#lunchEndTime').val());
-                    formData.append('closedDay', closedDay.toString());
-                    formData.append('companyCorporationName', $('#companyCorporationName').val());
-                    formData.append('representativeName', $('#representativeName').val());
-                    formData.append('businessLocation', $('#businessLocation').val());
-                    formData.append('customerServiceNumber', $('#customerServiceNumber').val());
-
-                    $.ajax({
-                        url: "/api/store/account/" + id,
-                        type: 'PATCH',
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        enctype: 'multipart/form-data',
-                        data: formData,
-                        async: false,
-                    })
-                    location.href = "/store";
-                });
-
-                $('#deleteButton').on('click', function () {
-
-                    $.ajax({
-                        url: "/api/store/account/"+id,
-                        type: 'DELETE',
-                        cache: false,
-                        data: {
-                            "id":id
-                        },
-                        dataType:"json",
-                        async: false,
-                    })
-
-                    location.href = "/store";
-                })
-            });
-        </script>
 </th:block>
 </div>
 </body>

@@ -2,12 +2,12 @@ package wd.team4.everycare.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -30,11 +30,11 @@ public class Product {
     @Column(name = "product_inventory_quantity", nullable = false)
     private int inventoryQuantity;
 
-    @Column(name = "product_file_name", nullable = false)
-    private String fileName;
+    @Column(name = "product_upload_file_name", nullable = false)
+    private String uploadFileName;
 
-    @Column(name = "product_file_Path", nullable = false)
-    private String filePath;
+    @Column(name = "product_store_file_name", nullable = false)
+    private String storeFileName;
 
     @Column(name = "product_comment", length = 1000, nullable = false)
     private String comment;
@@ -46,7 +46,14 @@ public class Product {
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime createdAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Store store;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_category_id")
+    private ProductCategory productCategory;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductImage> productImages = new ArrayList<>();
 }

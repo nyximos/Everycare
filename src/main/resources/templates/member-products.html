@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/caresitter}">
+<head>
+    <meta charset="utf-8"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <div>
+            <h2>상품 관리</h2>
+        </div>
+        <th:block th:if="${products} == null">
+            <li><a th:href="@{/dashboard/store/products/new}">상품 등록</a></li>
+        </th:block>
+        <th:block th:if="${products} != null">
+            <div th:each="product : ${products}"
+                 th:onclick="'location.href=\''+ @{/carenote/caretargets/{id}(id=${product.id})} + '\''">
+                <li th:text="${product.id}"></li>
+                <li th:text="${product.name}"></li>
+                <li th:text="${product.name}"></li>
+            </div>
+            <li><a th:href="@{/dashboard/store/products/new}">상품 등록</a></li>
+        </th:block>
+    </div>
+</div>
+<!-- /container -->
+</body>
+</html>
