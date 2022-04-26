@@ -2,7 +2,6 @@ package wd.team4.everycare.dto;
 
 import lombok.*;
 import wd.team4.everycare.domain.Member;
-import wd.team4.everycare.domain.Store;
 
 import java.time.LocalDateTime;
 

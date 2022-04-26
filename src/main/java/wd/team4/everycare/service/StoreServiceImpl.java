@@ -32,7 +32,7 @@ public class StoreServiceImpl implements StoreService {
 
         Store store = storeFormDTO.toStore();
         store.approvedByAdmin(0, null);
-        store.saveRegistrationTime(time);
+        store.saveTime(time);
         storeRepository.save(store);
 
         return store.getId();

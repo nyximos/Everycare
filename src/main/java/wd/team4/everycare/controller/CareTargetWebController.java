@@ -9,14 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetImage;
-import wd.team4.everycare.dto.CareTargetFormDTO;
 import wd.team4.everycare.dto.CareTargetScheduleDTO;
 import wd.team4.everycare.dto.CareTargetViewDTO;
 import wd.team4.everycare.repository.CareTargetRepository;
 import wd.team4.everycare.service.CareTargetScheduleServiceImpl;
 import wd.team4.everycare.service.CareTargetServiceImpl;
-import wd.team4.everycare.service.FileStoreService;
-import wd.team4.everycare.service.interfaces.CareTargetService;
 
 import java.util.List;
 import java.util.Optional;
