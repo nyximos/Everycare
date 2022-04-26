@@ -1,5 +1,6 @@
 package wd.team4.everycare.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,9 +20,6 @@ public class ProductImage {
     @Column(name = "product_image_id", nullable = false)
     private Long id;
 
-    @Column(name = "product_image_name", length = 30, nullable = false)
-    private String name;
-
     @Column(name = "product_image_upload_file_name")
     private String uploadFileName;
 
@@ -32,4 +30,10 @@ public class ProductImage {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @Builder
+    public ProductImage(String uploadFileName, String storeFileName, Product product) {
+        this.uploadFileName = uploadFileName;
+        this.storeFileName = storeFileName;
+        this.product = product;
+    }
 }

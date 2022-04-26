@@ -19,12 +19,19 @@ public class ProductWebController {
     private final ProductServiceImpl productService;
 
     @GetMapping("/dashboard/store/products")
-    public String StoreProducts(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
+    public String storeProducts(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
 
         Store store = principalDetails.getStore();
         List<MemberProductsViewDTO> products = productService.webFindAll(store);
-        model.addAttribute("products", products);
+        if(products!=null){
+            model.addAttribute("products", products);
+        }
 
         return "member-products";
+    }
+
+    @GetMapping("/dashboard/store/products/new")
+    public String newProduct(){
+        return "member-product-new";
     }
 }

@@ -133,7 +133,7 @@ public class Store {
         this.approvalDate = date;
     }
 
-    public void saveRegistrationTime(LocalDateTime time) {
+    public void saveTime(LocalDateTime time) {
         this.createdAt = time;
     }
 
