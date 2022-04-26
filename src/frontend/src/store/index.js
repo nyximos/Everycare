@@ -5,7 +5,7 @@ import Vuex from 'vuex';
 import userStore from '@/store/userStore'
 import userStore2 from '@/store/userStore2'
 import careprofileStore from './careprofileStore'
-import createPersistedState from "vuex-persistedstate";
+// import createPersistedState from "vuex-persistedstate";
 
 
 
@@ -18,8 +18,8 @@ export default new Vuex.Store({
     userStore,
     userStore2,
   },
-  plugins:[createPersistedState({
-    paths:["userStore2"]
-  })],
+  // plugins:[createPersistedState({
+  //   paths:["userStore2"]
+  // })],
 
 });

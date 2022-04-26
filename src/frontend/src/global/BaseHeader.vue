@@ -8,10 +8,7 @@
                 <v-btn text>케어스토어</v-btn>
             </div>
             <div>
-                <div v-if="cookie">
-                    <router-link to="/" @click="logoutUser">로그아웃</router-link>
-                </div>
-                <div v-else>
+                <div>
                     <router-link to="/login">로그인</router-link>
                     <router-link to="/signup">회원가입</router-link>
                 </div>
@@ -33,16 +30,11 @@ export default {
                         console.log('/');
                     }
                 },
-                logoutUser() {
-                   
-                }
             }
         };
     },
     computed: {
-        cookie() {
-            return document.cookie;
-        }
+        
     }
 };
 </script>

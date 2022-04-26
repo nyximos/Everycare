@@ -4,8 +4,8 @@
             <div class="login-title"><span class="login-title-L">L</span>ogin</div>
             <div>
                 <div class="login-input-botton">
-                    <v-text-field v-model="username" label="Id" placeholder="Placeholder" dense outlined></v-text-field>
-                    <v-text-field v-model="password" type="password" label="Password" placeholder="Placeholder" dense outlined></v-text-field>
+                    <v-text-field v-model="json.username" label="Id" placeholder="Placeholder" dense outlined></v-text-field>
+                    <v-text-field v-model="json.password" type="password" label="Password" placeholder="Placeholder" dense outlined></v-text-field>
                 </div>
                 <div><v-btn @click="login" color="accent" elevation="2" class="login-button">Login</v-btn></div>
             </div>
@@ -18,11 +18,9 @@
 export default {
     data() {
         return {
-            username: '',
-            password: '',
             json: {
-                username: 'e',
-                password: 'ee'
+                username: '',
+                password: ''
             }
         };
     },
@@ -45,7 +43,7 @@ export default {
                     // this.test = response.data;
                     console.log(res);
                     console.log(this.json);
-                    // location.href = '/';
+                    location.href = '/';
                 })
                 .catch(err => {
                     console.log(err);

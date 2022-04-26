@@ -1,12 +1,6 @@
 import axios from 'axios';
 
-function registerUser(updata){
-    const url = 'https://localhost:8086/signup'
-    return axios.post(url, updata)
-                .then((res)=>{
-                    console.log(res);
-                })
-}
+
 
 // function loginUser(userdata){
 //     const url = 'https://localhost:8086/login'
@@ -15,7 +9,6 @@ function registerUser(updata){
 //                     console.log(res);
 //                 })
 // }
- export{ registerUser };
 
 //create an axios instance
 const request = axios.create({
