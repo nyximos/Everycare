@@ -13,7 +13,6 @@ import wd.team4.everycare.domain.MemberRole;
 import wd.team4.everycare.dto.member.SignupDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
-import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.service.MemberServiceImpl;
 
 import javax.servlet.http.Cookie;

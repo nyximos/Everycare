@@ -16,14 +16,14 @@
     </div>
     <form>
       <ul>
-        <li>스토어명 <input type="text" name="name"  th:text="${store.name}"/></li>
-        <li>홈페이지 주소 <input type="text" name="url" th:text="${store.url}"/></li>
-        <li>사업자 등록 번호 <input type="text" name="businessLicenseNumber" th:text="${store.businessLicenseNumber}"/></li>
-        <li>이메일 <input type="email" name="email" th:text="${store.email}"/></li>
-        <li>운영 시작 시간 <input type="time" name="operationStartTime" th:text="${store.operationStartTime}"/></li>
-        <li>운영 종료 시간 <input type="time" name="operationEndTime" th:text="${store.operationEndTime}"/></li>
-        <li>점심 시작 시간 <input type="time" name="lunchStartTime" th:text="${store.lunchStartTime}"></span>/></li>
-        <li>점심 종료 시간 <input type="time" name="lunchEndTime" th:text="${store.lunchEndTime}"/></li>
+        <li>스토어명 <input type="text" name="name" id="name" th:value="${store.name}"/></li>
+        <li>홈페이지 주소 <input type="text" name="url" id="url" th:value="${store.url}"/></li>
+        <li>사업자 등록 번호 <input type="number" name="businessLicenseNumber" id="businessLicenseNumber" th:value="${store.businessLicenseNumber}" /></li>
+        <li>이메일 <input type="email" name="email" id="email" th:value="${store.email}"/></li>
+        <li>운영 시작 시간 <input type="time" name="operationStartTime" id="operationStartTime" th:value="${store.operationStartTime}"/></li>
+        <li>운영 종료 시간 <input type="time" name="operationEndTime" id="operationEndTime" th:value="${store.operationEndTime}"/></li>
+        <li>점심 시작 시간 <input type="time" name="lunchStartTime" id="lunchStartTime" th:value="${store.lunchStartTime}"></span></li>
+        <li>점심 종료 시간 <input type="time" name="lunchEndTime" id="lunchEndTime" th:value="${store.lunchEndTime}"/></li>
         <li>
           휴무일
           <label><input type="checkbox" name="closedDay" value="일" class="closedDay">일</label>
@@ -34,10 +34,10 @@
           <label><input type="checkbox" name="closedDay" value="금" class="closedDay">금</label>
           <label><input type="checkbox" name="closedDay" value="토" class="closedDay">토</label>
         </li>
-        <li>업체 법인 명 <input type="text" name="companyCorporationName" th:text="${store.companyCorporationName}"/></li>
-        <li>대표자명 <input type="text" name="representativeName" th:text="${store.representativeName}"/></li>
-        <li>사업장 소재지 <input type="text" name="businessLocation" th:text="${store.businessLocation}"/></li>
-        <li>고객센터 번호 <input type="text" name="customerServiceNumber" th:text="${store.customerServiceNumber}"/></li>
+        <li>업체 법인 명 <input type="text" name="companyCorporationName" id="companyCorporationName" th:value="${store.companyCorporationName}"/></li>
+        <li>대표자명 <input type="text" name="representativeName" id="representativeName" th:value="${store.representativeName}"/></li>
+        <li>사업장 소재지 <input type="text" name="businessLocation" id="businessLocation" th:value="${store.businessLocation}"/></li>
+        <li>고객센터 번호 <input type="text" name="customerServiceNumber" id="customerServiceNumber" th:value="${store.customerServiceNumber}"/></li>
       </ul>
 
         <input id="updateButton" type="button" value="수정"/>
@@ -56,7 +56,7 @@
           $('input[value=' + item + ']').prop("checked", true);
         });
 
-        $('#submitButton').on('click',function() {
+        $('#updateButton').on('click',function() {
           const formData = new FormData();
 
           if ($('input[type="checkbox"]:checked').length === 0) {
@@ -94,7 +94,7 @@
             data: formData,
             async: false,
           })
-          location.href = "/store/account/" + id;
+          location.href = "/dashboard/store/account";
         });
 
           $('#deleteButton').on('click', function () {

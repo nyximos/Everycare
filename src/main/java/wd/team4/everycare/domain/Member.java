@@ -71,10 +71,10 @@ public class Member {
     @Column(name = "member_account_member")
     private String accountNumber;
 
-    @OneToOne(mappedBy = "member")
+    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
     private CareSitter careSitter;
 
-    @OneToOne(mappedBy = "member")
+    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
     private Store store;
 
     @OneToMany(mappedBy = "member")

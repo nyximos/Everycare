@@ -66,7 +66,7 @@ public class CareSitter {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "careSitter")
+    @OneToMany(mappedBy = "careSitter", fetch = FetchType.LAZY)
     private List<CareSitterImage> careSitterImages = new ArrayList<>();
 
     @Builder
