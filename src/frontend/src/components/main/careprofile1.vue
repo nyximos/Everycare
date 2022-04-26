@@ -56,14 +56,14 @@
                   <div class="area_day">
                     <h5 class="sub_title">희망근무요일</h5>
                       <div class="area6_r_day">
-                          <v-checkbox v-model="selected" value="월요일" label="월"></v-checkbox>
-                          <v-checkbox v-model="selected" value="화요일" label="화"></v-checkbox>
-                          <v-checkbox v-model="selected" value="수요일" label="수"></v-checkbox>
-                          <v-checkbox v-model="selected" value="목요일" label="목"></v-checkbox>
-                          <v-checkbox v-model="selected" value="금요일" label="금"></v-checkbox>
-                          <v-checkbox v-model="selected" value="토요일" label="토"></v-checkbox>
-                          <v-checkbox v-model="selected" value="일요일" label="일"></v-checkbox>
-                          {{selected}}
+                          <v-checkbox v-model="desiredDayWeek" value="월요일" label="월"></v-checkbox>
+                          <v-checkbox v-model="desiredDayWeek" value="화요일" label="화"></v-checkbox>
+                          <v-checkbox v-model="desiredDayWeek" value="수요일" label="수"></v-checkbox>
+                          <v-checkbox v-model="desiredDayWeek" value="목요일" label="목"></v-checkbox>
+                          <v-checkbox v-model="desiredDayWeek" value="금요일" label="금"></v-checkbox>
+                          <v-checkbox v-model="desiredDayWeek" value="토요일" label="토"></v-checkbox>
+                          <v-checkbox v-model="desiredDayWeek" value="일요일" label="일"></v-checkbox>
+                          {{desiredDayWeek}}
                         </div>
                       </div>
                       <div class="area_time">
@@ -82,8 +82,8 @@
                           <v-radio label="월급" value="monthpay">
                           </v-radio>
                           </v-radio-group>
-                          <v-text-field v-model="desireHourlyWage" label="시급제"></v-text-field>
-                          <v-text-field v-model="desireMonthWage" label="월급제"></v-text-field>
+                          <v-text-field v-model="desiredHourlyWage" label="시급제"></v-text-field>
+                          <v-text-field v-model="desiredMonthlyWage" label="월급제"></v-text-field>
                           <!-- <span>{{this.$store.state.careprofileStore.name}}</span> -->
                         </div>
                       </div>
@@ -131,17 +131,15 @@ data(){
       {name:'강북구', value:'강북구'},
       {name:'강북구', value:'강북구'},
     ],
-
-    
     hopeloc1:'',
     hopeloc2:'',
     hopeloc3:'',
-    selected: [],
+    desiredDayWeek: [],
     starttimepicker:'',
     endtimepicker:'',
     radios:'',
     desiredHourlyWage:'',
-    desiredMonthWage:''
+    desiredMonthlyWage:''
     }
 
     },
@@ -159,11 +157,11 @@ data(){
           hopeloc1:this.hopeloc1,
           hopeloc2:this.hopeloc2,
           hopeloc3:this.hopeloc3,
-          hopeday:this.selected,
+          desiredDayWeek:this.desiredDayWeek,
           activityTime:this.starttimepicker + this.endtimepicker,
           paytype : this.radios,
           desiredHourlyWage: this.desiredHourlyWage,
-          desiredMonthlyWage: this.desiredMonthlyWage
+          desiredMonthlyWage: this.desiredMonthlyWage,
         };
         // console.log(userData);
         try {
@@ -172,7 +170,7 @@ data(){
                 this.hopeloc1.focus();
                 return;
             }
-            if(this.selected == ""){
+            if(this.desiredDayWeek == ""){
                 alert("희망근무요알을 선택해주세요!"); 
                 return;
             }

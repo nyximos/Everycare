@@ -81,7 +81,7 @@ export default {
         name:this.name,
         gender:this.gender,
         age:this.age,
-        introduction:this.introdction
+        introduction:this.introduction
 
         }
         try{
@@ -108,7 +108,7 @@ export default {
             }else{
           this.$store.commit('careprofileStore/set_user1', userData);
           console.log(this.$store.state.careprofileStore.image);
-          console.log(this.$store.state.careprofileStore.intro);
+          console.log(this.$store.state.careprofileStore.introduction);
             this.$router.push({ path: '/dashboard/careprofile1' })
             }
         } catch(error){

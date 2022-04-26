@@ -33,6 +33,7 @@ export default {
             state.hopeloc1 = userData.hopeloc1;
             state.hopeloc2 = userData.hopeloc2;
             state.hopeloc3 = userData.hopeloc3;
+            state.hopefulRegion = userData.hopeloc1 + userData.hopeloc2 + userData.hopeloc3;
             state.desiredDayWeek = userData.desiredDayWeek;
             state.activityTime = userData.starttimepicker + userData.endtimepicker;
             state.paytype = userData.paytype;
@@ -51,6 +52,7 @@ export default {
         submit(){
             const userData={
                 preferredType:this.preferredType,
+                hopefulRegion:this.hopefulRegion,
                 desiredDayWeek:this.desiredDayWeek,
                 activityTime:this.activityTime,
                 desiredHourlyWage:this.desiredHourlyWage,
@@ -58,7 +60,8 @@ export default {
                 cctvAgreement:this.cctvAgreement,
                 vaccination:this.vaccination,
                 introduction:this.introduction,
-                careSitterImages:this.image
+                careSitterImages:this.image,
+
             }
             console.log(userData)
             this.$http
