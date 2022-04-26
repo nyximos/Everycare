@@ -25,13 +25,11 @@ public class CareTargetSchedule {
     @Column(name = "care_target_schedule_name", length = 50, nullable = false)
     private String name;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    @Column(name = "care_target_schedule_start_time", nullable = false)
-    private LocalTime startTime;
+    @Column(name = "care_target_schedule_start_time", length = 5, nullable = false)
+    private String startTime;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
-    @Column(name = "care_target_schedule_end_time", nullable = false)
-    private LocalTime endTime;
+    @Column(name = "care_target_schedule_end_time", length = 5, nullable = false)
+    private String endTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_target_id")
@@ -54,7 +52,7 @@ public class CareTargetSchedule {
     private JobOffer jobOffer;
 
     @Builder
-    public CareTargetSchedule(Long id, String name, LocalTime startTime, LocalTime endTime, CareTarget careTarget) {
+    public CareTargetSchedule(Long id, String name, String startTime, String endTime, CareTarget careTarget) {
         this.id = id;
         this.name = name;
         this.startTime = startTime;
@@ -68,6 +66,10 @@ public class CareTargetSchedule {
                 .startTime(this.startTime)
                 .endTime(this.endTime)
                 .build();
+    }
+
+    public void saveCareTarget(CareTarget careTarget){
+        this.careTarget = careTarget;
     }
 
 }

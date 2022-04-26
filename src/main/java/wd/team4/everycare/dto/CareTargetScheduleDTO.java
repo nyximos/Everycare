@@ -1,9 +1,6 @@
 package wd.team4.everycare.dto;
 
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalTime;
 
 @Builder
 @Getter
@@ -14,8 +11,7 @@ import java.time.LocalTime;
 public class CareTargetScheduleDTO {
 
     private String name;
-    @DateTimeFormat(pattern = "HH:mm")
-    private LocalTime startTime;
-    @DateTimeFormat(pattern = "HH:mm")
-    private LocalTime endTime;
+    private String startTime;
+    private String endTime;
+    private Long careTarget;
 }
