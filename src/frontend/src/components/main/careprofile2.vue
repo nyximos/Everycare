@@ -146,6 +146,7 @@ data(){
                  return;
             }else{
               this.$store.commit('careprofileStore/set_user3', userData);
+            //   this.$$store.dispatch('careprofileStore/submit');
               console.log('데이터 저장')
               console.log(this.$store.state.careprofileStore.image)
               console.log('이미지 받았다~')
@@ -154,6 +155,16 @@ data(){
           } catch (error) {
               console.log(error)
           }
+           this.$http
+            .post('/api/dashboard/caresitter',userData,{
+                withCredentials:true
+            })
+            .then(res=>{
+                this.$store.state.userData = res.data
+                console.log(res);
+            }).catch(err=>{
+                console.log(err)
+            })
       }
   }
 }

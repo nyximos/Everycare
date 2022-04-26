@@ -50,7 +50,7 @@ export default {
     },
     actions: {
         submit(){
-            const userData={
+            const userIntro={
                 preferredType:this.preferredType,
                 hopefulRegion:this.hopefulRegion,
                 desiredDayWeek:this.desiredDayWeek,
@@ -63,9 +63,9 @@ export default {
                 careSitterImages:this.image,
 
             }
-            console.log(userData)
+            console.log(userIntro)
             this.$http
-            .post('/api/dashboard/caresitter',userData,{
+            .post('/api/dashboard/caresitter',userIntro,{
                 withCredentials:true
             })
             .then(res=>{

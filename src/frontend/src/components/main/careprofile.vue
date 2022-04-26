@@ -72,18 +72,15 @@ export default {
     //         that.avatar = this.result
     //     }
     // },
-    
-     
       nextpage1(){
-
         const userData = {
         image : this.image.name,
         name:this.name,
         gender:this.gender,
         age:this.age,
         introduction:this.introduction
-
         }
+        
         try{
             if(this.image.name ==""){
                 alert("사진을 넣어주세요!");
@@ -114,6 +111,15 @@ export default {
         } catch(error){
            console.log(error); 
         }
+        // this.$http
+        //     .post('/api/dashboard/caresitter',userData,{
+        //         withCredentials:true
+        //     })
+        //     .then(res=>{
+        //         console.log(res);
+        //     }).catch(err=>{
+        //         console.log(err)
+        //     })
         
     }
   }
