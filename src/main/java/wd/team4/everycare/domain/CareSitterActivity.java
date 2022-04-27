@@ -11,23 +11,20 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "detail_activity")
-@SequenceGenerator(name = "detail_activity_seq_generator",
-        sequenceName = "detail_activity_seq",
+@SequenceGenerator(name = "care_sitter_activity_seq_generator",
+        sequenceName = "care_sitter_activity_seq",
         initialValue = 1, allocationSize = 1)
-public class DetailActivity {
+public class CareSitterActivity {
 
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detail_activity_seq")
-    @Column(name = "detail_activity_id", nullable = false)
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "care_sitter_activity_seq")
+    @Column(name = "care_sitter_activity_id", nullable = false)
     private Long id;
 
-    @Column(name = "detail_activity_rating")
+    @Column(name = "care_sitter_activity_rating")
     private int detailActivityRating;
 
-    @Column(name = "detail_activity_review", length = 1000)
+    @Column(name = "care_sitter_activity_review", length = 1000)
     private String detailActivityReview;
-
-    @Column(name = "detailActivityRequirement", length = 500)
-    private String detailActivityRequirement;
 
     @ManyToOne
     @JoinColumn(name = "activity_classification2", nullable = false)

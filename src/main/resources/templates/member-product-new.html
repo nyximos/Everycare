@@ -1,0 +1,80 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <meta charset="utf-8" />
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>상품 등록</h2>
+        </div>
+        <form>
+            <ul>
+                <li>상품명 <input type="text" name="name" id="name"/></li>
+                <li>가격 <input type="number" name="price" id="price"/></li>
+                <li>재고량 <input type="number" name="inventoryQuantity" id="inventoryQuantity"/></li>
+                <li>설명 <input type="textarea" name="comment" id="comment"/></li>
+                <li>판매여부 <input type="number" name="isSale" id="isSale"/></li>
+                <li>상품카테고리 <input type="number" name="productCategory" id="productCategory"/></li>
+                <li>썸네일<input type="file" name="attachFile" id="attachFile"/></li>
+                <li>상품 사진<input type="file" multiple="multiple" name="attachFiles" id="attachFiles"/></li>
+            </ul>
+            <input id="tokenField" type="hidden"/>
+            <input id="submitButton" type="button" value="등록"/>
+        </form>
+    </div>
+
+    <!-- /container -->
+    <script th:inline="javascript">
+
+        $('#submitButton').on('click', function () {
+            const formData = new FormData();
+
+            formData.append('name', $('#name').val());
+            formData.append('price', $('#price').val());
+            formData.append('inventoryQuantity', $('#inventoryQuantity').val());
+            formData.append('comment', $('#comment').val());
+            formData.append('isSale', $('#isSale').val());
+            formData.append('productCategory', $('#productCategory').val());
+            if ($('#attachFile')[0].files[0] === undefined) {
+                alert("이미지를 첨부해주세요!");
+                return false;
+            } else {
+                formData.append('attachFile', $('#attachFile')[0].files[0]);
+            }
+
+            if (!($('#attachFile')[0].files[0] === undefined)) {
+                formData.append('attachFile', $('#attachFile')[0].files[0]);
+            }
+
+
+            if ($('#attachFiles')[0].files[0] === undefined) {
+                alert("이미지를 첨부해주세요!");
+                return false;
+            } else {
+                const size = document.getElementById('attachFiles').files.length;
+                for (let i = 0; i < size; i++) {
+                    formData.append('attachFiles', $('#attachFiles')[0].files[i]);
+                }
+            }
+
+            $.ajax({
+                url: "/api/dashboard/store/products",
+                type: 'POST',
+                cache: false,
+                contentType: false,
+                processData: false,
+                enctype: 'multipart/form-data',
+                data: formData,
+                async: false,
+            })
+            // location.href="/carenote/caretargets"
+        });
+
+    </script>
+</div>
+</body>
+</html>

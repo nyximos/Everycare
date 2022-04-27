@@ -7,6 +7,7 @@ import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetImage;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.CareTargetFormDTO;
+import wd.team4.everycare.dto.CareTargetViewDTO;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.repository.CareTargetImageRepository;
 import wd.team4.everycare.repository.CareTargetRepository;
@@ -102,6 +103,14 @@ public class CareTargetServiceImpl implements CareTargetService {
         }
         careTargetEntity.updateInfo(careTargetFormDTO);
         return "수정완료";
+    }
+
+    @Override
+    public CareTargetViewDTO findCareTarget(Long id) {
+        Optional<CareTarget> careTarget = careTargetRepository.findById(id);
+        if(careTarget.isEmpty()) return null;
+        CareTarget careTargetEntity = careTarget.orElse(null);
+        return careTargetEntity.toViewDTO();
     }
 
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.domain.Store;
+import wd.team4.everycare.dto.StoreAdminViewDTO;
 import wd.team4.everycare.dto.StoreFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
@@ -12,6 +13,8 @@ import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.repository.StoreRepository;
 import wd.team4.everycare.service.interfaces.StoreService;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +28,11 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public Long save(StoreFormDTO storeFormDTO) {
+        LocalDateTime time = LocalDateTime.now();
+
         Store store = storeFormDTO.toStore();
+        store.approvedByAdmin(0, null);
+        store.saveTime(time);
         storeRepository.save(store);
 
         return store.getId();
@@ -53,12 +60,28 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public MyResponse<Object> findAllStores() {
         List<Store> stores = storeRepository.findAll();
+
+        /*
+        // List<Store>가 있는지 확인!
+        // DTO 배열 만들기
+        List<StoreFormDTO> storeFormDTOs = new ArrayList<>();
+        // DTO 배열에 변환해서 넣기
+        for(Store s : stores) {
+            // DTO로 변경
+            StoreFormDTO storeFormDTO = s.toDTO();
+            // DTO를 배열에 넣기
+            storeFormDTOs.add(storeFormDTO);
+        }
+
+        stores.stream().map(store -> store.toDTO).forEach(storeFormDTOs::add);
+
+        */
+
         // ResponseEntity 의 body 에 myResponse가 들어감.
         return MyResponse.builder()
                 .header(StatusEnum.OK)
                 .body(stores)
-                .message("ㅅㄱ").build();
-
+                .message("성공").build();
     }
 
     @Override
@@ -70,26 +93,37 @@ public class StoreServiceImpl implements StoreService {
                     .header(StatusEnum.BAD_REQUEST)
                     .message("스토어가 존재하지 않습니다.").build();
         }
-        StoreFormDTO storeFormDTO = StoreFormDTO.builder()
-                .id(storeEntity.getId())
-                .name(storeEntity.getName())
-                .url(storeEntity.getUrl())
-                .businessLicenseNumber(storeEntity.getBusinessLicenseNumber())
-                .email(storeEntity.getEmail())
-                .operationStartTime(storeEntity.getOperationStartTime())
-                .operationEndTime(storeEntity.getOperationEndTime())
-                .lunchStartTime(storeEntity.getLunchStartTime())
-                .lunchEndTime(storeEntity.getLunchEndTime())
-                .closedDay(storeEntity.getClosedDay())
-                .companyCorporationName(storeEntity.getCompanyCorporationName())
-                .representativeName(storeEntity.getRepresentativeName())
-                .businessLocation(storeEntity.getBusinessLocation())
-                .customerServiceNumber(storeEntity.getCustomerServiceNumber())
-                .build();
+        StoreFormDTO storeFormDTO = storeEntity.toFormDTO();
         return MyResponse.builder()
                 .header(StatusEnum.OK)
                 .body(storeFormDTO)
                 .message("스토어 조회 완료").build();
+    }
+
+    @Override
+    public List<StoreAdminViewDTO> findStoresThatRequiresApproval() {
+        List<Store> stores = storeRepository.findAllByAdminApproval(0);
+        List<StoreAdminViewDTO> storeAdminViewDTOs = new ArrayList<>();
+
+        if(stores.isEmpty()){
+            return null;
+        }
+
+        stores.stream().map(store -> store.toAdminViewDTO()).forEach(storeAdminViewDTOs::add);
+
+        return storeAdminViewDTOs;
+    }
+
+    @Override
+    public StoreAdminViewDTO webFindStore(Long id) {
+        Optional<Store> store = storeRepository.findById(id);
+        Store storeEntity = store.orElse(null);// 있으면 get() 엔티티꺼내고, 없으면 null을 넣는다.
+        if(storeEntity==null){
+            return null;
+        } else {
+            StoreAdminViewDTO storeAdminViewDTO = storeEntity.toAdminViewDTO();
+            return storeAdminViewDTO;
+        }
     }
 
 }

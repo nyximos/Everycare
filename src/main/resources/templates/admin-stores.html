@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>스토어 관리</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>스토어 관리</h2>
+            <div>
+                <th:block th:if="${stores} == null">
+                    신청한 스토어가 없습니다.
+                </th:block>
+
+                <div th:each="store : ${stores}"
+                     th:onclick="'location.href=\''+ @{/admin/stores/{id}(id=${store.id})} + '\''">
+                    <ul>
+                        <li>스토어명: <span th:text="${store.name}"></span></li>
+                        <li>홈페이지 주소 : <span th:text="${store.name}"></span></li>
+                        <li>대표자명: <span th:text="${store.representativeName}"></span></li>
+                        <li>신청일: <span th:text="${store.createdAt}"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

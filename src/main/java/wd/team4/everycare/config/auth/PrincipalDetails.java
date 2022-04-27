@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.domain.Store;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,6 +29,8 @@ public class PrincipalDetails implements UserDetails{
     public Member getUser() {
         return member;
     }
+
+    public Store getStore() {return member.getStore();}
 
     @Override
     public String getPassword() {

@@ -4,13 +4,13 @@
       layout:decorate="~{layout/layout}">
 <head>
     <meta charset="UTF-8"/>
-    <title>케어시터 프로필</title>
+    <title>케어 대상인</title>
 </head>
 <body>
 <div layout:fragment="content">
     <div class="container">
         <div class="py-5 text-center">
-            <h2>케어시터 프로필</h2>
+            <h2>케어 대상인</h2>
         </div>
         이름: <span th:text="${careTarget.name}"></span><br/>
         성별: <span th:text="${careTarget.gender}"></span><br/>
@@ -35,6 +35,15 @@
         </div>
         <input id="updateButton" type="button" value="수정"/>
         <input id="deleteButton" type="button" value="삭제"/>
+
+        <div><a th:href="@{/carenote/caretargets/{id}(id=${careTarget.id})/schedules/new}"> 스케줄 등록</a></div>
+
+        <div th:each="schedule : ${schedules}"
+            th:onclick="'location.href=\''+ @{/carenote/caretargets/{id}(id=${careTarget.id})/schedules/{id}(id=${schedule.id})">
+            스케줄명: <span th:text="${schedule.name}"></span><br/>
+            시작시간: <span th:text="${schedule.startTime}"></span><br/>
+            종료시간:<span th:text="${schedule.endTime}"></span><br/>
+        </div>
 
     </div>
 

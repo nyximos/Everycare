@@ -7,5 +7,8 @@ import java.time.LocalDateTime;
 
 public interface AdminService {
 
-    ResponseEntity<MyResponse> registration(String id, LocalDateTime time);
+    ResponseEntity<MyResponse> registrationAdmin(String id, LocalDateTime time);
+
+    ResponseEntity<MyResponse> approveStore(Long id);
+
 }

@@ -1,11 +1,11 @@
 package wd.team4.everycare.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
+import wd.team4.everycare.dto.CareTargetScheduleDTO;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,30 +25,49 @@ public class CareTargetSchedule {
     @Column(name = "care_target_schedule_name", length = 50, nullable = false)
     private String name;
 
-    @Column(name = "care_target_schedule_start_time", length = 4, nullable = false)
-    private String startTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+    @Column(name = "care_target_schedule_start_time", nullable = false)
+    private LocalTime startTime;
 
-    @Column(name = "care_target_schedule_end_time", length = 4, nullable = false)
-    private String endTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+    @Column(name = "care_target_schedule_end_time", nullable = false)
+    private LocalTime endTime;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_target_id")
     private CareTarget careTarget;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contract_id")
     private Contract contract;
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "care_sitter_id")
+//    private CareSitter careSitter;
 
-    @ManyToOne
-    @JoinColumn(name = "care_sitter_id")
-    private CareSitter careSitter;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_note_id")
     private CareNote careNote;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_offer_id")
     private JobOffer jobOffer;
+
+    @Builder
+    public CareTargetSchedule(Long id, String name, LocalTime startTime, LocalTime endTime, CareTarget careTarget) {
+        this.id = id;
+        this.name = name;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.careTarget = careTarget;
+    }
+
+    public CareTargetScheduleDTO toDTO(){
+        return CareTargetScheduleDTO.builder()
+                .name(this.name)
+                .startTime(this.startTime)
+                .endTime(this.endTime)
+                .build();
+    }
 
 }

@@ -13,7 +13,6 @@ import wd.team4.everycare.domain.MemberRole;
 import wd.team4.everycare.dto.member.SignupDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
-import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.service.MemberServiceImpl;
 
 import javax.servlet.http.Cookie;
@@ -29,6 +28,11 @@ import java.time.LocalDateTime;
 public class MemberApiController {
 
     private final MemberServiceImpl memberService;
+
+    // 1. 로그인 안한 유저로 저장
+    // 2. 로그인 후 정상응답이 되면 서버로 api 요청을 보냄
+    // 3. 로그인 했으므로 해당 권한을 보내줌
+    // 4. 권한이 있는 유저로 저장
 
     // 쿠키에 저장된 토큰 삭제
     @DeleteMapping("/token")
