@@ -10,204 +10,114 @@
     </div>
     <div class="header">
         <v-row>
-        <h1>찾아볼까요? 🔍👀</h1>
+        <h1>구인리스트</h1>
         </v-row>
     </div>
-    <v-row class="mt-5">
-    <v-radio-group
-      v-model="radios"
-      row
-    >
-      <v-radio
-        label="케어시터"
-        value="caresitter"
-      ></v-radio>
-      <v-radio
-        label="일자리"
-        value="findjob"
-      ></v-radio>
-    </v-radio-group>
-    </v-row>
-        <v-row>
-            <v-select
-                v-model="location"
-                placeholder="지역을 선택해주세요"
-                prepend-icon="mdi-map"
-                :items="pickloc"
-                item-text="name"
-                item-value="value">
-            </v-select>
-        </v-row>
-        <v-row>
-            <v-col cols="3">
-                <v-checkbox
-                v-model="selected"
-                value="play"
-                label="놀이"
-                ></v-checkbox>
-            </v-col>
-            <v-col cols="3">
-                <v-checkbox
-                v-model="selected"
-                value="study"
-                label="학습"
-                ></v-checkbox>
-            </v-col>
-            <v-col cols="3">
-                <v-checkbox
-                v-model="selected"
-                value="momscare"
-                label="산후조리"
-                ></v-checkbox>
-            </v-col>
-            <v-col cols="3">
-                <v-checkbox
-                v-model="selected"
-                value="oldman"
-                label="노인"
-                ></v-checkbox>
-            </v-col>
-            <v-col cols="3">
-                <v-checkbox
-                v-model="selected"
-                value="pickup"
-                label="등하원"
-                ></v-checkbox>
-            </v-col>
-            <v-col cols="3">
-                <v-checkbox
-                v-model="selected"
-                value="housework"
-                label="가사"
-                ></v-checkbox>
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col
-            cols="12"
-            sm="6"
-            >
-            <v-date-picker
-                v-model="dates"
-                range
-            ></v-date-picker> 
-                </v-col>
-                <v-col
-                cols="12"
-                sm="6"
-                >
-            <v-text-field
-                v-model="dateRangeText"
-                label="Date range"
-                prepend-icon="mdi-calendar"
-                readonly
-            ></v-text-field>
-         </v-col>
-    </v-row>
-  <div class="text-center">
-    <v-row>
-        <v-col>
-        <v-btn
-          depressed
-          color="warning"
-          @click="search">
-          Search
-        </v-btn> 
-        </v-col>
-   </v-row>
-  </div>
  <hr>
- <div v-if="result">
-   <v-card
-    class="mx-auto mt-3"
-    max-width="700"
-    outlined
-  >
-    <v-list-item three-line>
-      <v-list-item-content>
-        <v-row>
-        <v-list-item-title class="text-h5 fw-bold mt-4">
-          5세 여아 등하원 도우미 구합니다
-        </v-list-item-title>
-        </v-row>
-        <v-list-item-subtitle class="mt-1">
-          <v-row>
-            <v-col cols="2">
-        <v-list-item-avatar
-        tile
-        size="100"
-        color="grey"
-      ></v-list-item-avatar>
-      </v-col>
-      <v-col cols="10" class="mt-5">
-              {{this.radios}}
-              {{this.selected}}
-              {{this.location}}
-              </v-col>
-          </v-row>
-        </v-list-item-subtitle>
-      </v-list-item-content>
-    </v-list-item>
-    <v-card-actions>
-      <v-btn
-        outlined
-        rounded
-        text
-      >
-        Best Cleaner✨
-      </v-btn>
-    </v-card-actions>
+  <v-text-field
+    v-model="SearchText"
+    placeholder="Search"
+    filled
+    rounded
+    dense
+  ></v-text-field>
+   <div v-if="!listData.length">글이 없습니다</div>
+  <div v-if="!filteredList.length && listData.length">
+    검색결과가 없습니다
+  </div>
+  <v-card
+  class="mt-3"
+  v-for="(listItem, index) in filteredList"
+  :key="index"
+  outlined
+  @click="detailList(listItem.subject)">
+  <v-card-title>
+    {{listItem.subject}}
+  </v-card-title>
+    <v-card-text>
+    {{listItem.desc}}
+    </v-card-text>
   </v-card>
   <div class="text-center">
     <v-pagination
-      v-model="page"
-      :length="4"
-      circle
       class="mt-3"
+      v-model="curPageNum"
+      :length="numOfPages"
+      circle
     ></v-pagination>
   </div>
  </div>
-</div>
 </template>
 
 <script>
 export default {
     name: 'componentjoblist',
+    // mounted() {
+    //       this.$http
+    //     .get(`/api/stores/${this.id}`, {
+    //     withCredentials: true
+    //     })
+    //     .then(res => {
+    //       const result = res.data.body;
+    //       console.log(result)
+    //       this.listData = result.id;
+    //     })
+    //       .catch(err => {
+    //       console.log(err);
+    //     });
+    // },
     data(){
         return{
-            radios: '',
-            location:'',
-            pickloc:[
-                {name: '서울', value: 'seoul'},
-                {name: '인천', value: 'incheon'},
-            ],
-            selected: [],
-            dates: [],
-            result: false,
-            page: 1,   
+            listData:[ 
+            {id: 1,subject: "쿠파",desc: "Wels"},
+            {id: 2,subject: "키노피오",desc: "Sale"},
+            {id: 3,subject: "마리오",desc: "Lahore"},
+            {id: 1,subject: "와르르",desc: "Wels"},
+            {id: 2,subject: "거북손",desc: "Sale"},
+            {id: 3,subject: "거북손",desc: "Lahore"},
+          ],
+          dataPerPage:3,
+          curPageNum:1,
+          SearchText: '',
         }
     },
     methods:{
-        search(){
-            const Searchdata={
-                radios: this.radios,
-                location: this.location,
-                selected: this.selected,
-                dates: this.dates
-            }
-            console.log(Searchdata)
-            this.result=true
-        },
         gocreate(){
           this.$router.push({
             path: '/createwrite'
           })
+        },
+        detailList(index){
+          this.$router.push({
+            name:'detail',
+            params:{
+              contentId: index
+            }
+          })
         }
     },
-    computed:{
-        dateRangeText(){
-            return this.dates.join('~')
-        },
+    computed: {
+      startOffset() {
+        return ((this.curPageNum - 1) * this.dataPerPage);
+      },
+      endOffset() {
+        return (this.startOffset + this.dataPerPage);
+      },   
+      numOfPages() {
+        return Math.ceil(this.listData.length / this.dataPerPage);
+      },
+      calData() {
+        return this.listData.slice(this.startOffset, this.endOffset)
+      },
+      filteredList(){
+        if (this.SearchText) {
+          return this.listData.filter(listItem => {
+            return listItem.subject.includes(this.SearchText);
+          });
+        }else{
+          return this.calData
+        }
+      }
     }
 }
 </script>

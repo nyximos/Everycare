@@ -1,17 +1,5 @@
 <template>
 <v-card flat>
-    <v-snackbar
-      v-model="snackbar"
-      absolute
-      top
-      right
-      color="success"
-    >
-    <v-icon dark>
-        mdi-checkbox-marked-circle
-    </v-icon>
-      <span>Registration successful!</span>
-    </v-snackbar>
       <v-container fluid>
         <v-row class="mt-5">
             <v-text-field
@@ -21,15 +9,12 @@
           ></v-text-field>
         </v-row>
          <v-row>
-          <v-col
-            cols="6"
-          >
+          <v-col cols="6">
       <v-select
       v-model="caretarget"
       :items="caretargetlist"
       label="케어대상인 선택"
-      multiple
-    >
+      multiple>
       <template v-slot:selection="{ item, index }">
         <v-chip v-if="index === 0">
           <span>{{ item }}</span>
@@ -45,21 +30,12 @@
           </v-col>
           <v-col
             cols="6">
-            <v-btn
-            @click="openSchedule">
-            스케줄을 선택하세요
-            </v-btn>
-            <div v-if="Schedule">
-              <v-radio-group 
-              v-model="radioGroup">
-            <v-radio
-              v-for="pickSchedule in schedulelist"
-              :key="pickSchedule"
-              :label="`스케줄${pickSchedule}`"
-              :value="`${pickSchedule}`"
-            ></v-radio>
-    </v-radio-group>
-            </div>
+          <v-select
+          v-model="pickSchedule"
+          :items="schedulelist"
+          label="스케줄선택"
+          chips
+        ></v-select>
           </v-col>
           </v-row>
         <v-row>
@@ -102,7 +78,7 @@
             </v-col>
             <v-col cols="8">
               <v-radio-group
-             v-model="sittersex"
+             v-model="sitterSex"
             mandatory
             row>
             <v-radio
@@ -156,8 +132,7 @@
       <v-card-actions>
         <v-btn
           text
-          :to="{name:'Main'}"
-        >
+          :to="{name:'Main'}">
           Cancel
         </v-btn>
         <v-spacer></v-spacer>
@@ -166,8 +141,7 @@
           :disabled="!formIsValid"
           text
           color="primary"
-          @click="submit"
-        >
+          @click="submit">
           Register
         </v-btn>
         
@@ -184,85 +158,57 @@ name: 'Create',
          title: this.title,
          caretarget:this.caretarget,
          caretargetlist:['이위화','김영한'],
-         items: [],
-         radioGroup: this.radioGroup,
          pickSchedule: this.pickSchedule,
          schedulelist:[1,2,3,4,5],
         dates: [],
         day: [],
         days: ['월', '화', '수', '목', '금', '토', '일'],
-        sittersex: this.sittersex,
+        sitterSex: this.sitterSex,
         paytimepick: this.paytimepick,
         pay: this.pay,
         comment: this.comment,
-        snackbar: false,
-        Schedule: false
       }
     },
-    mounted(){
-      // axios.get('/recruitions/new')
-      // .then((result)=> {
-      //   if(result=="ok"){
-      //     this.caretargetlist = res.data.caretargetname;
-      //   }else{
-      //     console.log('실패')
-      //   }
-      // })
-    },
-    computed: {
-      formIsValid () {
-        return (
-          this.title &&
-          this.caretarget &&
-          this.radioGroup &&
-          this.dates &&
-          this.day &&
-          this.sittersex &&
-          this.paytimepick &&
-          this.pay
-        )},
-       dateRangeText(){
-            return this.dates.join('~')
-        },
-    },
     methods: {
-      openSchedule(){
-        this.Schedule = true
-          // axios.get('/recruitions/schedules')
-          // .then((result)=>{
-          //   if (result=="ok") {
-          //     this.schedulelist = res.data.caretargetscheduleId;
-          //   } else {
-          //     console.log('실패')
-          //   }
-          // })
-      },
       submit(){
-        console.log('메소드 실행')
-        var findpeople ={
-          title: this.title,
-          caretarget: this.caretarget,
-          radioGroup: this.radioGroup,
-          dates: this.dates,
-          day: this.day,
-          sittersex: this.sittersex,
-          paytimepick: this.paytimepick,
-          pay: this.pay,
-          comment: this.comment
-        }
-        console.log(findpeople)
-        // axios.post(`/api/api/recruitions/recruition/${유저아이디id}`,findpeople)
-        // .then((res) => {
-        // console.log(res)
-        // this.snackbar = true
-        // this.$router.push({
-        // name:'Job_list'
-        // })
-      // }).catch((error)=>{
-      //     console.log(error)
-      //     })
-      },
+      var formData = new FormData();
+      formData.append('title',this.title);
+      formData.append('caretarget', this.caretarget.toString());
+      formData.append('pickSchedule', this.pickSchedule);
+      formData.append('dates', this.dates.toString());
+      formData.append('day', this.day.toString());
+      formData.append('sitterSex', this.sitterSex);
+      formData.append('paytimepick', this.paytimepick);
+      formData.append('pay', this.pay);
+      formData.append('comment',this.comment);
+      this.$http
+      .post('/api/recruitions/new', formData,{
+       withCredentials: true
+      })
+     .then(res => {
+      console.log(res);
+      })
+     .catch(err => {
+       console.log(err);
+    });
+  },
+},
+  computed: {
+    formIsValid () {
+      return (
+        this.title &&
+        this.caretarget &&
+        this.pickSchedule &&
+        this.dates &&
+        this.day &&
+        this.sitterSex &&
+        this.paytimepick &&
+        this.pay
+      )},
+    dateRangeText(){
+      return this.dates.join('~')
     },
+  },
 }
 
 </script>
