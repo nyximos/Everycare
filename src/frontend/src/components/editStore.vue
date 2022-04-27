@@ -5,7 +5,6 @@
       <hr>
       <v-card-text>
         <div>
-            {{storeId}}
           <v-text-field
           label="스토어명"
           v-model="storeName"
@@ -163,14 +162,15 @@
 <script>
 export default {
 mounted() {
-      this.$http
-    .get(`/api/stores/${this.id}`, {
+  const id = Number(this.$route.params.id);
+  this.$http
+    .get(`/api/stores/${id}`, {
     withCredentials: true
     })
     .then(res => {
       const result = res.data.body;
       console.log(result)
-      this.id = result.id;
+      // this.id = result.id;
     })
       .catch(err => {
        console.log(err);
@@ -179,7 +179,7 @@ mounted() {
 
 data(){
   return{
-    id : 4,
+    id:this.$route.params.id,
     storeName: '',
     storeUrl: '',
     businessNumber: '',
