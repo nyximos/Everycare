@@ -24,7 +24,6 @@ public class CareSitterApiController {
 
     private final CareSitterServiceImpl careSitterService;
 
-    @ResponseBody
     @PostMapping("/dashboard/caresitter")
     public ResponseEntity<MyResponse> saveCareSitter(
             @ModelAttribute CareSitterFormDTO careSitterFormDTO,
@@ -35,26 +34,22 @@ public class CareSitterApiController {
         careSitterFormDTO.setCreatedAt(time);
         careSitterFormDTO.setUpdatedAt(time);
 
-        System.out.println("careSitterFormDTO = " + careSitterFormDTO);
-        System.out.println("principalDetails = " + principalDetails);
 
         Member user = principalDetails.getUser();
-        System.out.println("user = " + user);
         careSitterFormDTO.setMember(user);
 
-        careSitterService.save(careSitterFormDTO);
+        Long careSitterId = careSitterService.save(careSitterFormDTO);
 
-        MyResponse<CareSitterFormDTO> body = MyResponse.<CareSitterFormDTO>builder()
+        MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("성공했슴다~")
-                .body(careSitterFormDTO)
+                .body(careSitterId)
                 .build();
 
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 
-    @ResponseBody
     @PatchMapping("/dashboard/caresitter/{id}")
     public ResponseEntity<MyResponse> patchCareSitter(
             @PathVariable("id") Long id,
