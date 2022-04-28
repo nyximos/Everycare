@@ -29,6 +29,11 @@ const routes = [
         component: () => import('@/pages/StoreInfoEdit.vue')
     },
     {
+        path: '/store/prodcreate',
+        name: 'prodCreate',
+        component: () => import('@/pages/Store_prod_create.vue')
+    },
+    {
         
         path: '/joblist',
         name: 'Job_list',
