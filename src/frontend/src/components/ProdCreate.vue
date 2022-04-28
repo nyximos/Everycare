@@ -31,12 +31,25 @@
         label="설명"
         shaped
       ></v-textarea>
+      <v-file-input
+      v-model="attachFile"
+      chips
+      label="썸네일"
+    ></v-file-input>
     <v-file-input
       v-model="attachFiles"
       chips
       multiple
-      label="이미지"
+      label="상품사진"
     ></v-file-input>
+        <v-select
+        v-model="productCategory"
+        :items="prodCategory"
+        item-text="name"
+        item-value="value"
+        label="상품카테고리"
+        chips
+      ></v-select>
       <v-select
         v-model="isSale"
         :items="prodStatus"
@@ -57,12 +70,18 @@
 export default {
 data(){
   return{
+    id:1,
     name:'',
     price: '',
     inventoryQuantity: '',
     comment: '',
+    productCategory:'',
+    attachFile: [],
     attachFiles: [],
     isSale:'',
+    prodCategory:[
+      {name: '보행', value:'1'}
+    ],
     prodStatus : [
       {name:'판매',value:'1'},
       {name:'입고예정',value:'2'},
@@ -77,9 +96,11 @@ data(){
         formData.append('price', this.price);
         formData.append('inventoryQuantity', this.inventoryQuantity);
         formData.append('comment', this.comment);
+        formData.append('productCategory', this.productCategory);
+        formData.append('attachFile', this.attachFile);
         for (let i = 0; i < this.attachFiles.length; i++) {
                 formData.append('attachFiles', this.attachFiles[i]);
-        }
+                }
         formData.append('isSale', this.isSale);
       
         this.$http

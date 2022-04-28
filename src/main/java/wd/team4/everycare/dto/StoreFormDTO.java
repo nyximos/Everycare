@@ -27,7 +27,7 @@ public class StoreFormDTO {
     private Member member;
 
     @Builder
-    public StoreFormDTO(Long id, String name, String url, int businessLicenseNumber, String email, String operationStartTime, String operationEndTime, String lunchStartTime, String lunchEndTime, String closedDay, String companyCorporationName, String representativeName, String businessLocation, String customerServiceNumber, Member member) {
+    public StoreFormDTO(String name, String url, int businessLicenseNumber, String email, String operationStartTime, String operationEndTime, String lunchStartTime, String lunchEndTime, String closedDay, String companyCorporationName, String representativeName, String businessLocation, String customerServiceNumber, Member member) {
         this.id = id;
         this.name = name;
         this.url = url;

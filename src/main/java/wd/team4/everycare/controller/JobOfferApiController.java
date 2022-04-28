@@ -57,20 +57,19 @@ public class JobOfferApiController {
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 
-    @PostMapping("/recruitions/schedules")
-    public ResponseEntity<MyListResponse> regJobOffer(CareTargetDTO careTargetDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        Long careTargetId = careTargetDTO.getId();
-
-        List<CareTargetSchedule> findSchedule = careTargetScheduleRepository.findByCareTarget_Id(careTargetId);
-
-        MyListResponse<CareTargetSchedule> body = MyListResponse.<CareTargetSchedule>builder()
-                .header(StatusEnum.OK)
-                .message("스케줄 조회 성공")
-                .body(findSchedule)
-                .build();
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<MyListResponse>(body, headers, HttpStatus.OK);
-    }
+//    @PostMapping("/recruitions/schedules")
+//    public ResponseEntity<MyListResponse> regJobOffer(CareTargetDTO careTargetDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+//        Long careTargetId = careTargetDTO.getId();
+//
+//        List<CareTargetSchedule> findSchedule = careTargetScheduleRepository.findByCareTarget_Id(careTargetId);
+//
+//        MyListResponse<CareTargetSchedule> body = MyListResponse.<CareTargetSchedule>builder()
+//                .header(StatusEnum.OK)
+//                .message("스케줄 조회 성공")
+//                .body(findSchedule)
+//                .build();
+//        HttpHeaders headers = new HttpHeaders();
+//        return new ResponseEntity<MyListResponse>(body, headers, HttpStatus.OK);
+//    }
 }
 
- 

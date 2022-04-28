@@ -6,7 +6,7 @@
 
 <script>
 
-import ProdCreate from '@/components/prodCreate.vue';
+import ProdCreate from '@/components/ProdCreate.vue';
 
 export default {
 components:{
