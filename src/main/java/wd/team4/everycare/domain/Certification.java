@@ -1,11 +1,11 @@
 package wd.team4.everycare.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.CertificationViewDTO;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,18 +25,32 @@ public class Certification {
     @Column(name = "certification_name")
     private String name;
 
-    @Column(name = "certification_file_name", nullable = false)
-    private String fileName;
+    @Column(name = "certification_upload_file_name", nullable = false)
+    private String uploadFileName;
 
-    @Column(name = "certification_file_path", nullable = false)
-    private String filePath;
+    @Column(name = "certification_store_file_name", nullable = false)
+    private String storeFileName;
 
+    @Column(name = "certification_admin_approve", nullable = false)
+    private int adminApproval;
 
-    @Column(name = "certification_is_approve", nullable = false)
-    private int approval;
+    @Column(name = "certification_created_at", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
+    private LocalDateTime createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "certificate_classification_id", nullable = false)
-    private Certification certification;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "care_sitter_id")
+    private CareSitter careSitter;
+
+    public CertificationViewDTO toViewDTO(){
+        return CertificationViewDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .adminApproval(this.adminApproval)
+                .uploadFileName(this.uploadFileName)
+                .storeFileName(this.storeFileName)
+                .createdAt(this.createdAt)
+                .build();
+    }
 
 }
