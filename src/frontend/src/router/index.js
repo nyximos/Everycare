@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-
 import Caresitters from '../pages/Caresitters';
 import Profile from '../pages/Profile';
 import Carepeople from '../pages/Carepeople';
@@ -35,12 +34,13 @@ const routes = [
     },
     {
         
+
         path: '/joblist',
         name: 'Job_list',
         component: () => import('@/pages/Job_list.vue')
     },
     {
-        path: '/createwrite',
+        path: '/recruitions/new',
         name: 'CreateWrite',
         component: () => import('@/pages/CreateWrite.vue')
     },

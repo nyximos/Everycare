@@ -78,7 +78,7 @@
             </v-col>
             <v-col cols="8">
               <v-radio-group
-             v-model="sitterSex"
+             v-model="sittersex"
             mandatory
             row>
             <v-radio

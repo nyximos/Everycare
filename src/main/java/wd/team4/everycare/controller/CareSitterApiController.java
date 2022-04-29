@@ -30,17 +30,16 @@ public class CareSitterApiController {
             @ModelAttribute CareSitterFormDTO careSitterFormDTO,
             @AuthenticationPrincipal PrincipalDetails principalDetails
     ) throws IOException {
-
         LocalDateTime time = LocalDateTime.now();
         careSitterFormDTO.setCreatedAt(time);
         careSitterFormDTO.setUpdatedAt(time);
 
         System.out.println("careSitterFormDTO = " + careSitterFormDTO);
         System.out.println("principalDetails = " + principalDetails);
-
-        Member user = principalDetails.getUser();
+        Member user = principalDetails.getUser(); // null
         System.out.println("user = " + user);
         careSitterFormDTO.setMember(user);
+
 
         careSitterService.save(careSitterFormDTO);
 

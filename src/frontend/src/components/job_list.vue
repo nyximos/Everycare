@@ -1,7 +1,8 @@
 <template>
  <div>
     <div class="text-end mt-4">
-        <v-btn @click="gocreate">
+        <v-btn
+        :to="{name: 'CreateWrite'}">
           <v-icon left>
             mdi-pencil
           </v-icon>
@@ -50,41 +51,31 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name: 'componentjoblist',
-    // mounted() {
-    //       this.$http
-    //     .get(`/api/stores/${this.id}`, {
-    //     withCredentials: true
-    //     })
-    //     .then(res => {
-    //       const result = res.data.body;
-    //       console.log(result)
-    //       this.listData = result.id;
-    //     })
-    //       .catch(err => {
-    //       console.log(err);
-    //     });
-    // },
+    mounted() {
+        try {
+            const res = axios.get('/api/api/recruitions')
+            this.list = res.data.postId
+        } catch (error) {
+            console.log(error)       
+        }
+    },
     data(){
         return{
-            listData:[ 
-            {id: 1,subject: "쿠파",desc: "Wels"},
-            {id: 2,subject: "키노피오",desc: "Sale"},
-            {id: 3,subject: "마리오",desc: "Lahore"},
-            {id: 1,subject: "와르르",desc: "Wels"},
-            {id: 2,subject: "거북손",desc: "Sale"},
-            {id: 3,subject: "거북손",desc: "Lahore"},
-          ],
-          dataPerPage:3,
-          curPageNum:1,
-          SearchText: '',
+            result: false,
+            list: ['a','b','c','d','e','f','g'],
+            dataPerPage: 3,
+            curPageNum :1,
+            searchText: '',
         }
     },
     methods:{
-        gocreate(){
+        onOrder(postId){
           this.$router.push({
-            path: '/createwrite'
+              name: 'writedetail',
+              params:{postId:postId}
           })
         },
         detailList(index){
@@ -96,29 +87,33 @@ export default {
           })
         }
     },
-    computed: {
-      startOffset() {
-        return ((this.curPageNum - 1) * this.dataPerPage);
-      },
-      endOffset() {
-        return (this.startOffset + this.dataPerPage);
-      },   
-      numOfPages() {
-        return Math.ceil(this.listData.length / this.dataPerPage);
-      },
-      calData() {
-        return this.listData.slice(this.startOffset, this.endOffset)
-      },
-      filteredList(){
-        if (this.SearchText) {
-          return this.listData.filter(listItem => {
-            return listItem.subject.includes(this.SearchText);
-          });
-        }else{
-          return this.calData
+    computed:{
+        startOffset(){
+            return ((this.curPageNum-1) * this.dataPerPage);
+        },
+        endOffset(){
+            return (this.startOffset+ this.dataPerPage);
+        },
+        numOfPages(){ 
+            return Math.ceil(this.list.length/this.dataPerPage);
+        },
+        calData(){
+            return this.list.slice(this.startOffset, this.endOffset)
+        },
+        dateRangeText(){
+            return this.dates.join('~')
+        },
+        filteredList(){
+            if (this.searchText) {
+                return this.list.filter(list => {
+                    return list.includes(this.searchText)
+                })
+            } else {
+                return this.calData
+                
+            }
         }
-      }
-    }
+}
 }
 </script>
 

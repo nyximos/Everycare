@@ -14,8 +14,8 @@ export default {
         endtimepicker: '',
         paytype: '',
         pay: '',
-        hopetype:'',
-        hopeage:'',
+        caretype:'',
+        ageselect:'',
         vaccine:'',
         cctv:'',
         certification:''
@@ -39,11 +39,11 @@ export default {
             state.pay = userData.pay;
         },
         set_user3(state, userData){
-            state.hopetype = userData.hopetype;
-            state.hopeage = userData.hopeage;
+            state.caretype = userData.caretype;
+            state.ageselect = userData.ageselect;
             state.vaccine = userData.vaccine;
             state.cctv = userData.cctv;
-            state.certification = userData.certification;
+            state.certification = userData.files;
         }
     },
     actions: {},

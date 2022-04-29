@@ -1,6 +1,7 @@
 export default {
     namespaced: true,
     state:{
+        title: '',
         caretarget:'',
         schedul:'',
         dates:'',
@@ -12,6 +13,7 @@ export default {
     },
     mutations:{
         set_data(state, findpeople){
+            state.title = findpeople.title,
             state.caretarget = findpeople.caretarget,
             state.schedul = findpeople.schedul,
             state.dates =  findpeople.dates,
