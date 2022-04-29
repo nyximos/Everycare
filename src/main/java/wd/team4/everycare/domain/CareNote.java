@@ -25,10 +25,10 @@ public class CareNote {
     @DateTimeFormat(pattern = "yyyyMMdd")
     private LocalDate noteDate;
 
-    @Column(name = "care_note_start_time", length = 4)
+    @Column(name = "care_note_start_time", length = 5)
     private String startTime;
 
-    @Column(name = "care_note_end_time", length = 4)
+    @Column(name = "care_note_end_time", length = 5)
     private String endTime;
 
     @Column(name = "care_note_file_name")

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:each="s : ${search}">
+    <ul  th:id="${s.id}" class="details">
+        아이디 : <li th:text="${s.id}"></li>
+        활동 시간 : <li th:text="${s.activityTime}"></li>
+        희망 시급 : <li th:text="${s.desiredHourlyWage}"></li>
+        희망 지역 :<li th:text="${s.hopefulRegion}"></li>
+        희망 케어 타입 : <li th:text="${s.preferredType}"></li>
+    </ul>
+</div>
+</body>
+</html>
+<script th:inline="javascript">
+    $('.details').click(function () {
+        const id = $(this).attr('id')
+        console.log(id)
+        location.href = "/jobsearchs/jobsearch/"+id
+    })
+</script>

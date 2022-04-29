@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2></h2>
+<div th:each="j : ${jobOffers}">
+    <ul class="details"  th:id="${j.id}">
+        제목 :<li th:text="${j.title}"></li>
+        시작일 : <li th:text="${j.startDate}"></li>
+        종료일 : <li th:text="${j.endDate}"></li>
+        코멘트 : <li th:text="${j.comment}"></li>
+        급여 : <li th:text="${j.pay}"></li>
+        희망 케어시터 : <li th:text="${j.desiredCareSitterGender}"></li>
+    </ul>
+</div>
+</body>
+</html>
+<script th:inline="javascript">
+    $('.details').click(function () {
+        const id = $(this).attr('id')
+        console.log(id)
+        location.href = "/recruitions/recruition/"+id
+    })
+</script>
