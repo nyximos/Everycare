@@ -15,32 +15,31 @@
                       <div class="area_profile">
                           <div class="div_img">
                               <label for="input_file">
+                                  <!-- <img :src="avatar" class="img-avatar"> -->
                                   <img src="@/assets/user.png">
                               </label>
                           </div>
                           <div class="div_text">
-                              <strong>사진</strong>
-                              <!-- <v-file-input
-                                truncate-length="22"
-                                label="사진을 넣으세요"
-                                @change="selectFile"
-                                ></v-file-input> -->
+                                 <!-- <span><input type="file" v-bind:src="image" id="uppic" accept="image/gif,image/jpg,image/png" @change="changeImage($event)" ref="avatarInput" class="uppic"></span> -->
+                              <v-file-input v-model="image" truncate-length="22" label="사진을 넣으세요" ></v-file-input>
                           </div>
                           <div class="con10_blank"></div>
                           <div class="r_content">
                               <br>
                               <v-text-field v-model="name" label="Name" required></v-text-field>
-                               <v-radio-group v-model="row" mandatory>
+                               <v-radio-group v-model="gender" mandatory>
                                     <v-radio label="남" value="Man"></v-radio>
                                     <v-radio label="여" value="Woman"></v-radio>
                                 </v-radio-group>
                               <h2>나이</h2>
-                              <v-text-field v-model="age" label="Age" required></v-text-field>
+                              <v-text-field v-model.number="age" label="Age" required></v-text-field>
                               <br>
                               <h5>자기소개</h5>
-                              <textarea class="content_add" placeholder="자기소개써주세요" v-model="textarea"></textarea>
+                              <textarea class="content_add" placeholder="자기소개써주세요" v-model="introduction"></textarea>
                           </div>
-                          <v-btn class="ma-2" outlined color="indigo" @click="nextpage1">다음</v-btn>
+                          <!-- <router-link :to="{name: 'careprofile1'}"> -->
+                                <v-btn class="ma-2" outlined color="indigo" @click="nextpage1">다음</v-btn>
+                          <!-- </router-link> -->
                           <router-link to="/"> <v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
                           </div>
                       </div>
@@ -55,27 +54,73 @@ export default {
   name:'careprofilecom',
   data(){
      return{
+        avatar:require('@/assets/user.png'),
+        image: [],
         name:'',
-        row:'',
+        gender:'',
         age:'',
-        textarea:''
+        introduction:'',
      }
   },
   methods:{
+    //   changeImage(e){
+    //     var file = e.target.files[0]
+    //     var reader = new FileReader()
+    //     var that = this
+    //     reader.readAsDataURL(file)
+    //     reader.onload = function(){
+    //         that.avatar = this.result
+    //     }
+    // },
       nextpage1(){
-        const caredata = {
+        const userData = {
+        image : this.image.name,
         name:this.name,
-        row:this.row,
+        gender:this.gender,
         age:this.age,
-        textarea:this.textarea
+        introduction:this.introduction
         }
+        
         try{
-          console.log(caredata);
-          this.$store.commit('careprofileStore/carePro', caredata);
-          console.log(this.$store.state.careprofileStore.name);
+            if(this.image.name ==""){
+                alert("사진을 넣어주세요!");
+                
+                return;
+            }
+            if(this.name == ""){
+                alert("이름을 입력해주세요!"); 
+                return;
+            }
+            if(this.radio ==""){
+                 alert("성별을 입력해주세요!");
+                 return;
+            }
+            if(this.age ==""){
+                 alert("나이를 입력해주세요!");
+                 return;
+            }
+            if(this.intro ==""){
+                alert("소개글을 입력해주세요!");
+                return;
+            }else{
+          this.$store.commit('careprofileStore/set_user1', userData);
+          console.log(this.$store.state.careprofileStore.image);
+          console.log(this.$store.state.careprofileStore.introduction);
+            this.$router.push({ path: '/dashboard/careprofile1' })
+            }
         } catch(error){
            console.log(error); 
         }
+        // this.$http
+        //     .post('/api/dashboard/caresitter',userData,{
+        //         withCredentials:true
+        //     })
+        //     .then(res=>{
+        //         console.log(res);
+        //     }).catch(err=>{
+        //         console.log(err)
+        //     })
+        
     }
   }
 }
