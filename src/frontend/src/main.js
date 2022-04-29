@@ -8,7 +8,7 @@ import Alert from '@/plugins/Alert.js';
 import axios from 'axios';
 import vueResource from 'vue-resource';
 import vueCookies from 'vue-cookies';
-
+import jquery from 'jquery'
 
 
 global.import();
@@ -28,5 +28,6 @@ new Vue({
     vuetify,
     router,
     store,
+    jquery,
     render: h => h(App)
 }).$mount('#app');

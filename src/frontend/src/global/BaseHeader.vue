@@ -17,34 +17,32 @@
 </template>
 
 <script>
-
+import $ from 'jquery'
 
 export default {
     data() {
-        return {
-            methods: {
-                goMain() {
-                    if (this.$router.history.current.fullPath == '/') {
-                        console.log('go main');
-                    } else {
-                        this.$router.push('/');
-                        console.log('/');
-                    }
-                },
-                signout() {
-                   // eslint-disable-next-line no-undef
-                   $.ajax({
-                        url: '/api/token',
-                        type: 'DELETE',
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        async: false
-                    }),
-                    location.href = '/';
-                }
+
+    },
+    methods: {
+        goMain() {
+            if (this.$router.history.current.fullPath == '/') {
+                console.log('go main');
+            } else {
+                this.$router.push('/');
+                console.log('/');
             }
-        };
+        },
+        signout() {
+            $.ajax({
+                url: '/api/token',
+                type: 'DELETE',
+                cache: false,
+                contentType: false,
+                processData: false,
+                async: false
+            }),
+                (location.href = '/');
+        }
     }
 };
 </script>
