@@ -36,8 +36,9 @@
         <input id="updateButton" type="button" value="수정"/>
         <input id="deleteButton" type="button" value="삭제"/>
 
-        <div><a th:href="@{/carenote/caretargets/{id}(id=${careTarget.id})/schedules/new}"> 스케줄 등록</a></div>
+        <div><a th:href="@{'/carenote/caretargets/'+ ${careTarget.id} +'/schedule'}"> 스케줄 등록</a></div>
 
+        <h2>스케줄 목록</h2>
         <div th:each="schedule : ${schedules}"
             th:onclick="'location.href=\''+ @{/carenote/caretargets/{id}(id=${careTarget.id})/schedules/{id}(id=${schedule.id})">
             스케줄명: <span th:text="${schedule.name}"></span><br/>
@@ -70,7 +71,7 @@
                 async: false,
             })
 
-            location.href = "/carenote/caretargets/";
+            location.href = "/carenote/caretargets";
         })
 
     </script>

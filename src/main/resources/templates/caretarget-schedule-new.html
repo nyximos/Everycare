@@ -1,10 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>스케줄 생성</title>
 </head>
 <body>
+<div layout:fragment="content">
+    <div class="container">
 
+    <div class="py-5 text-center">
+        <h2>스케줄 생성</h2>
+    </div>
+        <form>
+            <ul>
+                <li>스케줄명 <input type="text" name="name" id="name"/></li>
+                <li>시작 시간 <input type="time" name="startTime" id="startTime" /></li>
+                <li>종료 시간 <input type="time" name="endTime" id="endTime" /></li>
+            </ul>
+            <input id="tokenField" type="hidden"/>
+            <input id="submitButton" type="button" value="등록"/>
+        </form>
+    </div>
+    <script th:inline="javascript">
+        /*<![CDATA]*/
+        var id = /*[[ ${id} ]]*/'';
+        console.log(id)
+        /*]]*/
+
+        $('#submitButton').on('click', function () {
+
+            const formData = new FormData();
+
+            formData.append('name', $('#name').val());
+            formData.append('startTime', $('#startTime').val());
+            formData.append('endTime', $('#endTime').val());
+            formData.append('careTarget', id);
+
+            $.ajax({
+                url: "/api/carenote/caretargets/"+id+"/schedules",
+                type: 'POST',
+                cache: false,
+                contentType: false,
+                processData: false,
+                enctype: 'multipart/form-data',
+                data: formData,
+                async: false,
+            })
+
+            location.href = "/carenote/caretargets/"+id;
+        });
+    </script>
+</div>
 </body>
 </html>

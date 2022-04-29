@@ -47,4 +47,31 @@ public class CareTargetSchedule {
     @JoinColumn(name = "care_note_id")
     private CareNote careNote;
 
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "job_offer_id")
+    private JobOffer jobOffer;
+
+    @Builder
+    public CareTargetSchedule(Long id, String name, String startTime, String endTime, CareTarget careTarget) {
+        this.id = id;
+        this.name = name;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.careTarget = careTarget;
+    }
+
+    public CareTargetScheduleDTO toDTO(){
+        return CareTargetScheduleDTO.builder()
+                .name(this.name)
+                .startTime(this.startTime)
+                .endTime(this.endTime)
+                .build();
+    }
+
+    public void saveCareTarget(CareTarget careTarget){
+        this.careTarget = careTarget;
+    }
+
+
 }
