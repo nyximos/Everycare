@@ -1,23 +1,24 @@
 <template>
     <header>
         <div class="header">
-            <div class="logo" @click="goMain()">logo</div>
+            <button class="logo" @click="goMain">logo</button>
             <div class="list">
                 <v-btn text>케어매칭</v-btn>
                 <v-btn text>케어노트</v-btn>
                 <v-btn text>케어스토어</v-btn>
             </div>
             <div>
-                <div>
-                    <router-link to="/login">로그인</router-link>
-                    <router-link to="/signup">회원가입</router-link>
-                </div>
+                <router-link to="/login">로그인</router-link>
+                <router-link to="/signup">회원가입</router-link>
+                <router-link to="/">로그아웃</router-link>
             </div>
         </div>
     </header>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     data() {
         return {
@@ -30,11 +31,19 @@ export default {
                         console.log('/');
                     }
                 },
+                signout() {
+                    axios({
+                        url: '/api/token',
+                        type: 'DELETE',
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        async: false
+                    }),
+                    location.href = '/';
+                }
             }
         };
-    },
-    computed: {
-        
     }
 };
 </script>
