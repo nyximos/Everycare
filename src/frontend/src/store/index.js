@@ -22,5 +22,4 @@ export default new Vuex.Store({
     paths:["userStore2"]
   })],
 
-
-});
+})

@@ -20,70 +20,20 @@
                          
                     </div>
                         <div class="r_seeking">
-                            <v-checkbox
-                            v-model="caretype"
-                            value="baby"
-                            label="베이비"
-                            ></v-checkbox>
-                            <v-checkbox
-                            v-model="caretype"
-                            value="housework+clean"
-                            label="육아+가사">
-                            </v-checkbox>
-                          <v-checkbox
-                           v-model="caretype"
-                           value="pickup"
-                          label="등하원"
-                          ></v-checkbox>
-                          <v-checkbox
-                           v-model="caretype"
-                           value="play"
-                          label="놀이"
-                          ></v-checkbox>
-                          <v-checkbox
-                           v-model="caretype"
-                           value="housework"
-                          label="가사"
-                          ></v-checkbox>
-                          <v-checkbox
-                           v-model="caretype"
-                           value="clean"
-                          label="청소"
-                          ></v-checkbox>
-                          
-                            
+                            <v-checkbox v-model="caretype" value="baby" label="베이비"></v-checkbox>
+                            <v-checkbox v-model="caretype" value="housework+clean" label="육아+가사"></v-checkbox>
+                            <v-checkbox v-model="caretype" value="pickup" label="등하원"></v-checkbox>
+                            <v-checkbox v-model="caretype" value="play" label="놀이"></v-checkbox>
+                            <v-checkbox v-model="caretype" value="housework" label="가사"></v-checkbox>
+                            <v-checkbox v-model="caretype" value="clean" label="청소"></v-checkbox>
                           <h5 class="sub_title1">연령</h5>
                         <div class="r_seeking_age">
-                            <v-checkbox
-                          v-model="ageselect"
-                          value="newborn"
-                          label="신생아(0-6 month)"
-                          ></v-checkbox
-                          ><v-checkbox
-                           v-model="ageselect"
-                           value="baby"
-                          label="영아(7-36 month)">
-                          </v-checkbox>
-                          <v-checkbox
-                           v-model="ageselect"
-                           value="child"
-                          label="유아(4-7 year)"
-                          ></v-checkbox>
-                          <v-checkbox
-                           v-model="ageselect"
-                           value="children"
-                          label="초등학생"
-                          ></v-checkbox>
-                          <v-checkbox
-                           v-model="ageselect"
-                           value="student"
-                          label="중고등학생"
-                          ></v-checkbox>
-                          <v-checkbox
-                           v-model="ageselect"
-                           value="anything"
-                          label="상관없음"
-                          ></v-checkbox>
+                          <v-checkbox v-model="preferredType" value="newborn" label="신생아(0-6 month)"></v-checkbox>
+                          <v-checkbox v-model="preferredType" value="baby" label="영아(7-36 month)"></v-checkbox>
+                          <v-checkbox v-model="preferredType" value="child" label="유아(4-7 year)"></v-checkbox>
+                          <v-checkbox v-model="preferredType" value="children" label="초등학생"></v-checkbox>
+                          <v-checkbox v-model="preferredType" value="student" label="중고등학생"></v-checkbox>
+                          <v-checkbox v-model="preferredType" value="anything" label="상관없음"></v-checkbox>
                         </div>
                       </div>
                       <br><br>
@@ -91,20 +41,20 @@
                           <h5 class="sub_title">백신</h5>
                           <div class="cInner">
                         <v-radio-group
-                        v-model="vaccine"
+                        v-model="vaccination"
                         mandatory
                         row>
                           <v-radio
                           label="1차접종완료"
-                          value="1vaccine">
+                          value="0">
                           </v-radio>
                           <v-radio
                           label="추가접종완료"
-                          value="additionvaccine">
+                          value="1">
                           </v-radio>
                           <v-radio
                           label="미접종"
-                          value="novaccine">
+                          value="2">
                           </v-radio>
                           </v-radio-group>
                           </div>
@@ -113,16 +63,16 @@
                           <h5 class="sub_title">cctv 동의여부</h5>
                           <div class="cInner_01">
                         <v-radio-group
-                        v-model="cctv"
+                        v-model="cctvAgreement"
                         mandatory
                         row>
                           <v-radio
                           label="⭕"
-                          value="agree">
+                          value="0">
                           </v-radio>
                           <v-radio
                           label="❌"
-                          value="disagree">
+                          value="1">
                           </v-radio>
                           </v-radio-group>
                           </div>
@@ -142,9 +92,9 @@
                   
               </div>
               <br><br>
-               <router-link :to="{name: 'Main'}">
-               <v-btn class="ma-2" outlined color="indigo" @click="clickme">등록</v-btn>
-               </router-link>
+               <!-- <router-link :to="{name: 'Main'}"> -->
+               <v-btn class="ma-2" outlined color="indigo" @click="submit">등록</v-btn>
+               <!-- </router-link> -->
                 <router-link to="/Careprofile1"><v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
           </div>
           
@@ -160,20 +110,20 @@ data(){
    
     return{
         caretype: [],
-        ageselect: [],
-        cctv:'',
-        vaccine: '',
+        preferredType: [],
+        cctvAgreement:'',
+        vaccination: '',
         files: [],
         
     }
   },
   methods:{
-      clickme(){
-          var userData={
+      submit(){
+          const userData={
               caretype:this.caretype,
-              ageselect:this.ageselect,
-              cctv:this.cctv,
-              vaccine:this.vaccine,
+              preferredType:this.preferredType,
+              cctvAgreement:this.cctvAgreement,
+              vaccination:this.vaccination,
               files:this.files.name
           }
           const axiosuserData = {
@@ -200,20 +150,44 @@ data(){
         //   formData.append("key",new Blob([JSON.stringify(axiosuserData)],{ type : "application.json"}));
           console.log(userData)
           try {
+              if(this.caretype ==""){
+                alert("선호유형을 선택주세요!");
+        
+                return;
+            }
+            if(this.preferredType == ""){
+                alert("연령을 선택해주세요!"); 
+              
+                return;
+            }
+            if(this.cctvAgreement ==""){
+                 alert("cctv 동의여부를 선택해주세요!");
+                 return;
+            }
+            if(this.vaccination ==""){
+                 alert("백신을 선택해주세요!");
+                 return;
+            }else{
               this.$store.commit('careprofileStore/set_user3', userData);
+            //   this.$$store.dispatch('careprofileStore/submit');
               console.log('데이터 저장')
               console.log(this.$store.state.careprofileStore.image)
               console.log('이미지 받았다~')
-              axios.post('/api/dashboard/caresitter', axiosuserData)
-              .then((res)=> {
-                  console.log(res.data)
-              })
-              .catch((err)=>{
-                  console.log(err)
-              })
+              this.$router.push({ path: '/Main' })
+            }
           } catch (error) {
               console.log(error)
           }
+           this.$http
+            .post('/api/dashboard/caresitter',userData,{
+                withCredentials:true
+            })
+            .then(res=>{
+                this.$store.state.userData = res.data
+                console.log(res);
+            }).catch(err=>{
+                console.log(err)
+            })
       }
   }
 }

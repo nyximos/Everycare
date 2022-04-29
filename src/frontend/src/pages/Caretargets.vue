@@ -1,17 +1,17 @@
 <template>
   <v-container class="">
-      <Addprofile />
+      <Caretargets />
   </v-container>
   
 </template>
 
 <script>
-import Addprofile from '@/components/main/addprofile'
+import Caretargets from '@/components/main/caretargets'
 
 
 export default {
   components: {
-       Addprofile
+       Caretargets
        },
 
 };
