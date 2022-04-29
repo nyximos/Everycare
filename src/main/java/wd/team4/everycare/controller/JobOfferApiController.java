@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.CareTargetSchedule;
 import wd.team4.everycare.domain.JobOffer;
+import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.dto.JobOfferDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetDTO;
 import wd.team4.everycare.dto.response.MyListResponse;
 import wd.team4.everycare.dto.response.MyResponse;
@@ -50,10 +52,10 @@ public class JobOfferApiController {
     }
 
     @PostMapping("/recruitions/schedules")
-    public ResponseEntity<MyListResponse> regJobOffer(CareTargetDTO careTargetDTO, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        Long careTargetId = careTargetDTO.getId();
-
-        List<CareTargetSchedule> findSchedule = careTargetScheduleRepository.findByCareTarget_Id(careTargetId);
+    public ResponseEntity<MyListResponse> regCareTargetSchedule(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                                                Long id) {
+        System.out.println("careTargetId = " + id);
+        List<CareTargetSchedule> findSchedule = careTargetScheduleRepository.findByCareTarget_Id(id);
 
         MyListResponse<CareTargetSchedule> body = MyListResponse.<CareTargetSchedule>builder()
                 .header(StatusEnum.OK)
@@ -63,4 +65,28 @@ public class JobOfferApiController {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<MyListResponse>(body, headers, HttpStatus.OK);
     }
+
+    @PostMapping("/recruitions/recruition")
+    public ResponseEntity<MyResponse> saveJobOffer(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                                   @ModelAttribute JobOfferDTO jobOfferDTO){
+        Member username = principalDetails.getUser();
+        jobOfferDTO.setMember(username);
+
+        jobOfferService.save(jobOfferDTO);
+
+        MyResponse<JobOfferDTO> body = MyResponse.<JobOfferDTO>builder()
+                .header(StatusEnum.OK)
+                .message("구인글 등록 성공")
+                .body(jobOfferDTO)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
+
+//    @PatchMapping("/recruitions/recruition")
+//    public ResponseEntity<MyResponse> updateJobOffer(@AuthenticationPrincipal PrincipalDetails principalDetails,
+//                                                     @ModelAttribute JobOfferDTO jobOfferDTO) {
+//
+//    }
 }

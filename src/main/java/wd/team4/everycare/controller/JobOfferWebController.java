@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import wd.team4.everycare.config.auth.PrincipalDetails;
@@ -33,11 +34,15 @@ public class JobOfferWebController {
     private final CareTargetRepository careTargetRepository;
     private final CareTargetScheduleRepository careTargetScheduleRepository;
 
-    @GetMapping("/recruitions")
-    public ResponseEntity<MyListResponse> getJobOffer() {
+/* 뷰로 변경
+
+   --- 조회
+   @GetMapping("/recruitions")
+    public ResponseEntity<MyListResponse> getJobOffer(Model model) {
 
         List<JobOffer> jobOffers = jobOfferService.getJobOffer();
 
+        model.addAttribute("jobOffers",jobOffers);
         MyListResponse<JobOffer> body = MyListResponse.<JobOffer>builder()
                 .header(StatusEnum.OK)
                 .message("조회 성공")
@@ -47,6 +52,7 @@ public class JobOfferWebController {
         return new ResponseEntity<MyListResponse>(body, headers, HttpStatus.OK);
     }
 
+    --- 상세 조회
     @GetMapping("/recruitions/recruition/{id}")
     public ResponseEntity<MyOptionalResponse> getDetailJobOffer(@PathVariable("id") Long id) {
 
@@ -71,7 +77,7 @@ public class JobOfferWebController {
         }
     }
 
-
+    -- 등록
     @GetMapping("/recruitions/new")
     public ResponseEntity<MyListResponse> newJobOffer(@AuthenticationPrincipal PrincipalDetails principalDetails) {
 
@@ -88,4 +94,40 @@ public class JobOfferWebController {
 
         return new ResponseEntity<MyListResponse>(body, headers, HttpStatus.OK);
     }
+
+    */
+
+    @GetMapping("/recruitions")
+    public String getJobOffer(Model model) {
+
+        List<JobOffer> jobOffers = jobOfferService.getJobOffer();
+        model.addAttribute("jobOffers",jobOffers);
+        return "joboffers";
+    }
+
+
+
+    @GetMapping("/recruitions/recruition/{id}")
+    public String getDetailJobOffer(@PathVariable("id") Long id, Model model) {
+
+        Optional<JobOffer> findJobOffer = jobOfferService.getDetailJobOffer(id);
+        if(findJobOffer.isPresent()){
+            model.addAttribute("find", findJobOffer.get());
+        }else{
+            return "없음";
+        }
+        return "joboffer-view";
+    }
+
+    @GetMapping("/recruitions/new")
+    public String newJobOffer(@AuthenticationPrincipal PrincipalDetails principalDetails, Model model) {
+
+        Member user = principalDetails.getUser();
+
+        List<CareTarget> findCareTarget = careTargetRepository.findAllByMember_Id(user.getId());
+        model.addAttribute("careTarget", findCareTarget);
+
+        return "joboffer-new";
+    }
+
 }

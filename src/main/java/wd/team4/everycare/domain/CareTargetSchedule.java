@@ -25,10 +25,10 @@ public class CareTargetSchedule {
     @Column(name = "care_target_schedule_name", length = 50, nullable = false)
     private String name;
 
-    @Column(name = "care_target_schedule_start_time", length = 4, nullable = false)
+    @Column(name = "care_target_schedule_start_time", length = 5, nullable = false)
     private String startTime;
 
-    @Column(name = "care_target_schedule_end_time", length = 4, nullable = false)
+    @Column(name = "care_target_schedule_end_time", length = 5, nullable = false)
     private String endTime;
 
     @ManyToOne
@@ -46,9 +46,5 @@ public class CareTargetSchedule {
     @ManyToOne
     @JoinColumn(name = "care_note_id")
     private CareNote careNote;
-
-    @OneToOne
-    @JoinColumn(name = "job_offer_id")
-    private JobOffer jobOffer;
 
 }

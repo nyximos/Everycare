@@ -1,5 +1,6 @@
 package wd.team4.everycare.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import wd.team4.everycare.domain.CareTarget;
@@ -24,22 +25,25 @@ public class JobOffer {
     @Column(name = "job_offer_id", nullable = false)
     private Long id;
 
+    @Column(name = "job_offer_title", nullable = false)
+    private String title;
+
     @Column(name = "job_offer_start_date", nullable = false)
-    @DateTimeFormat(pattern = "yyyyMMdd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate startDate;
 
     @Column(name = "job_offer_end_date", nullable = false)
-    @DateTimeFormat(pattern = "yyyyMMdd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate endDate;
 
     @Column(name = "job_offer_desired_day_week", length = 50)
     private String desiredDayWeek;
 
-    @Column(name = "job_offer_desired_start_time",length = 4)
+    @Column(name = "job_offer_desired_start_time",length = 5)
     private String desiredStartTime;
 
-    @Column(name = "job_offer_activity_time", length = 4)
-    private String desiredActivityTime;
+    @Column(name = "job_offer_end_time", length = 5)
+    private String desiredEndTime;
 
     @Column(name = "job_offer_pay", nullable = false)
     private int pay;
@@ -59,19 +63,27 @@ public class JobOffer {
     @JoinColumn(name = "care_target_id")
     private CareTarget careTarget;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="care_target_schedule_id")
+    private CareTargetSchedule careTargetSchedule;
+
     @Builder
-    public JobOffer(Long id, LocalDate startDate, LocalDate endDate, String desiredDayWeek, String desiredStartTime, String desiredActivityTime, int pay, Gender desiredCareSitterGender, String comment) {
-        this.id = id;
+    public JobOffer(String title, LocalDate startDate, LocalDate endDate, String desiredDayWeek, String desiredStartTime, String desiredEndTime, int pay, Gender desiredCareSitterGender, String comment, CareTarget careTarget, CareTargetSchedule careTargetSchedule, Member member) {
+        this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
         this.desiredDayWeek = desiredDayWeek;
         this.desiredStartTime = desiredStartTime;
-        this.desiredActivityTime = desiredActivityTime;
+        this.desiredEndTime = desiredEndTime;
         this.pay = pay;
         this.desiredCareSitterGender = desiredCareSitterGender;
         this.comment = comment;
+        this.careTarget = careTarget;
+        this.careTargetSchedule = careTargetSchedule;
+        this.member = member;
     }
 
-    public JobOffer(Long id, LocalDate startDate, LocalDate endDate, String desiredDayWeek, String desiredStartTime, String desiredActivityTime, int pay, String comment, Gender desiredCareSitterGender) {
-    }
+//    public void updateJobInfo(JobOfferDTO jobOfferDTO){
+//        if(jobOfferDTO)
+//    }
 }
