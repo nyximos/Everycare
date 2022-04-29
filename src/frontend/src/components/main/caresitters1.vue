@@ -3,10 +3,10 @@
      <div class="title">
         시터찾기
     </div>
-    <!-- <div class="rlist">
+    <div class="rlist">
         <div class="list_more">
             <ul class="ul01">
-                <li class="li01" v-for="(userData,idx) in $store.state.careprofileStore" :key="idx">
+                <li class="li01" v-for="profile in profiles" :key="profile.id">
                         <span class="tab01">
                             <span class="img01">
                                 <img src="@/assets/user.png" class="vertical">
@@ -14,32 +14,32 @@
                         </span>
                         <span class="tab02">
                             <span class="category">
-                                학습,등하원
+                                {{profile.preferredType}}
                                 <span class="edit_date">1시간전</span>
                             </span>
-                            <span class="name">{{userData.name}}
-                                <span class="age">{{userData.age}}</span>
+                            <span class="name">나이
+                                <span class="age">이름</span>
                             </span>
-                            <span class="area">서울 강남구,경기 성남시</span>
+                            <span class="area">{{profile.hopefulRegion}}</span>
                                 <span class="pay">
-                                    시급
+                                    {{profile.desiredHourlyWage}}
                                     <span class="bar0101">&nbsp;</span>
-                                    <span class="week01">주6일가능</span>
+                                    <span class="week01">{{profile.desiredDayWeek}}</span>
                                 </span>
                         </span>
                         <div class="bar01"></div>
                         <span class="tab03">
-                            <span class="icon03">추가접종</span>
+                            <span class="icon03">{{profile.vaccination}}</span>
                             <span class="text01">10년이상</span>
-                            <span class="text01">신생아(0~6개월)</span>
+                            <span class="text01">{{profile.preferredType}}</span>
                         </span>       
                 </li>
             </ul>
         </div>
-    </div> -->
-    <v-card v-for="(userData,index) in $store.state.careprofileStore" :key="index">
+    </div>
+    <!-- <v-card v-for="(userData,index) in $store.state.careprofileStore" :key="index">
         <p>{{userData.name}}</p>
-    </v-card>
+    </v-card> -->
     <div class="text-center">
     <v-pagination v-model="page" :length="4" circle></v-pagination>
   </div>
@@ -49,10 +49,20 @@
 <script>
 export default {
     data(){
-        return{
-            page:1,   
-        }
-    },
+		return{
+            page:1,
+			profiles:[]
+		}
+	},
+	mounted(){
+			this.$http.get("/api/dashboard/caresitter")
+			.then((res)=>{
+				this.profiles = res.data
+			}).catch(err =>{
+				alert(err);
+				console.log(err);
+			})
+	}
 }
 </script>
 
@@ -99,7 +109,7 @@ export default {
     text-align: left;
 }
 .rlist .list_more .ul01 .li01 .tab01{
-    float: left;
+    /* float: left; */
     width: 100px;
     display: inline-block;
     position: relative;

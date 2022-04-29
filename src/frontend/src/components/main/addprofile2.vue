@@ -20,23 +20,23 @@
 								<li class="contact">
 								<span class="info-title">연락처</span>010-****-****
 								</li>
-								<li class="mail"><span class="info-title">이메일</span><span class="star">****</span>@<span class="star">naver.com</span></li>
+								<li class="mail"><span class="info-title">이메일</span><span class="star">****</span>@<span class="star">이메일.com</span></li>
 							</ul>
 					</div>
 					<div id="ResumeCareer" class="resumeView">
 						<h2>정보</h2>
 						<div class="infoArea first"> 	
 							<div class="nameArea">
-								<dt class="title">CCTV 동의여부:{{$store.state.careprofileStore.cctv}}	</dt>
+								<dt class="title">CCTV 동의여부:{{$store.state.careprofileStore.cctvAgreement}}	</dt>
 								<!-- <p class="date">CCTV 동의여부:{{this.$store.state.careprofileStore.cctv}}</p> -->
 							</div> 	
 							<dl class="infoDetail"> 		
-								<dt class="title">백신접종: <span>{{$store.state.careprofileStore.vaccine}}</span></dt> 
+								<dt class="title">백신접종: <span>{{$store.state.careprofileStore.vaccination}}</span></dt> 
 								
-								<dd class="date"><strong> 자격증</strong></dd> 
+								<dt class="title">자격증</dt> 
 								<dd class="kind">
 									<ul>
-										<li>자격증1<br>자격증2</li>
+										
 									</ul> 		
 								</dd> 	
 							</dl> 
@@ -62,18 +62,18 @@
 								<tr>
 									<td>
 										<dl class="item">
-											<dt class="title">{{$store.state.careprofileStore.hopeday}}</dt>
+											<dt class="title">{{$store.state.careprofileStore.desiredDayWeek}}</dt>
 										</dl>
 									</td>
 									<td>
 										<dl class="item">
-											<dt class="title">{{$store.state.careprofileStore.starttimepicker}}~{{this.$store.state.careprofileStore.endtimepicker}}</dt>
+											<dt class="title">{{$store.state.careprofileStore.activityTime}}</dt>
 										</dl>
 									</td>
 									<td>
 										<dl class="item">
 											<dt class="title">{{$store.state.careprofileStore.pay}}</dt>
-											<dd>{{$store.state.careprofileStore.paytype}}</dd>
+											<dd>{{$store.state.careprofileStore.desiredHourlyWage}}</dd>
 										</dl>
 									</td>
 								</tr>
@@ -83,9 +83,9 @@
 							<li>
 								<span class="title">희망근무지</span>
 								<p class="result">
-									1순위:{{$store.state.careprofileStore.hopeloc1}}&nbsp;&nbsp;&nbsp; 
-									2순위:{{$store.state.careprofileStore.hopeloc2}}&nbsp;&nbsp;&nbsp;
-									3순위:{{$store.state.careprofileStore.hopeloc3}}
+									1순위:{{$store.state.careprofileStore.hopefulRegion}}&nbsp;&nbsp;&nbsp; 
+									2순위:{{$store.state.careprofileStore.hopefulRegion1}}&nbsp;&nbsp;&nbsp;
+									3순위:{{$store.state.careprofileStore.hopefulRegion2}}
 								</p>
 						
 							</li>
@@ -97,7 +97,7 @@
 					</div>
 					<div id="ResumePR" class="resumeView">
 						<h2>자기소개서</h2>
-						<div class="ResumeOpenBox"><span class="lockIcon"></span><p class="first">{{$store.state.careprofileStore.intro}}</p></div>
+						<div class="ResumeOpenBox"><span class="lockIcon"></span><p class="first">{{$store.state.careprofileStore.introduction}}</p></div>
 					</div>
                     <div id="#" class="resumeView">
                         <h2>후기</h2>
@@ -114,7 +114,29 @@
 
 <script>
 export default {
-
+	data(){
+		return{
+			profile:{}
+		}
+	},
+		created(){
+			// var id = this.$route.params.id;
+			this.$http.get('/api/dashboard/caresitter/${id}')
+			.then((res)=>{
+				this.profile = res.data[0]
+			})
+		
+	}
+	// created:function(){
+	// 	var id = this.$route.params.id;
+	// 	this.$http.get('/api/dashboard/caresitter/${id}')
+	// 	.then((response) =>{
+	// 		this.profile = response.data
+	// 	}).catch(err =>{
+	// 		alert(err);
+	// 		console.log(err);
+	// 	})
+	// }
 }
 </script>
 

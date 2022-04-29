@@ -1,10 +1,10 @@
 <template>
   <div>
-      <h2>이미지</h2>
+      <h2>사진</h2>
         <v-file-input  type="file" v-model="image" truncate-length="22" label="사진을 넣으세요" ></v-file-input>                
        <h5>자기소개</h5>
         <textarea type="text" class="content_add" placeholder="자기소개써주세요" v-model="introduction"></textarea>
-        <h2>희망근무지여</h2> 
+        <h2>희망근무지역</h2> 
         <span class="area_stitle">1지망</span>
                 <v-select name="sido1" id="sido1"
                     v-model="hopeloc1"
