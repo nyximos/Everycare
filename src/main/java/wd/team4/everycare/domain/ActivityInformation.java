@@ -22,13 +22,11 @@ public class ActivityInformation {
     @Column(name = "activity_information_id", nullable = false)
     private Long id;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     @Column(name = "activity_information_start_time", nullable = false)
-    private LocalTime startTime;
+    private String startTime;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     @Column(name = "activity_information_end_time", nullable = false)
-    private LocalTime endTime;
+    private String endTime;
 
     @Column(name = "activity_information_requirement", length = 500)
     private String activityInformationRequirement;

@@ -10,6 +10,7 @@ import lombok.*;
 @ToString
 public class CareTargetScheduleDTO {
 
+    private Long id;
     private String name;
     private String startTime;
     private String endTime;

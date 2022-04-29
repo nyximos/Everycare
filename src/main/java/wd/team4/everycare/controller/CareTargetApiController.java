@@ -24,7 +24,7 @@ public class CareTargetApiController {
     private final CareTargetServiceImpl careTargetService;
     private final CareTargetRepository careTargetRepository;
 
-    @PostMapping("/carenote/caretargets/new")
+    @PostMapping("/dashboard/caretargets/new")
     public ResponseEntity<MyResponse> saveCareTarget(
             @ModelAttribute CareTargetFormDTO careTargetFormDTO,
             @AuthenticationPrincipal PrincipalDetails principalDetails
@@ -45,7 +45,7 @@ public class CareTargetApiController {
         return new ResponseEntity<>(body, headers, HttpStatus.OK);
     }
 
-    @PatchMapping("/carenote/caretargets/{id}")
+    @PatchMapping("/dashboard/caretargets/{id}")
     public ResponseEntity<MyResponse> patchCareTarget(
             @PathVariable("id") Long id,
             @ModelAttribute CareTargetFormDTO careTargetFormDTO
@@ -58,7 +58,7 @@ public class CareTargetApiController {
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
-    @DeleteMapping("/carenote/caretargets/{id}")
+    @DeleteMapping("/dashboard/caretargets/{id}")
     public ResponseEntity<MyResponse> deleteCareTarget(@PathVariable("id") Long id ){
         careTargetRepository.deleteById(id);
         MyResponse body = MyResponse.builder()

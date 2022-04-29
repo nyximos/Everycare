@@ -26,7 +26,7 @@ public class CareTargetWebController {
     private final CareTargetRepository careTargetRepository;
     private final CareTargetScheduleServiceImpl careTargetScheduleService;
 
-    @GetMapping("/carenote/caretargets")
+    @GetMapping("/dashboard/caretargets")
     public String caretargets(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
         String id = principalDetails.getUsername();
         List<CareTarget> careTargets = careTargetService.findCareTargets(id);
@@ -36,12 +36,12 @@ public class CareTargetWebController {
         return "caretargets";
     }
 
-    @GetMapping("/carenote/caretargets/new")
+    @GetMapping("/dashboard/caretargets/new")
     public String newCareTarget() {
         return "caretarget-new";
     }
 
-    @GetMapping("/carenote/caretargets/{id}")
+    @GetMapping("/dashboard/caretargets/{id}")
     public String careTargetDetail(@PathVariable Long id, Model model){
 
         CareTargetViewDTO careTarget = careTargetService.findCareTarget(id);
@@ -54,7 +54,7 @@ public class CareTargetWebController {
         return "caretarget-view";
     }
 
-    @GetMapping("/carenote/caretargets/{id}/update")
+    @GetMapping("/dashboard/caretargets/{id}/update")
     public String updateCareTarget(@PathVariable Long id, Model model){
         Optional<CareTarget> careTarget = careTargetRepository.findById(id);
         if(careTarget.isEmpty()) return null;

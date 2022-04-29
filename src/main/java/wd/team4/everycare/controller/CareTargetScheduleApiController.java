@@ -15,7 +15,7 @@ public class CareTargetScheduleApiController {
     private final CareTargetScheduleServiceImpl careTagetScheduleService;
 
     @ResponseBody
-    @PostMapping("/carenote/caretargets/{id}/schedules")
+    @PostMapping("/dashboard/caretargets/{id}/schedules")
     public ResponseEntity<MyResponse> saveSchedule(@ModelAttribute CareTargetScheduleDTO careTargetScheduleDTO,
                                                    @PathVariable("id") Long id){
         System.out.println("id = " + id);

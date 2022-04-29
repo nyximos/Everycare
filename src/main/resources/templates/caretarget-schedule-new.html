@@ -39,7 +39,7 @@
             formData.append('careTarget', id);
 
             $.ajax({
-                url: "/api/carenote/caretargets/"+id+"/schedules",
+                url: "/api/dashboard/caretargets/"+id+"/schedules",
                 type: 'POST',
                 cache: false,
                 contentType: false,
@@ -49,7 +49,7 @@
                 async: false,
             })
 
-            location.href = "/carenote/caretargets/"+id;
+            location.href = "/dashboard/caretargets/"+id;
         });
     </script>
 </div>

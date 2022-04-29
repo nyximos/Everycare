@@ -74,7 +74,7 @@
       /*]]*/
 
       $.ajax({
-        url: "/api/carenote/caretargets/"+id,
+        url: "/api/dashboard/caretargets/"+id,
         type: 'PATCH',
         cache: false,
         contentType: false,
@@ -83,7 +83,7 @@
         data: formData,
         async: false,
       })
-      location.href="/carenote/caretargets";
+      location.href="/dashboard/caretargets";
     });
 
   </script>

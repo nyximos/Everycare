@@ -1,10 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>스케줄 조회</title>
+    <meta charset="UTF-8"/>
+    <title>스케줄 관리</title>
 </head>
 <body>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>스케줄 관리</h2>
+        </div>
 
+        <div>
+            스케줄명: <span th:text="${schedule.name}"></span><br/>
+            시작시간: <span th:text="${schedule.startTime}"></span><br/>
+            종료시간:<span th:text="${schedule.endTime}"></span><br/>
+        </div>
+
+        <h2>활동 목록</h2>
+        <th:block th:if="${activityInformations} != null">
+            <li><a th:href="@{/carenote/caretargets/{id}(id=${careTarget.id})/schedules/{id}(id=${schedule.id})/carenote/caretargets/new}">활동 등록</a></li>
+            <div th:each="activityInformation : ${activityInformations}"
+                 th:onclick="'location.href=\''+ @{/carenote/caretargets/{id}(id=${careTarget.id})/schedules/{id}(id=${schedule.id})/{id}(id=${activityInformation.id})">
+                활동명:<span th:text="${activityInformation.activityClassification.name}"></span><br/>
+                시작시간: <span th:text="${activityInformation.startTime}"></span><br/>
+                종료시간:<span th:text="${activityInformation.endTime}"></span><br/>
+                요구사항:<span th:text="${activityInformation.activityInformationRequirement}"></span><br/>
+                <input id="updateButton" type="button" value="수정"/>
+                <input id="deleteButton" type="button" value="삭제"/>
+            </div>
+
+
+            <!-- /container -->
+
+            <script th:inline="javascript">
+                /*<![CDATA]*/
+                var careTargetId = /*[[ ${careTarget.id} ]]*/'';
+                var scheduleId = /*[[ ${schedule.id} ]]*/'';
+                var activityInformationId = /*[[ ${activityInformation.id} ]]*/'';
+
+                /*]]*/
+                $('#updateButton').on('click', function () {
+                    location.href = "/dashboard/caretargets/" + careTargetId + "/schedules/" + scheduleId + "/activities" + activityInformationId + "/update";
+                })
+
+                $('#deleteButton').on('click', function () {
+
+                    $.ajax({
+                        url: "/api/dashboard/caretargets/" + id,
+                        type: 'DELETE',
+                        cache: false,
+                        data: {
+                            "id": id
+                        },
+                        dataType: "json",
+                        async: false,
+                    })
+
+                    location.href = "/dashboard/caretargets";
+                })
+
+            </script>
+        </th:block>
+        <th:block th:if="${careSitters} == null">
+            <li><a th:href="@{/carenote/caretargets/{id}(id=${careTarget.id})/schedules/{id}(id=${schedule.id})/carenote/caretargets/new}">활동 등록</a></li>
+        </th:block>
+    </div>
+</div>
 </body>
 </html>

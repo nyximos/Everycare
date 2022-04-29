@@ -1,13 +1,9 @@
 package wd.team4.everycare.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import wd.team4.everycare.dto.CareTargetScheduleDTO;
 
 import javax.persistence.*;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -62,6 +58,7 @@ public class CareTargetSchedule {
 
     public CareTargetScheduleDTO toDTO(){
         return CareTargetScheduleDTO.builder()
+                .id(this.id)
                 .name(this.name)
                 .startTime(this.startTime)
                 .endTime(this.endTime)
