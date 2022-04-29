@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Fetch;
 import org.springframework.format.annotation.DateTimeFormat;
 import wd.team4.everycare.dto.CareTargetFormDTO;
+import wd.team4.everycare.dto.CareTargetViewDTO;
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
@@ -140,5 +141,44 @@ public class CareTarget {
         if(StringUtils.isNotBlank(String.valueOf(careTargetFormDTO.getCoronaTest()))) {
             this.coronaTest = careTargetFormDTO.getCoronaTest();
         }
+    }
+
+    public CareTargetFormDTO toFormDTO(){
+        return CareTargetFormDTO.builder()
+                .name(this.name)
+                .gender(this.gender)
+                .birth(this.birth)
+                .height(this.height)
+                .weight(this.weight)
+                .zipcode(this.zipcode)
+                .address(this.address)
+                .detailedAddress(this.detailedAddress)
+                .longTermCareGrade(this.longTermCareGrade)
+                .comment(this.comment)
+                .pet(this.pet)
+                .isCctvAgreement(this.isCctvAgreement)
+                .careType(this.careType)
+                .coronaTest(this.coronaTest)
+                .build();
+    }
+
+    public CareTargetViewDTO toViewDTO(){
+        return CareTargetViewDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .gender(this.gender)
+                .birth(this.birth)
+                .height(this.height)
+                .weight(this.weight)
+                .zipcode(this.zipcode)
+                .address(this.address)
+                .detailedAddress(this.detailedAddress)
+                .longTermCareGrade(this.longTermCareGrade)
+                .comment(this.comment)
+                .pet(this.pet)
+                .isCctvAgreement(this.isCctvAgreement)
+                .careType(this.careType)
+                .coronaTest(this.coronaTest)
+                .build();
     }
 }

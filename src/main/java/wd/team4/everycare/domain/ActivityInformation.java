@@ -1,11 +1,13 @@
 package wd.team4.everycare.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 
 @Getter
 @NoArgsConstructor
@@ -20,31 +22,36 @@ public class ActivityInformation {
     @Column(name = "activity_information_id", nullable = false)
     private Long id;
 
-    @Column(name = "activity_information_start_time", length = 4, nullable = false)
-    private String startTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+    @Column(name = "activity_information_start_time", nullable = false)
+    private LocalTime startTime;
 
-    @Column(name = "activity_information_end_time", length = 4, nullable = false)
-    private String endTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
+    @Column(name = "activity_information_end_time", nullable = false)
+    private LocalTime endTime;
+
+    @Column(name = "activity_information_requirement", length = 500)
+    private String activityInformationRequirement;
 
     @Column(name = "activity_information_content", length = 255)
     private String content;
 
-    @Column(name = "activity_information_file_name", length = 255)
-    private String fileName;
+    @Column(name = "activity_information_upload_file_name", length = 255)
+    private String uploadFileName;
 
-    @Column(name = "activity_information_file_path", length = 255)
-    private String filePath;
+    @Column(name = "activity_information_store_file_name", length = 255)
+    private String storeFileName;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_target_schedule_id")
     private CareTargetSchedule careTargetSchedule;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "activity_classification_id")
     private ActivityClassification activityClassification;
 
-    @ManyToOne
-    @JoinColumn(name = "detail_activity_id")
-    private DetailActivity detailActivity;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "care_sitter_activity_id")
+    private CareSitterActivity careSitterActivity;
 
 }

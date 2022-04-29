@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
-import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.CareTargetFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
@@ -16,7 +15,6 @@ import wd.team4.everycare.repository.CareTargetRepository;
 import wd.team4.everycare.service.CareTargetServiceImpl;
 
 import java.io.IOException;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,7 +30,7 @@ public class CareTargetApiController {
             @ModelAttribute CareTargetFormDTO careTargetFormDTO,
             @AuthenticationPrincipal PrincipalDetails principalDetails
     ) throws IOException {
-
+        
         Member user = principalDetails.getUser();
         careTargetFormDTO.setMember(user);
 

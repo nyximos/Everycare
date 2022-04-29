@@ -26,6 +26,7 @@ public class CareSitterApiController {
 
     @ResponseBody
     @PostMapping("/dashboard/caresitter")
+
     public ResponseEntity<MyResponse> saveCareSitter(
             @ModelAttribute CareSitterFormDTO careSitterFormDTO,
             @AuthenticationPrincipal PrincipalDetails principalDetails
@@ -34,7 +35,6 @@ public class CareSitterApiController {
         LocalDateTime time = LocalDateTime.now();
         careSitterFormDTO.setCreatedAt(time);
         careSitterFormDTO.setUpdatedAt(time);
-
         System.out.println("careSitterFormDTO = " + careSitterFormDTO);
         System.out.println("principalDetails = " + principalDetails);
 

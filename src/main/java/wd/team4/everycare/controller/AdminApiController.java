@@ -15,14 +15,16 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/admin")
 public class AdminApiController {
 
     private final AdminServiceImpl adminService;
     private final MemberRepository memberRepository;
 
-    @PostMapping("/admin/members/{id}")
+    @PostMapping("/members/{id}")
     public ResponseEntity<MyResponse> postAdmin(@PathVariable("id") String id){
+
+
         System.out.println("id = " + id);
         LocalDateTime time = LocalDateTime.now();
 
@@ -31,12 +33,18 @@ public class AdminApiController {
         Member member = member1.orElse(null);
         System.out.println("member = " + member);
 
-        adminService.registration(id,time);
+        adminService.registrationAdmin(id,time);
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("성공했슴다~")
                 .build();
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @PostMapping("/stores/{id}")
+    public ResponseEntity<MyResponse> postStore(@PathVariable("id") Long id){
+        ResponseEntity<MyResponse> responseEntity = adminService.approveStore(id);
+        return responseEntity;
     }
 }
