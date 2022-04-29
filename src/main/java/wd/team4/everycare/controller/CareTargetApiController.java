@@ -30,7 +30,7 @@ public class CareTargetApiController {
             @ModelAttribute CareTargetFormDTO careTargetFormDTO,
             @AuthenticationPrincipal PrincipalDetails principalDetails
     ) throws IOException {
-
+        
         Member user = principalDetails.getUser();
         careTargetFormDTO.setMember(user);
 
