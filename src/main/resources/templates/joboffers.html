@@ -9,12 +9,12 @@
 <h2></h2>
 <div th:each="j : ${jobOffers}">
     <ul class="details"  th:id="${j.id}">
-        <li th:text="${j.title}"></li>
-        <li th:text="${j.startDate}"></li>
-        <li th:text="${j.endDate}"></li>
-        <li th:text="${j.comment}"></li>
-        <li th:text="${j.pay}"></li>
-        <li th:text="${j.desiredCareSitterGender}"></li>
+        제목 :<li th:text="${j.title}"></li>
+        시작일 : <li th:text="${j.startDate}"></li>
+        종료일 : <li th:text="${j.endDate}"></li>
+        코멘트 : <li th:text="${j.comment}"></li>
+        급여 : <li th:text="${j.pay}"></li>
+        희망 케어시터 : <li th:text="${j.desiredCareSitterGender}"></li>
     </ul>
 </div>
 </body>

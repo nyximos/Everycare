@@ -34,7 +34,7 @@ public class JobSearchWebController {
     @GetMapping("/jobsearchs")
     public String findJobSearch(Model model) {
         List<CareSitter> allJobSearch = jobSearchService.findAllJobSearch();
-
+        System.out.println("?");
         System.out.println("allJobSearch = " + allJobSearch);
         MyResponse.builder()
                 .header(StatusEnum.OK)
@@ -45,18 +45,16 @@ public class JobSearchWebController {
         return "jobsearchs";
     }
 
-    @GetMapping("/jobserachs/jobsearch")
-    public String findDetailJobSearch(@AuthenticationPrincipal PrincipalDetails principalDetails,
-                                      Model model){
-        String username = principalDetails.getUsername();
-        CareSitter detailJobSearch = jobSearchService.findDetailJobSearch(username);
+    @GetMapping("/jobsearchs/jobsearch/{id}")
+    public String getDetailJobSearch(@PathVariable("id") String id, Model model){
 
-        MyResponse.builder()
-                .header(StatusEnum.OK)
-                .body(detailJobSearch)
-                .message("ok").build();
+        CareSitter detailJobSearch = jobSearchService.findDetailJobSearch(id);
+//        MyResponse.builder()
+//                .header(StatusEnum.OK)
+//                .body(detailJobSearch)
+//                .message("ok").build();
 
         model.addAttribute("detail", detailJobSearch);
-        return "jobserach-view";
+        return "jobsearch-view";
     }
 }
