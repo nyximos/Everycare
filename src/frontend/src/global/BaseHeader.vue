@@ -1,7 +1,7 @@
 <template>
     <header>
         <div class="header">
-            <button class="logo" @click="goMain">logo</button>
+            <div class="logo" @click="goMain()">logo</div>
             <div class="list">
                 <v-btn text>케어매칭</v-btn>
                 <v-btn text>케어노트</v-btn>
