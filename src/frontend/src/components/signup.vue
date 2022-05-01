@@ -1,10 +1,10 @@
 <template>
-    <div>
+    <div class="signup-box">
         <!-- <form name="signUpForm" class="form" role="form"> -->
         <br />
         <h2>회원가입</h2>
         {{ this.$store.state.userStore.id }}
-        <div id="ininput">
+        <div id="in-input">
             <input type="text" v-model="id" name="username" class="form-control input-lg" placeholder="아이디" ng-required="true" />
             <input type="password" v-model="password" name="password" class="form-control input-lg" placeholder="패스워드" ng-required="true" />
             <div>
@@ -24,7 +24,7 @@
             <br />
         </div>
         <!-- </form> -->
-        <button id="upbtn" class="btn btn-lg btn-primary btn-block signup-btn" type="submit" @click="signup">회원가입</button>
+        <button id="up-btn" class="btn btn-lg btn-primary btn-block signup-btn" type="submit" @click="signup">회원가입</button>
     </div>
 </template>
 
@@ -90,17 +90,32 @@ export default {
 </script>
 
 <style>
+.signup-box{
+    position: absolute;
+    top:70%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
 input {
     margin: 10px;
 }
-#ininput {
+#in-input {
     width: 600px;
-    position: relative;
-    left: 20%;
 }
-#upbtn {
+h2{
     position: relative;
-    left: 21%;
-    bottom: 15px;
+    left:13px;
+    color: #69f0ae;
+    text-align: center;
+    padding: 20px;
+}
+#up-btn {
+    position: relative;
+    left:13px;
+    margin: auto;
+    display: block;
+    background-color: #69f0ae;
+    border: 1px solid #69f0ae;
+    color: white;
 }
 </style>

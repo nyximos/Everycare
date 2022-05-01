@@ -7,7 +7,7 @@
                     <v-text-field v-model="json.username" label="Id" placeholder="Placeholder" dense outlined></v-text-field>
                     <v-text-field v-model="json.password" type="password" label="Password" placeholder="Placeholder" dense outlined></v-text-field>
                 </div>
-                <div><v-btn @click="login" color="accent" elevation="2" class="login-button">Login</v-btn></div>
+                <div><v-btn @click="login" color="#69f0ae" elevation="2" class="login-button">Login</v-btn></div>
             </div>
         </div>
     </div>
@@ -80,12 +80,12 @@ export default {
 .login-title {
     font-family: jost;
     font-size: 30px;
-    color: #ec7676;
+    color: #69f0ae;
 }
 .login-title-L {
     font-family: jost;
     font-size: 40px;
-    color: #ec7676;
+    color: #69f0ae;
 }
 .login-input-button {
     display: flex;
