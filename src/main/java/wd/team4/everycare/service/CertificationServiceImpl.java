@@ -97,4 +97,19 @@ public class CertificationServiceImpl implements CertificationService {
         return certificationViewDTOs;
     }
 
+    @Override
+    public List<CareSitter> webFindAllByCareSitter() {
+        List<Certification> certifications = certificationRepository.findAll();
+        List<CareSitter> careSitters = new ArrayList<>();
+        for (Certification certification : certifications) {
+            CareSitter careSitter = certification.getCareSitter();
+            for (CareSitter sitter : careSitters) {
+                if(careSitter == sitter){
+                    break;
+                }
+                careSitters.add(sitter);
+            }
+        }
+        return careSitters;
+    }
 }

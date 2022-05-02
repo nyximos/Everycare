@@ -1,6 +1,7 @@
 package wd.team4.everycare.service.interfaces;
 
 import org.springframework.http.ResponseEntity;
+import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.dto.CertificationFormDTO;
 import wd.team4.everycare.dto.CertificationViewDTO;
 import wd.team4.everycare.dto.response.MyResponse;
@@ -16,4 +17,5 @@ public interface CertificationService {
 
     List<CertificationViewDTO>  webFindAllThatRequireApproval();
 
+    List<CareSitter> webFindAllByCareSitter();
 }

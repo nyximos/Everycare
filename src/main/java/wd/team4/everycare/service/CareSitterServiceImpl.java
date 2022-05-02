@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.CareSitterImage;
 import wd.team4.everycare.domain.Member;
-import wd.team4.everycare.dto.CareSitterFormDTO;
+import wd.team4.everycare.dto.careSitter.CareSitterFormDTO;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.repository.CareSitterImageRepository;
 import wd.team4.everycare.repository.CareSitterRepository;

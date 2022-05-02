@@ -1,5 +1,6 @@
 package wd.team4.everycare.repository;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import wd.team4.everycare.domain.Certification;
@@ -11,5 +12,6 @@ public interface CertificationRepository extends JpaRepository<Certification, Lo
 
     List<Certification> findAllByCareSitterId(Long id);
 
+    @EntityGraph(attributePaths = {"careSitter"})
     List<Certification> findAllByAdminApproval(int i);
 }

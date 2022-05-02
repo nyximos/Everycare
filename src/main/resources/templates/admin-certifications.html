@@ -16,7 +16,8 @@
   <ul>
     <li>자격증명: <span th:text="${certification.name}"></span></li>
     <li>등록일: <span th:text="${certification.createdAt}"></span></li>
-    <li>케어시터 아이디: <span th:text="*{certification.careSitter.id}"></span></li>
+      <li>케어시터 아이디: <span th:text="${certification.careSitter.id}"></span></li>
+      <li>케어시터명: <span th:text="${certification.careSitter.name}"></span></li>
       <img th:src="|/images/${certification.getStoreFileName()}|" width="300" height="300"/>
     <input id="approve" th:onclick="approve([[${certification.id}]])" type="button" value="승인"/>
   </ul>

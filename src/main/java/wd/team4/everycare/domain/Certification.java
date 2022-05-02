@@ -73,7 +73,7 @@ public class Certification {
                 .uploadFileName(this.uploadFileName)
                 .storeFileName(this.storeFileName)
                 .createdAt(this.createdAt)
-                .careSitter(this.careSitter)
+                .careSitter(this.careSitter.toNameDTO())
                 .build();
     }
 
