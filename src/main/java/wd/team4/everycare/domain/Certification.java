@@ -35,6 +35,14 @@ public class Certification {
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime createdAt;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "care_sitter_id")
+    private CareSitter careSitter;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "certification_classification_id")
+    private CertificationClassification certificationClassification;
+
     @Column(name = "certification_admin_approve", nullable = false)
     private int adminApproval;
 
@@ -43,12 +51,8 @@ public class Certification {
     private LocalDateTime approvalDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "care_sitter_id")
-    private CareSitter careSitter;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "certification_classification_id")
-    private CertificationClassification certificationClassification;
+    @JoinColumn(name = "certification_approver")
+    private Member approver;
 
     @Builder
     public Certification(String name, String uploadFileName, String storeFileName, int adminApproval, LocalDateTime createdAt, CareSitter careSitter, CertificationClassification certificationClassification) {
@@ -71,6 +75,12 @@ public class Certification {
                 .createdAt(this.createdAt)
                 .careSitter(this.careSitter)
                 .build();
+    }
+
+    public void approvedByAdmin(int i, LocalDateTime date, Member approver){
+        this.adminApproval = i;
+        this.approvalDate = date;
+        this.approver = approver;
     }
 
 }
