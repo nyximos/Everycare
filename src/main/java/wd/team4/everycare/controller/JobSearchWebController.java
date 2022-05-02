@@ -1,11 +1,15 @@
 package wd.team4.everycare.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.dto.response.MyResponse;
@@ -20,41 +24,29 @@ public class JobSearchWebController {
 
     private final JobSearchServiceImpl jobSearchService;
 
-//    @GetMapping("/jobsearchs")
-//    public MyResponse<Object> findJobSearch() {
-//        MyResponse<Object> allJobSearch = jobSearchService.findAllJobSearch();
-//
-//        MyResponse.builder()
-//                .header(StatusEnum.OK)
-//                .body(allJobSearch)
-//                .message("ㅅㄱ").build();
-//        return allJobSearch;
-//    }
-
     @GetMapping("/jobsearchs")
-    public String findJobSearch(Model model) {
+    public ResponseEntity<MyResponse> findJobSearch(Model model) {
         List<CareSitter> allJobSearch = jobSearchService.findAllJobSearch();
-        System.out.println("?");
-        System.out.println("allJobSearch = " + allJobSearch);
-        MyResponse.builder()
+
+        MyResponse<Object> body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .body(allJobSearch)
-                .message("ㅅㄱ").build();
-
-        model.addAttribute("search", allJobSearch);
-        return "jobsearchs";
+                .message("ok").
+                build();
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 
     @GetMapping("/jobsearchs/jobsearch/{id}")
-    public String getDetailJobSearch(@PathVariable("id") String id, Model model){
+    public ResponseEntity<MyResponse> getDetailJobSearch(@PathVariable("id") String id, Model model){
 
         CareSitter detailJobSearch = jobSearchService.findDetailJobSearch(id);
-//        MyResponse.builder()
-//                .header(StatusEnum.OK)
-//                .body(detailJobSearch)
-//                .message("ok").build();
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .body(detailJobSearch)
+                .message("ok")
+                .build();
 
-        model.addAttribute("detail", detailJobSearch);
-        return "jobsearch-view";
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 }
