@@ -10,4 +10,6 @@ import java.util.List;
 public interface CertificationRepository extends JpaRepository<Certification, Long> {
 
     List<Certification> findAllByCareSitterId(Long id);
+
+    List<Certification> findAllByAdminApproval(int i);
 }

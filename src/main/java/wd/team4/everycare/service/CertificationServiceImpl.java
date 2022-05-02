@@ -82,4 +82,19 @@ public class CertificationServiceImpl implements CertificationService {
 
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
+
+    @Override
+    public List<CertificationViewDTO> webFindAllThatRequireApproval() {
+        List<Certification> certifications = certificationRepository.findAllByAdminApproval(0);
+        List<CertificationViewDTO> certificationViewDTOs = new ArrayList<>();
+
+        if(certifications.isEmpty()){
+            return null;
+        }
+
+        certifications.stream().map(certification -> certification.toViewDTO()).forEach(certificationViewDTOs::add);
+
+        return certificationViewDTOs;
+    }
+
 }

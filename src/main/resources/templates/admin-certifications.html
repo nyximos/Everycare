@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <meta charset="UTF-8"/>
+    <title>케어시터 자격증 관리</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>케어시터 자격증 관리</h2>
+            <div>
+<div th:each="certification : ${certifications}">
+  <ul>
+    <li>자격증명: <span th:text="${certification.name}"></span></li>
+    <li>등록일: <span th:text="${certification.createdAt}"></span></li>
+    <li>케어시터 아이디: <span th:text="*{certification.careSitter.id}"></span></li>
+      <img th:src="|/images/${certification.getStoreFileName()}|" width="300" height="300"/>
+    <input id="approve" th:onclick="approve([[${certification.id}]])" type="button" value="승인"/>
+  </ul>
+</div>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+
+        function approve(id){
+            console.log(id);
+            $.ajax({
+                url: "/api/admin/certifications/"+id,
+                type: 'POST',
+                success: function (){
+                    location.href = "/admin/certifications"
+                }
+            })
+        }
+
+    </script>
+</div>
+</body>
+</html>

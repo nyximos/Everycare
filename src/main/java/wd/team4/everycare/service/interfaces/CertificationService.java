@@ -13,4 +13,7 @@ public interface CertificationService {
     List<CertificationViewDTO> findAllByCareSitter(Long id);
 
     ResponseEntity<MyResponse> save(CertificationFormDTO certificationFormDTO) throws IOException;
+
+    List<CertificationViewDTO>  webFindAllThatRequireApproval();
+
 }

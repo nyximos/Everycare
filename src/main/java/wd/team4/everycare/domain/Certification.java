@@ -30,12 +30,17 @@ public class Certification {
     @Column(name = "certification_store_file_name", nullable = false)
     private String storeFileName;
 
-    @Column(name = "certification_admin_approve", nullable = false)
-    private int adminApproval;
 
     @Column(name = "certification_created_at", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime createdAt;
+
+    @Column(name = "certification_admin_approve", nullable = false)
+    private int adminApproval;
+
+    @Column(name = "certification_approval_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
+    private LocalDateTime approvalDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_sitter_id")
@@ -64,6 +69,7 @@ public class Certification {
                 .uploadFileName(this.uploadFileName)
                 .storeFileName(this.storeFileName)
                 .createdAt(this.createdAt)
+                .careSitter(this.careSitter)
                 .build();
     }
 
