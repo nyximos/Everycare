@@ -1,20 +1,23 @@
 <template>
   <div>
       <h2>사진</h2>
-        <v-file-input  type="file" v-model="image" truncate-length="22" label="사진을 넣으세요" ></v-file-input>                
+        <v-file-input  type="file" v-model="attachFiles" id="attachFiles" truncate-length="22" label="사진을 넣으세요" ></v-file-input>                
        <h5>자기소개</h5>
         <textarea type="text" class="content_add" placeholder="자기소개써주세요" v-model="introduction"></textarea>
         <h2>희망근무지역</h2> 
         <span class="area_stitle">1지망</span>
                 <v-select name="sido1" id="sido1"
-                    v-model="hopeloc1"
-                    :items="hopelocation1"
+                    v-model="hope_loc1"
+                    :items="hope_location1"
                     label="시/도"
                     type="text"
                     item-text="name"
                     item-value="value"
-                    onchange="categoryChange(this.value,area_2)" on>
+                    onchange="categoryChange(this)" on>
                 </v-select>
+                <select name="" id="state">
+                  <option>군/구 선택</option>
+                </select>
                 <h5 class="sub_title">희망근무요일</h5>
                       <div class="area6_r_day">
                           <v-checkbox v-model="desiredDayWeek" type="text" value="월요일" label="월"></v-checkbox>
@@ -84,8 +87,8 @@
                           </v-radio-group>
                           </div>
                       </div>
-                      <div class="con1 con03">
-                          <h5 class="sub_title">자격증</h5>
+                      <!-- <div class="con1 con03">
+                          <h5 class="sub_title">이미지</h5>
                           <div class="">
                               <br>
                               <v-file-input 
@@ -97,7 +100,7 @@
                               outlined dense>
                               </v-file-input>
                           </div>
-                      </div>
+                      </div> -->
                <v-btn class="ma-2" outlined color="indigo" @click="submit">등록</v-btn>
   </div>
 </template>
@@ -107,7 +110,7 @@ export default {
     name:'careprofilecreate',
     data(){
         return{
-          hopelocation1:[
+          hope_location1:[
       {name: '서울', value: '서울'},
       {name: '인천', value: '인천'},
       {name: '부산', value: '부산'},
@@ -130,10 +133,10 @@ export default {
       introduction:'',
       desiredHourlyWage:0,
       desiredMonthlyWage:0,
-      hopeloc1:'',
+      hope_loc1:'',
       activityTime:'',
       desiredDayWeek: [],
-      starttimepicker:'',
+      // starttimepicker:'',
       endtimepicker:'',
       preferredType: [],
       cctvAgreement:'',
@@ -150,36 +153,14 @@ export default {
             formData.append('cctvAgreement', this.cctvAgreement);
             formData.append('introduction', this.introduction);
             formData.append('desiredDayWeek', this.desiredDayWeek);
-            formData.append('hopefulRegion', this.hopeloc1);
+            formData.append('hopefulRegion', this.hope_loc1);
             formData.append('desiredHourlyWage', this.desiredHourlyWage);
             formData.append('desiredMonthlyWage', this.desiredMonthlyWage);
             formData.append('activityTime', this.activityTime);
             // formData.append('activityTime', this.starttimepicker + this.endtimepicker);
            for(let i = 0; i< this.attachFiles.length; i++){
              formData.append('attachFiles', this.attachFiles[0]);
-           }            // if('#attachFiles'[0].files[0] == undefined){
-            //   alert("이미지를 첨부해주세요");
-            //   return false;
-            // }else{
-            //   const size = document.getElementById('attachFiles').files.length;
-            //   for(let i = 0; i< size; i++){
-            //     formData.append('attachFiles', 'attachFiles'[0].files[i]);
-            //   }
-            // }
-            // formData.append('hopefulRegion', this.hopeloc1); 
-            // formData.append('hopefulRegion', this.hopeloc1);
-            // preferredType:this.preferredType,
-              // vaccination:this.vaccination,
-              // cctvAgreement:this.cctvAgreement,
-              // certification:this.files.name, 
-              // uploadFileName : this.image.name,
-              // introduction:this.introduction,
-              // desiredDayWeek:this.desiredDayWeek,
-              // activityTime:this.starttimepicker + this.endtimepicker,
-              // hopefulRegion:this.hopeloc1,
-              // desiredHourlyWage: this.desiredHourlyWage,
-              // desiredMonthlyWage: this.desiredMonthlyWage,    
-            this.$http
+           } this.$http
             .post('/api/dashboard/caresitter',formData,{
                 withCredentials:true
             })
@@ -188,7 +169,27 @@ export default {
             }).catch(err=>{
                 console.log(err)
             })
-        }
+        },
+        // categoryChange(e){
+        //   const state = document.getElementById("state");
+
+        //   const gangwon = ["강릉시","동해시"];
+        //   const gyeonggi = ["고양시","과천시"];
+
+        //   if(e.value == "서울"){
+        //     hope_area1 = gangwon;
+        //   }else if(e.value =="인천"){
+        //     add = gyeonggi;
+        //   }
+        //   state.options.length = 1;
+
+        //   for(property in add){
+        //     let opt = document.createElment("option");
+        //     opt.value = add[property];
+        //     opt.innerHTML = add[property]
+        //     state.appendChild(opt)
+        //   }
+        // }
     }
 }
 </script>

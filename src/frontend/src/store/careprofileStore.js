@@ -49,31 +49,31 @@ export default {
         }
     },
     actions: {
-        submit(){
-            const userIntro={
-                preferredType:this.preferredType,
-                hopefulRegion:this.hopefulRegion,
-                desiredDayWeek:this.desiredDayWeek,
-                activityTime:this.activityTime,
-                desiredHourlyWage:this.desiredHourlyWage,
-                desiredMonthlyWage:this.desiredMonthlyWage,
-                cctvAgreement:this.cctvAgreement,
-                vaccination:this.vaccination,
-                introduction:this.introduction,
-                careSitterImages:this.image,
+        // submit(){
+        //     var formData= new FormData();
 
-            }
-            console.log(userIntro)
-            this.$http
-            .post('/api/dashboard/caresitter',userIntro,{
-                withCredentials:true
-            })
-            .then(res=>{
-                console.log(res);
-            }).catch(err=>{
-                console.log(err)
-            })
-        }
+        //     formData.append('preferredType', this.preferredType);
+        //     formData.append('vaccination', this.vaccination);
+        //     formData.append('cctvAgreement', this.cctvAgreement);
+        //     formData.append('introduction', this.introduction);
+        //     formData.append('desiredDayWeek', this.desiredDayWeek);
+        //     formData.append('hopefulRegion', this.hopeloc1);
+        //     formData.append('desiredHourlyWage', this.desiredHourlyWage);
+        //     formData.append('desiredMonthlyWage', this.desiredMonthlyWage);
+        //     formData.append('activityTime', this.activityTime);
+        //     // formData.append('activityTime', this.starttimepicker + this.endtimepicker);
+        //    for(let i = 0; i< this.attachFiles.length; i++){
+        //      formData.append('attachFiles', this.attachFiles[0]);
+        //    } this.$http
+        //     .post('/api/dashboard/caresitter',formData,{
+        //         withCredentials:true
+        //     })
+        //     .then(res=>{
+        //         console.log(res);
+        //     }).catch(err=>{
+        //         console.log(err)
+        //     })
+        // }
         // requestuserData({commit}){
         // axios.post('/api/dashboard/caresitter')
         // .then(response=>{

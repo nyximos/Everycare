@@ -15,7 +15,7 @@
 						</div>
 						
 							<ul class="infoList">
-								<li class="name"><strong>{{$store.state.careprofileStore.name}}</strong> <em>{{$store.state.careprofileStore.sex}}</em>  ·{{$store.state.careprofileStore.age}}(2003년생) <br></li>
+								<li class="name"><strong>{{$store.state.careprofileStore.name}}</strong> <em>{{$store.state.careprofileStore.sex}}</em>  ·{{$store.state.careprofileStore.age}}(년생) <br></li>
 								<li class="address"><span class="info-title">주소</span>경남 거제시 <span class="star">******</span></li>
 								<li class="contact">
 								<span class="info-title">연락처</span>010-****-****
@@ -83,9 +83,9 @@
 							<li>
 								<span class="title">희망근무지</span>
 								<p class="result">
-									1순위:{{$store.state.careprofileStore.hopefulRegion}}&nbsp;&nbsp;&nbsp; 
-									2순위:{{$store.state.careprofileStore.hopefulRegion1}}&nbsp;&nbsp;&nbsp;
-									3순위:{{$store.state.careprofileStore.hopefulRegion2}}
+									1순위:{{$store.state.careprofileStore.hopeloc1}}&nbsp;&nbsp;&nbsp; 
+									2순위:{{$store.state.careprofileStore.hopeloc2}}&nbsp;&nbsp;&nbsp;
+									3순위:{{$store.state.careprofileStore.hopeloc3}}
 								</p>
 						
 							</li>

@@ -3,7 +3,7 @@
      <div class="title">
         시터찾기
     </div>
-    <div class="rlist">
+    <div class="r_list">
         <div class="list_more">
             <ul class="ul01">
                 <li class="li01" v-for="profile in profiles" :key="profile.id">
@@ -73,14 +73,14 @@ export default {
     font-size: 1.2em;
     padding: 0 0 10px 0;
 }
-.rlist{
+.r_list{
     width: 100%;
     max-width: 100%;
     padding: 0;
     box-sizing: border-box;
     position: relative;
 }
-.content .list .div_list .rlist .list_more{
+.content .list .div_list .r_list .list_more{
     width: 100%;
     max-width: 100%;
     padding: 0;
@@ -88,14 +88,14 @@ export default {
     box-sizing: border-box;
     position: relative;
 }
-.rlist .list_more .ul01{
+.r_list .list_more .ul01{
     width: 100%;
     max-width: 100%;
     padding: 0;
     box-sizing: border-box;
     position: relative;
 }
-.rlist .list_more .ul01 .li01{
+.r_list .list_more .ul01 .li01{
     width: 100%;
     max-width: 100%;
     padding: 20px;
@@ -108,14 +108,14 @@ export default {
     background-color: #ffffff;
     text-align: left;
 }
-.rlist .list_more .ul01 .li01 .tab01{
+.r_list .list_more .ul01 .li01 .tab01{
     /* float: left; */
     width: 100px;
     display: inline-block;
     position: relative;
     box-sizing: border-box;
 }
-.rlist .list_more .ul01 .li01 .tab01 .img01{
+.r_list .list_more .ul01 .li01 .tab01 .img01{
     position: relative;
     width: 60px;
     height: 60px;
@@ -132,7 +132,7 @@ export default {
     height: auto;
 }
 .ul01 .li01 .tab02{
-    float: left;
+    /* float: left; */
     width: calc(100% - 100px);
     display: inline-block;
     position: relative;
