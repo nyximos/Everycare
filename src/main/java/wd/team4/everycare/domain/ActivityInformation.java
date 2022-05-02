@@ -1,14 +1,12 @@
 package wd.team4.everycare.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationListViewDTO;
 
 import javax.persistence.*;
-import java.time.LocalTime;
 
 @Getter
 @NoArgsConstructor
@@ -53,6 +51,19 @@ public class ActivityInformation {
     @JoinColumn(name = "care_sitter_activity_id")
     private CareSitterActivity careSitterActivity;
 
+    @Override
+    public String toString() {
+        return "ActivityInformation{" +
+                "id=" + id +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", requirement='" + requirement + '\'' +
+                ", content='" + content + '\'' +
+                ", uploadFileName='" + uploadFileName + '\'' +
+                ", storeFileName='" + storeFileName + '\'' +
+                '}';
+    }
+
     public ActivityInformationListViewDTO toListViewDTO(){
         return ActivityInformationListViewDTO.builder()
                 .id(this.id)
@@ -62,4 +73,18 @@ public class ActivityInformation {
                 .activityClassificationDTO(this.activityClassification.toDTO())
                 .build();
     }
+
+    @Builder
+    public ActivityInformation(String startTime, String endTime, String requirement) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.requirement = requirement;
+    }
+
+    public void save(ActivityClassification activityClassification, CareTargetSchedule careTargetSchedule){
+        this.activityClassification = activityClassification;
+        this.careTargetSchedule = careTargetSchedule;
+    }
+
+
 }

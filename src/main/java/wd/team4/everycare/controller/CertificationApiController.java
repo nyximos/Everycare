@@ -15,7 +15,7 @@ import java.io.IOException;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class CertificationAPIController {
+public class CertificationApiController {
 
     private final CertificationServiceImpl certificationService;
 
