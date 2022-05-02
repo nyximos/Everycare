@@ -3,7 +3,7 @@ package wd.team4.everycare.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import wd.team4.everycare.dto.CareTargetScheduleDTO;
+import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.service.CareTargetScheduleServiceImpl;
 

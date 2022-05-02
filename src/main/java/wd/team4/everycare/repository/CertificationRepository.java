@@ -7,7 +7,6 @@ import wd.team4.everycare.domain.Certification;
 
 import java.util.List;
 
-@Repository
 public interface CertificationRepository extends JpaRepository<Certification, Long> {
 
     List<Certification> findAllByCareSitterId(Long id);

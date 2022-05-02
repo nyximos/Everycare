@@ -1,7 +1,7 @@
 package wd.team4.everycare.domain;
 
 import lombok.*;
-import wd.team4.everycare.dto.CareTargetScheduleDTO;
+import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleDTO;
 
 import javax.persistence.*;
 

@@ -19,9 +19,13 @@
             종료시간:<span th:text="${schedule.endTime}"></span><br/>
         </div>
 
+        <th:block th:if="${activityInformations} == null">
+            <li><a th:href="@{/dashboard/caretargets/{careTargetId}/schedules/{scheduleId}/activities/new(careTargetId=${careTarget.id},scheduleId=${schedule.id})}">활동 등록</a></li>
+        </th:block>
+
         <h2>활동 목록</h2>
         <th:block th:if="${activityInformations} != null">
-            <li><a th:href="@{/carenote/caretargets/{id}(id=${careTarget.id})/schedules/{id}(id=${schedule.id})/carenote/caretargets/new}">활동 등록</a></li>
+            <li><a th:href="@{/dashboard/caretargets/{careTargetId}/schedules/{scheduleId}/activities/new(careTargetId=${careTarget.id},scheduleId=${schedule.id})}">활동 등록</a></li>
             <div th:each="activityInformation : ${activityInformations}"
                  th:onclick="'location.href=\''+ @{/carenote/caretargets/{id}(id=${careTarget.id})/schedules/{id}(id=${schedule.id})/{id}(id=${activityInformation.id})">
                 활동명:<span th:text="${activityInformation.activityClassification.name}"></span><br/>
@@ -37,9 +41,9 @@
 
             <script th:inline="javascript">
                 /*<![CDATA]*/
-                var careTargetId = /*[[ ${careTarget.id} ]]*/'';
-                var scheduleId = /*[[ ${schedule.id} ]]*/'';
-                var activityInformationId = /*[[ ${activityInformation.id} ]]*/'';
+                const careTargetId = /*[[ ${careTarget.id} ]]*/'';
+                const scheduleId = /*[[ ${schedule.id} ]]*/'';
+                const activityInformationId = /*[[ ${activityInformation.id} ]]*/'';
 
                 /*]]*/
                 $('#updateButton').on('click', function () {
@@ -64,9 +68,7 @@
 
             </script>
         </th:block>
-        <th:block th:if="${careSitters} == null">
-            <li><a th:href="@{/carenote/caretargets/{id}(id=${careTarget.id})/schedules/{id}(id=${schedule.id})/carenote/caretargets/new}">활동 등록</a></li>
-        </th:block>
+
     </div>
 </div>
 </body>

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationListViewDTO;
 
 import javax.persistence.*;
 import java.time.LocalTime;
@@ -29,7 +30,7 @@ public class ActivityInformation {
     private String endTime;
 
     @Column(name = "activity_information_requirement", length = 500)
-    private String activityInformationRequirement;
+    private String requirement;
 
     @Column(name = "activity_information_content", length = 255)
     private String content;
@@ -52,4 +53,13 @@ public class ActivityInformation {
     @JoinColumn(name = "care_sitter_activity_id")
     private CareSitterActivity careSitterActivity;
 
+    public ActivityInformationListViewDTO toListViewDTO(){
+        return ActivityInformationListViewDTO.builder()
+                .id(this.id)
+                .startTime(this.startTime)
+                .endTime(this.endTime)
+                .requirement(this.requirement)
+                .activityClassificationDTO(this.activityClassification.toDTO())
+                .build();
+    }
 }

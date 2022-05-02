@@ -6,7 +6,6 @@ import wd.team4.everycare.domain.Store;
 
 import java.util.List;
 
-@Repository
 public interface StoreRepository extends JpaRepository<Store, Long> {
 
     List<Store> findAllByAdminApproval(int adminApproval);
