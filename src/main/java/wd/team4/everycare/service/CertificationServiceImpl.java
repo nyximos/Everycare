@@ -1,15 +1,25 @@
 package wd.team4.everycare.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.Certification;
+import wd.team4.everycare.domain.CertificationClassification;
+import wd.team4.everycare.dto.CertificationFormDTO;
 import wd.team4.everycare.dto.CertificationViewDTO;
+import wd.team4.everycare.dto.UploadFile;
+import wd.team4.everycare.dto.response.MyResponse;
+import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.CareSitterRepository;
+import wd.team4.everycare.repository.CertificationClassificationRepository;
 import wd.team4.everycare.repository.CertificationRepository;
 import wd.team4.everycare.service.interfaces.CertificationService;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +30,9 @@ import java.util.Optional;
 public class CertificationServiceImpl implements CertificationService {
 
     private final CertificationRepository certificationRepository;
-//    private final CareSitterRepository careSitterRepository;
+    private final CareSitterRepository careSitterRepository;
+    private final CertificationClassificationRepository certificationClassificationRepository;
+    private final FileStoreService fileStoreService;
 
     @Override
     public List<CertificationViewDTO> findAllByCareSitter(Long id) {
@@ -37,5 +49,37 @@ public class CertificationServiceImpl implements CertificationService {
         certifications.stream().map(certification -> certification.toViewDTO()).forEach(certificationViewDTOs::add);
 
         return certificationViewDTOs;
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> save(CertificationFormDTO certificationFormDTO) throws IOException {
+        LocalDateTime time = LocalDateTime.now();
+
+        String classificationName = certificationFormDTO.getClassification();
+        CertificationClassification certificationClassification = certificationClassificationRepository.findByName(classificationName);
+
+        Optional<CareSitter> careSitter = careSitterRepository.findById(certificationFormDTO.getCareSitterId());
+        CareSitter careSitterEntity = careSitter.orElse(null);
+
+        UploadFile attachFile = fileStoreService.storeFile(certificationFormDTO.getAttachFile());
+
+        Certification certification = Certification.builder()
+                .name(classificationName)
+                .uploadFileName(attachFile.getUploadFileName())
+                .storeFileName(attachFile.getStoreFileName())
+                .adminApproval(0)
+                .createdAt(time)
+                .careSitter(careSitterEntity)
+                .certificationClassification(certificationClassification)
+                .build();
+
+        certificationRepository.save(certification);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 }

@@ -13,7 +13,7 @@
     </div>
     <form>
       <ul>
-        <li>자격증 분류 <input type="text" name="name" id="name"/></li>
+        <li>자격증 분류 <input type="text" name="classification" id="classification"/></li>
         <li>자격증 사진<input type="file" name="attachFile" id="attachFile"/></li>
       </ul>
       <input id="tokenField" type="hidden"/>
@@ -32,13 +32,14 @@
     $('#submitButton').on('click', function () {
       const formData = new FormData();
 
-      formData.append('name', $('#name').val());
+      formData.append('classification', $('#classification').val());
       if ($('#attachFile')[0].files[0] === undefined) {
         alert("이미지를 첨부해주세요!");
         return false;
       } else {
         formData.append('attachFile', $('#attachFile')[0].files[0]);
       }
+      formData.append('careSitterId', id);
 
       $.ajax({
         url: "/api/dashboard/caresitter/"+id+"/certifications",

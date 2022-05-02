@@ -15,7 +15,6 @@ import java.util.List;
 @SequenceGenerator(name = "certification_seq_generator",
         sequenceName = "certification_seq",
         initialValue = 1, allocationSize = 1)
-
 public class Certification {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "certification_seq_generator")
@@ -41,6 +40,21 @@ public class Certification {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_sitter_id")
     private CareSitter careSitter;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "certification_classification_id")
+    private CertificationClassification certificationClassification;
+
+    @Builder
+    public Certification(String name, String uploadFileName, String storeFileName, int adminApproval, LocalDateTime createdAt, CareSitter careSitter, CertificationClassification certificationClassification) {
+        this.name = name;
+        this.uploadFileName = uploadFileName;
+        this.storeFileName = storeFileName;
+        this.adminApproval = adminApproval;
+        this.createdAt = createdAt;
+        this.careSitter = careSitter;
+        this.certificationClassification = certificationClassification;
+    }
 
     public CertificationViewDTO toViewDTO(){
         return CertificationViewDTO.builder()
