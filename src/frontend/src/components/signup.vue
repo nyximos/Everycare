@@ -92,7 +92,7 @@ export default {
 <style>
 .signup-box{
     position: absolute;
-    top:70%;
+    top:50%;
     left:50%;
     transform: translate(-50%, -50%);
 }

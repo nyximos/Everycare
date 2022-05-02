@@ -34,6 +34,15 @@ export default {
     // },
     methods: {
         login() {
+            if(this.json.username==''){
+                alert('아이디를 입력해주세요.');
+                return;
+            } else if (this.json.password==''){
+                alert('패스워드를 입력해주세요.');
+                return;
+            } else if (this.json.username || this.json.password !== this.json){
+                alert('올바른 계정이 아닙니다.')
+            }
             console.log(this.json);
             this.$http
                 .post('https://localhost:8086/login', this.json, {
