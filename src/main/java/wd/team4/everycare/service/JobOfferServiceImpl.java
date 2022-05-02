@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.dto.JobOfferDTO;
-import wd.team4.everycare.repository.CareTargetRepository;
+import wd.team4.everycare.repository.ContractRepository;
 import wd.team4.everycare.repository.JobOfferRepository;
 import wd.team4.everycare.service.interfaces.JobOfferService;
 
@@ -19,6 +19,7 @@ import java.util.Optional;
 public class JobOfferServiceImpl implements JobOfferService {
 
     private final JobOfferRepository jobOfferRepository;
+    private final ContractRepository contractRepository;
 
     @Override
     public List<JobOffer> getJobOffer() {
@@ -39,14 +40,30 @@ public class JobOfferServiceImpl implements JobOfferService {
         return saveJobOffer;
     }
 
-//    @Override
-//    public JobOffer update(JobOfferDTO jobOfferDTO) {
-//
-//    }
+    @Override
+    public String update(Long id, JobOfferDTO jobOfferDTO) {
+        Optional<JobOffer> jobOffer = jobOfferRepository.findById(id);
+        JobOffer jobOfferEntity = jobOffer.orElse(null);
+        System.out.println("jobOfferEntity = " + jobOfferEntity.getTitle());
+        if(jobOfferEntity == null) {
+            System.out.println("구인글 없음");
+            return "실패";
+        }else {
+            jobOfferEntity.updateInfo(jobOfferDTO);
+            return "완료";
+        }
+    }
 
     @Override
     public void deleteJobOffer(Long id) {
         jobOfferRepository.deleteById(id);
+    }
+
+    @Override
+    public JobOffer offer(Long id, JobOfferDTO jobOfferDTO) {
+        Optional<JobOffer> jobOffer = jobOfferRepository.findById(id);
+
+        return null;
     }
 
 

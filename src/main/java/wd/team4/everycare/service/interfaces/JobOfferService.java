@@ -11,8 +11,9 @@ public interface JobOfferService {
     List<JobOffer> getJobOffer();
     Optional<JobOffer> getDetailJobOffer(Long id);
     JobOffer save(JobOfferDTO jobOfferDTO);
-//    JobOffer update(JobOfferDTO jobOfferDTO);
+    String update(Long id, JobOfferDTO jobOfferDTO);
     void deleteJobOffer(Long id);
+    JobOffer offer(Long id, JobOfferDTO jobOfferDTO);
 
     default JobOffer dtoToEntity(JobOfferDTO dto) {
         JobOffer jobOffer = JobOffer.builder()

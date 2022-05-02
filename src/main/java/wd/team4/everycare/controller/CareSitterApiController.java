@@ -39,7 +39,6 @@ public class CareSitterApiController {
 
         Long careSitterId = careSitterService.save(careSitterFormDTO);
 
-
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("성공했슴다~")

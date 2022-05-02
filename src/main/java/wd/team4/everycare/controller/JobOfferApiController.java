@@ -28,34 +28,22 @@ public class JobOfferApiController {
 
     private final JobOfferServiceImpl jobOfferService;
     private final CareTargetScheduleRepository careTargetScheduleRepository;
-    private final CareTargetRepository careTargetRepository;
 
-
-//    @PostMapping("/recruitions/recruition/{id}")
-//    public List<CareTargetSchedule> putCareTarget(@PathVariable Long id) {
-////        Optional<CareTarget> careTarget = careTargetRepository.findById(id);
-//        List<CareTargetSchedule> findSchedule = careTargetScheduleRepository.findByCareTarget_Id(id);
-//        System.out.println(findSchedule);
-//        return findSchedule;
-//    }
-
-    @GetMapping("/recruitions/recruition/{id}")
+    @DeleteMapping("/recruitions/recruition/{id}")
     public ResponseEntity<MyResponse> deleteJobOffer(@PathVariable("id") Long id) {
         jobOfferService.deleteJobOffer(id);
         MyResponse<JobOffer> body = MyResponse.<JobOffer>builder()
                 .header(StatusEnum.OK)
                 .message("삭제 성공 ")
-                .body(null)
                 .build();
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
     @PostMapping("/recruitions/schedules")
     public ResponseEntity<MyListResponse> regCareTargetSchedule(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                                                 Long id) {
         System.out.println("careTargetId = " + id);
-        List<CareTargetSchedule> findSchedule = careTargetScheduleRepository.findByCareTarget_Id(id);
+        List<CareTargetSchedule> findSchedule = careTargetScheduleRepository.findByCareTargetId(id);
 
         MyListResponse<CareTargetSchedule> body = MyListResponse.<CareTargetSchedule>builder()
                 .header(StatusEnum.OK)
@@ -84,9 +72,14 @@ public class JobOfferApiController {
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 
-//    @PatchMapping("/recruitions/recruition")
-//    public ResponseEntity<MyResponse> updateJobOffer(@AuthenticationPrincipal PrincipalDetails principalDetails,
-//                                                     @ModelAttribute JobOfferDTO jobOfferDTO) {
-//
-//    }
+    @PatchMapping("/recruitions/recruition{id}")
+    public ResponseEntity<MyResponse> updateJobOffer(@PathVariable("id") Long id,
+                                                     @ModelAttribute JobOfferDTO jobOfferDTO) {
+        jobOfferService.update(id, jobOfferDTO);
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
 }

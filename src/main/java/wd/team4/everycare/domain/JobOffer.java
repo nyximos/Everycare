@@ -5,7 +5,9 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.Gender;
+import wd.team4.everycare.dto.CareTargetFormDTO;
 import wd.team4.everycare.dto.JobOfferDTO;
+import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -83,7 +85,17 @@ public class JobOffer {
         this.member = member;
     }
 
-//    public void updateJobInfo(JobOfferDTO jobOfferDTO){
-//        if(jobOfferDTO)
-//    }
+    public void updateInfo(JobOfferDTO jobOfferDTO) {
+        if(StringUtils.isNotBlank(jobOfferDTO.getTitle())) this.comment = jobOfferDTO.getTitle();
+        if(StringUtils.isNotBlank(jobOfferDTO.getStartDate().toString())) this.startDate = jobOfferDTO.getStartDate();
+        if(StringUtils.isNotBlank(jobOfferDTO.getEndDate().toString())) this.endDate = jobOfferDTO.getEndDate();
+        if(StringUtils.isNotBlank(jobOfferDTO.getDesiredDayWeek())) this.desiredDayWeek = jobOfferDTO.getDesiredDayWeek();
+        if(StringUtils.isNotBlank(jobOfferDTO.getDesiredStartTime())) this.desiredStartTime = jobOfferDTO.getDesiredStartTime();
+        if(StringUtils.isNotBlank(jobOfferDTO.getDesiredEndTime())) this.desiredEndTime = jobOfferDTO.getDesiredEndTime();
+        if(StringUtils.isNotBlank(String.valueOf(jobOfferDTO.getPay()))) this.pay = jobOfferDTO.getPay();
+        if(StringUtils.isNotBlank(String.valueOf(jobOfferDTO.getDesiredCareSitterGender()))) this.desiredCareSitterGender = jobOfferDTO.getDesiredCareSitterGender();
+        if(StringUtils.isNotBlank(jobOfferDTO.getComment())) this.comment = jobOfferDTO.getComment();
+        if(jobOfferDTO.getCareTarget()!=null) this.careTarget = jobOfferDTO.getCareTarget();
+        if(jobOfferDTO.getCareTargetSchedule()!=null) this.careTargetSchedule = jobOfferDTO.getCareTargetSchedule();
+    }
 }

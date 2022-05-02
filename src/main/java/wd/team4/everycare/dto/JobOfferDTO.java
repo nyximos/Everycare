@@ -12,6 +12,7 @@ public class JobOfferDTO {
 
     private CareTarget careTarget;                      //케어 대상인
     private CareTargetSchedule careTargetSchedule;      //스케줄
+    private String title;
     private Member member;
     private LocalDate startDate;                        ////시작일
     private LocalDate endDate;                          ////종료일
