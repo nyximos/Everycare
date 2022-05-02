@@ -47,7 +47,6 @@ public class CareTargetSchedule {
     @JoinColumn(name = "care_note_id")
     private CareNote careNote;
 
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_offer_id")
     private JobOffer jobOffer;
@@ -68,10 +67,5 @@ public class CareTargetSchedule {
                 .endTime(this.endTime)
                 .build();
     }
-
-    public void saveCareTarget(CareTarget careTarget){
-        this.careTarget = careTarget;
-    }
-
 
 }
