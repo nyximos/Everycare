@@ -1,12 +1,11 @@
 <template>
 <v-card flat>
-      <v-container fluid>
         <v-row class="mt-5">
             <v-text-field
             v-model="title"
             placeholder="제목을 입력하세요"
             outlined
-          ></v-text-field>
+          ></v-text-field>{{title}}
         </v-row>
          <v-row>
           <v-col cols="6">
@@ -124,51 +123,66 @@
             >
             </v-textarea>
           </v-col>
-      </v-container>
-      <v-card-actions>
-        <v-btn
-          text
-          :to="{name:'Main'}">
-          Cancel
-        </v-btn>
-        <v-spacer></v-spacer>
-        
-        <v-btn
-          :disabled="!formIsValid"
+      <v-btn
           text
           color="primary"
-          @click="submit">
-          Register
+          @click="edit"
+        >
+          edit
         </v-btn>
-        
-      </v-card-actions>
+        <v-btn
+          text
+          color="primary"
+          @click="drop"
+        >
+          삭제
+        </v-btn>
   </v-card>
 </template>
 
 <script>
 export default {
-name: 'Create',
     mounted() {
-      this.$http.get('https://localhost:8086/recruitions/new',{
+    const id = Number(this.$route.params.id);
+    this.$http
+      .get(`https://localhost:8086/recruitions/new`,{
         withCredentials:true
       })
-			.then((res)=>{
+		.then((res)=>{
         console.log(res.data);
         this.caretargetlist=res.data.body
       }).catch(err =>{
-				alert(err);
-				console.log(err);
-			})
+		alert(err);
+		console.log(err);
+	})
+    this.$http
+    .get(`https://localhost:8086/recruitions/recruition/${id}`,{
+        withCredentials:true
+    })
+    .then((res)=>{
+        console.log(res);
+        this.comment = res.data.body.comment
+        this.sitterSex = res.data.body.desiredCareSitterGender
+        this.title = res.data.body.title
+        this.startTime = res.data.body.desiredStartTime
+        this.endTime = res.data.body.desiredEndTime
+        this.endDay = res.data.body.endDate
+        this.startDay = res.data.body.startDate
+        this.pay = res.data.body.pay
+    })
+    .catch((err) => {
+        console.log(err);
+    })
     },
-    data () {
-      return {
-         title: this.title,
-         caretarget:this.caretarget,
-         caretargetlist:[],
-         pickSchedule: this.pickSchedule,
-         schedulelist:[],
-         startDay: this.startDay,
-         endDay: this.endDay,
+    data(){
+        return{
+        title: this.title,
+        caretarget:this.caretarget,
+        caretargetlist:[],
+        pickSchedule: this.pickSchedule,
+        schedulelist:[],
+        startDay: this.startDay,
+        endDay: this.endDay,
         startTime: this.startTime,
         endTime: this.endTime,
         day: [],
@@ -180,75 +194,73 @@ name: 'Create',
         showbtn: true,
         showSchedule: false,
         btnLock: false
-      }
+        }
     },
-    methods: {
-      submit(){
-      var formData = new FormData();
-      formData.append('title',this.title);
-      formData.append('careTarget', this.caretarget);
-      formData.append('careTargetSchedule', this.pickSchedule);
-      formData.append('startDate', this.startDay)
-      formData.append('endDate',this.endDay);
-      formData.append('desiredDayWeek', this.day.toString());
-      formData.append('desiredCareSitterGender', this.sitterSex);
-      formData.append('pay', this.pay);
-      formData.append('comment',this.comment);
-      formData.append('desiredStartTime', this.startTime);
-      formData.append('desiredEndTime', this.endTime);
-      this.$http
-      .post('/api/recruitions/recruition', formData,{
-       withCredentials:true
-      })
-     .then(res => {
-      console.log(res);
-      })
-     .catch(err => {
-       console.log(err);
-       console.log(typeof this.endDay)
-    });
-  },
-  
-  buttonClick(){
-      var formData = new FormData()
-      formData.append('id', this.caretarget);
-     this.$http
-     .post('/api/recruitions/schedules',formData,{
-        withCredentials:true
-      })
-			.then((res)=>{
-        console.log(res.data);
-        this.schedulelist=res.data.body
-      }).catch(err =>{
-				alert(err);
-				console.log(err);
-			})
+    methods:{
+        edit(){
+            const id = Number(this.$route.params.id);
+            var formData = new FormData();
+            formData.append('title',this.title);
+            formData.append('careTarget', this.caretarget);
+            formData.append('careTargetSchedule', this.pickSchedule);
+            formData.append('startDate', this.startDay)
+            formData.append('endDate',this.endDay);
+            formData.append('desiredDayWeek', this.day.toString());
+            formData.append('desiredCareSitterGender', this.sitterSex);
+            formData.append('pay', this.pay);
+            formData.append('comment',this.comment);
+            formData.append('desiredStartTime', this.startTime);
+            formData.append('desiredEndTime', this.endTime);
+            this.$http
+            .patch(`/api/recruitions/recruition${id}`, formData,{
+            withCredentials:true
+            })
+            .then(res => {
+            console.log(res);
+            })
+            .catch(err => {
+            console.log(err);
+            console.log(typeof this.endDay)
+            });
+        },
+    drop(){
+        const id = Number(this.$route.params.id);
+        this.$http
+        .delete(`/api/recruitions/recruition/${id}`,{
+        withCredentials: true
+        })
+        .then((res)=> {
+            console.log(res)
+        }).catch((err)=>{
+            console.log(err)
+        })
+    },
+    buttonClick(){
+    var formData = new FormData()
+    formData.append('id', this.caretarget);
+    this.$http
+    .post('/api/recruitions/schedules',formData,{
+    withCredentials:true
+    })
+	.then((res)=>{
+    console.log(res.data);
+    this.schedulelist=res.data.body
+    })
+    .catch(err =>{
+	console.log(err);
+	})
     this.showbtn=false,
     this.showSchedule=true
-  }
-},
-  computed: {
-    formIsValid(){
-      return (
-        this.title &&
-        this.caretarget &&
-        this.pickSchedule &&
-        this.startDay &&
-        this.endDay &&
-        this.startTime &&
-        this.endTime &&
-        this.day &&
-        this.sitterSex &&
-        this.paytimepick &&
-        this.pay
-      )},
-    lockSchedulebtn(){
-      return (
+      }
+    },
+    computed:{
+        lockSchedulebtn(){
+        return (
         this.caretarget
       )},
-    }    
+    }
+    
 }
-
 </script>
 
 <style>

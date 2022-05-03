@@ -25,6 +25,7 @@ public class JobOfferDTO {
 
     public JobOffer toJobOffer(){
         return JobOffer.builder()
+                .title(this.title)
                 .startDate(this.startDate)
                 .endDate(this.endDate)
                 .desiredDayWeek(this.desiredDayWeek)

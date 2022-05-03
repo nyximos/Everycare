@@ -1,8 +1,7 @@
 <template>
  <div>
     <div class="text-end mt-4">
-        <v-btn
-        :to="{name: 'CreateWrite'}">
+        <v-btn @click="gocreate">
           <v-icon left>
             mdi-pencil
           </v-icon>
@@ -26,19 +25,10 @@
   <div v-if="!filteredList.length && listData.length">
     검색결과가 없습니다
   </div>
-  <v-card
-  class="mt-3"
-  v-for="(listItem, index) in filteredList"
-  :key="index"
-  outlined
-  @click="detailList(listItem.subject)">
-  <v-card-title>
-    {{listItem.subject}}
-  </v-card-title>
-    <v-card-text>
-    {{listItem.desc}}
-    </v-card-text>
-  </v-card>
+  <!-- {{this.listData}} -->
+  <ListItem class="mt-5" v-for="(listItem, index) in filteredList" :key="index"
+  :listItem="listItem" @detail="detailShot"
+  />
   <div class="text-center">
     <v-pagination
       class="mt-3"
@@ -51,69 +41,71 @@
 </template>
 
 <script>
-import axios from 'axios'
+import ListItem from '@/components/listItem'
 export default {
     name: 'componentjoblist',
+    components:{
+      ListItem
+    },
     mounted() {
-        try {
-            const res = axios.get('/api/api/recruitions')
-            this.list = res.data.postId
-        } catch (error) {
-            console.log(error)       
-        }
+        this.$http
+        .get('https://localhost:8086/recruitions', {
+        withCredentials: true
+        })
+        .then(res => {
+          console.log(res.data)
+          this.listData = res.data.body;
+        })
+          .catch(err => {
+          console.log(err);
+        });
     },
     data(){
         return{
-            result: false,
-            list: ['a','b','c','d','e','f','g'],
-            dataPerPage: 3,
-            curPageNum :1,
-            searchText: '',
+          listData:[],
+          dataPerPage:3,
+          curPageNum:1,
+          SearchText: '',
         }
     },
     methods:{
-        onOrder(postId){
+        gocreate(){
           this.$router.push({
-              name: 'writedetail',
-              params:{postId:postId}
+            path: '/createwrite'
           })
         },
-        detailList(index){
+        detailShot(id){
           this.$router.push({
-            name:'detail',
-            params:{
-              contentId: index
+            name: 'detail',
+            params: {
+              contentId: id
             }
           })
         }
     },
-    computed:{
-        startOffset(){
-            return ((this.curPageNum-1) * this.dataPerPage);
-        },
-        endOffset(){
-            return (this.startOffset+ this.dataPerPage);
-        },
-        numOfPages(){ 
-            return Math.ceil(this.list.length/this.dataPerPage);
-        },
-        calData(){
-            return this.list.slice(this.startOffset, this.endOffset)
-        },
-        dateRangeText(){
-            return this.dates.join('~')
-        },
-        filteredList(){
-            if (this.searchText) {
-                return this.list.filter(list => {
-                    return list.includes(this.searchText)
-                })
-            } else {
-                return this.calData
-                
-            }
+    computed: {
+      startOffset() {
+        return ((this.curPageNum - 1) * this.dataPerPage);
+      },
+      endOffset() {
+        return (this.startOffset + this.dataPerPage);
+      },   
+      numOfPages() {
+        return Math.ceil(this.listData.length / this.dataPerPage);
+      },
+      calData() {
+        return this.listData.slice(this.startOffset, this.endOffset)
+      },
+      filteredList(){
+        if (this.SearchText) {
+          return this.listData.filter(listItem => {
+            return listItem.title.includes(this.SearchText);
+          });
+        }else{
+          return this.calData
         }
-}
+      }
+    }
 }
 </script>
 

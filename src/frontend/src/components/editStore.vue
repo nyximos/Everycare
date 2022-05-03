@@ -10,7 +10,7 @@
           v-model="storeName"
           name="name"
           id="name"
-          ></v-text-field>
+          >{{this.storeName}}</v-text-field>
         </div>
         <div>
           <v-text-field 
@@ -168,9 +168,18 @@ mounted() {
     withCredentials: true
     })
     .then(res => {
-      const result = res.data.body;
-      console.log(result)
-      // this.id = result.id;
+      console.log(res)
+      this.storeName = res.data.body.name;
+      this.businessNumber = res.data.body.businessLicenseNumber;      this.ceoName = res.data.body.companyCorporationName;
+      this.callcenterNumber = res.data.body.customerServiceNumber;
+      this.email = res.data.body.email;
+      this.lunchstartTime = res.data.body.lunchStartTime;
+      this.lunchendTime = res.data.body.lunchEndTime;
+      this.openTime = res.data.body.operationStartTime;
+      this.closeTime = res.data.body.operationEndTime;
+      this.storeUrl = res.data.body.url;
+      this.businessLocation = res.data.body.businessLocation;
+      this.businessName = res.data.body.companyCorporationName;
     })
       .catch(err => {
        console.log(err);
@@ -180,19 +189,19 @@ mounted() {
 data(){
   return{
     id:this.$route.params.id,
-    storeName: '',
-    storeUrl: '',
-    businessNumber: '',
-    businessName: '',
-    ceoName: '',
-    businessLocation: '',
-    email: '',
-    callcenterNumber: '',
-    openTime: '',
-    closeTime: '',
-    lunchstartTime: '',
-    lunchendTime: '',
-    closedDay: [],
+    storeName: this.storeName,
+    storeUrl: this.storeUrl,
+    businessNumber: this.businessNumber,
+    businessName: this.businessName,
+    ceoName: this.ceoName,
+    businessLocation: this.businessLocation,
+    email: this.email,
+    callcenterNumber: this.callcenterNumber,
+    openTime: this.openTime,
+    closeTime: this.closeTime,
+    lunchstartTime: this.lunchstartTime,
+    lunchendTime: this.lunchendTime,
+    closedDay: this.closedDay,
     states: [
       {name:'월', value:'월'},
       {name:'화', value:'화'},

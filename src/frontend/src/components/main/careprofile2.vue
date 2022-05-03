@@ -103,7 +103,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
 
 data(){
@@ -126,26 +125,7 @@ data(){
               vaccination:this.vaccination,
               files:this.files.name
           }
-          const axiosuserData = {
-              image: this.$store.state.careprofileStore.image,
-              name: this.$store.state.careprofileStore.name,
-              sex: this.$store.state.careprofileStore.sex,
-              age: this.$store.state.careprofileStore.age,
-              comment: this.$store.state.careprofileStore.comment,
-              hoploc1: this.$store.state.careprofileStore.hoploc1,
-              hoploc2: this.$store.state.careprofileStore.hoploc2,
-              hoploc3: this.$store.state.careprofileStore.hoploc3,
-              hopeday: this.$store.state.careprofileStore.hopeday,
-              starttimepicker: this.$store.state.careprofileStore.starttimepicker,
-              endtimepicker: this.$store.state.careprofileStore.endtimepicker,
-              paytype: this.$store.state.careprofileStore.paytype,
-              pay: this.$store.state.careprofileStore.pay,              
-              caretype:this.$store.state.careprofileStore.caretype,
-              ageselect:this.$store.state.careprofileStore.ageselect,
-              cctv:this.$store.state.careprofileStore.cctv,
-              vaccine:this.$store.state.careprofileStore.vaccine,
-              files:this.$store.state.careprofileStore.files
-          }
+        
         //   const formData = new FormData();
         //   formData.append("key",new Blob([JSON.stringify(axiosuserData)],{ type : "application.json"}));
           console.log(userData)

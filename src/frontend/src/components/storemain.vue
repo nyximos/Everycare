@@ -1,21 +1,15 @@
 <template>
-<div>
-<div class="container">
+<v-container>
   <header class="blog-header py-3">
     <div class="row flex-nowrap justify-content-between align-items-center">
-      <div class="col-4 pt-1">
-      </div>
       <div class="col-4 text-center">
         <p class="display-5 fw-bold">Carestore</p>
       </div>
       <div class="col-4 d-grid gap-2 d-md-flex justify-content-md-end">
-      <button type="button" class="btn btn-light position-relative" onclick="location.href = '/cart'">
-					🛒
-					<!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-						1
-					</span> -->
-				</button>
-				<button class="btn btn-warning" type="button" onclick="location.href = '/login'">입점하기</button>
+      <button class="position-relative" @click="goCart">
+		🛒
+		</button>
+		<button class="btn btn-warning" type="button" @click="goCreateStore">입점하기</button>
       </div>
     </div>
   </header>
@@ -27,7 +21,6 @@
       <a class="p-2 text-black" href="#">생활/건강</a>
       <a class="p-2 text-black" href="#">스포츠/레저</a>
     </nav>
-</div>
 <!--carousel-->
 <div class="container">
 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -38,13 +31,13 @@
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="../images/care.jpg" class="d-block w-100" height="400px">
+      <img src="../images/ear.jpg" class="d-block w-100" height="400px">
     </div>
     <div class="carousel-item">
       <img src="../images/sitter.jpg" class="d-block w-100" height="400px">
     </div>
     <div class="carousel-item">
-      <img src="../images/year.jpg" class="d-block w-100" height="400px">
+      <img src="../images/ear.jpg" class="d-block w-100" height="400px">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -56,13 +49,14 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
+</div>
 
 <!--ranking-->
 
 <div class="row">
-	<p class="fs-2 mt-5 fw-bold">지금 제일 잘 나가는 상품</p>
+	<p class="fs-2 mt-5 fw-bold">Top 3</p>
       <div class="ranking col">
-	<img src="../images/year.jpg" class="rounded-circle mx-auto d-block" width="140" height="140">
+	<img src="../images/ear.jpg" class="rounded-circle mx-auto d-block" width="140" height="140">
         <div class="text-center">
 		<h2 class="mt-2">체온계</h2>
 <button class="btn btn-secondary" href="#">View details &raquo;</button>
@@ -70,7 +64,7 @@
       </div>
 
       <div class="ranking col">
-        <img src="../images/year.jpg" class="rounded-circle mx-auto d-block" width="140" height="140">
+        <img src="../images/ear.jpg" class="rounded-circle mx-auto d-block" width="140" height="140">
         <div class="text-center">
 		<h2 class="mt-2">체온계</h2>
 <button class="btn btn-secondary" href="#">View details &raquo;</button>
@@ -87,10 +81,10 @@
 </div>
 
 <!--body-->
-		<p class="display-6 text-center mt-5">💪 든든 코로나 방역 키트 💪</p>
+		<p class="display-6 text-center mt-5">🎉실외 마스크 프리🎉</p>
 		<div class="row mt-5">
 				<div class="col" style="width: 18rem;">
-					<img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px">
+					<!-- <img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px"> -->
 					<div class="card-body">
 						<h5 class="card-title">신묘한 응원떡 2종 택1(15개입)</h5>
 						<p class="card-text text-muted">신묘한 힘 마약떡 (8개입), 기묘한 힘 인생떡 (8개입)</p>
@@ -98,7 +92,7 @@
 				</div>
 				</div>
 					<div class="col" style="width: 18rem;">
-						<img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px">
+						<!-- <img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px"> -->
 						<div class="card-body">
 							<h5 class="card-title">신묘한 대박떡 2종(4개입)</h5>
 							<p class="card-text text-muted">신묘한 힘 마약떡 (4개입), 기묘한 힘 인생떡 (4개입)</p>
@@ -106,7 +100,7 @@
 						</div>
 					</div>
 						<div class="col" style="width: 18rem;">
-							<img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px">
+							<!-- <img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px"> -->
 							<div class="card-body">
 								<h5 class="card-title">아침햇살 크림떡(2box)</h5>
 								<p class="card-text text-muted">아침햇살을 담아 떡 한입으로 든든한 시작!</p>
@@ -118,7 +112,7 @@
 				<p class="display-6 text-center mt-5">💫오늘만 특별 할인💫</p>
 				<div class="row mt-5">
 				<div class="col" style="width: 18rem;">
-					<img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px">
+					<!-- <img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px"> -->
 					<div class="card-body">
 						<h5 class="card-title">신묘한 응원떡 2종 택1(15개입)</h5>
 						<p class="card-text text-muted">신묘한 힘 마약떡 (8개입), 기묘한 힘 인생떡 (8개입)</p>
@@ -126,7 +120,7 @@
 				</div>
 				</div>
 					<div class="col" style="width: 18rem;">
-						<img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px">
+						<!-- <img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px"> -->
 						<div class="card-body">
 							<h5 class="card-title">신묘한 대박떡 2종(4개입)</h5>
 							<p class="card-text text-muted">신묘한 힘 마약떡 (4개입), 기묘한 힘 인생떡 (4개입)</p>
@@ -134,7 +128,7 @@
 						</div>
 					</div>
 						<div class="col" style="width: 18rem;">
-							<img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px">
+							<!-- <img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px"> -->
 							<div class="card-body">
 								<h5 class="card-title">아침햇살 크림떡(2box)</h5>
 								<p class="card-text text-muted">아침햇살을 담아 떡 한입으로 든든한 시작!</p>
@@ -144,7 +138,7 @@
 					</div>
 					<div class="row mt-5">
 				<div class="col" style="width: 18rem;">
-					<img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px">
+					<!-- <img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px"> -->
 					<div class="card-body">
 						<h5 class="card-title">신묘한 응원떡 2종 택1(15개입)</h5>
 						<p class="card-text text-muted">신묘한 힘 마약떡 (8개입), 기묘한 힘 인생떡 (8개입)</p>
@@ -152,7 +146,7 @@
 				</div>
 				</div>
 					<div class="col" style="width: 18rem;">
-						<img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px">
+						<!-- <img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px"> -->
 						<div class="card-body">
 							<h5 class="card-title">신묘한 대박떡 2종(4개입)</h5>
 							<p class="card-text text-muted">신묘한 힘 마약떡 (4개입), 기묘한 힘 인생떡 (4개입)</p>
@@ -160,7 +154,7 @@
 						</div>
 					</div>
 						<div class="col" style="width: 18rem;">
-							<img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px">
+							<!-- <img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px"> -->
 							<div class="card-body">
 								<h5 class="card-title">아침햇살 크림떡(2box)</h5>
 								<p class="card-text text-muted">아침햇살을 담아 떡 한입으로 든든한 시작!</p>
@@ -168,72 +162,27 @@
 							</div>
 						</div>
 					</div>
-
-						<p class="display-6 text-center"><span class="fw-bold">생생한</span> 소비자 리뷰</p>
-						<p class="fs-6 text-center mt-3"> ▼ 아래 이미지를 클릭하면 자세한 리뷰 내용을 볼 수 있습니다.</p>
-						<div class="row justify-content-center">
-							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-						</div>
-						<div class="row justify-content-center mt-3">
-							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-						</div>
-						<div class="row justify-content-center mt-3">
-							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-						</div>
-						<div class="row justify-content-center mt-3">
-							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-							<div class="col-2"><img src="../images/새싹.jpg" alt="..." class="w-100" width="300px"
-									height="100px"></div>
-						</div>
- </div>
- <!--footer-->
-
-  <footer class="py-3 my-4">
-    <ul class="border-bottom pb-3 mb-3">
-    </ul>
-    <p class="text-center text-muted">&copy; Everycare</p>
-  </footer>
-
-</div>      
+</v-container>      
 </template>
 
 <script>
 export default {
+name: 'storeMain',
+mounted(){
+	
+},
+data(){
+	return{
 
+	}
+},
+methods:{
+	goCreateStore(){
+		this.$router.push({
+			path:'createStore'
+		})
+	}
+}
 }
 </script>
 

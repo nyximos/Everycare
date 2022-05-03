@@ -4,7 +4,6 @@ import lombok.*;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.domain.Store;
 
-@Builder
 @Getter
 @Setter
 @NoArgsConstructor
