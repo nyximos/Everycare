@@ -1,8 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Caresitters from '../pages/Caresitters';
-import Profile from '../pages/Profile';
+
 import Carepeople from '../pages/Carepeople';
 import Alarm from '../pages/Alarm';
 import Profile2 from '../pages/Profile2';
@@ -24,17 +23,32 @@ const routes = [
         component: () => import('@/pages/Signup.vue')
    },
     {
-        path: '/careprofile',
+        path: '/dashboard/careprofile',
         name: 'careprofile',
         component: () => import('@/pages/Careprofile.vue')
     },
     {
-        path: '/careprofile1',
+        path: '/dashboard/careprofile1',
         name: 'careprofile1',
         component: () => import('@/pages/Careprofile1.vue')
     },
     {
-        path: '/careprofile2',
+        path: '/caresitterprofile_delete',
+        name: 'caresitterprofile_delete',
+        component: () => import('@/pages/Caresitterprofile.vue')
+    },
+    {
+        path: '/careprofilecreate',
+        name: 'careprofilecreate',
+        component: () => import('@/pages/Careprofilecreate.vue')
+    },
+    {
+        path: '/profile_update',
+        name: 'profile_update',
+        component: () => import('@/pages/Profile_update.vue')
+    },
+    {
+        path: '/dashboard/careprofile2',
         name: 'careprofile2',
         component: () => import('@/pages/Careprofile2.vue')
     },
@@ -56,7 +70,7 @@ const routes = [
     {
         path: '/caresitters',
         name: 'caresitters',
-        component: Caresitters
+        component: () => import('@/pages/Caresitters.vue')
     },
     {
         path: '/works',
@@ -68,16 +82,11 @@ const routes = [
             else next();
         }
     },
-    {
-        path: '/profile',
-        name: 'profile',
-        component: Profile
-    },
-    {
-        path: '/dashboard/caresitter',
-        name: '케어시터 프로필생성',
-        component: () => import('@/pages/Careprofile.vue')
-    },
+    // {
+    //     path: '/dashboard/caresitter',
+    //     name: '케어시터 프로필생성',
+    //     component: () => import('@/pages/Careprofile.vue')
+    // },
     {
         path: '/carepeople',
         name: 'carepeople',
@@ -97,6 +106,11 @@ const routes = [
         path: '/test',
         name: 'Test',
         component: () => import('@/pages/Test.vue')
+    },
+    {
+        path: '/caretargets',
+        name: 'Caretargets',
+        component: () => import('@/pages/Caretargets.vue')
     }
 ];
 

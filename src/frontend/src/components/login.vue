@@ -41,6 +41,9 @@ export default {
                 .post('https://localhost:8086/login', this.json, {
                     withCredentials: true
                 })
+                // .post('/api/login', this.json, {
+                //     withCredentials: true
+                // })
                 .then(res => {
                     // this.test = response.data;
                     console.log(res);
