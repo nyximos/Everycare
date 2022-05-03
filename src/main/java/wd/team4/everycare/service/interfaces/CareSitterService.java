@@ -2,7 +2,7 @@ package wd.team4.everycare.service.interfaces;
 
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.CareSitterImage;
-import wd.team4.everycare.dto.CareSitterFormDTO;
+import wd.team4.everycare.dto.careSitter.CareSitterFormDTO;
 import wd.team4.everycare.dto.UploadFile;
 
 import java.io.IOException;

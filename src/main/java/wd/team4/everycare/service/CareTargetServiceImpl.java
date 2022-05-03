@@ -34,16 +34,12 @@ public class CareTargetServiceImpl implements CareTargetService {
 
         CareTarget careTarget = careTargetDtoToEntity(careTargetFormDTO);
         careTargetRepository.save(careTarget);
-        System.out.println("=================================");
-        System.out.println("careTarget = " + careTarget.getName());
-
         List<UploadFile> attachFiles = fileStoreService.storeFiles((careTargetFormDTO.getAttachFiles()));
 
         for (UploadFile file : attachFiles) {
             CareTargetImage careTargetImage = careTargetDtoToImage(careTarget, file);
             careTargetImageRepository.save(careTargetImage);
         }
-
         return careTarget.getId();
     }
 
@@ -106,7 +102,7 @@ public class CareTargetServiceImpl implements CareTargetService {
     }
 
     @Override
-    public CareTargetViewDTO findCareTarget(Long id) {
+    public CareTargetViewDTO webFindCareTarget(Long id) {
         Optional<CareTarget> careTarget = careTargetRepository.findById(id);
         if(careTarget.isEmpty()) return null;
         CareTarget careTargetEntity = careTarget.orElse(null);

@@ -1,13 +1,12 @@
 package wd.team4.everycare.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
+import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationListViewDTO;
 
 import javax.persistence.*;
-import java.time.LocalTime;
 
 @Getter
 @NoArgsConstructor
@@ -22,16 +21,14 @@ public class ActivityInformation {
     @Column(name = "activity_information_id", nullable = false)
     private Long id;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     @Column(name = "activity_information_start_time", nullable = false)
-    private LocalTime startTime;
+    private String startTime;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")
     @Column(name = "activity_information_end_time", nullable = false)
-    private LocalTime endTime;
+    private String endTime;
 
     @Column(name = "activity_information_requirement", length = 500)
-    private String activityInformationRequirement;
+    private String requirement;
 
     @Column(name = "activity_information_content", length = 255)
     private String content;
@@ -53,5 +50,41 @@ public class ActivityInformation {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_sitter_activity_id")
     private CareSitterActivity careSitterActivity;
+
+    @Override
+    public String toString() {
+        return "ActivityInformation{" +
+                "id=" + id +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", requirement='" + requirement + '\'' +
+                ", content='" + content + '\'' +
+                ", uploadFileName='" + uploadFileName + '\'' +
+                ", storeFileName='" + storeFileName + '\'' +
+                '}';
+    }
+
+    public ActivityInformationListViewDTO toListViewDTO(){
+        return ActivityInformationListViewDTO.builder()
+                .id(this.id)
+                .startTime(this.startTime)
+                .endTime(this.endTime)
+                .requirement(this.requirement)
+                .activityClassificationDTO(this.activityClassification.toDTO())
+                .build();
+    }
+
+    @Builder
+    public ActivityInformation(String startTime, String endTime, String requirement) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.requirement = requirement;
+    }
+
+    public void save(ActivityClassification activityClassification, CareTargetSchedule careTargetSchedule){
+        this.activityClassification = activityClassification;
+        this.careTargetSchedule = careTargetSchedule;
+    }
+
 
 }

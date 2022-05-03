@@ -1,4 +1,4 @@
-package wd.team4.everycare.dto;
+package wd.team4.everycare.dto.careSitter;
 
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +16,7 @@ import java.util.List;
 @ToString
 public class CareSitterFormDTO {
 
+    private String name;
     private String preferredType;
     private String hopefulRegion;
     private String desiredDayWeek;
@@ -54,6 +55,7 @@ public class CareSitterFormDTO {
 
     public CareSitter toCareSitter() {
         return CareSitter.builder()
+                .name(this.name)
                 .preferredType(this.preferredType)
                 .hopefulRegion(this.hopefulRegion)
                 .desiredDayWeek(this.desiredDayWeek)

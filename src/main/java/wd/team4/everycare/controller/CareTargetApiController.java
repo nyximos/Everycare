@@ -24,8 +24,7 @@ public class CareTargetApiController {
     private final CareTargetServiceImpl careTargetService;
     private final CareTargetRepository careTargetRepository;
 
-    @ResponseBody
-    @PostMapping("/carenote/caretargets/new")
+    @PostMapping("/dashboard/caretargets/new")
     public ResponseEntity<MyResponse> saveCareTarget(
             @ModelAttribute CareTargetFormDTO careTargetFormDTO,
             @AuthenticationPrincipal PrincipalDetails principalDetails
@@ -34,20 +33,19 @@ public class CareTargetApiController {
         Member user = principalDetails.getUser();
         careTargetFormDTO.setMember(user);
 
-        careTargetService.save(careTargetFormDTO);
+        Long careTagetId = careTargetService.save(careTargetFormDTO);
 
-        MyResponse<CareTargetFormDTO> body = MyResponse.<CareTargetFormDTO>builder()
+        MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("성공")
-                .body(careTargetFormDTO)
+                .body(careTagetId)
                 .build();
 
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+        return new ResponseEntity<>(body, headers, HttpStatus.OK);
     }
 
-    @ResponseBody
-    @PatchMapping("/carenote/caretargets/{id}")
+    @PatchMapping("/dashboard/caretargets/{id}")
     public ResponseEntity<MyResponse> patchCareTarget(
             @PathVariable("id") Long id,
             @ModelAttribute CareTargetFormDTO careTargetFormDTO
@@ -60,7 +58,7 @@ public class CareTargetApiController {
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
-    @DeleteMapping("/carenote/caretargets/{id}")
+    @DeleteMapping("/dashboard/caretargets/{id}")
     public ResponseEntity<MyResponse> deleteCareTarget(@PathVariable("id") Long id ){
         careTargetRepository.deleteById(id);
         MyResponse body = MyResponse.builder()
