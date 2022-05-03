@@ -11,6 +11,7 @@
                 <div>
                     <div v-if="this.$store.state.userStore.id !== ''">
                     <v-btn text v-on:click.native="signout()" to="/">로그아웃</v-btn>
+                    <v-btn text v-on:click.native="mypage()" to="/mypage">{{this.$store.state.userStore.id}}님</v-btn>
                     </div>
                     <div v-else>
                     <v-btn text to="/login">로그인</v-btn>
