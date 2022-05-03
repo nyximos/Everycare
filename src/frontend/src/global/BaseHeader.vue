@@ -8,8 +8,11 @@
                 <v-btn text>케어스토어</v-btn>
             </div>
             <div>
-                    <router-link to="/login">로그인</router-link>
-                    <router-link to="/signup">회원가입</router-link>
+
+                <v-btn text @click="log()">클릭</v-btn>
+                <router-link to="/login">로그인</router-link>
+                <router-link to="/signup">회원가입</router-link>
+
             </div>
         </div>
     </header>
@@ -17,9 +20,7 @@
 
 <script>
 export default {
-    computed: {
-
-    },
+    computed: {},
     methods: {
         goMain() {
             if (this.$router.history.current.fullPath == '/') {
@@ -29,9 +30,21 @@ export default {
                 console.log('/');
             }
         },
-        logoutUser(){
+        logoutUser() {
             this.$stroe.commit('userStore2/clearUsername');
             this.$router.push('/');
+        },
+        log() {
+            this.$http
+                .get('/api/user', {
+                    withCredentials: true
+                })
+                .then(res => {
+                    console.log(res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
     }
 };

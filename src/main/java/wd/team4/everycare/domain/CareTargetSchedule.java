@@ -1,13 +1,9 @@
 package wd.team4.everycare.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleDTO;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -25,30 +21,52 @@ public class CareTargetSchedule {
     @Column(name = "care_target_schedule_name", length = 50, nullable = false)
     private String name;
 
-    @Column(name = "care_target_schedule_start_time", length = 4, nullable = false)
+    @Column(name = "care_target_schedule_start_time", length = 5, nullable = false)
     private String startTime;
 
-    @Column(name = "care_target_schedule_end_time", length = 4, nullable = false)
+    @Column(name = "care_target_schedule_end_time", length = 5, nullable = false)
     private String endTime;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_target_id")
     private CareTarget careTarget;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contract_id")
     private Contract contract;
+//
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "care_sitter_id")
+//    private CareSitter careSitter;
 
-    @ManyToOne
-    @JoinColumn(name = "care_sitter_id")
-    private CareSitter careSitter;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_note_id")
     private CareNote careNote;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_offer_id")
     private JobOffer jobOffer;
+
+    @Builder
+    public CareTargetSchedule(Long id, String name, String startTime, String endTime, CareTarget careTarget) {
+        this.id = id;
+        this.name = name;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.careTarget = careTarget;
+    }
+
+    public CareTargetScheduleDTO toDTO(){
+        return CareTargetScheduleDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .startTime(this.startTime)
+                .endTime(this.endTime)
+                .build();
+    }
+
+    public void saveCareTarget(CareTarget careTarget){
+        this.careTarget = careTarget;
+    }
 
 }

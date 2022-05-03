@@ -123,6 +123,13 @@
             <img th:src="|/images/${careSitterImage.getStoreFileName()}|" width="300" height="300"/>
         </div>
         <input id="update" type="button" value="수정"/>
+        <th:block th:if="${caresitterCertifications} == null">
+            <li><a th:href="@{'/dashboard/caresitter/{id}/certifications/new'(id=${careSitter.id})}">자격증 등록</a></li>
+        </th:block>
+        <th:block th:if="${caresitterCertifications} != null">
+            <li><a th:href="@{'/dashboard/caresitter/{id}/certifications/new'(id=${careSitter.id})}">자격증 등록</a></li>
+        </th:block>
+
         <script th:inline="javascript">
             $('#update').on('click', function () {
                 /*<![CDATA]*/

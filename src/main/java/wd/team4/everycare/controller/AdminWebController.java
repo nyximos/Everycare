@@ -4,10 +4,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.dto.CertificationViewDTO;
+import wd.team4.everycare.dto.StoreAdminViewDTO;
+import wd.team4.everycare.repository.CareSitterRepository;
 import wd.team4.everycare.repository.MemberRepository;
-import wd.team4.everycare.repository.StoreRepository;
+import wd.team4.everycare.service.CertificationServiceImpl;
+import wd.team4.everycare.service.StoreServiceImpl;
 
 import java.util.List;
 
@@ -16,7 +21,8 @@ import java.util.List;
 public class AdminWebController {
 
     private final MemberRepository memberRepository;
-    private final StoreRepository storeRepository;
+    private final StoreServiceImpl storeService;
+    private final CertificationServiceImpl certificationService;
 
     @GetMapping("/admin")
     public String admin(){
@@ -32,11 +38,34 @@ public class AdminWebController {
         return "admin-members";
     }
 
-    /* TODO
-    @GetMapping("/certifications")
-    public String certifications(){
+    @GetMapping("/admin/stores")
+    public String adminStores(Model model){
+        List<StoreAdminViewDTO> stores = storeService.findStoresThatRequireApproval();
+        model.addAttribute("stores", stores);
+
+        return "admin-stores";
+    }
+
+    @GetMapping("/admin/stores/{id}")
+    public String adminStore(@PathVariable Long id, Model model){
+        StoreAdminViewDTO store = storeService.webFindStore(id);
+        model.addAttribute("store", store);
+
+        return "admin-store";
+    }
+
+    @GetMapping("/admin/certifications")
+    public String certifications(Model model){
+        List<CertificationViewDTO> certifications = certificationService.webFindAllThatRequireApproval();
+
+        if(certifications!=null){
+            model.addAttribute("certifications", certifications);
+        }
+
         return "admin-certifications";
     }
+
+    /* TODO
 
     @GetMapping("/reports")
     public String reports(){
@@ -44,11 +73,6 @@ public class AdminWebController {
         return "admin-reports";
     }
 
-    @GetMapping("/stores")
-    public String stores(Model model){
-
-        return "admin-stores";
-    }
     */
 
 }

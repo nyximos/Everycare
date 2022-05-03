@@ -3,7 +3,9 @@ package wd.team4.everycare.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
@@ -15,14 +17,16 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/admin")
 public class AdminApiController {
 
     private final AdminServiceImpl adminService;
     private final MemberRepository memberRepository;
 
-    @PostMapping("/admin/members/{id}")
+    @PostMapping("/members/{id}")
     public ResponseEntity<MyResponse> postAdmin(@PathVariable("id") String id){
+
+
         System.out.println("id = " + id);
         LocalDateTime time = LocalDateTime.now();
 
@@ -31,12 +35,25 @@ public class AdminApiController {
         Member member = member1.orElse(null);
         System.out.println("member = " + member);
 
-        adminService.registration(id,time);
+        adminService.registrationAdmin(id,time);
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("성공했슴다~")
                 .build();
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @PostMapping("/stores/{id}")
+    public ResponseEntity<MyResponse> postStore(@PathVariable("id") Long id){
+        ResponseEntity<MyResponse> responseEntity = adminService.approveStore(id);
+        return responseEntity;
+    }
+
+    @PostMapping("/certifications/{id}")
+    public ResponseEntity<MyResponse> postCertification(@PathVariable("id") Long id, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        Member admin = principalDetails.getUser();
+        ResponseEntity<MyResponse> responseEntity = adminService.approveCertification(id, admin);
+        return responseEntity;
     }
 }

@@ -3,6 +3,7 @@ package wd.team4.everycare.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.member.MemberInfoDTO;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -71,10 +72,10 @@ public class Member {
     @Column(name = "member_account_member")
     private String accountNumber;
 
-    @OneToOne(mappedBy = "member")
+    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
     private CareSitter careSitter;
 
-    @OneToOne(mappedBy = "member")
+    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
     private Store store;
 
     @OneToMany(mappedBy = "member")
@@ -106,5 +107,13 @@ public class Member {
     public void registrationAdmin(LocalDateTime time){
         this.role = MemberRole.ROLE_ADMIN;
         this.adminRegistrationDate = time;
+    }
+
+    public MemberInfoDTO toMemberInfoDTO() {
+        return MemberInfoDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .role(this.role)
+                .build();
     }
 }
