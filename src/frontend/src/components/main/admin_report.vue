@@ -1,5 +1,5 @@
 <template>
-<div>
+  <div>
     <div class="preloader" style="display: none;">
       <div class="lds-ripple">
         <div class="lds-pos"></div>
@@ -96,116 +96,91 @@
             </div>
           </div>
         </div>
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title mb-0">회원</h5>
+        <div class="card-body">
+                  <h5 class="card-title">Basic Datatable</h5>
+                  <div class="table-responsive">
+                    <div id="zero_config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="zero_config_length"><label>Show <select name="zero_config_length" aria-controls="zero_config" class="form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6"><div id="zero_config_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="zero_config"></label></div></div></div><div class="row"><div class="col-sm-12"><table id="zero_config" class="table table-striped table-bordered dataTable" role="grid" aria-describedby="zero_config_info">
+                      <thead>
+                        <tr role="row"><th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 173px;">Name</th><th class="sorting_desc" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 276.2px;" aria-sort="descending">Position</th><th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 126.6px;">Office</th><th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 58.6px;">Age</th><th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 113.8px;">Start date</th><th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 108.4px;">Salary</th></tr>
+                      </thead>
+                      <tbody>
+                      <tr role="row" class="odd">
+                          <td class="">Prescott Bartlett</td>
+                          <td class="sorting_1">Technical Author</td>
+                          <td class="">London</td>
+                          <td class="">27</td>
+                          <td>2011/05/07</td>
+                          <td>$145,000</td>
+                        </tr><tr role="row" class="even">
+                          <td class="">Gavin Cortez</td>
+                          <td class="sorting_1">Team Leader</td>
+                          <td class="">San Francisco</td>
+                          <td class="">22</td>
+                          <td>2008/10/26</td>
+                          <td>$235,500</td>
+                        </tr><tr role="row" class="odd">
+                          <td class="">Gloria Little</td>
+                          <td class="sorting_1">Systems Administrator</td>
+                          <td class="">New York</td>
+                          <td class="">59</td>
+                          <td>2009/04/10</td>
+                          <td>$237,500</td>
+                        </tr><tr role="row" class="even">
+                          <td class="">Lael Greer</td>
+                          <td class="sorting_1">Systems Administrator</td>
+                          <td class="">London</td>
+                          <td class="">21</td>
+                          <td>2009/02/27</td>
+                          <td>$103,500</td>
+                        </tr><tr role="row" class="odd">
+                          <td class="">Tiger Nixon</td>
+                          <td class="sorting_1">System Architect</td>
+                          <td class="">Edinburgh</td>
+                          <td class="">61</td>
+                          <td>2011/04/25</td>
+                          <td>$320,800</td>
+                        </tr><tr role="row" class="even">
+                          <td class="">Quinn Flynn</td>
+                          <td class="sorting_1">Support Lead</td>
+                          <td class="">Edinburgh</td>
+                          <td class="">22</td>
+                          <td>2013/03/03</td>
+                          <td>$342,000</td>
+                        </tr><tr role="row" class="odd">
+                          <td class="">Sakura Yamamoto</td>
+                          <td class="sorting_1">Support Engineer</td>
+                          <td class="">Tokyo</td>
+                          <td class="">37</td>
+                          <td>2009/08/19</td>
+                          <td>$139,575</td>
+                        </tr><tr role="row" class="even">
+                          <td class="">Olivia Liang</td>
+                          <td class="sorting_1">Support Engineer</td>
+                          <td class="">Singapore</td>
+                          <td class="">64</td>
+                          <td>2011/02/03</td>
+                          <td>$234,500</td>
+                        </tr><tr role="row" class="odd">
+                          <td class="">Finn Camacho</td>
+                          <td class="sorting_1">Support Engineer</td>
+                          <td class="">San Francisco</td>
+                          <td class="">47</td>
+                          <td>2009/07/07</td>
+                          <td>$87,500</td>
+                        </tr><tr role="row" class="even">
+                          <td class="">Zorita Serrano</td>
+                          <td class="sorting_1">Software Engineer</td>
+                          <td class="">San Francisco</td>
+                          <td class="">56</td>
+                          <td>2012/06/01</td>
+                          <td>$115,000</td>
+                        </tr></tbody>
+                      <tfoot>
+                        <tr><th rowspan="1" colspan="1">Name</th><th rowspan="1" colspan="1">Position</th><th rowspan="1" colspan="1">Office</th><th rowspan="1" colspan="1">Age</th><th rowspan="1" colspan="1">Start date</th><th rowspan="1" colspan="1">Salary</th></tr>
+                      </tfoot>
+                    </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="zero_config_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="zero_config_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="zero_config_previous"><a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="4" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="5" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="6" tabindex="0" class="page-link">6</a></li><li class="paginate_button page-item next" id="zero_config_next"><a href="#" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li></ul></div></div></div></div>
+                  </div>
                 </div>
-                <div class="table-responsive">
-                  <table class="table">
-                    <thead class="thead-light">
-                      <tr>
-                        <th>
-                          <label class="customcheckbox mb-3">
-                            <input type="checkbox" id="mainCheckbox" v-model="checkAll">
-                            <span class="checkmark" ></span>
-                          </label>
-                        </th>
-                        <th scope="col">#</th>
-                        <th scope="col">아이디</th>
-                        <th scope="col">이름</th>
-                        <th scope="col">전화번호</th>
-                        <th scope="col">등록일</th>
-                      </tr>
-                    </thead>
-                    <tbody class="customtable">
-                      <tr>
-                        <th>
-                          <label class="customcheckbox">
-                            <input type="checkbox" class="listCheckbox">
-                            <span class="checkmark"></span>
-                          </label>
-                        </th>
-                        <td>1</td>
-                        <td>msmsm112</td>
-                        <td>김OO</td>
-                        <td>010-1111-2222</td>
-                        <td>2022-05-02</td>
-                      </tr>
-                      <tr>
-                        <th>
-                          <label class="customcheckbox">
-                            <input type="checkbox" class="listCheckbox">
-                            <span class="checkmark"></span>
-                          </label>
-                        </th>
-                        <td>2</td>
-                        <td>asd123</td>
-                        <td>이OO</td>
-                        <td>010-1111-2222</td>
-                        <td>2022-04-12</td>
-                      </tr>
-                      <tr>
-                        <th>
-                          <label class="customcheckbox">
-                            <input type="checkbox" class="listCheckbox">
-                            <span class="checkmark"></span>
-                          </label>
-                        </th>
-                        <td>3</td>
-                        <td>asd123</td>
-                        <td>이OO</td>
-                        <td>010-1111-2222</td>
-                        <td>2022-04-12</td>
-                      </tr>
-                      <tr>
-                        <th>
-                          <label class="customcheckbox">
-                            <input type="checkbox" class="listCheckbox">
-                            <span class="checkmark"></span>
-                          </label>
-                        </th>
-                        <td>4</td>
-                        <td>asd123</td>
-                        <td>이OO</td>
-                        <td>010-1111-2222</td>
-                        <td>2022-04-12</td>
-                      </tr>
-                      <tr>
-                        <th>
-                          <label class="customcheckbox">
-                            <input type="checkbox" class="listCheckbox">
-                            <span class="checkmark"></span>
-                          </label>
-                        </th>
-                        <td>5</td>
-                        <td>asd123</td>
-                        <td>이OO</td>
-                        <td>010-1111-2222</td>
-                        <td>2022-04-12</td>
-                      </tr>
-                      <tr>
-                        <th>
-                          <label class="customcheckbox">
-                            <input type="checkbox" class="listCheckbox">
-                            <span class="checkmark"></span>
-                          </label>
-                        </th>
-                        <td>6</td>
-                        <td>asd123</td>
-                        <td>이OO</td>
-                        <td>010-1111-2222</td>
-                        <td>2022-04-12</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
     </div>
@@ -213,11 +188,12 @@
 
 <script>
 export default {
+
 }
 </script>
 
 <style>
-    *,:after,:before{
+ *,:after,:before{
         box-sizing: border-box;
     }
 
@@ -700,9 +676,6 @@ export default {
       --bs-gutter-y:0;
       display: flex;
       flex-wrap: wrap;
-      margin-top: calc(var(--bs-gutter-y) * -1);
-      margin-right: calc(var(--bs-gutter-x) / -2);
-      margin-left: calc(var(--bs-gutter-x) /-2);
     }
     .align-items-center{
       align-items: center!important;
@@ -790,11 +763,15 @@ export default {
 
     .card-body{
       padding: 1.25rem;
-      flex: 1 1 auto;
+      flex: 1 1  auto;
     }
     .card .card-title{
       position: relative;
       font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .table-responsive{
+        overflow-x:auto ;
     }
     .mb-0{
       margin-bottom: 0!important;
