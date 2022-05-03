@@ -70,10 +70,10 @@ public class JobOffer {
     private CareTargetSchedule careTargetSchedule;
 
     @Builder
-    public JobOffer(String title, LocalDate startDate, LocalDate endDate, String desiredDayWeek, String desiredStartTime, String desiredEndTime, int pay, Gender desiredCareSitterGender, String comment, CareTarget careTarget, CareTargetSchedule careTargetSchedule, Member member) {
+    public JobOffer(String title, String startDate, String endDate, String desiredDayWeek, String desiredStartTime, String desiredEndTime, int pay, Gender desiredCareSitterGender, String comment, CareTarget careTarget, CareTargetSchedule careTargetSchedule, Member member) {
         this.title = title;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startDate = LocalDate.parse(startDate);
+        this.endDate = LocalDate.parse(endDate);
         this.desiredDayWeek = desiredDayWeek;
         this.desiredStartTime = desiredStartTime;
         this.desiredEndTime = desiredEndTime;
@@ -87,8 +87,8 @@ public class JobOffer {
 
     public void updateInfo(JobOfferDTO jobOfferDTO) {
         if(StringUtils.isNotBlank(jobOfferDTO.getTitle())) this.comment = jobOfferDTO.getTitle();
-        if(StringUtils.isNotBlank(jobOfferDTO.getStartDate().toString())) this.startDate = jobOfferDTO.getStartDate();
-        if(StringUtils.isNotBlank(jobOfferDTO.getEndDate().toString())) this.endDate = jobOfferDTO.getEndDate();
+        if(StringUtils.isNotBlank(jobOfferDTO.getStartDate().toString())) this.startDate = LocalDate.parse(jobOfferDTO.getStartDate());
+        if(StringUtils.isNotBlank(jobOfferDTO.getEndDate().toString())) this.endDate = LocalDate.parse(jobOfferDTO.getEndDate());
         if(StringUtils.isNotBlank(jobOfferDTO.getDesiredDayWeek())) this.desiredDayWeek = jobOfferDTO.getDesiredDayWeek();
         if(StringUtils.isNotBlank(jobOfferDTO.getDesiredStartTime())) this.desiredStartTime = jobOfferDTO.getDesiredStartTime();
         if(StringUtils.isNotBlank(jobOfferDTO.getDesiredEndTime())) this.desiredEndTime = jobOfferDTO.getDesiredEndTime();
