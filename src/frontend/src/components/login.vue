@@ -45,7 +45,7 @@ export default {
                     // this.test = response.data;
                     console.log(res);
                     console.log(this.json);
-                    // location.href = '/';
+                    location.href = '/';
                 })
                 .catch(err => {
                     console.log(err);
