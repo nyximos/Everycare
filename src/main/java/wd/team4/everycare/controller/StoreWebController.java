@@ -28,7 +28,7 @@ public class StoreWebController {
         return "store";
     }
 
-    @GetMapping("/store/account")
+    @GetMapping("/dashboard/store/account")
     public String newStore(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
         String id = principalDetails.getUsername();
         Store store = storeService.findStoreByMember(id);
@@ -38,6 +38,15 @@ public class StoreWebController {
         }
 
         return "store-account";
+    }
+
+    @GetMapping("dashboard/store/account/update")
+    public String updateFormStore(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        String id = principalDetails.getUsername();
+        Store store = storeService.findStoreByMember(id);
+        model.addAttribute("store", store);
+
+        return "store-update";
     }
 
     @GetMapping("/store/{id}")

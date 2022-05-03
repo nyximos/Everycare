@@ -10,6 +10,8 @@
             </div>
             <div>
                 <div>
+                    <v-btn text @click="log()">버튼</v-btn>
+
                     <v-btn text v-on:click.native="signout()" to="/">로그아웃</v-btn>
                     <v-btn text to="/login">로그인</v-btn>
                     <v-btn text to="/signup">회원가입</v-btn>
@@ -23,7 +25,6 @@
 import $ from 'jquery';
 
 export default {
-
     methods: {
         goMain() {
             if (this.$router.history.current.fullPath == '/') {
@@ -44,12 +45,24 @@ export default {
             }),
                 (location.href = '/');
         },
-        testCookie(){
+        testCookie() {
             console.log(this.$cookies);
             const cookie = this.$cookies.get('Authorization');
             console.log(cookie);
+        },
+        log() {
+            this.$http
+                .get('/api/user', {
+                    withCredentials: true
+                })
+                .then(res => {
+                    console.log(res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
-    },
+    }
 };
 </script>
 <style scoped>
@@ -70,5 +83,4 @@ export default {
     display: flex;
     align-items: center;
 }
-
 </style>

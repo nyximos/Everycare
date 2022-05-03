@@ -7,6 +7,7 @@ import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetImage;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.CareTargetFormDTO;
+import wd.team4.everycare.dto.CareTargetViewDTO;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.repository.CareTargetImageRepository;
 import wd.team4.everycare.repository.CareTargetRepository;
@@ -33,16 +34,12 @@ public class CareTargetServiceImpl implements CareTargetService {
 
         CareTarget careTarget = careTargetDtoToEntity(careTargetFormDTO);
         careTargetRepository.save(careTarget);
-        System.out.println("=================================");
-        System.out.println("careTarget = " + careTarget.getName());
-
         List<UploadFile> attachFiles = fileStoreService.storeFiles((careTargetFormDTO.getAttachFiles()));
 
         for (UploadFile file : attachFiles) {
             CareTargetImage careTargetImage = careTargetDtoToImage(careTarget, file);
             careTargetImageRepository.save(careTargetImage);
         }
-
         return careTarget.getId();
     }
 
@@ -102,6 +99,14 @@ public class CareTargetServiceImpl implements CareTargetService {
         }
         careTargetEntity.updateInfo(careTargetFormDTO);
         return "수정완료";
+    }
+
+    @Override
+    public CareTargetViewDTO webFindCareTarget(Long id) {
+        Optional<CareTarget> careTarget = careTargetRepository.findById(id);
+        if(careTarget.isEmpty()) return null;
+        CareTarget careTargetEntity = careTarget.orElse(null);
+        return careTargetEntity.toViewDTO();
     }
 
 }

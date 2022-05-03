@@ -46,11 +46,16 @@ export default {
                 .post('https://localhost:8086/login', this.json, {
                     withCredentials: true
                 })
+                // .post('/api/login', this.json, {
+                //     withCredentials: true
+                // })
                 .then(res => {
                     // this.test = response.data;
                     console.log(res);
                     console.log(this.json);
+                    // state에 회원 정보 담기
                     
+                    // location.href = '/';
                 })
                 .catch(err => {
                     console.log(err);

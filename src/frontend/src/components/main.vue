@@ -13,7 +13,7 @@
         </div>
 
         <div class="main-form">
-            <div @click="go('caresitter')" class="find-care-sitter">
+            <div @click="go('caresitters')" class="find-care-sitter">
                 케어시터 찾기
             </div>
             <v-divider vertical></v-divider>

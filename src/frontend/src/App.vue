@@ -1,9 +1,9 @@
 <template>
     <v-app>
         <BaseHeader />
-        <router-view></router-view>
+        <router-view />
+        <BaseFooter />
         <BaseAlert />
-        <BaseFooter/>
     </v-app>
 </template>
 <script>

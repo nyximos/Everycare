@@ -3,7 +3,8 @@ package wd.team4.everycare.domain;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
-import wd.team4.everycare.dto.CareSitterFormDTO;
+import wd.team4.everycare.dto.careSitter.CareSitterFormDTO;
+import wd.team4.everycare.dto.careSitter.CareSitterNameDTO;
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
@@ -24,6 +25,9 @@ public class CareSitter {
     @Column(name = "care_sitter_id")
     private Long id;
 
+    @Column(name = "care_sitter_name", length = 50, nullable = false)
+    private String name;
+
     @Column(name = "care_sitter_preferred_care_type", length = 50, nullable = false)
     private String preferredType;
 
@@ -33,7 +37,7 @@ public class CareSitter {
     @Column(name = "care_sitter_desired_day_week", length = 50, nullable = false)
     private String desiredDayWeek;
 
-    @Column(name = "care_sitter_activity_time", length = 2, nullable = false)
+    @Column(name = "care_sitter_activity_time", length = 5, nullable = false)
     private String activityTime;
 
     @Column(name = "care_sitter_desired_hourly_wage", length = 50, nullable = false)
@@ -66,11 +70,12 @@ public class CareSitter {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "careSitter")
+    @OneToMany(mappedBy = "careSitter", fetch = FetchType.LAZY)
     private List<CareSitterImage> careSitterImages = new ArrayList<>();
 
     @Builder
-    public CareSitter(String preferredType, String hopefulRegion, String desiredDayWeek, String activityTime, String desiredHourlyWage, String desiredMonthlyWage, int cctvAgreement, int vaccination, String introduction, int disclosureStatus, LocalDateTime createdAt, LocalDateTime updatedAt, Member member) {
+    public CareSitter(String name, String preferredType, String hopefulRegion, String desiredDayWeek, String activityTime, String desiredHourlyWage, String desiredMonthlyWage, int cctvAgreement, int vaccination, String introduction, int disclosureStatus, LocalDateTime createdAt, LocalDateTime updatedAt, Member member) {
+        this.name = name;
         this.preferredType = preferredType;
         this.hopefulRegion = hopefulRegion;
         this.desiredDayWeek = desiredDayWeek;
@@ -84,6 +89,13 @@ public class CareSitter {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.member = member;
+    }
+
+    public CareSitterNameDTO toNameDTO(){
+        return CareSitterNameDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .build();
     }
 
     public void updateInfo(CareSitterFormDTO careSitterFormDTO) {

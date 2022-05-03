@@ -4,7 +4,6 @@
 		<div class="resumeWrap">
 				<div class="resumeType1">
 				<div class="resumeType1-inner">
-					<h1 class="title">케어시터 프로필</h1>
 					<div id="ResumeBaseInfo" class="resumeView">
 						<h2 class="hide">기본정보</h2>
 						<div class="photoArea">
@@ -16,26 +15,28 @@
 						</div>
 						
 							<ul class="infoList">
-								<li class="name"><strong>신○○</strong> <em>남자</em>  · 20세 (2003년생) <br></li>
+								<li class="name"><strong>{{$store.state.careprofileStore.name}}</strong> <em>{{$store.state.careprofileStore.sex}}</em>  ·{{$store.state.careprofileStore.age}}(2003년생) <br></li>
 								<li class="address"><span class="info-title">주소</span>경남 거제시 <span class="star">******</span></li>
 								<li class="contact">
 								<span class="info-title">연락처</span>010-****-****
 								</li>
-								<li class="mail"><span class="info-title">이메일</span><span class="star">****</span>@<span class="star">naver.com</span></li>
+								<li class="mail"><span class="info-title">이메일</span><span class="star">****</span>@<span class="star">이메일.com</span></li>
 							</ul>
 					</div>
 					<div id="ResumeCareer" class="resumeView">
 						<h2>정보</h2>
 						<div class="infoArea first"> 	
 							<div class="nameArea">
-								<p class="date">CCTV 동의여부</p>
+								<dt class="title">CCTV 동의여부:{{$store.state.careprofileStore.cctvAgreement}}	</dt>
+								<!-- <p class="date">CCTV 동의여부:{{this.$store.state.careprofileStore.cctv}}</p> -->
 							</div> 	
 							<dl class="infoDetail"> 		
-								<dt class="title">백신접종</dt> 
-								<dd class="date"><strong> 자격증</strong></dd> 
+								<dt class="title">백신접종: <span>{{$store.state.careprofileStore.vaccination}}</span></dt> 
+								
+								<dt class="title">자격증</dt> 
 								<dd class="kind">
 									<ul>
-										<li>자격증1<br>자격증2</li>
+										
 									</ul> 		
 								</dd> 	
 							</dl> 
@@ -61,19 +62,18 @@
 								<tr>
 									<td>
 										<dl class="item">
-											<dt class="title">월,화,수</dt>
+											<dt class="title">{{$store.state.careprofileStore.desiredDayWeek}}</dt>
 										</dl>
 									</td>
 									<td>
 										<dl class="item">
-											<dt class="title">10~11시</dt>
-											<dd>오전</dd>
+											<dt class="title">{{$store.state.careprofileStore.activityTime}}</dt>
 										</dl>
 									</td>
 									<td>
 										<dl class="item">
-											<dt class="title">1,0000</dt>
-											<dd>시급제</dd>
+											<dt class="title">{{$store.state.careprofileStore.pay}}</dt>
+											<dd>{{$store.state.careprofileStore.desiredHourlyWage}}</dd>
 										</dl>
 									</td>
 								</tr>
@@ -82,17 +82,22 @@
 						<ul class="fullList">
 							<li>
 								<span class="title">희망근무지</span>
-								<span class="result">부산남구</span>
+								<p class="result">
+									1순위:{{$store.state.careprofileStore.hopefulRegion}}&nbsp;&nbsp;&nbsp; 
+									2순위:{{$store.state.careprofileStore.hopefulRegion1}}&nbsp;&nbsp;&nbsp;
+									3순위:{{$store.state.careprofileStore.hopefulRegion2}}
+								</p>
+						
 							</li>
 							<li>
 								<span class="title">희망업직종</span>
-								<span class="result">육아/가사</span>
+								<span class="result">{{$store.state.careprofileStore.hopetype}}</span>
 							</li>
 						</ul>
 					</div>
 					<div id="ResumePR" class="resumeView">
 						<h2>자기소개서</h2>
-						<div class="ResumeOpenBox"><span class="lockIcon"></span><p class="first">자기소개서 자기소개서 자기소개서 자기소개서 자기소개서</p></div>
+						<div class="ResumeOpenBox"><span class="lockIcon"></span><p class="first">{{$store.state.careprofileStore.introduction}}</p></div>
 					</div>
                     <div id="#" class="resumeView">
                         <h2>후기</h2>
@@ -109,7 +114,29 @@
 
 <script>
 export default {
-
+	data(){
+		return{
+			profile:{}
+		}
+	},
+		created(){
+			// var id = this.$route.params.id;
+			this.$http.get('/api/dashboard/caresitter/${id}')
+			.then((res)=>{
+				this.profile = res.data[0]
+			})
+		
+	}
+	// created:function(){
+	// 	var id = this.$route.params.id;
+	// 	this.$http.get('/api/dashboard/caresitter/${id}')
+	// 	.then((response) =>{
+	// 		this.profile = response.data
+	// 	}).catch(err =>{
+	// 		alert(err);
+	// 		console.log(err);
+	// 	})
+	// }
 }
 </script>
 
@@ -250,6 +277,7 @@ export default {
     line-height: 1.5;
 }
 
+
 #ResumeTerms .resumeView-table {
 	overflow:hidden;
 	width:100%;
@@ -296,11 +324,12 @@ export default {
 	font-weight:bold;
 	line-height:1.5;
 	}
+	
 
-#ResumeTerms ul.fullList li span.result {
+#ResumeTerms ul.fullList li p.result {
 	overflow:hidden;
 	display:block;
-	font-size:14px;
+	font-size:20px;
 	line-height:1.5
 	}
 

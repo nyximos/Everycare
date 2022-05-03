@@ -39,7 +39,7 @@
                         <button onclick="logout()">로그아웃</button>
                     </li>
                     <li><a th:href="@{/dashboard}">마이페이지</a></li>
-                    <li><span sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin}">관리자페이지</a></span></li>
+                    <span sec:authorize="hasRole('ADMIN')"><li><a th:href="@{/admin}">관리자페이지</a></li></span>
                 </div>
             </div>
         </ul>

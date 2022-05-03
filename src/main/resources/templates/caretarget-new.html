@@ -66,7 +66,7 @@
         }
 
         $.ajax({
-            url: "/api/carenote/caretargets/new",
+            url: "/api/dashboard/caretargets/new",
             type: 'POST',
             cache: false,
             contentType: false,
@@ -74,8 +74,9 @@
             enctype: 'multipart/form-data',
             data: formData,
             async: false,
+
         })
-        location.href="/carenote/caretargets"
+        location.href="/dashboard/caretargets"
     });
 
 </script>

@@ -6,7 +6,7 @@
     
       <ul class="navbar-nav nav justify-content-end">
         <li class="nav-item">
-          <a class="nav-link" href="#">케어매칭</a>
+          <a class="nav-link" href="/caressitters">케어노트</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">케어노트</a>
@@ -31,6 +31,7 @@ export default {
 nav {
 	width: 100%;
 	height:70px;
+
 }
 
 
