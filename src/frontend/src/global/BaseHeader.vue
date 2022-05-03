@@ -6,15 +6,16 @@
                 <v-btn text>케어매칭</v-btn>
                 <v-btn text>케어노트</v-btn>
                 <v-btn text>케어스토어</v-btn>
-                <a @click="testCookie">쿠키</a>
             </div>
             <div>
                 <div>
-                    <v-btn text @click="log()">버튼</v-btn>
-
+                    <div v-if="this.$store.state.userStore.id !== ''">
                     <v-btn text v-on:click.native="signout()" to="/">로그아웃</v-btn>
+                    </div>
+                    <div v-else>
                     <v-btn text to="/login">로그인</v-btn>
                     <v-btn text to="/signup">회원가입</v-btn>
+                    </div>
                 </div>
             </div>
         </div>
@@ -22,7 +23,7 @@
 </template>
 
 <script>
-import $ from 'jquery';
+ import $ from 'jquery';
 
 export default {
     methods: {
@@ -35,6 +36,7 @@ export default {
             }
         },
         signout() {
+            this.$store.commit('userStore/clearUsername');
             $.ajax({
                 url: '/api/token',
                 type: 'DELETE',
@@ -43,20 +45,17 @@ export default {
                 processData: false,
                 async: false
             }),
-                (location.href = '/');
+            location.href = '/';
         },
-        testCookie() {
-            console.log(this.$cookies);
-            const cookie = this.$cookies.get('Authorization');
-            console.log(cookie);
-        },
+        // id, 이름, 권한 응답을 넣어준다
         log() {
             this.$http
                 .get('/api/user', {
                     withCredentials: true
                 })
                 .then(res => {
-                    console.log(res.data);
+                    // state에 저장
+                    console.log(this.$store.state.userStore.id);
                 })
                 .catch(err => {
                     console.log(err);

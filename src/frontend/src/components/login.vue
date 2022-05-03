@@ -34,6 +34,10 @@ export default {
     // },
     methods: {
         login() {
+            const userinfo={
+                username:this.json.username,
+                password:this.json.password
+            }
             if(this.json.username==''){
                 alert('아이디를 입력해주세요.');
                 return;
@@ -41,9 +45,9 @@ export default {
                 alert('패스워드를 입력해주세요.');
                 return;
             }
-            console.log(this.json);
+            console.log(userinfo);
             this.$http
-                .post('https://localhost:8086/login', this.json, {
+                .post('https://localhost:8086/login', userinfo, {
                     withCredentials: true
                 })
                 // .post('/api/login', this.json, {
@@ -54,8 +58,8 @@ export default {
                     console.log(res);
                     console.log(this.json);
                     // state에 회원 정보 담기
-                    
-                    // location.href = '/';
+                    this.$store.commit('userStore/userInfo', userinfo);
+                     location.href = '/';
                 })
                 .catch(err => {
                     console.log(err);

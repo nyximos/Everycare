@@ -7,7 +7,6 @@ import global from '@/global/index.js';
 import Alert from '@/plugins/Alert.js';
 import axios from 'axios';
 import vueResource from 'vue-resource';
-import VueCookies from 'vue-cookies';
 import jquery from 'jquery'
 
 
@@ -22,9 +21,8 @@ Vue.prototype.$axios = axios;
 Vue.use(vueResource);
 Vue.use(Alert);
 Vue.config.productionTip = false;
-Vue.use(VueCookies);
 
-Vue.$cookies.config("7d");
+
 
 new Vue({
     vuetify,
