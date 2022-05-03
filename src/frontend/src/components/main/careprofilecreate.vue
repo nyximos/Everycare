@@ -21,7 +21,15 @@
                           </div>
                           <div class="div_text">
                                  <!-- <span><input type="file" v-bind:src="image" id="uppic" accept="image/gif,image/jpg,image/png" @change="changeImage($event)" ref="avatarInput" class="uppic"></span> -->
-                              <v-file-input v-model="image" truncate-length="22" label="사진을 넣으세요" ></v-file-input>
+                              <!-- <v-file-input v-model="attachFiles" id="attachFiles" truncate-length="22" label="사진을 넣으세요" ></v-file-input> -->
+                               <v-file-input 
+                              v-model="attachFiles" 
+                              label="File input" 
+                              type="file"
+                              id="attachFiles"
+                              multiple="multiple"
+                              outlined dense>
+                              </v-file-input>
                           </div>
                           <div class="con10_blank"></div>
                           <div class="con10 con1">
@@ -35,14 +43,14 @@
                 <li>
                   <span class="area_stitle">1지망</span>
                   <v-select name="sido1" id="sido1"
-                      v-model="hopeloc1"
+                      v-model="hope_loc1"
                       :items="hope_location1"
                       label="시/도"
                       item-text="name"
                       item-value="value"
                       @change="categoryChange($event)" on>
                     </v-select>
-                    <v-select name="#" id="#"
+                    <v-select name="sido_detail1" id="sido1_detail"
                       v-model="hopeloc1_detail"
                       :items="detail_area"
                       label="시/군/구"
@@ -50,10 +58,10 @@
                       item-value="value">
                     </v-select>
                 </li>
-                  <li>
+                  <!-- <li>
                    <span class="area_stitle">2지망</span>
                    <v-select name="sido2" id="sido2"
-                      v-model="hopeloc2"
+                      v-model="hope_loc2"
                       :items="hope_location1"
                       label="시/도"
                       item-text="name"
@@ -71,7 +79,7 @@
                     <li>
                      <span class="area_stitle">3지망</span>
                         <v-select name="sido3" id="sido3"
-                      v-model="hopeloc3"
+                      v-model="hope_loc3"
                       :items="hope_location1"
                       label="시/도"
                       item-text="name"
@@ -85,7 +93,7 @@
                       item-text="name"
                       item-value="value">
                     </v-select>
-                    </li>
+                    </li> -->
                   </ul>
                 </div>
                  <div class="area_day">
@@ -133,13 +141,13 @@
                          
                     </div>
                         <div class="r_seeking">
-                            <v-checkbox v-model="caretype" value="baby" label="베이비"></v-checkbox>
+                            <!-- <v-checkbox v-model="caretype" value="baby" label="베이비"></v-checkbox>
                             <v-checkbox v-model="caretype" value="housework+clean" label="육아+가사"></v-checkbox>
                             <v-checkbox v-model="caretype" value="pickup" label="등하원"></v-checkbox>
                             <v-checkbox v-model="caretype" value="play" label="놀이"></v-checkbox>
                             <v-checkbox v-model="caretype" value="housework" label="가사"></v-checkbox>
                             <v-checkbox v-model="caretype" value="clean" label="청소"></v-checkbox>
-                          <h5 class="sub_title1">연령</h5>
+                          <h5 class="sub_title1">연령</h5> -->
                         <div class="r_seeking_age">
                           <v-checkbox v-model="preferredType" value="newborn" label="신생아(0-6 month)"></v-checkbox>
                           <v-checkbox v-model="preferredType" value="baby" label="영아(7-36 month)"></v-checkbox>
@@ -174,15 +182,18 @@
                           <h5 class="sub_title">자격증</h5>
                           <div class="">
                               <br>
-                              <v-file-input 
+                              <!-- <v-file-input 
                               v-model="files" 
                               label="File input" 
                               outlined dense>
-                              </v-file-input>
+                              </v-file-input> -->
                           </div>
                           </div>
+                          <br><br>
+                          <h5>자기소개</h5>
+                          <textarea class="content_add" placeholder="자기소개써주세요" v-model="introduction"></textarea>
                           <!-- <router-link :to="{name: 'careprofile1'}"> -->
-                                <v-btn class="ma-2" outlined color="indigo" @click="nextpage1">완료</v-btn>
+                                <v-btn class="ma-2" outlined color="indigo" @click="submit">완료</v-btn>
                           <!-- </router-link> -->
                           <router-link to="/"> <v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
                           </div>
@@ -481,23 +492,24 @@ area1 : [
       {name:'서귀포시', value:'서귀포시'},
       {name:'제주시', value:'제주시'},
     ],
+
       image:[],
-      radios:'',
       introduction:'',
       desiredHourlyWage:0,
       desiredMonthlyWage:0,
       hope_loc1:'', 
       hope_loc2:'',
       hope_loc3:'',
-      detail_area:'',
+      detail_area:[],
       detail1_area:'',
       detail2_area:'',
       hopeloc1_detail:'',
       hopeloc2_detail:'',
       hopeloc3_detail:'',
       activityTime:'',
+      radios:'',
       desiredDayWeek: [],
-      // starttimepicker:'',
+      starttimepicker:'',
       endtimepicker:'',
       preferredType: [],
       cctvAgreement:'',
@@ -542,84 +554,84 @@ area1 : [
         }else if(event =='제주'){
           this.detail_area = this.area17
         }
-        
       },
-      categoryChange1(event){
-        if(event =='서울'){
-          this.detail1_area = this.area1;
-        }else if(event == '인천'){
-          this.detail1_area = this.area2;
-        }else if(event =='경기'){
-          this.detail1_area = this.area3;
-        }else if(event =='부산'){
-          this.detail1_area = this.area4
-        }else if(event =='대구'){
-          this.detail1_area = this.area5
-        }else if(event =='대전'){
-          this.detail1_area = this.area6
-        }else if(event =='세종'){
-          this.detail1_area = this.area7
-        }else if(event =='광주'){
-          this.detail1_area = this.area8
-        }else if(event =='울산'){
-          this.detail1_area = this.area9
-        }else if(event =='강원'){
-          this.detail1_area = this.area10
-        }else if(event =='경남'){
-          this.detail1_area = this.area11
-        }else if(event =='경북'){
-          this.detail1_area = this.area12
-        }else if(event =='전남'){
-          this.detail1_area = this.area13
-        }else if(event =='전북'){
-          this.detail1_area = this.area14
-        }else if(event =='충남'){
-          this.detail1_area = this.area15
-        }else if(event =='충북'){
-          this.detail1_area = this.area16
-        }else if(event =='제주'){
-          this.detail1_area = this.area17
-        }
+      
+      // categoryChange1(event){
+      //   if(event =='서울'){
+      //     this.detail1_area = this.area1;
+      //   }else if(event == '인천'){
+      //     this.detail1_area = this.area2;
+      //   }else if(event =='경기'){
+      //     this.detail1_area = this.area3;
+      //   }else if(event =='부산'){
+      //     this.detail1_area = this.area4
+      //   }else if(event =='대구'){
+      //     this.detail1_area = this.area5
+      //   }else if(event =='대전'){
+      //     this.detail1_area = this.area6
+      //   }else if(event =='세종'){
+      //     this.detail1_area = this.area7
+      //   }else if(event =='광주'){
+      //     this.detail1_area = this.area8
+      //   }else if(event =='울산'){
+      //     this.detail1_area = this.area9
+      //   }else if(event =='강원'){
+      //     this.detail1_area = this.area10
+      //   }else if(event =='경남'){
+      //     this.detail1_area = this.area11
+      //   }else if(event =='경북'){
+      //     this.detail1_area = this.area12
+      //   }else if(event =='전남'){
+      //     this.detail1_area = this.area13
+      //   }else if(event =='전북'){
+      //     this.detail1_area = this.area14
+      //   }else if(event =='충남'){
+      //     this.detail1_area = this.area15
+      //   }else if(event =='충북'){
+      //     this.detail1_area = this.area16
+      //   }else if(event =='제주'){
+      //     this.detail1_area = this.area17
+      //   }
         
-      },
-      categoryChange2(event){
-        if(event =='서울'){
-          this.detail_area = this.area1;
-        }else if(event == '인천'){
-          this.detail_area = this.area2;
-        }else if(event =='경기'){
-          this.detail_area = this.area3;
-        }else if(event =='부산'){
-          this.detail_area = this.area4
-        }else if(event =='대구'){
-          this.detail_area = this.area5
-        }else if(event =='대전'){
-          this.detail_area = this.area6
-        }else if(event =='세종'){
-          this.detail_area = this.area7
-        }else if(event =='광주'){
-          this.detail_area = this.area8
-        }else if(event =='울산'){
-          this.detail_area = this.area9
-        }else if(event =='강원'){
-          this.detail_area = this.area10
-        }else if(event =='경남'){
-          this.detail_area = this.area11
-        }else if(event =='경북'){
-          this.detail_area = this.area12
-        }else if(event =='전남'){
-          this.detail_area = this.area13
-        }else if(event =='전북'){
-          this.detail_area = this.area14
-        }else if(event =='충남'){
-          this.detail_area = this.area15
-        }else if(event =='충북'){
-          this.detail_area = this.area16
-        }else if(event =='제주'){
-          this.detail_area = this.area17
-        }
+      // },
+      // categoryChange2(event){
+      //   if(event =='서울'){
+      //     this.detail_area = this.area1;
+      //   }else if(event == '인천'){
+      //     this.detail_area = this.area2;
+      //   }else if(event =='경기'){
+      //     this.detail_area = this.area3;
+      //   }else if(event =='부산'){
+      //     this.detail_area = this.area4
+      //   }else if(event =='대구'){
+      //     this.detail_area = this.area5
+      //   }else if(event =='대전'){
+      //     this.detail_area = this.area6
+      //   }else if(event =='세종'){
+      //     this.detail_area = this.area7
+      //   }else if(event =='광주'){
+      //     this.detail_area = this.area8
+      //   }else if(event =='울산'){
+      //     this.detail_area = this.area9
+      //   }else if(event =='강원'){
+      //     this.detail_area = this.area10
+      //   }else if(event =='경남'){
+      //     this.detail_area = this.area11
+      //   }else if(event =='경북'){
+      //     this.detail_area = this.area12
+      //   }else if(event =='전남'){
+      //     this.detail_area = this.area13
+      //   }else if(event =='전북'){
+      //     this.detail_area = this.area14
+      //   }else if(event =='충남'){
+      //     this.detail_area = this.area15
+      //   }else if(event =='충북'){
+      //     this.detail_area = this.area16
+      //   }else if(event =='제주'){
+      //     this.detail_area = this.area17
+      //   }
         
-      },
+      // },
         submit(){
             var formData= new FormData();
 
@@ -628,14 +640,15 @@ area1 : [
             formData.append('cctvAgreement', this.cctvAgreement);
             formData.append('introduction', this.introduction);
             formData.append('desiredDayWeek', this.desiredDayWeek);
-            formData.append('hopefulRegion', this.hope_loc1+this.detail_area , this.hope_loc2+this.detail1_area , this.hope_loc3+this.hopeloc3_detail);
+            formData.append('hopefulRegion', this.hope_loc1+this.hopeloc1_detail);
             formData.append('desiredHourlyWage', this.desiredHourlyWage);
             formData.append('desiredMonthlyWage', this.desiredMonthlyWage);
-            formData.append('activityTime', this.activityTime);
+            formData.append('activityTime', this.starttimepicker+this.endtimepicker);
             // formData.append('activityTime', this.starttimepicker + this.endtimepicker);
            for(let i = 0; i< this.attachFiles.length; i++){
              formData.append('attachFiles', this.attachFiles[0]);
-           } this.$http
+           } 
+           this.$http
             .post('/api/dashboard/caresitter',formData,{
                 withCredentials:true
             })
@@ -868,4 +881,11 @@ area1 : [
     width: 30%;
     margin: 0 auto;
   }
+  .content_add{
+        width: 100%;
+        height: 100px;
+        border: 1px solid #cccccc;
+        border-radius: 5px;
+        overflow: hidden;
+    }
 </style>
