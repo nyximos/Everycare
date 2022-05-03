@@ -22,6 +22,11 @@ const routes = [
         name: 'signup',
         component: () => import('@/pages/Signup.vue')
    },
+   {
+       path: '/calendar',
+       name: 'calendar',
+       component:() => import('@/pages/Calendar.vue')
+   },
     {
         path: '/dashboard/careprofile',
         name: 'careprofile',

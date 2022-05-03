@@ -8,17 +8,25 @@
                 <v-btn text>케어스토어</v-btn>
             </div>
             <div>
-                <v-btn text @click="log()">클릭</v-btn>
-                <router-link to="/login">로그인</router-link>
-                <router-link to="/signup">회원가입</router-link>
+                <div>
+                    <div v-if="this.$store.state.userStore.id !== ''">
+                    <v-btn text v-on:click.native="signout()" to="/">로그아웃</v-btn>
+                    <v-btn text v-on:click.native="mypage()" to="/mypage">{{this.$store.state.userStore.id}}님</v-btn>
+                    </div>
+                    <div v-else>
+                    <v-btn text to="/login">로그인</v-btn>
+                    <v-btn text to="/signup">회원가입</v-btn>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 </template>
 
 <script>
+ import $ from 'jquery';
+
 export default {
-    computed: {},
     methods: {
         goMain() {
             if (this.$router.history.current.fullPath == '/') {
@@ -28,17 +36,27 @@ export default {
                 console.log('/');
             }
         },
-        logoutUser() {
-            this.$stroe.commit('userStore2/clearUsername');
-            this.$router.push('/');
+        signout() {
+            this.$store.commit('userStore/clearUsername');
+            $.ajax({
+                url: '/api/token',
+                type: 'DELETE',
+                cache: false,
+                contentType: false,
+                processData: false,
+                async: false
+            }),
+            location.href = '/';
         },
+        // id, 이름, 권한 응답을 넣어준다
         log() {
             this.$http
                 .get('/api/user', {
                     withCredentials: true
                 })
                 .then(res => {
-                    console.log(res.data);
+                    // state에 저장
+                    console.log(this.$store.state.userStore.id);
                 })
                 .catch(err => {
                     console.log(err);
@@ -53,7 +71,7 @@ export default {
     width: 100%;
     justify-content: space-between;
     height: 50px;
-    color: black;
+    color: rgb(255, 255, 255);
     background: #69f0ae;
     align-items: center;
 }

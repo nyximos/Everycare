@@ -10,13 +10,17 @@
       <div class="text01" id="date_text">
         <span class="exam01">날짜를 선택해주세요.</span>
       </div>
-
+   
     </form>
   </div>
 </template>
 
 <script>
+
 export default {
+  methods:{
+    
+  }
 }
 </script>
 

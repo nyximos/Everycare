@@ -7,6 +7,9 @@ import global from '@/global/index.js';
 import Alert from '@/plugins/Alert.js';
 import axios from 'axios';
 import vueResource from 'vue-resource';
+import jquery from 'jquery'
+
+
 
 global.import();
 
@@ -19,9 +22,12 @@ Vue.use(vueResource);
 Vue.use(Alert);
 Vue.config.productionTip = false;
 
+
+
 new Vue({
     vuetify,
     router,
     store,
+    jquery,
     render: h => h(App)
 }).$mount('#app');
