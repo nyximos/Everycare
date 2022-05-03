@@ -23,6 +23,7 @@
         "vuex-persistedstate": "^4.1.0"
     },
     "devDependencies": {
+        "@types/jquery": "^3.5.14",
         "@typescript-eslint/eslint-plugin": "^5.21.0",
         "@typescript-eslint/parser": "^5.21.0",
         "@vue/cli-plugin-babel": "~4.5.0",

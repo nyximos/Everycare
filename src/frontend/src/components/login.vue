@@ -7,7 +7,7 @@
                     <v-text-field v-model="json.username" label="Id" placeholder="Placeholder" dense outlined></v-text-field>
                     <v-text-field v-model="json.password" type="password" label="Password" placeholder="Placeholder" dense outlined></v-text-field>
                 </div>
-                <div><v-btn @click="login" color="#69f0ae" elevation="2" class="login-button">Login</v-btn></div>
+                <div><v-btn @click="login" color="#69f0ae" elevation="2" class="login-button">로그인</v-btn></div>
             </div>
         </div>
     </div>
@@ -40,8 +40,6 @@ export default {
             } else if (this.json.password==''){
                 alert('패스워드를 입력해주세요.');
                 return;
-            } else if (this.json.username || this.json.password !== this.json){
-                alert('올바른 계정이 아닙니다.')
             }
             console.log(this.json);
             this.$http
@@ -52,7 +50,7 @@ export default {
                     // this.test = response.data;
                     console.log(res);
                     console.log(this.json);
-                    location.href = '/';
+                    
                 })
                 .catch(err => {
                     console.log(err);

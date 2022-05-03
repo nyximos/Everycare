@@ -6,23 +6,24 @@
                 <v-btn text>케어매칭</v-btn>
                 <v-btn text>케어노트</v-btn>
                 <v-btn text>케어스토어</v-btn>
+                <a @click="testCookie">쿠키</a>
             </div>
             <div>
-                <router-link to="/login">로그인</router-link>
-                <router-link to="/signup">회원가입</router-link>
-                <router-link v-on:click.native="signout()" to="/">로그아웃</router-link>
+                <div>
+                    <v-btn text v-on:click.native="signout()" to="/">로그아웃</v-btn>
+                    <v-btn text to="/login">로그인</v-btn>
+                    <v-btn text to="/signup">회원가입</v-btn>
+                </div>
             </div>
         </div>
     </header>
 </template>
 
 <script>
-import $ from 'jquery'
+import $ from 'jquery';
 
 export default {
-    data() {
 
-    },
     methods: {
         goMain() {
             if (this.$router.history.current.fullPath == '/') {
@@ -42,8 +43,13 @@ export default {
                 async: false
             }),
                 (location.href = '/');
+        },
+        testCookie(){
+            console.log(this.$cookies);
+            const cookie = this.$cookies.get('Authorization');
+            console.log(cookie);
         }
-    }
+    },
 };
 </script>
 <style scoped>
@@ -52,7 +58,7 @@ export default {
     width: 100%;
     justify-content: space-between;
     height: 50px;
-    color: black;
+    color: rgb(255, 255, 255);
     background: #69f0ae;
     align-items: center;
 }
@@ -64,4 +70,5 @@ export default {
     display: flex;
     align-items: center;
 }
+
 </style>

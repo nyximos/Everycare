@@ -3,7 +3,6 @@
         <!-- <form name="signUpForm" class="form" role="form"> -->
         <br />
         <h2>회원가입</h2>
-        {{ this.$store.state.userStore.id }}
         <div id="in-input">
             <input type="text" v-model="id" name="username" class="form-control input-lg" placeholder="아이디" ng-required="true" />
             <input type="password" v-model="password" name="password" class="form-control input-lg" placeholder="패스워드" ng-required="true" />
@@ -70,30 +69,30 @@ export default {
                     location.href = '/';
                 })
                 .catch(err => {
-                    console.log(err);
+                    console.log(err)
                 });
-        },
-    //     initForm() {
-    //         this.id = '';
-    //         this.password = '';
-    //         this.name = '';
-    //         this.birth = '';
-    //         this.gender = '';
-    //         this.phone = '';
-    //         this.email = '';
-    //         this.zipcode = '';
-    //         this.address = '';
-    //         this.detailedAddress = '';
-    //     }
-      }
+            //     initForm() {
+            //         this.id = '';
+            //         this.password = '';
+            //         this.name = '';
+            //         this.birth = '';
+            //         this.gender = '';
+            //         this.phone = '';
+            //         this.email = '';
+            //         this.zipcode = '';
+            //         this.address = '';
+            //         this.detailedAddress = '';
+            //     }
+        }
+    }
 };
 </script>
 
-<style>
-.signup-box{
+<style scoped lang="scss">
+.signup-box {
     position: absolute;
-    top:50%;
-    left:50%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
 }
 input {
@@ -102,16 +101,16 @@ input {
 #in-input {
     width: 600px;
 }
-h2{
+h2 {
     position: relative;
-    left:13px;
+    left: 13px;
     color: #69f0ae;
     text-align: center;
     padding: 20px;
 }
 #up-btn {
     position: relative;
-    left:13px;
+    left: 13px;
     margin: auto;
     display: block;
     background-color: #69f0ae;
