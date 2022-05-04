@@ -1,6 +1,8 @@
 package wd.team4.everycare.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import wd.team4.everycare.domain.CareTarget;
@@ -21,6 +23,7 @@ import java.util.List;
 @SequenceGenerator(name = "job_offer_seq_generator",
         sequenceName = "job_offer_seq",
         initialValue = 1, allocationSize = 1)
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class JobOffer {
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "job_offer_seq_generator")
@@ -97,5 +100,22 @@ public class JobOffer {
         if(StringUtils.isNotBlank(jobOfferDTO.getComment())) this.comment = jobOfferDTO.getComment();
         if(jobOfferDTO.getCareTarget()!=null) this.careTarget = jobOfferDTO.getCareTarget();
         if(jobOfferDTO.getCareTargetSchedule()!=null) this.careTargetSchedule = jobOfferDTO.getCareTargetSchedule();
+    }
+
+    public JobOfferDTO toJobOfferDTO(JobOffer jobOffer){
+        return JobOfferDTO.builder()
+                .title(jobOffer.getTitle())
+                .startDate(String.valueOf(jobOffer.getStartDate()))
+                .endDate(String.valueOf(jobOffer.getEndDate()))
+                .desiredDayWeek(jobOffer.getDesiredDayWeek())
+                .desiredStartTime(jobOffer.getDesiredStartTime())
+                .desiredEndTime(jobOffer.getDesiredEndTime())
+                .pay(jobOffer.getPay())
+                .comment(jobOffer.getComment())
+                .desiredCareSitterGender(jobOffer.getDesiredCareSitterGender())
+                .careTarget(jobOffer.getCareTarget())
+                .careTargetSchedule(jobOffer.getCareTargetSchedule())
+                .member(jobOffer.getMember())
+                .build();
     }
 }

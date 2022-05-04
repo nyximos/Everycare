@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface JobOfferService {
 
     List<JobOffer> getJobOffer();
-    Optional<JobOffer> getDetailJobOffer(Long id);
+    JobOfferDTO getDetailJobOffer(Long id);
     JobOffer save(JobOfferDTO jobOfferDTO);
     String update(Long id, JobOfferDTO jobOfferDTO);
     void deleteJobOffer(Long id);

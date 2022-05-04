@@ -1,5 +1,6 @@
 package wd.team4.everycare.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import wd.team4.everycare.domain.*;
@@ -8,6 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Getter @Setter
+@Builder
 public class JobOfferDTO {
 
     private CareTarget careTarget;                      //케어 대상인
@@ -25,6 +27,7 @@ public class JobOfferDTO {
 
     public JobOffer toJobOffer(){
         return JobOffer.builder()
+                .title(this.title)
                 .startDate(this.startDate)
                 .endDate(this.endDate)
                 .desiredDayWeek(this.desiredDayWeek)
