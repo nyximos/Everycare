@@ -1,4 +1,4 @@
-package wd.team4.everycare.dto;
+package wd.team4.everycare.dto.careTargetSchedule;
 
 import lombok.*;
 

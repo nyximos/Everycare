@@ -15,7 +15,6 @@ import java.util.List;
 @SequenceGenerator(name = "certification_seq_generator",
         sequenceName = "certification_seq",
         initialValue = 1, allocationSize = 1)
-
 public class Certification {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "certification_seq_generator")
@@ -31,8 +30,6 @@ public class Certification {
     @Column(name = "certification_store_file_name", nullable = false)
     private String storeFileName;
 
-    @Column(name = "certification_admin_approve", nullable = false)
-    private int adminApproval;
 
     @Column(name = "certification_created_at", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
@@ -42,6 +39,32 @@ public class Certification {
     @JoinColumn(name = "care_sitter_id")
     private CareSitter careSitter;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "certification_classification_id")
+    private CertificationClassification certificationClassification;
+
+    @Column(name = "certification_admin_approve", nullable = false)
+    private int adminApproval;
+
+    @Column(name = "certification_approval_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
+    private LocalDateTime approvalDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "certification_approver")
+    private Member approver;
+
+    @Builder
+    public Certification(String name, String uploadFileName, String storeFileName, int adminApproval, LocalDateTime createdAt, CareSitter careSitter, CertificationClassification certificationClassification) {
+        this.name = name;
+        this.uploadFileName = uploadFileName;
+        this.storeFileName = storeFileName;
+        this.adminApproval = adminApproval;
+        this.createdAt = createdAt;
+        this.careSitter = careSitter;
+        this.certificationClassification = certificationClassification;
+    }
+
     public CertificationViewDTO toViewDTO(){
         return CertificationViewDTO.builder()
                 .id(this.id)
@@ -50,7 +73,14 @@ public class Certification {
                 .uploadFileName(this.uploadFileName)
                 .storeFileName(this.storeFileName)
                 .createdAt(this.createdAt)
+                .careSitter(this.careSitter.toNameDTO())
                 .build();
+    }
+
+    public void approvedByAdmin(int i, LocalDateTime date, Member approver){
+        this.adminApproval = i;
+        this.approvalDate = date;
+        this.approver = approver;
     }
 
 }

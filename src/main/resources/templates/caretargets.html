@@ -13,10 +13,10 @@
   </th:block>
   <th:block th:if="${careTargets} != null">
     <div th:each="careTarget : ${careTargets}"
-         th:onclick="'location.href=\''+ @{/carenote/caretargets/{id}(id=${careTarget.id})} + '\''">
+         th:onclick="'location.href=\''+ @{/dashboard/caretargets/{id}(id=${careTarget.id})} + '\''">
       <li th:text="${careTarget.name}"></li>
     </div>
-    <li><a th:href="@{/carenote/caretargets/new}">케어 대상인 등록</a></li>
+    <li><a th:href="@{/dashboard/caretargets/new}">케어 대상인 등록</a></li>
   </th:block>
 </div>
 </body>

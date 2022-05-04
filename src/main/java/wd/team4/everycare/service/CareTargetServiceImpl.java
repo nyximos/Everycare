@@ -102,7 +102,7 @@ public class CareTargetServiceImpl implements CareTargetService {
     }
 
     @Override
-    public CareTargetViewDTO findCareTarget(Long id) {
+    public CareTargetViewDTO webFindCareTarget(Long id) {
         Optional<CareTarget> careTarget = careTargetRepository.findById(id);
         if(careTarget.isEmpty()) return null;
         CareTarget careTargetEntity = careTarget.orElse(null);

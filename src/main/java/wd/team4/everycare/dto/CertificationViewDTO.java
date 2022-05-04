@@ -2,6 +2,8 @@ package wd.team4.everycare.dto;
 
 import lombok.*;
 
+import wd.team4.everycare.dto.careSitter.CareSitterNameDTO;
+
 import java.time.LocalDateTime;
 
 @Builder
@@ -18,5 +20,6 @@ public class CertificationViewDTO {
     private String storeFileName;
     private int adminApproval;
     private LocalDateTime createdAt;
+    private CareSitterNameDTO careSitter;
 
 }

@@ -30,7 +30,9 @@ public class PrincipalDetails implements UserDetails{
         return member;
     }
 
-    public Store getStore() {return member.getStore();}
+    public Store getStore() { return member.getStore(); }
+
+    public String getRole() { return member.getRole().toString(); }
 
     @Override
     public String getPassword() {

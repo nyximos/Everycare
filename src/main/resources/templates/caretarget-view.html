@@ -36,11 +36,12 @@
         <input id="updateButton" type="button" value="수정"/>
         <input id="deleteButton" type="button" value="삭제"/>
 
-        <div><a th:href="@{'/carenote/caretargets/'+ ${careTarget.id} +'/schedule'}"> 스케줄 등록</a></div>
+        <div><a th:href="@{'/dashboard/caretargets/'+ ${careTarget.id} +'/schedule'}"> 스케줄 등록</a></div>
 
         <h2>스케줄 목록</h2>
         <div th:each="schedule : ${schedules}"
-            th:onclick="'location.href=\''+ @{/carenote/caretargets/{id}(id=${careTarget.id})/schedules/{id}(id=${schedule.id})">
+             th:onclick="'location.href=\''+ @{/dashboard/caretargets/{careTargetId}/schedules/{scheduleId}(careTargetId=${careTarget.id},scheduleId=${schedule.id})} + '\''">
+            스케줄아이디: <span th:text="${schedule.id}"></span><br/>
             스케줄명: <span th:text="${schedule.name}"></span><br/>
             시작시간: <span th:text="${schedule.startTime}"></span><br/>
             종료시간:<span th:text="${schedule.endTime}"></span><br/>
@@ -52,26 +53,27 @@
 
     <script th:inline="javascript">
         /*<![CDATA]*/
-        var id = /*[[ ${careTarget.id} ]]*/'';
+        const id = /*[[ ${careTarget.id} ]]*/'';
+        console.log(id)
         /*]]*/
         $('#updateButton').on('click', function () {
-            location.href = "/carenote/caretargets/"+id+"/update";
+            location.href = "/dashboard/caretargets/"+id+"/update";
         })
 
         $('#deleteButton').on('click', function () {
 
             $.ajax({
-                url: "/api/carenote/caretargets/"+id,
+                url: "/api/dashboard/caretargets/"+id,
                 type: 'DELETE',
                 cache: false,
                 data: {
-                  "id":id
+                    "id":id
                 },
                 dataType:"json",
                 async: false,
             })
 
-            location.href = "/carenote/caretargets";
+            location.href = "/dashboard/caretargets";
         })
 
     </script>

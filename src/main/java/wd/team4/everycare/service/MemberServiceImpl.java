@@ -3,12 +3,14 @@ package wd.team4.everycare.service;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.config.jwt.JwtProperties;
 import wd.team4.everycare.domain.Member;
-import wd.team4.everycare.dto.member.MemberDTO;
+import wd.team4.everycare.dto.member.MemberInfoDTO;
 import wd.team4.everycare.dto.member.SignupDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
@@ -73,6 +75,23 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Member signupDtoToEntity(SignupDTO signupDTO){
         return MemberService.super.signupDtoToEntity(signupDTO);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> getMemberInfoDTO(String id) {
+
+        Optional<Member> member = memberRepository.findById(id);
+        Member memberEntity = member.orElse(null);
+        MemberInfoDTO memberInfoDTO = memberEntity.toMemberInfoDTO();
+
+        MyResponse<MemberInfoDTO> body = MyResponse.<MemberInfoDTO>builder()
+                .header(StatusEnum.OK)
+                .message("성공했슴다~")
+                .body(memberInfoDTO)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 
 //    @Override

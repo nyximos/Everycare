@@ -79,7 +79,7 @@ public class CareTarget {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "careTarget", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "careTarget", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CareTargetImage> careTargetImages = new ArrayList<>();
 
     @Builder
