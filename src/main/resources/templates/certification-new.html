@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+  <meta charset="utf-8" />
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="container">
+    <div class="py-5 text-center">
+      <h2>자격증 등록</h2>
+    </div>
+    <form>
+      <ul>
+        <li>자격증명 <input type="text" name="name" id="name"/></li>
+        <li>자격증 사진<input type="file" name="attachFile" id="attachFile"/></li>
+      </ul>
+      <input id="tokenField" type="hidden"/>
+      <input id="submitButton" type="button" value="등록"/>
+    </form>
+  </div>
+
+  <!-- /container -->
+  <script th:inline="javascript">
+
+    /*<![CDATA]*/
+    var id = /*[[ ${careSitter.id} ]]*/'';
+    console.log(id);
+    /*]]*/
+
+    $('#submitButton').on('click', function () {
+      const formData = new FormData();
+
+      formData.append('name', $('#name').val());
+      if ($('#attachFile')[0].files[0] === undefined) {
+        alert("이미지를 첨부해주세요!");
+        return false;
+      } else {
+        formData.append('attachFile', $('#attachFile')[0].files[0]);
+      }
+
+      $.ajax({
+        url: "/api/dashboard/caresitter/"+id+"/certifications",
+        type: 'POST',
+        cache: false,
+        contentType: false,
+        processData: false,
+        enctype: 'multipart/form-data',
+        data: formData,
+        async: false,
+      })
+      // location.href="/carenote/caretargets"
+    });
+
+  </script>
+</div>
+</body>
+</html>
