@@ -1,7 +1,7 @@
 package wd.team4.everycare.dto;
 
 import lombok.*;
-import wd.team4.everycare.domain.CareSitter;
+
 import wd.team4.everycare.dto.careSitter.CareSitterNameDTO;
 
 import java.time.LocalDateTime;

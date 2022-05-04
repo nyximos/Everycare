@@ -35,7 +35,7 @@ public class CareTargetScheduleWebController {
 
     @GetMapping("/dashboard/caretargets/{caretargetid}/schedules/{scheduleid}")
     public String careTargetSchedule(@PathVariable(value = "caretargetid") Long careTargetId,
-                              @PathVariable(value = "scheduleid") Long scheduleId, Model model){
+                                     @PathVariable(value = "scheduleid") Long scheduleId, Model model){
 
         CareTargetViewDTO careTarget = careTargetService.webFindCareTarget(careTargetId);
         System.out.println("careTarget = " + careTarget);

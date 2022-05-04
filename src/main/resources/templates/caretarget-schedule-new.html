@@ -3,21 +3,21 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charSet="UTF-8"/>
     <title>스케줄 생성</title>
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="container">
+    <div className="container">
 
-    <div class="py-5 text-center">
-        <h2>스케줄 생성</h2>
-    </div>
+        <div className="py-5 text-center">
+            <h2>스케줄 생성</h2>
+        </div>
         <form>
             <ul>
                 <li>스케줄명 <input type="text" name="name" id="name"/></li>
-                <li>시작 시간 <input type="time" name="startTime" id="startTime" /></li>
-                <li>종료 시간 <input type="time" name="endTime" id="endTime" /></li>
+                <li>시작 시간 <input type="time" name="startTime" id="startTime"/></li>
+                <li>종료 시간 <input type="time" name="endTime" id="endTime"/></li>
             </ul>
             <input id="tokenField" type="hidden"/>
             <input id="submitButton" type="button" value="등록"/>
@@ -39,7 +39,7 @@
             formData.append('careTarget', id);
 
             $.ajax({
-                url: "/api/dashboard/caretargets/"+id+"/schedules",
+                url: "/api/dashboard/caretargets/" + id + "/schedules",
                 type: 'POST',
                 cache: false,
                 contentType: false,
@@ -49,7 +49,7 @@
                 async: false,
             })
 
-            location.href = "/dashboard/caretargets/"+id;
+            location.href = "/dashboard/caretargets/" + id;
         });
     </script>
 </div>

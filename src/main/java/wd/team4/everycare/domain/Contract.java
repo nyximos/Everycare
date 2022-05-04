@@ -34,10 +34,10 @@ public class Contract {
     @DateTimeFormat(pattern = "yyyyMMdd")
     private LocalDate endDate;
 
-    @Column(name = "contract_start_time", length = 4, nullable = false)
+    @Column(name = "contract_start_time", length = 5, nullable = false)
     private String startTime;
 
-    @Column(name = "contract_end_time", length = 4, nullable = false)
+    @Column(name = "contract_end_time", length = 5, nullable = false)
     private String endTime;
 
     @Column(name = "contract_pay", nullable = false)
