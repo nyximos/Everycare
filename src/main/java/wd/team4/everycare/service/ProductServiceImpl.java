@@ -142,6 +142,7 @@ public class ProductServiceImpl implements ProductService {
                 .storeFileName(productEntity.getStoreFileName())
                 .comment(productEntity.getComment())
                 .isSale(productEntity.getIsSale())
+                .createdAt(productEntity.getCreatedAt())
                 .store(productEntity.getStore().toNameDTO())
                 .productCategory(productEntity.getProductCategory().toDTO())
                 .build();

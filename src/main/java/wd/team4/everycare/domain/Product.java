@@ -1,5 +1,6 @@
 package wd.team4.everycare.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -48,7 +49,7 @@ public class Product {
     private int isSale;
 
     @Column(name = "product_created_at", nullable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
