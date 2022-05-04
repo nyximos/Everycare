@@ -18,17 +18,16 @@ public class ProductApiController {
 
     private final ProductServiceImpl productService;
 
-    @ResponseBody
+    @GetMapping("/products")
+    public ResponseEntity<MyResponse> getProducts(){
+        ResponseEntity<MyResponse> responseEntity = productService.findAll();
+        return responseEntity;
+    }
+
     @PostMapping("/dashboard/store/products")
     public ResponseEntity<MyResponse> saveProduct(@AuthenticationPrincipal PrincipalDetails principalDetails, @ModelAttribute ProductFormDTO productFormDTO) throws IOException {
         ResponseEntity<MyResponse> responseEntity = productService.save(principalDetails, productFormDTO);
         return responseEntity;
     }
 
-    @ResponseBody
-    @GetMapping("/store")
-    public ResponseEntity<MyResponse> getProducts(){
-        ResponseEntity<MyResponse> responseEntity = productService.findAll();
-        return responseEntity;
-    }
 }

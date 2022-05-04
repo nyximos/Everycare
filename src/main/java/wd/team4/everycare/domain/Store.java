@@ -5,6 +5,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 import wd.team4.everycare.dto.store.StoreAdminViewDTO;
 import wd.team4.everycare.dto.store.StoreFormDTO;
+import wd.team4.everycare.dto.store.StoreNameDTO;
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
@@ -175,4 +176,10 @@ public class Store {
     }
 
 
+    public StoreNameDTO toNameDTO() {
+        return StoreNameDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .build();
+    }
 }

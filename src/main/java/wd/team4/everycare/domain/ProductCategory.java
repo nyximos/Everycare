@@ -3,6 +3,7 @@ package wd.team4.everycare.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
+import wd.team4.everycare.dto.product.ProductCategoryDTO;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -27,4 +28,11 @@ public class ProductCategory {
 
     @OneToMany(mappedBy = "productCategory")
     private List<Product> products = new ArrayList<>();
+
+    public ProductCategoryDTO toDTO() {
+        return ProductCategoryDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .build();
+    }
 }

@@ -1,6 +1,7 @@
 package wd.team4.everycare.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,8 +15,10 @@ import wd.team4.everycare.domain.Store;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.dto.product.MemberProductsViewDTO;
 import wd.team4.everycare.dto.product.ProductFormDTO;
+import wd.team4.everycare.dto.product.ProductListViewDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
+import wd.team4.everycare.dto.store.StoreFormDTO;
 import wd.team4.everycare.repository.ProductCategoryRepository;
 import wd.team4.everycare.repository.ProductRepository;
 import wd.team4.everycare.service.interfaces.ProductService;
@@ -41,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
         List<Product> products = productRepository.findAllByStore(store);
         List<MemberProductsViewDTO> MemberProductsViewDTOs = new ArrayList<>();
 
-        if(products.isEmpty()){
+        if (products.isEmpty()) {
             return null;
         }
 
@@ -64,9 +67,9 @@ public class ProductServiceImpl implements ProductService {
         product.saveTime(time);
         product.saveStore(store);
         product.saveImage(attachFile);
-        if(category!=null){
+        if (category != null) {
             product.saveProductCategory(category);
-        }else{
+        } else {
             MyResponse body = MyResponse.builder()
                     .header(StatusEnum.BAD_REQUEST)
                     .message("카테고리를 등록하세요")
@@ -94,22 +97,36 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ResponseEntity<MyResponse> findAll() {
 
-//        List<Product> products = productRepository.findAllByIsSale(1);
-//
-//        List<ProductListViewDTO> productListViewDTOs = new ArrayList<>();
-//
-//        if(products.isEmpty()){
-//            return null;
-//        }
-//
-//        products.stream().map(product -> product.builder()).forEach(productListViewDTOs::add);
-//
-//        for (Product product : products) {
-//
-//        }
-//
-//        return ;
+        List<Product> products = productRepository.findAllByIsSale(1);
 
-        return null;
+        List<ProductListViewDTO> productListViewDTOs = new ArrayList<>();
+
+        if (products.isEmpty()) {
+            return null;
+        }
+
+        for (Product product : products) {
+            System.out.println("product.getIsSale() = " + product.getIsSale());
+            ProductListViewDTO productListViewDTO = ProductListViewDTO.builder()
+                    .id(product.getId())
+                    .name(product.getName())
+                    .price(product.getPrice())
+                    .uploadFileName(product.getUploadFileName())
+                    .createdAt(product.getCreatedAt())
+                    .store(product.getStore().toNameDTO())
+                    .productCategory(product.getProductCategory().toDTO())
+                    .build();
+            productListViewDTOs.add(productListViewDTO);
+        }
+
+        MyResponse<List<ProductListViewDTO>> body = MyResponse.<List<ProductListViewDTO>>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(productListViewDTOs)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+
     }
 }

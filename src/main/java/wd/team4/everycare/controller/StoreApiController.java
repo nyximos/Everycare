@@ -55,7 +55,6 @@ public class StoreApiController {
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 
-    @ResponseBody
     @PatchMapping("/store/account/{id}")
     public ResponseEntity<MyResponse> patchStore(
             @PathVariable("id") Long id,
