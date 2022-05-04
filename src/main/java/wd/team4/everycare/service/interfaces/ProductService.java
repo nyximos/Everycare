@@ -17,4 +17,6 @@ public interface ProductService {
     ResponseEntity<MyResponse> save(@AuthenticationPrincipal PrincipalDetails principalDetails, ProductFormDTO productFormDTO) throws IOException;
 
     ResponseEntity<MyResponse> findAll();
+
+    ResponseEntity<MyResponse> findById(Long id);
 }

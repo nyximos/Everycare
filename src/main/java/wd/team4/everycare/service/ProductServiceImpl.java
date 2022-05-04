@@ -14,6 +14,7 @@ import wd.team4.everycare.domain.ProductImage;
 import wd.team4.everycare.domain.Store;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.dto.product.MemberProductsViewDTO;
+import wd.team4.everycare.dto.product.ProductDetaileViewDTO;
 import wd.team4.everycare.dto.product.ProductFormDTO;
 import wd.team4.everycare.dto.product.ProductListViewDTO;
 import wd.team4.everycare.dto.response.MyResponse;
@@ -128,5 +129,30 @@ public class ProductServiceImpl implements ProductService {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
 
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> findById(Long id) {
+        Optional<Product> product = productRepository.findById(id);
+        Product productEntity = product.orElse(null);
+        ProductDetaileViewDTO productDetaileViewDTO = ProductDetaileViewDTO.builder()
+                .id(productEntity.getId())
+                .name(productEntity.getName())
+                .price(productEntity.getPrice())
+                .storeFileName(productEntity.getStoreFileName())
+                .comment(productEntity.getComment())
+                .isSale(productEntity.getIsSale())
+                .store(productEntity.getStore().toNameDTO())
+                .productCategory(productEntity.getProductCategory().toDTO())
+                .build();
+
+        MyResponse<ProductDetaileViewDTO> body = MyResponse.<ProductDetaileViewDTO>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(productDetaileViewDTO)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 }

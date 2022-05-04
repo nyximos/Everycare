@@ -24,6 +24,12 @@ public class ProductApiController {
         return responseEntity;
     }
 
+    @GetMapping("/products/{id}")
+    public ResponseEntity<MyResponse> getProduct(@PathVariable Long id){
+        ResponseEntity<MyResponse> responseEntity = productService.findById(id);
+        return responseEntity;
+    }
+
     @PostMapping("/dashboard/store/products")
     public ResponseEntity<MyResponse> saveProduct(@AuthenticationPrincipal PrincipalDetails principalDetails, @ModelAttribute ProductFormDTO productFormDTO) throws IOException {
         ResponseEntity<MyResponse> responseEntity = productService.save(principalDetails, productFormDTO);
