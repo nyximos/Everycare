@@ -1,6 +1,8 @@
 package wd.team4.everycare.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Fetch;
@@ -22,6 +24,7 @@ import java.util.List;
 @SequenceGenerator(name = "care_target_seq_generator",
         sequenceName = "care_target_seq",
         initialValue = 1, allocationSize = 1)
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class CareTarget {
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "care_target_seq_generator")

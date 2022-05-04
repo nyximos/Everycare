@@ -34,18 +34,14 @@ public class CareTargetSchedule {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contract_id")
     private Contract contract;
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "care_sitter_id")
-//    private CareSitter careSitter;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "care_sitter_id")
+    private CareSitter careSitter;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_note_id")
     private CareNote careNote;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "job_offer_id")
-    private JobOffer jobOffer;
 
     @Builder
     public CareTargetSchedule(Long id, String name, String startTime, String endTime, CareTarget careTarget) {

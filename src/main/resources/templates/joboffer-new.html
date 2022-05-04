@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>제목</h1><input type="text" id="title">
+<div>
+<select onchange="showValue(this)">
+    <option>--선택--</option>
+    <option th:each="c : ${careTarget}" th:value="${c.id}" th:utext="${c.name}" th:class="${c.id}"></option>
+</select>
+<button class="schedule">대상인 스케줄 조회</button>
+</div>
+<div class="result">
+</div>
+</body>
+</html>
+<script th:inline="javascript">
+
+    let title = $('#title').text()
+    let careTargetSchedule
+    let careTargetId
+
+
+
+
+    const showValue = (target) => {
+        careTargetId = target.value
+    }
+
+
+    $(function () {
+        $('.schedule').click(function () {
+            $.ajax({
+                url: '/api/recruitions/schedules',
+                type: 'post',
+                data: {
+                    'id': careTargetId
+                },
+                dataType: 'json',
+            })
+                .done((res) => {
+                    console.log(res)
+                    for (const bodyKey in res.body) {
+                        $('.result').append(
+                            `
+                        <p class="targetSchedule" hidden> ${res.body[bodyKey]}</p>
+                        케어대상인 스케줄 이름:<div> ${res.body[bodyKey].name}</div>
+                        시작일 :<div> <input class="startDate" type="date" /></div>
+                        종료일 : <div><input class="endDate" type="date" /></div>
+                        코멘트 : <div><textarea class="comment">${res.body[bodyKey].careTarget.comment}</textarea></div>
+                        급여 : <div><input type="number" /></div>
+                        희망 케어시터 성별 :<div>
+                            <input type="radio" name="gender" value="M"/>남자
+                            <input type="radio" name="gender" value="W"/>여자</div>
+                        희망 요일 :<div>
+                            <input type="checkbox" name="desiredDayWeek" value="월"/>월
+                            <input type="checkbox" name="desiredDayWeek" value="화"/>화
+                            <input type="checkbox" name="desiredDayWeek" value="수"/>수
+                            <input type="checkbox" name="desiredDayWeek" value="목"/>목
+                            <input type="checkbox" name="desiredDayWeek" value="금"/>금
+                            <input type="checkbox" name="desiredDayWeek" value="토"/>토
+                            <input type="checkbox" name="desiredDayWeek" value="일"/>일</div>
+                        희망 시작 시간 : <div>
+                        <input type="time"></div>
+                        희망 종료 시간 : <div>
+                        <input type="time"> </div>
+                        <button class="submit">등록</button> <br>`)
+                    }
+                })
+        })
+
+        $(document).on('click', '.submit',function () {
+            const formData = new FormData()
+            // let desiredDayWeek = [[${desiredDayWeek}]];
+            // $(desiredDayWeek).each(function (index, item) {
+            //     $('input[value=' + item + ']').prop("checked", true);
+            // });
+            //
+            // $('input[type=checkbox]:checked').each(function () {
+            //     desiredDayWeek.push($(this).val())
+            // })
+
+            console.log($(this).siblings()[1])
+            console.log($(this).siblings()[2])
+            console.log($(this).siblings()[3])
+            console.log($(this).siblings()[4])
+            // console.log(desiredDayWeek)
+            // $.ajax({
+            //     url: '/api/recruitions/schedules',
+            //     type: 'post',
+            //     data: '',
+            //     contentType: 'application/json',
+            //     dataType: 'json',
+            // })
+        })
+    })
+</script>

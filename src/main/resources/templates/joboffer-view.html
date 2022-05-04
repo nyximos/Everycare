@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>구인 상세</h2>
+    <ul>
+        <li th:text="${find.title}"></li>
+        <img th:src="${find.careTarget.careTargetImages}"></img>
+        <div></div>
+        케어대상인 이름: <li th:text="${find.careTarget.name}"></li>
+        케어 대상인 성별: <li th:text="${find.careTarget.gender}"></li>
+        케어 대상인 키: <li th:text="${find.careTarget.height}"></li>
+        케어 대상인 몸무게: <li th:text="${find.careTarget.weight}"></li>
+        희망 케어시터 성별: <li th:text="${find.desiredCareSitterGender}"></li>
+        희망 급여: <li th:text="${find.pay}"></li>
+        시작일: <li th:text="${find.startDate}"></li>
+        종료일: <li th:text="${find.endDate}"></li>
+        희망시작시간: <li th:text="${find.desiredStartTime}"></li>
+        희망 요일 :<li th:text="${find.desiredDayWeek}"></li>
+        희망활동시간: <li th:text="${find.desiredEndTime}"></li>
+        <li th:text="${find.id}" hidden></li>
+    </ul>
+<button id="submit">신청</button>
+</body>
+</html>
+<script th:inline="javascript">
+    $('#submit').on('click', function(){
+
+    })
+</script>
