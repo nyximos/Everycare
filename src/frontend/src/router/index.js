@@ -23,6 +23,11 @@ const routes = [
         component: () => import('@/pages/Adminpage.vue')
     },
     {
+        path: '/certification',
+        name: 'certification',
+        component: () => import('@/pages/Certification.vue')
+    },
+    {
         path: '/admin_report',
         name: 'admin_report',
         component: () => import('@/pages/Adminpage_report.vue')

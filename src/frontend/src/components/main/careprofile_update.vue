@@ -8,6 +8,7 @@
                 <span>초등학생</span><input type="checkbox" v-model="preferredType" value="초등학생">&nbsp;&nbsp;&nbsp;&nbsp;
                 <span>중고등학생</span><input type="checkbox" v-model="preferredType" value="중고등학생">&nbsp;&nbsp;&nbsp;&nbsp;
                 <span>상관없음</span><input type="checkbox" v-model="preferredType" value="상관없음">
+            </li>
             <li>희망 활동 요일:
                 <span>월</span><input type="checkbox" v-model="desiredDayWeek" value="월요일">&nbsp;&nbsp;&nbsp;&nbsp;
                 <span>화</span><input type="checkbox" v-model="desiredDayWeek" value="화요일">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -37,7 +38,6 @@
                             <v-radio label="O" value="0">O</v-radio>
                             <v-radio label="X" value="1">X</v-radio>
                   </v-radio-group>
-                 <input type="number" name="cctvAgreement" id="cctvAgreement" th:value="${careSitter.cctvAgreement}"/></li>
             <li>백신접종 유무: 
                   <v-radio-group v-model="vaccination" mandatory row>
                             <v-radio label="1차접종완료" value="0"></v-radio>
@@ -51,7 +51,17 @@
                             <v-radio label="O" value="0">O</v-radio>
                             <v-radio label="X" value="1">X</v-radio>
                   </v-radio-group> 
-                <li>이미지 파일들<input type="file" multiple="multiple" name="attachFiles" id="attachFiles"/></li>
+                <li>이미지 파일들
+                <v-file-input 
+                              v-model="attachFiles" 
+                              label="File input" 
+                              type="file"
+                              id="attachFiles"
+                              multiple="multiple"
+                              outlined dense>
+                              </v-file-input>    
+                <!-- <input type="file" multiple="multiple" name="attachFiles" id="attachFiles"/> -->
+                </li>
         </ul>
         <v-btn class="ma-2" outlined color="indigo" @click="profile_update">수정</v-btn>
         <v-btn class="ma-2" outlined color="indigo">취소</v-btn>
@@ -62,30 +72,48 @@
 export default {
     data(){
         return{
-            preferredType:'',
-            cctvAgreement:'',
-            vaccination:'',
-            desiredDayWeek:[],
-            activityTiee:'',
-            desireHourlyWage:'',
-            desireMonthlyWage:'',
             introduction:'',
+            desiredHourlyWage:0,
+            desiredMonthlyWage:0,
+            activityTime:'',
+            desiredDayWeek: [],
+            starttimepicker:'',
+            endtimepicker:'',
+            preferredType: [],
+            cctvAgreement:'',
+            vaccination: '',
+            attachFiles: [],
         }
         
     },
     methods:{
         profile_update(){
-            const updateData ={
-                preferredType:this.preferredType,
-                cctvAgreement:this.cctvAgreement,
-                vaccination:this.vaccination,
-                desiredDayWeek:this.desiredDayWeek,
-                activityTime:this.starttimepicker + this.endtimepicker,
-                desireHourlyWage:this.desireHourlyWage,
-                desireMonthlyWage:this.desireMonthlyWage,
-                introduction:this.introduction
-            }
-            this.$store.commit('careprofileStore',updateData)
+            var id ='';
+            var formData= new FormData();
+
+            formData.append('preferredType', this.preferredType);
+            formData.append('vaccination', this.vaccination);
+            formData.append('cctvAgreement', this.cctvAgreement);
+            formData.append('introduction', this.introduction);
+            formData.append('desiredDayWeek', this.desiredDayWeek);
+            formData.append('hopefulRegion', this.hope_loc1+this.hopeloc1_detail);
+            formData.append('desiredHourlyWage', this.desiredHourlyWage);
+            formData.append('desiredMonthlyWage', this.desiredMonthlyWage);
+            formData.append('disclosureStatus',this.disclosureStatus);
+            formData.append('activityTime', this.starttimepicker+this.endtimepicker);
+            // formData.append('activityTime', this.starttimepicker + this.endtimepicker);
+           for(let i = 0; i< this.attachFiles.length; i++){
+             formData.append('attachFiles', this.attachFiles[0]);
+           } 
+           this.$http
+            .patch('/api/dashboard/caresitter/'+ id, formData,{
+                withCredentials:true
+            })
+            .then(res=>{
+                console.log(res);
+            }).catch(err=>{
+                console.log(err);
+            })
         }
     }
 }

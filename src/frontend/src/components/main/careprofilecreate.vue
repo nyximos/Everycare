@@ -22,7 +22,8 @@
                           <div class="div_text">
                                  <!-- <span><input type="file" v-bind:src="image" id="uppic" accept="image/gif,image/jpg,image/png" @change="changeImage($event)" ref="avatarInput" class="uppic"></span> -->
                               <!-- <v-file-input v-model="attachFiles" id="attachFiles" truncate-length="22" label="사진을 넣으세요" ></v-file-input> -->
-                               <v-file-input 
+                          <br><br>
+                              <v-file-input 
                               v-model="attachFiles" 
                               label="File input" 
                               type="file"
@@ -57,6 +58,7 @@
                       item-text="name"
                       item-value="value">
                     </v-select>
+                    
                 </li>
                   <!-- <li>
                    <span class="area_stitle">2지망</span>
@@ -172,22 +174,20 @@
                           <h5 class="sub_title">cctv 동의여부</h5>
                           <div class="cInner_01">
                         <v-radio-group v-model="cctvAgreement" mandatory row>
-                          <v-radio label="⭕" value="0"></v-radio>
-                          <v-radio label="❌" value="1">
-                          </v-radio>
+                          <v-radio label="O" value="0"></v-radio>
+                          <v-radio label="X" value="1"></v-radio>
                           </v-radio-group>
                           </div>
                       </div>
                       <div class="con1 con03">
-                          <h5 class="sub_title">자격증</h5>
-                          <div class="">
-                              <br>
-                              <!-- <v-file-input 
-                              v-model="files" 
-                              label="File input" 
-                              outlined dense>
-                              </v-file-input> -->
+                          <h5 class="sub_title">게시여부</h5>
+                          <div class="cInner_02">
+                        <v-radio-group v-model="disclosureStatus" mandatory row>
+                          <v-radio label="O" value="0"></v-radio>
+                          <v-radio label="X" value="1"></v-radio>
+                          </v-radio-group>
                           </div>
+                  
                           </div>
                           <br><br>
                           <h5>자기소개</h5>
@@ -515,6 +515,7 @@ area1 : [
       cctvAgreement:'',
       vaccination: '',
       attachFiles: [],
+      disclosureStatus:'',
         }
     },
     methods:{
@@ -643,6 +644,7 @@ area1 : [
             formData.append('hopefulRegion', this.hope_loc1+this.hopeloc1_detail);
             formData.append('desiredHourlyWage', this.desiredHourlyWage);
             formData.append('desiredMonthlyWage', this.desiredMonthlyWage);
+            formData.append('disclosureStatus',this.disclosureStatus);
             formData.append('activityTime', this.starttimepicker+this.endtimepicker);
             // formData.append('activityTime', this.starttimepicker + this.endtimepicker);
            for(let i = 0; i< this.attachFiles.length; i++){
@@ -655,8 +657,9 @@ area1 : [
             .then(res=>{
                 console.log(res);
             }).catch(err=>{
-                console.log(err)
+                console.log(err);
             })
+            this.$router.push({ path: '/Main' })
         },
         // categoryChange(e){
         //   const state = document.getElementById("state");
