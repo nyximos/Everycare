@@ -4,10 +4,10 @@
             <div class="login-title"><span class="login-title-L">L</span>ogin</div>
             <div>
                 <div class="login-input-botton">
-                    <v-text-field v-model="username" label="Id" placeholder="Placeholder" dense outlined></v-text-field>
-                    <v-text-field v-model="password" type="password" label="Password" placeholder="Placeholder" dense outlined></v-text-field>
+                    <v-text-field v-model="json.username" label="Id" placeholder="Placeholder" dense outlined></v-text-field>
+                    <v-text-field v-model="json.password" type="password" label="Password" placeholder="Placeholder" dense outlined></v-text-field>
                 </div>
-                <div><v-btn @click="login" color="accent" elevation="2" class="login-button">Login</v-btn></div>
+                <div><v-btn @click="login" color="#69f0ae" elevation="2" class="login-button">로그인</v-btn></div>
             </div>
         </div>
     </div>
@@ -18,11 +18,9 @@
 export default {
     data() {
         return {
-            username: '',
-            password: '',
             json: {
-                username: 'e',
-                password: 'ee'
+                username: '',
+                password: ''
             }
         };
     },
@@ -36,9 +34,20 @@ export default {
     // },
     methods: {
         login() {
-            console.log(this.json);
+            const userinfo={
+                username:this.json.username,
+                password:this.json.password
+            }
+            if(this.json.username==''){
+                alert('아이디를 입력해주세요.');
+                return;
+            } else if (this.json.password==''){
+                alert('패스워드를 입력해주세요.');
+                return;
+            }
+            console.log(userinfo);
             this.$http
-                .post('https://localhost:8086/login', this.json, {
+                .post('https://localhost:8086/login', userinfo, {
                     withCredentials: true
                 })
                 // .post('/api/login', this.json, {
@@ -48,7 +57,9 @@ export default {
                     // this.test = response.data;
                     console.log(res);
                     console.log(this.json);
-                    location.href = '/';
+                    // state에 회원 정보 담기
+                    this.$store.commit('userStore/userInfo', userinfo);
+                     location.href = '/';
                 })
                 .catch(err => {
                     console.log(err);
@@ -85,12 +96,12 @@ export default {
 .login-title {
     font-family: jost;
     font-size: 30px;
-    color: #ec7676;
+    color: #69f0ae;
 }
 .login-title-L {
     font-family: jost;
     font-size: 40px;
-    color: #ec7676;
+    color: #69f0ae;
 }
 .login-input-button {
     display: flex;
