@@ -3,14 +3,12 @@ package wd.team4.everycare.domain;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
-import wd.team4.everycare.dto.StoreAdminViewDTO;
-import wd.team4.everycare.dto.StoreFormDTO;
+import wd.team4.everycare.dto.store.StoreAdminViewDTO;
+import wd.team4.everycare.dto.store.StoreFormDTO;
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @DynamicUpdate
 @Getter

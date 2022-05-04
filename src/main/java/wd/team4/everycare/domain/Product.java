@@ -1,5 +1,6 @@
 package wd.team4.everycare.domain;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @SequenceGenerator(name = "product_seq_generator",
             sequenceName = "product_seq",
@@ -62,7 +63,8 @@ public class Product {
     private List<ProductImage> productImages = new ArrayList<>();
 
     @Builder
-    public Product(String name, int price, int inventoryQuantity, String comment, int isSale, LocalDateTime createdAt, Store store, ProductCategory productCategory) {
+    public Product(Long id, String name, int price, int inventoryQuantity, String comment, int isSale, LocalDateTime createdAt, Store store, ProductCategory productCategory) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.inventoryQuantity = inventoryQuantity;

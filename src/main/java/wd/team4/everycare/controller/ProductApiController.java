@@ -24,4 +24,11 @@ public class ProductApiController {
         ResponseEntity<MyResponse> responseEntity = productService.save(principalDetails, productFormDTO);
         return responseEntity;
     }
+
+    @ResponseBody
+    @GetMapping("/store")
+    public ResponseEntity<MyResponse> getProducts(){
+        ResponseEntity<MyResponse> responseEntity = productService.findAll();
+        return responseEntity;
+    }
 }

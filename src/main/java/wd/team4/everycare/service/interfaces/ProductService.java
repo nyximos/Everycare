@@ -15,4 +15,6 @@ public interface ProductService {
     List<MemberProductsViewDTO> webFindAll(Store store);
 
     ResponseEntity<MyResponse> save(@AuthenticationPrincipal PrincipalDetails principalDetails, ProductFormDTO productFormDTO) throws IOException;
+
+    ResponseEntity<MyResponse> findAll();
 }

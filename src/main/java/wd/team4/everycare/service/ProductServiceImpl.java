@@ -90,4 +90,26 @@ public class ProductServiceImpl implements ProductService {
 
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<MyResponse> findAll() {
+
+//        List<Product> products = productRepository.findAllByIsSale(1);
+//
+//        List<ProductListViewDTO> productListViewDTOs = new ArrayList<>();
+//
+//        if(products.isEmpty()){
+//            return null;
+//        }
+//
+//        products.stream().map(product -> product.builder()).forEach(productListViewDTOs::add);
+//
+//        for (Product product : products) {
+//
+//        }
+//
+//        return ;
+
+        return null;
+    }
 }
