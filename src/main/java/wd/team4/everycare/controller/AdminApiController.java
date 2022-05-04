@@ -3,7 +3,9 @@ package wd.team4.everycare.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
@@ -45,6 +47,13 @@ public class AdminApiController {
     @PostMapping("/stores/{id}")
     public ResponseEntity<MyResponse> postStore(@PathVariable("id") Long id){
         ResponseEntity<MyResponse> responseEntity = adminService.approveStore(id);
+        return responseEntity;
+    }
+
+    @PostMapping("/certifications/{id}")
+    public ResponseEntity<MyResponse> postCertification(@PathVariable("id") Long id, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        Member admin = principalDetails.getUser();
+        ResponseEntity<MyResponse> responseEntity = adminService.approveCertification(id, admin);
         return responseEntity;
     }
 }

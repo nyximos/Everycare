@@ -8,7 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
-import wd.team4.everycare.dto.CareSitterFormDTO;
+import wd.team4.everycare.dto.careSitter.CareSitterFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.service.CareSitterServiceImpl;
@@ -33,6 +33,7 @@ public class CareSitterApiController {
         LocalDateTime time = LocalDateTime.now();
         careSitterFormDTO.setCreatedAt(time);
         careSitterFormDTO.setUpdatedAt(time);
+        careSitterFormDTO.setName(principalDetails.getUser().getName());
 
         Member user = principalDetails.getUser();
         careSitterFormDTO.setMember(user);

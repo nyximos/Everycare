@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import wd.team4.everycare.dto.careTargetSchedule.ActivityClassificationDTO;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -32,4 +33,11 @@ public class ActivityClassification {
     @JoinColumn(name = "activity_classification_id2")
     private ActivityClassification activityClassification;
 
+    public ActivityClassificationDTO toDTO(){
+        return ActivityClassificationDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .level(this.level)
+                .build();
+    }
 }

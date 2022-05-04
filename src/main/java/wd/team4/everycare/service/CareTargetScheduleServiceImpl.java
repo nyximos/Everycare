@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetSchedule;
-import wd.team4.everycare.dto.CareTargetScheduleDTO;
+import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.CareTargetRepository;
@@ -66,5 +66,15 @@ public class CareTargetScheduleServiceImpl implements CareTargetScheduleService 
                 .build();
 
         return  new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public CareTargetScheduleDTO webFindById(Long id) {
+
+        Optional<CareTargetSchedule> careTargetSchedule = careTargetScheduleRepository.findById(id);
+        CareTargetSchedule careTargetScheduleEntity = careTargetSchedule.orElse(null);
+        CareTargetScheduleDTO careTargetScheduleDTO = careTargetScheduleEntity.toDTO();
+
+        return careTargetScheduleDTO;
     }
 }

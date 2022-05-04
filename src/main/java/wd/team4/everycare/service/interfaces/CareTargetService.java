@@ -54,5 +54,5 @@ public interface CareTargetService {
 
     String update(Long id, CareTargetFormDTO careTargetFormDTO);
 
-    CareTargetViewDTO findCareTarget(Long id);
+    CareTargetViewDTO webFindCareTarget(Long id);
 }

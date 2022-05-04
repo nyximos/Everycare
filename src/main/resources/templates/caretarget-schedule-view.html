@@ -1,10 +1,149 @@
-<!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>스케줄 조회</title>
+    <meta charset="UTF-8"/>
+    <title>스케줄 관리</title>
 </head>
 <body>
+<div layout:fragment="content">
+        <div class="py-5 text-center">
+            <h2>스케줄 관리</h2>
+        </div>
 
+        <div>
+            스케줄명: <span th:text="${schedule.name}"></span><br/>
+            시작시간: <span th:text="${schedule.startTime}"></span><br/>
+            종료시간:<span th:text="${schedule.endTime}"></span><br/>
+        </div>
+
+        <th:block th:if="${activityInformations} == null">
+            <div class="container">
+            <h2>활동 등록</h2>
+            <form>
+                <ul>
+                    <li>활동 분류 <input type="number" name="activityClassificationId" id="activityClassificationId"/></li>
+                    <li>시작 시간 <input type="time" name="startTime" id="startTime" /></li>
+                    <li>종료 시간 <input type="time" name="endTime" id="endTime" /></li>
+                    <li>요구사항 <input type="textarea" maxlength="500" name="requirement" id="requirement"/></li>
+                </ul>
+                <input id="tokenField" type="hidden"/>
+                <input id="submitButton" type="button" value="등록"/>
+            </form>
+            </div>
+
+            <script th:inline="javascript">
+                /*<![CDATA]*/
+                const careTargetId = /*[[ ${careTarget.id} ]]*/'';
+                const scheduleId = /*[[ ${schedule.id} ]]*/'';
+                /*]]*/
+
+                $('#submitButton').on('click', function () {
+
+                    const formData = new FormData();
+
+                    formData.append('activityClassificationId', $('#activityClassificationId').val());
+                    formData.append('startTime', $('#startTime').val());
+                    formData.append('endTime', $('#endTime').val());
+                    formData.append('requirement', $('#requirement').val());
+                    formData.append('scheduleId', scheduleId);
+
+                    $.ajax({
+                        url: "/api/dashboard/caretargets/"+careTargetId+"/schedules/"+scheduleId+"/activities",
+                        type: 'POST',
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        enctype: 'multipart/form-data',
+                        data: formData,
+                        async: false,
+                    })
+
+                    location.href = "/dashboard/caretargets/"+careTargetId+"/schedules/"+scheduleId;
+                });
+            </script>
+        </th:block>
+
+        <th:block th:if="${activityInformations} != null">
+            <div class="container">
+            <h2>활동 등록</h2>
+            <form>
+                <ul>
+                    <li>활동 분류 <input type="number" name="activityClassificationId" id="activityClassificationId"/></li>
+                    <li>시작 시간 <input type="time" name="startTime" id="startTime" /></li>
+                    <li>종료 시간 <input type="time" name="endTime" id="endTime" /></li>
+                    <li>요구사항 <input type="textarea" maxlength="500" name="requirement" id="requirement"/></li>
+                </ul>
+                <input id="tokenField" type="hidden"/>
+                <input id="submitButton" type="button" value="등록"/>
+            </form>
+            <h2>활동 목록</h2>
+            <div th:each="activityInformation : ${activityInformations}"
+                 th:onclick="'location.href=\''+ @{/carenote/caretargets/{careTargetId}/schedules/{scheduleId}/{activityInformationId}(careTargetId=${careTarget.id}, scheduleId=${schedule.id}, activityInformationId=${activityInformation.id})">
+                활동분류명:<span th:text="${activityInformation.activityClassificationDTO.name}"></span><br/>
+                시작시간: <span th:text="${activityInformation.startTime}"></span><br/>
+                종료시간:<span th:text="${activityInformation.endTime}"></span><br/>
+                요구사항:<span th:text="${activityInformation.requirement}"></span><br/>
+                <input id="updateButton" type="button" value="수정"/>
+                <input id="deleteButton" type="button" value="삭제"/>
+            </div>
+            </div>
+            <!-- /container -->
+
+            <script th:inline="javascript">
+                /*<![CDATA]*/
+                const careTargetId = /*[[ ${careTarget.id} ]]*/'';
+                const scheduleId = /*[[ ${schedule.id} ]]*/'';
+                /*]]*/
+
+                $('#submitButton').on('click', function () {
+
+                    const formData = new FormData();
+
+                    formData.append('activityClassificationId', $('#activityClassificationId').val());
+                    formData.append('startTime', $('#startTime').val());
+                    formData.append('endTime', $('#endTime').val());
+                    formData.append('requirement', $('#requirement').val());
+                    formData.append('scheduleId', scheduleId);
+
+                    $.ajax({
+                        url: "/api/dashboard/caretargets/"+careTargetId+"/schedules/"+scheduleId+"/activities",
+                        type: 'POST',
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        enctype: 'multipart/form-data',
+                        data: formData,
+                        async: false,
+                    })
+
+                    location.href = "/dashboard/caretargets/"+careTargetId+"/schedules/"+scheduleId;
+                });
+
+                $('#updateButton').on('click', function () {
+                    location.href = "/dashboard/caretargets/" + careTargetId + "/schedules/" + scheduleId + "/activities" + activityInformationId + "/update";
+                })
+
+                $('#deleteButton').on('click', function () {
+
+                    $.ajax({
+                        url: "/api/dashboard/caretargets/" + id,
+                        type: 'DELETE',
+                        cache: false,
+                        data: {
+                            "id": id
+                        },
+                        dataType: "json",
+                        async: false,
+                    })
+
+                    location.href = "/dashboard/caretargets";
+                })
+
+            </script>
+        </th:block>
+
+</div>
 </body>
 </html>

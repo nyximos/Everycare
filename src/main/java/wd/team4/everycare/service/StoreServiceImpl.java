@@ -101,7 +101,7 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public List<StoreAdminViewDTO> findStoresThatRequiresApproval() {
+    public List<StoreAdminViewDTO> findStoresThatRequireApproval() {
         List<Store> stores = storeRepository.findAllByAdminApproval(0);
         List<StoreAdminViewDTO> storeAdminViewDTOs = new ArrayList<>();
 

@@ -3,7 +3,10 @@ package wd.team4.everycare.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wd.team4.everycare.domain.CareTarget;
+import wd.team4.everycare.domain.CareTargetSchedule;
 import wd.team4.everycare.domain.JobOffer;
+import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.JobOfferDTO;
 import wd.team4.everycare.repository.ContractRepository;
 import wd.team4.everycare.repository.JobOfferRepository;
@@ -28,9 +31,17 @@ public class JobOfferServiceImpl implements JobOfferService {
     }
 
     @Override
-    public Optional<JobOffer> getDetailJobOffer(Long id) {
-        Optional<JobOffer> findJobOffer = jobOfferRepository.findById(id);
-            return findJobOffer;
+    public JobOfferDTO getDetailJobOffer(Long id) {
+        JobOffer findJobOffer = jobOfferRepository.findById(id).get();
+        Member member = findJobOffer.getMember();
+        System.out.println("member = " + member);
+        CareTargetSchedule careTargetSchedule = findJobOffer.getCareTargetSchedule();
+        System.out.println("careTargetSchedule = " + careTargetSchedule);
+        CareTarget careTarget = findJobOffer.getCareTarget();
+        System.out.println("careTarget = " + careTarget);
+        JobOfferDTO jobOfferDTO = findJobOffer.toJobOfferDTO(findJobOffer);
+        // 내 생각에 LAZY라서 proxy 객체가 이전에 조회 한 적 없어서 null로 뜨는듯 careTarget 찾는다고 하니까 null 안뜸
+        return jobOfferDTO;
     }
 
     @Override
@@ -62,7 +73,7 @@ public class JobOfferServiceImpl implements JobOfferService {
     @Override
     public JobOffer offer(Long id, JobOfferDTO jobOfferDTO) {
         Optional<JobOffer> jobOffer = jobOfferRepository.findById(id);
-
+        /*TODO 회원이 구인글에서 요청온거 보는거*/
         return null;
     }
 

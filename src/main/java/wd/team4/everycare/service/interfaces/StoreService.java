@@ -19,7 +19,7 @@ public interface StoreService {
 
     MyResponse<Object> findStore(Long id);
 
-    List<StoreAdminViewDTO> findStoresThatRequiresApproval();
+    List<StoreAdminViewDTO> findStoresThatRequireApproval();
 
     StoreAdminViewDTO webFindStore(Long id);
 }

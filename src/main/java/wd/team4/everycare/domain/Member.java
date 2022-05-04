@@ -1,8 +1,11 @@
 package wd.team4.everycare.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.member.MemberInfoDTO;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,6 +17,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Member {
 
     @Id
@@ -106,5 +110,13 @@ public class Member {
     public void registrationAdmin(LocalDateTime time){
         this.role = MemberRole.ROLE_ADMIN;
         this.adminRegistrationDate = time;
+    }
+
+    public MemberInfoDTO toMemberInfoDTO() {
+        return MemberInfoDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .role(this.role)
+                .build();
     }
 }
