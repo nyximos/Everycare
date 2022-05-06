@@ -43,8 +43,8 @@ public class ProductApiController {
     }
 
     @GetMapping("/dashboard/store/products/{id}")
-    public ResponseEntity<MyResponse> getMemberProduct(@AuthenticationPrincipal PrincipalDetails principalDetails,@PathVariable Long id){
-        ResponseEntity<MyResponse> responseEntity = productService.productFindById(principalDetails.getStore(), id);
+    public ResponseEntity<MyResponse> getMemberProduct(@PathVariable Long id){
+        ResponseEntity<MyResponse> responseEntity = productService.productFindById(id);
         return responseEntity;
     }
 

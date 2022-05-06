@@ -207,20 +207,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ResponseEntity<MyResponse> productFindById(Store store, Long id) {
+    public ResponseEntity<MyResponse> productFindById(Long id) {
 
         Optional<Product> product = productRepository.findById(id);
         Product productEntity = product.orElse(null);
-
-        if(productEntity.getStore() != store){
-            MyResponse body = MyResponse.builder()
-                    .header(StatusEnum.BAD_REQUEST)
-                    .message("권한이 없습니다.")
-                    .build();
-
-            HttpHeaders headers = new HttpHeaders();
-            return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
-        }
 
         Long productEntityId = productEntity.getId();
         List<ProductImage> productImages = producImageRepository.findAllByProductId(productEntityId);
