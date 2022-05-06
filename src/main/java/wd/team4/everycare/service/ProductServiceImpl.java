@@ -13,13 +13,10 @@ import wd.team4.everycare.domain.ProductCategory;
 import wd.team4.everycare.domain.ProductImage;
 import wd.team4.everycare.domain.Store;
 import wd.team4.everycare.dto.UploadFile;
-import wd.team4.everycare.dto.product.MemberProductsViewDTO;
-import wd.team4.everycare.dto.product.ProductDetaileViewDTO;
-import wd.team4.everycare.dto.product.ProductFormDTO;
-import wd.team4.everycare.dto.product.ProductListViewDTO;
+import wd.team4.everycare.dto.product.*;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
-import wd.team4.everycare.dto.store.StoreFormDTO;
+import wd.team4.everycare.repository.ProducImageRepository;
 import wd.team4.everycare.repository.ProductCategoryRepository;
 import wd.team4.everycare.repository.ProductRepository;
 import wd.team4.everycare.service.interfaces.ProductService;
@@ -38,6 +35,7 @@ public class ProductServiceImpl implements ProductService {
     private final FileStoreService fileStoreService;
     private final ProductRepository productRepository;
     private final ProductCategoryRepository productCategoryRepository;
+    private final ProducImageRepository producImageRepository;
 
     @Override
     public List<MemberProductsViewDTO> webFindAll(Store store) {
@@ -81,10 +79,12 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(product);
 
         for (UploadFile file : attachFiles) {
-            ProductImage.builder()
+            ProductImage productImage = ProductImage.builder()
                     .uploadFileName(file.getUploadFileName())
-                    .storeFileName(file.getUploadFileName())
-                    .product(product);
+                    .storeFileName(file.getStoreFileName())
+                    .product(product)
+                    .build();
+            producImageRepository.save(productImage);
         }
 
         MyResponse body = MyResponse.builder()
@@ -133,8 +133,32 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ResponseEntity<MyResponse> findById(Long id) {
+        System.out.println("메소드 실행");
         Optional<Product> product = productRepository.findById(id);
         Product productEntity = product.orElse(null);
+
+        Long productEntityId = productEntity.getId();
+        List<ProductImage> productImages = producImageRepository.findAllByProductId(productEntityId);
+        System.out.println(productImages.size());
+
+        List<ProductImageDTO> productImageDTOs = new ArrayList<>();
+        for (ProductImage productImage : productImages) {
+            ProductImageDTO productImageDTO = ProductImageDTO.builder()
+                    .id(productImage.getId())
+                    .storeFileName(productImage.getStoreFileName())
+                    .build();
+            productImageDTOs.add(productImageDTO);
+            System.out.println("productImageDTO.getStoreFileName() = " + productImageDTO.getStoreFileName());
+        }
+
+
+//        System.out.println("productEntity.getName() = " + productEntity.getName());
+//        System.out.println("productEntity.getProductImages() = " + productEntity.getProductImages().get(0).getStoreFileName());
+//        for (ProductImage productImage : productEntity.getProductImages()) {
+//            System.out.println("productImage.getStoreFileName() = " + productImage.getStoreFileName());
+//        }
+
+
         ProductDetaileViewDTO productDetaileViewDTO = ProductDetaileViewDTO.builder()
                 .id(productEntity.getId())
                 .name(productEntity.getName())
@@ -145,6 +169,8 @@ public class ProductServiceImpl implements ProductService {
                 .createdAt(productEntity.getCreatedAt())
                 .store(productEntity.getStore().toNameDTO())
                 .productCategory(productEntity.getProductCategory().toDTO())
+//                .productImagesDTOs(productEntity.addProductImagesDTO(productEntity.getProductImages()))
+                .productImagesDTOs(productImageDTOs)
                 .build();
 
         MyResponse<ProductDetaileViewDTO> body = MyResponse.<ProductDetaileViewDTO>builder()

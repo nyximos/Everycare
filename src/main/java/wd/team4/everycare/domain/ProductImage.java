@@ -1,13 +1,16 @@
 package wd.team4.everycare.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Builder
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "product_image")
 @SequenceGenerator(name = "product_image_seq_generator",
@@ -30,10 +33,4 @@ public class ProductImage {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @Builder
-    public ProductImage(String uploadFileName, String storeFileName, Product product) {
-        this.uploadFileName = uploadFileName;
-        this.storeFileName = storeFileName;
-        this.product = product;
-    }
 }
