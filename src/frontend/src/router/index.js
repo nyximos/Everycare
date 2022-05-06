@@ -27,6 +27,7 @@ const routes = [
         name: 'certification',
         component: () => import('@/pages/Certification.vue')
     },
+    
     {
         path: '/admin_report',
         name: 'admin_report',
@@ -53,6 +54,11 @@ const routes = [
         component: () => import('@/pages/Careprofile1.vue')
     },
     {
+        path: '/dashboard/careprofile1/:profileId',
+        name: 'careprofile1',
+        component: () => import('@/pages/Careprofile1.vue')
+    },
+    {
         path: '/caresitterprofile_delete',
         name: 'caresitterprofile_delete',
         component: () => import('@/pages/Caresitterprofile.vue')
@@ -64,6 +70,11 @@ const routes = [
     },
     {
         path: '/profile_update',
+        name: 'profile_update',
+        component: () => import('@/pages/Profile_update.vue')
+    },
+    {
+        path: '/profile_update/:profileId',
         name: 'profile_update',
         component: () => import('@/pages/Profile_update.vue')
     },

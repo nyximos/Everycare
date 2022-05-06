@@ -33,9 +33,7 @@
 
 <script>
 export default {
-    data(){
-        
-          
+    data(){    
         return{
             certi:[
                 {name:'사회복지사1', value:'사회복지사1'},
@@ -44,19 +42,34 @@ export default {
             ],
             attachFiles:[],
             certification:'',
-            id:careSitter.id,
+            id:'',
         }   
     },
+    mounted(){
+        const id = this.$route.params.id;
+     this.$http
+    .get('/api/caresitters/'+id, {
+    withCredentials: true
+    })
+    .then(res => {
+      const result = res.data.body;
+      console.log(result)
+      // this.id = result.id;
+    })
+      .catch(err => {
+       console.log(err);
+    });
+},
     methods:{
         submit(){
-            var id = this.id;
+            id : this.id;
             var formData = new FormData();
             console.log(id);
 
             formData.append('classification', this.certification);
             for(let i = 0; i< this.attachFiles.length; i++){
             formData.append('attachFiles', this.attachFiles[0]);
-            formData.append('careSitterId', id);
+            
           }
            this.$http
            .post('/api/dashboard/caresitter/' + id + '/certifications',formData,{

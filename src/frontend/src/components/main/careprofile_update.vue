@@ -83,12 +83,28 @@ export default {
             cctvAgreement:'',
             vaccination: '',
             attachFiles: [],
+            id:this.$route.params.id
         }
         
     },
+    mounted(){
+        const id =this.id;
+        this.$http
+        .get(`/api/caresitters/${id}`,{
+            withCredentials:true
+        })
+        .then(res =>{
+            const result = res.data.body;
+            console.log(result)
+
+        })
+        .catch(err =>{
+            console.log(err);
+        });
+    },
     methods:{
         profile_update(){
-            var id ='';
+
             var formData= new FormData();
 
             formData.append('preferredType', this.preferredType);
@@ -106,12 +122,12 @@ export default {
              formData.append('attachFiles', this.attachFiles[0]);
            } 
            this.$http
-            .patch('/api/dashboard/caresitter/'+ id, formData,{
+            .patch(`/api/dashboard/caresitter/${this.id}`, formData,{
                 withCredentials:true
             })
             .then(res=>{
                 console.log(res);
-            }).catch(err=>{
+            }).catch(err=> {
                 console.log(err);
             })
         }

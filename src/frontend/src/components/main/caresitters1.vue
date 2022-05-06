@@ -6,32 +6,35 @@
     <div class="r_list">
         <div class="list_more">
             <ul class="ul01">
-                <li class="li01" v-for="profile in profiles" :key="profile.id">
+                <li class="li01" v-for="p in profiles" :key="p.id" >
                         <span class="tab01">
                             <span class="img01">
                                 <img src="@/assets/user.png" class="vertical">
+                                {{p.attachFiles}}
+                                {{p.careSitterImages}}
                             </span>
                         </span>
                         <span class="tab02">
                             <span class="category">
-                                {{profile.preferredType}}
+                                {{p.hopefulRegion}}
+                                
                                 <span class="edit_date">1시간전</span>
                             </span>
                             <span class="name">나이
-                                <span class="age">이름</span>
+                                <span class="age">{{p.name}}</span>
                             </span>
-                            <span class="area">{{profile.hopefulRegion}}</span>
+                            <span class="area">{{p.hopefulRegion}}</span>
                                 <span class="pay">
-                                    {{profile.desiredHourlyWage}}
+                                    {{p.desiredHourlyWage}}
                                     <span class="bar0101">&nbsp;</span>
-                                    <span class="week01">{{profile.desiredDayWeek}}</span>
+                                    <span class="week01">{{p.desiredDayWeek}}</span>
                                 </span>
                         </span>
                         <div class="bar01"></div>
                         <span class="tab03">
-                            <span class="icon03">{{profile.vaccination}}</span>
+                            <span class="icon03">{{p.vaccination}}</span>
                             <span class="text01">10년이상</span>
-                            <span class="text01">{{profile.preferredType}}</span>
+                            <span class="text01">{{p.preferredType}}</span>
                         </span>       
                 </li>
             </ul>
@@ -51,13 +54,26 @@ export default {
     data(){
 		return{
             page:1,
-			profiles:[]
+			profiles:[],
+            id:''
 		}
 	},
+    methods:{
+        // move(){
+        //     this.$router.push({ path: '/Main' })
+        // }
+    },
 	mounted(){
-			this.$http.get("/api/dashboard/caresitter")
+            this.id = this.$route.params.profileId
+            console.log(this.id);
+			this.$http
+            .get('/api/caresitters' ,{
+                withCredentials:true
+            })
 			.then((res)=>{
-				this.profiles = res.data
+                console.log(res.data.body)
+				this.profiles = res.data.body
+
 			}).catch(err =>{
 				alert(err);
 				console.log(err);
