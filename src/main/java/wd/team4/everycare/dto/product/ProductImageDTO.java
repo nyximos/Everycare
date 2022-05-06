@@ -11,6 +11,7 @@ import lombok.*;
 public class ProductImageDTO {
 
     private Long id;
+    private String uploadFileName;
     private String storeFileName;
 
 }

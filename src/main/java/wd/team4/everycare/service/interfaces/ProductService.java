@@ -21,4 +21,6 @@ public interface ProductService {
     ResponseEntity<MyResponse> findById(Long id);
 
     ResponseEntity<MyResponse> findAll(Store store);
+
+    ResponseEntity<MyResponse> productFindById(Store store, Long id);
 }

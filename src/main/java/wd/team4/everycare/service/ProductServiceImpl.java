@@ -112,7 +112,7 @@ public class ProductServiceImpl implements ProductService {
                     .id(product.getId())
                     .name(product.getName())
                     .price(product.getPrice())
-                    .uploadFileName(product.getUploadFileName())
+                    .storeFileName(product.getStoreFileName())
                     .createdAt(product.getCreatedAt())
                     .store(product.getStore().toNameDTO())
                     .productCategory(product.getProductCategory().toDTO())
@@ -200,6 +200,58 @@ public class ProductServiceImpl implements ProductService {
                 .header(StatusEnum.OK)
                 .message("성공")
                 .body(memberProductListViewDTOs)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> productFindById(Store store, Long id) {
+
+        Optional<Product> product = productRepository.findById(id);
+        Product productEntity = product.orElse(null);
+
+        if(productEntity.getStore() != store){
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.BAD_REQUEST)
+                    .message("권한이 없습니다.")
+                    .build();
+
+            HttpHeaders headers = new HttpHeaders();
+            return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+        }
+
+        Long productEntityId = productEntity.getId();
+        List<ProductImage> productImages = producImageRepository.findAllByProductId(productEntityId);
+
+        List<ProductImageDTO> productImageDTOs = new ArrayList<>();
+        for (ProductImage productImage : productImages) {
+            ProductImageDTO productImageDTO = ProductImageDTO.builder()
+                    .id(productImage.getId())
+                    .uploadFileName(productImage.getUploadFileName())
+                    .storeFileName(productImage.getStoreFileName())
+                    .build();
+            productImageDTOs.add(productImageDTO);
+        }
+
+        ProductDetaileViewDTO productDetaileViewDTO = ProductDetaileViewDTO.builder()
+                .id(productEntity.getId())
+                .name(productEntity.getName())
+                .price(productEntity.getPrice())
+                .storeFileName(productEntity.getStoreFileName())
+                .comment(productEntity.getComment())
+                .isSale(productEntity.getIsSale())
+                .createdAt(productEntity.getCreatedAt())
+                .store(productEntity.getStore().toNameDTO())
+                .productCategory(productEntity.getProductCategory().toDTO())
+                .productImagesDTOs(productImageDTOs)
+                .build();
+
+        MyResponse<ProductDetaileViewDTO> body = MyResponse.<ProductDetaileViewDTO>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(productDetaileViewDTO)
                 .build();
 
         HttpHeaders headers = new HttpHeaders();

@@ -5,9 +5,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import wd.team4.everycare.dto.UploadFile;
-import wd.team4.everycare.dto.product.MemberProductsViewDTO;
+import wd.team4.everycare.dto.product.MemberProductListViewDTO;
 import wd.team4.everycare.dto.product.ProductFormDTO;
 
 import javax.persistence.*;
@@ -76,8 +75,8 @@ public class Product {
         this.productCategory = productCategory;
     }
 
-    public MemberProductsViewDTO toMemberProductsViewDTO() {
-        return MemberProductsViewDTO.builder()
+    public MemberProductListViewDTO toMemberProductsViewDTO() {
+        return MemberProductListViewDTO.builder()
                 .id(this.id)
                 .name(this.name)
                 .price(this.price)
