@@ -8,8 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.config.jwt.JwtProperties;
 import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.dto.member.AccountDTO;
 import wd.team4.everycare.dto.member.MemberInfoDTO;
 import wd.team4.everycare.dto.member.SignupDTO;
 import wd.team4.everycare.dto.response.MyResponse;
@@ -88,6 +90,39 @@ public class MemberServiceImpl implements MemberService {
                 .header(StatusEnum.OK)
                 .message("성공했슴다~")
                 .body(memberInfoDTO)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> getAccountDTO(PrincipalDetails principalDetails) {
+        String username = principalDetails.getUsername();
+        Optional<Member> member = memberRepository.findById(username);
+        Member memberEntity = member.orElse(null);
+
+        AccountDTO accountDTO = AccountDTO.builder()
+                .id(memberEntity.getId())
+                .name(memberEntity.getName())
+                .role(memberEntity.getRole())
+                .gender(memberEntity.getGender())
+                .birth(memberEntity.getBirth())
+                .phone(memberEntity.getPhone())
+                .email(memberEntity.getEmail())
+                .createdAt(memberEntity.getCreatedAt())
+                .activityStatus(memberEntity.getActivityStatus())
+                .zipcode(memberEntity.getZipcode())
+                .address(memberEntity.getAddress())
+                .detailedAddress(memberEntity.getDetailedAddress())
+                .bank(memberEntity.getBank())
+                .accountNumber(memberEntity.getAccountNumber())
+                .build();
+
+        MyResponse<AccountDTO> body = MyResponse.<AccountDTO>builder()
+                .header(StatusEnum.OK)
+                .message("성공했슴다~")
+                .body(accountDTO)
                 .build();
 
         HttpHeaders headers = new HttpHeaders();
