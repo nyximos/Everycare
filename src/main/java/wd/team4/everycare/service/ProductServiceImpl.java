@@ -12,6 +12,7 @@ import wd.team4.everycare.domain.Product;
 import wd.team4.everycare.domain.ProductCategory;
 import wd.team4.everycare.domain.ProductImage;
 import wd.team4.everycare.domain.Store;
+import wd.team4.everycare.dto.ImageDTO;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.dto.product.*;
 import wd.team4.everycare.dto.response.MyResponse;
@@ -107,7 +108,6 @@ public class ProductServiceImpl implements ProductService {
         }
 
         for (Product product : products) {
-            System.out.println("product.getIsSale() = " + product.getIsSale());
             ProductListViewDTO productListViewDTO = ProductListViewDTO.builder()
                     .id(product.getId())
                     .name(product.getName())
@@ -139,13 +139,13 @@ public class ProductServiceImpl implements ProductService {
         Long productEntityId = productEntity.getId();
         List<ProductImage> productImages = producImageRepository.findAllByProductId(productEntityId);
 
-        List<ProductImageDTO> productImageDTOs = new ArrayList<>();
+        List<ImageDTO> productImageDTOs = new ArrayList<>();
         for (ProductImage productImage : productImages) {
-            ProductImageDTO productImageDTO = ProductImageDTO.builder()
+            ImageDTO imageDTO = ImageDTO.builder()
                     .id(productImage.getId())
                     .storeFileName(productImage.getStoreFileName())
                     .build();
-            productImageDTOs.add(productImageDTO);
+            productImageDTOs.add(imageDTO);
         }
 
         ProductDetaileViewDTO productDetaileViewDTO = ProductDetaileViewDTO.builder()
@@ -158,7 +158,7 @@ public class ProductServiceImpl implements ProductService {
                 .createdAt(productEntity.getCreatedAt())
                 .store(productEntity.getStore().toNameDTO())
                 .productCategory(productEntity.getProductCategory().toDTO())
-                .productImagesDTOs(productImageDTOs)
+                .imagesDTOs(productImageDTOs)
                 .build();
 
         MyResponse<ProductDetaileViewDTO> body = MyResponse.<ProductDetaileViewDTO>builder()
@@ -215,9 +215,9 @@ public class ProductServiceImpl implements ProductService {
         Long productEntityId = productEntity.getId();
         List<ProductImage> productImages = producImageRepository.findAllByProductId(productEntityId);
 
-        List<ProductImageDTO> productImageDTOs = new ArrayList<>();
+        List<ImageDTO> productImageDTOs = new ArrayList<>();
         for (ProductImage productImage : productImages) {
-            ProductImageDTO productImageDTO = ProductImageDTO.builder()
+            ImageDTO productImageDTO = ImageDTO.builder()
                     .id(productImage.getId())
                     .uploadFileName(productImage.getUploadFileName())
                     .storeFileName(productImage.getStoreFileName())
@@ -235,7 +235,7 @@ public class ProductServiceImpl implements ProductService {
                 .createdAt(productEntity.getCreatedAt())
                 .store(productEntity.getStore().toNameDTO())
                 .productCategory(productEntity.getProductCategory().toDTO())
-                .productImagesDTOs(productImageDTOs)
+                .imagesDTOs(productImageDTOs)
                 .build();
 
         MyResponse<ProductDetaileViewDTO> body = MyResponse.<ProductDetaileViewDTO>builder()

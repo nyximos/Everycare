@@ -1,4 +1,4 @@
-package wd.team4.everycare.dto.product;
+package wd.team4.everycare.dto;
 
 import lombok.*;
 
@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ProductImageDTO {
+public class ImageDTO {
 
     private Long id;
     private String uploadFileName;

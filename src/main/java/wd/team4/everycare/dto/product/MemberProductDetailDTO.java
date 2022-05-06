@@ -2,6 +2,7 @@ package wd.team4.everycare.dto.product;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.ImageDTO;
 import wd.team4.everycare.dto.store.StoreNameDTO;
 
 import java.time.LocalDateTime;
@@ -27,5 +28,5 @@ public class MemberProductDetailDTO {
     private String storeFileName;
     private StoreNameDTO store;
     private ProductCategoryDTO productCategory;
-    private List<ProductImageDTO> productImagesDTOs;
+    private List<ImageDTO> productImagesDTOs;
 }

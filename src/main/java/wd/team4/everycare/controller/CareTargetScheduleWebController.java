@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationListViewDTO;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleDTO;
-import wd.team4.everycare.dto.CareTargetViewDTO;
+import wd.team4.everycare.dto.caretarget.CareTargetViewDTO;
 import wd.team4.everycare.service.ActivityInformationServiceImpl;
 import wd.team4.everycare.service.CareTargetScheduleServiceImpl;
 import wd.team4.everycare.service.CareTargetServiceImpl;
