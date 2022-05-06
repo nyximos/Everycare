@@ -38,10 +38,10 @@ public class ProductServiceImpl implements ProductService {
     private final ProducImageRepository producImageRepository;
 
     @Override
-    public List<MemberProductsViewDTO> webFindAll(Store store) {
+    public List<MemberProductListViewDTO> webFindAll(Store store) {
 
         List<Product> products = productRepository.findAllByStore(store);
-        List<MemberProductsViewDTO> MemberProductsViewDTOs = new ArrayList<>();
+        List<MemberProductListViewDTO> MemberProductsViewDTOs = new ArrayList<>();
 
         if (products.isEmpty()) {
             return null;
@@ -133,13 +133,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ResponseEntity<MyResponse> findById(Long id) {
-        System.out.println("메소드 실행");
         Optional<Product> product = productRepository.findById(id);
         Product productEntity = product.orElse(null);
 
         Long productEntityId = productEntity.getId();
         List<ProductImage> productImages = producImageRepository.findAllByProductId(productEntityId);
-        System.out.println(productImages.size());
 
         List<ProductImageDTO> productImageDTOs = new ArrayList<>();
         for (ProductImage productImage : productImages) {
@@ -148,7 +146,6 @@ public class ProductServiceImpl implements ProductService {
                     .storeFileName(productImage.getStoreFileName())
                     .build();
             productImageDTOs.add(productImageDTO);
-            System.out.println("productImageDTO.getStoreFileName() = " + productImageDTO.getStoreFileName());
         }
 
         ProductDetaileViewDTO productDetaileViewDTO = ProductDetaileViewDTO.builder()
@@ -168,6 +165,41 @@ public class ProductServiceImpl implements ProductService {
                 .header(StatusEnum.OK)
                 .message("성공")
                 .body(productDetaileViewDTO)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> findAll(Store store) {
+        List<Product> products = productRepository.findAllByStore(store);
+        List<MemberProductListViewDTO> memberProductListViewDTOs = new ArrayList<>();
+
+        if (products.isEmpty()) {
+            return null;
+        }
+
+        for (Product product : products) {
+            MemberProductListViewDTO memberProductListViewDTO = MemberProductListViewDTO.builder()
+                    .id(product.getId())
+                    .name(product.getName())
+                    .price(product.getPrice())
+                    .inventoryQuantity(product.getInventoryQuantity())
+                    .isSale(product.getIsSale())
+                    .createdAt(product.getCreatedAt())
+                    .uploadFileName(product.getUploadFileName())
+                    .storeFileName(product.getStoreFileName())
+                    .store(product.getStore().toNameDTO())
+                    .productCategory(product.getProductCategory().toDTO())
+                    .build();
+            memberProductListViewDTOs.add(memberProductListViewDTO);
+        }
+
+        MyResponse<List<MemberProductListViewDTO>> body = MyResponse.<List<MemberProductListViewDTO>>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(memberProductListViewDTOs)
                 .build();
 
         HttpHeaders headers = new HttpHeaders();
