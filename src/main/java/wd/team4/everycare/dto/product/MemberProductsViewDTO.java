@@ -9,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class MemberProductsViewDTO {
+
     private Long id;
     private String name;
     private int price;
@@ -16,4 +17,5 @@ public class MemberProductsViewDTO {
     private int isSale;
     private String uploadFileName;
     private String storeFileName;
+
 }
