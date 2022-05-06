@@ -145,7 +145,7 @@ export default {
     mounted() {
     const id = Number(this.$route.params.id);
     this.$http
-      .get(`https://localhost:8086/recruitions/new`,{
+      .get(`/api/recruitions/new`,{
         withCredentials:true
       })
 		.then((res)=>{
@@ -156,7 +156,7 @@ export default {
 		console.log(err);
 	})
     this.$http
-    .get(`https://localhost:8086/recruitions/recruition/${id}`,{
+    .get(`/api/recruitions/recruition/${id}`,{
         withCredentials:true
     })
     .then((res)=>{

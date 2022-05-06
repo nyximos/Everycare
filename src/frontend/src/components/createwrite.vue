@@ -149,7 +149,7 @@
 export default {
 name: 'Create',
     mounted() {
-      this.$http.get('https://localhost:8086/recruitions/new',{
+      this.$http.get('/api/recruitions/new',{
         withCredentials:true
       })
 			.then((res)=>{
@@ -207,6 +207,9 @@ name: 'Create',
        console.log(err);
        console.log(typeof this.endDay)
     });
+    // this.$router.push({
+    //   path:'/joblist'
+    // })
   },
   
   buttonClick(){

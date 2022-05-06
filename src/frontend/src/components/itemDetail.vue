@@ -79,7 +79,7 @@ name:'itemDetail',
 mounted() {
     const id = Number(this.$route.params.contentId);
     this.$http
-    .get(`https://localhost:8086/recruitions/recruition/${id}`,{
+    .get(`/api/recruitions/recruition/${id}`,{
         withCredentials: true
     })
     .then((res)=>{

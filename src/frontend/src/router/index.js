@@ -18,10 +18,21 @@ const routes = [
         component: () => import('@/pages/Main.vue')
     },
     {
+
         path: '/joboffer/:id/editwrite',
         name: 'editwrite',
         component: () => import('@/components/writeEdit.vue')
     },
+    {
+        path: '/signup',
+        name: 'signup',
+        component: () => import('@/pages/Signup.vue')
+   },
+   {
+       path: '/calendar',
+       name: 'calendar',
+       component:() => import('@/pages/Calendar.vue')
+   },
     {
         path:'/stores',
         name:'storeMain',

@@ -49,7 +49,7 @@ export default {
     },
     mounted() {
         this.$http
-        .get('https://localhost:8086/recruitions', {
+        .get('/api/recruitions', {
         withCredentials: true
         })
         .then(res => {

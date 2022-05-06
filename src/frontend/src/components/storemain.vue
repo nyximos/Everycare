@@ -55,29 +55,13 @@
 
 <div class="row">
 	<p class="fs-2 mt-5 fw-bold">Top 3</p>
-      <div class="ranking col">
+      <div class="ranking col" v-for="index in 3" :key="index">
 	<img src="../images/ear.jpg" class="rounded-circle mx-auto d-block" width="140" height="140">
         <div class="text-center">
 		<h2 class="mt-2">체온계</h2>
 <button class="btn btn-secondary" href="#">View details &raquo;</button>
 		</div>
       </div>
-
-      <div class="ranking col">
-        <img src="../images/ear.jpg" class="rounded-circle mx-auto d-block" width="140" height="140">
-        <div class="text-center">
-		<h2 class="mt-2">체온계</h2>
-<button class="btn btn-secondary" href="#">View details &raquo;</button>
-		</div>
-      </div>
-
-     <div class="ranking col">
-        <img src="../images/sitter.jpg" class="rounded-circle mx-auto d-block" width="140" height="140">
-        <div class="text-center">
-		<h2 class="mt-2">체온계</h2>
-<button class="btn btn-secondary" href="#">View details &raquo;</button>
-		</div>
-    </div>
 </div>
 
 <!--body-->
@@ -162,6 +146,7 @@
 							</div>
 						</div>
 					</div>
+					{{storeList}}
 </v-container>      
 </template>
 
@@ -169,17 +154,32 @@
 export default {
 name: 'storeMain',
 mounted(){
-	
+	this.$http
+	.get('/api/stores',{
+		withCredential: true
+	})
+	.then((res)=>{
+		console.log(res)
+		this.storeList= res.data.body
+	})
+	.catch((err)=>{
+		console.log(err)
+	})
 },
 data(){
 	return{
-
+		storeList:[]
 	}
 },
 methods:{
 	goCreateStore(){
 		this.$router.push({
 			path:'createStore'
+		})
+	},
+	goCart(){
+		this.$router.push({
+			path:''
 		})
 	}
 }
