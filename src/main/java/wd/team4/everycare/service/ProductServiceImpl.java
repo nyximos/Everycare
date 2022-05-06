@@ -151,14 +151,6 @@ public class ProductServiceImpl implements ProductService {
             System.out.println("productImageDTO.getStoreFileName() = " + productImageDTO.getStoreFileName());
         }
 
-
-//        System.out.println("productEntity.getName() = " + productEntity.getName());
-//        System.out.println("productEntity.getProductImages() = " + productEntity.getProductImages().get(0).getStoreFileName());
-//        for (ProductImage productImage : productEntity.getProductImages()) {
-//            System.out.println("productImage.getStoreFileName() = " + productImage.getStoreFileName());
-//        }
-
-
         ProductDetaileViewDTO productDetaileViewDTO = ProductDetaileViewDTO.builder()
                 .id(productEntity.getId())
                 .name(productEntity.getName())
@@ -169,7 +161,6 @@ public class ProductServiceImpl implements ProductService {
                 .createdAt(productEntity.getCreatedAt())
                 .store(productEntity.getStore().toNameDTO())
                 .productCategory(productEntity.getProductCategory().toDTO())
-//                .productImagesDTOs(productEntity.addProductImagesDTO(productEntity.getProductImages()))
                 .productImagesDTOs(productImageDTOs)
                 .build();
 

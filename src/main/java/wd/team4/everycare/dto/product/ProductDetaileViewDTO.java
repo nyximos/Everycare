@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import wd.team4.everycare.dto.store.StoreNameDTO;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @Getter
@@ -24,5 +25,6 @@ public class ProductDetaileViewDTO {
     private LocalDateTime createdAt;
     private StoreNameDTO store;
     private ProductCategoryDTO productCategory;
+    private List<ProductImageDTO> productImagesDTOs;
 
 }
