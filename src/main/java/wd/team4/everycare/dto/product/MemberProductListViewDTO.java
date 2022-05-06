@@ -5,7 +5,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import wd.team4.everycare.dto.store.StoreNameDTO;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Builder
 @Getter
