@@ -12,13 +12,18 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ProductListViewDTO {
+public class MemberProductListViewDTO {
+
     private Long id;
     private String name;
     private int price;
-    private String storeFileName;
+    private int inventoryQuantity;
+    private int isSale;
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime createdAt;
+    private String uploadFileName;
+    private String storeFileName;
     private StoreNameDTO store;
     private ProductCategoryDTO productCategory;
+
 }

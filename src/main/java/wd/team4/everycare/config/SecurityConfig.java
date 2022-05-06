@@ -38,6 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                     .permitAll()
                 .antMatchers("/dashboard/**")
                     .access("hasRole('ROLE_MEMBER') or hasRole('ROLE_ADMIN')")
+                .antMatchers("/api/admin")
+                    .access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/api/**")
                 .permitAll()
                .anyRequest().permitAll();

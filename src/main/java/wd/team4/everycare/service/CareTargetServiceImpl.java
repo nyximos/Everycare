@@ -1,14 +1,23 @@
 package wd.team4.everycare.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetImage;
 import wd.team4.everycare.domain.Member;
-import wd.team4.everycare.dto.CareTargetFormDTO;
-import wd.team4.everycare.dto.CareTargetViewDTO;
+import wd.team4.everycare.dto.ImageDTO;
+import wd.team4.everycare.dto.caretarget.CareTargetDetailDTO;
+import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
+import wd.team4.everycare.dto.caretarget.CareTargetListViewDTO;
+import wd.team4.everycare.dto.caretarget.CareTargetViewDTO;
 import wd.team4.everycare.dto.UploadFile;
+import wd.team4.everycare.dto.response.MyResponse;
+import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.CareTargetImageRepository;
 import wd.team4.everycare.repository.CareTargetRepository;
 import wd.team4.everycare.repository.MemberRepository;
@@ -16,6 +25,7 @@ import wd.team4.everycare.service.exception.CareTargetNotFoundException;
 import wd.team4.everycare.service.interfaces.CareTargetService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +38,102 @@ public class CareTargetServiceImpl implements CareTargetService {
     private final CareTargetRepository careTargetRepository;
     private final CareTargetImageRepository careTargetImageRepository;
     private final MemberRepository memberRepository;
+
+    @Override
+    public ResponseEntity<MyResponse> findAll(PrincipalDetails principalDetails) {
+
+        Member user = principalDetails.getUser();
+
+        List<CareTarget> careTargets = careTargetRepository.findAllByMember(user);
+
+        List<CareTargetListViewDTO> careTargetListViewDTOs = new ArrayList<>();
+        List<ImageDTO> imageDTOs = new ArrayList<>();
+
+        if (careTargets.isEmpty()) {
+            return null;
+        }
+
+        for (CareTarget careTarget : careTargets) {
+            imageDTOs.clear();
+
+            List<CareTargetImage> images = careTargetImageRepository.findAllByCareTarget(careTarget);
+
+            for (CareTargetImage image : images) {
+                ImageDTO imageDTO = ImageDTO.builder()
+                        .id(image.getId())
+                        .uploadFileName(image.getUploadFileName())
+                        .storeFileName(image.getStoreFileName())
+                        .build();
+                imageDTOs.add(imageDTO);
+            }
+
+            CareTargetListViewDTO careTargetListViewDTO = CareTargetListViewDTO.builder()
+                    .id(careTarget.getId())
+                    .name(careTarget.getName())
+                    .imageDTOs(imageDTOs)
+                    .build();
+
+            careTargetListViewDTOs.add(careTargetListViewDTO);
+        }
+
+        MyResponse<List<CareTargetListViewDTO>> body = MyResponse.<List<CareTargetListViewDTO>>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(careTargetListViewDTOs)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> findById(Long id) {
+
+        Optional<CareTarget> careTarget = careTargetRepository.findById(id);
+        CareTarget careTargetEntity = careTarget.orElse(null);
+
+        List<CareTargetImage> images = careTargetImageRepository.findAllByCareTarget(careTargetEntity);
+
+        List<ImageDTO> imageDTOs = new ArrayList<>();
+
+        for (CareTargetImage image : images) {
+            ImageDTO imageDTO = ImageDTO.builder()
+                    .id(image.getId())
+                    .uploadFileName(image.getUploadFileName())
+                    .storeFileName(image.getStoreFileName())
+                    .build();
+            imageDTOs.add(imageDTO);
+        }
+
+
+        CareTargetDetailDTO careTargetDetailDTO = CareTargetDetailDTO.builder()
+                .id(careTargetEntity.getId())
+                .name(careTargetEntity.getName())
+                .gender(careTargetEntity.getGender())
+                .birth(careTargetEntity.getBirth())
+                .height(careTargetEntity.getHeight())
+                .weight(careTargetEntity.getWeight())
+                .zipcode(careTargetEntity.getZipcode())
+                .address(careTargetEntity.getAddress())
+                .detailedAddress(careTargetEntity.getDetailedAddress())
+                .longTermCareGrade(careTargetEntity.getLongTermCareGrade())
+                .comment(careTargetEntity.getComment())
+                .pet(careTargetEntity.getPet())
+                .isCctvAgreement(careTargetEntity.getIsCctvAgreement())
+                .careType(careTargetEntity.getCareType())
+                .coronaTest(careTargetEntity.getCoronaTest())
+                .imageDTOs(imageDTOs)
+                .build();
+
+        MyResponse<CareTargetDetailDTO> body = MyResponse.<CareTargetDetailDTO>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(careTargetDetailDTO)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);    }
 
     @Override
     public Long save(CareTargetFormDTO careTargetFormDTO) throws IOException {

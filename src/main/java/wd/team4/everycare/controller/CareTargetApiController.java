@@ -8,7 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
-import wd.team4.everycare.dto.CareTargetFormDTO;
+import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.CareTargetRepository;
@@ -23,6 +23,18 @@ public class CareTargetApiController {
 
     private final CareTargetServiceImpl careTargetService;
     private final CareTargetRepository careTargetRepository;
+
+    @GetMapping("/dashboard/caretargets")
+    public ResponseEntity<MyResponse> getProducts(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        ResponseEntity<MyResponse> responseEntity = careTargetService.findAll(principalDetails);
+        return responseEntity;
+    }
+
+    @GetMapping("/dashboard/caretargets/{id}")
+    public ResponseEntity<MyResponse> getProduct(@PathVariable Long id){
+        ResponseEntity<MyResponse> responseEntity = careTargetService.findById(id);
+        return responseEntity;
+    }
 
     @PostMapping("/dashboard/caretargets/new")
     public ResponseEntity<MyResponse> saveCareTarget(
