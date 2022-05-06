@@ -1,6 +1,7 @@
 package wd.team4.everycare.service.interfaces;
 
 import org.springframework.http.ResponseEntity;
+import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.member.SignupDTO;
 import wd.team4.everycare.dto.response.MyResponse;
@@ -37,6 +38,8 @@ public interface MemberService {
     }
 
     ResponseEntity<MyResponse> getMemberInfoDTO(String username);
+
+    ResponseEntity<MyResponse> getAccountDTO(PrincipalDetails principalDetails);
 
 //    String getId(String authorization);
 

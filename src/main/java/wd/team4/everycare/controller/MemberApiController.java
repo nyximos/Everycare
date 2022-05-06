@@ -74,6 +74,12 @@ public class MemberApiController {
         return "회원가입완료";
     }
 
+    @GetMapping("/dashboard/account")
+    public ResponseEntity<MyResponse> getAccount(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        ResponseEntity<MyResponse> responseEntity = memberService.getAccountDTO(principalDetails);
+        return responseEntity;
+    }
+
 }
 
 
