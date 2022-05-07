@@ -4,8 +4,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.member.MemberAccountDTO;
 import wd.team4.everycare.dto.member.MemberInfoDTO;
+import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,7 +16,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@DynamicUpdate
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -118,5 +121,38 @@ public class Member {
                 .name(this.name)
                 .role(this.role)
                 .build();
+    }
+
+    public void updateAccount(MemberAccountDTO memberAccountDTO) {
+        if(StringUtils.isNotBlank(memberAccountDTO.getId())) {
+            this.id = memberAccountDTO.getId();
+        }
+        if(StringUtils.isNotBlank(memberAccountDTO.getName())) {
+            this.name = memberAccountDTO.getName();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(memberAccountDTO.getGender()))) {
+            this.gender = memberAccountDTO.getGender();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(memberAccountDTO.getBirth()))) {
+            this.birth = memberAccountDTO.getBirth();
+        }
+        if(StringUtils.isNotBlank(memberAccountDTO.getPhone())) {
+            this.phone = memberAccountDTO.getPhone();
+        }
+        if(StringUtils.isNotBlank(memberAccountDTO.getEmail())) {
+            this.email = memberAccountDTO.getEmail();
+        }
+        if(StringUtils.isNotBlank(memberAccountDTO.getAccountNumber())) {
+            this.zipcode = memberAccountDTO.getZipcode();
+        }
+        if(StringUtils.isNotBlank(memberAccountDTO.getAddress())) {
+            this.address = memberAccountDTO.getAddress();
+        }
+        if(StringUtils.isNotBlank(memberAccountDTO.getBank())) {
+            this.bank = memberAccountDTO.getBank();
+        }
+        if(StringUtils.isNotBlank(memberAccountDTO.getAccountNumber())) {
+            this.accountNumber = memberAccountDTO.getAccountNumber();
+        }
     }
 }

@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.config.jwt.JwtProperties;
 import wd.team4.everycare.domain.Member;
-import wd.team4.everycare.dto.member.AccountDTO;
+import wd.team4.everycare.dto.careSitter.CareSitterDTO;
+import wd.team4.everycare.dto.member.MemberAccountDTO;
 import wd.team4.everycare.dto.member.MemberInfoDTO;
 import wd.team4.everycare.dto.member.SignupDTO;
 import wd.team4.everycare.dto.response.MyResponse;
@@ -102,16 +103,13 @@ public class MemberServiceImpl implements MemberService {
         Optional<Member> member = memberRepository.findById(username);
         Member memberEntity = member.orElse(null);
 
-        AccountDTO accountDTO = AccountDTO.builder()
+        MemberAccountDTO accountDTO = MemberAccountDTO.builder()
                 .id(memberEntity.getId())
                 .name(memberEntity.getName())
-                .role(memberEntity.getRole())
                 .gender(memberEntity.getGender())
                 .birth(memberEntity.getBirth())
                 .phone(memberEntity.getPhone())
                 .email(memberEntity.getEmail())
-                .createdAt(memberEntity.getCreatedAt())
-                .activityStatus(memberEntity.getActivityStatus())
                 .zipcode(memberEntity.getZipcode())
                 .address(memberEntity.getAddress())
                 .detailedAddress(memberEntity.getDetailedAddress())
@@ -119,7 +117,7 @@ public class MemberServiceImpl implements MemberService {
                 .accountNumber(memberEntity.getAccountNumber())
                 .build();
 
-        MyResponse<AccountDTO> body = MyResponse.<AccountDTO>builder()
+        MyResponse<MemberAccountDTO> body = MyResponse.<MemberAccountDTO>builder()
                 .header(StatusEnum.OK)
                 .message("성공했슴다~")
                 .body(accountDTO)
@@ -127,6 +125,26 @@ public class MemberServiceImpl implements MemberService {
 
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> updateAccount(PrincipalDetails principalDetails, MemberAccountDTO memberAccountDTO) {
+        String username = principalDetails.getUsername();
+        Optional<Member> member = memberRepository.findById(username);
+        Member memberEntity = member.orElse(null);
+        memberEntity.updateAccount(memberAccountDTO);
+
+        MyResponse<MemberAccountDTO> body = MyResponse.<MemberAccountDTO>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(memberAccountDTO)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+
+
+
     }
 
 //    @Override
@@ -143,7 +161,6 @@ public class MemberServiceImpl implements MemberService {
         System.out.println(body.getSubject());
         System.out.println(body.getExpiration());
         System.out.println(body.get("username"));
-
     }
 
 }
