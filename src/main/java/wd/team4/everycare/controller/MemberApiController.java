@@ -10,6 +10,8 @@ import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.config.jwt.JwtProperties;
 import wd.team4.everycare.domain.ActivityStatus;
 import wd.team4.everycare.domain.MemberRole;
+import wd.team4.everycare.dto.member.MemberAccountDTO;
+import wd.team4.everycare.dto.member.MemberInfoDTO;
 import wd.team4.everycare.dto.member.SignupDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
@@ -78,6 +80,11 @@ public class MemberApiController {
     public ResponseEntity<MyResponse> getAccount(@AuthenticationPrincipal PrincipalDetails principalDetails){
         ResponseEntity<MyResponse> responseEntity = memberService.getAccountDTO(principalDetails);
         return responseEntity;
+    }
+
+    @PatchMapping("/dashboard/account")
+    public ResponseEntity<MyResponse> updateAccount(@AuthenticationPrincipal PrincipalDetails principalDetails, @ModelAttribute MemberAccountDTO memberAccountDTO) {
+        memberService.updateAccount(principalDetails, memberAccountDTO);
     }
 
 }
