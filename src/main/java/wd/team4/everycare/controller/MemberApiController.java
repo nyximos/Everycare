@@ -84,7 +84,8 @@ public class MemberApiController {
 
     @PatchMapping("/dashboard/account")
     public ResponseEntity<MyResponse> updateAccount(@AuthenticationPrincipal PrincipalDetails principalDetails, @ModelAttribute MemberAccountDTO memberAccountDTO) {
-        memberService.updateAccount(principalDetails, memberAccountDTO);
+        ResponseEntity<MyResponse> responseEntity = memberService.updateAccount(principalDetails, memberAccountDTO);
+        return responseEntity;
     }
 
 }
