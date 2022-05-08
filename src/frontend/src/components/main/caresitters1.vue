@@ -9,7 +9,7 @@
                 <li class="li01" v-for="p in profiles" :key="p.id" >
                         <span class="tab01">
                             <span class="img01">
-                                <img src="@/assets/user.png" class="vertical">
+                                <img src="@/assets/user.png" class="vertical" @click="move">
                                 {{p.attachFiles}}
                                 {{p.careSitterImages}}
                             </span>
@@ -53,19 +53,21 @@
 export default {
     data(){
 		return{
+            // props:[
+            //     caresitter:
+            // ]
             page:1,
 			profiles:[],
             id:''
 		}
 	},
     methods:{
-        // move(){
-        //     this.$router.push({ path: '/Main' })
-        // }
+        move(){
+            // this.$router.push({/})
+        }
     },
 	mounted(){
-            this.id = this.$route.params.profileId
-            console.log(this.id);
+         console.log(this.dataid);
 			this.$http
             .get('/api/caresitters' ,{
                 withCredentials:true

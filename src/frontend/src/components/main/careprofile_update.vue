@@ -83,24 +83,23 @@ export default {
             cctvAgreement:'',
             vaccination: '',
             attachFiles: [],
-            id:this.$route.params.id
+            // id:this.$route.params.id
         }
         
     },
     mounted(){
-        const id =this.id;
-        this.$http
-        .get(`/api/caresitters/${id}`,{
-            withCredentials:true
-        })
-        .then(res =>{
-            const result = res.data.body;
-            console.log(result)
+        // this.$http
+        // .get(`/api/caresitters/${id}`,{
+        //     withCredentials:true
+        // })
+        // .then(res =>{
+        //     const result = res.data.body;
+        //     console.log(result)
 
-        })
-        .catch(err =>{
-            console.log(err);
-        });
+        // })
+        // .catch(err =>{
+        //     console.log(err);
+        // });
     },
     methods:{
         profile_update(){
