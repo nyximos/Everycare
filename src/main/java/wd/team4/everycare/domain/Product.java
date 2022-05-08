@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.dto.product.MemberProductListViewDTO;
 import wd.team4.everycare.dto.product.ProductFormDTO;
+import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -113,4 +114,24 @@ public class Product {
     public void saveProductCategory(ProductCategory productCategory){
         this.productCategory = productCategory;
     }
+
+    public void updateProduct(ProductFormDTO productFormDTO) {
+        if(StringUtils.isNotBlank(productFormDTO.getName())) {
+            this.name = productFormDTO.getName();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(productFormDTO.getPrice()))) {
+            this.price = productFormDTO.getPrice();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(productFormDTO.getInventoryQuantity()))) {
+            this.price = productFormDTO.getInventoryQuantity();
+        }
+        if(StringUtils.isNotBlank(productFormDTO.getComment())) {
+            this.comment = productFormDTO.getComment();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(productFormDTO.getIsSale()))) {
+            this.isSale = productFormDTO.getIsSale();
+        }
+    }
+
+
 }

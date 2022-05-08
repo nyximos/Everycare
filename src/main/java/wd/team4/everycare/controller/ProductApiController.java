@@ -48,4 +48,10 @@ public class ProductApiController {
         return responseEntity;
     }
 
+    @PatchMapping("/dashboard/store/products/{id}")
+    public ResponseEntity<MyResponse> updateProduct(@PathVariable Long id, @ModelAttribute ProductFormDTO productFormDTO){
+        ResponseEntity<MyResponse> responseEntity = productService.updateProduct(id, productFormDTO);
+        return responseEntity;
+    }
+
 }

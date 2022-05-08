@@ -23,4 +23,6 @@ public interface ProductService {
     ResponseEntity<MyResponse> findAll(Store store);
 
     ResponseEntity<MyResponse> productFindById(Long id);
+
+    ResponseEntity<MyResponse> updateProduct(Long id, ProductFormDTO productFormDTO);
 }

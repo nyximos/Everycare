@@ -247,4 +247,23 @@ public class ProductServiceImpl implements ProductService {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<MyResponse> updateProduct(Long id, ProductFormDTO productFormDTO) {
+
+        Optional<Product> product = productRepository.findById(id);
+        Product productEntity = product.orElse(null);
+        Long productCategoryId = productFormDTO.getProductCategory();
+        Optional<ProductCategory> productCategory = productCategoryRepository.findById(productCategoryId);
+        ProductCategory productCategoryEntity = productCategory.orElse(null);
+        if(productCategory !=null) {
+            productEntity.saveProductCategory(productCategoryEntity);
+        }
+        productEntity.updateProduct(productFormDTO);
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
 }
