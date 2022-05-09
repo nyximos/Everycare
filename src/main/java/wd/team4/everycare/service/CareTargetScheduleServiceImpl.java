@@ -10,7 +10,6 @@ import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetSchedule;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleDTO;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
-import wd.team4.everycare.dto.product.ProductListViewDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.ActivityInformationRepository;
@@ -35,7 +34,7 @@ public class CareTargetScheduleServiceImpl implements CareTargetScheduleService 
     public List<CareTargetScheduleDTO> findAllByCareTarget(Long id) {
         Optional<CareTarget> careTarget = careTargetRepository.findById(id);
         CareTarget careTargetEntity = careTarget.orElse(null);
-        List<CareTargetSchedule> careTargetSchedules = careTargetScheduleRepository.findByCareTargetId(careTargetEntity.getId());
+        List<CareTargetSchedule> careTargetSchedules = careTargetScheduleRepository.findAllByCareTargetId(careTargetEntity.getId());
         List<CareTargetScheduleDTO> careTargetScheduleDTOs = new ArrayList<>();
 
         if(careTargetSchedules.isEmpty()) {
@@ -49,7 +48,9 @@ public class CareTargetScheduleServiceImpl implements CareTargetScheduleService 
 
     @Override
     public ResponseEntity<MyResponse> getAll(Long id) {
-        List<CareTargetSchedule> careTargetSchedules = careTargetScheduleRepository.findAll();
+        Optional<CareTarget> careTarget = careTargetRepository.findById(id);
+        CareTarget careTargetEntity = careTarget.orElse(null);
+        List<CareTargetSchedule> careTargetSchedules = careTargetScheduleRepository.findAllByCareTargetId(careTargetEntity.getId());
         List<CareTargetScheduleListDTO> careTargetScheduleListDTOs = new ArrayList<>();
 
         if(careTargetSchedules.isEmpty()){

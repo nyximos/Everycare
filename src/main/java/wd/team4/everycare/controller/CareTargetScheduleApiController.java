@@ -16,7 +16,8 @@ public class CareTargetScheduleApiController {
 
     @GetMapping("/dashboard/caretargets/{id}/schedules")
     public ResponseEntity<MyResponse> getAll(@PathVariable("id") Long id){
-        careTargetScheduleService.getAll(id);
+        ResponseEntity<MyResponse> responseEntity = careTargetScheduleService.getAll(id);
+        return responseEntity;
     }
 
     @PostMapping("/dashboard/caretargets/{id}/schedules")

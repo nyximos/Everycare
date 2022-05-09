@@ -25,13 +25,13 @@ public class CareTargetApiController {
     private final CareTargetRepository careTargetRepository;
 
     @GetMapping("/dashboard/caretargets")
-    public ResponseEntity<MyResponse> getProducts(@AuthenticationPrincipal PrincipalDetails principalDetails){
+    public ResponseEntity<MyResponse> getCareTargets(@AuthenticationPrincipal PrincipalDetails principalDetails){
         ResponseEntity<MyResponse> responseEntity = careTargetService.findAll(principalDetails);
         return responseEntity;
     }
 
     @GetMapping("/dashboard/caretargets/{id}")
-    public ResponseEntity<MyResponse> getProduct(@PathVariable Long id){
+    public ResponseEntity<MyResponse> getCareTarget(@PathVariable Long id){
         ResponseEntity<MyResponse> responseEntity = careTargetService.findById(id);
         return responseEntity;
     }
