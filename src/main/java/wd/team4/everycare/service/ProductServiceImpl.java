@@ -249,7 +249,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ResponseEntity<MyResponse> updateProduct(Long id, ProductFormDTO productFormDTO) {
+    public ResponseEntity<MyResponse> updateProduct(Long id, ProductFormDTO productFormDTO) throws IOException {
 
         Optional<Product> product = productRepository.findById(id);
         Product productEntity = product.orElse(null);
@@ -260,6 +260,21 @@ public class ProductServiceImpl implements ProductService {
             productEntity.saveProductCategory(productCategoryEntity);
         }
         productEntity.updateProduct(productFormDTO);
+
+        UploadFile attachFile = fileStoreService.storeFile(productFormDTO.getAttachFile());
+        List<UploadFile> attachFiles = fileStoreService.storeFiles(productFormDTO.getAttachFiles());
+
+        productEntity.saveImage(attachFile);
+
+        for (UploadFile file : attachFiles) {
+            ProductImage productImage = ProductImage.builder()
+                    .uploadFileName(file.getUploadFileName())
+                    .storeFileName(file.getStoreFileName())
+                    .product(productEntity)
+                    .build();
+            producImageRepository.save(productImage);
+        }
+
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("성공")

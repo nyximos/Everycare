@@ -49,7 +49,7 @@ public class ProductApiController {
     }
 
     @PatchMapping("/dashboard/store/products/{id}")
-    public ResponseEntity<MyResponse> updateProduct(@PathVariable Long id, @ModelAttribute ProductFormDTO productFormDTO){
+    public ResponseEntity<MyResponse> updateProduct(@PathVariable Long id, @ModelAttribute ProductFormDTO productFormDTO) throws IOException {
         ResponseEntity<MyResponse> responseEntity = productService.updateProduct(id, productFormDTO);
         return responseEntity;
     }
