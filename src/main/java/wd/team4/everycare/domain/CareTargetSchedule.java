@@ -1,11 +1,13 @@
 package wd.team4.everycare.domain;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleDTO;
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
 
+@DynamicUpdate
 @Getter
 @NoArgsConstructor
 @Entity
