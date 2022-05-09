@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.dto.product.MemberProductListViewDTO;
 import wd.team4.everycare.dto.product.ProductFormDTO;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@DynamicUpdate
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity

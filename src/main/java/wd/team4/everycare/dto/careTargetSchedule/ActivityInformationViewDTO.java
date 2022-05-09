@@ -5,15 +5,13 @@ import lombok.*;
 @Builder
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
-public class CareTargetScheduleDTO {
-
+public class ActivityInformationViewDTO {
     private Long id;
-    private String name;
     private String startTime;
     private String endTime;
-    private Long careTarget;
-
+    private String requirement;
+    private ActivityClassificationDTO activityClassificationDTO;
 }

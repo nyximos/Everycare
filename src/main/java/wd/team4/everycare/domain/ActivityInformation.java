@@ -3,11 +3,14 @@ package wd.team4.everycare.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationListViewDTO;
+import org.hibernate.annotations.DynamicUpdate;
+import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationFormDTO;
+import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationViewDTO;
+import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
 
+@DynamicUpdate
 @Getter
 @NoArgsConstructor
 @Entity
@@ -64,8 +67,8 @@ public class ActivityInformation {
                 '}';
     }
 
-    public ActivityInformationListViewDTO toListViewDTO(){
-        return ActivityInformationListViewDTO.builder()
+    public ActivityInformationViewDTO toListViewDTO(){
+        return ActivityInformationViewDTO.builder()
                 .id(this.id)
                 .startTime(this.startTime)
                 .endTime(this.endTime)
@@ -87,4 +90,16 @@ public class ActivityInformation {
     }
 
 
+    public void update(ActivityInformationFormDTO activityInformationFormDTO) {
+
+        if(StringUtils.isNotBlank(activityInformationFormDTO.getStartTime())) {
+            this.startTime = activityInformationFormDTO.getStartTime();
+        }
+        if(StringUtils.isNotBlank(activityInformationFormDTO.getEndTime())) {
+            this.endTime = activityInformationFormDTO.getEndTime();
+        }
+        if(StringUtils.isNotBlank(activityInformationFormDTO.getRequirement())) {
+            this.requirement = activityInformationFormDTO.getRequirement();
+        }
+    }
 }

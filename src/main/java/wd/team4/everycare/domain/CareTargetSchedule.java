@@ -1,10 +1,13 @@
 package wd.team4.everycare.domain;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleDTO;
+import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
 
+@DynamicUpdate
 @Getter
 @NoArgsConstructor
 @Entity
@@ -65,4 +68,16 @@ public class CareTargetSchedule {
         this.careTarget = careTarget;
     }
 
+    public void update(CareTargetScheduleDTO careTargetScheduleDTO) {
+
+        if(StringUtils.isNotBlank(careTargetScheduleDTO.getName())) {
+            this.name = careTargetScheduleDTO.getName();
+        }
+        if(StringUtils.isNotBlank(careTargetScheduleDTO.getStartTime())) {
+            this.startTime = careTargetScheduleDTO.getStartTime();
+        }
+        if(StringUtils.isNotBlank(careTargetScheduleDTO.getEndTime())) {
+            this.endTime = careTargetScheduleDTO.getEndTime();
+        }
+    }
 }
