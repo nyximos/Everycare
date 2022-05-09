@@ -25,4 +25,6 @@ public interface ProductService {
     ResponseEntity<MyResponse> productFindById(Long id);
 
     ResponseEntity<MyResponse> updateProduct(Long id, ProductFormDTO productFormDTO) throws IOException;
+
+    ResponseEntity<MyResponse> deleteProduct(Long id);
 }

@@ -281,4 +281,15 @@ public class ProductServiceImpl implements ProductService {
                 .build();
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<MyResponse> deleteProduct(Long id) {
+
+        productRepository.deleteById(id);
+        
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);    }
 }
