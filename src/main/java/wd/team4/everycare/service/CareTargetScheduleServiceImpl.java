@@ -6,8 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wd.team4.everycare.domain.ActivityInformation;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetSchedule;
+import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationListViewDTO;
+import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationViewDTO;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleDTO;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.response.MyResponse;
@@ -76,6 +79,40 @@ public class CareTargetScheduleServiceImpl implements CareTargetScheduleService 
                 .header(StatusEnum.OK)
                 .message("성공")
                 .body(careTargetScheduleListDTOs)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> getSchedule(Long id) {
+        Optional<CareTargetSchedule> careTargetSchedule = careTargetScheduleRepository.findById(id);
+        CareTargetSchedule careTargetScheduleEntity = careTargetSchedule.orElse(null);
+        CareTargetScheduleDTO careTargetScheduleDTO = careTargetScheduleEntity.toDTO();
+        List<ActivityInformation> activityInformations = activityInformationRepository.findAllByCareTargetScheduleId(careTargetScheduleEntity.getId());
+        List<ActivityInformationViewDTO> activityInformationViewDTOs = new ArrayList<>();
+        for (ActivityInformation activityInformation : activityInformations) {
+            ActivityInformationViewDTO activityInformationViewDTO = ActivityInformationViewDTO.builder()
+                    .id(activityInformation.getId())
+                    .startTime(activityInformation.getStartTime())
+                    .endTime(activityInformation.getEndTime())
+                    .requirement(activityInformation.getRequirement())
+                    .activityClassificationDTO(activityInformation.getActivityClassification().toDTO())
+                    .build();
+
+            activityInformationViewDTOs.add(activityInformationViewDTO);
+        }
+
+        ActivityInformationListViewDTO activityInformationListViewDTO = ActivityInformationListViewDTO.builder()
+                .careTargetScheduleDTO(careTargetScheduleDTO)
+                .activityInformationViewDTOs(activityInformationViewDTOs)
+                .build();
+
+        MyResponse<ActivityInformationListViewDTO> body = MyResponse.<ActivityInformationListViewDTO>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(activityInformationListViewDTO)
                 .build();
 
         HttpHeaders headers = new HttpHeaders();

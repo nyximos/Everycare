@@ -20,6 +20,13 @@ public class CareTargetScheduleApiController {
         return responseEntity;
     }
 
+    @GetMapping("/dashboard/caretargets/{caretargetid}/schedules/{scheduleid}")
+    public ResponseEntity<MyResponse> getSchedule(@PathVariable("caretargetid") Long careTargetId,
+                                                  @PathVariable(value = "scheduleid") Long scheduleId){
+        ResponseEntity<MyResponse> responseEntity = careTargetScheduleService.getSchedule(scheduleId);
+        return responseEntity;
+    }
+
     @PostMapping("/dashboard/caretargets/{id}/schedules")
     public ResponseEntity<MyResponse> saveSchedule(@ModelAttribute CareTargetScheduleDTO careTargetScheduleDTO,
                                                    @PathVariable("id") Long id){

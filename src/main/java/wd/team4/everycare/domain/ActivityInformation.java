@@ -3,8 +3,7 @@ package wd.team4.everycare.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationListViewDTO;
+import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationViewDTO;
 
 import javax.persistence.*;
 
@@ -64,8 +63,8 @@ public class ActivityInformation {
                 '}';
     }
 
-    public ActivityInformationListViewDTO toListViewDTO(){
-        return ActivityInformationListViewDTO.builder()
+    public ActivityInformationViewDTO toListViewDTO(){
+        return ActivityInformationViewDTO.builder()
                 .id(this.id)
                 .startTime(this.startTime)
                 .endTime(this.endTime)

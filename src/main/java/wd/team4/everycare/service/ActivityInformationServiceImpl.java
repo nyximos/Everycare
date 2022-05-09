@@ -9,7 +9,7 @@ import wd.team4.everycare.domain.ActivityClassification;
 import wd.team4.everycare.domain.ActivityInformation;
 import wd.team4.everycare.domain.CareTargetSchedule;
 import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationFormDTO;
-import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationListViewDTO;
+import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationViewDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.ActivityClassificationRepository;
@@ -31,13 +31,13 @@ public class ActivityInformationServiceImpl implements ActivityInformationServic
     private final CareTargetScheduleRepository careTargetScheduleRepository;
 
     @Override
-    public List<ActivityInformationListViewDTO> webFindAllByScheduleId(Long id) {
+    public List<ActivityInformationViewDTO> webFindAllByScheduleId(Long id) {
 
         List<ActivityInformation> activityInformations = activityInformationRepository.findAllCareTargetSchedule(id);
         if (activityInformations.isEmpty()) {
             return null;
         }
-        List<ActivityInformationListViewDTO> activityInformationListViewDTOs = new ArrayList<>();
+        List<ActivityInformationViewDTO> activityInformationListViewDTOs = new ArrayList<>();
 
         activityInformations.stream().map(activityInformation -> activityInformation.toListViewDTO()).forEach(activityInformationListViewDTOs::add);
 
