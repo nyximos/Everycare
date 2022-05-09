@@ -81,7 +81,7 @@ public class CareTargetScheduleServiceImpl implements CareTargetScheduleService 
     }
 
     @Override
-    public ResponseEntity<MyResponse> deleteById(Long scheduleId) {
+    public ResponseEntity<MyResponse> delete(Long scheduleId) {
 
         Optional<CareTargetSchedule> careTargetSchedule = careTargetScheduleRepository.findById(scheduleId);
         CareTargetSchedule careTargetScheduleEntity = careTargetSchedule.orElse(null);
@@ -94,4 +94,20 @@ public class CareTargetScheduleServiceImpl implements CareTargetScheduleService 
                 .build();
 
         return  new ResponseEntity<MyResponse>(body, HttpStatus.OK);    }
+
+    @Override
+    public ResponseEntity<MyResponse> update(CareTargetScheduleDTO careTargetScheduleDTO) {
+
+        Optional<CareTargetSchedule> careTargetSchedule = careTargetScheduleRepository.findById(careTargetScheduleDTO.getId());
+        CareTargetSchedule careTargetScheduleEntity = careTargetSchedule.orElse(null);
+        if(careTargetScheduleEntity!=null) {
+            careTargetScheduleEntity.update(careTargetScheduleDTO);
+        }
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
 }

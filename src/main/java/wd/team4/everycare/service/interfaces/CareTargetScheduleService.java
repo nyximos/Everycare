@@ -14,5 +14,7 @@ public interface CareTargetScheduleService {
 
     CareTargetScheduleDTO webFindById(Long scheduleId);
 
-    ResponseEntity<MyResponse> deleteById(Long scheduleId);
+    ResponseEntity<MyResponse> delete(Long scheduleId);
+
+    ResponseEntity<MyResponse> update(CareTargetScheduleDTO careTargetScheduleDTO);
 }
