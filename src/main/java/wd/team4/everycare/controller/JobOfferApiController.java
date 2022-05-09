@@ -48,7 +48,7 @@ public class JobOfferApiController {
     public ResponseEntity<MyListResponse> regCareTargetSchedule(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                                                 Long id) {
         System.out.println("careTargetId = " + id);
-        List<CareTargetSchedule> findSchedule = careTargetScheduleRepository.findByCareTargetId(id);
+        List<CareTargetSchedule> findSchedule = careTargetScheduleRepository.findAllByCareTargetId(id);
 
         MyListResponse<CareTargetSchedule> body = MyListResponse.<CareTargetSchedule>builder()
                 .header(StatusEnum.OK)
