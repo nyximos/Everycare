@@ -1,6 +1,7 @@
 package wd.team4.everycare.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetSchedule;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleDTO;
+import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
+import wd.team4.everycare.dto.product.ProductListViewDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.ActivityInformationRepository;
@@ -42,6 +45,40 @@ public class CareTargetScheduleServiceImpl implements CareTargetScheduleService 
         careTargetSchedules.stream().map(careTargetSchedule -> careTargetSchedule.toDTO()).forEach(careTargetScheduleDTOs::add);
 
         return careTargetScheduleDTOs;
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> getAll(Long id) {
+        List<CareTargetSchedule> careTargetSchedules = careTargetScheduleRepository.findAll();
+        List<CareTargetScheduleListDTO> careTargetScheduleListDTOs = new ArrayList<>();
+
+        if(careTargetSchedules.isEmpty()){
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.OK)
+                    .message("등록된 스케줄이 없습니다.")
+                    .build();
+
+            return  new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        }
+
+        for (CareTargetSchedule careTargetSchedule : careTargetSchedules) {
+            CareTargetScheduleListDTO careTargetScheduleListDTO = CareTargetScheduleListDTO.builder()
+                    .id(careTargetSchedule.getId())
+                    .name(careTargetSchedule.getName())
+                    .startTime(careTargetSchedule.getStartTime())
+                    .endTime(careTargetSchedule.getEndTime())
+                    .build();
+            careTargetScheduleListDTOs.add(careTargetScheduleListDTO);
+        }
+
+        MyResponse<List<CareTargetScheduleListDTO>> body = MyResponse.<List<CareTargetScheduleListDTO>>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(careTargetScheduleListDTOs)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 
     @Override

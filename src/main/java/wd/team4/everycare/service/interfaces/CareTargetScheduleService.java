@@ -8,13 +8,16 @@ import java.util.List;
 
 public interface CareTargetScheduleService {
 
-    List<CareTargetScheduleDTO> findAllByCareTarget(Long id);
+    ResponseEntity<MyResponse> getAll(Long id);
 
     ResponseEntity<MyResponse> save(CareTargetScheduleDTO careTargetScheduleDTO);
-
-    CareTargetScheduleDTO webFindById(Long scheduleId);
 
     ResponseEntity<MyResponse> delete(Long scheduleId);
 
     ResponseEntity<MyResponse> update(CareTargetScheduleDTO careTargetScheduleDTO);
+
+    CareTargetScheduleDTO webFindById(Long scheduleId);
+
+    List<CareTargetScheduleDTO> findAllByCareTarget(Long id);
+
 }
