@@ -12,4 +12,6 @@ public interface ActivityInformationService {
     List<ActivityInformationViewDTO> webFindAllByScheduleId(Long scheduleId);
 
     ResponseEntity<MyResponse> save(ActivityInformationFormDTO activityInformationFormDTO);
+
+    ResponseEntity<MyResponse> remove(Long activityId);
 }
