@@ -21,4 +21,11 @@ public class CareTargetScheduleApiController {
         ResponseEntity<MyResponse> responseEntity = careTagetScheduleService.save(careTargetScheduleDTO);
         return responseEntity;
     }
+
+    @DeleteMapping("/dashboard/caretargets/{caretargetid}/schedules/{scheduleid}")
+    public ResponseEntity<MyResponse> deleteSchedule(@PathVariable(value = "caretargetid") Long careTargetId,
+                                                     @PathVariable(value = "scheduleid") Long scheduleId){
+        ResponseEntity<MyResponse> responseEntity = careTagetScheduleService.deleteById(scheduleId);
+        return responseEntity;
+    }
 }

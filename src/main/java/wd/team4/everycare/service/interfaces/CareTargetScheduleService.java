@@ -13,4 +13,6 @@ public interface CareTargetScheduleService {
     ResponseEntity<MyResponse> save(CareTargetScheduleDTO careTargetScheduleDTO);
 
     CareTargetScheduleDTO webFindById(Long scheduleId);
+
+    ResponseEntity<MyResponse> deleteById(Long scheduleId);
 }

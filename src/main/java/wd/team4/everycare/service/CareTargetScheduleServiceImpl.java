@@ -10,6 +10,7 @@ import wd.team4.everycare.domain.CareTargetSchedule;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
+import wd.team4.everycare.repository.ActivityInformationRepository;
 import wd.team4.everycare.repository.CareTargetRepository;
 import wd.team4.everycare.repository.CareTargetScheduleRepository;
 import wd.team4.everycare.service.interfaces.CareTargetScheduleService;
@@ -25,6 +26,7 @@ public class CareTargetScheduleServiceImpl implements CareTargetScheduleService 
 
     private final CareTargetRepository careTargetRepository;
     private final CareTargetScheduleRepository careTargetScheduleRepository;
+    private final ActivityInformationRepository activityInformationRepository;
 
     @Override
     public List<CareTargetScheduleDTO> findAllByCareTarget(Long id) {
@@ -77,4 +79,19 @@ public class CareTargetScheduleServiceImpl implements CareTargetScheduleService 
 
         return careTargetScheduleDTO;
     }
+
+    @Override
+    public ResponseEntity<MyResponse> deleteById(Long scheduleId) {
+
+        Optional<CareTargetSchedule> careTargetSchedule = careTargetScheduleRepository.findById(scheduleId);
+        CareTargetSchedule careTargetScheduleEntity = careTargetSchedule.orElse(null);
+
+        activityInformationRepository.deleteAllByCareTargetSchedule(careTargetScheduleEntity);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+
+        return  new ResponseEntity<MyResponse>(body, HttpStatus.OK);    }
 }
