@@ -22,8 +22,15 @@ public class ActivityInformationApiController {
         return responseEntity;
     }
 
+    @PatchMapping("/dashboard/caretargets/{careTargetId}/schedules/{scheduleId}/activities/{activityId}")
+    public ResponseEntity<MyResponse> updateActivityInformation(
+            @ModelAttribute ActivityInformationFormDTO activityInformationFormDTO){
+        ResponseEntity<MyResponse> responseEntity = activityInformationService.update(activityInformationFormDTO);
+        return responseEntity;
+    }
+
     @DeleteMapping("/dashboard/caretargets/{careTargetId}/schedules/{scheduleId}/activities/{activityId}")
-    public ResponseEntity<MyResponse> removeActivityInformation (@PathVariable("activityId") Long activityId){
+    public ResponseEntity<MyResponse> removeActivityInformation(@PathVariable("activityId") Long activityId){
         ResponseEntity<MyResponse> responseEntity = activityInformationService.remove(activityId);
         return responseEntity;
     }
