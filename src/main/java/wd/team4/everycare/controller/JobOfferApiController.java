@@ -5,15 +5,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetSchedule;
 import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.domain.Member;
-import wd.team4.everycare.dto.JobOfferDTO;
-import wd.team4.everycare.dto.caretarget.CareTargetDTO;
+import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobOfferDTO;
+import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
 import wd.team4.everycare.dto.response.MyListResponse;
 import wd.team4.everycare.dto.response.MyOptionalResponse;
 import wd.team4.everycare.dto.response.MyResponse;
@@ -23,7 +22,6 @@ import wd.team4.everycare.repository.CareTargetScheduleRepository;
 import wd.team4.everycare.service.JobOfferServiceImpl;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -45,18 +43,17 @@ public class JobOfferApiController {
     }
 
     @PostMapping("/recruitions/schedules")
-    public ResponseEntity<MyListResponse> regCareTargetSchedule(@AuthenticationPrincipal PrincipalDetails principalDetails,
-                                                                Long id) {
-        System.out.println("careTargetId = " + id);
-        List<CareTargetSchedule> findSchedule = careTargetScheduleRepository.findByCareTargetId(id);
+    public ResponseEntity<MyResponse> regCareTargetSchedule(Long id) {
 
-        MyListResponse<CareTargetSchedule> body = MyListResponse.<CareTargetSchedule>builder()
+        List<CareTargetSchedule> schedule = jobOfferService.findSchedule(id);
+        System.out.println("schedule = " + schedule);
+        MyResponse<Object> body = MyResponse.<Object>builder()
                 .header(StatusEnum.OK)
                 .message("스케줄 조회 성공")
-                .body(findSchedule)
+                .body(schedule)
                 .build();
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<MyListResponse>(body, headers, HttpStatus.OK);
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 
     @PostMapping("/recruitions/recruition")
@@ -77,7 +74,7 @@ public class JobOfferApiController {
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 
-    @PatchMapping("/recruitions/recruition{id}")
+    @PatchMapping("/recruitions/recruition/{id}")
     public ResponseEntity<MyResponse> updateJobOffer(@PathVariable("id") Long id,
                                                      @ModelAttribute JobOfferDTO jobOfferDTO) {
         jobOfferService.update(id, jobOfferDTO);
@@ -105,7 +102,7 @@ public class JobOfferApiController {
     @GetMapping("/recruitions/recruition/{id}")
     public ResponseEntity<Object> getDetailJobOffer(@PathVariable("id") Long id) {
 
-        JobOfferDTO detailJobOffer = jobOfferService.getDetailJobOffer(id);
+        DetailJobOfferDTO detailJobOffer = jobOfferService.getDetailJobOffer(id);
         System.out.println("detailJobOffer = " + detailJobOffer);
         if (detailJobOffer!=null) {
             MyResponse<Object> body = MyResponse.<Object>builder()
@@ -130,10 +127,8 @@ public class JobOfferApiController {
     @GetMapping("/recruitions/new")
     public ResponseEntity<MyListResponse> newJobOffer(@AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        Member user = principalDetails.getUser();
-        System.out.println("user = " + user);
-
-        List<CareTarget> findCareTarget = careTargetRepository.findAllByMember_Id(user.getId());
+        String userId = principalDetails.getUser().getId();
+        List<CareTarget> findCareTarget = jobOfferService.findCareTarget(userId);
         MyListResponse<CareTarget> body = MyListResponse.<CareTarget>builder()
                 .header(StatusEnum.OK)
                 .message("조회 성공")

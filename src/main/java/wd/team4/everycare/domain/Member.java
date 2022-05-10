@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.member.JobOfferMemberDTO;
 import wd.team4.everycare.dto.member.MemberInfoDTO;
 
 import javax.persistence.*;
@@ -17,7 +18,6 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Member {
 
     @Id
@@ -117,6 +117,18 @@ public class Member {
                 .id(this.id)
                 .name(this.name)
                 .role(this.role)
+                .build();
+    }
+
+    public JobOfferMemberDTO toJobOfferMemberDTO(){
+        return JobOfferMemberDTO.builder()
+                .name(this.name)
+//                .age(this.)
+                .address(this.address)
+                .birth(this.birth)
+                .gender(String.valueOf(this.gender))
+                .email(this.email)
+                .phone(this.phone)
                 .build();
     }
 }
