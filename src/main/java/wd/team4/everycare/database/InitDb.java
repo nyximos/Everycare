@@ -10,9 +10,11 @@ import javax.annotation.PostConstruct;
 public class InitDb {
 
     private final InitMemberService memberService;
+    private final InitCareTargetService careTargetService;
 
     @PostConstruct
     public void init() {
         memberService.dbInit();
+        careTargetService.dbInit();
     }
 }

@@ -61,7 +61,7 @@ public class InitMemberService {
                 account *= -1;
             }
             Member member = createMember("member" + i, String.valueOf(i), name[i], this.member, gender[i], birth[i], phone[i], email[i], LocalDateTime.now(),
-                    active, zipcode[i], "대구광역시", "동구",  "농협", String.valueOf(account));
+                    active, zipcode[i], "대구광역시", "북구",  "농협", String.valueOf(account));
             em.persist(member);
         }
     }
