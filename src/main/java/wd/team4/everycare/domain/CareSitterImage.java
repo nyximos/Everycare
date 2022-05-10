@@ -1,6 +1,7 @@
 package wd.team4.everycare.domain;
 
 import lombok.*;
+import wd.team4.everycare.dto.careSitter.CareSitterImageDTO;
 
 import javax.persistence.*;
 
@@ -34,4 +35,12 @@ public class CareSitterImage {
         this.storeFileName = storeFileName;
         this.careSitter = careSitter;
     }
+
+    public CareSitterImageDTO toCareSitterImageDTO(){
+        return CareSitterImageDTO.builder()
+                .storeFileName(this.storeFileName)
+                .uploadFileName(this.uploadFileName)
+                .build();
+    }
+
 }

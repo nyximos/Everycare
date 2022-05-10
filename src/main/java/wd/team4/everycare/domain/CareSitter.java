@@ -5,6 +5,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 import wd.team4.everycare.dto.careSitter.CareSitterFormDTO;
 import wd.team4.everycare.dto.careSitter.CareSitterNameDTO;
+import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobSearchDTO;
+import wd.team4.everycare.dto.jobOffer_jobSearch.JobSearchDTO;
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
@@ -95,6 +97,37 @@ public class CareSitter {
         return CareSitterNameDTO.builder()
                 .id(this.id)
                 .name(this.name)
+                .build();
+    }
+
+    public JobSearchDTO toJobSearchDTO(){
+        return JobSearchDTO.builder()
+                .cctvAgreement(this.cctvAgreement)
+                .is_vaccinated(this.vaccination)
+                .desiredDayWeek(this.desiredDayWeek)
+                .activityTime(this.activityTime)
+                .hourlyWage(this.desiredHourlyWage)
+                .monthlyWage(this.desiredMonthlyWage)
+                .hopefulRegion(this.hopefulRegion)
+                .preferredType(this.preferredType)
+                .introduction(this.introduction)
+                .memberDTO(this.member.toJobOfferMemberDTO())
+                .attachFiles(this.careSitterImages)
+                .build();
+    }
+
+    public DetailJobSearchDTO toDetailJobSearchDTO(){
+        return DetailJobSearchDTO.builder()
+                .cctvAgreement(this.cctvAgreement)
+                .is_vaccinated(this.vaccination)
+                .desiredDayWeek(this.desiredDayWeek)
+                .activityTime(this.activityTime)
+                .hourlyWage(this.desiredHourlyWage)
+                .monthlyWage(this.desiredMonthlyWage)
+                .hopefulRegion(this.hopefulRegion)
+                .preferredType(this.preferredType)
+                .introduction(this.introduction)
+                .memberDTO(this.member.toJobOfferMemberDTO())
                 .build();
     }
 

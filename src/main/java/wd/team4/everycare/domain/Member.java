@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.member.JobOfferMemberDTO;
 import wd.team4.everycare.dto.member.MemberAccountDTO;
 import wd.team4.everycare.dto.member.MemberInfoDTO;
 import wd.team4.everycare.util.StringUtils;
@@ -20,7 +21,6 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Member {
 
     @Id
@@ -123,7 +123,17 @@ public class Member {
                 .build();
     }
 
-    public void updateAccount(MemberAccountDTO memberAccountDTO) {
+    public JobOfferMemberDTO toJobOfferMemberDTO(){
+        return JobOfferMemberDTO.builder()
+                .name(this.name)
+                .address(this.address)
+                .birth(this.birth)
+                .gender(String.valueOf(this.gender))
+                .email(this.email)
+                .phone(this.phone)
+                .build();
+  }
+  public void updateAccount(MemberAccountDTO memberAccountDTO) {
         if(StringUtils.isNotBlank(memberAccountDTO.getId())) {
             this.id = memberAccountDTO.getId();
         }

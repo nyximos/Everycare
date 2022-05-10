@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
+
 import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetViewDTO;
 import wd.team4.everycare.util.StringUtils;
@@ -22,7 +23,6 @@ import java.util.List;
 @SequenceGenerator(name = "care_target_seq_generator",
         sequenceName = "care_target_seq",
         initialValue = 1, allocationSize = 1)
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class CareTarget {
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "care_target_seq_generator")
@@ -180,6 +180,15 @@ public class CareTarget {
                 .isCctvAgreement(this.isCctvAgreement)
                 .careType(this.careType)
                 .coronaTest(this.coronaTest)
+                .build();
+    }
+
+    public JobOfferCareTargetDTO toJobOfferCareTargetDTO(){
+        return JobOfferCareTargetDTO.builder()
+                .name(this.name)
+                .gender(String.valueOf(this.gender))
+                .height(this.height)
+                .weight(this.weight)
                 .build();
     }
 }
