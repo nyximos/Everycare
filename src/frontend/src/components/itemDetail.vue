@@ -1,0 +1,132 @@
+<template>
+<v-container fluid>
+    <h1>상세정보</h1>
+        <v-row class="mt-5">
+            <h5>{{title}}</h5>
+        </v-row>
+        <v-row>
+            <v-col cols="4">
+              <label>시작일</label>
+              </v-col>
+              <v-col col cols="4">
+                <p>{{startDay}}</p>
+              </v-col>
+        </v-row>
+        <v-row>
+         <v-col cols="4">
+              <label>종료일</label>
+              </v-col>
+              <v-col col cols="4">
+                <p>{{endDay}}</p>
+              </v-col>
+        </v-row>
+          <v-row>
+            <v-col cols="4">
+             <label>요일</label>
+            </v-col>
+            <v-col cols="8">
+            <p>{{day}}</p>
+            </v-col>
+          </v-row>
+          <v-row>
+              <v-col cols="4">
+             <label>시작시간</label>
+            </v-col>
+            <v-col cols="4">
+              <p>{{startTime}}</p>
+            </v-col>
+          </v-row>
+          <v-row>
+              <v-col cols="4">
+             <label>종료시간</label>
+            </v-col>
+            <v-col cols="4">
+              <p>{{endTime}}</p>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="4">
+              <label>희망 케어시터 성별</label> 
+            </v-col>
+            <v-col cols="4">
+              <p>{{sitterSex}}</p>
+            </v-col>
+          </v-row>
+    <v-row>
+        <v-col cols="4">
+             <label>급여</label>
+            </v-col>
+          <v-col cols="8">
+            <p>{{pay}}</p>
+          </v-col>
+          </v-row>
+          <v-row>
+          <v-col cols="4">
+             <label>설명</label>
+            </v-col>
+          <v-col cols="8">
+            <p>{{comment}}</p>
+          </v-col>
+          </v-row>
+          <v-btn color="primary">신청</v-btn>
+          <v-btn @click="back">취소</v-btn>
+      </v-container>
+</template>
+
+<script>
+export default {
+name:'itemDetail',
+mounted() {
+    const id = Number(this.$route.params.contentId);
+    this.$http
+    .get('/api/recruitions/recruition/' + id,{
+        withCredentials: true
+    })
+    .then((res)=>{
+        console.log(res)
+        this.title = res.data.body.title
+        this.comment = res.data.body.comment
+        this.day = res.data.body.desiredDayWeek
+        this.sitterSex = res.data.body.desiredCareSitterGender
+        this.startDay = res.data.body.startDate
+        this.endDay = res.data.body.endDate
+        this.startTime = res.data.body.desiredStartTime
+        this.endTime = res.data.body.desiredEndTime
+        this.pay = res.data.body.pay
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+},
+data(){
+    return{
+        title: this.title,
+        caretarget:this.caretarget,
+        caretargetlist:[],
+        pickSchedule: this.pickSchedule,
+        schedulelist:[],
+        startDay: this.startDay,
+        endDay: this.endDay,
+        startTime: this.startTime,
+        endTime: this.endTime,
+        day: [],
+        days: ['월', '화', '수', '목', '금', '토', '일'],
+        sitterSex: [],
+        paytimepick: this.paytimepick,
+        pay: this.pay,
+        comment: this.comment,
+    }
+},
+methods:{
+back(){
+    this.$router.push({
+        path:'/joblist'
+    })
+}
+}
+}
+</script>
+
+<style>
+
+</style>

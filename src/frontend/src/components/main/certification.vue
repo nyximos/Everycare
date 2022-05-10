@@ -51,7 +51,6 @@ export default {
         }   
     },
     mounted(){
-
      const id = Number(this.$route.params.id);
      this.$http
     .get(`/api/caresitters/${id}`, {
@@ -77,7 +76,7 @@ export default {
             
           }
            this.$http
-           .post(`/api/dashboard/caresitter/${id}/certifications`,formData,{
+           .post(`/api/dashboard/caresitter/${this.id}/certifications`,formData,{
                withCredentials:true
            })
            .then(res=>{

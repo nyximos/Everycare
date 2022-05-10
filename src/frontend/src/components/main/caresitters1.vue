@@ -6,10 +6,10 @@
     <div class="r_list">
         <div class="list_more">
             <ul class="ul01">
-                <li class="li01" v-for="p in profiles" :key="p.id" >
+                <li class="li01" v-for="(p,index) in profiles" :key="index"  @click="move">
                         <span class="tab01">
                             <span class="img01">
-                                <img src="@/assets/user.png" class="vertical" @click="move">
+                                <img src="@/assets/user.png" class="vertical">
                                 {{p.attachFiles}}
                                 {{p.careSitterImages}}
                             </span>
@@ -18,7 +18,7 @@
                             <span class="category">
                                 {{p.hopefulRegion}}
                                 
-                                <span class="edit_date">1시간전</span>
+                                <span class="edit_date">{{p.id}}</span>
                             </span>
                             <span class="name">나이
                                 <span class="age">{{p.name}}</span>
@@ -35,6 +35,7 @@
                             <span class="icon03">{{p.vaccination}}</span>
                             <span class="text01">10년이상</span>
                             <span class="text01">{{p.preferredType}}</span>
+                            <span class="">{{p.member}}</span>
                         </span>       
                 </li>
             </ul>
@@ -54,20 +55,20 @@ export default {
     data(){
 		return{
             // props:[
-            //     caresitter:
-            // ]
+            //     'caresitterId'
+            // ],
             page:1,
 			profiles:[],
-            id:''
-		}
-	},
+            id:this.$route.params.id
+	    }
+    },
     methods:{
-        move(){
-            // this.$router.push({/})
+         move(id){
+            this.$router.push({name:'addprofile2' , params:{caresitterId:id}})
         }
     },
 	mounted(){
-         console.log(this.dataid);
+            // this.id = this.id;
 			this.$http
             .get('/api/caresitters' ,{
                 withCredentials:true

@@ -15,7 +15,7 @@
 						</div>
 						
 							<ul class="infoList">
-								<li class="name"><strong>{{$store.state.careprofileStore.name}}</strong> <em>{{$store.state.careprofileStore.sex}}</em>  ·{{$store.state.careprofileStore.age}}(년생) <br></li>
+								<li class="name"><strong>{{name}}</strong> <em></em>  ·(년생) <br></li>
 								<li class="address"><span class="info-title">주소</span>경남 거제시 <span class="star">******</span></li>
 								<li class="contact">
 								<span class="info-title">연락처</span>010-****-****
@@ -27,11 +27,11 @@
 						<h2>정보</h2>
 						<div class="infoArea first"> 	
 							<div class="nameArea">
-								<dt class="title">CCTV 동의여부:{{$store.state.careprofileStore.cctvAgreement}}	</dt>
+								<dt class="title">CCTV 동의여부:{{cctvAgreement}}	</dt>
 								<!-- <p class="date">CCTV 동의여부:{{this.$store.state.careprofileStore.cctv}}</p> -->
 							</div> 	
 							<dl class="infoDetail"> 		
-								<dt class="title">백신접종: <span>{{$store.state.careprofileStore.vaccination}}</span></dt> 
+								<dt class="title">백신접종:{{vaccination}} <span></span></dt> 
 								
 								<dt class="title">자격증</dt> 
 								<dd class="kind">
@@ -50,7 +50,7 @@
 								<col width="33.3%">
 								<col width="33.3%">
 							</colgroup>
-							<caption>희망근무지</caption>
+							<caption></caption>
 							<thead class="hide">
 								<tr>
 									<th>근무요일</th>
@@ -62,18 +62,19 @@
 								<tr>
 									<td>
 										<dl class="item">
-											<dt class="title">{{$store.state.careprofileStore.desiredDayWeek}}</dt>
+											<dt class="title">{{desiredDayWeek}}</dt>
 										</dl>
 									</td>
 									<td>
 										<dl class="item">
-											<dt class="title">{{$store.state.careprofileStore.activityTime}}</dt>
+											<dt class="title">{{activityTime}}</dt>
 										</dl>
 									</td>
 									<td>
 										<dl class="item">
-											<dt class="title">{{$store.state.careprofileStore.pay}}</dt>
-											<dd>{{$store.state.careprofileStore.desiredHourlyWage}}</dd>
+											<!-- <dt class="title">{{$store.state.careprofileStore.pay}}</dt> -->
+											<dd>시급:{{desiredHourlyWage}}</dd><br/>
+											<dd>월급:{{desiredMonthlyWage}}</dd>
 										</dl>
 									</td>
 								</tr>
@@ -83,21 +84,21 @@
 							<li>
 								<span class="title">희망근무지</span>
 								<p class="result">
-									1순위:{{$store.state.careprofileStore.hopeloc1}}&nbsp;&nbsp;&nbsp; 
-									2순위:{{$store.state.careprofileStore.hopeloc2}}&nbsp;&nbsp;&nbsp;
-									3순위:{{$store.state.careprofileStore.hopeloc3}}
+									1순위:{{hopefulRegion}}&nbsp;&nbsp;&nbsp; 
+									2순위:&nbsp;&nbsp;&nbsp;
+									3순위:
 								</p>
 						
 							</li>
 							<li>
 								<span class="title">희망업직종</span>
-								<span class="result">{{$store.state.careprofileStore.hopetype}}</span>
+								<span class="result">{{preferredType}}</span>
 							</li>
 						</ul>
 					</div>
 					<div id="ResumePR" class="resumeView">
 						<h2>자기소개서</h2>
-						<div class="ResumeOpenBox"><span class="lockIcon"></span><p class="first">{{$store.state.careprofileStore.introduction}}</p></div>
+						<div class="ResumeOpenBox"><span class="lockIcon">{{introduction}}</span><p class="first"></p></div>
 					</div>
                     <div id="#" class="resumeView">
                         <h2>후기</h2>
@@ -114,29 +115,46 @@
 
 <script>
 export default {
-	data(){
+	name:'addprofile2',
+	mounted(){
+		const id =this.$route.params.caresitterId;
+		this.$http
+		.get(`/api/caresitters/${id}`,{
+			withCredentials:true
+		})
+		.then((res)=>{
+			// console.log(res.data.body);
+			// console.log(res.data.body)
+			this.introduction = res.data.body.introduction
+			this.cctvAgreement = res.data.body.cctvAgreement
+			this.desiredDayWeek = res.data.body.desiredDayWeek
+			this.desiredHourlyWage = res.data.body.desiredHourlyWage
+			this.desiredMonthlyWage = res.data.body.desiredMonthlyWage
+			this.preferredType = res.data.body.preferredType
+			this.activityTime = res.data.body.activityTime
+			this.attachFiles = res.data.body.attachFiles
+			this.hopefulRegion = res.data.body.hopefulRegion
+			this.vaccination = res.data.body.vaccination
+			this.name = res.data.body.name
+		}).catch(err=>{
+			console.log(err);
+		})
+	},
+		data(){
 		return{
-			profile:{}
+			name:this.name,
+			vaccination:this.vaccination,
+			desiredDayWeek:[this.desiredDayWeek],
+			desiredHourlyWage:this.desiredHourlyWage,
+			desiredMonthlyWage:this.desiredMonthlyWage,
+			cctvAgreement:this.cctvAgreement,
+			activityTime:[this.activityTime],
+			preferredType:[this.preferredType],
+			introduction:this.introduction,
+			attachFiles:this.attachFiles,
+			hopefulRegion:[this.hopefulRegion]
 		}
 	},
-		created(){
-			// var id = this.$route.params.id;
-			this.$http.get('/api/dashboard/caresitter/${id}')
-			.then((res)=>{
-				this.profile = res.data[0]
-			})
-		
-	}
-	// created:function(){
-	// 	var id = this.$route.params.id;
-	// 	this.$http.get('/api/dashboard/caresitter/${id}')
-	// 	.then((response) =>{
-	// 		this.profile = response.data
-	// 	}).catch(err =>{
-	// 		alert(err);
-	// 		console.log(err);
-	// 	})
-	// }
 }
 </script>
 

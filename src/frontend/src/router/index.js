@@ -4,7 +4,6 @@ import VueRouter from 'vue-router';
 
 import Carepeople from '../pages/Carepeople';
 import Alarm from '../pages/Alarm';
-import Profile2 from '../pages/Profile2';
 
 Vue.use(VueRouter);
 const routes = [
@@ -23,7 +22,12 @@ const routes = [
         component: () => import('@/pages/Adminpage.vue')
     },
     {
-        path: '/certification',
+        path: '/mypage',
+        name: 'mypage',
+        component: () => import('@/pages/Mypage.vue')
+    },
+    {
+        path: '/certification/:id',
         name: 'certification',
         component: () => import('@/pages/Certification.vue')
     },
@@ -81,7 +85,8 @@ const routes = [
     {
         path: '/addprofile2/:caresitterId',
         name: 'addprofile2',
-        component: () => import('@/pages/Profile2.vue')
+        // props:true,
+        component: () => import('@/components/main/addprofile2.vue')
     },
     {
         path: '/dashboard/careprofile2',
@@ -106,6 +111,7 @@ const routes = [
     {
         path: '/caresitters',
         name: 'caresitters',
+        // props:true,
         component: () => import('@/pages/Caresitters.vue')
     },
     {
@@ -133,11 +139,11 @@ const routes = [
         name: 'alarm',
         component: Alarm
     },
-    {
-        path: '/profile2',
-        name: 'profile2',
-        component: Profile2
-    },
+    // {
+    //     path: '/profile2',
+    //     name: 'profile2',
+    //     component: Profile2
+    // },
     {
         path: '/test',
         name: 'Test',
@@ -147,7 +153,7 @@ const routes = [
         path: '/caretargets',
         name: 'Caretargets',
         component: () => import('@/pages/Caretargets.vue')
-    }
+    },
 ];
 
 const router = new VueRouter({
