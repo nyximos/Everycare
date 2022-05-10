@@ -102,6 +102,8 @@ public class CareSitter {
 
     public JobSearchDTO toJobSearchDTO(){
         return JobSearchDTO.builder()
+                .id(this.id)
+                .disclosureStatus(this.disclosureStatus)
                 .cctvAgreement(this.cctvAgreement)
                 .is_vaccinated(this.vaccination)
                 .desiredDayWeek(this.desiredDayWeek)
@@ -118,6 +120,8 @@ public class CareSitter {
 
     public DetailJobSearchDTO toDetailJobSearchDTO(){
         return DetailJobSearchDTO.builder()
+                .id(this.id)
+                .disclosureStatus(this.disclosureStatus)
                 .cctvAgreement(this.cctvAgreement)
                 .is_vaccinated(this.vaccination)
                 .desiredDayWeek(this.desiredDayWeek)
