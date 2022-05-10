@@ -11,10 +11,14 @@ public class InitDb {
 
     private final InitMemberService memberService;
     private final InitCareTargetService careTargetService;
+    private final InitActivityClassification activityClassification;
+    private final InitCareTargetScheduleService careTargetScheduleService;
 
     @PostConstruct
     public void init() {
         memberService.dbInit();
         careTargetService.dbInit();
+        activityClassification.dbInit();
+        careTargetScheduleService.dbInit();
     }
 }

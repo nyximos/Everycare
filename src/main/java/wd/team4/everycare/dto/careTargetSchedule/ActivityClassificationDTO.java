@@ -11,5 +11,5 @@ import lombok.*;
 public class ActivityClassificationDTO {
     private Long id;
     private String name;
-    private String level;
+    private int level;
 }

@@ -27,7 +27,6 @@ public class InitCareTargetService {
     }
 
     private CareTarget createCareTarget(String name, Gender gender, String birth, int height, int weight, String zipcode, String address, String detailedAddress, int longTermCareGrade, String comment, int pet, int isCctvAgreement, String careType, int coronaTest, Member member) {
-
         CareTarget careTarget = CareTarget.builder()
                 .name(name)
                 .gender(gender)

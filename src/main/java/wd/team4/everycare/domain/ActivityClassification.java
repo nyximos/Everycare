@@ -1,9 +1,6 @@
 package wd.team4.everycare.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import wd.team4.everycare.dto.careTargetSchedule.ActivityClassificationDTO;
 
@@ -11,9 +8,11 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @DynamicUpdate
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "activity_classification")
 @SequenceGenerator(name = "activity_classification_seq_generator",
@@ -29,7 +28,7 @@ public class ActivityClassification {
     private String name;
 
     @Column(name = "activity_classification_level", length = 10, nullable = false)
-    private String level;
+    private int level;
 
     @ManyToOne
     @JoinColumn(name = "activity_classification_id2")
