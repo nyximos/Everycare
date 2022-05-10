@@ -12,8 +12,10 @@ import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.config.jwt.JwtProperties;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.careSitter.CareSitterDTO;
+import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.member.MemberAccountDTO;
 import wd.team4.everycare.dto.member.MemberInfoDTO;
+import wd.team4.everycare.dto.member.MemberListViewDTO;
 import wd.team4.everycare.dto.member.SignupDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
@@ -24,6 +26,8 @@ import wd.team4.everycare.service.interfaces.MemberService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -66,6 +70,36 @@ public class MemberServiceImpl implements MemberService {
         } throw new MemberHasExistException(id);
     }
 
+
+    @Override
+    public ResponseEntity<MyResponse> getAll() {
+        List<Member> members = memberRepository.findAll();
+        List<MemberListViewDTO> memberListViewDTOs = new ArrayList<>();
+
+        for (Member member : members) {
+            MemberListViewDTO memberListViewDTO = MemberListViewDTO.builder()
+                    .id(member.getId())
+                    .name(member.getName())
+                    .role(member.getRole())
+                    .gender(member.getGender())
+                    .birth(member.getBirth())
+                    .phone(member.getPhone())
+                    .email(member.getEmail())
+                    .createdAt(member.getCreatedAt())
+                    .activityStatus(member.getActivityStatus())
+                    .build();
+            memberListViewDTOs.add(memberListViewDTO);
+         }
+
+        MyResponse<List<MemberListViewDTO>> body = MyResponse.<List<MemberListViewDTO>>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(memberListViewDTOs)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
 
     @Override
     public String save(SignupDTO signupDTO) {

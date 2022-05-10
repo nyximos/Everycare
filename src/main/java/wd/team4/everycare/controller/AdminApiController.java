@@ -11,6 +11,7 @@ import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.service.AdminServiceImpl;
+import wd.team4.everycare.service.MemberServiceImpl;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -22,18 +23,21 @@ public class AdminApiController {
 
     private final AdminServiceImpl adminService;
     private final MemberRepository memberRepository;
+    private final MemberServiceImpl memberService;
+
+    @GetMapping("/members")
+    public ResponseEntity<MyResponse> getMembers(){
+        ResponseEntity<MyResponse> responseEntity = memberService.getAll();
+        return responseEntity;
+    }
 
     @PostMapping("/members/{id}")
     public ResponseEntity<MyResponse> postAdmin(@PathVariable("id") String id){
 
-
-        System.out.println("id = " + id);
         LocalDateTime time = LocalDateTime.now();
 
         Optional<Member> member1 = memberRepository.findById(id);
-        System.out.println("member1 = " + member1);
         Member member = member1.orElse(null);
-        System.out.println("member = " + member);
 
         adminService.registrationAdmin(id,time);
 

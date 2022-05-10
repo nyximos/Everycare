@@ -11,6 +11,8 @@ import java.util.Optional;
 
 public interface MemberService {
 
+    ResponseEntity<MyResponse> getAll();
+
     String save(SignupDTO dto);
 
     Optional<Member> isPresent(String id);
