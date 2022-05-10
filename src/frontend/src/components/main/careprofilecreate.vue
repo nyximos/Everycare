@@ -636,14 +636,15 @@ methods:{
         submit(){
             var formData= new FormData();
 
-             formData.append('cctvAgreement', this.cctvAgreement);
+            formData.append('cctvAgreement', this.cctvAgreement);
             formData.append('introduction', this.introduction);
             formData.append('desiredDayWeek', this.desiredDayWeek);
             formData.append('hopefulRegion', this.hope_loc1+this.hopeloc1_detail);
-              formData.append('desiredHourlyWage', this.desiredHourlyWage);
+            formData.append('desiredHourlyWage', this.desiredHourlyWage);
             formData.append('desiredMonthlyWage', this.desiredMonthlyWage);
             formData.append('disclosureStatus',this.disclosureStatus);
             formData.append('preferredType',this.preferredType);
+            formData.append('vaccination',this.vaccination)
             formData.append('activityTime', this.starttimepicker+this.endtimepicker);
                  // formData.append('activityTime', this.starttimepicker + this.endtimepicker);
            for(let i = 0; i< this.attachFiles.length; i++){
@@ -658,7 +659,7 @@ methods:{
             }).catch(err=>{
                 console.log(err);
                      })
-            // this.$router.push({ path: '/Main' })
+            this.$router.push({ path: '/Main' })
         },
     }
 }

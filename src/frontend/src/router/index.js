@@ -73,7 +73,7 @@ const routes = [
         component: () => import('@/pages/Careprofilecreate.vue')
     },
     {
-        path: '/profile_update',
+        path: '/profile_update/:caresitterId',
         name: 'profile_update',
         component: () => import('@/pages/Profile_update.vue')
     },

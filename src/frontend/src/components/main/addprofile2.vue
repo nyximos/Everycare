@@ -9,7 +9,7 @@
 						<div class="photoArea">
 							<span class="photo">
 								<a href="#ResumeBaseInfo" class="image" style="position:static;left:0;bottom:0;display:block;width:auto;height:auto;padding:0;border:0 none;background:none">
-									<img id="divProfile" src="//image.alba.kr/person/profile_no_female.png" alt="사진">
+									<img id="divProfile" :src="attachFiles" alt="//image.alba.kr/person/profile_no_female.png">
 								</a>
 							</span>
 						</div>
@@ -73,8 +73,8 @@
 									<td>
 										<dl class="item">
 											<!-- <dt class="title">{{$store.state.careprofileStore.pay}}</dt> -->
-											<dd>시급:{{desiredHourlyWage}}</dd><br/>
-											<dd>월급:{{desiredMonthlyWage}}</dd>
+											<dt class="title">시급:{{desiredHourlyWage}}</dt>
+											<dt class="title">월급:{{desiredMonthlyWage}}</dt>
 										</dl>
 									</td>
 								</tr>
@@ -84,15 +84,15 @@
 							<li>
 								<span class="title">희망근무지</span>
 								<p class="result">
-									1순위:{{hopefulRegion}}&nbsp;&nbsp;&nbsp; 
-									2순위:&nbsp;&nbsp;&nbsp;
-									3순위:
+									{{hopefulRegion}} 
+									<!-- 2순위:&nbsp;&nbsp;&nbsp;
+									3순위: -->
 								</p>
 						
 							</li>
 							<li>
 								<span class="title">희망업직종</span>
-								<span class="result">{{preferredType}}</span>
+								<p class="result">{{preferredType}}</p>
 							</li>
 						</ul>
 					</div>
