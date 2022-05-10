@@ -29,22 +29,50 @@ public class CareSitterApiController {
     private final CareSitterServiceImpl careSitterService;
     private final JobSearchServiceImpl jobSearchService;
 
-@GetMapping("/caresitters")
-    public ResponseEntity<MyResponse> findJobSearch(Model model) {
-        List<CareSitter> allJobSearch = jobSearchService.findAllJobSearch();
+// <<<<<<< HEAD
+// @GetMapping("/caresitters")
+//     public ResponseEntity<MyResponse> findJobSearch(Model model) {
+//         List<CareSitter> allJobSearch = jobSearchService.findAllJobSearch();
 
+//         MyResponse<Object> body = MyResponse.builder()
+//                 .header(StatusEnum.OK)
+//                 .body(allJobSearch)
+//                 .message("ok").
+//                 build();
+//         HttpHeaders headers = new HttpHeaders();
+//         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+//     }
+//     @GetMapping("/caresitters/{id}")
+//     public ResponseEntity<MyResponse> getDetailJobSearch(@PathVariable("id") String id, Model model){
+
+//         CareSitter detailJobSearch = jobSearchService.findDetailJobSearch(id);
+//         MyResponse body = MyResponse.builder()
+//                 .header(StatusEnum.OK)
+//                 .body(detailJobSearch)
+//                 .message("ok")
+//                 .build();
+
+//         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+//     }
+//     @PostMapping("/dashboard/caresitter")
+// =======
+
+    @GetMapping("/caresitters")
+    public ResponseEntity<MyResponse> findJobSearch() {
+        List<JobSearchDTO> all = jobSearchService.findAllJobSearch();
         MyResponse<Object> body = MyResponse.builder()
                 .header(StatusEnum.OK)
-                .body(allJobSearch)
+                .body(all)
                 .message("ok").
                 build();
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
-    @GetMapping("/caresitters/{id}")
-    public ResponseEntity<MyResponse> getDetailJobSearch(@PathVariable("id") String id, Model model){
 
-        CareSitter detailJobSearch = jobSearchService.findDetailJobSearch(id);
+    @GetMapping("/caresitters/{id}")
+    public ResponseEntity<MyResponse> getDetailJobSearch(@PathVariable("id") Long id, Model model){
+
+        DetailJobSearchDTO detailJobSearch = jobSearchService.findDetailJobSearch(id);
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .body(detailJobSearch)
@@ -53,8 +81,14 @@ public class CareSitterApiController {
 
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
-    @PostMapping("/dashboard/caresitter")
 
+    // @GetMapping("/dashboard/caresitter")
+    // public ResponseEntity<MyResponse> getCaresitter(@AuthenticationPrincipal PrincipalDetails principalDetails){
+    //     ResponseEntity<MyResponse> responseEntity = careSitterService.findCareSitterByMember(principalDetails);
+    //     return responseEntity;
+    // }
+
+    @PostMapping("/dashboard/caresitter")
     public ResponseEntity<MyResponse> saveCareSitter(
             @ModelAttribute CareSitterFormDTO careSitterFormDTO,
             @AuthenticationPrincipal PrincipalDetails principalDetails
@@ -64,7 +98,6 @@ public class CareSitterApiController {
         careSitterFormDTO.setCreatedAt(time);
         careSitterFormDTO.setUpdatedAt(time);
         careSitterFormDTO.setName(principalDetails.getUser().getName());
-
 
         Member user = principalDetails.getUser();
         careSitterFormDTO.setMember(user);

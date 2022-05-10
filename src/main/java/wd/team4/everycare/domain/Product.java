@@ -5,16 +5,18 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.hibernate.annotations.DynamicUpdate;
 import wd.team4.everycare.dto.UploadFile;
-import wd.team4.everycare.dto.product.MemberProductsViewDTO;
+import wd.team4.everycare.dto.product.MemberProductListViewDTO;
 import wd.team4.everycare.dto.product.ProductFormDTO;
+import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@DynamicUpdate
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
@@ -76,8 +78,8 @@ public class Product {
         this.productCategory = productCategory;
     }
 
-    public MemberProductsViewDTO toMemberProductsViewDTO() {
-        return MemberProductsViewDTO.builder()
+    public MemberProductListViewDTO toMemberProductsViewDTO() {
+        return MemberProductListViewDTO.builder()
                 .id(this.id)
                 .name(this.name)
                 .price(this.price)
@@ -114,4 +116,24 @@ public class Product {
     public void saveProductCategory(ProductCategory productCategory){
         this.productCategory = productCategory;
     }
+
+    public void updateProduct(ProductFormDTO productFormDTO) {
+        if(StringUtils.isNotBlank(productFormDTO.getName())) {
+            this.name = productFormDTO.getName();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(productFormDTO.getPrice()))) {
+            this.price = productFormDTO.getPrice();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(productFormDTO.getInventoryQuantity()))) {
+            this.price = productFormDTO.getInventoryQuantity();
+        }
+        if(StringUtils.isNotBlank(productFormDTO.getComment())) {
+            this.comment = productFormDTO.getComment();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(productFormDTO.getIsSale()))) {
+            this.isSale = productFormDTO.getIsSale();
+        }
+    }
+
+
 }

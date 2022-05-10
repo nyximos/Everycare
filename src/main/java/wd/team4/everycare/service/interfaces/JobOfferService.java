@@ -1,15 +1,19 @@
 package wd.team4.everycare.service.interfaces;
 
+import wd.team4.everycare.domain.CareTarget;
+import wd.team4.everycare.domain.CareTargetSchedule;
 import wd.team4.everycare.domain.JobOffer;
-import wd.team4.everycare.dto.JobOfferDTO;
+import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobOfferDTO;
+import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface JobOfferService {
 
     List<JobOffer> getJobOffer();
-    JobOfferDTO getDetailJobOffer(Long id);
+    DetailJobOfferDTO getDetailJobOffer(Long id);
+    List<CareTargetSchedule> findSchedule(Long id);
+    List<CareTarget> findCareTarget(String id);
     JobOffer save(JobOfferDTO jobOfferDTO);
     String update(Long id, JobOfferDTO jobOfferDTO);
     void deleteJobOffer(Long id);

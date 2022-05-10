@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import wd.team4.everycare.domain.ActivityInformation;
+import wd.team4.everycare.domain.CareTargetSchedule;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface ActivityInformationRepository extends JpaRepository<ActivityInf
 
     @Query("select a from ActivityInformation a left join a.careTargetSchedule c where c.id = :id")
     List<ActivityInformation> findAllCareTargetSchedule(Long id);
+
+    void deleteAllByCareTargetSchedule(CareTargetSchedule careTargetScheduleEntity);
 }

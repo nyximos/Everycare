@@ -1,12 +1,9 @@
-package wd.team4.everycare.dto;
+package wd.team4.everycare.dto.jobOffer_jobSearch;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import wd.team4.everycare.domain.*;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @Getter @Setter
 @Builder

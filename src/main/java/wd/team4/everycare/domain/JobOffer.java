@@ -4,16 +4,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
-import wd.team4.everycare.domain.CareTarget;
-import wd.team4.everycare.domain.Gender;
-import wd.team4.everycare.dto.CareTargetFormDTO;
-import wd.team4.everycare.dto.JobOfferDTO;
+
+import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobOfferDTO;
+import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
+
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @ToString
@@ -118,4 +116,20 @@ public class JobOffer {
                 .member(jobOffer.getMember())
                 .build();
     }
+
+    public DetailJobOfferDTO toDetailJobOfferDTO(JobOffer jobOffer){
+        return DetailJobOfferDTO.builder()
+                .title(jobOffer.getTitle())
+                .startDate(String.valueOf(jobOffer.getStartDate()))
+                .endDate(String.valueOf(jobOffer.getEndDate()))
+                .desiredDayWeek(jobOffer.getDesiredDayWeek())
+                .desiredStartTime(jobOffer.getDesiredStartTime())
+                .desiredEndTime(jobOffer.getDesiredEndTime())
+                .pay(jobOffer.getPay())
+                .comment(jobOffer.getComment())
+                .desiredCareSitterGender(jobOffer.getDesiredCareSitterGender())
+                .careTarget(jobOffer.getCareTarget().toJobOfferCareTargetDTO())
+                .build();
+    }
+
 }

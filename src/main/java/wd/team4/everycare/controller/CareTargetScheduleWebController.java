@@ -5,9 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationListViewDTO;
+import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationViewDTO;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleDTO;
-import wd.team4.everycare.dto.CareTargetViewDTO;
+import wd.team4.everycare.dto.caretarget.CareTargetViewDTO;
 import wd.team4.everycare.service.ActivityInformationServiceImpl;
 import wd.team4.everycare.service.CareTargetScheduleServiceImpl;
 import wd.team4.everycare.service.CareTargetServiceImpl;
@@ -41,7 +41,7 @@ public class CareTargetScheduleWebController {
         System.out.println("careTarget = " + careTarget);
         CareTargetScheduleDTO schedule = careTargetScheduleService.webFindById(scheduleId);
         System.out.println("schedule = " + schedule);
-        List<ActivityInformationListViewDTO> activityInformations = activityInformationService.webFindAllByScheduleId(scheduleId);
+        List<ActivityInformationViewDTO> activityInformations = activityInformationService.webFindAllByScheduleId(scheduleId);
 
         if(careTarget!=null && schedule!=null) {
             model.addAttribute("careTarget", careTarget);
