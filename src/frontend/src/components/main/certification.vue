@@ -1,5 +1,8 @@
 <template>
   <div>
+      <v-card
+  elevation="2"
+>
       <h2>자격증 등록</h2>
       <ul>
         <li>자격증 분류
@@ -27,6 +30,7 @@
             <input id="tokenField" type="hidden"/>
           <v-btn class="ma-2" outlined color="indigo" @click="submit">완료</v-btn>
           <router-link to="/"> <v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
+    </v-card>
   </div>
   
 </template>
@@ -42,13 +46,15 @@ export default {
             ],
             attachFiles:[],
             certification:'',
-            id:'',
+            id:this.$route.params.id,
+            result:[]
         }   
     },
     mounted(){
-        const id = this.$route.params.id;
+
+     const id = Number(this.$route.params.id);
      this.$http
-    .get('/api/caresitters/'+id, {
+    .get(`/api/caresitters/${id}`, {
     withCredentials: true
     })
     .then(res => {
@@ -62,17 +68,16 @@ export default {
 },
     methods:{
         submit(){
-            id : this.id;
             var formData = new FormData();
             console.log(id);
-
+            formData.append('careSitterId',this.id);
             formData.append('classification', this.certification);
             for(let i = 0; i< this.attachFiles.length; i++){
             formData.append('attachFiles', this.attachFiles[0]);
             
           }
            this.$http
-           .post('/api/dashboard/caresitter/' + id + '/certifications',formData,{
+           .post(`/api/dashboard/caresitter/${id}/certifications`,formData,{
                withCredentials:true
            })
            .then(res=>{
