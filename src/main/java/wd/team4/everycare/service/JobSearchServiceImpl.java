@@ -38,8 +38,8 @@ public class JobSearchServiceImpl implements JobSearchService {
 
 
     @Override
-    public DetailJobSearchDTO findDetailJobSearch(String memberId) {
-        Optional<CareSitter> findJobSearch = careSitterRepository.findByMemberId(memberId);
+    public DetailJobSearchDTO findDetailJobSearch(Long id) {
+        Optional<CareSitter> findJobSearch = careSitterRepository.findById(id);
         CareSitter careSitter = findJobSearch.get();
         DetailJobSearchDTO jobSearchDTO = careSitter.toDetailJobSearchDTO();
 

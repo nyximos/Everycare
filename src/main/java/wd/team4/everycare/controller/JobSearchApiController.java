@@ -38,7 +38,7 @@ public class JobSearchApiController {
     }
 
     @GetMapping("/jobsearchs/jobsearch/{id}")
-    public ResponseEntity<MyResponse> getDetailJobSearch(@PathVariable("id") String id, Model model){
+    public ResponseEntity<MyResponse> getDetailJobSearch(@PathVariable("id") Long id, Model model){
 
         DetailJobSearchDTO detailJobSearch = jobSearchService.findDetailJobSearch(id);
         MyResponse body = MyResponse.builder()

@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface JobSearchService {
     List<JobSearchDTO> findAllJobSearch();
-    DetailJobSearchDTO findDetailJobSearch(String memberId);
+    DetailJobSearchDTO findDetailJobSearch(Long id);
 }
