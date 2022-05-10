@@ -8,12 +8,11 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class CareTargetScheduleDTO {
+public class CareTargetScheduleListDTO {
 
     private Long id;
     private String name;
     private String startTime;
     private String endTime;
-    private Long careTarget;
 
 }
