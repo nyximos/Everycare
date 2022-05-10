@@ -44,7 +44,6 @@ public class JobOfferApiController {
 
     @PostMapping("/recruitions/schedules")
     public ResponseEntity<MyResponse> regCareTargetSchedule(Long id) {
-
         List<CareTargetSchedule> schedule = jobOfferService.findSchedule(id);
         System.out.println("schedule = " + schedule);
         MyResponse<Object> body = MyResponse.<Object>builder()

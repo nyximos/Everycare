@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
-import wd.team4.everycare.dto.CareTargetFormDTO;
-import wd.team4.everycare.dto.CareTargetViewDTO;
-import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferCareTargetDTO;
+
+import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
+import wd.team4.everycare.dto.caretarget.CareTargetViewDTO;
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;

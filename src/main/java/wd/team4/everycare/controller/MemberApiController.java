@@ -4,14 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.config.jwt.JwtProperties;
 import wd.team4.everycare.domain.ActivityStatus;
 import wd.team4.everycare.domain.MemberRole;
-import wd.team4.everycare.dto.StoreFormDTO;
+import wd.team4.everycare.dto.member.MemberAccountDTO;
+import wd.team4.everycare.dto.member.MemberInfoDTO;
 import wd.team4.everycare.dto.member.SignupDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
@@ -74,6 +74,18 @@ public class MemberApiController {
 
         memberService.join(signupDTO);
         return "회원가입완료";
+    }
+
+    @GetMapping("/dashboard/account")
+    public ResponseEntity<MyResponse> getAccount(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        ResponseEntity<MyResponse> responseEntity = memberService.getAccountDTO(principalDetails);
+        return responseEntity;
+    }
+
+    @PatchMapping("/dashboard/account")
+    public ResponseEntity<MyResponse> updateAccount(@AuthenticationPrincipal PrincipalDetails principalDetails, @ModelAttribute MemberAccountDTO memberAccountDTO) {
+        ResponseEntity<MyResponse> responseEntity = memberService.updateAccount(principalDetails, memberAccountDTO);
+        return responseEntity;
     }
 
 }
