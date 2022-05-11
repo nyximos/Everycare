@@ -11,6 +11,8 @@ import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.careSitter.CareSitterFormDTO;
+import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobSearchDTO;
+import wd.team4.everycare.dto.jobOffer_jobSearch.JobSearchDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.service.CareSitterServiceImpl;

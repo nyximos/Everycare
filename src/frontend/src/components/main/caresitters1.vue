@@ -6,37 +6,36 @@
     <div class="r_list">
         <div class="list_more">
             <ul class="ul01">
-                <li class="li01" v-for="(p,index) in profiles" :key="index"  @click="move">
+                <li class="li01" v-for="p in profiles" :key="p.id"  @click="move(p)">
+                    <!-- <router-link :to="{name:'addprofile2+', params:{caresitterId:p.id}}"> -->
                         <span class="tab01">
                             <span class="img01">
                                 <img src="@/assets/user.png" class="vertical">
                                 {{p.attachFiles}}
-                                {{p.careSitterImages}}
+                                
                             </span>
                         </span>
                         <span class="tab02">
-                            <span class="category">
-                                {{p.hopefulRegion}}
-                                
-                                <span class="edit_date">{{p.id}}</span>
-                            </span>
-                            <span class="name">나이
-                                <span class="age">{{p.name}}</span>
+                            <span class="name">{{p.memberDTO.name}}
+                                <span class="age"> 나이:{{p.memberDTO.birth}}</span>
+                                {{p.id}}
                             </span>
                             <span class="area">{{p.hopefulRegion}}</span>
                                 <span class="pay">
-                                    {{p.desiredHourlyWage}}
+                                    시급:{{p.hourlyWage}} 월급:{{p.monthlyWage}}
                                     <span class="bar0101">&nbsp;</span>
                                     <span class="week01">{{p.desiredDayWeek}}</span>
                                 </span>
                         </span>
                         <div class="bar01"></div>
                         <span class="tab03">
-                            <span class="icon03">{{p.vaccination}}</span>
-                            <span class="text01">10년이상</span>
+                            <span class="icon03">{{p.is_vaccinated}}</span>
+                            <span class="text01">{{p.memberDTO.gender}}</span>
                             <span class="text01">{{p.preferredType}}</span>
+                            <span class="text01">{{p.activityTime}}</span>
                             <span class="">{{p.member}}</span>
                         </span>       
+                 <!-- </router-link> -->
                 </li>
             </ul>
         </div>
@@ -59,12 +58,14 @@ export default {
             // ],
             page:1,
 			profiles:[],
-            id:this.$route.params.id
+            // id : p.id,
 	    }
     },
     methods:{
-         move(id){
-            this.$router.push({name:'addprofile2' , params:{caresitterId:id}})
+         move(p){
+            // const id = this.id;
+            // console.log(id)
+            this.$router.push({name:'addprofile2' , params:{caresitterId: p.id}})
         }
     },
 	mounted(){

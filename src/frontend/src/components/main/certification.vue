@@ -51,7 +51,7 @@ export default {
         }   
     },
     mounted(){
-     const id = Number(this.$route.params.id);
+     const id = this.$route.params.caresitterId;
      this.$http
     .get(`/api/caresitters/${id}`, {
     withCredentials: true

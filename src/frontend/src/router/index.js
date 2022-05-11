@@ -27,7 +27,7 @@ const routes = [
         component: () => import('@/pages/Mypage.vue')
     },
     {
-        path: '/certification/:id',
+        path: '/certification/:caresitterId',
         name: 'certification',
         component: () => import('@/pages/Certification.vue')
     },
@@ -77,11 +77,11 @@ const routes = [
         name: 'profile_update',
         component: () => import('@/pages/Profile_update.vue')
     },
-    {
-        path: '/profile_update/:profileId',
-        name: 'profile_update',
-        component: () => import('@/pages/Profile_update.vue')
-    },
+    // {
+    //     path: '/profile_update/:profileId',
+    //     name: 'profile_update',
+    //     component: () => import('@/pages/Profile_update.vue')
+    // },
     {
         path: '/addprofile2/:caresitterId',
         name: 'addprofile2',

@@ -9,18 +9,19 @@
 						<div class="photoArea">
 							<span class="photo">
 								<a href="#ResumeBaseInfo" class="image" style="position:static;left:0;bottom:0;display:block;width:auto;height:auto;padding:0;border:0 none;background:none">
-									<img id="divProfile" :src="attachFiles" alt="//image.alba.kr/person/profile_no_female.png">
+									<img id="divProfile" :src="attachFiles" alt="사진">
+									
 								</a>
 							</span>
 						</div>
-						
 							<ul class="infoList">
-								<li class="name"><strong>{{name}}</strong> <em></em>  ·(년생) <br></li>
-								<li class="address"><span class="info-title">주소</span>경남 거제시 <span class="star">******</span></li>
+								<li class="name"><strong>{{name}}</strong> <em>{{birth}}</em> · ( {{gender}} ) <br></li>
+								<li class="address"><span class="info-title">주소</span><span class="star">{{address}}</span></li>
 								<li class="contact">
-								<span class="info-title">연락처</span>010-****-****
+								<span class="info-title">연락처</span>{{phone}}
+								{{attachFiles}}
 								</li>
-								<li class="mail"><span class="info-title">이메일</span><span class="star">****</span>@<span class="star">이메일.com</span></li>
+								<li class="mail"><span class="info-title">이메일</span><span class="star">{{email}}</span></li>
 							</ul>
 					</div>
 					<div id="ResumeCareer" class="resumeView">
@@ -31,7 +32,7 @@
 								<!-- <p class="date">CCTV 동의여부:{{this.$store.state.careprofileStore.cctv}}</p> -->
 							</div> 	
 							<dl class="infoDetail"> 		
-								<dt class="title">백신접종:{{vaccination}} <span></span></dt> 
+								<dt class="title">백신접종:{{is_vaccinated}} <span></span></dt> 
 								
 								<dt class="title">자격증</dt> 
 								<dd class="kind">
@@ -73,8 +74,8 @@
 									<td>
 										<dl class="item">
 											<!-- <dt class="title">{{$store.state.careprofileStore.pay}}</dt> -->
-											<dt class="title">시급:{{desiredHourlyWage}}</dt>
-											<dt class="title">월급:{{desiredMonthlyWage}}</dt>
+											<dt class="title">시급:{{hourlyWage}}</dt>
+											<dt class="title">월급:{{monthlyWage}}</dt>
 										</dl>
 									</td>
 								</tr>
@@ -124,18 +125,23 @@ export default {
 		})
 		.then((res)=>{
 			// console.log(res.data.body);
-			// console.log(res.data.body)
+			console.log(res.data.body)
 			this.introduction = res.data.body.introduction
 			this.cctvAgreement = res.data.body.cctvAgreement
 			this.desiredDayWeek = res.data.body.desiredDayWeek
-			this.desiredHourlyWage = res.data.body.desiredHourlyWage
-			this.desiredMonthlyWage = res.data.body.desiredMonthlyWage
+			this.hourlyWage = res.data.body.hourlyWage
+			this.monthlyWage = res.data.body.monthlyWage
 			this.preferredType = res.data.body.preferredType
 			this.activityTime = res.data.body.activityTime
 			this.attachFiles = res.data.body.attachFiles
 			this.hopefulRegion = res.data.body.hopefulRegion
-			this.vaccination = res.data.body.vaccination
-			this.name = res.data.body.name
+			this.is_vaccinated = res.data.body.is_vaccinated
+			this.name = res.data.body.memberDTO.name
+			this.birth = res.data.body.memberDTO.birth
+			this.gender = res.data.body.memberDTO.gender
+			this.phone = res.data.body.memberDTO.phone
+			this.email = res.data.body.memberDTO.email
+			this.address = res.data.body.memberDTO.address
 		}).catch(err=>{
 			console.log(err);
 		})
@@ -143,16 +149,23 @@ export default {
 		data(){
 		return{
 			name:this.name,
-			vaccination:this.vaccination,
+			birth:this.birth,
+			gender:this.gender,
+			phone:this.phone,
+			address:this.address,
+			email:this.email,
+			is_vaccinated:this.is_vaccinated,
 			desiredDayWeek:[this.desiredDayWeek],
-			desiredHourlyWage:this.desiredHourlyWage,
-			desiredMonthlyWage:this.desiredMonthlyWage,
+			hourlyWage:this.hourlyWage,
+			monthlyWage:this.monthlyWage,
 			cctvAgreement:this.cctvAgreement,
 			activityTime:[this.activityTime],
 			preferredType:[this.preferredType],
 			introduction:this.introduction,
 			attachFiles:this.attachFiles,
-			hopefulRegion:[this.hopefulRegion]
+			// storeFileName:this.attchFiles[i].storeFileName,
+			hopefulRegion:[this.hopefulRegion],
+			
 		}
 	},
 }

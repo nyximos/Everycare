@@ -35,28 +35,28 @@
         <h2>Start:</h2>
         <v-time-picker
           v-model="starttimepicker"
-          :max="end"
+          
         ></v-time-picker>
       </v-col>
       <v-col style="width: 350px; flex: 0 1 auto;">
         <h2>End:</h2>
         <v-time-picker
           v-model="endtimepicker"
-          :min="start"
+          
         ></v-time-picker>
       </v-col>
     </v-row>
                 </div>
             </li>
             <li><h3>>  희망 시급:</h3> <v-text-field v-model.number="desiredHourlyWage" label="hourpay" required></v-text-field>
-            <li><h3>>  희망 월급:</h3><v-text-field v-model.number="desiredMonthlyWage" label="monthpay" required></v-text-field>
+            <li><h3>>  희망 월급:</h3><v-text-field v-model.number="monthlyWage" label="monthpay" required></v-text-field>
             <li><h3>>  CCTV 동의여부:</h3> 
                 <v-radio-group v-model="cctvAgreement" mandatory row>
                             <v-radio label="O" value="0">O</v-radio>
                             <v-radio label="X" value="1">X</v-radio>
                   </v-radio-group>
             <li><h3>>  백신접종 유무:</h3> 
-                  <v-radio-group v-model="vaccination" mandatory row>
+                  <v-radio-group v-model="is_vaccinated" mandatory row>
                             <v-radio label="1차접종완료" value="0"></v-radio>
                             <v-radio label="추가접종완료" value="1"></v-radio>
                             <v-radio label="미접종" value="2"></v-radio>
@@ -91,15 +91,16 @@ export default {
         return{
             introduction:'',
             desiredHourlyWage:0,
-            desiredMonthlyWage:0,
+            monthlyWage:0,
             activityTime:'',
             desiredDayWeek: [],
             starttimepicker:'',
             endtimepicker:'',
             preferredType: [],
             cctvAgreement:'',
-            vaccination: '',
+            is_vaccinated: '',
             attachFiles: [],
+            disclosureStatus:'',
             id:this.$route.params.caresitterId
         }
         
@@ -111,18 +112,19 @@ export default {
 			withCredentials:true
 		})
 		.then((res)=>{
-			// console.log(res.data.body);
+			console.log(res.data.body);
 			// console.log(res.data.body)
 			this.introduction = res.data.body.introduction
 			this.cctvAgreement = res.data.body.cctvAgreement
 			this.desiredDayWeek = res.data.body.desiredDayWeek
-			this.desiredHourlyWage = res.data.body.desiredHourlyWage
-			this.desiredMonthlyWage = res.data.body.desiredMonthlyWage
+			this.desiredHourlyWage = res.data.body.hourlyWage
+			this.monthlyWage = res.data.body.monthlyWage
 			this.preferredType = res.data.body.preferredType
 			this.activityTime = res.data.body.activityTime
 			this.attachFiles = res.data.body.attachFiles
 			this.hopefulRegion = res.data.body.hopefulRegion
-			this.vaccination = res.data.body.vaccination
+			this.is_vaccinated = res.data.body.is_vaccinated
+      this.disclosureStatus = res.data.body.disclosureStatus
 		}).catch(err=>{
 			console.log(err);
 		})
@@ -131,15 +133,16 @@ export default {
         profile_update(){  
         var formData= new FormData();
             formData.append('preferredType', this.preferredType);
-            formData.append('vaccination', this.vaccination);
+            formData.append('vaccination', this.is_vaccinated);
             formData.append('cctvAgreement', this.cctvAgreement);
             formData.append('introduction', this.introduction);
             formData.append('desiredDayWeek', this.desiredDayWeek);
-            formData.append('hopefulRegion', this.hope_loc1+this.hopeloc1_detail);
+            // formData.append('hopefulRegion', this.hope_loc1+this.hopeloc1_detail);
             formData.append('desiredHourlyWage', this.desiredHourlyWage);
-            formData.append('desiredMonthlyWage', this.desiredMonthlyWage);
+            formData.append('desiredMonthlyWage', this.monthlyWage);
             formData.append('disclosureStatus',this.disclosureStatus);
             formData.append('activityTime', this.starttimepicker+this.endtimepicker);
+            formData.append('disclosureStatus',this.disclosureStatus);
             // formData.append('activityTime', this.starttimepicker + this.endtimepicker);
            for(let i = 0; i< this.attachFiles.length; i++){
              formData.append('attachFiles', this.attachFiles[0]);
