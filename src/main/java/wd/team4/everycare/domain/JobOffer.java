@@ -21,7 +21,6 @@ import java.time.LocalDate;
 @SequenceGenerator(name = "job_offer_seq_generator",
         sequenceName = "job_offer_seq",
         initialValue = 1, allocationSize = 1)
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class JobOffer {
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "job_offer_seq_generator")
