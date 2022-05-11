@@ -96,6 +96,7 @@ public class Store {
         this.businessLocation = businessLocation;
         this.customerServiceNumber = customerServiceNumber;
         this.member = member;
+        this.adminApproval = 0;
     }
 
     public void updateInfo(StoreFormDTO storeFormDTO){

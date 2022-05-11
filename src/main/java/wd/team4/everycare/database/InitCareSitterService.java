@@ -18,8 +18,10 @@ import java.util.Optional;
 public class InitCareSitterService {
 
     private final EntityManager em;
+
     private final MemberRepository memberRepository;
-    private String[] name = new String[]{"오석호", "최용진", "예영하", "허홍주", "오인숙"};
+
+    private String[] name = new String[]{"허윤정", "고승희", "류예원", "설서준", "복윤빈"};
     private String[] preferredType = new String[]{"아동", "노인", "아동", "환자", "노인"};
     private String[] hopefulRegion = new String[]{"대구광역시 동구", "대구광역시 수성구", "대구광역시 남구", "대구광역시 중구", "대구광역시 북구"};
     private String[] desiredDayWeek = new String[]{"월,화,수", "화,수,목,금", "월,수,금", "월,화,수,목,금", "월,화,수,목,금"};
