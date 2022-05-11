@@ -8,6 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetViewDTO;
+import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferCareTargetDTO;
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;

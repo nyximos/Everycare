@@ -44,7 +44,7 @@ public class JobOfferServiceImpl implements JobOfferService {
 
     @Override
     public List<CareTargetSchedule> findSchedule(@RequestParam Long id) {
-        List<CareTargetSchedule> findCareTargetSchedule = careTargetScheduleRepository.findByCareTargetId(id);
+        List<CareTargetSchedule> findCareTargetSchedule = careTargetScheduleRepository.findAllByCareTargetId(id);
         System.out.println("findCareTargetSchedule = " + findCareTargetSchedule);
         return findCareTargetSchedule;
     }
