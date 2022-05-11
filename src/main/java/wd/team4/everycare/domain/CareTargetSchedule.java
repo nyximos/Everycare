@@ -7,10 +7,10 @@ import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
 
-@DynamicUpdate
 @Getter
-@NoArgsConstructor
 @Entity
+@DynamicUpdate
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "care_target_schedule")
 @SequenceGenerator(name = "care_target_schedule_seq_generator",
         sequenceName = "care_target_schedule_seq",

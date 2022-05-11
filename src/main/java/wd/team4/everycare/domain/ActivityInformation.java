@@ -1,5 +1,6 @@
 package wd.team4.everycare.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,9 +11,11 @@ import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
 
+@Builder
 @DynamicUpdate
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "activity_information")
 @SequenceGenerator(name = "activity_information_seq_generator",

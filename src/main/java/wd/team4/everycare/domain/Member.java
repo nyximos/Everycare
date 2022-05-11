@@ -75,7 +75,7 @@ public class Member {
     @Column(name = "member_bank", length = 45)
     private String bank;
 
-    @Column(name = "member_account_member")
+    @Column(name = "member_account_number")
     private String accountNumber;
 
     @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
@@ -104,10 +104,6 @@ public class Member {
         this.detailedAddress = detailedAddress;
         this.bank = bank;
         this.accountNumber = accountNumber;
-    }
-
-    public void encodePassword(String password){
-       this.password = password;
     }
 
     public void registrationAdmin(LocalDateTime time){
