@@ -14,6 +14,12 @@ public class ActivityInformationApiController {
 
     private final ActivityInformationServiceImpl activityInformationService;
 
+    @GetMapping("/dashboard/caretargets/{careTargetId}/schedules/{scheduleId}/activities/{activityId}")
+    public ResponseEntity<MyResponse> getActivityInformation(@PathVariable("activityId") Long id){
+        ResponseEntity<MyResponse> responseEntity = activityInformationService.get(id);
+        return responseEntity;
+    }
+
     @PostMapping("/dashboard/caretargets/{careTargetId}/schedules/{scheduleId}/activities")
     public ResponseEntity<MyResponse> saveActivityInformation(
             @ModelAttribute ActivityInformationFormDTO activityInformationFormDTO){
