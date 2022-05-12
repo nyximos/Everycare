@@ -13,12 +13,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Entity
 @Builder
 @DynamicUpdate
-@Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "product_seq_generator",
             sequenceName = "product_seq",
             initialValue = 1, allocationSize = 1)

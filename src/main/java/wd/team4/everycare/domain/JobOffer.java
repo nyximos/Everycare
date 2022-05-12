@@ -14,10 +14,10 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Getter
-@ToString
-@NoArgsConstructor
 @Entity
+@ToString
 @Table(name = "job_offer")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "job_offer_seq_generator",
         sequenceName = "job_offer_seq",
         initialValue = 1, allocationSize = 1)

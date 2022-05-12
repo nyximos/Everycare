@@ -1,9 +1,6 @@
 package wd.team4.everycare.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -11,9 +8,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
 @Entity
 @Table(name = "orders")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "order_seq_generator",
         sequenceName = "order_seq",
         initialValue = 1, allocationSize = 1)

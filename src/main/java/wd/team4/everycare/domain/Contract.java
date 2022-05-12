@@ -1,9 +1,6 @@
 package wd.team4.everycare.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -12,9 +9,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
 @Entity
 @Table(name = "contract")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "contract_seq_generator",
         sequenceName = "contract_seq",
         initialValue = 1, allocationSize = 1)
@@ -65,15 +62,15 @@ public class Contract {
     @Column(name = "contract_monthly_installment_plan")
     private int monthlyInstallmentPlan;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_sitter_id")
     private CareSitter careSitter;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_offer_id", nullable = false)
     private JobOffer jobOffer;
 }

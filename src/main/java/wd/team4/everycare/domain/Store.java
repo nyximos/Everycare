@@ -11,10 +11,10 @@ import wd.team4.everycare.util.StringUtils;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@DynamicUpdate
 @Getter
-@NoArgsConstructor
 @Entity
+@DynamicUpdate
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "store_seq_generator",
         sequenceName = "store_seq",
         initialValue = 1, allocationSize = 1)

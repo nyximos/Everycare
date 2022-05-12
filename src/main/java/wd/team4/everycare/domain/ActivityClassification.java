@@ -8,13 +8,13 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Entity
 @Builder
 @DynamicUpdate
-@Getter
-@NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Table(name = "activity_classification")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "activity_classification_seq_generator",
         sequenceName = "activity_classification_seq",
         initialValue = 1, allocationSize = 1)
