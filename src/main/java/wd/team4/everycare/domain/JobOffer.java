@@ -51,6 +51,9 @@ public class JobOffer {
     @Column(name = "job_offer_pay", nullable = false)
     private int pay;
 
+    @Column(name = "job_offer_pay_amount", nullable = false)
+    private int amount;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "job_offer_desired_care_sitter_gender", nullable = false)
     private Gender desiredCareSitterGender;

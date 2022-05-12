@@ -10,6 +10,7 @@ import java.util.List;
 
 @Getter
 @Entity
+@Builder
 @Table(name = "contract")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "contract_seq_generator",
@@ -73,4 +74,8 @@ public class Contract {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_offer_id", nullable = false)
     private JobOffer jobOffer;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "care_target_id")
+    private CareTarget careTarget;
 }
