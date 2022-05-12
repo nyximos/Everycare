@@ -18,7 +18,6 @@ import java.util.Optional;
 public class InitBoardService {
 
     private final EntityManager em;
-    private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
 
     public void dbInit() {

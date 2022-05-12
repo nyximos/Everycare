@@ -95,24 +95,24 @@ public class JobOffer {
         if(StringUtils.isNotBlank(String.valueOf(jobOfferDTO.getPay()))) this.pay = jobOfferDTO.getPay();
         if(StringUtils.isNotBlank(String.valueOf(jobOfferDTO.getDesiredCareSitterGender()))) this.desiredCareSitterGender = jobOfferDTO.getDesiredCareSitterGender();
         if(StringUtils.isNotBlank(jobOfferDTO.getComment())) this.comment = jobOfferDTO.getComment();
-        if(jobOfferDTO.getCareTarget()!=null) this.careTarget = jobOfferDTO.getCareTarget();
+        if(jobOfferDTO.getCareTarget()!=null) this.careTarget = jobOfferDTO.getCareTarget().toCareTarget();
         if(jobOfferDTO.getCareTargetSchedule()!=null) this.careTargetSchedule = jobOfferDTO.getCareTargetSchedule();
     }
 
-    public JobOfferDTO toJobOfferDTO(JobOffer jobOffer){
+    public JobOfferDTO toJobOfferDTO(){
         return JobOfferDTO.builder()
-                .title(jobOffer.getTitle())
-                .startDate(String.valueOf(jobOffer.getStartDate()))
-                .endDate(String.valueOf(jobOffer.getEndDate()))
-                .desiredDayWeek(jobOffer.getDesiredDayWeek())
-                .desiredStartTime(jobOffer.getDesiredStartTime())
-                .desiredEndTime(jobOffer.getDesiredEndTime())
-                .pay(jobOffer.getPay())
-                .comment(jobOffer.getComment())
-                .desiredCareSitterGender(jobOffer.getDesiredCareSitterGender())
-                .careTarget(jobOffer.getCareTarget())
-                .careTargetSchedule(jobOffer.getCareTargetSchedule())
-                .member(jobOffer.getMember())
+                .title(this.title)
+                .startDate(String.valueOf(this.startDate))
+                .endDate(String.valueOf(this.endDate))
+                .desiredDayWeek(this.desiredDayWeek)
+                .desiredStartTime(this.desiredStartTime)
+                .desiredEndTime(this.desiredEndTime)
+                .pay(this.pay)
+                .comment(this.comment)
+                .desiredCareSitterGender(this.desiredCareSitterGender)
+                .careTarget(this.careTarget.toJobOfferCareTargetDTO())
+                .careTargetSchedule(this.careTargetSchedule)
+                .member(this.member.toMemberListViewDTO())
                 .build();
     }
 

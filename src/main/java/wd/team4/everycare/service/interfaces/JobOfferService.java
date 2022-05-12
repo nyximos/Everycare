@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface JobOfferService {
 
-    List<JobOffer> getJobOffer();
+    List<JobOfferDTO> getJobOffer();
     DetailJobOfferDTO getDetailJobOffer(Long id);
     List<CareTargetSchedule> findSchedule(Long id);
     List<CareTarget> findCareTarget(String id);

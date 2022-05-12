@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import wd.team4.everycare.dto.member.JobOfferMemberDTO;
 import wd.team4.everycare.dto.member.MemberAccountDTO;
 import wd.team4.everycare.dto.member.MemberInfoDTO;
+import wd.team4.everycare.dto.member.MemberListViewDTO;
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
@@ -116,6 +117,20 @@ public class Member {
                 .id(this.id)
                 .name(this.name)
                 .role(this.role)
+                .build();
+    }
+
+    public MemberListViewDTO toMemberListViewDTO(){
+        return MemberListViewDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .role(this.role)
+                .gender(this.gender)
+                .birth(this.birth)
+                .phone(this.phone)
+                .email(this.email)
+                .createdAt(this.createdAt)
+                .activityStatus(this.activityStatus)
                 .build();
     }
 
