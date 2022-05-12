@@ -15,6 +15,12 @@ public class MemberContractApiController {
 
     private final MemberContractServiceImpl memberContractService;
 
+    @DeleteMapping("/api/contracts/{id}")
+    public ResponseEntity<MyResponse> terminatedContract(@PathVariable Long id){
+        ResponseEntity<MyResponse> responseEntity = memberContractService.removeContract(id);
+        return responseEntity;
+    }
+
     @PostMapping("/api/caresitters/{careSitterId}/contracts")
     public ResponseEntity<MyResponse> postMemberContract(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                                          @RequestParam("jobOfferId") Long jobOfferId,

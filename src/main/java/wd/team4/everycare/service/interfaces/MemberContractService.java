@@ -6,5 +6,8 @@ import wd.team4.everycare.dto.response.MyResponse;
 
 public interface MemberContractService {
 
+    ResponseEntity<MyResponse> removeContract(Long id);
+
     ResponseEntity<MyResponse> saveContract(PrincipalDetails principalDetails, Long jobOfferId, Long careSitterId);
+
 }

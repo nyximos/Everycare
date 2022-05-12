@@ -28,6 +28,17 @@ public class MemberContractServiceImpl implements MemberContractService {
 
 
     @Override
+    public ResponseEntity<MyResponse> removeContract(Long id) {
+        contractRepository.deleteById(id);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity<MyResponse> saveContract(PrincipalDetails principalDetails, Long jobOfferId, Long careSitterId) {
 
         // 멤버 찾기
