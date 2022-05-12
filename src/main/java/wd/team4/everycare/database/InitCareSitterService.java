@@ -18,7 +18,6 @@ import java.util.Optional;
 public class InitCareSitterService {
 
     private final EntityManager em;
-
     private final MemberRepository memberRepository;
 
     private String[] name = new String[]{"허윤정", "고승희", "류예원", "설서준", "복윤빈"};

@@ -30,8 +30,8 @@ public class ActivityClassification {
     @Column(name = "activity_classification_level", length = 10, nullable = false)
     private int level;
 
-    @ManyToOne
-    @JoinColumn(name = "activity_classification_id2")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "activity_classification_parent")
     private ActivityClassification activityClassification;
 
     public ActivityClassificationDTO toDTO(){

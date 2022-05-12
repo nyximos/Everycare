@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.domain.Store;
 import wd.team4.everycare.repository.MemberRepository;
-import wd.team4.everycare.repository.StoreRepository;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
@@ -18,7 +17,6 @@ import java.util.Optional;
 public class InitStoreService {
 
     private final EntityManager em;
-
     private final MemberRepository memberRepository;
 
     public void dbInit() {
