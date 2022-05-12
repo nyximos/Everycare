@@ -6,13 +6,15 @@ import lombok.Setter;
 import wd.team4.everycare.domain.*;
 import wd.team4.everycare.dto.member.MemberListViewDTO;
 
+import java.time.LocalDate;
+
 @Getter @Setter
 @Builder
 public class JobOfferDTO {
 
     private String title;
-    private String startDate;                        ////시작일
-    private String endDate;                          ////종료일
+    private LocalDate startDate;                        ////시작일
+    private LocalDate endDate;                          ////종료일
     private String desiredDayWeek;                      ////희망 요일
     private Gender desiredCareSitterGender;             ////희망 케어시터 성별
     private int pay;                                    ////급여

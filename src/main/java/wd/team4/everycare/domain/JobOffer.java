@@ -14,6 +14,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Getter
+
 @ToString
 @NoArgsConstructor
 @Entity
@@ -65,15 +66,15 @@ public class JobOffer {
     @JoinColumn(name = "care_target_id")
     private CareTarget careTarget;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name="care_target_schedule_id")
     private CareTargetSchedule careTargetSchedule;
 
     @Builder
-    public JobOffer(String title, String startDate, String endDate, String desiredDayWeek, String desiredStartTime, String desiredEndTime, int pay, Gender desiredCareSitterGender, String comment, CareTarget careTarget, CareTargetSchedule careTargetSchedule, Member member) {
+    public JobOffer(String title, LocalDate startDate, LocalDate endDate, String desiredDayWeek, String desiredStartTime, String desiredEndTime, int pay, Gender desiredCareSitterGender, String comment, CareTarget careTarget, CareTargetSchedule careTargetSchedule, Member member) {
         this.title = title;
-        this.startDate = LocalDate.parse(startDate);
-        this.endDate = LocalDate.parse(endDate);
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.desiredDayWeek = desiredDayWeek;
         this.desiredStartTime = desiredStartTime;
         this.desiredEndTime = desiredEndTime;
@@ -87,8 +88,8 @@ public class JobOffer {
 
     public void updateInfo(JobOfferDTO jobOfferDTO) {
         if(StringUtils.isNotBlank(jobOfferDTO.getTitle())) this.comment = jobOfferDTO.getTitle();
-        if(StringUtils.isNotBlank(jobOfferDTO.getStartDate().toString())) this.startDate = LocalDate.parse(jobOfferDTO.getStartDate());
-        if(StringUtils.isNotBlank(jobOfferDTO.getEndDate().toString())) this.endDate = LocalDate.parse(jobOfferDTO.getEndDate());
+        if(StringUtils.isNotBlank(jobOfferDTO.getStartDate().toString())) this.startDate = jobOfferDTO.getStartDate();
+        if(StringUtils.isNotBlank(jobOfferDTO.getEndDate().toString())) this.endDate = jobOfferDTO.getEndDate();
         if(StringUtils.isNotBlank(jobOfferDTO.getDesiredDayWeek())) this.desiredDayWeek = jobOfferDTO.getDesiredDayWeek();
         if(StringUtils.isNotBlank(jobOfferDTO.getDesiredStartTime())) this.desiredStartTime = jobOfferDTO.getDesiredStartTime();
         if(StringUtils.isNotBlank(jobOfferDTO.getDesiredEndTime())) this.desiredEndTime = jobOfferDTO.getDesiredEndTime();
@@ -102,8 +103,8 @@ public class JobOffer {
     public JobOfferDTO toJobOfferDTO(){
         return JobOfferDTO.builder()
                 .title(this.title)
-                .startDate(String.valueOf(this.startDate))
-                .endDate(String.valueOf(this.endDate))
+                .startDate(this.startDate)
+                .endDate(this.endDate)
                 .desiredDayWeek(this.desiredDayWeek)
                 .desiredStartTime(this.desiredStartTime)
                 .desiredEndTime(this.desiredEndTime)

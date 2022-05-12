@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetSchedule;
 import wd.team4.everycare.domain.JobOffer;
+import wd.team4.everycare.dto.caretarget.CareTargetDTO;
+import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobOfferDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
 import wd.team4.everycare.repository.CareTargetRepository;
@@ -53,9 +55,12 @@ public class JobOfferServiceImpl implements JobOfferService {
     }
 
     @Override
-    public List<CareTarget> findCareTarget(String id) {
+    public List<CareTargetFormDTO> findCareTarget(String id) {
         List<CareTarget> findCareTarget = careTargetRepository.findAllByMemberId(id);
-        return findCareTarget;
+        List<CareTargetFormDTO> careTargetDTOs = new ArrayList<>();
+        findCareTarget.stream().map(careTarget -> careTarget.toFormDTO()).forEach(careTargetDTOs::add);
+        System.out.println("findCareTarget = " + findCareTarget);
+        return careTargetDTOs;
     }
 
     @Override

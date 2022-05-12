@@ -23,7 +23,7 @@ public class InitJobOfferService {
     private final CareTargetRepository careTargetRepository;
     private final MemberRepository memberRepository;
     private final CareTargetScheduleRepository careTargetScheduleRepository;
-
+/*TODO 왜자꾸 타겟스케줄은 null들가는지 함 물어보자*/
     public void dbInit(){
         Member member = memberRepository.findById("member1").get();
         CareTarget careTarget = careTargetRepository.findAllByMember(member).get(0);
@@ -46,6 +46,7 @@ public class InitJobOfferService {
         JobOffer jobOffer3 = jobOffer("title3", LocalDate.now(), LocalDate.now(), "desiredDayWeek3", "12:00", "12:30", 3, Gender.M, "comment3", member, careTarget3, careTargetSchedule3);
         JobOffer jobOffer4 = jobOffer("title4", LocalDate.now(), LocalDate.now(), "desiredDayWeek4", "13:00", "13:30", 4, Gender.M, "comment4", member, careTarget4, careTargetSchedule4);
         JobOffer jobOffer5 = jobOffer("title5", LocalDate.now(), LocalDate.now(), "desiredDayWeek5", "14:00", "14:30", 5, Gender.M, "comment5", member, careTarget5, careTargetSchedule5);
+        System.out.println("jobOffer1 = " + jobOffer1);
     }
 
     private CareTargetSchedule careTargetSchedule(String name, String startTime, String endTime, CareTarget careTarget){
@@ -86,8 +87,8 @@ public class InitJobOfferService {
     private JobOffer jobOffer(String title, LocalDate startDate, LocalDate endDate, String desiredDayWeek, String desiredStartTime, String desiredEndTime, int pay, Gender desiredCareSitterGender, String comment, Member member, CareTarget careTarget, CareTargetSchedule careTargetSchedule){
         JobOffer jobOffer = JobOffer.builder()
                 .title(title)
-                .startDate(String.valueOf(startDate))
-                .endDate(String.valueOf(endDate))
+                .startDate(startDate)
+                .endDate(endDate)
                 .desiredDayWeek(desiredDayWeek)
                 .desiredStartTime(desiredStartTime)
                 .desiredEndTime(desiredEndTime)
@@ -96,7 +97,7 @@ public class InitJobOfferService {
                 .comment(comment)
                 .member(member)
                 .careTarget(careTarget)
-//                .careTargetSchedule(careTargetSchedule)
+                .careTargetSchedule(careTargetSchedule)
                 .build();
         em.persist(jobOffer);
 
