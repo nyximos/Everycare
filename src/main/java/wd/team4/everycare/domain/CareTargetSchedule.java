@@ -11,8 +11,8 @@ import javax.persistence.*;
 @Getter
 @Entity
 @DynamicUpdate
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "care_target_schedule")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "care_target_schedule_seq_generator",
         sequenceName = "care_target_schedule_seq",
         initialValue = 1, allocationSize = 1)

@@ -14,11 +14,10 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Getter
-
-@ToString
-@NoArgsConstructor
 @Entity
+@ToString
 @Table(name = "job_offer")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "job_offer_seq_generator",
         sequenceName = "job_offer_seq",
         initialValue = 1, allocationSize = 1)
@@ -50,6 +49,9 @@ public class JobOffer {
 
     @Column(name = "job_offer_pay", nullable = false)
     private int pay;
+
+    @Column(name = "job_offer_pay_amount", nullable = false)
+    private int amount;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "job_offer_desired_care_sitter_gender", nullable = false)

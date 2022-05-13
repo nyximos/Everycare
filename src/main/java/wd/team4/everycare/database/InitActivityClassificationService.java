@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 @Component
 @Transactional
 @RequiredArgsConstructor
-public class InitActivityClassification {
+public class InitActivityClassificationService {
 
     private final EntityManager em;
 
@@ -21,7 +21,6 @@ public class InitActivityClassification {
         ActivityClassification activityInformation4 = createParentActivityInformation("환자", 1);
         ActivityClassification activityInformation5 = createParentActivityInformation("공통", 1);
 
-        ActivityClassification childActivityInformation;
         ActivityClassification childActivityInformation1 = createChildActivityInformation("인지지원", 2, activityInformation1);
         ActivityClassification childActivityInformation2 = createChildActivityInformation("정서지원", 2, activityInformation1);
         ActivityClassification childActivityInformation3 = createChildActivityInformation("등하원", 2, activityInformation2);
