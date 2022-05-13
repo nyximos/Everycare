@@ -26,15 +26,15 @@ public class CareTargetWebController {
     private final CareTargetRepository careTargetRepository;
     private final CareTargetScheduleServiceImpl careTargetScheduleService;
 
-    @GetMapping("/dashboard/caretargets")
-    public String caretargets(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
-        String id = principalDetails.getUsername();
-        List<CareTarget> careTargets = careTargetService.findCareTargets(id);
-        if(careTargets!=null){
-            model.addAttribute("careTargets", careTargets);
-        }
-        return "caretargets";
-    }
+//    @GetMapping("/dashboard/caretargets")
+//    public String caretargets(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
+//        String id = principalDetails.getUsername();
+//        List<CareTarget> careTargets = careTargetService.findCareTargets(id);
+//        if(careTargets!=null){
+//            model.addAttribute("careTargets", careTargets);
+//        }
+//        return "caretargets";
+//    }
 
     @GetMapping("/dashboard/caretargets/new")
     public String newCareTarget() {
