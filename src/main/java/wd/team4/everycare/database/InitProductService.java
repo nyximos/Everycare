@@ -22,8 +22,8 @@ public class InitProductService {
 
     public void dbInit() {
         Optional<Store> store1 = storeRepository.findById((long) 1);
-        Optional<ProductCategory> productCategory7 = productCategoryRepository.findById((long) 7);
-        Optional<ProductCategory> productCategory8 = productCategoryRepository.findById((long) 8);
+        Optional<ProductCategory> productCategory7 = productCategoryRepository.findById(7L);
+        Optional<ProductCategory> productCategory8 = productCategoryRepository.findById(8L);
 
         Product product1 = createProduct("Max311D 알루미늄휠체어(뒷바퀴분리형)", 387000,
                 100,"product1.png", "product1.png",

@@ -43,12 +43,12 @@ public class ActivityInformation {
     private String storeFileName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "care_target_schedule_id")
-    private CareTargetSchedule careTargetSchedule;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "activity_classification_id")
     private ActivityClassification activityClassification;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "care_target_schedule_id")
+    private CareTargetSchedule careTargetSchedule;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_sitter_activity_id")

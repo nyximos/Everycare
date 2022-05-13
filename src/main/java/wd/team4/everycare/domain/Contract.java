@@ -48,7 +48,7 @@ public class Contract {
     @Column(name = "contract_pay_amount", nullable = false)
     private int amount;
 
-    @Column(name = "contract_pay_datetime", nullable = false)
+    @Column(name = "contract_pay_datetime")
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime payDatetime;
 
