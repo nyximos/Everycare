@@ -24,7 +24,7 @@ public class InitJobOfferService {
     private final CareTargetRepository careTargetRepository;
     private final MemberRepository memberRepository;
     private final CareTargetScheduleRepository careTargetScheduleRepository;
-/*TODO 왜자꾸 타겟스케줄은 null들가는지 함 물어보자*/
+
     public void dbInit(){
         Member member = memberRepository.findById("member1").get();
 

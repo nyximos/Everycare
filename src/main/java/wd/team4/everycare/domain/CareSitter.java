@@ -102,6 +102,7 @@ public class CareSitter {
 
     public JobSearchDTO toJobSearchDTO(){
         return JobSearchDTO.builder()
+                .id(this.id)
                 .cctvAgreement(this.cctvAgreement)
                 .is_vaccinated(this.vaccination)
                 .desiredDayWeek(this.desiredDayWeek)
