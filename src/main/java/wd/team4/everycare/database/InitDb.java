@@ -14,6 +14,8 @@ public class InitDb {
     private final InitActivityClassification activityClassification;
     private final InitCareTargetScheduleService careTargetScheduleService;
     private final InitCareSitterService careSitterService;
+    private final InitBoardService boardService;
+    private final InitJobOfferService jobOfferService;
 
     @PostConstruct
     public void init() {
@@ -22,5 +24,7 @@ public class InitDb {
         activityClassification.dbInit();
         careTargetScheduleService.dbInit();
         careSitterService.dbInit();
+        boardService.dbInit();
+        jobOfferService.dbInit();
     }
 }

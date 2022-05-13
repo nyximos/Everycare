@@ -3,6 +3,7 @@ package wd.team4.everycare.domain;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleDTO;
+import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
@@ -57,6 +58,15 @@ public class CareTargetSchedule {
 
     public CareTargetScheduleDTO toDTO(){
         return CareTargetScheduleDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .startTime(this.startTime)
+                .endTime(this.endTime)
+                .build();
+    }
+
+    public CareTargetScheduleListDTO toListDTO(){
+        return CareTargetScheduleListDTO.builder()
                 .id(this.id)
                 .name(this.name)
                 .startTime(this.startTime)

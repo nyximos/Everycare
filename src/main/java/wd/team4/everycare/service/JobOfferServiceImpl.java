@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetSchedule;
 import wd.team4.everycare.domain.JobOffer;
+import wd.team4.everycare.dto.caretarget.CareTargetDTO;
+import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobOfferDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
 import wd.team4.everycare.repository.CareTargetRepository;
@@ -15,6 +17,7 @@ import wd.team4.everycare.repository.ContractRepository;
 import wd.team4.everycare.repository.JobOfferRepository;
 import wd.team4.everycare.service.interfaces.JobOfferService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,9 +33,11 @@ public class JobOfferServiceImpl implements JobOfferService {
     private final ContractRepository contractRepository;
 
     @Override
-    public List<JobOffer> getJobOffer() {
+    public List<JobOfferDTO> getJobOffer() {
         List<JobOffer> allList = jobOfferRepository.findAll();
-        return allList;
+        List<JobOfferDTO> jobOfferDTOs = new ArrayList<>();
+        allList.stream().map(jobOffer -> jobOffer.toJobOfferDTO()).forEach(jobOfferDTOs::add);
+        return jobOfferDTOs;
     }
 
     @Override
@@ -50,9 +55,12 @@ public class JobOfferServiceImpl implements JobOfferService {
     }
 
     @Override
-    public List<CareTarget> findCareTarget(String id) {
+    public List<CareTargetFormDTO> findCareTarget(String id) {
         List<CareTarget> findCareTarget = careTargetRepository.findAllByMemberId(id);
-        return findCareTarget;
+        List<CareTargetFormDTO> careTargetDTOs = new ArrayList<>();
+        findCareTarget.stream().map(careTarget -> careTarget.toFormDTO()).forEach(careTargetDTOs::add);
+        System.out.println("findCareTarget = " + findCareTarget);
+        return careTargetDTOs;
     }
 
     @Override
