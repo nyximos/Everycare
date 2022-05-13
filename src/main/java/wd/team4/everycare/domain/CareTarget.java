@@ -187,7 +187,7 @@ public class CareTarget {
     public JobOfferCareTargetDTO toJobOfferCareTargetDTO(){
         return JobOfferCareTargetDTO.builder()
                 .name(this.name)
-                .gender(String.valueOf(this.gender))
+                .gender(this.gender)
                 .height(this.height)
                 .weight(this.weight)
                 .build();

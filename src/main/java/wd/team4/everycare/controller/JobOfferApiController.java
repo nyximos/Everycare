@@ -11,6 +11,7 @@ import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetSchedule;
 import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobOfferDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
 import wd.team4.everycare.dto.response.MyListResponse;
@@ -31,7 +32,7 @@ public class JobOfferApiController {
     private final JobOfferServiceImpl jobOfferService;
     private final CareTargetScheduleRepository careTargetScheduleRepository;
     private final CareTargetRepository careTargetRepository;
-
+//성공
     @DeleteMapping("/recruitions/recruition/{id}")
     public ResponseEntity<MyResponse> deleteJobOffer(@PathVariable("id") Long id) {
         jobOfferService.deleteJobOffer(id);
@@ -41,7 +42,7 @@ public class JobOfferApiController {
                 .build();
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
-
+//성공
     @PostMapping("/recruitions/schedules")
     public ResponseEntity<MyResponse> regCareTargetSchedule(Long id) {
         List<CareTargetSchedule> schedule = jobOfferService.findSchedule(id);
@@ -59,7 +60,7 @@ public class JobOfferApiController {
     public ResponseEntity<MyResponse> saveJobOffer(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                                    @ModelAttribute JobOfferDTO jobOfferDTO){
         Member username = principalDetails.getUser();
-        jobOfferDTO.setMember(username);
+        jobOfferDTO.setMember(username.toMemberListViewDTO());
 
         jobOfferService.save(jobOfferDTO);
 
@@ -83,21 +84,21 @@ public class JobOfferApiController {
                 .build();
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
-
+//getJobOffer완료
     @GetMapping("/recruitions")
-    public ResponseEntity<MyListResponse> getJobOffer() {
+    public ResponseEntity<MyResponse> getJobOffer() {
 
-        List<JobOffer> jobOffers = jobOfferService.getJobOffer();
+        List<JobOfferDTO> jobOffers = jobOfferService.getJobOffer();
 
-        MyListResponse<JobOffer> body = MyListResponse.<JobOffer>builder()
+        MyResponse<Object> body = MyResponse.<Object>builder()
                 .header(StatusEnum.OK)
                 .message("조회 성공")
                 .body(jobOffers)
                 .build();
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<MyListResponse>(body, headers, HttpStatus.OK);
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
-
+//detail 완료
     @GetMapping("/recruitions/recruition/{id}")
     public ResponseEntity<Object> getDetailJobOffer(@PathVariable("id") Long id) {
 
@@ -124,17 +125,18 @@ public class JobOfferApiController {
     }
 
     @GetMapping("/recruitions/new")
-    public ResponseEntity<MyListResponse> newJobOffer(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public ResponseEntity<MyResponse> newJobOffer(@AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         String userId = principalDetails.getUser().getId();
-        List<CareTarget> findCareTarget = jobOfferService.findCareTarget(userId);
-        MyListResponse<CareTarget> body = MyListResponse.<CareTarget>builder()
+        System.out.println("userId = " + userId);
+        List<CareTargetFormDTO> findCareTarget = jobOfferService.findCareTarget(userId);
+        MyResponse<Object> body = MyResponse.<Object>builder()
                 .header(StatusEnum.OK)
                 .message("조회 성공")
                 .body(findCareTarget)
                 .build();
         HttpHeaders headers = new HttpHeaders();
 
-        return new ResponseEntity<MyListResponse>(body, headers, HttpStatus.OK);
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 }

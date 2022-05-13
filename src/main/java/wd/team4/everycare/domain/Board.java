@@ -2,6 +2,8 @@ package wd.team4.everycare.domain;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.board.BoardDTO;
+import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -51,5 +53,41 @@ public class Board {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
+
+    @Builder
+    public Board(Long id, String title, String content, String category, LocalDateTime createdAt,
+                 LocalDateTime updatedAt, int count, String fileName, String filePath, Member member) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.category = category;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.count = count;
+        this.fileName = fileName;
+        this.filePath = filePath;
+        this.member = member;
+    }
+
+    public BoardDTO toBoardDTO(){
+        return BoardDTO.builder()
+                .id(this.id)
+                .title(this.title)
+                .content(this.content)
+                .category(this.category)
+                .createdAt(this.createdAt)
+                .updatedAt(this.updatedAt)
+                .count(this.count)
+                .fileName(this.fileName)
+                .filePath(this.filePath)
+                .memberInfoDTO(this.member.toMemberInfoDTO())
+                .build();
+    }
+
+    public void updateInfo(BoardDTO boardDTO){
+        if(StringUtils.isNotBlank(boardDTO.getTitle())) this.title=boardDTO.getTitle();
+        if(StringUtils.isNotBlank(boardDTO.getContent())) this.content=boardDTO.getContent();
+        if(StringUtils.isNotBlank(boardDTO.getCategory())) this.category=boardDTO.getCategory();
+    }
 
 }

@@ -1,6 +1,7 @@
 package wd.team4.everycare.dto.careTargetSchedule;
 
 import lombok.*;
+import wd.team4.everycare.domain.CareTargetSchedule;
 
 @Builder
 @Getter
@@ -14,5 +15,13 @@ public class CareTargetScheduleListDTO {
     private String name;
     private String startTime;
     private String endTime;
+
+    public CareTargetSchedule toCareTargetSchedule(){
+        return CareTargetSchedule.builder()
+                .id(id)
+                .name(name)
+                .endTime(endTime)
+                .build();
+    }
 
 }
