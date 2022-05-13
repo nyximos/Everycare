@@ -15,7 +15,9 @@ import java.time.LocalDate;
 
 @Getter
 @Entity
+@Builder
 @ToString
+@AllArgsConstructor
 @Table(name = "job_offer")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "job_offer_seq_generator",
@@ -71,22 +73,6 @@ public class JobOffer {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name="care_target_schedule_id")
     private CareTargetSchedule careTargetSchedule;
-
-    @Builder
-    public JobOffer(String title, LocalDate startDate, LocalDate endDate, String desiredDayWeek, String desiredStartTime, String desiredEndTime, int pay, Gender desiredCareSitterGender, String comment, CareTarget careTarget, CareTargetSchedule careTargetSchedule, Member member) {
-        this.title = title;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.desiredDayWeek = desiredDayWeek;
-        this.desiredStartTime = desiredStartTime;
-        this.desiredEndTime = desiredEndTime;
-        this.pay = pay;
-        this.desiredCareSitterGender = desiredCareSitterGender;
-        this.comment = comment;
-        this.careTarget = careTarget;
-        this.careTargetSchedule = careTargetSchedule;
-        this.member = member;
-    }
 
     public void updateInfo(JobOfferDTO jobOfferDTO) {
         if(StringUtils.isNotBlank(jobOfferDTO.getTitle())) this.comment = jobOfferDTO.getTitle();
