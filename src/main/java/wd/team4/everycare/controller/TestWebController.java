@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class TestWebController {
 
-//    @GetMapping
-//    public String testPage(){
-//        return "test";
-//    }
+    @GetMapping("/test")
+    public String testPage(){
+        return "joboffer-pay";
+    }
 }

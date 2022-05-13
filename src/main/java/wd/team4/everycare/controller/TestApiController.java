@@ -1,5 +1,9 @@
 package wd.team4.everycare.controller;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +30,35 @@ public class TestApiController {
         return test;
     }
 
+    //  @ModelAttribute
+    @PostMapping("/test")
+    public ResponseEntity<MyResponse> postTest(@ModelAttribute TestDto testDto){
+        System.out.println("컨트롤러");
+        Test test = new Test();
+        test.setId(testDto.getId());
+        test.setName(testDto.getName());
+        System.out.println("test.getId() = " + test.getId());
+        System.out.println("test.getName() = " + test.getName());
+
+        MyResponse<Test> body = MyResponse.<Test>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(test)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
+
+
+    @Getter @Setter
+    static class TestDto {
+        private String id;
+        private String name;
+    }
+
+
+    /*  @RequestParam
     @PostMapping("/test")
     public ResponseEntity<MyResponse> postTest(@RequestParam("id") String id){
         System.out.println("id = " + id);
@@ -44,8 +77,9 @@ public class TestApiController {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
+     */
 
-    /*
+    /*  @RequestBody Dto
     @PostMapping("/test")
     public ResponseEntity<MyResponse> postTest(@RequestBody Test testDTO){
 
@@ -66,7 +100,7 @@ public class TestApiController {
     */
 
 
-    /*
+    /*  @RequestBody HashMap
     @PostMapping("/test")
     public ResponseEntity<MyResponse> postTest(@RequestBody HashMap<String, String> map){
         String id = map.get("id");

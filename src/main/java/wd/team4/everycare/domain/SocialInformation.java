@@ -1,16 +1,13 @@
 package wd.team4.everycare.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
-@NoArgsConstructor
 @Entity
 @Table(name = "social_information")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator( name ="social_information_generator",
         sequenceName = "social_information_seq",
         initialValue = 1, allocationSize = 1)

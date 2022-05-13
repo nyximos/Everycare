@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import wd.team4.everycare.domain.CareSitterImage;
 import wd.team4.everycare.domain.Certification;
 import wd.team4.everycare.dto.CertificationViewDTO;
+import wd.team4.everycare.dto.careSitter.CareSitterImageDTO;
 import wd.team4.everycare.dto.member.JobOfferMemberDTO;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 @Builder
 public class JobSearchDTO {
     private Long id;
+
     private int disclosureStatus;
     private int cctvAgreement;
     private int is_vaccinated;
