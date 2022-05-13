@@ -97,7 +97,7 @@ public class JobOffer {
         if(StringUtils.isNotBlank(String.valueOf(jobOfferDTO.getDesiredCareSitterGender()))) this.desiredCareSitterGender = jobOfferDTO.getDesiredCareSitterGender();
         if(StringUtils.isNotBlank(jobOfferDTO.getComment())) this.comment = jobOfferDTO.getComment();
         if(jobOfferDTO.getCareTarget()!=null) this.careTarget = jobOfferDTO.getCareTarget().toCareTarget();
-        if(jobOfferDTO.getCareTargetSchedule()!=null) this.careTargetSchedule = jobOfferDTO.getCareTargetSchedule();
+        if(jobOfferDTO.getCareTargetSchedule()!=null) this.careTargetSchedule = jobOfferDTO.getCareTargetSchedule().toCareTargetSchedule();
     }
 
     public JobOfferDTO toJobOfferDTO(){
@@ -112,7 +112,7 @@ public class JobOffer {
                 .comment(this.comment)
                 .desiredCareSitterGender(this.desiredCareSitterGender)
                 .careTarget(this.careTarget.toJobOfferCareTargetDTO())
-                .careTargetSchedule(this.careTargetSchedule)
+                .careTargetSchedule(this.careTargetSchedule.toListDTO())
                 .member(this.member.toMemberListViewDTO())
                 .build();
     }

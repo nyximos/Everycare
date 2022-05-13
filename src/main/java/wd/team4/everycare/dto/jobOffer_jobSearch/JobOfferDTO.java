@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import wd.team4.everycare.domain.*;
+import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleDTO;
+import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.member.MemberListViewDTO;
 
 import java.time.LocalDate;
@@ -23,7 +25,7 @@ public class JobOfferDTO {
     private String desiredEndTime;                      //종료시간
     private MemberListViewDTO member;
     private JobOfferCareTargetDTO careTarget;                      //케어 대상인
-    private CareTargetSchedule careTargetSchedule;      //스케줄
+    private CareTargetScheduleListDTO careTargetSchedule;      //스케줄
 
     public JobOffer toJobOffer(){
         return JobOffer.builder()
@@ -37,7 +39,7 @@ public class JobOfferDTO {
                 .desiredCareSitterGender(this.desiredCareSitterGender)
                 .comment(this.comment)
                 .careTarget(this.careTarget.toCareTarget())
-                .careTargetSchedule(this.careTargetSchedule)
+                .careTargetSchedule(this.careTargetSchedule.toCareTargetSchedule())
                 .member(this.member.toMember())
                 .build();
     }
