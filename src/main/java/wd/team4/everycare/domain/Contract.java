@@ -11,6 +11,7 @@ import java.util.List;
 @Getter
 @Entity
 @Builder
+@AllArgsConstructor
 @Table(name = "contract")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "contract_seq_generator",
