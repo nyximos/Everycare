@@ -6,7 +6,7 @@
     <div class="r_list">
         <div class="list_more">
             <ul class="ul01">
-                <li class="li01" v-for="p in profiles" :key="p.id"  @click="move(p)">
+                <li class="li01" v-for="(p,index) in profiles" :key="index"  @click="move(p)">
                     <!-- <router-link :to="{name:'addprofile2+', params:{caresitterId:p.id}}"> -->
                         <span class="tab01">
                             <span class="img01">
@@ -70,6 +70,7 @@ export default {
     },
 	mounted(){
             // this.id = this.id;
+            // console.log(this.profiles.gender)
 			this.$http
             .get('/api/caresitters' ,{
                 withCredentials:true

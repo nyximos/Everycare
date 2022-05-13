@@ -13,24 +13,32 @@
                       </div>
                       <div class="con10_blank"></div>
                       <div class="area_profile">
-                          <div class="div_img">
-                              <label for="input_file">
+                          <!-- <div class="div_img">
+                              <label for="input_file"> -->
                                   <!-- <img :src="avatar" class="img-avatar"> -->
-                                  <img src="@/assets/user.png">
+                                  <!-- <img src="@/assets/user.png">
                               </label>
-                          </div>
+                          </div> -->
                           <div class="div_text">
-                                 <!-- <span><input type="file" v-bind:src="image" id="uppic" accept="image/gif,image/jpg,image/png" @change="changeImage($event)" ref="avatarInput" class="uppic"></span> -->
+                                 <span><input type="file" v-bind:src="image" id="uppic" accept="image/gif,image/jpg,image/png" @change="changeImage($event)" ref="avatarInput" class="uppic"></span>
                               <!-- <v-file-input v-model="attachFiles" id="attachFiles" truncate-length="22" label="사진을 넣으세요" ></v-file-input> -->
                           <br><br>
-                              <v-file-input 
+                          <div v-if="!image">
+                              <!-- <v-file-input 
                               v-model="attachFiles" 
                               label="File input" 
                               type="file"
                               id="attachFiles"
                               multiple="multiple"
+                              @change="onFileChange"
                               outlined dense>
-                              </v-file-input>
+                              </v-file-input> -->
+                              <input type="file"  @change="onFileChange">
+                            </div>
+                            <div v-else>
+                                <img :src="image" />
+                                <button @click="removeImage">제거</button>
+                            </div>
                           </div>
                           <div class="con10_blank"></div>
                           <div class="con10 con1">
@@ -196,7 +204,7 @@
                                 <v-btn class="ma-2" outlined color="indigo" @click="submit">완료</v-btn>
                           <!-- </router-link> -->
                           <router-link to="/"> <v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
-                                  </div>
+                         </div>
                       </div>
                   </div>
               </div>
@@ -211,17 +219,17 @@ export default {
     data(){
         return{
           hope_location1:[
-       {name: '서울', value: '서울'},
-       {name: '인천', value: '인천'},
+      {name: '서울', value: '서울'},
+      {name: '인천', value: '인천'},
       {name: '경기', value: '경기'},
       {name: '부산', value: '부산'},
       {name: '대구', value: '대구'},
       {name: '대전', value: '대전'},
       {name: '세종', value: '세종'},
       {name: '광주', value: '광주'},
-         {name: '울산', value: '울산'},
+      {name: '울산', value: '울산'},
       {name: '강원', value: '강원'},
-           {name: '경남', value: '경남'},
+      {name: '경남', value: '경남'},
       {name: '경북', value: '경북'},
       {name: '전남', value: '전남'},
       {name: '전북', value: '전북'},
@@ -519,6 +527,25 @@ export default {
         }
     },
 methods:{
+    onFileChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length)
+        return;
+      this.createImage(files[0]);
+    },
+    createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = (e) => {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
+    removeImage: function (e) {
+      this.image = '';
+    },
       categoryChange(event){
         if(event =='서울'){
           this.detail_area = this.area1;
@@ -556,83 +583,6 @@ methods:{
           this.detail_area = this.area17
         }
       },
-      
-      // categoryChange1(event){
-      //   if(event =='서울'){
-      //     this.detail1_area = this.area1;
-      //   }else if(event == '인천'){
-      //     this.detail1_area = this.area2;
-      //   }else if(event =='경기'){
-      //     this.detail1_area = this.area3;
-      //   }else if(event =='부산'){
-      //     this.detail1_area = this.area4
-      //   }else if(event =='대구'){
-      //     this.detail1_area = this.area5
-      //   }else if(event =='대전'){
-      //     this.detail1_area = this.area6
-      //   }else if(event =='세종'){
-      //     this.detail1_area = this.area7
-      //   }else if(event =='광주'){
-      //     this.detail1_area = this.area8
-      //   }else if(event =='울산'){
-      //     this.detail1_area = this.area9
-      //   }else if(event =='강원'){
-      //     this.detail1_area = this.area10
-      //   }else if(event =='경남'){
-      //     this.detail1_area = this.area11
-      //   }else if(event =='경북'){
-      //     this.detail1_area = this.area12
-      //   }else if(event =='전남'){
-      //     this.detail1_area = this.area13
-      //   }else if(event =='전북'){
-      //     this.detail1_area = this.area14
-      //   }else if(event =='충남'){
-      //     this.detail1_area = this.area15
-      //   }else if(event =='충북'){
-      //     this.detail1_area = this.area16
-      //   }else if(event =='제주'){
-      //     this.detail1_area = this.area17
-      //   }
-        
-      // },
-      // categoryChange2(event){
-      //   if(event =='서울'){
-      //     this.detail_area = this.area1;
-      //   }else if(event == '인천'){
-      //     this.detail_area = this.area2;
-      //   }else if(event =='경기'){
-      //     this.detail_area = this.area3;
-      //   }else if(event =='부산'){
-      //     this.detail_area = this.area4
-      //   }else if(event =='대구'){
-      //     this.detail_area = this.area5
-      //   }else if(event =='대전'){
-      //     this.detail_area = this.area6
-      //   }else if(event =='세종'){
-      //     this.detail_area = this.area7
-      //   }else if(event =='광주'){
-      //     this.detail_area = this.area8
-      //   }else if(event =='울산'){
-      //     this.detail_area = this.area9
-      //   }else if(event =='강원'){
-      //     this.detail_area = this.area10
-      //   }else if(event =='경남'){
-      //     this.detail_area = this.area11
-      //   }else if(event =='경북'){
-      //     this.detail_area = this.area12
-      //   }else if(event =='전남'){
-      //     this.detail_area = this.area13
-      //   }else if(event =='전북'){
-      //     this.detail_area = this.area14
-      //   }else if(event =='충남'){
-      //     this.detail_area = this.area15
-      //   }else if(event =='충북'){
-      //     this.detail_area = this.area16
-      //   }else if(event =='제주'){
-      //     this.detail_area = this.area17
-      //   }
-        
-      // },
         submit(){
             var formData= new FormData();
 
@@ -658,8 +608,10 @@ methods:{
                 console.log(res);
             }).catch(err=>{
                 console.log(err);
-                     })
+            })
             this.$router.push({ path: '/Main' })
+            // this.$store.commit('careprofileStore/submit' ,formData)
+            // // console.log(this.$store.state.careprofileStore.id)
         },
     }
 }

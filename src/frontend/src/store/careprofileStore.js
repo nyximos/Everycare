@@ -1,25 +1,7 @@
 export default {
     namespaced: true,
     state: {
-        image: '',
-        name: '',
-        gender: '',
-        age: '',
-        introduction: '',
-        hopeloc1: '',
-        hopeloc2: '',
-        hopeloc3: '',
-        desiredDayWeek: '',
-        starttimepicker: '',
-        endtimepicker: '',
-        paytype: '',
-        desiredHourlyWage: '',
-        desiredMonthlyWage:'',
-        hopetype:'',
-        preferredType:'',
-        vaccination:'',
-        cctv:'',
-        certification:''
+        id:''
     },
     mutations: {
         set_user1(state, userData) {
@@ -46,6 +28,9 @@ export default {
             state.vaccination = userData.vaccination;
             state.cctvAgreement = userData.cctvAgreement;
             state.certification = userData.certification;
+        },
+        submit(state, formData){
+            state.id = formData.id;
         }
     },
     actions: {

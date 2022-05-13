@@ -89,9 +89,20 @@ const routes = [
         component: () => import('@/components/main/addprofile2.vue')
     },
     {
+        path: '/caresitterprofile/:caresitterId',
+        name: 'caresitterprofile',
+        // props:true,
+        component: () => import('@/components/main/caresitterprofile.vue')
+    },
+    {
         path: '/dashboard/careprofile2',
         name: 'careprofile2',
         component: () => import('@/pages/Careprofile2.vue')
+    },
+    {
+        path: '/contract',
+        name: 'contract',
+        component: () => import('@/pages/Contract.vue')
     },
     // {
     //     path: '/recruitions',
