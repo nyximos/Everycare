@@ -118,10 +118,22 @@ const routes = [
         component: () => import('@/pages/Caretargets.vue')
     },
     {
-        path: '/caretargetsdetail',
+        path: '/caretargetsdetail/:caretargetsId',
         name: 'CaretargetsDetail',
-        component: () => import('@/pages/CaretargetsDetail.vue')
+        component: () => import('@/components/main/caretargetsdetail.vue')
     },
+    // {
+    //     path: '/targets_update/:caretargetsId',
+    //     name: 'targets_update',
+    //     component: () => import('@/pages/Targets_update.vue')
+    // },
+    {
+        path: '/caretargets_update/:caretargetsId',
+        name: 'TargetsUpdate',
+        // component: () => import('@/pages/Targets_update.vue')
+        component: () => import('@/components/main/caretargets_update.vue')
+    },
+    
 ];
 
 const router = new VueRouter({

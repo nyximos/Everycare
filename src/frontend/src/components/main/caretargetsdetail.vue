@@ -115,14 +115,15 @@
 
 <script>
 export default {
-	name:'caretargetsDetail',
+	name:'CaretargetsDetail',
 mounted() {
-    const id = Number(this.$route.params.contentId);
+    const id = this.$route.params.caretargetsId;
 	this.$http.get(`/api/dashboard/caretargets/${id}`, {
 		withCredentials: true
 	})
+	
     .then((res)=>{
-        console.log(res)
+        console.log(res.data.body);
         this.name = res.data.body.name
         this.gender = res.data.body.gender
         this.birth = res.data.body.birth
