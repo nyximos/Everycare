@@ -9,32 +9,41 @@
 						<div class="photoArea">
 							<span class="photo">
 								<a href="#ResumeBaseInfo" class="image" style="position:static;left:0;bottom:0;display:block;width:auto;height:auto;padding:0;border:0 none;background:none">
-									<img id="divProfile" src="//image.alba.kr/person/profile_no_female.png" alt="사진">
+									<img id="divProfile" :src="'https://localhost:8086/api/images/'+this.attachFiles" alt="사진">
+									
 								</a>
 							</span>
 						</div>
 						
 							<ul class="infoList">
-								<li class="name"><strong>{{name}}</strong> <em>{{gender}}</em>  ·{{$store.state.careprofileStore.age}}(년생) <br></li>
-                                <li class="name"><strong>{{$store.state.careprofileStore.name}}</strong> <em>{{$store.state.careprofileStore.sex}}</em>  ·{{$store.state.careprofileStore.age}}(년생) <br></li>
-								<li class="address"><span class="info-title">주소</span>경남 거제시 <span class="star">******</span></li>
+								<li class="name"><strong>{{name}}</strong> <em>{{gender}}</em>  ·{{birth}} <br></li>
+                                <!-- <li class="name"><strong>{{$store.state.careprofileStore.name}}</strong> <em>{{$store.state.careprofileStore.sex}}</em>  <br></li> -->
+								<li class="address"><span class="info-title">키</span>{{height}} <span class="star"></span></li>
 								<li class="contact">
-								<span class="info-title">연락처</span>010-****-****
+								<span class="info-title">몸무게</span>{{weight}}
 								</li>
-								<li class="mail"><span class="info-title">이메일</span><span class="star">****</span>@<span class="star">이메일.com</span></li>
+								<li class="mail"><span class="info-title">주소</span><span class="star">{{address}} {{detailedAddress}}</span><span class="star"></span></li>
 							</ul>
 					</div>
 					<div id="ResumeCareer" class="resumeView">
 						<h2>정보</h2>
 						<div class="infoArea first"> 	
 							<div class="nameArea">
-								<dt class="title">CCTV 동의여부:{{$store.state.careprofileStore.cctvAgreement}}	</dt>
+								<dt class="title">케어유형:{{careType}}	</dt>
+								
+							</div>
+							<div class="nameArea">
+								<dt class="title">반려동물 유무:{{pet}}	</dt>
+								
+							</div>
+							<div class="nameArea">
+								<dt class="title">CCTV 동의여부:{{isCctvAgreement}}	</dt>
 								<!-- <p class="date">CCTV 동의여부:{{this.$store.state.careprofileStore.cctv}}</p> -->
 							</div> 	
 							<dl class="infoDetail"> 		
-								<dt class="title">백신접종: <span>{{$store.state.careprofileStore.vaccination}}</span></dt> 
+								<dt class="title">백신접종: <span>{{coronaTest}}</span></dt> 
 								
-								<dt class="title">자격증</dt> 
+								
 								<dd class="kind">
 									<ul>
 										
@@ -43,74 +52,19 @@
 							</dl> 
 						</div> 
 					</div>
-					<div id="ResumeTerms" class="resumeView">
-						<h2>희망근무</h2>
-						<table class="resumeView-table" summary="근무기간, 근무요일, 근무형태">
-							<colgroup>
-								<col width="33.3%">
-								<col width="33.3%">
-								<col width="33.3%">
-							</colgroup>
-							<caption>희망근무지</caption>
-							<thead class="hide">
-								<tr>
-									<th>근무요일</th>
-									<th>근무시간</th>
-									<th>근무급여</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>
-										<dl class="item">
-											<dt class="title">{{$store.state.careprofileStore.desiredDayWeek}}</dt>
-										</dl>
-									</td>
-									<td>
-										<dl class="item">
-											<dt class="title">{{$store.state.careprofileStore.activityTime}}</dt>
-										</dl>
-									</td>
-									<td>
-										<dl class="item">
-											<dt class="title">{{$store.state.careprofileStore.pay}}</dt>
-											<dd>{{$store.state.careprofileStore.desiredHourlyWage}}</dd>
-										</dl>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<ul class="fullList">
-							<li>
-								<span class="title">희망근무지</span>
-								<p class="result">
-									1순위:{{$store.state.careprofileStore.hopeloc1}}&nbsp;&nbsp;&nbsp; 
-									2순위:{{$store.state.careprofileStore.hopeloc2}}&nbsp;&nbsp;&nbsp;
-									3순위:{{$store.state.careprofileStore.hopeloc3}}
-								</p>
-						
-							</li>
-							<li>
-								<span class="title">희망업직종</span>
-								<span class="result">{{$store.state.careprofileStore.hopetype}}</span>
-							</li>
-						</ul>
-					</div>
+					
 					<div id="ResumePR" class="resumeView">
-						<h2>자기소개서</h2>
-						<div class="ResumeOpenBox"><span class="lockIcon"></span><p class="first">{{$store.state.careprofileStore.introduction}}</p></div>
+						<h2>특이사항</h2>
+						<div class="ResumeOpenBox"><span class="lockIcon"></span><p class="first">{{comment}}</p></div>
 					</div>
-                    <div id="#" class="resumeView">
-                        <h2>후기</h2>
-                    </div>
-                    <div id="#" class="resumeView">
-                        <h2>활동내역</h2>
-                    </div>
+                    
 				</div>
 			</div>
 			</div>
         </div>
+		<v-btn class="ma-2" outlined color="indigo" @click="clickme">돌아가기</v-btn>
 		</div>
+		
 </template>
 
 <script>
@@ -138,7 +92,8 @@ mounted() {
 		this.isCctvAgreement = res.data.body.isCctvAgreement
 		this.careType = res.data.body.careType
 		this.coronaTest = res.data.body.coronaTest
-		this.attachFiles = res.data.body.attachFiles
+		// this.attachFiles = res.data.body.attachFiles
+		this.attachFiles = res.data.body.attachFiles[0].storeFileName
     })
     .catch((err)=>{
         console.log(err)
@@ -163,6 +118,11 @@ data(){
         attachFiles: this.attachFiles,
     }
 },
+methods:{
+	clickme(){
+		location.href = '/caretargets';
+	}
+}
 }
 	// data(){
 	// 	return{

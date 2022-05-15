@@ -55,11 +55,11 @@
 
   </v-card>
   </li>
-  <li>
+  <!-- <li>
     <a href="#" class="_3vyujQUKFF">케어대상인을 등록해주세요</a>
-  </li>
+  </li> -->
 </ul>
-
+<v-btn class="ma-2" outlined color="indigo" @click="clickme">돌아가기</v-btn>
 
 </div>
 </template>
@@ -89,6 +89,9 @@ export default {
     }).catch((err)=>{
       console.log(err)
     })
+  },
+  clickme(){
+    location.href = '/';
   }
 
   },

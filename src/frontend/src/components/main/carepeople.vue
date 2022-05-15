@@ -4,22 +4,21 @@
           <div class="div_join">
               <div class="contents">
     <div class="upload-box">
-      <div id="drop-file" class="drag-file">
+      <!-- <div id="drop-file" class="drag-file">
           <div class="div_img">
                               <label for="input_file">
                                   <img :src="avatar" class="img-avatar">                                  
                               </label>
                           </div>
-                          <!-- <span><input type="file" v-bind:src="image" id="uppic" accept="image/gif,image/jpg,image/png" @change="changeImage($event)" ref="avatarInput" class="uppic"></span> -->
-                              <!-- <v-file-input v-model="image" truncate-length="22" label="사진을 넣으세요" ></v-file-input> -->
+                        
                               
          <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" >
         <p class="message">사진을 등록 해주세요.</p>
         <span><input type="file" v-bind:src="attachFiles" accept="image/gif,image/jpg,image/png" @change="changeImage($event)" ref="avatarInput" class="preview"></span>
          <img src="" alt="미리보기 이미지" class="preview"> 
-      </div>
-      <label class="file-label" for="attachFiles">이미지 찾기</label>
-      <v-file-input class="file" v-model="attachFiles" id="attachFiles" type="file" multiple="multiple" accept="image/png, image/jpeg, image/gif"></v-file-input>
+      </div> -->
+      <!-- <label class="file-label" for="attachFiles">이미지 찾기</label>
+      <v-file-input class="file" v-model="attachFiles" id="attachFiles" type="file" multiple="multiple" accept="image/png, image/jpeg, image/gif"></v-file-input> -->
     </div>
   </div>
   <br>
