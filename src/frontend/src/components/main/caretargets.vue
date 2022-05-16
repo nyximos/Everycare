@@ -33,8 +33,7 @@
 <v-btn
       tile
       color="success"
-    >
-      
+    > 
       수정
     </v-btn>
         <v-chip>7:30PM</v-chip>

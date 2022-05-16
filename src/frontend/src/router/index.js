@@ -102,7 +102,12 @@ const routes = [
         path: '/caretargets',
         name: 'Caretargets',
         component: () => import('@/pages/Caretargets.vue')
-    }
+    },
+    {
+        path: '/adminpage',
+        name: 'adminpage',
+        component: () => import('@/pages/Adminpage.vue')
+    },
 ];
 
 const router = new VueRouter({
