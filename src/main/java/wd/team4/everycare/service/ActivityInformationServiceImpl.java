@@ -60,14 +60,13 @@ public class ActivityInformationServiceImpl implements ActivityInformationServic
     }
 
     @Override
-    public ResponseEntity<MyResponse> save(ActivityInformationFormDTO activityInformationFormDTO) {
+    public ResponseEntity<MyResponse> save(Long id, ActivityInformationFormDTO activityInformationFormDTO) {
 
         Long activityClassificationId = activityInformationFormDTO.getActivityClassificationId();
         Optional<ActivityClassification> activityClassification = activityClassificationRepository.findById(activityClassificationId);
         ActivityClassification activityClassificationEntity = activityClassification.orElse(null);
 
-        Long scheduleId = activityInformationFormDTO.getScheduleId();
-        Optional<CareTargetSchedule> careTargetSchedule = careTargetScheduleRepository.findById(scheduleId);
+        Optional<CareTargetSchedule> careTargetSchedule = careTargetScheduleRepository.findById(id);
         CareTargetSchedule careTargetScheduleEntity = careTargetSchedule.orElse(null);
 
         ActivityInformation activityInformation = ActivityInformation.builder()
@@ -88,9 +87,9 @@ public class ActivityInformationServiceImpl implements ActivityInformationServic
     }
 
     @Override
-    public ResponseEntity<MyResponse> update(ActivityInformationFormDTO activityInformationFormDTO) {
+    public ResponseEntity<MyResponse> update(Long id, ActivityInformationFormDTO activityInformationFormDTO) {
 
-        Optional<ActivityInformation> activityInformation = activityInformationRepository.findById(activityInformationFormDTO.getScheduleId());
+        Optional<ActivityInformation> activityInformation = activityInformationRepository.findById(id);
         ActivityInformation activityInformationEntity = activityInformation.orElse(null);
         if(activityInformationEntity!=null) {
             activityInformationEntity.update(activityInformationFormDTO);
