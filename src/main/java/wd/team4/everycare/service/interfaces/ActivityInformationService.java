@@ -13,7 +13,7 @@ public interface ActivityInformationService {
 
     ResponseEntity<MyResponse> save(Long id, ActivityInformationFormDTO activityInformationFormDTO);
 
-    ResponseEntity<MyResponse> update(ActivityInformationFormDTO activityInformationFormDTO);
+    ResponseEntity<MyResponse> update(Long id, ActivityInformationFormDTO activityInformationFormDTO);
 
     ResponseEntity<MyResponse> remove(Long activityId);
 

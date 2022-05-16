@@ -2,6 +2,7 @@ package wd.team4.everycare.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
@@ -31,8 +32,9 @@ public class ActivityInformationApiController {
 
     @PatchMapping("/dashboard/caretargets/{careTargetId}/schedules/{scheduleId}/activities/{activityId}")
     public ResponseEntity<MyResponse> updateActivityInformation(
+            @PathVariable("activityId") Long id,
             @ModelAttribute ActivityInformationFormDTO activityInformationFormDTO){
-        ResponseEntity<MyResponse> responseEntity = activityInformationService.update(activityInformationFormDTO);
+        ResponseEntity<MyResponse> responseEntity = activityInformationService.update(id,activityInformationFormDTO);
         return responseEntity;
     }
 

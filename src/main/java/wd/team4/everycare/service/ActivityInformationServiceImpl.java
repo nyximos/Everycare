@@ -87,9 +87,9 @@ public class ActivityInformationServiceImpl implements ActivityInformationServic
     }
 
     @Override
-    public ResponseEntity<MyResponse> update(ActivityInformationFormDTO activityInformationFormDTO) {
+    public ResponseEntity<MyResponse> update(Long id, ActivityInformationFormDTO activityInformationFormDTO) {
 
-        Optional<ActivityInformation> activityInformation = activityInformationRepository.findById(activityInformationFormDTO.getScheduleId());
+        Optional<ActivityInformation> activityInformation = activityInformationRepository.findById(id);
         ActivityInformation activityInformationEntity = activityInformation.orElse(null);
         if(activityInformationEntity!=null) {
             activityInformationEntity.update(activityInformationFormDTO);
