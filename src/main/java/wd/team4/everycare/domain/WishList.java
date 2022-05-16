@@ -7,6 +7,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @Builder
+@AllArgsConstructor
 @Table(name = "wish_list")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "wish_list_seq_generator",

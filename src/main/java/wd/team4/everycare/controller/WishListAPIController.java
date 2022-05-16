@@ -16,14 +16,20 @@ public class WishListAPIController {
     private final WishListServiceImpl wishListService;
 
     @GetMapping("/dashboard/wishlist")
-    public ResponseEntity<MyResponse> getWishList(@AuthenticationPrincipal PrincipalDetails principalDetails){
+    public ResponseEntity<MyResponse> getWishList(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         ResponseEntity<MyResponse> responseEntity = wishListService.getAll(principalDetails);
         return responseEntity;
     }
 
     @PostMapping("/products/{id}/wish")
-    public ResponseEntity<MyResponse> saveWishList(@PathVariable("id") Long id, @AuthenticationPrincipal PrincipalDetails principalDetails){
+    public ResponseEntity<MyResponse> saveWishList(@PathVariable("id") Long id, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         ResponseEntity<MyResponse> responseEntity = wishListService.save(id, principalDetails);
+        return responseEntity;
+    }
+
+    @DeleteMapping("/dashboard/wishlist/{id}")
+    public ResponseEntity<MyResponse> deleteWishList(@PathVariable("id") Long id) {
+        ResponseEntity<MyResponse> responseEntity = wishListService.remove(id);
         return responseEntity;
     }
 

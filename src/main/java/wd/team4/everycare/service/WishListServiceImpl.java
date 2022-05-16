@@ -84,4 +84,15 @@ public class WishListServiceImpl {
 
 
     }
+
+    public ResponseEntity<MyResponse> remove(Long id) {
+
+        wishListRepository.deleteById(id);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
 }
