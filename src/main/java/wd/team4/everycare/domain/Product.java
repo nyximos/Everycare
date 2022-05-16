@@ -1,14 +1,12 @@
 package wd.team4.everycare.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
+import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 import wd.team4.everycare.dto.UploadFile;
-import wd.team4.everycare.dto.product.MemberProductsViewDTO;
+import wd.team4.everycare.dto.product.MemberProductListViewDTO;
 import wd.team4.everycare.dto.product.ProductFormDTO;
+import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -16,8 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@Builder
+@DynamicUpdate
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "product_seq_generator",
             sequenceName = "product_seq",
             initialValue = 1, allocationSize = 1)
@@ -63,21 +64,8 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductImage> productImages = new ArrayList<>();
 
-    @Builder
-    public Product(Long id, String name, int price, int inventoryQuantity, String comment, int isSale, LocalDateTime createdAt, Store store, ProductCategory productCategory) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.inventoryQuantity = inventoryQuantity;
-        this.comment = comment;
-        this.isSale = isSale;
-        this.createdAt = createdAt;
-        this.store = store;
-        this.productCategory = productCategory;
-    }
-
-    public MemberProductsViewDTO toMemberProductsViewDTO() {
-        return MemberProductsViewDTO.builder()
+    public MemberProductListViewDTO toMemberProductsViewDTO() {
+        return MemberProductListViewDTO.builder()
                 .id(this.id)
                 .name(this.name)
                 .price(this.price)
@@ -114,4 +102,24 @@ public class Product {
     public void saveProductCategory(ProductCategory productCategory){
         this.productCategory = productCategory;
     }
+
+    public void updateProduct(ProductFormDTO productFormDTO) {
+        if(StringUtils.isNotBlank(productFormDTO.getName())) {
+            this.name = productFormDTO.getName();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(productFormDTO.getPrice()))) {
+            this.price = productFormDTO.getPrice();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(productFormDTO.getInventoryQuantity()))) {
+            this.price = productFormDTO.getInventoryQuantity();
+        }
+        if(StringUtils.isNotBlank(productFormDTO.getComment())) {
+            this.comment = productFormDTO.getComment();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(productFormDTO.getIsSale()))) {
+            this.isSale = productFormDTO.getIsSale();
+        }
+    }
+
+
 }

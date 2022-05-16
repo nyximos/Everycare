@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "certification_seq_generator",
         sequenceName = "certification_seq",
         initialValue = 1, allocationSize = 1)

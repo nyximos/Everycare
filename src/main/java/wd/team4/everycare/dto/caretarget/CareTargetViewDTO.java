@@ -1,4 +1,4 @@
-package wd.team4.everycare.dto;
+package wd.team4.everycare.dto.caretarget;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;

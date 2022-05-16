@@ -1,17 +1,20 @@
 package wd.team4.everycare.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationListViewDTO;
+import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
+import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationFormDTO;
+import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationViewDTO;
+import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
 
 @Getter
-@NoArgsConstructor
 @Entity
+@Builder
+@DynamicUpdate
+@AllArgsConstructor
 @Table(name = "activity_information")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "activity_information_seq_generator",
         sequenceName = "activity_information_seq",
         initialValue = 1, allocationSize = 1)
@@ -40,12 +43,12 @@ public class ActivityInformation {
     private String storeFileName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "care_target_schedule_id")
-    private CareTargetSchedule careTargetSchedule;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "activity_classification_id")
     private ActivityClassification activityClassification;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "care_target_schedule_id")
+    private CareTargetSchedule careTargetSchedule;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_sitter_activity_id")
@@ -64,8 +67,8 @@ public class ActivityInformation {
                 '}';
     }
 
-    public ActivityInformationListViewDTO toListViewDTO(){
-        return ActivityInformationListViewDTO.builder()
+    public ActivityInformationViewDTO toListViewDTO(){
+        return ActivityInformationViewDTO.builder()
                 .id(this.id)
                 .startTime(this.startTime)
                 .endTime(this.endTime)
@@ -87,4 +90,16 @@ public class ActivityInformation {
     }
 
 
+    public void update(ActivityInformationFormDTO activityInformationFormDTO) {
+
+        if(StringUtils.isNotBlank(activityInformationFormDTO.getStartTime())) {
+            this.startTime = activityInformationFormDTO.getStartTime();
+        }
+        if(StringUtils.isNotBlank(activityInformationFormDTO.getEndTime())) {
+            this.endTime = activityInformationFormDTO.getEndTime();
+        }
+        if(StringUtils.isNotBlank(activityInformationFormDTO.getRequirement())) {
+            this.requirement = activityInformationFormDTO.getRequirement();
+        }
+    }
 }

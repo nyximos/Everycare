@@ -2,6 +2,8 @@ package wd.team4.everycare.dto.careTargetSchedule;
 
 import lombok.*;
 
+import java.util.List;
+
 @Builder
 @Getter
 @Setter
@@ -9,9 +11,8 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class ActivityInformationListViewDTO {
-    private Long id;
-    private String startTime;
-    private String endTime;
-    private String requirement;
-    private ActivityClassificationDTO activityClassificationDTO;
+
+    private CareTargetScheduleDTO careTargetScheduleDTO;
+    private List<ActivityInformationViewDTO> activityInformationViewDTOs;
+
 }

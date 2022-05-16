@@ -18,13 +18,13 @@ public class ProductApiController {
 
     private final ProductServiceImpl productService;
 
-    @GetMapping("/products")
+    @GetMapping("/store/products")
     public ResponseEntity<MyResponse> getProducts(){
         ResponseEntity<MyResponse> responseEntity = productService.findAll();
         return responseEntity;
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/store/products/{id}")
     public ResponseEntity<MyResponse> getProduct(@PathVariable Long id){
         ResponseEntity<MyResponse> responseEntity = productService.findById(id);
         return responseEntity;
@@ -33,6 +33,30 @@ public class ProductApiController {
     @PostMapping("/dashboard/store/products")
     public ResponseEntity<MyResponse> saveProduct(@AuthenticationPrincipal PrincipalDetails principalDetails, @ModelAttribute ProductFormDTO productFormDTO) throws IOException {
         ResponseEntity<MyResponse> responseEntity = productService.save(principalDetails, productFormDTO);
+        return responseEntity;
+    }
+
+    @GetMapping("/dashboard/store/products")
+    public ResponseEntity<MyResponse> getMemberProducts(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        ResponseEntity<MyResponse> responseEntity = productService.findAll(principalDetails.getStore());
+        return responseEntity;
+    }
+
+    @GetMapping("/dashboard/store/products/{id}")
+    public ResponseEntity<MyResponse> getMemberProduct(@PathVariable Long id){
+        ResponseEntity<MyResponse> responseEntity = productService.productFindById(id);
+        return responseEntity;
+    }
+
+    @PatchMapping("/dashboard/store/products/{id}")
+    public ResponseEntity<MyResponse> updateProduct(@PathVariable Long id, @ModelAttribute ProductFormDTO productFormDTO) throws IOException {
+        ResponseEntity<MyResponse> responseEntity = productService.updateProduct(id, productFormDTO);
+        return responseEntity;
+    }
+
+    @DeleteMapping("/dashboard/store/products/{id}")
+    public ResponseEntity<MyResponse> deleteProduct(@PathVariable Long id) {
+        ResponseEntity<MyResponse> responseEntity = productService.deleteProduct(id);
         return responseEntity;
     }
 

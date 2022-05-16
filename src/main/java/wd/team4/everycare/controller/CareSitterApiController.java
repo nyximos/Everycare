@@ -24,8 +24,13 @@ public class CareSitterApiController {
 
     private final CareSitterServiceImpl careSitterService;
 
-    @PostMapping("/dashboard/caresitter")
+    @GetMapping("/dashboard/caresitter")
+    public ResponseEntity<MyResponse> getCaresitter(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        ResponseEntity<MyResponse> responseEntity = careSitterService.findCareSitterByMember(principalDetails);
+        return responseEntity;
+    }
 
+    @PostMapping("/dashboard/caresitter")
     public ResponseEntity<MyResponse> saveCareSitter(
             @ModelAttribute CareSitterFormDTO careSitterFormDTO,
             @AuthenticationPrincipal PrincipalDetails principalDetails

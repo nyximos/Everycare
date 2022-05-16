@@ -4,8 +4,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.member.JobOfferMemberDTO;
+import wd.team4.everycare.dto.member.MemberAccountDTO;
 import wd.team4.everycare.dto.member.MemberInfoDTO;
+import wd.team4.everycare.dto.member.MemberListViewDTO;
+import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,11 +18,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
+@DynamicUpdate
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id
@@ -72,7 +76,7 @@ public class Member {
     @Column(name = "member_bank", length = 45)
     private String bank;
 
-    @Column(name = "member_account_member")
+    @Column(name = "member_account_number")
     private String accountNumber;
 
     @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
@@ -80,9 +84,6 @@ public class Member {
 
     @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
     private Store store;
-
-    @OneToMany(mappedBy = "member")
-    private List<CareTarget> careTargets = new ArrayList<>();
 
     @Builder
     public Member(String id, String password, String name, MemberRole role, Gender gender, LocalDate birth, String phone, String email, LocalDateTime createdAt, ActivityStatus activityStatus, String zipcode, String address, String detailedAddress, String bank, String accountNumber) {
@@ -103,10 +104,6 @@ public class Member {
         this.accountNumber = accountNumber;
     }
 
-    public void encodePassword(String password){
-       this.password = password;
-    }
-
     public void registrationAdmin(LocalDateTime time){
         this.role = MemberRole.ROLE_ADMIN;
         this.adminRegistrationDate = time;
@@ -118,5 +115,62 @@ public class Member {
                 .name(this.name)
                 .role(this.role)
                 .build();
+    }
+
+    public MemberListViewDTO toMemberListViewDTO(){
+        return MemberListViewDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .role(this.role)
+                .gender(this.gender)
+                .birth(this.birth)
+                .phone(this.phone)
+                .email(this.email)
+                .createdAt(this.createdAt)
+                .activityStatus(this.activityStatus)
+                .build();
+    }
+
+    public JobOfferMemberDTO toJobOfferMemberDTO(){
+        return JobOfferMemberDTO.builder()
+                .name(this.name)
+                .address(this.address)
+                .birth(this.birth)
+                .gender(String.valueOf(this.gender))
+                .email(this.email)
+                .phone(this.phone)
+                .build();
+  }
+  public void updateAccount(MemberAccountDTO memberAccountDTO) {
+        if(StringUtils.isNotBlank(memberAccountDTO.getId())) {
+            this.id = memberAccountDTO.getId();
+        }
+        if(StringUtils.isNotBlank(memberAccountDTO.getName())) {
+            this.name = memberAccountDTO.getName();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(memberAccountDTO.getGender()))) {
+            this.gender = memberAccountDTO.getGender();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(memberAccountDTO.getBirth()))) {
+            this.birth = memberAccountDTO.getBirth();
+        }
+        if(StringUtils.isNotBlank(memberAccountDTO.getPhone())) {
+            this.phone = memberAccountDTO.getPhone();
+        }
+        if(StringUtils.isNotBlank(memberAccountDTO.getEmail())) {
+            this.email = memberAccountDTO.getEmail();
+        }
+        if(StringUtils.isNotBlank(memberAccountDTO.getAccountNumber())) {
+            this.zipcode = memberAccountDTO.getZipcode();
+        }
+        if(StringUtils.isNotBlank(memberAccountDTO.getAddress())) {
+            this.address = memberAccountDTO.getAddress();
+        }
+        if(StringUtils.isNotBlank(memberAccountDTO.getBank())) {
+            this.bank = memberAccountDTO.getBank();
+        }
+        if(StringUtils.isNotBlank(memberAccountDTO.getAccountNumber())) {
+            this.accountNumber = memberAccountDTO.getAccountNumber();
+        }
     }
 }

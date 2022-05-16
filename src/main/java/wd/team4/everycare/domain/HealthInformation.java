@@ -1,17 +1,15 @@
 package wd.team4.everycare.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
-@NoArgsConstructor
 @Entity
 @Table(name = "health_information")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "health_information_seq_generator",
         sequenceName = "health_information_seq",
         initialValue = 1, allocationSize = 1)

@@ -10,7 +10,7 @@ import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetImage;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleDTO;
-import wd.team4.everycare.dto.CareTargetViewDTO;
+import wd.team4.everycare.dto.caretarget.CareTargetViewDTO;
 import wd.team4.everycare.repository.CareTargetRepository;
 import wd.team4.everycare.service.CareTargetScheduleServiceImpl;
 import wd.team4.everycare.service.CareTargetServiceImpl;
@@ -26,15 +26,15 @@ public class CareTargetWebController {
     private final CareTargetRepository careTargetRepository;
     private final CareTargetScheduleServiceImpl careTargetScheduleService;
 
-    @GetMapping("/dashboard/caretargets")
-    public String caretargets(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
-        String id = principalDetails.getUsername();
-        List<CareTarget> careTargets = careTargetService.findCareTargets(id);
-        if(careTargets!=null){
-            model.addAttribute("careTargets", careTargets);
-        }
-        return "caretargets";
-    }
+//    @GetMapping("/dashboard/caretargets")
+//    public String caretargets(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails){
+//        String id = principalDetails.getUsername();
+//        List<CareTarget> careTargets = careTargetService.findCareTargets(id);
+//        if(careTargets!=null){
+//            model.addAttribute("careTargets", careTargets);
+//        }
+//        return "caretargets";
+//    }
 
     @GetMapping("/dashboard/caretargets/new")
     public String newCareTarget() {

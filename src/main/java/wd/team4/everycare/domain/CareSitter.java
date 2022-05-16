@@ -5,6 +5,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 import wd.team4.everycare.dto.careSitter.CareSitterFormDTO;
 import wd.team4.everycare.dto.careSitter.CareSitterNameDTO;
+import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobSearchDTO;
+import wd.team4.everycare.dto.jobOffer_jobSearch.JobSearchDTO;
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
@@ -12,10 +14,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@DynamicUpdate
 @Getter
-@NoArgsConstructor
 @Entity
+@DynamicUpdate
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "care_sitter_seq_generator",
         sequenceName = "care_sitter_seq",
         initialValue = 1, allocationSize = 1)
@@ -37,7 +39,7 @@ public class CareSitter {
     @Column(name = "care_sitter_desired_day_week", length = 50, nullable = false)
     private String desiredDayWeek;
 
-    @Column(name = "care_sitter_activity_time", length = 5, nullable = false)
+    @Column(name = "care_sitter_desired_activity_time", nullable = false)
     private String activityTime;
 
     @Column(name = "care_sitter_desired_hourly_wage", length = 50, nullable = false)
@@ -95,6 +97,38 @@ public class CareSitter {
         return CareSitterNameDTO.builder()
                 .id(this.id)
                 .name(this.name)
+                .build();
+    }
+
+    public JobSearchDTO toJobSearchDTO(){
+        return JobSearchDTO.builder()
+                .id(this.id)
+                .cctvAgreement(this.cctvAgreement)
+                .is_vaccinated(this.vaccination)
+                .desiredDayWeek(this.desiredDayWeek)
+                .activityTime(this.activityTime)
+                .hourlyWage(this.desiredHourlyWage)
+                .monthlyWage(this.desiredMonthlyWage)
+                .hopefulRegion(this.hopefulRegion)
+                .preferredType(this.preferredType)
+                .introduction(this.introduction)
+                .memberDTO(this.member.toJobOfferMemberDTO())
+                .attachFiles(this.careSitterImages)
+                .build();
+    }
+
+    public DetailJobSearchDTO toDetailJobSearchDTO(){
+        return DetailJobSearchDTO.builder()
+                .cctvAgreement(this.cctvAgreement)
+                .is_vaccinated(this.vaccination)
+                .desiredDayWeek(this.desiredDayWeek)
+                .activityTime(this.activityTime)
+                .hourlyWage(this.desiredHourlyWage)
+                .monthlyWage(this.desiredMonthlyWage)
+                .hopefulRegion(this.hopefulRegion)
+                .preferredType(this.preferredType)
+                .introduction(this.introduction)
+                .memberDTO(this.member.toJobOfferMemberDTO())
                 .build();
     }
 

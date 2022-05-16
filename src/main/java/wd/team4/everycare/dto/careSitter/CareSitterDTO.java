@@ -1,19 +1,23 @@
-package wd.team4.everycare.dto;
+package wd.team4.everycare.dto.careSitter;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import wd.team4.everycare.domain.CareSitter;
+import wd.team4.everycare.dto.ImageDTO;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
-@Getter
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class CareSitterDTO {
+    private Long id;
+    private String name;
     private String preferredType;
+    private String hopefulRegion;
     private String desiredDayWeek;
     private String activityTime;
     private String desiredHourlyWage;
@@ -21,16 +25,11 @@ public class CareSitterDTO {
     private int cctvAgreement;
     private int vaccination;
     private String introduction;
+    private int disclosureStatus;
+    @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime createdAt;
+    @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime updatedAt;
-    private String memberId;
-
-    public void createTime(LocalDateTime time) {
-        this.createdAt = time;
-    }
-
-    public void updateTime(LocalDateTime time){
-        this.updatedAt = time;
-    }
+    private List<ImageDTO> imageDTOs;
 
 }

@@ -3,15 +3,21 @@ package wd.team4.everycare.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetSchedule;
 import wd.team4.everycare.domain.JobOffer;
-import wd.team4.everycare.domain.Member;
-import wd.team4.everycare.dto.JobOfferDTO;
+import wd.team4.everycare.dto.caretarget.CareTargetDTO;
+import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
+import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobOfferDTO;
+import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
+import wd.team4.everycare.repository.CareTargetRepository;
+import wd.team4.everycare.repository.CareTargetScheduleRepository;
 import wd.team4.everycare.repository.ContractRepository;
 import wd.team4.everycare.repository.JobOfferRepository;
 import wd.team4.everycare.service.interfaces.JobOfferService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,26 +28,39 @@ import java.util.Optional;
 public class JobOfferServiceImpl implements JobOfferService {
 
     private final JobOfferRepository jobOfferRepository;
+    private final CareTargetScheduleRepository careTargetScheduleRepository;
+    private final CareTargetRepository careTargetRepository;
     private final ContractRepository contractRepository;
 
     @Override
-    public List<JobOffer> getJobOffer() {
+    public List<JobOfferDTO> getJobOffer() {
         List<JobOffer> allList = jobOfferRepository.findAll();
-        return allList;
+        List<JobOfferDTO> jobOfferDTOs = new ArrayList<>();
+        allList.stream().map(jobOffer -> jobOffer.toJobOfferDTO()).forEach(jobOfferDTOs::add);
+        return jobOfferDTOs;
     }
 
     @Override
-    public JobOfferDTO getDetailJobOffer(Long id) {
+    public DetailJobOfferDTO getDetailJobOffer(Long id) {
         JobOffer findJobOffer = jobOfferRepository.findById(id).get();
-        Member member = findJobOffer.getMember();
-        System.out.println("member = " + member);
-        CareTargetSchedule careTargetSchedule = findJobOffer.getCareTargetSchedule();
-        System.out.println("careTargetSchedule = " + careTargetSchedule);
-        CareTarget careTarget = findJobOffer.getCareTarget();
-        System.out.println("careTarget = " + careTarget);
-        JobOfferDTO jobOfferDTO = findJobOffer.toJobOfferDTO(findJobOffer);
-        // 내 생각에 LAZY라서 proxy 객체가 이전에 조회 한 적 없어서 null로 뜨는듯 careTarget 찾는다고 하니까 null 안뜸
+        DetailJobOfferDTO jobOfferDTO = findJobOffer.toDetailJobOfferDTO(findJobOffer);
         return jobOfferDTO;
+    }
+
+    @Override
+    public List<CareTargetSchedule> findSchedule(@RequestParam Long id) {
+        List<CareTargetSchedule> findCareTargetSchedule = careTargetScheduleRepository.findAllByCareTargetId(id);
+        System.out.println("findCareTargetSchedule = " + findCareTargetSchedule);
+        return findCareTargetSchedule;
+    }
+
+    @Override
+    public List<CareTargetFormDTO> findCareTarget(String id) {
+        List<CareTarget> findCareTarget = careTargetRepository.findAllByMemberId(id);
+        List<CareTargetFormDTO> careTargetDTOs = new ArrayList<>();
+        findCareTarget.stream().map(careTarget -> careTarget.toFormDTO()).forEach(careTargetDTOs::add);
+        System.out.println("findCareTarget = " + findCareTarget);
+        return careTargetDTOs;
     }
 
     @Override

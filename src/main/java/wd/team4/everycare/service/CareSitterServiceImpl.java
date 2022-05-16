@@ -1,13 +1,22 @@
 package wd.team4.everycare.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.CareSitterImage;
 import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.dto.ImageDTO;
+import wd.team4.everycare.dto.careSitter.CareSitterDTO;
 import wd.team4.everycare.dto.careSitter.CareSitterFormDTO;
 import wd.team4.everycare.dto.UploadFile;
+import wd.team4.everycare.dto.product.ProductDetaileViewDTO;
+import wd.team4.everycare.dto.response.MyResponse;
+import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.CareSitterImageRepository;
 import wd.team4.everycare.repository.CareSitterRepository;
 import wd.team4.everycare.repository.MemberRepository;
@@ -15,6 +24,7 @@ import wd.team4.everycare.service.interfaces.CareSitterService;
 
 import java.io.IOException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -91,5 +101,52 @@ public class CareSitterServiceImpl implements CareSitterService {
                 .storeFileName(attachFile.getStoreFileName())
                 .careSitter(careSitter)
                 .build();
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> findCareSitterByMember(PrincipalDetails principalDetails) {
+        Member member = principalDetails.getUser();
+        CareSitter careSitter = careSitterRepository.findByMember(member);
+
+        List<CareSitterImage> careSitterImages = careSitterImageRepository.findAllByCareSitter(careSitter);
+
+        List<ImageDTO> careSitterImageDTOs = new ArrayList<>();
+        for (CareSitterImage careSitterImage : careSitterImages) {
+            ImageDTO imageDTO = ImageDTO.builder()
+                    .id(careSitterImage.getId())
+                    .uploadFileName(careSitterImage.getUploadFileName())
+                    .storeFileName(careSitterImage.getStoreFileName())
+                    .build();
+            careSitterImageDTOs.add(imageDTO);
+        }
+
+        CareSitterDTO careSitterDTO = CareSitterDTO.builder()
+                .id(careSitter.getId())
+                .name(careSitter.getName())
+                .preferredType(careSitter.getPreferredType())
+                .hopefulRegion(careSitter.getHopefulRegion())
+                .desiredDayWeek(careSitter.getDesiredDayWeek())
+                .activityTime(careSitter.getActivityTime())
+                .desiredHourlyWage(careSitter.getDesiredHourlyWage())
+                .desiredMonthlyWage(careSitter.getDesiredMonthlyWage())
+                .cctvAgreement(careSitter.getCctvAgreement())
+                .vaccination(careSitter.getVaccination())
+                .introduction(careSitter.getIntroduction())
+                .disclosureStatus(careSitter.getDisclosureStatus())
+                .createdAt(careSitter.getCreatedAt())
+                .updatedAt(careSitter.getUpdatedAt())
+                .imageDTOs(careSitterImageDTOs)
+                .build();
+
+        MyResponse<CareSitterDTO> body = MyResponse.<CareSitterDTO>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(careSitterDTO)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+
+
     }
 }

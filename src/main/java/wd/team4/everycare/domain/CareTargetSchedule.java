@@ -1,14 +1,20 @@
 package wd.team4.everycare.domain;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleDTO;
+import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
+import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
 
 @Getter
-@NoArgsConstructor
 @Entity
+@Builder
+@DynamicUpdate
+@AllArgsConstructor
 @Table(name = "care_target_schedule")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "care_target_schedule_seq_generator",
         sequenceName = "care_target_schedule_seq",
         initialValue = 1, allocationSize = 1)
@@ -43,17 +49,17 @@ public class CareTargetSchedule {
     @JoinColumn(name = "care_note_id")
     private CareNote careNote;
 
-    @Builder
-    public CareTargetSchedule(Long id, String name, String startTime, String endTime, CareTarget careTarget) {
-        this.id = id;
-        this.name = name;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.careTarget = careTarget;
-    }
-
     public CareTargetScheduleDTO toDTO(){
         return CareTargetScheduleDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .startTime(this.startTime)
+                .endTime(this.endTime)
+                .build();
+    }
+
+    public CareTargetScheduleListDTO toListDTO(){
+        return CareTargetScheduleListDTO.builder()
                 .id(this.id)
                 .name(this.name)
                 .startTime(this.startTime)
@@ -65,4 +71,16 @@ public class CareTargetSchedule {
         this.careTarget = careTarget;
     }
 
+    public void update(CareTargetScheduleDTO careTargetScheduleDTO) {
+
+        if(StringUtils.isNotBlank(careTargetScheduleDTO.getName())) {
+            this.name = careTargetScheduleDTO.getName();
+        }
+        if(StringUtils.isNotBlank(careTargetScheduleDTO.getStartTime())) {
+            this.startTime = careTargetScheduleDTO.getStartTime();
+        }
+        if(StringUtils.isNotBlank(careTargetScheduleDTO.getEndTime())) {
+            this.endTime = careTargetScheduleDTO.getEndTime();
+        }
+    }
 }

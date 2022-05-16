@@ -1,13 +1,14 @@
 package wd.team4.everycare.domain;
 
 import lombok.*;
+import wd.team4.everycare.dto.careSitter.CareSitterImageDTO;
 
 import javax.persistence.*;
 
 
 @Getter
-@NoArgsConstructor
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "care_sitter_image_seq_generator",
         sequenceName = "care_sitter_image_seq",
         initialValue = 1, allocationSize = 1)
@@ -34,4 +35,12 @@ public class CareSitterImage {
         this.storeFileName = storeFileName;
         this.careSitter = careSitter;
     }
+
+    public CareSitterImageDTO toCareSitterImageDTO(){
+        return CareSitterImageDTO.builder()
+                .storeFileName(this.storeFileName)
+                .uploadFileName(this.uploadFileName)
+                .build();
+    }
+
 }
