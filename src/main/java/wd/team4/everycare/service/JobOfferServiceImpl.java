@@ -53,7 +53,6 @@ public class JobOfferServiceImpl implements JobOfferService {
         List<CareTargetSchedule> findCareTargetSchedule = careTargetScheduleRepository.findAllByCareTargetId(id);
         List<CareTargetScheduleListDTO> careTargetScheduleListDTOs = new ArrayList<>();
         findCareTargetSchedule.stream().map(careTargetSchedule -> careTargetSchedule.toListDTO()).forEach(careTargetScheduleListDTOs::add);
-        System.out.println("findCareTargetSchedule = " + findCareTargetSchedule);
         return careTargetScheduleListDTOs;
     }
 

@@ -147,6 +147,7 @@ public class CareTarget {
 
     public CareTargetFormDTO toFormDTO(){
         return CareTargetFormDTO.builder()
+                .id(this.id)
                 .name(this.name)
                 .gender(this.gender)
                 .birth(this.birth)
