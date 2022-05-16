@@ -148,7 +148,7 @@ public class ProductServiceImpl implements ProductService {
             productImageDTOs.add(imageDTO);
         }
 
-        ProductDetaileViewDTO productDetaileViewDTO = ProductDetaileViewDTO.builder()
+        ProductDetailViewDTO productDetaileViewDTO = ProductDetailViewDTO.builder()
                 .id(productEntity.getId())
                 .name(productEntity.getName())
                 .price(productEntity.getPrice())
@@ -161,7 +161,7 @@ public class ProductServiceImpl implements ProductService {
                 .imagesDTOs(productImageDTOs)
                 .build();
 
-        MyResponse<ProductDetaileViewDTO> body = MyResponse.<ProductDetaileViewDTO>builder()
+        MyResponse<ProductDetailViewDTO> body = MyResponse.<ProductDetailViewDTO>builder()
                 .header(StatusEnum.OK)
                 .message("성공")
                 .body(productDetaileViewDTO)
@@ -225,7 +225,7 @@ public class ProductServiceImpl implements ProductService {
             productImageDTOs.add(productImageDTO);
         }
 
-        ProductDetaileViewDTO productDetaileViewDTO = ProductDetaileViewDTO.builder()
+        ProductDetailViewDTO productDetaileViewDTO = ProductDetailViewDTO.builder()
                 .id(productEntity.getId())
                 .name(productEntity.getName())
                 .price(productEntity.getPrice())
@@ -238,7 +238,7 @@ public class ProductServiceImpl implements ProductService {
                 .imagesDTOs(productImageDTOs)
                 .build();
 
-        MyResponse<ProductDetaileViewDTO> body = MyResponse.<ProductDetaileViewDTO>builder()
+        MyResponse<ProductDetailViewDTO> body = MyResponse.<ProductDetailViewDTO>builder()
                 .header(StatusEnum.OK)
                 .message("성공")
                 .body(productDetaileViewDTO)

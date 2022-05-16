@@ -1,17 +1,14 @@
 package wd.team4.everycare.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Builder
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "product_image")
 @SequenceGenerator(name = "product_image_seq_generator",
         sequenceName = "product_image_seq",

@@ -7,8 +7,8 @@ import javax.persistence.*;
 
 
 @Getter
-@NoArgsConstructor
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "care_sitter_image_seq_generator",
         sequenceName = "care_sitter_image_seq",
         initialValue = 1, allocationSize = 1)

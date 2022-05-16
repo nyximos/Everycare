@@ -10,10 +10,13 @@ import javax.annotation.PostConstruct;
 public class InitDb {
 
     private final InitMemberService memberService;
-    private final InitCareTargetService careTargetService;
-    private final InitActivityClassification activityClassification;
-    private final InitCareTargetScheduleService careTargetScheduleService;
     private final InitCareSitterService careSitterService;
+    private final InitStoreService storeService;
+    private final InitCareTargetService careTargetService;
+    private final InitProductCategoryService productCategoryService;
+    private final InitActivityClassificationService activityClassification;
+    private final InitCareTargetScheduleService careTargetScheduleService;
+    private final InitProductService productService;
     private final InitBoardService boardService;
     private final InitJobOfferService jobOfferService;
     private final InitContractService contractService;
@@ -25,6 +28,9 @@ public class InitDb {
         activityClassification.dbInit();
         careTargetScheduleService.dbInit();
         careSitterService.dbInit();
+        storeService.dbInit();
+        productCategoryService.dbInit();
+        productService.dbInit();
         boardService.dbInit();
         jobOfferService.dbInit();
         contractService.dbInit();

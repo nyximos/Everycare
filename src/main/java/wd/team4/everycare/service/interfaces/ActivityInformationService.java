@@ -9,11 +9,14 @@ import java.util.List;
 
 public interface ActivityInformationService {
 
-    List<ActivityInformationViewDTO> webFindAllByScheduleId(Long scheduleId);
+    ResponseEntity<MyResponse> get(Long id);
 
-    ResponseEntity<MyResponse> save(ActivityInformationFormDTO activityInformationFormDTO);
+    ResponseEntity<MyResponse> save(Long id, ActivityInformationFormDTO activityInformationFormDTO);
 
-    ResponseEntity<MyResponse> update(ActivityInformationFormDTO activityInformationFormDTO);
+    ResponseEntity<MyResponse> update(Long id, ActivityInformationFormDTO activityInformationFormDTO);
 
     ResponseEntity<MyResponse> remove(Long activityId);
+
+    List<ActivityInformationViewDTO> webFindAllByScheduleId(Long scheduleId);
+
 }

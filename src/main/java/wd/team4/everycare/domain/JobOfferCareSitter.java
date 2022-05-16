@@ -1,17 +1,14 @@
 package wd.team4.everycare.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor
 @Entity
+@ToString
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "job_offer_care_sitter")
 @SequenceGenerator(name = "job_offer_care_sitter_seq_generator",
         sequenceName = "job_offer_care_sitter_seq",
@@ -22,11 +19,11 @@ public class JobOfferCareSitter {
     @Column(name = "job_offer_care_sitter_id")
     private Long JobOfferCareSitter;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_offer_id")
     private JobOffer jobOffer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_sitter_id")
     private CareSitter careSitter;
 

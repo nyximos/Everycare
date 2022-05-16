@@ -3,6 +3,7 @@ package wd.team4.everycare.database;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
 import wd.team4.everycare.domain.*;
 import wd.team4.everycare.repository.CareSitterRepository;
 import wd.team4.everycare.repository.CareTargetRepository;
@@ -14,10 +15,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
 @Component
 @Transactional
 @RequiredArgsConstructor
 public class InitContractService {
+
     private final EntityManager em;
     private final JobOfferRepository jobOfferRepository;
     private final MemberRepository memberRepository;

@@ -30,7 +30,7 @@ public class CareTargetScheduleApiController {
     @PostMapping("/dashboard/caretargets/{id}/schedules")
     public ResponseEntity<MyResponse> saveSchedule(@ModelAttribute CareTargetScheduleDTO careTargetScheduleDTO,
                                                    @PathVariable("id") Long id){
-        ResponseEntity<MyResponse> responseEntity = careTargetScheduleService.save(careTargetScheduleDTO);
+        ResponseEntity<MyResponse> responseEntity = careTargetScheduleService.save(id, careTargetScheduleDTO);
         return responseEntity;
     }
 

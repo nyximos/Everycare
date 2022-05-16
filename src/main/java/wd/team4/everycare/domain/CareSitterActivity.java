@@ -1,16 +1,15 @@
 package wd.team4.everycare.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 
 @Getter
-@NoArgsConstructor
 @Entity
 @Table(name = "detail_activity")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "care_sitter_activity_seq_generator",
         sequenceName = "care_sitter_activity_seq",
         initialValue = 1, allocationSize = 1)
@@ -26,7 +25,7 @@ public class CareSitterActivity {
     @Column(name = "care_sitter_activity_review", length = 1000)
     private String detailActivityReview;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "activity_classification2", nullable = false)
     private ActivityClassification activityClassification;
 

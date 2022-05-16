@@ -10,9 +10,11 @@ import javax.persistence.*;
 
 @Getter
 @Entity
+@Builder
 @DynamicUpdate
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Table(name = "care_target_schedule")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "care_target_schedule_seq_generator",
         sequenceName = "care_target_schedule_seq",
         initialValue = 1, allocationSize = 1)
@@ -46,15 +48,6 @@ public class CareTargetSchedule {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_note_id")
     private CareNote careNote;
-
-    @Builder
-    public CareTargetSchedule(Long id, String name, String startTime, String endTime, CareTarget careTarget) {
-        this.id = id;
-        this.name = name;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.careTarget = careTarget;
-    }
 
     public CareTargetScheduleDTO toDTO(){
         return CareTargetScheduleDTO.builder()
