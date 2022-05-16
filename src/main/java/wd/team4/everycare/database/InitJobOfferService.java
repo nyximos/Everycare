@@ -46,7 +46,6 @@ public class InitJobOfferService {
         JobOffer jobOffer3 = jobOffer("title3", LocalDate.now(), LocalDate.now(), "desiredDayWeek3", "12:00", "12:30", 3, Gender.M, "comment3", member, careTarget3, careTargetSchedule3);
         JobOffer jobOffer4 = jobOffer("title4", LocalDate.now(), LocalDate.now(), "desiredDayWeek4", "13:00", "13:30", 4, Gender.M, "comment4", member, careTarget4, careTargetSchedule4);
         JobOffer jobOffer5 = jobOffer("title5", LocalDate.now(), LocalDate.now(), "desiredDayWeek5", "14:00", "14:30", 5, Gender.M, "comment5", member, careTarget5, careTargetSchedule5);
-        System.out.println("jobOffer1 = " + jobOffer1);
     }
 
     private CareTargetSchedule careTargetSchedule(String name, String startTime, String endTime, CareTarget careTarget){

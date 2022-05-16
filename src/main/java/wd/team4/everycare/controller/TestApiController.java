@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.*;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import wd.team4.everycare.domain.Test;
@@ -27,10 +28,9 @@ import java.util.logging.Logger;
 @RequestMapping("/api")
 public class TestApiController {
 
+    //키 값 형태의
     private final RestTemplate restTemplate = new RestTemplate();
-
     private final ObjectMapper objectMapper = new ObjectMapper();
-
     private final String SECRET_KEY = "test_sk_7DLJOpm5QrlDBWj6LE5rPNdxbWnY";
 
     @ResponseBody
@@ -149,20 +149,24 @@ public class TestApiController {
         headers.set("Authorization", "Basic " + Base64.getEncoder().encodeToString((SECRET_KEY + ":").getBytes()));
         headers.setContentType(MediaType.APPLICATION_JSON);
 
+        //map에 필요한 데이터 집어넣기(payments에 필요한 데이터)
         Map<String, String> payloadMap = new HashMap<>();
         payloadMap.put("orderId", orderId);
         payloadMap.put("amount", String.valueOf(amount));
 
+        //첫번재 파라미터로 http body, 두번째로 http header
         HttpEntity<String> request = new HttpEntity<>(objectMapper.writeValueAsString(payloadMap), headers);
 
-        ResponseEntity<JsonNode> responseEntity = restTemplate.postForEntity(
-                "https://api.tosspayments.com/v1/payments/" + paymentKey, request, JsonNode.class);
+//        String url, @Nullable Object request, Class<T> responseType, Object... uriVariables
+        ResponseEntity<JsonNode> responseEntity = restTemplate.postForEntity("https://api.tosspayments.com/v1/payments/" + paymentKey, request, JsonNode.class);
 
         String secret;
         if (responseEntity.getStatusCode() == HttpStatus.OK) {
             JsonNode successNode = responseEntity.getBody();
             secret = successNode.get("secret").asText();
-            return "success";
+            System.out.println("responseEntity.getBody() = " + responseEntity.getBody());
+            System.out.println("secret = " + secret);
+            return responseEntity.toString();
         } else {
             JsonNode failNode = responseEntity.getBody();
             return "fail";

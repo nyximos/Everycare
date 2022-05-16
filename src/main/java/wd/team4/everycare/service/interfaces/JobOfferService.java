@@ -1,5 +1,7 @@
 package wd.team4.everycare.service.interfaces;
 
+import org.springframework.http.ResponseEntity;
+import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetSchedule;
 import wd.team4.everycare.domain.JobOffer;
@@ -7,6 +9,7 @@ import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobOfferDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
+import wd.team4.everycare.dto.response.MyResponse;
 
 import java.util.List;
 
@@ -19,8 +22,9 @@ public interface JobOfferService {
     JobOffer save(JobOfferDTO jobOfferDTO);
     String update(Long id, JobOfferDTO jobOfferDTO);
     void deleteJobOffer(Long id);
-    JobOffer offer(Long id, JobOfferDTO jobOfferDTO);
-
+    ResponseEntity<MyResponse> offer(Long jobOfferId, PrincipalDetails principalDetails);
+    ResponseEntity<MyResponse> findOffer(Long contractId, PrincipalDetails principalDetails);
+    ResponseEntity<MyResponse> findDetailOffer(Long contractId);
 
 
 }

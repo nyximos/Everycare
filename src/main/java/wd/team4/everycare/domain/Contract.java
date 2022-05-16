@@ -1,10 +1,9 @@
 package wd.team4.everycare.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.careSitter.CareSitterNameDTO;
+import wd.team4.everycare.dto.contract.ContractDTO;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -49,7 +48,7 @@ public class Contract {
     @Column(name = "contract_pay_amount", nullable = false)
     private int amount;
 
-    @Column(name = "contract_pay_datetime", nullable = false)
+    @Column(name = "contract_pay_datetime")
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime payDatetime;
 
@@ -65,15 +64,52 @@ public class Contract {
     @Column(name = "contract_monthly_installment_plan")
     private int monthlyInstallmentPlan;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "care_sitter_id")
     private CareSitter careSitter;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "job_offer_id", nullable = false)
     private JobOffer jobOffer;
+
+    @Builder
+    public Contract (Long id, String name, LocalDate startDate, LocalDate endDate, String startTime, String endTime, int pay, int contractStatus, int amount, LocalDateTime payDateTime, String cardCompany, String cardNumber, String payApprove, int monthlyInstallmentPlan, JobOffer jobOffer, Member member, CareSitter careSitter){
+        this.id = id;
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.pay = pay;
+        this.contractStatus = contractStatus;
+        this.amount = amount;
+        this.payDatetime = payDateTime;
+        this.cardCompany = cardCompany;
+        this.cardNumber = cardNumber;
+        this.payApprove = payApprove;
+        this.monthlyInstallmentPlan = monthlyInstallmentPlan;
+        this.jobOffer = jobOffer;
+        this.member = member;
+        this.careSitter = careSitter;
+    }
+
+    public ContractDTO toContractDTO(){
+        return ContractDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .startDate(this.startDate)
+                .endDate(this.endDate)
+                .startTime(this.startTime)
+                .endTime(this.endTime)
+                .pay(this.pay)
+                .contractStatus(this.contractStatus)
+                .jobOfferDTO(this.jobOffer.toDetailJobOfferDTO(this.jobOffer))
+                .memberDTO(this.member.toJobOfferMemberDTO())
+                .careSitterDTO(this.careSitter.toNameDTO())
+                .build();
+    }
 }
