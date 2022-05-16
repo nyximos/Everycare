@@ -64,15 +64,15 @@ public class Contract {
     @Column(name = "contract_monthly_installment_plan")
     private int monthlyInstallmentPlan;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "care_sitter_id")
     private CareSitter careSitter;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "job_offer_id", nullable = false)
     private JobOffer jobOffer;
 
