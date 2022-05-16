@@ -90,6 +90,7 @@ public class JobOffer {
 
     public JobOfferDTO toJobOfferDTO(){
         return JobOfferDTO.builder()
+                .id(this.id)
                 .title(this.title)
                 .startDate(this.startDate)
                 .endDate(this.endDate)

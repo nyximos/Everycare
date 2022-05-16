@@ -34,6 +34,11 @@ const routes = [
        component:() => import('@/pages/Calendar.vue')
    },
     {
+    path: '/stores/product/:id',
+    name: 'prodDetail',
+    component: () => import('@/components/prodDetail.vue')
+    },
+    {
         path:'/stores',
         name:'storeMain',
         component: ()=> import ('@/pages/StoreHome.vue')

@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @Builder
 public class JobOfferDTO {
 
+    private Long id;
     private String title;
     private LocalDate startDate;                        ////시작일
     private LocalDate endDate;                          ////종료일

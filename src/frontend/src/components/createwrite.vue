@@ -13,7 +13,7 @@
       <v-select
       v-model="caretarget"
       :items="caretargetlist"
-      item-text="id"
+      item-text="name"
       chips
       label="케어대상인 선택">
     </v-select>
@@ -29,7 +29,7 @@
           v-if="showSchedule"
           v-model="pickSchedule"
           :items="schedulelist"
-          item-text="id"
+          item-text="gender"
           chips
         ></v-select>
           </v-col>

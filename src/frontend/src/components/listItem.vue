@@ -3,19 +3,13 @@
   <v-card>
     <v-card-title>{{listItem.title}}</v-card-title>
     <v-card-text>
-      <p>작성자 : {{listItem.id}}</p>
+      {{this.listItem.id}}
       <p>시작일 : {{listItem.startDate}}</p>
       <p>종료일 : {{listItem.endDate}}</p>
-      <p>급여 : {{listItem.pay}}</p>
-      <p>설명 : {{listItem.comment}}</p>
+      <p>급여 : {{listItem.pay}}원</p>
       <v-btn @click="detail">상세보기</v-btn>
     </v-card-text>
   </v-card>
-  <!-- <v-card>
-    <v-text>
-      <v-btn>클릭</v-btn>
-    </v-text>
-  </v-card> -->
 </div>  
 </template>
 

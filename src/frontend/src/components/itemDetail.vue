@@ -2,7 +2,31 @@
 <v-container fluid>
     <h1>상세정보</h1>
         <v-row class="mt-5">
-            <h5>{{title}}</h5>
+            <h5 class="fw-bold">{{title}}</h5>
+        </v-row>
+          <v-row>
+          <v-col cols="4">
+              <label>글쓴이</label>
+              </v-col>
+              <v-col col cols="4">
+                <p>{{member}}</p>
+              </v-col>
+        </v-row>
+        <v-row>
+          <v-col cols="4">
+              <label>케어대상인</label>
+              </v-col>
+              <v-col col cols="4">
+                <p>{{caretarget}}</p>
+              </v-col>
+        </v-row>
+          <v-row>
+          <v-col cols="4">
+              <label>스케줄</label>
+              </v-col>
+              <v-col col cols="4">
+                <p>{{careTargetSchedule}}</p>
+              </v-col>
         </v-row>
         <v-row>
             <v-col cols="4">
@@ -84,6 +108,7 @@ mounted() {
     })
     .then((res)=>{
         console.log(res)
+        this.member = res.data.body.member
         this.title = res.data.body.title
         this.comment = res.data.body.comment
         this.day = res.data.body.desiredDayWeek
@@ -93,6 +118,8 @@ mounted() {
         this.startTime = res.data.body.desiredStartTime
         this.endTime = res.data.body.desiredEndTime
         this.pay = res.data.body.pay
+        this.caretarget = res.data.body.careTarget.name
+        this.careTargetSchedule = res.data.body.careTargetSchedule
     })
     .catch((err)=>{
         console.log(err)
@@ -102,7 +129,7 @@ data(){
     return{
         title: this.title,
         caretarget:this.caretarget,
-        caretargetlist:[],
+        careTargetSchedule:this.careTargetSchedule,
         pickSchedule: this.pickSchedule,
         schedulelist:[],
         startDay: this.startDay,
@@ -110,7 +137,6 @@ data(){
         startTime: this.startTime,
         endTime: this.endTime,
         day: [],
-        days: ['월', '화', '수', '목', '금', '토', '일'],
         sitterSex: [],
         paytimepick: this.paytimepick,
         pay: this.pay,

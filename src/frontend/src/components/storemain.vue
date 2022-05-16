@@ -23,32 +23,13 @@
     </nav>
 <!--carousel-->
 <div class="container">
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="../images/ear.jpg" class="d-block w-100" height="400px">
-    </div>
-    <div class="carousel-item">
-      <img src="../images/sitter.jpg" class="d-block w-100" height="400px">
-    </div>
-    <div class="carousel-item">
-      <img src="../images/ear.jpg" class="d-block w-100" height="400px">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
+ <v-carousel hide-delimiters>
+    <v-carousel-item
+      v-for="(item,i) in items"
+      :key="i"
+      :src="item.src"
+    ></v-carousel-item>
+  </v-carousel>
 </div>
 
 <!--ranking-->
@@ -66,96 +47,22 @@
 
 <!--body-->
 		<p class="display-6 text-center mt-5">🎉실외 마스크 프리🎉</p>
-		<div class="row mt-5">
-				<div class="col" style="width: 18rem;">
-					<!-- <img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px"> -->
-					<div class="card-body">
-						<h5 class="card-title">신묘한 응원떡 2종 택1(15개입)</h5>
-						<p class="card-text text-muted">신묘한 힘 마약떡 (8개입), 기묘한 힘 인생떡 (8개입)</p>
-						<p class="card-cost">10900원</p>
-				</div>
-				</div>
-					<div class="col" style="width: 18rem;">
-						<!-- <img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px"> -->
-						<div class="card-body">
-							<h5 class="card-title">신묘한 대박떡 2종(4개입)</h5>
-							<p class="card-text text-muted">신묘한 힘 마약떡 (4개입), 기묘한 힘 인생떡 (4개입)</p>
-							<p class="card-cost">10900원</p>
-						</div>
-					</div>
-						<div class="col" style="width: 18rem;">
-							<!-- <img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px"> -->
-							<div class="card-body">
-								<h5 class="card-title">아침햇살 크림떡(2box)</h5>
-								<p class="card-text text-muted">아침햇살을 담아 떡 한입으로 든든한 시작!</p>
-								<p class="card-cost">10900원</p>
-							</div>
-						</div>
-					</div>
-				
+			<ProdList :storeList="storeList" @detail="detailShot" /> 
 				<p class="display-6 text-center mt-5">💫오늘만 특별 할인💫</p>
-				<div class="row mt-5">
-				<div class="col" style="width: 18rem;">
-					<!-- <img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px"> -->
-					<div class="card-body">
-						<h5 class="card-title">신묘한 응원떡 2종 택1(15개입)</h5>
-						<p class="card-text text-muted">신묘한 힘 마약떡 (8개입), 기묘한 힘 인생떡 (8개입)</p>
-						<p class="card-cost">10900원</p>
-				</div>
-				</div>
-					<div class="col" style="width: 18rem;">
-						<!-- <img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px"> -->
-						<div class="card-body">
-							<h5 class="card-title">신묘한 대박떡 2종(4개입)</h5>
-							<p class="card-text text-muted">신묘한 힘 마약떡 (4개입), 기묘한 힘 인생떡 (4개입)</p>
-							<p class="card-cost">10900원</p>
-						</div>
-					</div>
-						<div class="col" style="width: 18rem;">
-							<!-- <img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px"> -->
-							<div class="card-body">
-								<h5 class="card-title">아침햇살 크림떡(2box)</h5>
-								<p class="card-text text-muted">아침햇살을 담아 떡 한입으로 든든한 시작!</p>
-								<p class="card-cost">10900원</p>
-							</div>
-						</div>
-					</div>
-					<div class="row mt-5">
-				<div class="col" style="width: 18rem;">
-					<!-- <img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px"> -->
-					<div class="card-body">
-						<h5 class="card-title">신묘한 응원떡 2종 택1(15개입)</h5>
-						<p class="card-text text-muted">신묘한 힘 마약떡 (8개입), 기묘한 힘 인생떡 (8개입)</p>
-						<p class="card-cost">10900원</p>
-				</div>
-				</div>
-					<div class="col" style="width: 18rem;">
-						<!-- <img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px"> -->
-						<div class="card-body">
-							<h5 class="card-title">신묘한 대박떡 2종(4개입)</h5>
-							<p class="card-text text-muted">신묘한 힘 마약떡 (4개입), 기묘한 힘 인생떡 (4개입)</p>
-							<p class="card-cost">10900원</p>
-						</div>
-					</div>
-						<div class="col" style="width: 18rem;">
-							<!-- <img src="../images/sitter.jpg" class="card-img-top" alt="..." width="300px" height="200px"> -->
-							<div class="card-body">
-								<h5 class="card-title">아침햇살 크림떡(2box)</h5>
-								<p class="card-text text-muted">아침햇살을 담아 떡 한입으로 든든한 시작!</p>
-								<p class="card-cost">10900원</p>
-							</div>
-						</div>
-					</div>
-					{{storeList}}
-</v-container>      
+			<ProdList :storeList="storeList" @detail="detailShot" />
+</v-container>   
 </template>
 
 <script>
+import ProdList from '@/components/prodList'
 export default {
 name: 'storeMain',
+components:{
+ ProdList
+},
 mounted(){
 	this.$http
-	.get('/api/stores',{
+	.get('/api/store/products',{
 		withCredential: true
 	})
 	.then((res)=>{
@@ -168,7 +75,21 @@ mounted(){
 },
 data(){
 	return{
-		storeList:[]
+		storeList:this.storeList,
+		items: [
+          {
+            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+          },
+          {
+            src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+          },
+          {
+            src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+          },
+          {
+            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+          },
+        ],
 	}
 },
 methods:{
@@ -181,7 +102,15 @@ methods:{
 		this.$router.push({
 			path:''
 		})
-	}
+	},
+  detailShot(id){
+    this.$router.push({
+    name: 'prodDetail',
+    params: {
+      id:id
+      }
+    })
+  }
 }
 }
 </script>
