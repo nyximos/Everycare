@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ProductDetaileViewDTO {
+public class ProductDetailViewDTO {
 
     private Long id;
     private String name;

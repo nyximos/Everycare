@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.domain.Store;
 
@@ -31,6 +32,8 @@ public class PrincipalDetails implements UserDetails{
     }
 
     public Store getStore() { return member.getStore(); }
+
+    public CareSitter getCareSitter() { return member.getCareSitter(); }
 
     public String getRole() { return member.getRole().toString(); }
 

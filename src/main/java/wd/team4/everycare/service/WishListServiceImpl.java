@@ -59,7 +59,7 @@ public class WishListServiceImpl {
         List<WishListDTO> wishListDTOs = new ArrayList<>();
 
         for (WishList w : wishList) {
-            Optional<Product> product = productRepository.findById(w.getId());
+            Optional<Product> product = productRepository.findById(w.getProduct().getId());
             Product productEntity = product.orElse(null);
 
             WishListDTO dto = WishListDTO.builder()

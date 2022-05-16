@@ -48,7 +48,6 @@ public class JobSearchServiceImpl implements JobSearchService {
             }
             jobSearchDTO.setAttachFiles(careSitterImage);
         }
-        /*TODO 이미지 가지고 오기*/
         return careSitterList;
     }
 
