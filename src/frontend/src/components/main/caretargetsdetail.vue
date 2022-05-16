@@ -94,6 +94,7 @@ mounted() {
 		this.coronaTest = res.data.body.coronaTest
 		// this.attachFiles = res.data.body.attachFiles
 		this.attachFiles = res.data.body.attachFiles[0].storeFileName
+
     })
     .catch((err)=>{
         console.log(err)
@@ -116,6 +117,7 @@ data(){
         careType: this.careType,
         coronaTest: this.coronaTest,
         attachFiles: this.attachFiles,
+		img: this.img
     }
 },
 methods:{

@@ -249,6 +249,7 @@ execDaumPostcode() {
         }
     },
     clickme(){ 
+      location.href = '/caretargets';
         let formData = new FormData() 
                 
                 formData.append('name',this.name);
@@ -282,6 +283,7 @@ execDaumPostcode() {
        console.log(err);
     });    
         },        
+        
     },
 }
 
