@@ -14,7 +14,6 @@ import wd.team4.everycare.dto.ImageDTO;
 import wd.team4.everycare.dto.careSitter.CareSitterDTO;
 import wd.team4.everycare.dto.careSitter.CareSitterFormDTO;
 import wd.team4.everycare.dto.UploadFile;
-import wd.team4.everycare.dto.product.ProductDetaileViewDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.CareSitterImageRepository;

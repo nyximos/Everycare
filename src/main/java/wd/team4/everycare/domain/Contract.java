@@ -43,7 +43,7 @@ public class Contract {
     private int pay;
 
     @Column(name = "contract_status", nullable = false)
-    private int contractStatus;
+    private int status;
 
     @Column(name = "contract_pay_amount", nullable = false)
     private int amount;
