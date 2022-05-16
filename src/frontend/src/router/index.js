@@ -118,6 +118,7 @@ const routes = [
         component: () => import('@/pages/Caretargets.vue')
     },
     {
+
         path: '/caretargetsdetail/:caretargetsId',
         name: 'CaretargetsDetail',
         component: () => import('@/components/main/caretargetsdetail.vue')
@@ -134,7 +135,12 @@ const routes = [
         component: () => import('@/components/main/caretargets_update.vue')
     },
     
-];
+    {
+        path: '/adminpage',
+        name: 'adminpage',
+        component: () => import('@/pages/Adminpage.vue')
+    },
+]
 
 const router = new VueRouter({
     mode: 'history',

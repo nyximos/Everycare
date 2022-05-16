@@ -34,11 +34,12 @@
     </v-btn>
     <v-btn 
       tile
-      color="success"
+      color="success" 
       @click="update(p)"
     >
       
-      수정
+
+    
     </v-btn>
     <v-btn @click="move(p)">보기</v-btn>
         <v-btn
