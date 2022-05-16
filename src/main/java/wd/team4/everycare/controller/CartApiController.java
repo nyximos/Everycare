@@ -37,7 +37,7 @@ public class CartApiController {
         return responseEntity;
     }
 
-    @DeleteMapping("/cart/all")
+    @DeleteMapping("/cart")
     public ResponseEntity<MyResponse> removeAll(HttpServletRequest request){
         ResponseEntity<MyResponse> responseEntity = cartService.removeAll(request);
         return responseEntity;
