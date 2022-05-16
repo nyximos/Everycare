@@ -11,6 +11,7 @@ import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetSchedule;
 import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobOfferDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
@@ -44,8 +45,9 @@ public class JobOfferApiController {
     }
 //성공
     @PostMapping("/recruitions/schedules")
-    public ResponseEntity<MyResponse> regCareTargetSchedule(Long id) {
-        List<CareTargetSchedule> schedule = jobOfferService.findSchedule(id);
+    public ResponseEntity<MyResponse> regCareTargetSchedule(@RequestParam Long id) {
+        System.out.println("id = " + id);
+        List<CareTargetScheduleListDTO> schedule = jobOfferService.findSchedule(id);
         System.out.println("schedule = " + schedule);
         MyResponse<Object> body = MyResponse.<Object>builder()
                 .header(StatusEnum.OK)
