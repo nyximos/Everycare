@@ -23,7 +23,7 @@ public class ContractDTO {
     private String startTime;
     private String endTime;
     private int pay;
-    private int contractStatus;
+    private int status;
     private DetailJobOfferDTO jobOfferDTO;
     private JobOfferMemberDTO memberDTO;
     private CareSitterNameDTO careSitterDTO;

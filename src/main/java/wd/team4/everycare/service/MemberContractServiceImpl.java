@@ -63,7 +63,7 @@ public class MemberContractServiceImpl implements MemberContractService {
                 .endTime(jobOfferEntity.getDesiredEndTime())
                 .pay(jobOfferEntity.getPay())
                 .amount(jobOfferEntity.getAmount())
-                .contractStatus(0)
+                .status(0)
                 .jobOffer(jobOfferEntity)
                 .member(member)
                 .careSitter(careSitterEntity)

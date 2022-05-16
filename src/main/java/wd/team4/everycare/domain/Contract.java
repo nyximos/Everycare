@@ -79,7 +79,7 @@ public class Contract {
     private JobOffer jobOffer;
 
     @Builder
-    public Contract (Long id, String name, LocalDate startDate, LocalDate endDate, String startTime, String endTime, int pay, int contractStatus, int amount, LocalDateTime payDateTime, String cardCompany, String cardNumber, String payApprove, int monthlyInstallmentPlan, JobOffer jobOffer, Member member, CareSitter careSitter){
+    public Contract (Long id, String name, LocalDate startDate, LocalDate endDate, String startTime, String endTime, int pay, int status, int amount, LocalDateTime payDateTime, String cardCompany, String cardNumber, String payApprove, int monthlyInstallmentPlan, JobOffer jobOffer, Member member, CareSitter careSitter){
         this.id = id;
         this.name = name;
         this.startDate = startDate;
@@ -87,7 +87,7 @@ public class Contract {
         this.startTime = startTime;
         this.endTime = endTime;
         this.pay = pay;
-        this.contractStatus = contractStatus;
+        this.status = status;
         this.amount = amount;
         this.payDatetime = payDateTime;
         this.cardCompany = cardCompany;
@@ -108,7 +108,7 @@ public class Contract {
                 .startTime(this.startTime)
                 .endTime(this.endTime)
                 .pay(this.pay)
-                .contractStatus(this.contractStatus)
+                .status(this.status)
                 .jobOfferDTO(this.jobOffer.toDetailJobOfferDTO(this.jobOffer))
                 .memberDTO(this.member.toJobOfferMemberDTO())
                 .careSitterDTO(this.careSitter.toNameDTO())

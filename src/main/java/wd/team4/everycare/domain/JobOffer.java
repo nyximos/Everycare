@@ -40,7 +40,7 @@ public class JobOffer {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate endDate;
 
-    @Column(name = "job_offer_desired_day", length = 50)
+    @Column(name = "job_offer_desired_day")
     private String day;
 
     @Column(name = "job_offer_desired_start_time",length = 5)

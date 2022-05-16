@@ -61,9 +61,6 @@ public class Product {
     @JoinColumn(name = "product_category_id")
     private ProductCategory productCategory;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductImage> productImages = new ArrayList<>();
-
     public MemberProductListViewDTO toMemberProductsViewDTO() {
         return MemberProductListViewDTO.builder()
                 .id(this.id)
