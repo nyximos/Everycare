@@ -46,7 +46,7 @@
         v-model="productCategory"
         :items="prodCategory"
         item-text="name"
-        item-value="value"
+        item-value="id"
         label="상품카테고리"
         chips
       ></v-select>
@@ -82,7 +82,7 @@ export default {
 mounted() {
   const id = Number(this.$route.params.id);
   this.$http
-    .get(`/api/stores/${id}/prodedit`, {
+    .get(`/api/store/products/${id}`, {
     withCredentials: true
     })
     .then(res => {
@@ -95,6 +95,17 @@ mounted() {
       .catch(err => {
        console.log(err);
     });
+    this.$http
+        .get('/api/product-categories',{
+          withCredentials: true
+        })
+        .then(res => {
+          console.log(res);
+          this.prodCategory= res.data.body
+        })
+        .catch(err => {
+          console.log(err);
+        })
 },
 
 data(){
@@ -108,9 +119,7 @@ data(){
     attachFile: [],
     attachFiles: [],
     isSale:this.isSale,
-    prodCategory:[
-      {name: '보행', value:'1'}
-    ],
+    prodCategory:[],
     prodStatus : [
       {name:'판매',value:'1'},
       {name:'입고예정',value:'2'},
@@ -133,7 +142,7 @@ methods:{
                 }
         formData.append('isSale', this.isSale);
         this.$http
-        .patch(`/api/store/account/${this.id}`,formData, {
+        .patch(`/api/dashboard/store/products/${this.id}`,formData, {
         withCredentials: true
          })
      .then(res => {
@@ -144,7 +153,7 @@ methods:{
     });
   },
   drop(){
-    this.$http.delete(`/api/store/account/${this.id}`,{
+    this.$http.delete(`/api/dashboard/store/products/${this.id}`,{
       withCredentials: true
     })
     .then((res)=> {

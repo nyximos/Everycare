@@ -9,6 +9,9 @@
       <button class="position-relative" @click="goCart">
 		🛒
 		</button>
+          <button class="position-relative btn-danger" @click="wish">
+		❤
+		</button>
 		<button class="btn btn-warning" type="button" @click="goCreateStore">입점하기</button>
       </div>
     </div>
@@ -47,7 +50,9 @@
 
 <!--body-->
 		<p class="display-6 text-center mt-5">🎉실외 마스크 프리🎉</p>
-			<ProdList :storeList="storeList" @detail="detailShot" /> 
+			<ProdList v-for="(storeList, index) in storeList"
+        :key="index"
+        mb-2 :storeList="storeList" @detail="detailShot" /> 
 				<p class="display-6 text-center mt-5">💫오늘만 특별 할인💫</p>
 			<ProdList :storeList="storeList" @detail="detailShot" />
 </v-container>   
@@ -103,11 +108,16 @@ methods:{
 			path:''
 		})
 	},
+  wish(){
+    this.$router.push({
+      path: '/wish'
+    })
+  },
   detailShot(id){
     this.$router.push({
     name: 'prodDetail',
     params: {
-      id:id
+      contentId:id
       }
     })
   }

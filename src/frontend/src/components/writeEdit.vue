@@ -5,7 +5,7 @@
             v-model="title"
             placeholder="제목을 입력하세요"
             outlined
-          ></v-text-field>{{title}}
+          ></v-text-field>
         </v-row>
          <v-row>
           <v-col cols="6">

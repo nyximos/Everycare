@@ -18,6 +18,11 @@ const routes = [
         component: () => import('@/pages/Main.vue')
     },
     {
+        path: '/wish',
+        name: 'Wish',
+        component: () => import('@/pages/Wish.vue')
+    },
+    {
 
         path: '/joboffer/:id/editwrite',
         name: 'editwrite',
@@ -34,7 +39,7 @@ const routes = [
        component:() => import('@/pages/Calendar.vue')
    },
     {
-    path: '/stores/product/:id',
+    path: '/stores/product/:contentId',
     name: 'prodDetail',
     component: () => import('@/components/prodDetail.vue')
     },

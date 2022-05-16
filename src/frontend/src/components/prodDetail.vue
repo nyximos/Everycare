@@ -28,6 +28,7 @@
                 <p>{{this.store}}</p>
               </v-col>
         </v-row>
+          <v-btn color="danger" @click="wishList">찜</v-btn>
           <v-btn color="primary">장바구니</v-btn>
           <v-btn @click="back">취소</v-btn>
       </v-container>
@@ -36,9 +37,9 @@
 <script>
 export default {
 mounted() {
-    const id = Number(this.$route.params.id);
+    const id = Number(this.$route.params.contentId);
     this.$http
-    .get(`/api/products/1`,{
+    .get(`/api/dashboard/store/products/${id}`,{
         withCredentials: true
     })
     .then((res)=>{
@@ -61,14 +62,30 @@ data(){
         isSale: this.isSale,
         price: this.price,
         store: this.store,
-        storeFileName: this.storeFileName
+        storeFileName: this.storeFileName,
+        id: this.id
     }
 },
 methods:{
 back(){
     this.$router.push({
-        path:'/joblist'
+        path:'/stores'
     })
+},
+wishList(){
+    const id = Number(this.$route.params.contentId);
+    var formData = new FormData();
+    formData.append('id',this.id);
+    this.$http
+    .post(`/api/products/${id}/wish`,formData, {
+    withCredentials: true
+    })
+     .then(res => {
+      console.log(res);
+    })
+      .catch(err => {
+       console.log(err);
+    });
 }
 }
 }

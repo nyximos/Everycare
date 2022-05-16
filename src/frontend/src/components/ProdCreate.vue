@@ -46,7 +46,7 @@
         v-model="productCategory"
         :items="prodCategory"
         item-text="name"
-        item-value="value"
+        item-value="id"
         label="상품카테고리"
         chips
       ></v-select>
@@ -68,6 +68,19 @@
 
 <script>
 export default {
+mounted() {
+  this.$http
+        .get('/api/product-categories',{
+          withCredentials: true
+        })
+        .then(res => {
+          console.log(res);
+          this.prodCategory= res.data.body
+        })
+        .catch(err => {
+          console.log(err);
+        })
+},
 data(){
   return{
     name:'',
@@ -78,9 +91,7 @@ data(){
     attachFile: [],
     attachFiles: [],
     isSale:'',
-    prodCategory:[
-      {name: '보행', value:'1'}
-    ],
+    prodCategory:[],
     prodStatus : [
       {name:'판매',value:'1'},
       {name:'입고예정',value:'2'},

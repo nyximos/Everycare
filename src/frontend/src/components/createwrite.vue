@@ -14,6 +14,7 @@
       v-model="caretarget"
       :items="caretargetlist"
       item-text="name"
+      item-value="id"
       chips
       label="케어대상인 선택">
     </v-select>
@@ -29,7 +30,7 @@
           v-if="showSchedule"
           v-model="pickSchedule"
           :items="schedulelist"
-          item-text="gender"
+          item-text="name"
           chips
         ></v-select>
           </v-col>
@@ -188,8 +189,8 @@ name: 'Create',
       formData.append('title',this.title);
       formData.append('careTarget', this.caretarget);
       formData.append('careTargetSchedule', this.pickSchedule);
-      formData.append('startDate', this.startDay)
-      formData.append('endDate',this.endDay);
+      formData.append('startDate', Date(this.startDay))
+      formData.append('endDate',Date(this.endDay));
       formData.append('desiredDayWeek', this.day.toString());
       formData.append('desiredCareSitterGender', this.sitterSex);
       formData.append('pay', this.pay);
@@ -205,7 +206,7 @@ name: 'Create',
       })
      .catch(err => {
        console.log(err);
-       console.log(typeof this.endDay)
+       console.log(typeof this.startDay)
     });
     // this.$router.push({
     //   path:'/joblist'
@@ -214,7 +215,7 @@ name: 'Create',
   
   buttonClick(){
       var formData = new FormData()
-      formData.append('id', this.caretarget.id);
+      formData.append('id', this.caretarget);
      this.$http
      .post('/api/recruitions/schedules',formData,{
         withCredentials:true
@@ -223,12 +224,12 @@ name: 'Create',
         console.log(res.data);
         this.schedulelist=res.data.body
       }).catch(err =>{
-				alert(err);
+        console.log(this.caretarget)
 				console.log(err);
 			})
     this.showbtn=false,
     this.showSchedule=true
-  }
+  } 
 },
   computed: {
     formIsValid(){

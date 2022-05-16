@@ -162,7 +162,7 @@
 <script>
 export default {
 mounted() {
-  const id = Number(this.$route.params.id);
+  const id = Number(this.$route.params.contentId);
   this.$http
     .get(`/api/stores/${id}`, {
     withCredentials: true
@@ -245,14 +245,14 @@ methods:{
     });
   },
   drop(){
-    this.$http.delete(`/api/store/account/${this.id}`,{
-      withCredentials: true
-    })
-    .then((res)=> {
-      console.log(res)
-    }).catch((err)=>{
-      console.log(err)
-    })
+    // this.$http.delete(`/api/store/account/${this.id}`,{
+    //   withCredentials: true
+    // })
+    // .then((res)=> {
+    //   console.log(res)
+    // }).catch((err)=>{
+    //   console.log(err)
+    // })
   }
 },
 computed:{
