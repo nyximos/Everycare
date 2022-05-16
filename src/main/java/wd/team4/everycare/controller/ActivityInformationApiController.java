@@ -22,9 +22,10 @@ public class ActivityInformationApiController {
 
     @PostMapping("/dashboard/caretargets/{careTargetId}/schedules/{scheduleId}/activities")
     public ResponseEntity<MyResponse> saveActivityInformation(
-            @ModelAttribute ActivityInformationFormDTO activityInformationFormDTO){
+            @ModelAttribute ActivityInformationFormDTO activityInformationFormDTO,
+            @PathVariable("scheduleId") Long id) {
 
-        ResponseEntity<MyResponse> responseEntity = activityInformationService.save(activityInformationFormDTO);
+        ResponseEntity<MyResponse> responseEntity = activityInformationService.save(id, activityInformationFormDTO);
         return responseEntity;
     }
 

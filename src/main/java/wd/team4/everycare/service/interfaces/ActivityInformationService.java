@@ -11,7 +11,7 @@ public interface ActivityInformationService {
 
     ResponseEntity<MyResponse> get(Long id);
 
-    ResponseEntity<MyResponse> save(ActivityInformationFormDTO activityInformationFormDTO);
+    ResponseEntity<MyResponse> save(Long id, ActivityInformationFormDTO activityInformationFormDTO);
 
     ResponseEntity<MyResponse> update(ActivityInformationFormDTO activityInformationFormDTO);
 
