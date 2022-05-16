@@ -1,17 +1,24 @@
 package wd.team4.everycare.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import wd.team4.everycare.domain.Test;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -19,6 +26,12 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping("/api")
 public class TestApiController {
+
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    private final String SECRET_KEY = "test_sk_7DLJOpm5QrlDBWj6LE5rPNdxbWnY";
 
     @ResponseBody
     @GetMapping("/test")
@@ -128,4 +141,32 @@ public class TestApiController {
         System.out.println("HelloWorld");
     }
 
+    @GetMapping("/success")
+    public String confirmPayment(@RequestParam String paymentKey, @RequestParam String orderId, @RequestParam Long amount) throws IOException, InterruptedException {
+
+        HttpHeaders headers = new HttpHeaders();
+        // headers.setBasicAuth(SECRET_KEY, ""); // spring framework 5.2 이상 버전에서 지원
+        headers.set("Authorization", "Basic " + Base64.getEncoder().encodeToString((SECRET_KEY + ":").getBytes()));
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        Map<String, String> payloadMap = new HashMap<>();
+        payloadMap.put("orderId", orderId);
+        payloadMap.put("amount", String.valueOf(amount));
+
+        HttpEntity<String> request = new HttpEntity<>(objectMapper.writeValueAsString(payloadMap), headers);
+
+        ResponseEntity<JsonNode> responseEntity = restTemplate.postForEntity(
+                "https://api.tosspayments.com/v1/payments/" + paymentKey, request, JsonNode.class);
+
+        String secret;
+        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+            JsonNode successNode = responseEntity.getBody();
+            secret = successNode.get("secret").asText();
+            return "success";
+        } else {
+            JsonNode failNode = responseEntity.getBody();
+            return "fail";
+        }
+
+    }
 }
