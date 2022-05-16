@@ -1,13 +1,13 @@
 package wd.team4.everycare.dto.contract;
 
 import lombok.*;
-import wd.team4.everycare.domain.JobOfferCareSitter;
-import wd.team4.everycare.dto.careSitter.CareSitterNameDTO;
+import wd.team4.everycare.domain.CareSitterImage;
+import wd.team4.everycare.dto.careSitter.CareSitterDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobOfferDTO;
-import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferCareTargetDTO;
 import wd.team4.everycare.dto.member.JobOfferMemberDTO;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,5 +26,6 @@ public class ContractDTO {
     private int contractStatus;
     private DetailJobOfferDTO jobOfferDTO;
     private JobOfferMemberDTO memberDTO;
-    private CareSitterNameDTO careSitterDTO;
+    private CareSitterDTO careSitterDTO;
+    private List<CareSitterImage> careSitterImage;
 }

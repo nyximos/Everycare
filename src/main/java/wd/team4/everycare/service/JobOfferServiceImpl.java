@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.*;
+import wd.team4.everycare.dto.ImageDTO;
+import wd.team4.everycare.dto.careSitter.CareSitterDTO;
+import wd.team4.everycare.dto.careSitter.CareSitterImageDTO;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.contract.ContractDTO;
@@ -32,6 +35,7 @@ public class JobOfferServiceImpl implements JobOfferService {
     private final CareTargetRepository careTargetRepository;
     private final ContractRepository contractRepository;
     private final CareSitterRepository careSitterRepository;
+    private final CareSitterImageRepository careSitterImageRepository;
 
     @Override
     public List<JobOfferDTO> getJobOffer() {
@@ -113,37 +117,52 @@ public class JobOfferServiceImpl implements JobOfferService {
                     .build();
 
             contractRepository.save(contract);
-        MyResponse body = MyResponse.builder()
-                .header(StatusEnum.OK)
-                .message("성공")
-                .build();
-        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
-        }else return null;
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.OK)
+                    .message("성공")
+                    .build();
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        } else return null;
 
     }
 
     @Override
     public ResponseEntity<MyResponse> findOffer(Long contractId, PrincipalDetails principalDetails) {
         Contract contract = contractRepository.findById(contractId).orElse(null);
-        if(contract!=null){
-        JobOffer jobOffer = contract.getJobOffer();
-        List<Contract> findOffers = contractRepository.findByContractStatusAndJobOffer(0, jobOffer);
-        List<ContractDTO> contractDTOs = new ArrayList<>();
-        findOffers.stream().map(contract1 -> contract1.toContractDTO()).forEach(contractDTOs::add);
+        if (contract != null) {
+            JobOffer jobOffer = contract.getJobOffer();
+            List<Contract> findOffers = contractRepository.findByContractStatusAndJobOffer(0, jobOffer);
+            List<ContractDTO> contractDTOs = new ArrayList<>();
+            findOffers.stream().map(contract1 -> contract1.toContractDTO()).forEach(contractDTOs::add);
+            List<CareSitterImage> careSitterImageList = new ArrayList<>();
 
-        MyResponse body = MyResponse.builder()
-                .header(StatusEnum.OK)
-                .body(contractDTOs)
-                .message("조회 성공")
-                .build();
-        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
-        }else return null;
+            for (ContractDTO contractDTO: contractDTOs) {
+                Long id = contractDTO.getCareSitterDTO().getId();
+                List<CareSitterImage> careSitterImages = careSitterImageRepository.findByCareSitterId(id);
+                for (CareSitterImage careSitterImage: careSitterImages) {
+                    CareSitterImage careSitterImage1 = CareSitterImage.builder()
+                            .uploadFileName(careSitterImage.getUploadFileName())
+                            .storeFileName(careSitterImage.getStoreFileName())
+                            .build();
+                    careSitterImageList.add(careSitterImage1);
+                }
+                contractDTO.setCareSitterImage(careSitterImageList);
+            }
+
+
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.OK)
+                    .body(contractDTOs)
+                    .message("조회 성공")
+                    .build();
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        } else return null;
     }
 
     @Override
     public ResponseEntity<MyResponse> findDetailOffer(Long contractId) {
         Contract contract = contractRepository.findById(contractId).orElse(null);
-        if(contract!=null){
+        if (contract != null) {
             ContractDTO contractDTO = contract.toContractDTO();
 
             MyResponse body = MyResponse.builder()
@@ -152,7 +171,7 @@ public class JobOfferServiceImpl implements JobOfferService {
                     .message("상세 조회 성공")
                     .build();
             return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
-        }else return null;
+        } else return null;
     }
 
 

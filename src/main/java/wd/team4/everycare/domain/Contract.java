@@ -109,7 +109,7 @@ public class Contract {
                 .contractStatus(this.contractStatus)
                 .jobOfferDTO(this.jobOffer.toDetailJobOfferDTO(this.jobOffer))
                 .memberDTO(this.member.toJobOfferMemberDTO())
-                .careSitterDTO(this.careSitter.toNameDTO())
+                .careSitterDTO(this.careSitter.toCareSitterDTO())
                 .build();
     }
 }

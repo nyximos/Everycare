@@ -3,6 +3,7 @@ package wd.team4.everycare.domain;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.careSitter.CareSitterDTO;
 import wd.team4.everycare.dto.careSitter.CareSitterFormDTO;
 import wd.team4.everycare.dto.careSitter.CareSitterNameDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobSearchDTO;
@@ -97,6 +98,16 @@ public class CareSitter {
         return CareSitterNameDTO.builder()
                 .id(this.id)
                 .name(this.name)
+                .build();
+    }
+
+    public CareSitterDTO toCareSitterDTO(){
+        return CareSitterDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .vaccination(this.vaccination)
+                .introduction(this.introduction)
+                .preferredType(this.preferredType)
                 .build();
     }
 
