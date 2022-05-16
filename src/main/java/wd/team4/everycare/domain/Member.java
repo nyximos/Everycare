@@ -18,10 +18,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@DynamicUpdate
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@DynamicUpdate
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id
@@ -84,9 +84,6 @@ public class Member {
 
     @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
     private Store store;
-
-    @OneToMany(mappedBy = "member")
-    private List<CareTarget> careTargets = new ArrayList<>();
 
     @Builder
     public Member(String id, String password, String name, MemberRole role, Gender gender, LocalDate birth, String phone, String email, LocalDateTime createdAt, ActivityStatus activityStatus, String zipcode, String address, String detailedAddress, String bank, String accountNumber) {

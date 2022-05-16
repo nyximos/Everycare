@@ -3,13 +3,12 @@ package wd.team4.everycare.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.service.JobOfferServiceImpl;
+import wd.team4.everycare.service.MemberContractServiceImpl;
 
 @RestController
 @RequestMapping("/api")
@@ -17,11 +16,21 @@ import wd.team4.everycare.service.JobOfferServiceImpl;
 public class MemberContractApiController {
 
     private final JobOfferServiceImpl jobOfferService;
+    private final MemberContractServiceImpl memberContractService;
+
 
     @GetMapping("/dashboard/recruitions/{id}/caresitters")
     public ResponseEntity<MyResponse> findOffer(@PathVariable("id") Long id, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         ResponseEntity<MyResponse> offer = jobOfferService.findOffer(id, principalDetails);
         return offer;
+    }
+  
+      @PostMapping("/api/caresitters/{careSitterId}/contracts")
+    public ResponseEntity<MyResponse> postMemberContract(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                                         @RequestParam("jobOfferId") Long jobOfferId,
+                                                         @RequestParam("careSitterId") Long careSitterId){
+        ResponseEntity<MyResponse> responseEntity = memberContractService.saveContract(principalDetails, jobOfferId, careSitterId);
+        return responseEntity;
     }
 
 }

@@ -15,6 +15,5 @@ public class CareTargetScheduleDTO {
     private String name;
     private String startTime;
     private String endTime;
-    private Long careTarget;
 
 }

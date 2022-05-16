@@ -11,9 +11,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
 @Entity
+@Builder
+@AllArgsConstructor
 @Table(name = "contract")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "contract_seq_generator",
         sequenceName = "contract_seq",
         initialValue = 1, allocationSize = 1)
@@ -43,7 +45,7 @@ public class Contract {
     private int pay;
 
     @Column(name = "contract_status", nullable = false)
-    private int contractStatus;
+    private int status;
 
     @Column(name = "contract_pay_amount", nullable = false)
     private int amount;
@@ -64,15 +66,15 @@ public class Contract {
     @Column(name = "contract_monthly_installment_plan")
     private int monthlyInstallmentPlan;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_sitter_id")
     private CareSitter careSitter;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "job_offer_id", nullable = false)
     private JobOffer jobOffer;
 
@@ -112,4 +114,9 @@ public class Contract {
                 .careSitterDTO(this.careSitter.toNameDTO())
                 .build();
     }
+  
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "care_target_id")
+    private CareTarget careTarget;
+
 }

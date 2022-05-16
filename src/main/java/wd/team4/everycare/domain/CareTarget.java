@@ -16,11 +16,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@DynamicUpdate
 @Getter
-@NoArgsConstructor
 @Entity
+@DynamicUpdate
 @Table(name = "care_target")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "care_target_seq_generator",
         sequenceName = "care_target_seq",
         initialValue = 1, allocationSize = 1)
