@@ -110,7 +110,7 @@ public class JobOfferServiceImpl implements JobOfferService {
                     .startTime(jobOffer.getDesiredStartTime())
                     .endTime(jobOffer.getDesiredEndTime())
                     .pay(jobOffer.getPay())
-                    .contractStatus(0)
+                    .status(0)
                     .jobOffer(jobOffer)
                     .member(member)
                     .careSitter(careSitter)
@@ -131,7 +131,7 @@ public class JobOfferServiceImpl implements JobOfferService {
         Contract contract = contractRepository.findById(contractId).orElse(null);
         if (contract != null) {
             JobOffer jobOffer = contract.getJobOffer();
-            List<Contract> findOffers = contractRepository.findByContractStatusAndJobOffer(0, jobOffer);
+            List<Contract> findOffers = contractRepository.findByStatusAndJobOffer(0, jobOffer);
             List<ContractDTO> contractDTOs = new ArrayList<>();
             findOffers.stream().map(contract1 -> contract1.toContractDTO()).forEach(contractDTOs::add);
             List<CareSitterImage> careSitterImageList = new ArrayList<>();

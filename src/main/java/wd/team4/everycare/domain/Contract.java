@@ -87,7 +87,7 @@ public class Contract {
         this.startTime = startTime;
         this.endTime = endTime;
         this.pay = pay;
-        this.contractStatus = contractStatus;
+        this.status = contractStatus;
         this.amount = amount;
         this.payDatetime = payDateTime;
         this.cardCompany = cardCompany;
@@ -108,7 +108,7 @@ public class Contract {
                 .startTime(this.startTime)
                 .endTime(this.endTime)
                 .pay(this.pay)
-                .contractStatus(this.contractStatus)
+                .contractStatus(this.status)
                 .jobOfferDTO(this.jobOffer.toDetailJobOfferDTO(this.jobOffer))
                 .memberDTO(this.member.toJobOfferMemberDTO())
                 .careSitterDTO(this.careSitter.toCareSitterDTO())

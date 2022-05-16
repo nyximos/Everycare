@@ -29,10 +29,10 @@ public class CareSitterContractApiController {
     }
 
     @PostMapping("/recruitions/{id}/contracts")
-    public ResponseEntity<MyResponse> saveContracts(@PathVariable("id")Long id, @AuthenticationPrincipal PrincipalDetails principalDetails){
+    public ResponseEntity<MyResponse> saveContracts(@PathVariable("id")Long id, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         ResponseEntity<MyResponse> offer = jobOfferService.offer(id, principalDetails);
         return offer;
-
+    }
 
     @GetMapping("/api/dashboard/caresitter/contracts")
     public ResponseEntity<MyResponse> getAll(@AuthenticationPrincipal PrincipalDetails principalDetails) {
