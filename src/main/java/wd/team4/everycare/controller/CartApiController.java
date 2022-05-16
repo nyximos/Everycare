@@ -20,6 +20,7 @@ public class CartApiController {
                                               @RequestParam int quantity,
                                               @RequestParam int amount,
                                               HttpServletRequest request){
-        cartService.add(request, id, quantity, amount);
+        ResponseEntity<MyResponse> responseEntity = cartService.add(request, id, quantity, amount);
+        return responseEntity;
     }
 }
