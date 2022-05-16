@@ -19,6 +19,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CartServiceImpl {
 
+    public ResponseEntity<MyResponse> getAll(HttpServletRequest request) {
+        Object cart = request.getSession().getAttribute("cart");
+
+        MyResponse<Object> body = MyResponse.<Object>builder()
+                .header(StatusEnum.OK)
+                .body(cart)
+                .message("성공")
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
     public ResponseEntity<MyResponse> add(HttpServletRequest request, Long id, int quantity, int amount) {
         HttpSession session = request.getSession();
 

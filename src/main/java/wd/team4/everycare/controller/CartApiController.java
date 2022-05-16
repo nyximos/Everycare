@@ -15,6 +15,12 @@ public class CartApiController {
 
     private final CartServiceImpl cartService;
 
+    @GetMapping("/cart")
+    public ResponseEntity<MyResponse> getAll(HttpServletRequest request) {
+        ResponseEntity<MyResponse> responseEntity = cartService.getAll(request);
+        return responseEntity;
+    }
+
     @PostMapping("/products/{id}/cart")
     public ResponseEntity<MyResponse> addCart(@PathVariable("id") Long id,
                                               @RequestParam int quantity,
