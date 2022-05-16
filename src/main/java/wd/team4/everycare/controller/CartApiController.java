@@ -22,11 +22,24 @@ public class CartApiController {
     }
 
     @PostMapping("/products/{id}/cart")
-    public ResponseEntity<MyResponse> addCart(@PathVariable("id") Long id,
+    public ResponseEntity<MyResponse> addCart(HttpServletRequest request,
+                                              @PathVariable("id") Long id,
                                               @RequestParam int quantity,
-                                              @RequestParam int amount,
-                                              HttpServletRequest request){
+                                              @RequestParam int amount){
         ResponseEntity<MyResponse> responseEntity = cartService.add(request, id, quantity, amount);
+        return responseEntity;
+    }
+
+    @DeleteMapping("/cart/{id}")
+    public ResponseEntity<MyResponse> remove(HttpServletRequest request,
+                                             @PathVariable("id") int id){
+        ResponseEntity<MyResponse> responseEntity = cartService.remove(request, id);
+        return responseEntity;
+    }
+
+    @DeleteMapping("/cart/all")
+    public ResponseEntity<MyResponse> removeAll(HttpServletRequest request){
+        ResponseEntity<MyResponse> responseEntity = cartService.removeAll(request);
         return responseEntity;
     }
 }

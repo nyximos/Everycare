@@ -36,7 +36,7 @@ public class CartServiceImpl {
 
         CartDTO cart = new CartDTO(id, quantity, amount);
 
-        if(session.getAttribute("session") == null){
+        if(session.getAttribute("cart") == null){
             List<CartDTO> cartList = new ArrayList<>();
             cartList.add(cart);
             session.setAttribute("cart", cartList);
@@ -45,6 +45,30 @@ public class CartServiceImpl {
             cartList.add(cart);
             session.setAttribute("cart", cartList);
         }
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    public ResponseEntity<MyResponse> remove(HttpServletRequest request, int id) {
+        List<CartDTO> cartList = (List<CartDTO>)request.getSession().getAttribute("cart");
+        cartList.remove(id);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    public ResponseEntity<MyResponse> removeAll(HttpServletRequest request) {
+        List<CartDTO> cartList = (List<CartDTO>)request.getSession().getAttribute("cart");
+        cartList.removeAll(cartList);
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
