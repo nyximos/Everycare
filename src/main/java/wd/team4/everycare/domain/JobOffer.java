@@ -118,6 +118,7 @@ public class JobOffer {
                 .comment(jobOffer.getComment())
                 .desiredCareSitterGender(jobOffer.getDesiredCareSitterGender())
                 .careTarget(jobOffer.getCareTarget().toJobOfferCareTargetDTO())
+                .careTargetScheduleListDTO(this.careTargetSchedule.toListDTO())
                 .build();
     }
 
