@@ -6,9 +6,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.Certification;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.domain.Store;
+import wd.team4.everycare.dto.certification.CertificationAdminListDTO;
+import wd.team4.everycare.dto.certification.CertificationAdminDetailDTO;
 import wd.team4.everycare.dto.member.MemberNameDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
@@ -63,7 +66,7 @@ public class AdminServiceImpl implements AdminService {
 
         List<StoreAdminListDTO> storeAdminListDTOs = new ArrayList<>();
 
-        if(stores.size()==0){
+        if(stores.isEmpty()){
             MyResponse body= MyResponse.builder()
                     .header(StatusEnum.OK)
                     .message("등록한 스토어가 없습니다.")
@@ -94,7 +97,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public ResponseEntity<MyResponse> get(Long id) {
+    public ResponseEntity<MyResponse> getStore(Long id) {
 
         Optional<Store> store = storeRepository.findById(id);
         Store storeEntity = store.orElse(null);
@@ -132,6 +135,46 @@ public class AdminServiceImpl implements AdminService {
 
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);    }
+
+    @Override
+    public ResponseEntity<MyResponse> getCertifications() {
+
+        List<Certification> certifications = certificationRepository.findAllByAdminApproval(0);
+
+        List<CertificationAdminListDTO> certificationAdminListDTOs = new ArrayList<>();
+
+        for (Certification certification : certifications) {
+
+            CareSitter careSitter = certification.getCareSitter();
+
+            CertificationAdminListDTO certificationAdminListDTO = CertificationAdminListDTO.builder()
+                    .id(certification.getId())
+                    .name(certification.getName())
+                    .memberId(careSitter.getMember().getId())
+                    .memberName(careSitter.getName())
+                    .build();
+
+            certificationAdminListDTOs.add(certificationAdminListDTO);
+        }
+
+        if(certificationAdminListDTOs.isEmpty()) {
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.OK)
+                    .message("등록된 자격증이 없습니다.")
+                    .build();
+
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        } else {
+            MyResponse<List<CertificationAdminListDTO>> body = MyResponse.<List<CertificationAdminListDTO>>builder()
+                    .header(StatusEnum.OK)
+                    .message("성공")
+                    .body(certificationAdminListDTOs)
+                    .build();
+
+            HttpHeaders headers = new HttpHeaders();
+            return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+        }
+    }
 
     @Override
     public ResponseEntity<MyResponse> approveStore(Long id) {
@@ -173,5 +216,33 @@ public class AdminServiceImpl implements AdminService {
                     .build();
             return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
         }
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> getCertification(Long id) {
+
+        Optional<Certification> certification = certificationRepository.findById(id);
+        Certification certificationEntity = certification.orElse(null);
+
+        Member member = certificationEntity.getCareSitter().getMember();
+
+        CertificationAdminDetailDTO certificationDetailDTO = CertificationAdminDetailDTO.builder()
+                .id(certificationEntity.getId())
+                .name(certificationEntity.getName())
+                .uploadName(certificationEntity.getUploadFileName())
+                .storeName(certificationEntity.getStoreFileName())
+                .createdAt(certificationEntity.getCreatedAt())
+                .memberId(member.getId())
+                .memberName(member.getName())
+                .build();
+
+        MyResponse<CertificationAdminDetailDTO> body = MyResponse.<CertificationAdminDetailDTO>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(certificationDetailDTO)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 }
