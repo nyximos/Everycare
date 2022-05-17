@@ -34,9 +34,6 @@ public class ProductCategory {
     @JoinColumn(name = "product_category_parent")
     private ProductCategory productCategory;
 
-    @OneToMany(mappedBy = "productCategory")
-    private List<Product> products = new ArrayList<>();
-
     public ProductCategoryDTO toDTO() {
         return ProductCategoryDTO.builder()
                 .id(this.id)

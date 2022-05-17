@@ -12,7 +12,7 @@ public interface CareTargetScheduleService {
 
     ResponseEntity<MyResponse> getSchedule(Long scheduleId);
 
-    ResponseEntity<MyResponse> save(CareTargetScheduleDTO careTargetScheduleDTO);
+    ResponseEntity<MyResponse> save(Long id, CareTargetScheduleDTO careTargetScheduleDTO);
 
     ResponseEntity<MyResponse> delete(Long scheduleId);
 

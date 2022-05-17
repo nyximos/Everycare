@@ -120,9 +120,9 @@ public class CareTargetScheduleServiceImpl implements CareTargetScheduleService 
     }
 
     @Override
-    public ResponseEntity<MyResponse> save(CareTargetScheduleDTO careTargetScheduleDTO) {
+    public ResponseEntity<MyResponse> save(Long id, CareTargetScheduleDTO careTargetScheduleDTO) {
 
-        Long careTargetId = careTargetScheduleDTO.getCareTarget();
+        Long careTargetId = id;
         Optional<CareTarget> careTargetEntity = careTargetRepository.findById(careTargetId);
         CareTarget careTarget = careTargetEntity.orElse(null);
 
@@ -130,6 +130,7 @@ public class CareTargetScheduleServiceImpl implements CareTargetScheduleService 
                 .name(careTargetScheduleDTO.getName())
                 .startTime(careTargetScheduleDTO.getStartTime())
                 .endTime(careTargetScheduleDTO.getEndTime())
+                .careTarget(careTarget)
                 .build();
 
         if(careTarget != null){

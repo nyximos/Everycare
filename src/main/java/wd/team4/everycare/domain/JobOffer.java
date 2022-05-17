@@ -15,7 +15,9 @@ import java.time.LocalDate;
 
 @Getter
 @Entity
+@Builder
 @ToString
+@AllArgsConstructor
 @Table(name = "job_offer")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "job_offer_seq_generator",
@@ -38,8 +40,8 @@ public class JobOffer {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate endDate;
 
-    @Column(name = "job_offer_desired_day_week", length = 50)
-    private String desiredDayWeek;
+    @Column(name = "job_offer_desired_day")
+    private String day;
 
     @Column(name = "job_offer_desired_start_time",length = 5)
     private String desiredStartTime;
@@ -77,7 +79,7 @@ public class JobOffer {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.desiredDayWeek = desiredDayWeek;
+        this.day = desiredDayWeek;
         this.desiredStartTime = desiredStartTime;
         this.desiredEndTime = desiredEndTime;
         this.pay = pay;
@@ -92,7 +94,7 @@ public class JobOffer {
         if(StringUtils.isNotBlank(jobOfferDTO.getTitle())) this.comment = jobOfferDTO.getTitle();
         if(StringUtils.isNotBlank(jobOfferDTO.getStartDate().toString())) this.startDate = jobOfferDTO.getStartDate();
         if(StringUtils.isNotBlank(jobOfferDTO.getEndDate().toString())) this.endDate = jobOfferDTO.getEndDate();
-        if(StringUtils.isNotBlank(jobOfferDTO.getDesiredDayWeek())) this.desiredDayWeek = jobOfferDTO.getDesiredDayWeek();
+        if(StringUtils.isNotBlank(jobOfferDTO.getDesiredDayWeek())) this.day = jobOfferDTO.getDesiredDayWeek();
         if(StringUtils.isNotBlank(jobOfferDTO.getDesiredStartTime())) this.desiredStartTime = jobOfferDTO.getDesiredStartTime();
         if(StringUtils.isNotBlank(jobOfferDTO.getDesiredEndTime())) this.desiredEndTime = jobOfferDTO.getDesiredEndTime();
         if(StringUtils.isNotBlank(String.valueOf(jobOfferDTO.getPay()))) this.pay = jobOfferDTO.getPay();
@@ -104,10 +106,11 @@ public class JobOffer {
 
     public JobOfferDTO toJobOfferDTO(){
         return JobOfferDTO.builder()
+                .id(this.id)
                 .title(this.title)
                 .startDate(this.startDate)
                 .endDate(this.endDate)
-                .desiredDayWeek(this.desiredDayWeek)
+                .desiredDayWeek(this.day)
                 .desiredStartTime(this.desiredStartTime)
                 .desiredEndTime(this.desiredEndTime)
                 .pay(this.pay)
@@ -124,13 +127,14 @@ public class JobOffer {
                 .title(jobOffer.getTitle())
                 .startDate(String.valueOf(jobOffer.getStartDate()))
                 .endDate(String.valueOf(jobOffer.getEndDate()))
-                .desiredDayWeek(jobOffer.getDesiredDayWeek())
+                .desiredDayWeek(jobOffer.getDay())
                 .desiredStartTime(jobOffer.getDesiredStartTime())
                 .desiredEndTime(jobOffer.getDesiredEndTime())
                 .pay(jobOffer.getPay())
                 .comment(jobOffer.getComment())
                 .desiredCareSitterGender(jobOffer.getDesiredCareSitterGender())
                 .careTarget(jobOffer.getCareTarget().toJobOfferCareTargetDTO())
+                .careTargetScheduleListDTO(this.careTargetSchedule.toListDTO())
                 .build();
     }
 

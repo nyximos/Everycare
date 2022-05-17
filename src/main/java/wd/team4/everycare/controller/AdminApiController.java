@@ -26,13 +26,13 @@ public class AdminApiController {
     private final MemberServiceImpl memberService;
 
     @GetMapping("/members")
-    public ResponseEntity<MyResponse> getMembers(){
+    public ResponseEntity<MyResponse> getMembers() {
         ResponseEntity<MyResponse> responseEntity = memberService.getAll();
         return responseEntity;
     }
 
     @PostMapping("/members/{id}")
-    public ResponseEntity<MyResponse> postAdmin(@PathVariable("id") String id){
+    public ResponseEntity<MyResponse> postAdmin(@PathVariable("id") String id) {
 
         LocalDateTime time = LocalDateTime.now();
 
@@ -48,14 +48,38 @@ public class AdminApiController {
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
+    @GetMapping("/stores")
+    public ResponseEntity<MyResponse> getStores() {
+        ResponseEntity<MyResponse> responseEntity = adminService.getStores();
+        return responseEntity;
+    }
+
+    @GetMapping("stores/{id}")
+    public ResponseEntity<MyResponse> getStore(@PathVariable("id") Long id) {
+        ResponseEntity<MyResponse> responseEntity = adminService.getStore(id);
+        return responseEntity;
+    }
+
     @PostMapping("/stores/{id}")
-    public ResponseEntity<MyResponse> postStore(@PathVariable("id") Long id){
+    public ResponseEntity<MyResponse> postStore(@PathVariable("id") Long id) {
         ResponseEntity<MyResponse> responseEntity = adminService.approveStore(id);
         return responseEntity;
     }
 
+    @GetMapping("/caresitters/certifications")
+    public ResponseEntity<MyResponse> getAll() {
+        ResponseEntity<MyResponse> responseEntity = adminService.getCertifications();
+        return responseEntity;
+    }
+
+    @GetMapping("/caresitter-certifications/{id}")
+    public ResponseEntity<MyResponse> get(@PathVariable("id") Long id) {
+        ResponseEntity<MyResponse> responseEntity = adminService.getCertification(id);
+        return responseEntity;
+    }
+
     @PostMapping("/certifications/{id}")
-    public ResponseEntity<MyResponse> postCertification(@PathVariable("id") Long id, @AuthenticationPrincipal PrincipalDetails principalDetails){
+    public ResponseEntity<MyResponse> postCertification(@PathVariable("id") Long id, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         Member admin = principalDetails.getUser();
         ResponseEntity<MyResponse> responseEntity = adminService.approveCertification(id, admin);
         return responseEntity;

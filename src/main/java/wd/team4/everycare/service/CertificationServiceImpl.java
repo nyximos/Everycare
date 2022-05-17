@@ -1,16 +1,19 @@
 package wd.team4.everycare.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.Certification;
 import wd.team4.everycare.domain.CertificationClassification;
 import wd.team4.everycare.dto.CertificationFormDTO;
 import wd.team4.everycare.dto.CertificationViewDTO;
 import wd.team4.everycare.dto.UploadFile;
+import wd.team4.everycare.dto.certification.CertificationListDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.CareSitterRepository;
@@ -49,6 +52,48 @@ public class CertificationServiceImpl implements CertificationService {
         certifications.stream().map(certification -> certification.toViewDTO()).forEach(certificationViewDTOs::add);
 
         return certificationViewDTOs;
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> getAll(PrincipalDetails principalDetails) {
+
+        CareSitter careSitter = principalDetails.getCareSitter();
+
+        List<Certification> certifications = certificationRepository.findAllByCareSitter(careSitter);
+
+        List<CertificationListDTO> certificationListDTOs = new ArrayList<>();
+
+        for (Certification certification : certifications) {
+            CertificationListDTO certificationAdminListDTO = CertificationListDTO.builder()
+                    .id(certification.getId())
+                    .name(certification.getName())
+                    .uploadName(certification.getUploadFileName())
+                    .storeName(certification.getStoreFileName())
+                    .createdAt(certification.getCreatedAt())
+                    .adminApproval(certification.getAdminApproval())
+                    .approvalDate(certification.getApprovalDate())
+                    .build();
+
+            certificationListDTOs.add(certificationAdminListDTO);
+        }
+
+        if(certificationListDTOs.isEmpty()) {
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.OK)
+                    .message("등록한 자격증이 없습니다.")
+                    .build();
+
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        } else {
+            MyResponse<List<CertificationListDTO>> body = MyResponse.<List<CertificationListDTO>>builder()
+                    .header(StatusEnum.OK)
+                    .message("성공")
+                    .body(certificationListDTOs)
+                    .build();
+
+            HttpHeaders headers = new HttpHeaders();
+            return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+        }
     }
 
     @Override

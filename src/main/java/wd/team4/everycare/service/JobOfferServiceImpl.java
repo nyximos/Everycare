@@ -1,20 +1,20 @@
 package wd.team4.everycare.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
-import wd.team4.everycare.domain.CareTarget;
-import wd.team4.everycare.domain.CareTargetSchedule;
-import wd.team4.everycare.domain.JobOffer;
-import wd.team4.everycare.dto.caretarget.CareTargetDTO;
+import wd.team4.everycare.config.auth.PrincipalDetails;
+import wd.team4.everycare.domain.*;
+import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
+import wd.team4.everycare.dto.contract.ContractDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobOfferDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
-import wd.team4.everycare.repository.CareTargetRepository;
-import wd.team4.everycare.repository.CareTargetScheduleRepository;
-import wd.team4.everycare.repository.ContractRepository;
-import wd.team4.everycare.repository.JobOfferRepository;
+import wd.team4.everycare.dto.response.MyResponse;
+import wd.team4.everycare.dto.response.StatusEnum;
+import wd.team4.everycare.repository.*;
 import wd.team4.everycare.service.interfaces.JobOfferService;
 
 import java.util.ArrayList;
@@ -31,6 +31,7 @@ public class JobOfferServiceImpl implements JobOfferService {
     private final CareTargetScheduleRepository careTargetScheduleRepository;
     private final CareTargetRepository careTargetRepository;
     private final ContractRepository contractRepository;
+    private final CareSitterRepository careSitterRepository;
 
     @Override
     public List<JobOfferDTO> getJobOffer() {
@@ -48,10 +49,11 @@ public class JobOfferServiceImpl implements JobOfferService {
     }
 
     @Override
-    public List<CareTargetSchedule> findSchedule(@RequestParam Long id) {
+    public List<CareTargetScheduleListDTO> findSchedule(Long id) {
         List<CareTargetSchedule> findCareTargetSchedule = careTargetScheduleRepository.findAllByCareTargetId(id);
-        System.out.println("findCareTargetSchedule = " + findCareTargetSchedule);
-        return findCareTargetSchedule;
+        List<CareTargetScheduleListDTO> careTargetScheduleListDTOs = new ArrayList<>();
+        findCareTargetSchedule.stream().map(careTargetSchedule -> careTargetSchedule.toListDTO()).forEach(careTargetScheduleListDTOs::add);
+        return careTargetScheduleListDTOs;
     }
 
     @Override
@@ -75,10 +77,10 @@ public class JobOfferServiceImpl implements JobOfferService {
         Optional<JobOffer> jobOffer = jobOfferRepository.findById(id);
         JobOffer jobOfferEntity = jobOffer.orElse(null);
         System.out.println("jobOfferEntity = " + jobOfferEntity.getTitle());
-        if(jobOfferEntity == null) {
+        if (jobOfferEntity == null) {
             System.out.println("구인글 없음");
             return "실패";
-        }else {
+        } else {
             jobOfferEntity.updateInfo(jobOfferDTO);
             return "완료";
         }
@@ -90,10 +92,67 @@ public class JobOfferServiceImpl implements JobOfferService {
     }
 
     @Override
-    public JobOffer offer(Long id, JobOfferDTO jobOfferDTO) {
-        Optional<JobOffer> jobOffer = jobOfferRepository.findById(id);
-        /*TODO 회원이 구인글에서 요청온거 보는거*/
-        return null;
+    public ResponseEntity<MyResponse> offer(Long jobOfferId, PrincipalDetails principalDetails) {
+        Member member = principalDetails.getUser();
+        CareSitter careSitter = careSitterRepository.findByMember(member);
+        JobOffer jobOffer = jobOfferRepository.findById(jobOfferId).orElse(null);
+
+        if (jobOffer != null) {
+            Contract contract = Contract.builder()
+                    .id(jobOffer.getId())
+                    .name(jobOffer.getCareTarget().getName() + "_" + careSitter.getName())
+                    .startDate(jobOffer.getStartDate())
+                    .endDate(jobOffer.getEndDate())
+                    .startTime(jobOffer.getDesiredStartTime())
+                    .endTime(jobOffer.getDesiredEndTime())
+                    .pay(jobOffer.getPay())
+                    .status(0)
+                    .jobOffer(jobOffer)
+                    .member(member)
+                    .careSitter(careSitter)
+                    .build();
+
+            contractRepository.save(contract);
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        }else return null;
+
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> findOffer(Long contractId, PrincipalDetails principalDetails) {
+        Contract contract = contractRepository.findById(contractId).orElse(null);
+        if(contract!=null){
+        JobOffer jobOffer = contract.getJobOffer();
+        List<Contract> findOffers = contractRepository.findByStatusAndJobOffer(0, jobOffer);
+        List<ContractDTO> contractDTOs = new ArrayList<>();
+        findOffers.stream().map(contract1 -> contract1.toContractDTO()).forEach(contractDTOs::add);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .body(contractDTOs)
+                .message("조회 성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        }else return null;
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> findDetailOffer(Long contractId) {
+        Contract contract = contractRepository.findById(contractId).orElse(null);
+        if(contract!=null){
+            ContractDTO contractDTO = contract.toContractDTO();
+
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.OK)
+                    .body(contractDTO)
+                    .message("상세 조회 성공")
+                    .build();
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        }else return null;
     }
 
 
