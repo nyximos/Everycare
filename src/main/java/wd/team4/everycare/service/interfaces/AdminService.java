@@ -13,4 +13,8 @@ public interface AdminService {
     ResponseEntity<MyResponse> approveStore(Long id);
 
     ResponseEntity<MyResponse> approveCertification(Long id, Member admin);
+
+    ResponseEntity<MyResponse> getStores();
+
+    ResponseEntity<MyResponse> get(Long id);
 }
