@@ -17,10 +17,11 @@
 
     <v-img
       height="250"
-      src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+      :src="'https://localhost:8086/api/images/'+p.imageDTOs[0].storeFileName"
+      
       
     ></v-img>{{p.attachFiles}}
-
+<!-- src="https://cdn.vuetifyjs.com/images/cards/cooking.png" -->
     <v-card-title text-align="center">{{p.name}}님</v-card-title>
 
     <v-card-text>
@@ -37,7 +38,7 @@
       color="success" 
       @click="update(p)"
     >
-      
+      수정
 
     
     </v-btn>
@@ -70,7 +71,8 @@ export default {
   data() {
     return {
       profiles: [],
-      //  id: this.$route.params.caretargetsId
+      id: this.$route.params.caretargetsId,
+      selection:'',
     }
   },
   methods: {
@@ -105,6 +107,7 @@ export default {
       .then((res) => {
           console.log(res.data.body)
           this.profiles = res.data.body
+          
   }).catch(err => {
     alert(err);
     console.log(err);

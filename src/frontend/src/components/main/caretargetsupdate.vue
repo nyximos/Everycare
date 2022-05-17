@@ -143,7 +143,7 @@
                     
                     </li>
                 </ul>
-                <v-btn class="ma-2" outlined color="indigo" @click="clickme">수정</v-btn>
+                <v-btn class="ma-2" outlined color="indigo" @click="update">수정</v-btn>
             </div>
         </div>
             
@@ -199,13 +199,49 @@ const id = this.$route.params.caretargetsId;
 		this.isCctvAgreement = res.data.body.isCctvAgreement
 		this.careType = res.data.body.careType
 		this.coronaTest = res.data.body.coronaTest
-		this.attachFiles = res.data.body.attachFiles
+		// this.attachFiles = res.data.body.attachFiles
+    this.attachFiles = res.data.body.imageDTOs[0].storeFileName
     })
     .catch((err)=>{
         console.log(err)
     })
 },
 methods:{  
+  update(){ 
+        location.href = '/caretargets';
+        let formData = new FormData()              
+                formData.append('name',this.name);
+                formData.append('gender',this.gender);
+                formData.append('birth',this.birth);
+                formData.append('height',this.height);
+                formData.append('weight',this.weight);
+                formData.append('zipcode',this.zipcode);
+                formData.append('address',this.address);
+                formData.append('detailedAddress',this.detailedAddress);
+                formData.append('longTermCareGrade',this.longTermCareGrade);
+                formData.append('comment',this.comment);
+                formData.append('pet',this.pet);
+                formData.append('isCctvAgreement',this.isCctvAgreement);
+                formData.append('careType',this.careType);
+                formData.append('coronaTest',this.coronaTest);
+                
+
+                for (let i = 0; i < this.attachFiles.length; i++) {
+                formData.append('attachFiles', this.attachFiles[0]);
+                }
+                
+    this.$http
+    .patch(`/api/dashboard/caretargets/${this.id}`,formData, {
+    withCredentials: true
+    })
+     .then(res => {
+      console.log(res);
+    })
+      .catch(err => {
+       console.log(err);
+    });    
+    
+        }, 
 execDaumPostcode() {
       new window.daum.Postcode({
         oncomplete: (data) => {
@@ -256,39 +292,8 @@ execDaumPostcode() {
             that.avatar = this.result
         }
     },
-    clickme(){ 
-        let formData = new FormData()              
-                formData.append('name',this.name);
-                formData.append('gender',this.gender);
-                formData.append('birth',this.birth);
-                formData.append('height',this.height);
-                formData.append('weight',this.weight);
-                formData.append('zipcode',this.zipcode);
-                formData.append('address',this.address);
-                formData.append('detailedAddress',this.detailedAddress);
-                formData.append('longTermCareGrade',this.longTermCareGrade);
-                formData.append('comment',this.comment);
-                formData.append('pet',this.pet);
-                formData.append('isCctvAgreement',this.isCctvAgreement);
-                formData.append('careType',this.careType);
-                formData.append('coronaTest',this.coronaTest);
-                
+  
 
-                for (let i = 0; i < this.attachFiles.length; i++) {
-                formData.append('attachFiles', this.attachFiles[i]);
-                }
-                
-    this.$http
-    .patch(`/api/dashboard/caretargets/${this.id}`,formData, {
-    withCredentials: true
-    })
-     .then(res => {
-      console.log(res);
-    })
-      .catch(err => {
-       console.log(err);
-    });    
-        },        
     },
 }
 

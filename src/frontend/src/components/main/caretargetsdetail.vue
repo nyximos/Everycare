@@ -92,8 +92,9 @@ mounted() {
 		this.isCctvAgreement = res.data.body.isCctvAgreement
 		this.careType = res.data.body.careType
 		this.coronaTest = res.data.body.coronaTest
-		// this.attachFiles = res.data.body.attachFiles
-		this.attachFiles = res.data.body.attachFiles[0].storeFileName
+		
+		// this.attachFiles = res.data.body.attachFiles[0].storeFileName
+		this.attachFiles = res.data.body.imageDTOs[0].storeFileName
 
     })
     .catch((err)=>{
