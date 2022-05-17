@@ -58,6 +58,39 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    @Override
+    public ResponseEntity<MyResponse> approveAdmin(String id) {
+
+        LocalDateTime time = LocalDateTime.now();
+
+        Optional<Member> member = memberRepository.findById(id);
+        Member memberEntity = member.orElse(null);
+
+        memberEntity.registrationAdmin(time);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공했슴다~")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> removeAdmin(String id) {
+
+        Optional<Member> member = memberRepository.findById(id);
+        Member memberEntity = member.orElse(null);
+        memberEntity.removeAdmin();
+
+
+        MyResponse body= MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
 
     @Override
     public ResponseEntity<MyResponse> getStores() {
