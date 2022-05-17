@@ -1,16 +1,22 @@
 package wd.team4.everycare.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.Certification;
 import wd.team4.everycare.domain.CertificationClassification;
+import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.CertificationFormDTO;
 import wd.team4.everycare.dto.CertificationViewDTO;
 import wd.team4.everycare.dto.UploadFile;
+import wd.team4.everycare.dto.certification.CertificationDetailDTO;
+import wd.team4.everycare.dto.certification.CertificationListDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.CareSitterRepository;
@@ -50,6 +56,74 @@ public class CertificationServiceImpl implements CertificationService {
 
         return certificationViewDTOs;
     }
+
+    @Override
+    public ResponseEntity<MyResponse> getAll(PrincipalDetails principalDetails) {
+
+        CareSitter careSitter = principalDetails.getCareSitter();
+
+        List<Certification> certifications = certificationRepository.findAllByCareSitter(careSitter);
+
+        List<CertificationListDTO> certificationAdminListDTOs = new ArrayList<>();
+
+        for (Certification certification : certifications) {
+            CertificationListDTO certificationAdminListDTO = CertificationListDTO.builder()
+                    .id(certification.getId())
+                    .classificationName(certification.getName())
+                    .memberId(careSitter.getMember().getId())
+                    .memberName(careSitter.getName())
+                    .build();
+
+            certificationAdminListDTOs.add(certificationAdminListDTO);
+        }
+
+        if(certificationAdminListDTOs.isEmpty()) {
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.OK)
+                    .message("등록한 자격증이 없습니다.")
+                    .build();
+
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        } else {
+            MyResponse<List<CertificationListDTO>> body = MyResponse.<List<CertificationListDTO>>builder()
+                    .header(StatusEnum.OK)
+                    .message("성공")
+                    .body(certificationAdminListDTOs)
+                    .build();
+
+            HttpHeaders headers = new HttpHeaders();
+            return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+        }
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> get(@AuthenticationPrincipal PrincipalDetails principalDetails, Long id) {
+
+        Member user = principalDetails.getUser();
+
+        Optional<Certification> certification = certificationRepository.findById(id);
+        Certification certificationEntity = certification.orElse(null);
+
+        CertificationDetailDTO certificationDetailDTO = CertificationDetailDTO.builder()
+                .id(certificationEntity.getId())
+                .name(certificationEntity.getName())
+                .uploadName(certificationEntity.getUploadFileName())
+                .storeName(certificationEntity.getStoreFileName())
+                .createdAt(certificationEntity.getCreatedAt())
+                .memberId(user.getId())
+                .memberName(user.getName())
+                .build();
+
+        MyResponse<CertificationDetailDTO> body = MyResponse.<CertificationDetailDTO>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(certificationDetailDTO)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
+
 
     @Override
     public ResponseEntity<MyResponse> save(CertificationFormDTO certificationFormDTO) throws IOException {

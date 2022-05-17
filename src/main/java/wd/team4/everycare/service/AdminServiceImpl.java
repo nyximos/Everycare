@@ -63,7 +63,7 @@ public class AdminServiceImpl implements AdminService {
 
         List<StoreAdminListDTO> storeAdminListDTOs = new ArrayList<>();
 
-        if(stores.size()==0){
+        if(stores.isEmpty()){
             MyResponse body= MyResponse.builder()
                     .header(StatusEnum.OK)
                     .message("등록한 스토어가 없습니다.")
