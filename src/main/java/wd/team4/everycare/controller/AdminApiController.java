@@ -56,13 +56,25 @@ public class AdminApiController {
 
     @GetMapping("stores/{id}")
     public ResponseEntity<MyResponse> getStore(@PathVariable("id") Long id) {
-        ResponseEntity<MyResponse> responseEntity = adminService.get(id);
+        ResponseEntity<MyResponse> responseEntity = adminService.getStore(id);
         return responseEntity;
     }
 
     @PostMapping("/stores/{id}")
     public ResponseEntity<MyResponse> postStore(@PathVariable("id") Long id) {
         ResponseEntity<MyResponse> responseEntity = adminService.approveStore(id);
+        return responseEntity;
+    }
+
+    @GetMapping("/caresitters/certifications")
+    public ResponseEntity<MyResponse> getAll() {
+        ResponseEntity<MyResponse> responseEntity = adminService.getCertifications();
+        return responseEntity;
+    }
+
+    @GetMapping("/caresitter-certifications/{id}")
+    public ResponseEntity<MyResponse> get(@PathVariable("id") Long id) {
+        ResponseEntity<MyResponse> responseEntity = adminService.getCertification(id);
         return responseEntity;
     }
 

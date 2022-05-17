@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CertificationDetailDTO {
+public class CertificationAdminDetailDTO {
 
     private Long id;
     private String name;

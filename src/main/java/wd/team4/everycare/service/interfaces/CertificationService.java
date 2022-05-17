@@ -17,8 +17,6 @@ public interface CertificationService {
 
     ResponseEntity<MyResponse> getAll(PrincipalDetails principalDetails);
 
-    ResponseEntity<MyResponse> get(@AuthenticationPrincipal PrincipalDetails principalDetails, Long id);
-
     ResponseEntity<MyResponse> save(CertificationFormDTO certificationFormDTO) throws IOException;
 
     List<CertificationViewDTO>  webFindAllThatRequireApproval();
