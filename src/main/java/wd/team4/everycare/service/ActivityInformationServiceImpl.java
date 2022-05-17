@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.domain.ActivityClassification;
 import wd.team4.everycare.domain.ActivityInformation;
 import wd.team4.everycare.domain.CareTargetSchedule;
+import wd.team4.everycare.dto.careTargetSchedule.ActivityClassificationDTO;
 import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationFormDTO;
 import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationViewDTO;
 import wd.team4.everycare.dto.response.MyResponse;
@@ -31,28 +32,41 @@ public class ActivityInformationServiceImpl implements ActivityInformationServic
     private final CareTargetScheduleRepository careTargetScheduleRepository;
 
     @Override
-    public List<ActivityInformationViewDTO> webFindAllByScheduleId(Long id) {
+    public ResponseEntity<MyResponse> get(Long id) {
+        Optional<ActivityInformation> activityInformation = activityInformationRepository.findById(id);
+        ActivityInformation activityInformationEntity = activityInformation.orElse(null);
+        ActivityClassification activityClassification = activityInformationEntity.getActivityClassification();
 
-        List<ActivityInformation> activityInformations = activityInformationRepository.findAllCareTargetSchedule(id);
-        if (activityInformations.isEmpty()) {
-            return null;
-        }
-        List<ActivityInformationViewDTO> activityInformationListViewDTOs = new ArrayList<>();
+        ActivityClassificationDTO activityClassificationDTO = ActivityClassificationDTO.builder()
+                .id(activityClassification.getId())
+                .name(activityClassification.getName())
+                .build();
 
-        activityInformations.stream().map(activityInformation -> activityInformation.toListViewDTO()).forEach(activityInformationListViewDTOs::add);
+        ActivityInformationViewDTO activityInformationViewDTO = ActivityInformationViewDTO.builder()
+                .id(activityInformationEntity.getId())
+                .startTime(activityInformationEntity.getStartTime())
+                .endTime(activityInformationEntity.getEndTime())
+                .requirement(activityInformationEntity.getRequirement())
+                .activityClassificationDTO(activityClassificationDTO)
+                .build();
 
-        return activityInformationListViewDTOs;
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(activityInformationViewDTO)
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<MyResponse> save(ActivityInformationFormDTO activityInformationFormDTO) {
+    public ResponseEntity<MyResponse> save(Long id, ActivityInformationFormDTO activityInformationFormDTO) {
 
         Long activityClassificationId = activityInformationFormDTO.getActivityClassificationId();
         Optional<ActivityClassification> activityClassification = activityClassificationRepository.findById(activityClassificationId);
         ActivityClassification activityClassificationEntity = activityClassification.orElse(null);
 
-        Long scheduleId = activityInformationFormDTO.getScheduleId();
-        Optional<CareTargetSchedule> careTargetSchedule = careTargetScheduleRepository.findById(scheduleId);
+        Optional<CareTargetSchedule> careTargetSchedule = careTargetScheduleRepository.findById(id);
         CareTargetSchedule careTargetScheduleEntity = careTargetSchedule.orElse(null);
 
         ActivityInformation activityInformation = ActivityInformation.builder()
@@ -73,9 +87,9 @@ public class ActivityInformationServiceImpl implements ActivityInformationServic
     }
 
     @Override
-    public ResponseEntity<MyResponse> update(ActivityInformationFormDTO activityInformationFormDTO) {
+    public ResponseEntity<MyResponse> update(Long id, ActivityInformationFormDTO activityInformationFormDTO) {
 
-        Optional<ActivityInformation> activityInformation = activityInformationRepository.findById(activityInformationFormDTO.getScheduleId());
+        Optional<ActivityInformation> activityInformation = activityInformationRepository.findById(id);
         ActivityInformation activityInformationEntity = activityInformation.orElse(null);
         if(activityInformationEntity!=null) {
             activityInformationEntity.update(activityInformationFormDTO);
@@ -97,5 +111,20 @@ public class ActivityInformationServiceImpl implements ActivityInformationServic
                 .message("성공")
                 .build();
 
-        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);    }
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public List<ActivityInformationViewDTO> webFindAllByScheduleId(Long id) {
+
+        List<ActivityInformation> activityInformations = activityInformationRepository.findAllCareTargetSchedule(id);
+        if (activityInformations.isEmpty()) {
+            return null;
+        }
+        List<ActivityInformationViewDTO> activityInformationListViewDTOs = new ArrayList<>();
+
+        activityInformations.stream().map(activityInformation -> activityInformation.toListViewDTO()).forEach(activityInformationListViewDTOs::add);
+
+        return activityInformationListViewDTOs;
+    }
 }

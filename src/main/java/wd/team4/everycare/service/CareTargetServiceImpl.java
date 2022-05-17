@@ -181,12 +181,11 @@ public class CareTargetServiceImpl implements CareTargetService {
         } throw new CareTargetNotFoundException(id);
     }
 
-    @Override
-    public List<CareTarget> findCareTargets(String id){
-        Optional<Member> member = memberRepository.findById(id);
-        return member.get().getCareTargets();
-
-    }
+//    @Override
+//    public List<CareTarget> findCareTargets(String id){
+//        Optional<Member> member = memberRepository.findById(id);
+//        return member.get().getCareTargets();
+//    }
 
     @Override
     public List<CareTargetImage> findCareTargetImages(Long id) {

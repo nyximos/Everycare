@@ -51,7 +51,7 @@ public interface CareTargetService {
 
     boolean isEmpty(Long id);
 
-    List<CareTarget> findCareTargets(String id);
+//    List<CareTarget> findCareTargets(String id);
 
     List<CareTargetImage> findCareTargetImages(Long id);
 

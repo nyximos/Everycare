@@ -11,10 +11,10 @@ import wd.team4.everycare.util.StringUtils;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@DynamicUpdate
 @Getter
-@NoArgsConstructor
 @Entity
+@DynamicUpdate
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "store_seq_generator",
         sequenceName = "store_seq",
         initialValue = 1, allocationSize = 1)
@@ -96,6 +96,7 @@ public class Store {
         this.businessLocation = businessLocation;
         this.customerServiceNumber = customerServiceNumber;
         this.member = member;
+        this.adminApproval = 0;
     }
 
     public void updateInfo(StoreFormDTO storeFormDTO){

@@ -31,8 +31,23 @@ public class JobSearchServiceImpl implements JobSearchService {
     @Override
     public List<JobSearchDTO> findAllJobSearch() {
         List<CareSitter> allJobSearch = careSitterRepository.findAllByDisclosureStatus(1);             //1이나 0이 공개일텐데 그거 따라 숫자 바꿔주기
+        List<CareSitterImage> careSitterImage = new ArrayList<>();
+
         List<JobSearchDTO> careSitterList = new ArrayList<>();
         allJobSearch.stream().map(careSitter -> careSitter.toJobSearchDTO()).forEach(careSitterList::add);
+
+        for (JobSearchDTO jobSearchDTO : careSitterList) {
+            Long id = jobSearchDTO.getId();
+            List<CareSitterImage> careSitterImage1 = careSitterImageRepository.findByCareSitterId(id);
+            for (CareSitterImage careSitterImages: careSitterImage1) {
+                CareSitterImage careSitterImage2 = CareSitterImage.builder()
+                        .uploadFileName(careSitterImages.getUploadFileName())
+                        .storeFileName(careSitterImages.getStoreFileName())
+                        .build();
+                careSitterImage.add(careSitterImage2);
+            }
+            jobSearchDTO.setAttachFiles(careSitterImage);
+        }
         return careSitterList;
     }
 

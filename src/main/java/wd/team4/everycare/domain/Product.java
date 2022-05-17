@@ -1,10 +1,7 @@
 package wd.team4.everycare.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.dto.product.MemberProductListViewDTO;
@@ -16,10 +13,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@DynamicUpdate
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@Builder
+@DynamicUpdate
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "product_seq_generator",
             sequenceName = "product_seq",
             initialValue = 1, allocationSize = 1)
@@ -61,22 +60,6 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_category_id")
     private ProductCategory productCategory;
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductImage> productImages = new ArrayList<>();
-
-    @Builder
-    public Product(Long id, String name, int price, int inventoryQuantity, String comment, int isSale, LocalDateTime createdAt, Store store, ProductCategory productCategory) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.inventoryQuantity = inventoryQuantity;
-        this.comment = comment;
-        this.isSale = isSale;
-        this.createdAt = createdAt;
-        this.store = store;
-        this.productCategory = productCategory;
-    }
 
     public MemberProductListViewDTO toMemberProductsViewDTO() {
         return MemberProductListViewDTO.builder()

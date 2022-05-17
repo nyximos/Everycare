@@ -14,10 +14,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@DynamicUpdate
 @Getter
-@NoArgsConstructor
 @Entity
+@DynamicUpdate
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "care_sitter_seq_generator",
         sequenceName = "care_sitter_seq",
         initialValue = 1, allocationSize = 1)
@@ -39,7 +39,7 @@ public class CareSitter {
     @Column(name = "care_sitter_desired_day_week", length = 50, nullable = false)
     private String desiredDayWeek;
 
-    @Column(name = "care_sitter_activity_time", length = 5, nullable = false)
+    @Column(name = "care_sitter_desired_activity_time", nullable = false)
     private String activityTime;
 
     @Column(name = "care_sitter_desired_hourly_wage", length = 50, nullable = false)
@@ -102,6 +102,7 @@ public class CareSitter {
 
     public JobSearchDTO toJobSearchDTO(){
         return JobSearchDTO.builder()
+                .id(this.id)
                 .cctvAgreement(this.cctvAgreement)
                 .is_vaccinated(this.vaccination)
                 .desiredDayWeek(this.desiredDayWeek)

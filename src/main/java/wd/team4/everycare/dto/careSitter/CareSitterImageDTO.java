@@ -1,6 +1,7 @@
 package wd.team4.everycare.dto.careSitter;
 
 import lombok.*;
+import wd.team4.everycare.domain.CareSitterImage;
 
 @Getter
 @Setter
@@ -8,4 +9,11 @@ import lombok.*;
 public class CareSitterImageDTO {
     private String uploadFileName;
     private String storeFileName;
+
+    public CareSitterImage toCareSitterImageDTO(){
+        return CareSitterImage.builder()
+                .storeFileName(this.storeFileName)
+                .uploadFileName(this.uploadFileName)
+                .build();
+    }
 }

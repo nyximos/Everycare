@@ -16,11 +16,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@DynamicUpdate
 @Getter
-@NoArgsConstructor
 @Entity
+@DynamicUpdate
 @Table(name = "care_target")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "care_target_seq_generator",
         sequenceName = "care_target_seq",
         initialValue = 1, allocationSize = 1)
@@ -147,6 +147,7 @@ public class CareTarget {
 
     public CareTargetFormDTO toFormDTO(){
         return CareTargetFormDTO.builder()
+                .id(this.id)
                 .name(this.name)
                 .gender(this.gender)
                 .birth(this.birth)
@@ -187,7 +188,7 @@ public class CareTarget {
     public JobOfferCareTargetDTO toJobOfferCareTargetDTO(){
         return JobOfferCareTargetDTO.builder()
                 .name(this.name)
-                .gender(String.valueOf(this.gender))
+                .gender(this.gender)
                 .height(this.height)
                 .weight(this.weight)
                 .build();

@@ -1,16 +1,13 @@
 package wd.team4.everycare.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
-@NoArgsConstructor
 @Entity
 @Table(name = "care_target_health_information")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "care_target_health_information_seq_generator",
         sequenceName = "care_target_health_information_seq",
         initialValue = 1, allocationSize = 1)
@@ -20,11 +17,11 @@ public class CareTargetHealthInformation {
     @Column(name = "care_target_health_information_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_target_id")
     private CareTarget careTarget;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "health_information_id")
     private HealthInformation healthInformation;
 
