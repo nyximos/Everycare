@@ -25,7 +25,7 @@ public class MemberContractApiController {
         return offer;
     }
   
-      @PostMapping("/api/caresitters/{careSitterId}/contracts")
+    @PostMapping("/caresitters/{careSitterId}/contracts")
     public ResponseEntity<MyResponse> postMemberContract(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                                          @RequestParam("jobOfferId") Long jobOfferId,
                                                          @RequestParam("careSitterId") Long careSitterId){
