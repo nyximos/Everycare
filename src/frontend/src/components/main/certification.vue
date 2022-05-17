@@ -6,23 +6,21 @@
       <h2>자격증 등록</h2>
       <ul>
         <li>자격증 분류
-            <v-select name="certification" id="certification"
+            <v-select name="certification1" id="certification1"
                       v-model="certification"
                       :items="certi"
                       label="자격증"
                       item-text="name"
-                      item-value="value"
-                        on>
+                      item-value="value" on>
             </v-select>
         </li>
         <li>
             자격증 사진
             <v-file-input 
-                v-model="attachFiles" 
+                v-model="attachFile" 
                 label="File input" 
                 type="file"
-                id="attachFiles"
-                multiple="multiple"
+                id="attachFile"
                 outlined dense>
             </v-file-input>
         </li>
@@ -44,9 +42,9 @@ export default {
                 {name:'사회복지사2', value:'사회복지사2'},
                 {name:'사회복지사3', value:'사회복지사3'},
             ],
-            attachFiles:[],
+            attachFile:'',
             certification:'',
-            id:this.$route.params.id,
+            id:this.id,
             result:[]
         }   
     },
@@ -58,7 +56,9 @@ export default {
     })
     .then(res => {
       const result = res.data.body;
+      this.id =res.data.body.id
       console.log(result)
+    //   console.log(id)
       // this.id = result.id;
     })
       .catch(err => {
@@ -68,15 +68,20 @@ export default {
     methods:{
         submit(){
             var formData = new FormData();
-            console.log(id);
+
+            const id = this.id;
+            console.log(this.id);
             formData.append('careSitterId',this.id);
             formData.append('classification', this.certification);
-            for(let i = 0; i< this.attachFiles.length; i++){
-            formData.append('attachFiles', this.attachFiles[0]);
+            formData.append('attachFile', this.attachFile);
             
-          }
-           this.$http
-           .post(`/api/dashboard/caresitter/${this.id}/certifications`,formData,{
+            console.log(this.id);
+            console.log(this.attachFile);
+            console.log(this.certification);
+            console.log(formData);
+            
+            this.$http
+           .post(`/api/dashboard/caresitter/${id}/certifications`,formData,{
                withCredentials:true
            })
            .then(res=>{

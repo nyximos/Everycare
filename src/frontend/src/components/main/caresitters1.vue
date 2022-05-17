@@ -10,15 +10,15 @@
                     <!-- <router-link :to="{name:'addprofile2+', params:{caresitterId:p.id}}"> -->
                         <span class="tab01">
                             <span class="img01">
-                                <img src="@/assets/user.png" class="vertical">
-                                {{p.attachFiles}}
+                                <!-- <img src="@/assets/user.png" class="vertical"> -->
+                                <img :src="'https://localhost:8086/api/images/'+ p.attachFiles[index].storeFileName" alt="사진" class="vertical">
                                 
                             </span>
                         </span>
                         <span class="tab02">
                             <span class="name">{{p.memberDTO.name}}
                                 <span class="age"> 나이:{{p.memberDTO.birth}}</span>
-                                {{p.id}}
+                                
                             </span>
                             <span class="area">{{p.hopefulRegion}}</span>
                                 <span class="pay">
@@ -58,27 +58,26 @@ export default {
             // ],
             page:1,
 			profiles:[],
+            // attachFiles:this.profiles.attachFiles[0].storeFileName
             // id : p.id,
+            img : this.img
 	    }
     },
     methods:{
          move(p){
-            // const id = this.id;
-            // console.log(id)
             this.$router.push({name:'addprofile2' , params:{caresitterId: p.id}})
         }
     },
 	mounted(){
-            // this.id = this.id;
-            // console.log(this.profiles.gender)
 			this.$http
             .get('/api/caresitters' ,{
                 withCredentials:true
             })
 			.then((res)=>{
+                // this.attachFiles = res.data.body.attachFiles[0].storeFileName
+                // console.log(this.attachFiles)
                 console.log(res.data.body)
-				this.profiles = res.data.body
-
+                this.profiles = res.data.body
 			}).catch(err =>{
 				alert(err);
 				console.log(err);

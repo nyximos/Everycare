@@ -9,7 +9,7 @@
 						<div class="photoArea">
 							<span class="photo">
 								<a href="#ResumeBaseInfo" class="image" style="position:static;left:0;bottom:0;display:block;width:auto;height:auto;padding:0;border:0 none;background:none">
-									<img id="divProfile" :src="'https://localhost:8086/api/images/'+this.attachFiles" alt="사진">
+									<img id="divProfile" :src="'https://localhost:8086/api/images/' + detail.attachFiles[0].storeFileName" alt="사진">		
 									
 								</a>
 							</span>
@@ -19,7 +19,6 @@
 								<li class="address"><span class="info-title">주소</span><span class="star">{{address}}</span></li>
 								<li class="contact"> 
 								<span class="info-title">연락처</span>{{phone}}
-									{{attachFiles}}
 								 </li>
 								<li class="mail"><span class="info-title">이메일</span><span class="star">{{email}}</span></li>
 							</ul>
@@ -34,7 +33,7 @@
 							<dl class="infoDetail"> 		
 								<dt class="title">백신접종:{{detail.is_vaccinated}} <span></span></dt> 
 								
-								<dt class="title">자격증</dt> 
+								<dt class="title">자격증:{{detail.certification}}</dt> 
 								<dd class="kind">
 									<ul>
 										
@@ -136,7 +135,9 @@ export default {
 			// this.activityTime = res.data.body.activityTime
 			// this.hopefulRegion = res.data.body.hopefulRegion
 			// this.is_vaccinated = res.data.body.is_vaccinated
-			this.attachFiles =res.data.body.attachFiles[0].storeFileName
+			// this.attachFiles = res.data.body.attachFiles[0].storeFileName
+			// this.certification = res.data.body.certification[0].name
+			console.log(this.attachFiles)
 			// console.log("size"+res.data.body.attachFiles.length);
 			// console.log(res.data.body.attachFiles[0].storeFileName);
 			// console.log(this.attachFiles);
@@ -161,6 +162,8 @@ export default {
 				phone:this.phone,
 				address:this.address,
 				email:this.email,
+				// storeFileName:[],
+				// certification:this.certification,
 				// is_vaccinated:this.is_vaccinated,
 				// desiredDayWeek:[this.desiredDayWeek],
 				// hourlyWage:this.hourlyWage,
@@ -172,9 +175,8 @@ export default {
 				// attachFiles:this.attachFiles,
 				// img:this.img,
 				// hopefulRegion:[this.hopefulRegion],
-				detail:[],
-				attachFiles:this.attachFiles,
-				img:this.img
+				detail:[
+				],
 		}
 	}
 }

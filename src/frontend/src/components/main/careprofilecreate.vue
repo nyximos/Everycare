@@ -13,32 +13,32 @@
                       </div>
                       <div class="con10_blank"></div>
                       <div class="area_profile">
-                          <!-- <div class="div_img">
-                              <label for="input_file"> -->
-                                  <!-- <img :src="avatar" class="img-avatar"> -->
-                                  <!-- <img src="@/assets/user.png">
-                              </label>
-                          </div> -->
+                        
+                          <div class="div_img">
+                            <img :src="image" />
+                              <!-- <label for="input_file?> -->
+                                  <!-- <img :src="avatar" class="img-avatar">
+                                  <input type="file" name="avatar" id="uppic" accept="image/gif,image/gif,image/jpg,image/png" @change="changeImage($event)" ref="avatarInput" class="uppic" label="파일"> -->
+                              <!-- </label> -->
+                          </div>
                           <div class="div_text">
-                                 <span><input type="file" v-bind:src="image" id="uppic" accept="image/gif,image/jpg,image/png" @change="changeImage($event)" ref="avatarInput" class="uppic"></span>
-                              <!-- <v-file-input v-model="attachFiles" id="attachFiles" truncate-length="22" label="사진을 넣으세요" ></v-file-input> -->
+
                           <br><br>
-                          <div v-if="!image">
-                              <!-- <v-file-input 
+                          <!-- <div v-if="!image"> -->
+                              <v-file-input 
                               v-model="attachFiles" 
                               label="File input" 
                               type="file"
                               id="attachFiles"
                               multiple="multiple"
-                              @change="onFileChange"
                               outlined dense>
-                              </v-file-input> -->
-                              <input type="file"  @change="onFileChange">
-                            </div>
-                            <div v-else>
+                              </v-file-input>
+                              <!-- <input type="file"  @change="onFileChange"> -->
+                            <!-- </div> -->
+                            <!-- <div v-else>
                                 <img :src="image" />
                                 <button @click="removeImage">제거</button>
-                            </div>
+                            </div> -->
                           </div>
                           <div class="con10_blank"></div>
                           <div class="con10 con1">
@@ -59,72 +59,43 @@
                       item-value="value"
                       @change="categoryChange($event)" on>
                     </v-select>
-                    <v-select name="sido_detail1" id="sido1_detail"
+                    <v-select name="sido_detail" id="sido1_detail"
                       v-model="hopeloc1_detail"
                       :items="detail_area"
                       label="시/군/구"
                       item-text="name"
                       item-value="value">
                     </v-select>
-                    
-                </li>
-                  <!-- <li>
-                   <span class="area_stitle">2지망</span>
-                   <v-select name="sido2" id="sido2"
-                      v-model="hope_loc2"
-                      :items="hope_location1"
-                      label="시/도"
-                      item-text="name"
-                      item-value="value"
-                      @change="categoryChange1($event)" on>
-                    </v-select>
-                    <v-select name="#" id="#"
-                      v-model="hopeloc2_detail"
-                      :items="detail1_area"
-                      label="시/군/구"
-                      item-text="name"
-                      item-value="value">
-                    </v-select>
                   </li>
-                    <li>
-                     <span class="area_stitle">3지망</span>
-                        <v-select name="sido3" id="sido3"
-                      v-model="hope_loc3"
-                      :items="hope_location1"
-                      label="시/도"
-                      item-text="name"
-                      item-value="value"
-                      @change="categoryChange2($event)" on>
-                    </v-select>
-                    <v-select name="#" id="#"
-                      v-model="hopeloc2_detail"
-                      :items="detail2_area"
-                      label="시/군/구"
-                      item-text="name"
-                      item-value="value">
-                    </v-select>
-                    </li> -->
                   </ul>
                 </div>
                  <div class="area_day">
                     <h5 class="sub_title">희망근무요일</h5>
                         <div class="area6_r_day">
-                          <v-checkbox v-model="desiredDayWeek" value="월요일" label="월"></v-checkbox>
-                          <v-checkbox v-model="desiredDayWeek" value="화요일" label="화"></v-checkbox>
-                          <v-checkbox v-model="desiredDayWeek" value="수요일" label="수"></v-checkbox>
-                          <v-checkbox v-model="desiredDayWeek" value="목요일" label="목"></v-checkbox>
-                          <v-checkbox v-model="desiredDayWeek" value="금요일" label="금"></v-checkbox>
-                          <v-checkbox v-model="desiredDayWeek" value="토요일" label="토"></v-checkbox>
-                          <v-checkbox v-model="desiredDayWeek" value="일요일" label="일"></v-checkbox>
+                          <v-checkbox v-model="desiredDayWeek" value="월" label="월"></v-checkbox>
+                          <v-checkbox v-model="desiredDayWeek" value="화" label="화"></v-checkbox>
+                          <v-checkbox v-model="desiredDayWeek" value="수" label="수"></v-checkbox>
+                          <v-checkbox v-model="desiredDayWeek" value="목" label="목"></v-checkbox>
+                          <v-checkbox v-model="desiredDayWeek" value="금" label="금"></v-checkbox>
+                          <v-checkbox v-model="desiredDayWeek" value="토" label="토"></v-checkbox>
+                          <v-checkbox v-model="desiredDayWeek" value="일" label="일"></v-checkbox>
                           {{desiredDayWeek}}
                         </div>
                       </div>
                       <div class="area_time">
                          <h5 class="sub_title">희망시간</h5>
-                        <div class="r_time_text" style="display:block;">
-                          <v-time-picker v-model="starttimepicker" ampm-in-title></v-time-picker>
-                         <v-time-picker v-model="endtimepicker" ampm-in-title></v-time-picker>
-                             </div>
+                        <div class="r_time_text" >
+                          <v-select name="time" id="time"
+                              v-model="activityTime"
+                              :items="activity"
+                              label="활동시간"
+                              item-text="name"
+                              item-value="value">
+                          </v-select>
+                          <!-- <v-time-picker v-model="starttimepicker" ampm-in-title></v-time-picker>
+                         <v-time-picker v-model="endtimepicker" ampm-in-title></v-time-picker> -->
+                          <!-- <v-select :items="time" label="시간" v-model="starttimepicker" dense outlined item-text="name" item-value="value"></v-select> -->
+                        </div>
                       </div>
                       <div class="area_pay">
                         <h5 class="sub_title">급여</h5>
@@ -151,21 +122,14 @@
                          
                     </div>
                         <div class="r_seeking">
-                            <!-- <v-checkbox v-model="caretype" value="baby" label="베이비"></v-checkbox>
-                            <v-checkbox v-model="caretype" value="housework+clean" label="육아+가사"></v-checkbox>
-                            <v-checkbox v-model="caretype" value="pickup" label="등하원"></v-checkbox>
-                            <v-checkbox v-model="caretype" value="play" label="놀이"></v-checkbox>
-                            <v-checkbox v-model="caretype" value="housework" label="가사"></v-checkbox>
-                            <v-checkbox v-model="caretype" value="clean" label="청소"></v-checkbox>
-                          <h5 class="sub_title1">연령</h5> -->
-                        <div class="r_seeking_age">
-                          <v-checkbox v-model="preferredType" value="newborn" label="신생아(0-6 month)"></v-checkbox>
-                          <v-checkbox v-model="preferredType" value="baby" label="영아(7-36 month)"></v-checkbox>
-                          <v-checkbox v-model="preferredType" value="child" label="유아(4-7 year)"></v-checkbox>
-                          <v-checkbox v-model="preferredType" value="children" label="초등학생"></v-checkbox>
-                          <v-checkbox v-model="preferredType" value="student" label="중고등학생"></v-checkbox>
-                          <v-checkbox v-model="preferredType" value="anything" label="상관없음"></v-checkbox>
-                           </div>
+                          <div class="r_seeking_age">
+                            <v-checkbox v-model="preferredType" value="newborn" label="신생아(0-6 month)"></v-checkbox>
+                            <v-checkbox v-model="preferredType" value="baby" label="영아(7-36 month)"></v-checkbox>
+                            <v-checkbox v-model="preferredType" value="child" label="유아(4-7 year)"></v-checkbox>
+                            <v-checkbox v-model="preferredType" value="children" label="초등학생"></v-checkbox>
+                            <v-checkbox v-model="preferredType" value="student" label="중고등학생"></v-checkbox>
+                            <v-checkbox v-model="preferredType" value="anything" label="상관없음"></v-checkbox>
+                          </div>
                       </div>
                       <br><br>
                       <div class="con1 con01">
@@ -176,7 +140,7 @@
                           <v-radio label="추가접종완료" value="1"></v-radio>
                           <v-radio label="미접종" value="2"></v-radio>
                         </v-radio-group>
-                                  </div>
+                        </div>
                       </div>
                       <div class="con1 con02">
                           <h5 class="sub_title">cctv 동의여부</h5>
@@ -195,15 +159,12 @@
                           <v-radio label="X" value="1"></v-radio>
                           </v-radio-group>
                           </div>
-                  
                           </div>
                           <br><br>
                           <h5>자기소개</h5>
                           <textarea class="content_add" placeholder="자기소개써주세요" v-model="introduction"></textarea>
-                          <!-- <router-link :to="{name: 'careprofile1'}"> -->
-                                <v-btn class="ma-2" outlined color="indigo" @click="submit">완료</v-btn>
-                          <!-- </router-link> -->
-                          <router-link to="/"> <v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
+                              <v-btn class="ma-2" outlined color="indigo" @click="submit">완료</v-btn>
+                              <router-link to="/"> <v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
                          </div>
                       </div>
                   </div>
@@ -215,10 +176,10 @@
 
 <script>
 export default {
-      name:'careprofilecreate',
+  name:'careprofilecreate',
     data(){
         return{
-          hope_location1:[
+    hope_location1:[
       {name: '서울', value: '서울'},
       {name: '인천', value: '인천'},
       {name: '경기', value: '경기'},
@@ -233,8 +194,8 @@ export default {
       {name: '경북', value: '경북'},
       {name: '전남', value: '전남'},
       {name: '전북', value: '전북'},
-      {name:'충남', value:'충남'},
-      {name:'충북', value:'충북'},
+      {name: '충남', value:'충남'},
+      {name: '충북', value:'충북'},
       {name: '제주', value: '제주'},
     ],
     area1 : [
@@ -500,52 +461,73 @@ export default {
       {name:'서귀포시', value:'서귀포시'},
       {name:'제주시', value:'제주시'},
     ],
-
+    activity:[
+      {name:'1시간', value:'1시간'},
+      {name:'2시간', value:'2시간'},
+      {name:'3시간', valu:'3시간'},
+      {name:'4시간', value:'4시간'},
+      {name:'5시간', value:'5시간'},
+      {name:'6시간', value:'6시간'},
+      {name:'7시간', value:'7시간'},
+      {name:'8시간', value:'8시간'},
+      {name:'9시간', value:'9시간'},
+      {name:'10시간', value:'10시간'},
+      {name:'11시간', value:'11시간'},
+      {name:'12시간', value:'12시간'},
+      {name:'13시간', value:'13시간'},
+      {name:'14시간', value:'14시간'},
+      {name:'15시간', value:'15시간'},
+      {name:'16시간', value:'16시간'},
+      {name:'17시간', value:'17시간'},
+      {name:'18시간', value:'18시간'},
+      {name:'19시간', value:'19시간'},
+      {name:'20시간', value:'20시간'},
+      {name:'21시간', value:'21시간'},
+      {name:'22시간', value:'22시간'},
+      {name:'23시간', value:'23시간'},
+      {name:'24시간', value:'24시간 '},
+    ],
+      id:'',
       image:[],
       introduction:'',
       desiredHourlyWage:0,
       desiredMonthlyWage:0,
       hope_loc1:'', 
-      hope_loc2:'',
-      hope_loc3:'',
       detail_area:[],
-      detail1_area:'',
-      detail2_area:'',
       hopeloc1_detail:'',
-      hopeloc2_detail:'',
-      hopeloc3_detail:'',
-      activityTime:'',
+      activityTime:"",
       radios:'',
       desiredDayWeek: [],
-      starttimepicker:'',
-      endtimepicker:'',
+      // starttimepicker:[],
       cctvAgreement:'',
       vaccination: '',
       attachFiles: [],
       disclosureStatus:'',
       preferredType:[],
-        }
+      avatar: require('@/assets/user.png')
+      }
     },
 methods:{
-    onFileChange(e) {
-      var files = e.target.files || e.dataTransfer.files;
-      if (!files.length)
-        return;
-      this.createImage(files[0]);
-    },
-    createImage(file) {
-      var image = new Image();
-      var reader = new FileReader();
-      var vm = this;
+    // onFileChange(e) {
+    //   var files = e.target.files || e.dataTransfer.files;
+    //   if (!files.length)
+    //     return;
+    //   this.createImage(files[0]);
+    // },
+    // createImage(file) {
+    //   var image = new Image();
+    //   var reader = new FileReader();
+    //   var vm = this;
 
-      reader.onload = (e) => {
-        vm.image = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    },
-    removeImage: function (e) {
-      this.image = '';
-    },
+    //   reader.onload = (e) => {
+    //     vm.image = e.target.result;
+    //   };
+    //   reader.readAsDataURL(file);
+    // },
+    // removeImage: function (e) {
+    //   this.image = '';
+    // },
+
       categoryChange(event){
         if(event =='서울'){
           this.detail_area = this.area1;
@@ -595,22 +577,62 @@ methods:{
             formData.append('disclosureStatus',this.disclosureStatus);
             formData.append('preferredType',this.preferredType);
             formData.append('vaccination',this.vaccination)
-            formData.append('activityTime', this.starttimepicker+this.endtimepicker);
-                 // formData.append('activityTime', this.starttimepicker + this.endtimepicker);
+            formData.append('activityTime', this.activityTime);
+            // formData.append('activityTime', this.starttimepicker + this.endtimepicker);
            for(let i = 0; i< this.attachFiles.length; i++){
              formData.append('attachFiles', this.attachFiles[0]);
            } 
+          if(this.hope_loc1 + this.hopeloc1_detail==""){
+            alert("희망지역을 선택해주세요!");
+            return;
+          }
+          if(this.desiredDayWeek==""){
+            alert("희망근무요일을 선택해주세요!");
+            return;
+          }
+          if(this.activityTime==""){
+            alert("희망활동시간을 선택해주세요!");
+            return;
+          }
+          if(this.desiredHourlyWage==""){
+            alert("시급을 입력해주세요!");
+            return;
+          }
+          if(this.desiredMonthlyWage==""){
+            alert("월급을 입력해주세요!");
+            return;
+          }
+          if(this.preferredType==""){
+             alert("선호유형을 선택해주세요!");
+             return;
+          }
+          if(this.vaccination==""){
+            alert("백신여부을 선택해주세요!");
+            return;
+          }
+          if(this.cctvAgreement==""){
+            alert("cctv 동의여부을 선택해주세요!");
+            return;
+          }
+           if(this.introduction==""){
+             alert("자기소개를 입력해주세요!");
+             return;
+           }
+           else{
            this.$http
             .post('/api/dashboard/caresitter',formData,{
                 withCredentials:true
             })
             .then(res=>{
                 console.log(res);
+                console.log();
             }).catch(err=>{
                 console.log(err);
             })
             this.$router.push({ path: '/Main' })
-            // this.$store.commit('careprofileStore/submit' ,formData)
+           }
+            console.log(formData)
+            this.$store.commit('careprofileStore/submit' ,formData)
             // // console.log(this.$store.state.careprofileStore.id)
         },
     }

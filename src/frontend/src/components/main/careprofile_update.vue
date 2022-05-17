@@ -1,7 +1,8 @@
 <template>
   <div>
       <ul>
-            <li><h3>> 선호 케어 유형:</h3>   
+            <li>
+              <h3>> 선호 케어 유형:</h3>   
                 <v-checkbox v-model="preferredType" value="newborn" label="신생아(0-6 month)"></v-checkbox>
                 <v-checkbox v-model="preferredType" value="baby" label="영아(7-36 month)"></v-checkbox>
                 <v-checkbox v-model="preferredType" value="child" label="유아(4-7 year)"></v-checkbox>
@@ -9,7 +10,8 @@
                 <v-checkbox v-model="preferredType" value="student" label="중고등학생"></v-checkbox>
                 <v-checkbox v-model="preferredType" value="anything" label="상관없음"></v-checkbox>
             </li>
-            <li><h3>> 희망 활동 요일:</h3>
+            <li>
+              <h3>> 희망 활동 요일:</h3>
                 <!-- <span>월</span><input type="checkbox" v-model="desiredDayWeek" value="월요일">&nbsp;&nbsp;&nbsp;&nbsp;
                 <span>화</span><input type="checkbox" v-model="desiredDayWeek" value="화요일">&nbsp;&nbsp;&nbsp;&nbsp;
                 <span>수</span><input type="checkbox" v-model="desiredDayWeek" value="수요일">&nbsp;&nbsp;&nbsp;&nbsp;
@@ -17,35 +19,23 @@
                 <span>금</span><input type="checkbox" v-model="desiredDayWeek" value="금요일">&nbsp;&nbsp;&nbsp;&nbsp;
                 <span>토</span><input type="checkbox" v-model="desiredDayWeek" value="토요일">&nbsp;&nbsp;&nbsp;&nbsp;
                 <span>일</span><input type="checkbox" v-model="desiredDayWeek" value="일요일"> -->
-                    <v-checkbox v-model="desiredDayWeek" value="월요일" label="월"></v-checkbox>
-                    <v-checkbox v-model="desiredDayWeek" value="화요일" label="화"></v-checkbox>
-                    <v-checkbox v-model="desiredDayWeek" value="수요일" label="수"></v-checkbox>
-                    <v-checkbox v-model="desiredDayWeek" value="목요일" label="목"></v-checkbox>
-                    <v-checkbox v-model="desiredDayWeek" value="금요일" label="금"></v-checkbox>
-                    <v-checkbox v-model="desiredDayWeek" value="토요일" label="토"></v-checkbox>
-                    <v-checkbox v-model="desiredDayWeek" value="일요일" label="일"></v-checkbox>
+                <v-checkbox v-model="desiredDayWeek" value="월요일" label="월"></v-checkbox>
+                <v-checkbox v-model="desiredDayWeek" value="화요일" label="화"></v-checkbox>
+                <v-checkbox v-model="desiredDayWeek" value="수요일" label="수"></v-checkbox>
+                <v-checkbox v-model="desiredDayWeek" value="목요일" label="목"></v-checkbox>
+                <v-checkbox v-model="desiredDayWeek" value="금요일" label="금"></v-checkbox>
+                <v-checkbox v-model="desiredDayWeek" value="토요일" label="토"></v-checkbox>
+                <v-checkbox v-model="desiredDayWeek" value="일요일" label="일"></v-checkbox>
             </li>
             <li><h3>> 희망 활동 시간:</h3> 
                 <div class="" style="display:block;">
-                    <v-row
-      justify="space-around"
-      align="center"
-    >
-      <v-col style="width: 350px; flex: 0 1 auto;">
-        <h2>Start:</h2>
-        <v-time-picker
-          v-model="starttimepicker"
-          
-        ></v-time-picker>
-      </v-col>
-      <v-col style="width: 350px; flex: 0 1 auto;">
-        <h2>End:</h2>
-        <v-time-picker
-          v-model="endtimepicker"
-          
-        ></v-time-picker>
-      </v-col>
-    </v-row>
+                  <v-select name="time" id="time"
+                              v-model="activityTime"
+                              :items="activity"
+                              label="활동시간"
+                              item-text="name"
+                              item-value="value">
+                  </v-select>
                 </div>
             </li>
             <li><h3>>  희망 시급:</h3> <v-text-field v-model.number="desiredHourlyWage" label="hourpay" required></v-text-field>
@@ -65,8 +55,8 @@
             <li><h3>>  소개글:</h3>  <textarea class="content_add" placeholder="자기소개써주세요" v-model="introduction"></textarea></li>
             <li>공개 여부:
                 <v-radio-group v-model="disclosureStatus" mandatory row>
-                            <v-radio label="O" value="0">O</v-radio>
-                            <v-radio label="X" value="1">X</v-radio>
+                            <v-radio label="O" value="1">O</v-radio>
+                            <v-radio label="X" value="0">X</v-radio>
                   </v-radio-group> 
                 <li>이미지 파일들
                 <v-file-input 
@@ -89,13 +79,37 @@
 export default {
     data(){
         return{
+          activity:[
+              {name:'1시간', value:'1시간'},
+              {name:'2시간', value:'2시간'},
+              {name:'3시간', valu:'3시간'},
+              {name:'4시간', value:'4시간'},
+              {name:'5시간', value:'5시간'},
+              {name:'6시간', value:'6시간'},
+              {name:'7시간', value:'7시간'},
+              {name:'8시간', value:'8시간'},
+              {name:'9시간', value:'9시간'},
+              {name:'10시간', value:'10시간'},
+              {name:'11시간', value:'11시간'},
+              {name:'12시간', value:'12시간'},
+              {name:'13시간', value:'13시간'},
+              {name:'14시간', value:'14시간'},
+              {name:'15시간', value:'15시간'},
+              {name:'16시간', value:'16시간'},
+              {name:'17시간', value:'17시간'},
+              {name:'18시간', value:'18시간'},
+              {name:'19시간', value:'19시간'},
+              {name:'20시간', value:'20시간'},
+              {name:'21시간', value:'21시간'},
+              {name:'22시간', value:'22시간'},
+              {name:'23시간', value:'23시간'},
+              {name:'24시간', value:'24시간'},
+            ],
             introduction:'',
             desiredHourlyWage:0,
             monthlyWage:0,
             activityTime:'',
             desiredDayWeek: [],
-            starttimepicker:'',
-            endtimepicker:'',
             preferredType: [],
             cctvAgreement:'',
             is_vaccinated: '',
@@ -141,12 +155,13 @@ export default {
             formData.append('desiredHourlyWage', this.desiredHourlyWage);
             formData.append('desiredMonthlyWage', this.monthlyWage);
             formData.append('disclosureStatus',this.disclosureStatus);
-            formData.append('activityTime', this.starttimepicker+this.endtimepicker);
+            formData.append('activityTime', this.activityTime);
             formData.append('disclosureStatus',this.disclosureStatus);
             // formData.append('activityTime', this.starttimepicker + this.endtimepicker);
            for(let i = 0; i< this.attachFiles.length; i++){
              formData.append('attachFiles', this.attachFiles[0]);
            } 
+           console.log(this.attachFiles);
            this.$http
             .patch(`/api/dashboard/caresitter/${this.id}`, formData,{
                 withCredentials:true
