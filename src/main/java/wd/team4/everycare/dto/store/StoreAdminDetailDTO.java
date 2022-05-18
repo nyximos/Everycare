@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class StoreAdminDetailDTO {

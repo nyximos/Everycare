@@ -58,8 +58,6 @@ export default {
       const result = res.data.body;
       this.id =res.data.body.id
       console.log(result)
-    //   console.log(id)
-      // this.id = result.id;
     })
       .catch(err => {
        console.log(err);

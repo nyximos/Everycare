@@ -53,9 +53,6 @@
 export default {
     data(){
 		return{
-            // props:[
-            //     'caresitterId'
-            // ],
             page:1,
 			profiles:[],
             // attachFiles:this.profiles.attachFiles[0].storeFileName

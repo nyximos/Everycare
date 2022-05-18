@@ -4,8 +4,8 @@ export default {
         id:''
     },
     mutations: {
-        submit(state, formData){
-            state.id = formData.id;
+        submit(state, userinfo){
+            state.id = userinfo.id;
         }
     },
     actions: {

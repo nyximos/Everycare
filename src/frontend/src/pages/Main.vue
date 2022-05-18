@@ -5,8 +5,9 @@
         <ul>
             <li><router-link to="/dashboard/Careprofile">케어시터프로필 등록</router-link></li>
             <li><router-link to="/Carepeople">케어대상인 조회</router-link></li>
-            <li><router-link to="/Mypage">마이페이지</router-link></li>
+            <li><router-link to="/dashboard">마이페이지</router-link></li>
             <li><router-link to="/Caresitterprofile_delete">프로필상세수정삭제</router-link></li>
+            <li>{{this.$store.state.careprofileStore.id}}</li>
         </ul>
     </v-container>
 </template>

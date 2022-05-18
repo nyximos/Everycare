@@ -625,14 +625,19 @@ methods:{
             })
             .then(res=>{
                 console.log(res);
-                console.log();
+                console.log(res.data);
+                const userinfo ={
+                  id:res.data.body
+                }
+                console.log(userinfo);
+                this.$store.commit('careprofileStore/submit',userinfo);
             }).catch(err=>{
                 console.log(err);
             })
             this.$router.push({ path: '/Main' })
            }
-            console.log(formData)
-            this.$store.commit('careprofileStore/submit' ,formData)
+            // console.log(formData)
+            // this.$store.commit('careprofileStore/submit' ,formData)
             // // console.log(this.$store.state.careprofileStore.id)
         },
     }

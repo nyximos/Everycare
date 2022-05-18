@@ -108,6 +108,9 @@
                         <h2>활동내역</h2>
                     </div>
 				</div>
+				<br><br><br><br><br><br><br><br>
+				<v-btn class="ma-2" outlined color="indigo" @click="contract">계약</v-btn>
+                <router-link to="/caresitters"><v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
 			</div>
 			</div>
         </div>
@@ -156,6 +159,9 @@ export default {
 	
 		data(){
 			return{
+				props:[
+					'caresitterId'
+				],
 				name:this.name,
 				birth:this.birth,
 				gender:this.gender,
@@ -177,6 +183,11 @@ export default {
 				// hopefulRegion:[this.hopefulRegion],
 				detail:[
 				],
+		}
+	},
+	methods:{
+		contract(){
+            this.$router.push({name:'contract' })
 		}
 	}
 }

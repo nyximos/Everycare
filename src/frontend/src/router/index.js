@@ -16,20 +16,48 @@ const routes = [
         name: 'Main',
         component: () => import('@/pages/Main.vue')
     },
-    {
-        path: '/adminpage',
+    {   
+        // 관리자 자격증 조회 화면
+        path: '/admin/caresitter-certifications',
         name: 'adminpage',
         component: () => import('@/pages/Adminpage.vue')
     },
     {
-        path: '/mypage',
+        // 관리자 자격증 상세/승인
+        path: '/admin/caresitter-certifications/:contentId',
+        name: 'certification_detail',
+        component: () => import('@/components/main/certification_detail.vue')
+    },
+    {   
+        //자격증등록화면
+        path: '/dashboard/caresitter/:caresitterId/certifications/new',
+        name: 'certification',
+        component: () => import('@/pages/Certification.vue')
+    },
+    {   
+        // 회원 마이페이지
+        path: '/dashboard',
         name: 'mypage',
         component: () => import('@/pages/Mypage.vue')
     },
+    {   
+        // 구직글 조회
+        path: '/caresitters',
+        name: 'caresitters',
+        component: () => import('@/pages/Caresitters.vue')
+    },
     {
-        path: '/certification/:caresitterId',
-        name: 'certification',
-        component: () => import('@/pages/Certification.vue')
+        // 케어시터 프로필 등록
+        path: '/dashboard/caresitter',
+        name: 'careprofilecreate',
+        component: () => import('@/pages/Careprofilecreate.vue')
+    },
+    {   
+        // 구직글 케어시터 프로필 상세조회
+        path: '/caresitters/:caresitterId',
+        name: 'addprofile2',
+        props:true,
+        component: () => import('@/components/main/addprofile2.vue')
     },
     
     {
@@ -68,11 +96,6 @@ const routes = [
         component: () => import('@/pages/Caresitterprofile.vue')
     },
     {
-        path: '/careprofilecreate',
-        name: 'careprofilecreate',
-        component: () => import('@/pages/Careprofilecreate.vue')
-    },
-    {
         path: '/profile_update/:caresitterId',
         name: 'profile_update',
         component: () => import('@/pages/Profile_update.vue')
@@ -82,12 +105,6 @@ const routes = [
     //     name: 'profile_update',
     //     component: () => import('@/pages/Profile_update.vue')
     // },
-    {
-        path: '/addprofile2/:caresitterId',
-        name: 'addprofile2',
-        // props:true,
-        component: () => import('@/components/main/addprofile2.vue')
-    },
     {
         path: '/caresitterprofile/:caresitterId',
         name: 'caresitterprofile',
@@ -118,12 +135,6 @@ const routes = [
             if (token !== null) next({ name: 'Main' });
             else next();
         }
-    },
-    {
-        path: '/caresitters',
-        name: 'caresitters',
-        // props:true,
-        component: () => import('@/pages/Caresitters.vue')
     },
     {
         path: '/works',

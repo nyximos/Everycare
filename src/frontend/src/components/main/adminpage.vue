@@ -82,7 +82,7 @@
         <div class="page-breadcrumb">
           <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
-              <h4 class="page-title">회원 관리</h4>
+              <h4 class="page-title">케어시터 자격증 승인</h4>
               <div class="ms-auto text-end">
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
@@ -101,7 +101,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title mb-0">회원</h5>
+                  <h5 class="card-title mb-0">자격증</h5>
                 </div>
                 <div class="table-responsive">
                   <table class="table">
@@ -110,17 +110,17 @@
                         <th>
                           <label class="customcheckbox mb-3">
                             <input type="checkbox" id="mainCheckbox" v-model="checkAll">
-                            <span class="checkmark" ></span>
+                            <span class="checkmark"></span>
                           </label>
                         </th>
                         <th scope="col">#</th>
-                        <th scope="col">아이디</th>
+                        <th scope="col">회원 아이디</th>
                         <th scope="col">이름</th>
-                        <th scope="col">전화번호</th>
-                        <th scope="col">등록일</th>
+                        <th scope="col">자격증 이름</th>
+                        <!-- <th scope="col">등록일</th> -->
                       </tr>
                     </thead>
-                    <tbody class="customtable">
+                    <tbody class="customtable" v-for="(c,index) in certifications" :key="index" @click="move(c)">
                       <tr>
                         <th>
                           <label class="customcheckbox">
@@ -128,76 +128,10 @@
                             <span class="checkmark"></span>
                           </label>
                         </th>
-                        <td>1</td>
-                        <td>msmsm112</td>
-                        <td>김OO</td>
-                        <td>010-1111-2222</td>
-                        <td>2022-05-02</td>
-                      </tr>
-                      <tr>
-                        <th>
-                          <label class="customcheckbox">
-                            <input type="checkbox" class="listCheckbox">
-                            <span class="checkmark"></span>
-                          </label>
-                        </th>
-                        <td>2</td>
-                        <td>asd123</td>
-                        <td>이OO</td>
-                        <td>010-1111-2222</td>
-                        <td>2022-04-12</td>
-                      </tr>
-                      <tr>
-                        <th>
-                          <label class="customcheckbox">
-                            <input type="checkbox" class="listCheckbox">
-                            <span class="checkmark"></span>
-                          </label>
-                        </th>
-                        <td>3</td>
-                        <td>asd123</td>
-                        <td>이OO</td>
-                        <td>010-1111-2222</td>
-                        <td>2022-04-12</td>
-                      </tr>
-                      <tr>
-                        <th>
-                          <label class="customcheckbox">
-                            <input type="checkbox" class="listCheckbox">
-                            <span class="checkmark"></span>
-                          </label>
-                        </th>
-                        <td>4</td>
-                        <td>asd123</td>
-                        <td>이OO</td>
-                        <td>010-1111-2222</td>
-                        <td>2022-04-12</td>
-                      </tr>
-                      <tr>
-                        <th>
-                          <label class="customcheckbox">
-                            <input type="checkbox" class="listCheckbox">
-                            <span class="checkmark"></span>
-                          </label>
-                        </th>
-                        <td>5</td>
-                        <td>asd123</td>
-                        <td>이OO</td>
-                        <td>010-1111-2222</td>
-                        <td>2022-04-12</td>
-                      </tr>
-                      <tr>
-                        <th>
-                          <label class="customcheckbox">
-                            <input type="checkbox" class="listCheckbox">
-                            <span class="checkmark"></span>
-                          </label>
-                        </th>
-                        <td>6</td>
-                        <td>asd123</td>
-                        <td>이OO</td>
-                        <td>010-1111-2222</td>
-                        <td>2022-04-12</td>
+                        <td>{{c.id}}</td>
+                        <td>{{c.memberId}}</td>
+                        <td>{{c.memberName}}</td>
+                        <td>{{c.name}}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -213,6 +147,30 @@
 
 <script>
 export default {
+  data(){
+    return{
+      certifications:[],
+      checkAll:'',
+    }
+  },
+  mounted(){
+    this.$http
+    .get('/api/admin//caresitters/certifications',{
+      withCredentials:true
+    })
+    .then((res)=>{
+      console.log(res.data.body)
+      this.certifications = res.data.body
+    }).catch(err=>{
+      alert(err);
+      console.log(err)
+    })
+  },
+  methods:{
+    move(c){
+      this.$router.push({name:'certification_detail', params:{contentId:c.id}})
+    }
+  }
 }
 </script>
 
