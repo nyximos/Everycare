@@ -114,6 +114,14 @@ public class Member {
         this.adminRegistrationDate = null;
     }
 
+    public MemberInfoDTO toMemberInfoDTO() {
+        return MemberInfoDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .role(this.role)
+                .build();
+    }
+
     public MemberListViewDTO toMemberListViewDTO(){
         return MemberListViewDTO.builder()
                 .id(this.id)
