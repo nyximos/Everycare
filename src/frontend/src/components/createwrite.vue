@@ -39,6 +39,7 @@
             <v-col cols="4">
               <v-subheader>시작일</v-subheader>
            <input type="date" v-model="startDay">
+           <input type="datetime-local" name="" id="" v-model="hi">
          </v-col>
          <v-col cols="4">
            <v-subheader>종료일</v-subheader>
@@ -180,7 +181,8 @@ name: 'Create',
         comment: this.comment,
         showbtn: true,
         showSchedule: false,
-        btnLock: false
+        btnLock: false,
+        hi: this.hi
       }
     },
     methods: {
@@ -189,8 +191,8 @@ name: 'Create',
       formData.append('title',this.title);
       formData.append('careTarget', this.caretarget);
       formData.append('careTargetSchedule', this.pickSchedule);
-      formData.append('startDate', Date(this.startDay))
-      formData.append('endDate',Date(this.endDay));
+      formData.append('startDate',this.startDay)
+      formData.append('endDate',this.endDay);
       formData.append('desiredDayWeek', this.day.toString());
       formData.append('desiredCareSitterGender', this.sitterSex);
       formData.append('pay', this.pay);
@@ -206,7 +208,7 @@ name: 'Create',
       })
      .catch(err => {
        console.log(err);
-       console.log(typeof this.startDay)
+       console.log(this.hi)
     });
     // this.$router.push({
     //   path:'/joblist'

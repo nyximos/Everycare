@@ -2,7 +2,7 @@
  <v-container>
      <h1>wish List</h1>
      <wish v-for="(listItem, index) in listData" :key="index" 
-     :listItem="listItem" @drop="drop"/>
+     :listItem="listItem"/>
  </v-container> 
 </template>
 

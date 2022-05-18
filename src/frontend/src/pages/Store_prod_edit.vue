@@ -18,7 +18,7 @@
 import Navbar from '@/components/navbar.vue';
 import Sidebar from '@/components/sidebar.vue';
 import Seminavbar from '@/components/Semi_navbar.vue';
-import ProdEdit from '@/components/ProdEdit.vue';
+import ProdEdit from '@/components/prodEdit.vue';
 
 export default {
 components:{

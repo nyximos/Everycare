@@ -4,14 +4,6 @@
         <v-row class="mt-5">
             <h5 class="fw-bold">{{title}}</h5>
         </v-row>
-          <v-row>
-          <v-col cols="4">
-              <label>글쓴이</label>
-              </v-col>
-              <v-col col cols="4">
-                <p>{{member}}</p>
-              </v-col>
-        </v-row>
         <v-row>
           <v-col cols="4">
               <label>케어대상인</label>
@@ -119,7 +111,7 @@ mounted() {
         this.endTime = res.data.body.desiredEndTime
         this.pay = res.data.body.pay
         this.caretarget = res.data.body.careTarget.name
-        this.careTargetSchedule = res.data.body.careTargetSchedule
+        this.careTargetSchedule = res.data.body.careTargetScheduleListDTO
     })
     .catch((err)=>{
         console.log(err)

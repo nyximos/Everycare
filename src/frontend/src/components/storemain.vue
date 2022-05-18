@@ -49,12 +49,10 @@
 </div>
 
 <!--body-->
-		<p class="display-6 text-center mt-5">🎉실외 마스크 프리🎉</p>
+		<p class="display-6 text-center mt-5">Menu</p>
 			<ProdList v-for="(storeList, index) in storeList"
         :key="index"
-        mb-2 :storeList="storeList" @detail="detailShot" /> 
-				<p class="display-6 text-center mt-5">💫오늘만 특별 할인💫</p>
-			<ProdList :storeList="storeList" @detail="detailShot" />
+        mb-2 :storeList="storeList" @detail="detailShot" />		
 </v-container>   
 </template>
 
@@ -73,6 +71,7 @@ mounted(){
 	.then((res)=>{
 		console.log(res)
 		this.storeList= res.data.body
+    // this.storeFileName = res.data.body.storeFileName
 	})
 	.catch((err)=>{
 		console.log(err)
@@ -81,6 +80,7 @@ mounted(){
 data(){
 	return{
 		storeList:this.storeList,
+    // storeFileName: this.storeFileName,
 		items: [
           {
             src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',

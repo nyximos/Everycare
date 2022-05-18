@@ -1,17 +1,18 @@
 <template>
  <div>
-        <v-card outlined>
-            <v-card-title>{{listItem.name}}</v-card-title>
+        <v-card class="mx-auto mt-2" max-width="344">
+          <v-img id="divProfile" :src="'https://localhost:8086/api/images/'+this.listItem.storeFileName" alt="사진"/>
+          <v-card-title>{{listItem.name}}</v-card-title>
           <v-card-text>
-              <div>{{listItem.price}}원</div>
+            <div class="mt-3">{{listItem.price}}원</div>
           </v-card-text>
             <v-card-actions>
               <v-btn
                 outlined
                 rounded
                 text
-                @click="drop">
-                delete
+                @click="detail">
+                detail
               </v-btn>
             </v-card-actions>
         </v-card>
@@ -40,9 +41,7 @@ export default {
       console.log(res)
     }).catch((err)=>{
       console.log(err)
-    })
-            // console.log(this.listItem.id)
-        //   this.$emit('drop', this.listItem.id);
+        })
       }
     }
   }

@@ -23,6 +23,11 @@ const routes = [
         component: () => import('@/pages/Wish.vue')
     },
     {
+        path: '/cart',
+        name: 'Cart',
+        component: () => import('@/pages/Cart.vue')
+    },
+    {
 
         path: '/joboffer/:id/editwrite',
         name: 'editwrite',
