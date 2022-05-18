@@ -121,7 +121,14 @@ public class MemberServiceImpl implements MemberService {
 
         Optional<Member> member = memberRepository.findById(id);
         Member memberEntity = member.orElse(null);
-        MemberInfoDTO memberInfoDTO = memberEntity.toMemberInfoDTO();
+
+        MemberInfoDTO memberInfoDTO = MemberInfoDTO.builder()
+                .id(memberEntity.getId())
+                .name(memberEntity.getName())
+                .role(memberEntity.getRole())
+                .careSitterId(memberEntity.getCareSitter().getId())
+                .storeId(memberEntity.getStore().getId())
+                .build();
 
         MyResponse<MemberInfoDTO> body = MyResponse.<MemberInfoDTO>builder()
                 .header(StatusEnum.OK)

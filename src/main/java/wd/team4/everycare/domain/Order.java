@@ -1,6 +1,7 @@
 package wd.team4.everycare.domain;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -9,6 +10,9 @@ import java.util.List;
 
 @Getter
 @Entity
+@Builder
+@DynamicUpdate
+@AllArgsConstructor
 @Table(name = "orders")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "order_seq_generator",
@@ -40,8 +44,8 @@ public class Order {
     @Column(name = "order_detailed_address", nullable = false)
     private String detailedAddress;
 
-    @Column(name = "order_status", length = 30, nullable = false)
-    private String status;
+    @Column(name = "order_status", nullable = false)
+    private OrderStatus status;
 
     @Column(name = "order_time", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
@@ -69,7 +73,20 @@ public class Order {
     @Column(name = "order_monthly_installment_plan")
     private int installmentPlan;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
+
+    public void cancel() {
+        this.status = OrderStatus.CANCEL;
+    }
+
+    public void pay(int paymentAmount, String cardCompany, String cardNumber, int approvalNumber, int installmentPlan) {
+        this.paymentAmount = paymentAmount;
+        this.paymentTime = LocalDateTime.now();
+        this.cardCompany = cardCompany;
+        this.cardNumber = cardNumber;
+        this.approvalNumber = approvalNumber;
+        this.installmentPlan = installmentPlan;
+    }
 }
