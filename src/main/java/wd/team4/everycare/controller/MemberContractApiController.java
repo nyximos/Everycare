@@ -33,4 +33,10 @@ public class MemberContractApiController {
         return responseEntity;
     }
 
+    @GetMapping("/caresitters/{careSitterId}/recruitions")
+    public ResponseEntity<MyResponse> getrecruitions(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        ResponseEntity<MyResponse> responseEntity = memberContractService.getRecruitions(principalDetails);
+        return responseEntity;
+    }
+
 }

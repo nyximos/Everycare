@@ -1,6 +1,7 @@
 package wd.team4.everycare.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -10,16 +11,20 @@ import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.Contract;
 import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.dto.contract.JobOfferContractListDTO;
+import wd.team4.everycare.dto.product.ProductListViewDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.*;
 import wd.team4.everycare.service.interfaces.MemberContractService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
+@RequiredArgsConstructor
 public class MemberContractServiceImpl implements MemberContractService {
 
     private final CareSitterRepository careSitterRepository;
@@ -78,5 +83,37 @@ public class MemberContractServiceImpl implements MemberContractService {
                 .build();
 
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    public ResponseEntity<MyResponse> getRecruitions(PrincipalDetails principalDetails) {
+
+        Member member = principalDetails.getUser();
+
+        List<JobOffer> jobOffers = jobOfferRepository.findAllByMember(member);
+        List<JobOfferContractListDTO> jobOfferContractListDTOs = new ArrayList<>();
+
+        for (JobOffer jobOffer : jobOffers) {
+            JobOfferContractListDTO dto = JobOfferContractListDTO.builder()
+                    .id(jobOffer.getId())
+                    .title(jobOffer.getTitle())
+                    .startDate(jobOffer.getStartDate())
+                    .endDate(jobOffer.getEndDate())
+                    .startTime(jobOffer.getDesiredStartTime())
+                    .endTime(jobOffer.getDesiredEndTime())
+                    .careTargetName(jobOffer.getCareTarget().getName())
+                    .scheduleName(jobOffer.getCareTargetSchedule().getName())
+                    .build();
+
+            jobOfferContractListDTOs.add(dto);
+        }
+
+        MyResponse<List<JobOfferContractListDTO>> body = MyResponse.<List<JobOfferContractListDTO>>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(jobOfferContractListDTOs)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 }

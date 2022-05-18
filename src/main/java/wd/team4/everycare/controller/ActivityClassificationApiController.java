@@ -15,7 +15,7 @@ public class ActivityClassificationApiController {
 
     private final ActivityClassificationServiceImpl activityClassificationService;
 
-    @GetMapping("/product-categories")
+    @GetMapping("/activity-categories")
     public ResponseEntity<MyResponse> getAll() {
         ResponseEntity<MyResponse> responseEntity = activityClassificationService.getAll();
         return responseEntity;
