@@ -12,4 +12,5 @@ public class ActivityClassificationDTO {
     private Long id;
     private String name;
     private int level;
+    private Long ParentId;
 }

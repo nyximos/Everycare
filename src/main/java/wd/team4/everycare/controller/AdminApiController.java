@@ -34,21 +34,18 @@ public class AdminApiController {
     @PostMapping("/members/{id}")
     public ResponseEntity<MyResponse> postAdmin(@PathVariable("id") String id) {
 
-        LocalDateTime time = LocalDateTime.now();
-
-        Optional<Member> member1 = memberRepository.findById(id);
-        Member member = member1.orElse(null);
-
-        adminService.registrationAdmin(id,time);
-
-        MyResponse body = MyResponse.builder()
-                .header(StatusEnum.OK)
-                .message("성공했슴다~")
-                .build();
-        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        ResponseEntity<MyResponse> responseEntity = adminService.approveAdmin(id);
+        return responseEntity;
     }
 
-    @GetMapping("/stores")
+    @DeleteMapping("/members/{id}")
+    public ResponseEntity<MyResponse> removeAdmin(@PathVariable("id") String id) {
+        ResponseEntity<MyResponse> responseEntity = adminService.removeAdmin(id);
+        return responseEntity;
+    }
+
+
+        @GetMapping("/stores")
     public ResponseEntity<MyResponse> getStores() {
         ResponseEntity<MyResponse> responseEntity = adminService.getStores();
         return responseEntity;

@@ -37,25 +37,36 @@ public class AdminServiceImpl implements AdminService {
     private final CertificationRepository certificationRepository;
 
     @Override
-    public ResponseEntity<MyResponse> registrationAdmin(String id, LocalDateTime time) {
+    public ResponseEntity<MyResponse> approveAdmin(String id) {
+
+        LocalDateTime time = LocalDateTime.now();
 
         Optional<Member> member = memberRepository.findById(id);
         Member memberEntity = member.orElse(null);
-        System.out.println("memberEntity = " + memberEntity);
-        if (memberEntity == null) {
-            MyResponse<Object> body = MyResponse.builder()
-                    .header(StatusEnum.BAD_REQUEST)
-                    .message("멤버가 존재하지 않습니다.").build();
-            return new ResponseEntity<MyResponse>(body, HttpStatus.BAD_REQUEST);
-        } else {
-            memberEntity.registrationAdmin(time);
-            MyResponse body = MyResponse.builder()
-                    .header(StatusEnum.OK)
-                    .message("성공했슴다~")
-                    .build();
-            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
 
-        }
+        memberEntity.registrationAdmin(time);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공했슴다~")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> removeAdmin(String id) {
+
+        Optional<Member> member = memberRepository.findById(id);
+        Member memberEntity = member.orElse(null);
+        memberEntity.removeAdmin();
+
+
+        MyResponse body= MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
 

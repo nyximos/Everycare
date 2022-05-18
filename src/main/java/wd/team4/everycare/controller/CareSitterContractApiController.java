@@ -34,17 +34,24 @@ public class CareSitterContractApiController {
         return offer;
     }
 
-    @GetMapping("/api/dashboard/caresitter/contracts")
+    @GetMapping("/dashboard/caresitter/contracts")
     public ResponseEntity<MyResponse> getAll(@AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         ResponseEntity<MyResponse> responseEntity = careSitterContractService.getAll(principalDetails);
         return responseEntity;
     }
 
-    @GetMapping("/api/dashboard/caresitter/contracts/{id}")
+    @GetMapping("/dashboard/caresitter/contracts/{id}")
     public ResponseEntity<MyResponse> get(@PathVariable("id") Long id) {
 
         ResponseEntity<MyResponse> responseEntity = careSitterContractService.get(id);
+        return responseEntity;
+    }
+
+    @PostMapping("/dashboard/caresitter/contracts/{id}")
+    public ResponseEntity<MyResponse> approve(@PathVariable("id") Long id) {
+
+        ResponseEntity<MyResponse> responseEntity = careSitterContractService.approve(id);
         return responseEntity;
     }
 }

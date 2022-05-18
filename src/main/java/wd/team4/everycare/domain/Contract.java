@@ -119,4 +119,7 @@ public class Contract {
     @JoinColumn(name = "care_target_id")
     private CareTarget careTarget;
 
+    public void approveCareSitter(){
+        this.status = 1;
+    }
 }

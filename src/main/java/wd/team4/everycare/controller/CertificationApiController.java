@@ -24,13 +24,6 @@ public class CertificationApiController {
         return responseEntity;
     }
 
-    @GetMapping("/dashboard/caresitter/{caresitterId}/certifications/certificationsId")
-    public ResponseEntity<MyResponse> get(@AuthenticationPrincipal PrincipalDetails principalDetails,
-                                          @PathVariable("certificationsId") Long id) {
-        ResponseEntity<MyResponse> responseEntity = certificationService.get(principalDetails, id);
-        return responseEntity;
-    }
-
     @PostMapping("/dashboard/caresitter/{id}/certifications")
     public ResponseEntity<MyResponse> saveCertification(
             @ModelAttribute CertificationFormDTO certificationFormDTO) throws IOException {
