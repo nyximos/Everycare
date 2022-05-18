@@ -7,6 +7,7 @@
             <li><router-link to="/Carepeople">케어대상인 조회</router-link></li>
             <li><router-link to="/Profile2">프로필상세</router-link></li>
             <li><router-link to="/Caresitterprofile_delete">프로필상세수정삭제</router-link></li>
+            <li><router-link to="/CaretargetsDetail">대상인상세조회</router-link></li>
         </ul>
     </v-container>
 </template>

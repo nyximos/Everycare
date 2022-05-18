@@ -291,5 +291,6 @@ public class ProductServiceImpl implements ProductService {
                 .header(StatusEnum.OK)
                 .message("성공")
                 .build();
-        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);    }
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
 }

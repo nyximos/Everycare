@@ -1,12 +1,16 @@
 package wd.team4.everycare.domain;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Getter
 @Entity
+@Builder
+@DynamicUpdate
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "order_product_seq_generator",
         sequenceName = "order_product_seq",
@@ -22,7 +26,7 @@ public class OrderProduct {
     @Column(name = "order_product_amount", nullable = false)
     private int amount;
 
-    @Column(name = "order_product_is_review", length = 5)
+    @Column(name = "order_product_is_review")
     private int review;
 
     @ManyToOne
@@ -32,4 +36,8 @@ public class OrderProduct {
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
+
+    public void cancel() {
+        getProduct().addStock(quantity);
+    }
 }

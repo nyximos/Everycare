@@ -25,11 +25,17 @@ public class MemberContractApiController {
         return offer;
     }
   
-      @PostMapping("/api/caresitters/{careSitterId}/contracts")
+    @PostMapping("/caresitters/{careSitterId}/contracts")
     public ResponseEntity<MyResponse> postMemberContract(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                                          @RequestParam("jobOfferId") Long jobOfferId,
                                                          @RequestParam("careSitterId") Long careSitterId){
         ResponseEntity<MyResponse> responseEntity = memberContractService.saveContract(principalDetails, jobOfferId, careSitterId);
+        return responseEntity;
+    }
+
+    @GetMapping("/caresitters/{careSitterId}/recruitions")
+    public ResponseEntity<MyResponse> getrecruitions(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        ResponseEntity<MyResponse> responseEntity = memberContractService.getRecruitions(principalDetails);
         return responseEntity;
     }
 

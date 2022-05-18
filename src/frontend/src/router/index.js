@@ -167,8 +167,36 @@ const routes = [
         path: '/test',
         name: 'Test',
         component: () => import('@/pages/Test.vue')
-    }
-];
+    },
+    {
+        path: '/caretargets',
+        name: 'Caretargets',
+        component: () => import('@/pages/Caretargets.vue')
+    },
+    {
+
+        path: '/caretargetsdetail/:caretargetsId',
+        name: 'CaretargetsDetail',
+        component: () => import('@/components/main/caretargetsdetail.vue')
+    },
+    // {
+    //     path: '/targets_update/:caretargetsId',
+    //     name: 'targets_update',
+    //     component: () => import('@/pages/Targets_update.vue')
+    // },
+    {
+        path: '/caretargets_update/:caretargetsId',
+        name: 'TargetsUpdate',
+        // component: () => import('@/pages/Targets_update.vue')
+        component: () => import('@/components/main/caretargets_update.vue')
+    },
+    
+    {
+        path: '/adminpage',
+        name: 'adminpage',
+        component: () => import('@/pages/Adminpage.vue')
+    },
+]
 
 const router = new VueRouter({
     mode: 'history',
