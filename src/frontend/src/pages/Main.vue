@@ -8,6 +8,8 @@
             <li><router-link to="/dashboard">마이페이지</router-link></li>
             <li><router-link to="/Caresitterprofile_delete">프로필상세수정삭제</router-link></li>
             <li>{{this.$store.state.careprofileStore.id}}</li>
+            <li>{{this.$store.state.userStore.id}}</li>
+            <li>{{this.$store.state.userStore.name}}</li>
         </ul>
     </v-container>
 </template>

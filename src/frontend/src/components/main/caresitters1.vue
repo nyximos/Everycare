@@ -62,7 +62,12 @@ export default {
     },
     methods:{
          move(p){
+            const userData ={
+                id : p.id
+            }
             this.$router.push({name:'addprofile2' , params:{caresitterId: p.id}})
+            this.$store.commit('careprofileStore/move',userData);
+            console.log(userData)
         }
     },
 	mounted(){

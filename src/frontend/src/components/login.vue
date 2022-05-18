@@ -47,7 +47,7 @@ export default {
             }
             console.log(userinfo);
             this.$http
-                .post('https://localhost:8086/login', userinfo, {
+            .post('https://localhost:8086/login', userinfo, {
                     withCredentials: true
                 })
                 // .post('/api/login', this.json, {
@@ -56,10 +56,26 @@ export default {
                 .then(res => {
                     // this.test = response.data;
                     console.log(res);
-                    console.log(this.json);
                     // state에 회원 정보 담기
                     this.$store.commit('userStore/userInfo', userinfo);
-                     location.href = '/';
+                    //  location.href = '/';
+                                                // id, 이름, 권한 응답을 넣어준다
+                    this.$http
+                    .get('/api/user', {
+                        withCredentials: true
+                    })
+                    .then(res => {
+                        // state에 저장
+                        console.log(this.$store.state.userStore.id);
+                        console.log(res.data.body);
+                        console.log(res.data.body.name);
+
+                        // console.log(this.$store.state.userStore.name);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+        
                 })
                 .catch(err => {
                     console.log(err);
@@ -67,7 +83,7 @@ export default {
                 });
         }
     }
-};
+}
 </script>
 
 <style scoped lang="scss">

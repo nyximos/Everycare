@@ -3,7 +3,9 @@ export default{
     state: {
         id:'',
         name:'',
-        role:''
+        role:'',
+        careSitterId:'',
+        storeId:'',
     },
     mutations:{
         userInfo(state, userinfo){

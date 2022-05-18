@@ -60,6 +60,12 @@ const routes = [
         component: () => import('@/components/main/addprofile2.vue')
     },
     
+    {   
+        // 계약서
+        path: '/contract/:caresitterId',
+        name: 'contract',
+        component: () => import('@/pages/Contract.vue')
+    },
     {
         path: '/admin_report',
         name: 'admin_report',
@@ -115,11 +121,6 @@ const routes = [
         path: '/dashboard/careprofile2',
         name: 'careprofile2',
         component: () => import('@/pages/Careprofile2.vue')
-    },
-    {
-        path: '/contract',
-        name: 'contract',
-        component: () => import('@/pages/Contract.vue')
     },
     // {
     //     path: '/recruitions',

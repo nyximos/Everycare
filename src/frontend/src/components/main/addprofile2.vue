@@ -120,9 +120,9 @@
 <script>
 export default {
 	name:'addprofile2',
+
 	mounted(){
 		const id =this.$route.params.caresitterId;
-		
 		this.$http 
 		.get(`/api/caresitters/${id}`,{
 			withCredentials:true
@@ -140,10 +140,6 @@ export default {
 			// this.is_vaccinated = res.data.body.is_vaccinated
 			// this.attachFiles = res.data.body.attachFiles[0].storeFileName
 			// this.certification = res.data.body.certification[0].name
-			console.log(this.attachFiles)
-			// console.log("size"+res.data.body.attachFiles.length);
-			// console.log(res.data.body.attachFiles[0].storeFileName);
-			// console.log(this.attachFiles);
 			this.name = res.data.body.memberDTO.name
 			this.birth = res.data.body.memberDTO.birth
 			this.gender = res.data.body.memberDTO.gender
@@ -151,6 +147,8 @@ export default {
 			this.email = res.data.body.memberDTO.email
 			this.address = res.data.body.memberDTO.address
 			this.detail = res.data.body;
+			this.id = res.data.body.id;
+			console.log(this.id);
 			}).catch(err=>{
 				console.log(err);
 			})
@@ -168,6 +166,7 @@ export default {
 				phone:this.phone,
 				address:this.address,
 				email:this.email,
+				id:this.id,
 				// storeFileName:[],
 				// certification:this.certification,
 				// is_vaccinated:this.is_vaccinated,
@@ -187,7 +186,7 @@ export default {
 	},
 	methods:{
 		contract(){
-            this.$router.push({name:'contract' })
+            this.$router.push({name:'contract' , params:{caresitterId:this.id}  })
 		}
 	}
 }
