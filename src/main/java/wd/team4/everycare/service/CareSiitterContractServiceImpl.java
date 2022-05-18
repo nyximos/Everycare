@@ -129,4 +129,19 @@ public class CareSiitterContractServiceImpl implements ContractService {
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<MyResponse> approve(Long id) {
+
+        Optional<Contract> contract = contractRepository.findById(id);
+        Contract contractEntity = contract.orElse(null);
+
+        contractEntity.approveCareSitter();
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
 }

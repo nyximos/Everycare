@@ -10,4 +10,5 @@ public interface MemberContractService {
 
     ResponseEntity<MyResponse> saveContract(PrincipalDetails principalDetails, Long jobOfferId, Long careSitterId);
 
+    ResponseEntity<MyResponse> getRecruitions(PrincipalDetails principalDetails);
 }

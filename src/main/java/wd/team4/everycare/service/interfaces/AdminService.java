@@ -8,7 +8,9 @@ import java.time.LocalDateTime;
 
 public interface AdminService {
 
-    ResponseEntity<MyResponse> registrationAdmin(String id, LocalDateTime time);
+    ResponseEntity<MyResponse> approveAdmin(String id);
+
+    ResponseEntity<MyResponse> removeAdmin(String id);
 
     ResponseEntity<MyResponse> approveStore(Long id);
 
@@ -21,4 +23,5 @@ public interface AdminService {
     ResponseEntity<MyResponse> getCertification(Long id);
 
     ResponseEntity<MyResponse> approveCertification(Long id, Member admin);
+
 }
