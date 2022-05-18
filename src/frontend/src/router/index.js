@@ -29,7 +29,7 @@ const routes = [
         component: () => import('@/components/main/certification_detail.vue')
     },
     {   
-        //자격증등록화면
+        //자격증 등록화면
         path: '/dashboard/caresitter/:caresitterId/certifications/new',
         name: 'certification',
         component: () => import('@/pages/Certification.vue')
@@ -59,12 +59,17 @@ const routes = [
         props:true,
         component: () => import('@/components/main/addprofile2.vue')
     },
-    
     {   
         // 계약서
         path: '/contract/:caresitterId',
         name: 'contract',
         component: () => import('@/pages/Contract.vue')
+    },
+    {   
+        // 마이페이지 케어시터 프로필 상세조회
+        path: '/profile_detail/:caresitterId',
+        name: 'profile_detail',
+        component: () => import('@/pages/Profile_detail.vue')
     },
     {
         path: '/admin_report',

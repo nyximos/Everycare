@@ -84,7 +84,7 @@ export default {
                 });
                     // id, 이름, 권한 응답을 넣어준다
         
-                //  location.href = '/';
+                 location.href = '/';
         }
     }
 }
