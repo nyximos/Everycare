@@ -50,20 +50,6 @@ export default {
             }),
             location.href = '/';
         },
-        // id, 이름, 권한 응답을 넣어준다
-        log() {
-            this.$http
-                .get('/api/user', {
-                    withCredentials: true
-                })
-                .then(res => {
-                    // state에 저장
-                    console.log(this.$store.state.userStore.id);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        }
     }
 };
 </script>

@@ -18,8 +18,12 @@ public class MemberInfoDTO {
     private Long careSitterId;
     private Long storeId;
 
-    1
-    2
-    3
+    public Member toMemberInfoDTO(){
+        return Member.builder()
+                .id(this.id)
+                .name(this.name)
+                .role(this.role)
+                .build();
+    }
 
 }

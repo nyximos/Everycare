@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
 public class StoreAdminDetailDTO {
     private Long id;

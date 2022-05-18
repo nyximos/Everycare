@@ -34,7 +34,7 @@ export default {
     
     data(){
         return{
-            id:this.$store.state.careprofileStore.id,
+            id:this.$store.state.userStore.careSitterId,
             result:[],
         }
     },

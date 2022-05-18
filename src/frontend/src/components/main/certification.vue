@@ -44,24 +44,24 @@ export default {
             ],
             attachFile:'',
             certification:'',
-            id:this.id,
+            id:this.$store.state.careSitterId,
             result:[]
         }   
     },
     mounted(){
-     const id = this.$route.params.caresitterId;
-     this.$http
-    .get(`/api/caresitters/${id}`, {
-    withCredentials: true
-    })
-    .then(res => {
-      const result = res.data.body;
-      this.id =res.data.body.id
-      console.log(result)
-    })
-      .catch(err => {
-       console.log(err);
-    });
+    //  const id = this.$store.state.careSitterId;
+    //  this.$http
+    // .get(`/api/caresitters/${id}`, {
+    // withCredentials: true
+    // })
+    // .then(res => {
+    //   const result = res.data.body;
+    //   this.id =res.data.body.id
+    //   console.log(result)
+    // })
+    //   .catch(err => {
+    //    console.log(err);
+    // });
 },
     methods:{
         submit(){
