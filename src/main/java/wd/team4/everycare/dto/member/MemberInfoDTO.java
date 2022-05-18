@@ -15,13 +15,11 @@ public class MemberInfoDTO {
     private String id;
     private String name;
     private MemberRole role;
+    private Long careSitterId;
+    private Long storeId;
 
+    1
+    2
+    3
 
-    public Member toMemberInfoDTO(){
-        return Member.builder()
-                .id(this.id)
-                .name(this.name)
-                .role(this.role)
-                .build();
-    }
 }
