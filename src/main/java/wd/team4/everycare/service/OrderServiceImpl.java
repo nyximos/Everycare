@@ -74,6 +74,8 @@ public class OrderServiceImpl implements OrderService {
             Optional<Product> product = productRepository.findById(cartDTO.getId());
             Product productEntity = product.orElse(null);
 
+            productEntity.removeStock(cartDTO.getQuantity());
+
             OrderProduct orderProduct = OrderProduct.builder()
                     .quantity(cartDTO.getQuantity())
                     .amount(cartDTO.getAmount())
