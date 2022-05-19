@@ -2,12 +2,9 @@ package wd.team4.everycare.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.*;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import wd.team4.everycare.domain.Test;
@@ -15,14 +12,13 @@ import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api")
@@ -141,9 +137,9 @@ public class TestApiController {
         System.out.println("HelloWorld");
     }
 
-    @GetMapping("/success")
-    public String confirmPayment(@RequestParam String paymentKey, @RequestParam String orderId, @RequestParam Long amount) throws IOException, InterruptedException {
-
+    @RequestMapping("/success")
+    public ResponseEntity<MyResponse> confirmPayment(@RequestParam String paymentKey, @RequestParam String orderId, @RequestParam Long amount,
+                                                     @RequestParam String contractId) throws IOException {
         HttpHeaders headers = new HttpHeaders();
         // headers.setBasicAuth(SECRET_KEY, ""); // spring framework 5.2 이상 버전에서 지원
         headers.set("Authorization", "Basic " + Base64.getEncoder().encodeToString((SECRET_KEY + ":").getBytes()));
@@ -164,13 +160,44 @@ public class TestApiController {
         if (responseEntity.getStatusCode() == HttpStatus.OK) {
             JsonNode successNode = responseEntity.getBody();
             secret = successNode.get("secret").asText();
-            System.out.println("responseEntity.getBody() = " + responseEntity.getBody());
-            System.out.println("secret = " + secret);
-            return responseEntity.toString();
+            String approvedAt = successNode.get("approvedAt").asText();
+            LocalDateTime localDateTime = StringToLocalDateTime(approvedAt);
+            int amounts = successNode.get("totalAmount").asInt();
+            String cardCompany = successNode.get("card").get("company").asText();
+            String cardNumber = successNode.get("card").get("number").asText();
+            String payApprove = successNode.get("card").get("approveNo").asText();
+            int monthlyInstallmentPlan = successNode.get("card").get("installmentPlanMonths").asInt();
+
+            System.out.println("successNode = " + successNode);
+
+            System.out.println("monthlyInstallmentPlan = " + monthlyInstallmentPlan);
+            System.out.println("payApprove = " + payApprove);
+            System.out.println("cardNumber = " + cardNumber);
+            System.out.println("cardCompany = " + cardCompany);
+            System.out.println("amounts = " + amounts);
+            System.out.println("localDateTime = " + localDateTime);
+
+            MyResponse body = MyResponse.builder()
+                    .message("결제 내역")
+                    .body(successNode)
+                    .header(StatusEnum.OK)
+                    .build();
+
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
         } else {
             JsonNode failNode = responseEntity.getBody();
-            return "fail";
+            return null;
         }
 
     }
+
+    private LocalDateTime StringToLocalDateTime(String LocalDateTimeStr) {
+        LocalDateTime dateTime = LocalDateTime.from(
+                Instant.from(
+                        DateTimeFormatter.ISO_DATE_TIME.parse(LocalDateTimeStr)
+                ).atZone(ZoneId.of("Asia/Seoul"))
+        );
+        return dateTime;
+    }
+
 }

@@ -136,6 +136,14 @@ public class Member {
                 .build();
     }
 
+    public MemberInfoDTO toMemberInfoDTO() {
+        return MemberInfoDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .role(this.role)
+                .build();
+    }
+
     public JobOfferMemberDTO toJobOfferMemberDTO(){
         return JobOfferMemberDTO.builder()
                 .name(this.name)
