@@ -13,4 +13,6 @@ public interface CareNoteService {
     ResponseEntity<MyResponse> get(Long id);
 
     ResponseEntity<MyResponse> start(Long id, CareNoteImageDTO imageDTO) throws IOException;
+
+    ResponseEntity<MyResponse> getSchedule(Long id);
 }

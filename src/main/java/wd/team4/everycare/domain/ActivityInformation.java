@@ -33,7 +33,7 @@ public class ActivityInformation {
     @Column(name = "activity_information_requirement", length = 500)
     private String requirement;
 
-    @Column(name = "activity_information_content", length = 255)
+    @Column(name = "activity_information_content", length = 500)
     private String content;
 
     @Column(name = "activity_information_upload_file_name", length = 255)

@@ -27,6 +27,7 @@ public class CareNoteApiController {
     @GetMapping("/carenotes/{id}")
     public ResponseEntity<MyResponse> get(@PathVariable("id") Long id) {
         ResponseEntity<MyResponse> responseEntity = careNoteService.get(id);
+        return responseEntity;
     }
 
     @PatchMapping("/carenotes/{id}/photo")
@@ -35,4 +36,9 @@ public class CareNoteApiController {
         return responseEntity;
     }
 
+    @GetMapping("/carenotes/{id}/schedules")
+    public ResponseEntity<MyResponse> getSchedule(@PathVariable("id") Long id) {
+        ResponseEntity<MyResponse> responseEntity = careNoteService.getSchedule(id);
+        return responseEntity;
+    }
 }
