@@ -40,7 +40,7 @@ public class ContractDTO {
                 .startTime(startTime)
                 .endTime(endTime)
                 .pay(pay)
-                .status(contractStatus)
+                .status(status)
                 .jobOffer(jobOfferDTO.toJobOffer())
                 .member(memberDTO.toMember())
                 .careSitter(careSitterDTO.toCareSitter())
