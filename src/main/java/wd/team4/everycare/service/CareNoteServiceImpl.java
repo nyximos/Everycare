@@ -4,21 +4,22 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.CareNote;
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.Contract;
+import wd.team4.everycare.dto.UploadFile;
+import wd.team4.everycare.dto.careNote.CareNoteImageDTO;
 import wd.team4.everycare.dto.careNote.CareNoteListDTO;
-import wd.team4.everycare.dto.product.ProductDetailViewDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.CareNoteRepository;
 import wd.team4.everycare.repository.ContractRepository;
 import wd.team4.everycare.service.interfaces.CareNoteService;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class CareNoteServiceImpl implements CareNoteService {
 
     private final CareNoteRepository careNoteRepository;
     private final ContractRepository contractRepository;
-
+    private final FileStoreService fileStoreService;
 
     @Override
     public ResponseEntity<MyResponse> getAll(PrincipalDetails principalDetails) {
@@ -75,5 +76,24 @@ public class CareNoteServiceImpl implements CareNoteService {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
 
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> start(Long id, CareNoteImageDTO imageDTO) throws IOException {
+
+        Optional<CareNote> careNote = careNoteRepository.findById(id);
+        CareNote careNoteEntity = careNote.orElse(null);
+
+        UploadFile attachFile = fileStoreService.storeFile(imageDTO.getAttachFile());
+
+        careNoteEntity.saveImage(attachFile);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 }
