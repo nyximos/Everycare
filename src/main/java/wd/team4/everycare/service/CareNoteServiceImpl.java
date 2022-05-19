@@ -192,5 +192,40 @@ public class CareNoteServiceImpl implements CareNoteService {
                 .build();
 
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);    }
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> removeContent(Long id) {
+
+        Optional<ActivityInformation> activityInformation = activityInformationRepository.findById(id);
+        ActivityInformation activityInformationEntity = activityInformation.orElse(null);
+
+        activityInformationEntity.removeContent();
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> removePhoto(Long id) {
+
+        Optional<ActivityInformation> activityInformation = activityInformationRepository.findById(id);
+        ActivityInformation activityInformationEntity = activityInformation.orElse(null);
+
+        activityInformationEntity.removePhoto();
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
 }

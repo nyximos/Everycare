@@ -53,4 +53,16 @@ public class CareNoteApiController {
         ResponseEntity<MyResponse> responseEntity = careNoteService.savePhoto(id, imageDTO);
         return responseEntity;
     }
+
+    @DeleteMapping("/api/carenote/{carenoteId}/schedules/{activityId}/content")
+    public ResponseEntity<MyResponse> removeContent(@PathVariable("activityId") Long id, @RequestParam("content") String content) {
+        ResponseEntity<MyResponse> responseEntity = careNoteService.removeContent(id);
+        return responseEntity;
+    }
+
+    @DeleteMapping("/api/carenote/{carenoteId}/schedules/{activityId}/photo")
+    public ResponseEntity<MyResponse> removePhoto(@PathVariable("activityId") Long id, @ModelAttribute CareNoteImageDTO imageDTO) throws IOException {
+        ResponseEntity<MyResponse> responseEntity = careNoteService.removePhoto(id);
+        return responseEntity;
+    }
 }

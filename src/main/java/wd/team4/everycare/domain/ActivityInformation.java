@@ -108,4 +108,12 @@ public class ActivityInformation {
         this.uploadFileName = attachFile.getUploadFileName();
         this.storeFileName = attachFile.getStoreFileName();
     }
+
+    public void removeContent() {
+        this.content = null;
+    }
+
+    public void removePhoto() {
+        this.content = null;
+    }
 }
