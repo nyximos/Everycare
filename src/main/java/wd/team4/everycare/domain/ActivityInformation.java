@@ -2,6 +2,7 @@ package wd.team4.everycare.domain;
 
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
+import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationFormDTO;
 import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationViewDTO;
 import wd.team4.everycare.util.StringUtils;
@@ -97,5 +98,14 @@ public class ActivityInformation {
         if(StringUtils.isNotBlank(activityInformationFormDTO.getRequirement())) {
             this.requirement = activityInformationFormDTO.getRequirement();
         }
+    }
+
+    public void postContent(String content) {
+        this.content = content;
+    }
+
+    public void savePhoto(UploadFile attachFile) {
+        this.uploadFileName = attachFile.getUploadFileName();
+        this.storeFileName = attachFile.getStoreFileName();
     }
 }

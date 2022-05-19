@@ -31,7 +31,7 @@ public class CareNoteApiController {
     }
 
     @PatchMapping("/carenotes/{id}/photo")
-    public ResponseEntity<MyResponse> start(@ModelAttribute CareNoteImageDTO imageDTO, @PathVariable("id") Long id) throws IOException {
+    public ResponseEntity<MyResponse> start(@PathVariable("id") Long id, @ModelAttribute CareNoteImageDTO imageDTO) throws IOException {
         ResponseEntity<MyResponse> responseEntity = careNoteService.start(id, imageDTO);
         return responseEntity;
     }
@@ -39,6 +39,18 @@ public class CareNoteApiController {
     @GetMapping("/carenotes/{id}/schedules")
     public ResponseEntity<MyResponse> getSchedule(@PathVariable("id") Long id) {
         ResponseEntity<MyResponse> responseEntity = careNoteService.getSchedule(id);
+        return responseEntity;
+    }
+
+    @PatchMapping("/api/carenote/{carenoteId}/schedules/{activityId}/content")
+    public ResponseEntity<MyResponse> saveContent(@PathVariable("activityId") Long id, @RequestParam("content") String content) {
+        ResponseEntity<MyResponse> responseEntity = careNoteService.saveContent(id, content);
+        return responseEntity;
+    }
+
+    @PatchMapping("/api/carenote/{carenoteId}/schedules/{activityId}/photo")
+    public ResponseEntity<MyResponse> savePhoto(@PathVariable("activityId") Long id, @ModelAttribute CareNoteImageDTO imageDTO) throws IOException {
+        ResponseEntity<MyResponse> responseEntity = careNoteService.savePhoto(id, imageDTO);
         return responseEntity;
     }
 }

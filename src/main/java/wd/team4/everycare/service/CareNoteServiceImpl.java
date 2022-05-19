@@ -97,7 +97,6 @@ public class CareNoteServiceImpl implements CareNoteService {
             careNoteDetailDTO.setStoreFileName(careNoteDetailDTO.getStoreFileName());
         }
 
-
         MyResponse<CareNoteDetailDTO> body = MyResponse.<CareNoteDetailDTO>builder()
                 .header(StatusEnum.OK)
                 .message("성공")
@@ -157,6 +156,39 @@ public class CareNoteServiceImpl implements CareNoteService {
                 .header(StatusEnum.OK)
                 .message("성공")
                 .body(careNoteScheduleDTOs)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);    }
+
+    @Override
+    public ResponseEntity<MyResponse> saveContent(Long id, String content) {
+
+        Optional<ActivityInformation> activityInformation = activityInformationRepository.findById(id);
+        ActivityInformation activityInformationEntity = activityInformation.orElse(null);
+        activityInformationEntity.postContent(content);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> savePhoto(Long id, CareNoteImageDTO imageDTO) throws IOException {
+
+        Optional<ActivityInformation> activityInformation = activityInformationRepository.findById(id);
+        ActivityInformation activityInformationEntity = activityInformation.orElse(null);
+
+        UploadFile attachFile = fileStoreService.storeFile(imageDTO.getAttachFile());
+        activityInformationEntity.savePhoto(attachFile);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
                 .build();
 
         HttpHeaders headers = new HttpHeaders();

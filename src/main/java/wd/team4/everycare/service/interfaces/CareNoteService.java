@@ -15,4 +15,8 @@ public interface CareNoteService {
     ResponseEntity<MyResponse> start(Long id, CareNoteImageDTO imageDTO) throws IOException;
 
     ResponseEntity<MyResponse> getSchedule(Long id);
+
+    ResponseEntity<MyResponse> saveContent(Long id, String content);
+
+    ResponseEntity<MyResponse> savePhoto(Long id, CareNoteImageDTO imageDTO) throws IOException;
 }
