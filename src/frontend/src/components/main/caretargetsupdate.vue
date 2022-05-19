@@ -4,21 +4,21 @@
           <div class="div_join">
               <div class="contents">
     <div class="upload-box">
-      <!-- <div id="drop-file" class="drag-file">
+      <div id="drop-file" class="drag-file">
           <div class="div_img">
                               <label for="input_file">
                                   <img :src="avatar" class="img-avatar">                                  
                               </label>
                           </div>
-                        
+                         
                               
          <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" >
         <p class="message">사진을 등록 해주세요.</p>
         <span><input type="file" v-bind:src="attachFiles" accept="image/gif,image/jpg,image/png" @change="changeImage($event)" ref="avatarInput" class="preview"></span>
          <img src="" alt="미리보기 이미지" class="preview"> 
-      </div> -->
-      <!-- <label class="file-label" for="attachFiles">이미지 찾기</label>
-      <v-file-input class="file" v-model="attachFiles" id="attachFiles" type="file" multiple="multiple" accept="image/png, image/jpeg, image/gif"></v-file-input> -->
+      </div>
+      <label class="file-label" for="attachFiles">이미지 찾기</label>
+      <v-file-input class="file" v-model="attachFiles" id="attachFiles" type="file" multiple="multiple" accept="image/png, image/jpeg, image/gif"></v-file-input>
     </div>
   </div>
   <br>
@@ -26,22 +26,10 @@
                 <ul>
                     
                       <li><span >이름 </span><br><input type="text" v-model="name" placeholder = "이름을 입력하세요" class = 'box'/>
-                        <!-- <span class="name_form">이름</span> &nbsp;&nbsp;&nbsp;&nbsp; -->
-                        <!-- <input v-model="name" type="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+                      
                         
                         </li>
-                    
-                    
-                           
-                        <!-- <span class="gender_form">성별</span>
-                        
-                        <v-radio-group type="text" v-model="gender" mandatory row>
-                                    <v-radio label="남" value="M"></v-radio>
-                                    <v-radio label="여" value="W"></v-radio>  
-                         </v-radio-group> -->
-                        
-                        
-                    
+
                      <li><span>생년월일</span><br><input type="date" v-model="birth" placeholder = "생년월일을 입력하세요." class = 'box'/>&nbsp;&nbsp;
                      <span class="gender_form">성별</span>
                         <input type="radio" v-model="gender" id="gender1" value="M" checked="checked">&nbsp;&nbsp;&nbsp;
@@ -51,14 +39,6 @@
                     </li>
                     <li><span>키,몸무게</span><br><input type="number" v-model="height" placeholder = "생년월일을 입력하세요." class = 'box1'/>&nbsp;cm
                     <input type="number" v-model="weight" placeholder = "생년월일을 입력하세요." class = 'box1'/>&nbsp;kg
-                    <!-- <li>
-                        <span>키</span>
-                        
-                        &nbsp;&nbsp;<input type="number" v-model="height" class="input_form_number">cm
-                        &nbsp;&nbsp;
-                        <span>몸무게</span>
-                        &nbsp;&nbsp;<input type="number" v-model="weight" class="input_form_number">kg
-                    </li> -->
                     
                     <li>
                     <span>주소</span><br>  
@@ -163,7 +143,7 @@
                     
                     </li>
                 </ul>
-                <v-btn class="ma-2" outlined color="indigo" id="clickme" @click="clickme">등록</v-btn>
+                <v-btn class="ma-2" outlined color="indigo" @click="update">수정</v-btn>
             </div>
         </div>
             
@@ -176,7 +156,6 @@
 
 //  import axios from 'axios'
 export default {
-    
 data(){
     return{
         avatar:'',
@@ -194,10 +173,75 @@ data(){
         isCctvAgreement:'',
         careType:'',
         coronaTest:'',
-        attachFiles:''
+        attachFiles:'',
+        id:this.$route.params.caretargetsId
     }
 },
+mounted(){
+const id = this.$route.params.caretargetsId;
+	this.$http.get(`/api/dashboard/caretargets/${id}`, {
+		withCredentials: true
+	})
+	
+    .then((res)=>{
+        console.log(res.data.body);
+        this.name = res.data.body.name
+        this.gender = res.data.body.gender
+        this.birth = res.data.body.birth
+        this.height = res.data.body.height
+        this.weight = res.data.body.weight
+        this.zipcode = res.data.body.zipcode
+        this.address = res.data.body.address
+        this.detailedAddress = res.data.body.detailedAddress
+        this.longTermCareGrade = res.data.body.longTermCareGrade
+		this.comment = res.data.body.comment
+		this.pet = res.data.body.pet
+		this.isCctvAgreement = res.data.body.isCctvAgreement
+		this.careType = res.data.body.careType
+		this.coronaTest = res.data.body.coronaTest
+		// this.attachFiles = res.data.body.attachFiles
+    this.attachFiles = res.data.body.imageDTOs[0].storeFileName
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+},
 methods:{  
+  update(){ 
+        location.href = '/caretargets';
+        let formData = new FormData()              
+                formData.append('name',this.name);
+                formData.append('gender',this.gender);
+                formData.append('birth',this.birth);
+                formData.append('height',this.height);
+                formData.append('weight',this.weight);
+                formData.append('zipcode',this.zipcode);
+                formData.append('address',this.address);
+                formData.append('detailedAddress',this.detailedAddress);
+                formData.append('longTermCareGrade',this.longTermCareGrade);
+                formData.append('comment',this.comment);
+                formData.append('pet',this.pet);
+                formData.append('isCctvAgreement',this.isCctvAgreement);
+                formData.append('careType',this.careType);
+                formData.append('coronaTest',this.coronaTest);
+                
+
+                for (let i = 0; i < this.attachFiles.length; i++) {
+                formData.append('attachFiles', this.attachFiles[0]);
+                }
+                
+    this.$http
+    .patch(`/api/dashboard/caretargets/${this.id}`,formData, {
+    withCredentials: true
+    })
+     .then(res => {
+      console.log(res);
+    })
+      .catch(err => {
+       console.log(err);
+    });    
+    
+        }, 
 execDaumPostcode() {
       new window.daum.Postcode({
         oncomplete: (data) => {
@@ -248,43 +292,8 @@ execDaumPostcode() {
             that.avatar = this.result
         }
     },
-    clickme(){ 
-      
-        let formData = new FormData() 
-                
-                formData.append('name',this.name);
-                formData.append('gender',this.gender);
-                formData.append('birth',this.birth);
-                formData.append('height',this.height);
-                formData.append('weight',this.weight);
-                formData.append('zipcode',this.zipcode);
-                formData.append('address',this.address);
-                formData.append('detailedAddress',this.detailedAddress);
-                formData.append('longTermCareGrade',this.longTermCareGrade);
-                formData.append('comment',this.comment);
-                formData.append('pet',this.pet);
-                formData.append('isCctvAgreement',this.isCctvAgreement);
-                formData.append('careType',this.careType);
-                formData.append('coronaTest',this.coronaTest);
-                
+  
 
-                for (let i = 0; i < this.attachFiles.length; i++) {
-                formData.append('attachFiles', this.attachFiles[i]);
-                }
-                
-    this.$http
-    .post('/api/dashboard/caretargets/new',formData, {
-    withCredentials: true
-    })
-     .then(res => {
-      console.log(res);
-    })
-      .catch(err => {
-       console.log(err);
-    });    
-    location.href = '/caretargets';
-        },        
-        
     },
 }
 
@@ -480,23 +489,4 @@ input[type=radio]:checked + label{
     line-height: 50px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
 </style>
