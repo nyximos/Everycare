@@ -124,8 +124,8 @@ public class MemberServiceImpl implements MemberService {
         Optional<Member> member = memberRepository.findById(id);
         Member memberEntity = member.orElse(null);
 
-        Optional<CareSitter> careSitter = memberEntity.getCareSitter();
-        Optional<Store> store = memberEntity.getStore();
+        CareSitter careSitter = memberEntity.getCareSitter();
+        Store store = memberEntity.getStore();
 
         MemberInfoDTO memberInfoDTO = MemberInfoDTO.builder()
                 .id(memberEntity.getId())
@@ -133,10 +133,10 @@ public class MemberServiceImpl implements MemberService {
                 .role(memberEntity.getRole())
                 .build();
 
-        if(careSitter.isPresent()) {
+        if(careSitter!=null) {
             memberInfoDTO.setCareSitterId(memberEntity.getCareSitter().getId());
         }
-        if(store.isPresent()) {
+        if(store!=null) {
             memberInfoDTO.setStoreId(memberEntity.getStore().getId());
         }
 

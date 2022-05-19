@@ -50,10 +50,6 @@ public class ActivityInformation {
     @JoinColumn(name = "care_target_schedule_id")
     private CareTargetSchedule careTargetSchedule;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "care_sitter_activity_id")
-    private CareSitterActivity careSitterActivity;
-
     @Override
     public String toString() {
         return "ActivityInformation{" +

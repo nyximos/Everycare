@@ -19,8 +19,8 @@ public class CareNote {
     private Long id;
 
     @Column(name = "care_note_date")
-    @DateTimeFormat(pattern = "yyyyMMdd")
-    private LocalDate noteDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
 
     @Column(name = "care_note_start_time", length = 5)
     private String startTime;
@@ -28,11 +28,11 @@ public class CareNote {
     @Column(name = "care_note_end_time", length = 5)
     private String endTime;
 
-    @Column(name = "care_note_file_name")
-    private String fileName;
+    @Column(name = "care_note_upload_file_name")
+    private String uploadFileName;
 
-    @Column(name = "care_note_file_path")
-    private String filePath;
+    @Column(name = "care_note_store_file_name")
+    private String storeFileName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contract_id", nullable = false)

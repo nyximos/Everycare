@@ -50,7 +50,7 @@ public class InitContractService {
                 .pay(pay)
                 .status(status)
                 .amount(amount)
-                .payDateTime(payDateTime)
+                .payDatetime(payDateTime)
                 .cardCompany(cardCompany)
                 .cardNumber(cardNumber)
                 .payApprove(payApprove)
