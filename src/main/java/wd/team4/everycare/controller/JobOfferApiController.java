@@ -45,7 +45,7 @@ public class JobOfferApiController {
     }
 //성공
     @PostMapping("/recruitions/schedules")
-    public ResponseEntity<MyResponse> regCareTargetSchedule(@RequestParam Long id) {
+    public ResponseEntity<MyResponse> regCareTargetSchedule(Long id) {
         System.out.println("id = " + id);
         List<CareTargetScheduleListDTO> schedule = jobOfferService.findSchedule(id);
         System.out.println("schedule = " + schedule);

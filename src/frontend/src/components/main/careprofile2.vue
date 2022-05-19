@@ -125,6 +125,9 @@ data(){
               vaccination:this.vaccination,
               files:this.files.name
           }
+        
+        //   const formData = new FormData();
+        //   formData.append("key",new Blob([JSON.stringify(axiosuserData)],{ type : "application.json"}));
           console.log(userData)
           try {
               if(this.caretype ==""){

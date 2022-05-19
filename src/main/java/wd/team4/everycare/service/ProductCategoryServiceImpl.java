@@ -20,7 +20,7 @@ import java.util.List;
 @Transactional
 public class ProductCategoryServiceImpl {
 
-    private ProductCategoryRepository productCategoryRepository;
+    private final ProductCategoryRepository productCategoryRepository;
 
     public ResponseEntity<MyResponse> getAll() {
 
@@ -33,7 +33,7 @@ public class ProductCategoryServiceImpl {
                     .id(productCategory.getId())
                     .name(productCategory.getName())
                     .build();
-
+            System.out.println("dto = " + dto);
             productCategoryDTOs.add(dto);
         }
 

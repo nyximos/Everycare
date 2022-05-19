@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-
+import Caresitters from '../pages/Caresitters';
 import Carepeople from '../pages/Carepeople';
 import Alarm from '../pages/Alarm';
 import Profile2 from '../pages/Profile2';
@@ -18,6 +18,22 @@ const routes = [
         component: () => import('@/pages/Main.vue')
     },
     {
+        path: '/wish',
+        name: 'Wish',
+        component: () => import('@/pages/Wish.vue')
+    },
+    {
+        path: '/cart',
+        name: 'Cart',
+        component: () => import('@/pages/Cart.vue')
+    },
+    {
+
+        path: '/joboffer/:id/editwrite',
+        name: 'editwrite',
+        component: () => import('@/components/writeEdit.vue')
+    },
+    {
         path: '/signup',
         name: 'signup',
         component: () => import('@/pages/Signup.vue')
@@ -28,40 +44,74 @@ const routes = [
        component:() => import('@/pages/Calendar.vue')
    },
     {
-        path: '/dashboard/careprofile',
+    path: '/stores/product/:contentId',
+    name: 'prodDetail',
+    component: () => import('@/components/prodDetail.vue')
+    },
+    {
+        path:'/stores',
+        name:'storeMain',
+        component: ()=> import ('@/pages/StoreHome.vue')
+    },
+    {
+        path: '/createstore',
+        name: 'createStore',
+        component: () => import('@/pages/Storesubmit.vue')
+    },
+    {
+        path: '/stores/:id',
+        name: 'storeEdit',
+        component: () => import('@/pages/StoreInfoEdit.vue')
+    },
+    {
+        path: '/store/prodcreate',
+        name: 'prodCreate',
+        component: () => import('@/pages/Store_prod_create.vue')
+    },
+    {
+        path: '/stores/:id/prodedit',
+        name: 'prodEdit',
+        component: () => import('@/components/prodEdit.vue')
+    },
+    {
+        
+        path: '/joblist',
+        name: 'Job_list',
+        component: () => import('@/pages/Job_list.vue')
+    },
+    {
+        path: '/createwrite',
+        name: 'CreateWrite',
+        component: () => import('@/pages/CreateWrite.vue')
+    },
+
+    {
+        path: '/careprofile',
         name: 'careprofile',
         component: () => import('@/pages/Careprofile.vue')
     },
     {
-        path: '/dashboard/careprofile1',
+        path: '/careprofile1',
         name: 'careprofile1',
         component: () => import('@/pages/Careprofile1.vue')
     },
     {
-        path: '/caresitterprofile_delete',
-        name: 'caresitterprofile_delete',
-        component: () => import('@/pages/Caresitterprofile.vue')
-    },
-    {
-        path: '/careprofilecreate',
-        name: 'careprofilecreate',
-        component: () => import('@/pages/Careprofilecreate.vue')
-    },
-    {
-        path: '/profile_update',
-        name: 'profile_update',
-        component: () => import('@/pages/Profile_update.vue')
-    },
-    {
-        path: '/dashboard/careprofile2',
+        path: '/careprofile2',
         name: 'careprofile2',
         component: () => import('@/pages/Careprofile2.vue')
+    },
+    {
+        path: '/joblist/detail/:contentId',
+        name: 'detail',
+        component: () => import('@/components/itemDetail.vue')
     },
     // {
     //     path: '/recruitions',
     //     name: 'Recruitions',
     //     component: () => import('@/pages/Recruitions.vue')
     // },
+    
+    
     {
         path: '/login',
         name: 'Login',
@@ -75,8 +125,9 @@ const routes = [
     {
         path: '/caresitters',
         name: 'caresitters',
-        component: () => import('@/pages/Caresitters.vue')
+        component: Caresitters
     },
+
     {
         path: '/works',
         name: 'FindWork',
@@ -88,10 +139,15 @@ const routes = [
         }
     },
     // {
-    //     path: '/dashboard/caresitter',
-    //     name: '케어시터 프로필생성',
-    //     component: () => import('@/pages/Careprofile.vue')
+    //     path: '/profile',
+    //     name: 'profile',
+    //     component: Profile
     // },
+    {
+        path: '/dashboard/caresitter',
+        name: '케어시터 프로필생성',
+        component: () => import('@/pages/Careprofile.vue')
+    },
     {
         path: '/carepeople',
         name: 'carepeople',
