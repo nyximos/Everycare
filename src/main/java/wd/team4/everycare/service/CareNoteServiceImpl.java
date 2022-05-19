@@ -115,7 +115,7 @@ public class CareNoteServiceImpl implements CareNoteService {
 
         UploadFile attachFile = fileStoreService.storeFile(imageDTO.getAttachFile());
 
-        careNoteEntity.saveImage(attachFile);
+        careNoteEntity.start(attachFile);
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
@@ -219,6 +219,23 @@ public class CareNoteServiceImpl implements CareNoteService {
         ActivityInformation activityInformationEntity = activityInformation.orElse(null);
 
         activityInformationEntity.removePhoto();
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> complete(Long id) {
+
+        Optional<CareNote> careNote = careNoteRepository.findById(id);
+        CareNote careNoteEntity = careNote.orElse(null);
+
+        careNoteEntity.complete();
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)

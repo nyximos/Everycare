@@ -52,9 +52,13 @@ public class CareNote {
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    public void saveImage(UploadFile attachFile){
+    public void start(UploadFile attachFile){
         this.uploadFileName = attachFile.getUploadFileName();
         this.storeFileName = attachFile.getStoreFileName();
         this.startTime = LocalDateTime.now();
+    }
+
+    public void complete(){
+        this.endTime = LocalDateTime.now();
     }
 }

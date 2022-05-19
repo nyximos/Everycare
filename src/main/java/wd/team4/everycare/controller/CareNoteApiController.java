@@ -55,14 +55,20 @@ public class CareNoteApiController {
     }
 
     @DeleteMapping("/api/carenote/{carenoteId}/schedules/{activityId}/content")
-    public ResponseEntity<MyResponse> removeContent(@PathVariable("activityId") Long id, @RequestParam("content") String content) {
+    public ResponseEntity<MyResponse> removeContent(@PathVariable("activityId") Long id) {
         ResponseEntity<MyResponse> responseEntity = careNoteService.removeContent(id);
         return responseEntity;
     }
 
     @DeleteMapping("/api/carenote/{carenoteId}/schedules/{activityId}/photo")
-    public ResponseEntity<MyResponse> removePhoto(@PathVariable("activityId") Long id, @ModelAttribute CareNoteImageDTO imageDTO) throws IOException {
+    public ResponseEntity<MyResponse> removePhoto(@PathVariable("activityId") Long id) {
         ResponseEntity<MyResponse> responseEntity = careNoteService.removePhoto(id);
+        return responseEntity;
+    }
+
+    @PatchMapping("/api/carenotes/{id}/schedules/complition")
+    public ResponseEntity<MyResponse> complete(@PathVariable("activityId") Long id) {
+        ResponseEntity<MyResponse> responseEntity = careNoteService.complete(id);
         return responseEntity;
     }
 }

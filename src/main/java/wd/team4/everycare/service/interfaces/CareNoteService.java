@@ -23,4 +23,6 @@ public interface CareNoteService {
     ResponseEntity<MyResponse> removeContent(Long id);
 
     ResponseEntity<MyResponse> removePhoto(Long id);
+
+    ResponseEntity<MyResponse> complete(Long id);
 }
