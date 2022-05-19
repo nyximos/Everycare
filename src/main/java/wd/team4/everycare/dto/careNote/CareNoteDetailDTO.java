@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class CareNoteDetailDTO {
 
     private Long id;
-    private String uploadFileName;
+    private String storeFileName;
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime startTime;
 

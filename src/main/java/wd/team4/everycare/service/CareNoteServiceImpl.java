@@ -91,7 +91,7 @@ public class CareNoteServiceImpl implements CareNoteService {
 
         if(careNoteEntity.getStartTime()!=null){
             careNoteDetailDTO.setStartTime(careNoteEntity.getStartTime());
-            careNoteDetailDTO.setUploadFileName(careNoteDetailDTO.getUploadFileName());
+            careNoteDetailDTO.setStoreFileName(careNoteDetailDTO.getStoreFileName());
         }
 
 
