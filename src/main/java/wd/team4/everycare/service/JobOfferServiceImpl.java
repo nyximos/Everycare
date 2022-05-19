@@ -110,7 +110,7 @@ public class JobOfferServiceImpl implements JobOfferService {
                     .startTime(jobOffer.getDesiredStartTime())
                     .endTime(jobOffer.getDesiredEndTime())
                     .pay(jobOffer.getPay())
-                    .status(0)
+                    .status(1)
                     .jobOffer(jobOffer)
                     .member(member)
                     .careSitter(careSitter)

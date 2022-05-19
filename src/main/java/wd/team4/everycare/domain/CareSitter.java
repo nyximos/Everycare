@@ -77,7 +77,8 @@ public class CareSitter {
     private List<CareSitterImage> careSitterImages = new ArrayList<>();
 
     @Builder
-    public CareSitter(String name, String preferredType, String hopefulRegion, String desiredDayWeek, String activityTime, String desiredHourlyWage, String desiredMonthlyWage, int cctvAgreement, int vaccination, String introduction, int disclosureStatus, LocalDateTime createdAt, LocalDateTime updatedAt, Member member) {
+    public CareSitter(Long id, String name, String preferredType, String hopefulRegion, String desiredDayWeek, String activityTime, String desiredHourlyWage, String desiredMonthlyWage, int cctvAgreement, int vaccination, String introduction, int disclosureStatus, LocalDateTime createdAt, LocalDateTime updatedAt, Member member) {
+        this.id = id;
         this.name = name;
         this.preferredType = preferredType;
         this.hopefulRegion = hopefulRegion;

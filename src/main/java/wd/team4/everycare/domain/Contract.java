@@ -114,9 +114,15 @@ public class Contract {
                 .careSitterDTO(this.careSitter.toCareSitterDTO())
                 .build();
     }
-  
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "care_target_id")
-    private CareTarget careTarget;
+
+    public void updateContract(LocalDateTime payDateTime, int payAmount, String cardCompany, String cardNumber, String payApprove, int monthlyInstallmentPlan){
+        this.status=2;
+        this.payDatetime = payDateTime;
+        this.amount = payAmount;
+        this.cardCompany = cardCompany;
+        this.cardNumber = cardNumber;
+        this.payApprove = payApprove;
+        this.monthlyInstallmentPlan = monthlyInstallmentPlan;
+    }
 
 }

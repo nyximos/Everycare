@@ -13,7 +13,8 @@ import javax.persistence.*;
 @SequenceGenerator(name = "job_offer_care_sitter_seq_generator",
         sequenceName = "job_offer_care_sitter_seq",
         initialValue = 1, allocationSize = 1)
-public class JobOfferCareSitter {
+public class
+JobOfferCareSitter {
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "job_offer_care_sitter_seq_generator")
     @Column(name = "job_offer_care_sitter_id")
