@@ -19,11 +19,13 @@
 </section>
 <script src="https://js.tosspayments.com/v1"></script>
 <!-- 위의 src코드 필수 필요 -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script>
     var tossPayments = TossPayments("test_ck_Lex6BJGQOVDGPJNGkJq3W4w2zNbg");
     var button = document.getElementById("payment-button");
 
     var orderId = new Date().getTime();
+    let customDate = new Date()
 
     button.addEventListener("click", function () {
         var method = document.querySelector('input[name=method]:checked').value; // "카드" 혹은 "가상계좌"
@@ -36,7 +38,7 @@
             orderId: orderId,
             orderName: '토스 티셔츠 외 2건',
             customerName: '박토스',
-            successUrl: 'https://localhost:8086/api/success',
+            successUrl: `https://localhost:8086/api/dashboard/contracts/payments?contractId=3`,
             failUrl: 'https://localhost:8080/fail',
         };
 
@@ -47,6 +49,19 @@
         //첫번째 파라미터로 결제수단(카드, 가상계좌)
         //두번째 파라미터로 결제 정보
         tossPayments.requestPayment(method, paymentData);
+
+        // $.ajax({
+        //     url: "/api/success",
+        //     type: 'GET',
+        //     contentType: false,
+        //     data: JSON.stringify({
+        //         'id':1,
+        //         "content":"content"
+        //     })
+        // })
+        // .done((res)=>{
+        //     console.log(res.content)
+        // })
     });
 </script>
 </body>

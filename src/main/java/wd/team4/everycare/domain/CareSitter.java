@@ -3,6 +3,7 @@ package wd.team4.everycare.domain;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.careSitter.CareSitterDTO;
 import wd.team4.everycare.dto.careSitter.CareSitterFormDTO;
 import wd.team4.everycare.dto.careSitter.CareSitterNameDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobSearchDTO;
@@ -76,7 +77,8 @@ public class CareSitter {
     private List<CareSitterImage> careSitterImages = new ArrayList<>();
 
     @Builder
-    public CareSitter(String name, String preferredType, String hopefulRegion, String desiredDayWeek, String activityTime, String desiredHourlyWage, String desiredMonthlyWage, int cctvAgreement, int vaccination, String introduction, int disclosureStatus, LocalDateTime createdAt, LocalDateTime updatedAt, Member member) {
+    public CareSitter(Long id, String name, String preferredType, String hopefulRegion, String desiredDayWeek, String activityTime, String desiredHourlyWage, String desiredMonthlyWage, int cctvAgreement, int vaccination, String introduction, int disclosureStatus, LocalDateTime createdAt, LocalDateTime updatedAt, Member member) {
+        this.id = id;
         this.name = name;
         this.preferredType = preferredType;
         this.hopefulRegion = hopefulRegion;
@@ -97,6 +99,16 @@ public class CareSitter {
         return CareSitterNameDTO.builder()
                 .id(this.id)
                 .name(this.name)
+                .build();
+    }
+
+    public CareSitterDTO toCareSitterDTO(){
+        return CareSitterDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .vaccination(this.vaccination)
+                .introduction(this.introduction)
+                .preferredType(this.preferredType)
                 .build();
     }
 
