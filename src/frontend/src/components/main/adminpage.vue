@@ -151,8 +151,8 @@
               <td>{{p.email}}</td>
               <td>{{p.createdAt}}</td>
               <td>{{p.activityStatus}}</td>
-              <td><button class="custom-btn btn-11">관리자등록</button>
-              <button class="custom-btn btn-11">관리자삭제</button>
+              <td><button class="custom-btn btn-11" @click="click(p)">관리자등록</button>
+              <button class="custom-btn btn-11" @click="drop(p)">관리자삭제</button>
               <button class="custom-btn btn-11">활동정지취소</button></td>
             </tr>
             
@@ -181,6 +181,7 @@
         allSelected: false,
         selected: [],
         profiles: [],
+        id: this.$route.params.memberId,
       }
     },
     methods: {
@@ -195,8 +196,28 @@
         },
         select: function() {
             this.allSelected = false;
-        }
-
+        },
+        drop(p){
+          this.$router.push({ params: { memberId: p.id }})
+          this.$http
+          .patch(`/api/admin/members/${p.id}`, {
+            withCredentials: true
+          })
+        },
+        click(p){
+          this.$router.push({ params: { memberId: p.id}})
+          this.$http
+          .post(`/api/admin/members/${p.id}`, {
+            withCredentials: true
+          })
+          .then((res)=> {
+            console.log(res);
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
+        },
+      
     },
     mounted() {
       this.$http
@@ -221,7 +242,7 @@
 .btn-11 {
   overflow: hidden;
   transition: all 0.3s ease;
-  font-size: 10;
+  font-size:12px;
 }
 .btn-11:hover {
    background: #000;
@@ -237,6 +258,7 @@
     height: 100%;
     background-color: #fff;
     animation: shiny-btn1 3s ease-in-out infinite;
+    font-size: 10;
 }
 .btn-11:active{
   box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
@@ -246,7 +268,7 @@
 }
 
 button {
-  margin: 20px;
+  margin: 3px;
   outline: none;
   
 }
