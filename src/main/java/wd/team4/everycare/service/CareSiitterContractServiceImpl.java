@@ -70,7 +70,7 @@ public class CareSiitterContractServiceImpl implements ContractService {
         Contract contractEntity = contract.orElse(null);
 
         JobOffer jobOffer = contractEntity.getJobOffer();
-        CareTarget careTarget = contractEntity.getCareTarget();
+        CareTarget careTarget = jobOffer.getCareTarget();
         List<CareTargetImage> careTargetImages = careTargetImageRepository.findAllByCareTarget(careTarget);
         List<ImageDTO> imageDTOs = new ArrayList<>();
 
