@@ -109,12 +109,9 @@ public class Member {
         this.adminRegistrationDate = time;
     }
 
-    public MemberInfoDTO toMemberInfoDTO() {
-        return MemberInfoDTO.builder()
-                .id(this.id)
-                .name(this.name)
-                .role(this.role)
-                .build();
+    public void removeAdmin(){
+        this.role = MemberRole.ROLE_MEMBER;
+        this.adminRegistrationDate = null;
     }
 
     public MemberListViewDTO toMemberListViewDTO(){

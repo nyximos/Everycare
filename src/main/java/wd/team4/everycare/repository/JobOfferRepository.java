@@ -10,5 +10,9 @@ import java.util.List;
 @Repository
 public interface JobOfferRepository extends JpaRepository<JobOffer, Long> {
 
+
     List<JobOffer> findByMember(Member member);
+
+    List<JobOffer> findAllByMember(Member member);
+
 }

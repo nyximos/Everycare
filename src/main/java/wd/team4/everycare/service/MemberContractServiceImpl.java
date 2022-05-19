@@ -15,12 +15,15 @@ import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.PayResponse;
 import wd.team4.everycare.dto.contract.ContractDTO;
 import wd.team4.everycare.dto.contract.SignContractDTO;
+import wd.team4.everycare.dto.contract.JobOfferContractListDTO;
+import wd.team4.everycare.dto.product.ProductListViewDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.CareSitterRepository;
 import wd.team4.everycare.repository.ContractRepository;
 import wd.team4.everycare.repository.JobOfferRepository;
 import wd.team4.everycare.service.interfaces.MemberContractService;
+
 
 import java.io.IOException;
 import java.time.Instant;
@@ -30,9 +33,14 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+
 @Service
-@RequiredArgsConstructor
 @Transactional
+@RequiredArgsConstructor
 public class MemberContractServiceImpl implements MemberContractService {
 
     private final CareSitterRepository careSitterRepository;
@@ -93,6 +101,7 @@ public class MemberContractServiceImpl implements MemberContractService {
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
+
     @Override
     public ResponseEntity<MyResponse> signContract(PayResponse payResponse, Long contractId) {
         LocalDateTime payDateTime = payResponse.getApprovedAt();
@@ -117,106 +126,36 @@ public class MemberContractServiceImpl implements MemberContractService {
     }
 
 
-//    @Override
-//    public ResponseEntity<MyResponse> signContract(PrincipalDetails principalDetails, String paymentKey, String orderId, Long amount) throws IOException {
-//
-//        Member member = principalDetails.getUser();
-//
-//        List<JobOffer> findJobOffers = jobOfferRepository.findByMember(member);
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        // headers.setBasicAuth(SECRET_KEY, ""); // spring framework 5.2 이상 버전에서 지원
-//        headers.set("Authorization", "Basic " + Base64.getEncoder().encodeToString((SECRET_KEY + ":").getBytes()));
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//
-//        //map에 필요한 데이터 집어넣기(payments에 필요한 데이터)
-//        Map<String, String> payloadMap = new HashMap<>();
-//        payloadMap.put("orderId", String.valueOf(orderId));
-//        payloadMap.put("amount", String.valueOf(amount));
-//
-//        //첫번재 파라미터로 http body, 두번째로 http header
-//        HttpEntity<String> request = new HttpEntity<>(objectMapper.writeValueAsString(payloadMap), headers);
-//
-////        String url, @Nullable Object request, Class<T> responseType, Object... uriVariables
-//        ResponseEntity<JsonNode> responseEntity = restTemplate.postForEntity("https://api.tosspayments.com/v1/payments/" + paymentKey, request, JsonNode.class);
-//        Contract contract;
-//
-//        for (JobOffer jobOffer : findJobOffers) {
-//            CareSitter careSitter = careSitterRepository.findByMember(member);
-//            Contract findContract = contractRepository.findByCareSitterAndStatusAndJobOffer(careSitter, 2, jobOffer).orElse(null);
-//            if (findContract == null) {
-//                continue;
-//            } else {
-//                if (responseEntity.getStatusCode() == HttpStatus.OK) {
-//                    JsonNode successNode = responseEntity.getBody();
-//
-//                    String approvedAt = successNode.get("approvedAt").asText();
-//                    LocalDateTime payDateTime = StringToLocalDateTime(approvedAt);
-//                    int totalAmount = successNode.get("totalAmount").asInt();
-//                    String cardCompany = successNode.get("card").get("company").asText();
-//                    String cardNumber = successNode.get("card").get("number").asText();
-//                    String payApprove = successNode.get("card").get("approveNo").asText();
-//                    int monthlyInstallmentPlan = successNode.get("card").get("installmentPlanMonths").asInt();
-//
-//                    contract = Contract.builder()
-//                            .id(findContract.getId())
-//                            .name(findContract.getName())
-//                            .startDate(findContract.getStartDate())
-//                            .endDate(findContract.getEndDate())
-//                            .startTime(findContract.getStartTime())
-//                            .endTime(findContract.getEndTime())
-//                            .pay(findContract.getPay())
-//                            .status(3)
-//                            .amount(totalAmount)
-//                            .payDatetime(payDateTime)
-//                            .cardCompany(cardCompany)
-//                            .cardNumber(cardNumber)
-//                            .payApprove(payApprove)
-//                            .monthlyInstallmentPlan(monthlyInstallmentPlan)
-//                            .jobOffer(findContract.getJobOffer())
-//                            .member(findContract.getMember())
-//                            .careSitter(findContract.getCareSitter())
-//                            .build();
-//
-//                    MyResponse body = MyResponse.builder()
-//                            .header(StatusEnum.OK)
-//                            .message("결제성공")
-//                            .body(contract)
-//                            .build();
-//
-//                    return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
-//                } else {
-//                    JsonNode failNode = responseEntity.getBody();
-//                    MyResponse body = MyResponse.builder()
-//                            .header(StatusEnum.BAD_REQUEST)
-//                            .body(failNode)
-//                            .message("실패")
-//                            .build();
-//                    return new ResponseEntity<MyResponse>(body, HttpStatus.BAD_REQUEST);
-//                }
-//            }
-//        }
-//        return null;
-//    }
-//
-//    @Override
-//    public ResponseEntity<MyResponse> orderContract(PrincipalDetails principalDetails, SignContractDTO signContractDTO) {
-//
-//        Contract findContract = contractRepository.findById(signContractDTO.getId()).orElse(null);
-//        findContract.updateStatus(findContract);
-//
-//        if (findContract != null) {
-//            ContractDTO contractDTO = findContract.toContractDTO();
-//
-//            MyResponse body = MyResponse.builder()
-//                    .header(StatusEnum.OK)
-//                    .message("상태 코드2로 업데이트")
-//                    .body(contractDTO)
-//                    .build();
-//            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
-//        } else {
-//            return null;
-//        }
-//
-//    }
+    public ResponseEntity<MyResponse> getRecruitions(PrincipalDetails principalDetails) {
+
+        Member member = principalDetails.getUser();
+
+        List<JobOffer> jobOffers = jobOfferRepository.findAllByMember(member);
+        List<JobOfferContractListDTO> jobOfferContractListDTOs = new ArrayList<>();
+
+        for (JobOffer jobOffer : jobOffers) {
+            JobOfferContractListDTO dto = JobOfferContractListDTO.builder()
+                    .id(jobOffer.getId())
+                    .title(jobOffer.getTitle())
+                    .startDate(jobOffer.getStartDate())
+                    .endDate(jobOffer.getEndDate())
+                    .startTime(jobOffer.getDesiredStartTime())
+                    .endTime(jobOffer.getDesiredEndTime())
+                    .careTargetName(jobOffer.getCareTarget().getName())
+                    .scheduleName(jobOffer.getCareTargetSchedule().getName())
+                    .build();
+
+            jobOfferContractListDTOs.add(dto);
+        }
+
+        MyResponse<List<JobOfferContractListDTO>> body = MyResponse.<List<JobOfferContractListDTO>>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(jobOfferContractListDTOs)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
+
 }

@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.dto.product.MemberProductListViewDTO;
 import wd.team4.everycare.dto.product.ProductFormDTO;
+import wd.team4.everycare.service.exception.NotEnoughStockException;
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
@@ -60,6 +61,19 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_category_id")
     private ProductCategory productCategory;
+
+
+    public void addStock(int quantity) {
+        this.inventoryQuantity += quantity;
+    }
+
+    public void removeStock(int quantity) {
+        int restStock = this.inventoryQuantity - quantity;
+        if (restStock < 0) {
+            throw new NotEnoughStockException("need more stock");
+        }
+        this.inventoryQuantity = restStock;
+    }
 
     public MemberProductListViewDTO toMemberProductsViewDTO() {
         return MemberProductListViewDTO.builder()

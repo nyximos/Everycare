@@ -129,6 +129,7 @@ public class JobOfferServiceImpl implements JobOfferService {
     @Override
     public ResponseEntity<MyResponse> findOffer(Long contractId, PrincipalDetails principalDetails) {
         Contract contract = contractRepository.findById(contractId).orElse(null);
+
         if (contract != null) {
             JobOffer jobOffer = contract.getJobOffer();
             List<Contract> findOffers = contractRepository.findByStatusAndJobOffer(0, jobOffer);
@@ -157,6 +158,7 @@ public class JobOfferServiceImpl implements JobOfferService {
                     .build();
             return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
         } else return null;
+
     }
 
     @Override

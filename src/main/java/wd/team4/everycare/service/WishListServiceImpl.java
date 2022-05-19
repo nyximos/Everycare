@@ -36,6 +36,16 @@ public class WishListServiceImpl {
         Optional<Product> product = productRepository.findById(id);
         Product productEntity = product.orElse(null);
 
+        Optional<WishList> wishList = wishListRepository.findByMemberAndProduct(user, productEntity);
+
+        if (wishList.isEmpty()) {
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.OK)
+                    .message("성공했슴다~")
+                    .build();
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        }
+
         WishList wish = WishList.builder()
                 .member(user)
                 .product(productEntity)
@@ -59,7 +69,7 @@ public class WishListServiceImpl {
         List<WishListDTO> wishListDTOs = new ArrayList<>();
 
         for (WishList w : wishList) {
-            Optional<Product> product = productRepository.findById(w.getId());
+            Optional<Product> product = productRepository.findById(w.getProduct().getId());
             Product productEntity = product.orElse(null);
 
             WishListDTO dto = WishListDTO.builder()

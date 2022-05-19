@@ -40,7 +40,7 @@ public class InitContractService {
         Contract contract3 = oldContract("contract3", LocalDate.now(), LocalDate.now(), "10:00", "11:00", 1000, 2, 10000, LocalDateTime.now(), "BC", "123456789", "payApprove1", 1, jobOffer1, member1, careSitter1);
         Contract contract4 = oldContract("contract4", LocalDate.now(), LocalDate.now(), "10:00", "11:00", 1000, 2, 10000, LocalDateTime.now(), "AB", "987654321", "payApprove2", 2, jobOffer2, member2, careSitter2);
     }
-    private Contract oldContract(String name, LocalDate startDate, LocalDate endDate, String startTime, String endTime, int pay, int contractStatus, int amount, LocalDateTime payDateTime, String cardCompany, String cardNumber, String payApprove, int monthlyInstallmentPlan, JobOffer jobOffer, Member member, CareSitter careSitter){
+    private Contract oldContract(String name, LocalDate startDate, LocalDate endDate, String startTime, String endTime, int pay, int status, int amount, LocalDateTime payDateTime, String cardCompany, String cardNumber, String payApprove, int monthlyInstallmentPlan, JobOffer jobOffer, Member member, CareSitter careSitter){
         Contract contract = Contract.builder()
                 .name(name)
                 .startDate(startDate)
@@ -48,7 +48,7 @@ public class InitContractService {
                 .startTime(startTime)
                 .endTime(endTime)
                 .pay(pay)
-                .status(contractStatus)
+                .status(status)
                 .amount(amount)
                 .payDatetime(payDateTime)
                 .cardCompany(cardCompany)
@@ -64,7 +64,7 @@ public class InitContractService {
         return contract;
     }
 
-    private Contract newContract(String name, LocalDate startDate, LocalDate endDate, String startTime, String endTime, int pay, int contractStatus, JobOffer jobOffer, Member member, CareSitter careSitter){
+    private Contract newContract(String name, LocalDate startDate, LocalDate endDate, String startTime, String endTime, int pay, int status, JobOffer jobOffer, Member member, CareSitter careSitter){
         Contract contract = Contract.builder()
                 .name(name)
                 .startDate(startDate)
@@ -72,7 +72,7 @@ public class InitContractService {
                 .startTime(startTime)
                 .endTime(endTime)
                 .pay(pay)
-                .status(contractStatus)
+                .status(status)
                 .jobOffer(jobOffer)
                 .member(member)
                 .careSitter(careSitter)
