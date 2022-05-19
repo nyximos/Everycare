@@ -24,6 +24,11 @@ public class CareNoteApiController {
         return responseEntity;
     }
 
+    @GetMapping("/carenotes/{id}")
+    public ResponseEntity<MyResponse> get(@PathVariable("id") Long id) {
+        ResponseEntity<MyResponse> responseEntity = careNoteService.get(id);
+    }
+
     @PatchMapping("/carenotes/{id}/photo")
     public ResponseEntity<MyResponse> start(@ModelAttribute CareNoteImageDTO imageDTO, @PathVariable("id") Long id) throws IOException {
         ResponseEntity<MyResponse> responseEntity = careNoteService.start(id, imageDTO);

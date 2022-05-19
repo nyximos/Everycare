@@ -11,6 +11,7 @@ import wd.team4.everycare.domain.CareNote;
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.Contract;
 import wd.team4.everycare.dto.UploadFile;
+import wd.team4.everycare.dto.careNote.CareNoteDetailDTO;
 import wd.team4.everycare.dto.careNote.CareNoteImageDTO;
 import wd.team4.everycare.dto.careNote.CareNoteListDTO;
 import wd.team4.everycare.dto.response.MyResponse;
@@ -76,6 +77,32 @@ public class CareNoteServiceImpl implements CareNoteService {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
 
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> get(Long id) {
+
+        Optional<CareNote> careNote = careNoteRepository.findById(id);
+        CareNote careNoteEntity = careNote.orElse(null);
+
+        CareNoteDetailDTO careNoteDetailDTO = CareNoteDetailDTO.builder()
+                .id(careNoteEntity.getId())
+                .build();
+
+        if(careNoteEntity.getStartTime()!=null){
+            careNoteDetailDTO.setStartTime(careNoteEntity.getStartTime());
+            careNoteDetailDTO.setUploadFileName(careNoteDetailDTO.getUploadFileName());
+        }
+
+
+        MyResponse<CareNoteDetailDTO> body = MyResponse.<CareNoteDetailDTO>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(careNoteDetailDTO)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 
     @Override
