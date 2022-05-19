@@ -105,7 +105,7 @@ methods:{
 	},
 	goCart(){
 		this.$router.push({
-			path:''
+			path:'/cart'
 		})
 	},
   wish(){

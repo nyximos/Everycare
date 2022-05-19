@@ -30,8 +30,16 @@
                  <v-img v-for="item in this.imagesDTOs" :key="item.id" id="divProfile" :src="'https://localhost:8086/api/images/'+item.storeFileName" alt="사진" width="344" height="200"/>
             </v-col>
         </v-row>
+        <v-row>
+            <v-col>
+                <label>개수:</label><input type="number" name="" id="" v-model="quantity">
+            </v-col>
+                        <v-col>
+                <label>가격:</label>{{startOffset}}
+            </v-col>
+        </v-row>
           <v-btn color="danger" @click="wishList">찜</v-btn>
-          <v-btn color="primary">장바구니</v-btn>
+          <v-btn color="primary" @click="cart">장바구니</v-btn>
           <v-btn @click="back">취소</v-btn>
       </v-container>
 </template>
@@ -68,7 +76,7 @@ data(){
         storeFileName: this.storeFileName,
         imagesDTOs: this.imagesDTOs,
         id: this.id,
-        arrValues: this.arrValues
+        quantity: 1,
     }
 },
 methods:{
@@ -92,14 +100,35 @@ wishList(){
        console.log(err);
     });
 },
-images(){
-    var arrValues = new Array();
-    for (let i = 0; i < this.imagesDTOs.length; i++) {
-          arrValues.push(this.imagesDTOs[i].uploadFileName)
-      }
-      this.arrValues=arrValues
-      
+cart(){
+    const product = {
+        id: this.id,
+        quantity: this.quantity,
+        amount: this.startOffset
+    }
+    const id = Number(this.$route.params.contentId);
+    var formData = new FormData();
+    formData.append('id',this.id);
+    formData.append('quantity',this.quantity);
+    formData.append('amount', this.startOffset);
+    this.$http
+    .post(`/api/products/${id}/cart`,formData, {
+    withCredentials: true
+    })
+     .then(res => {
+      console.log(res);
+      this.$store.commit('cart/pushProductToCart', product)
+      console.log(this.$store.state.cart.cart);
+    })
+      .catch(err => {
+       console.log(err);
+    });
+}
 },
+computed:{
+    startOffset() {
+        return ((this.price) * this.quantity);
+      },
 }
 }
 </script>
