@@ -125,6 +125,7 @@
               <th scope="col">이메일</th>
               <th scope="col">회원가입일</th>
               <th scope="col">활동상태</th>
+              <th scope="col">관리자 권한</th>
             </tr>
           </thead>
           <tbody>
@@ -142,7 +143,7 @@
               <td><a href="#">{{p.name}}</a></td>
               <td>
                 {{p.role}}
-                <small class="d-block">Far far away, behind the word mountains</small>
+                
               </td>
               <td>{{p.gender}}</td>
               <td>{{p.birth}}</td>
@@ -150,7 +151,9 @@
               <td>{{p.email}}</td>
               <td>{{p.createdAt}}</td>
               <td>{{p.activityStatus}}</td>
-
+              <td><button class="custom-btn btn-11">관리자등록</button>
+              <button class="custom-btn btn-11">관리자삭제</button>
+              <button class="custom-btn btn-11">활동정지취소</button></td>
             </tr>
             
             
@@ -214,7 +217,52 @@
   
 </script>
 
-<style>
+<style scoped>
+.btn-11 {
+  overflow: hidden;
+  transition: all 0.3s ease;
+  font-size: 10;
+}
+.btn-11:hover {
+   background: #000;
+  color: #fff;
+}
+.btn-11:before {
+    position: absolute;
+    content: '';
+    display: inline-block;
+    top: -180px;
+    left: 0;
+    width: 30px;
+    height: 100%;
+    background-color: #fff;
+    animation: shiny-btn1 3s ease-in-out infinite;
+}
+.btn-11:active{
+  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
+              -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+    inset -4px -4px 6px 0 rgba(255,255,255,.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
+}
+
+button {
+  margin: 20px;
+  outline: none;
+  
+}
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  padding: 10px 25px;
+  border: 2px solid #000;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
     *,:after,:before{
         box-sizing: border-box;
     }
@@ -227,6 +275,7 @@
         position: fixed;
         z-index: 99999;
         background: #fff;
+        overflow: hidden;
     }
 
      /* .lds-ripple {
