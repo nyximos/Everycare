@@ -65,7 +65,7 @@ public class CareNoteServiceImpl implements CareNoteService {
                     .id(careNote.getId())
                     .startTime(contractEntity.getStartTime())
                     .endTime(contractEntity.getEndTime())
-                    .careTargetName(contractEntity.getCareTarget().getName())
+                    .careTargetName(contractEntity.getJobOffer().getCareTarget().getName())
                     .build();
 
             careNoteListDTOs.add(dto);
