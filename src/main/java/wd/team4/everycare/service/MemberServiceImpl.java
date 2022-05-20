@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.config.jwt.JwtProperties;
+import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.domain.Store;
 import wd.team4.everycare.dto.careSitter.CareSitterDTO;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.member.MemberAccountDTO;
@@ -121,9 +123,24 @@ public class MemberServiceImpl implements MemberService {
 
         Optional<Member> member = memberRepository.findById(id);
         Member memberEntity = member.orElse(null);
-        MemberInfoDTO memberInfoDTO = memberEntity.toMemberInfoDTO();
 
-        MyResponse<MemberInfoDTO> body = MyResponse.<MemberInfoDTO>builder()
+        CareSitter careSitter = memberEntity.getCareSitter();
+        Store store = memberEntity.getStore();
+
+        MemberInfoDTO memberInfoDTO = MemberInfoDTO.builder()
+                .id(memberEntity.getId())
+                .name(memberEntity.getName())
+                .role(memberEntity.getRole())
+                .build();
+
+        if(careSitter!=null) {
+            memberInfoDTO.setCareSitterId(memberEntity.getCareSitter().getId());
+        }
+        if(store!=null) {
+            memberInfoDTO.setStoreId(memberEntity.getStore().getId());
+        }
+
+            MyResponse<MemberInfoDTO> body = MyResponse.<MemberInfoDTO>builder()
                 .header(StatusEnum.OK)
                 .message("성공했슴다~")
                 .body(memberInfoDTO)

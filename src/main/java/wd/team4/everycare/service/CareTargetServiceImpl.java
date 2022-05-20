@@ -20,7 +20,6 @@ import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.CareTargetImageRepository;
 import wd.team4.everycare.repository.CareTargetRepository;
-import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.service.exception.CareTargetNotFoundException;
 import wd.team4.everycare.service.interfaces.CareTargetService;
 
@@ -37,7 +36,6 @@ public class CareTargetServiceImpl implements CareTargetService {
     private final FileStoreService fileStoreService;
     private final CareTargetRepository careTargetRepository;
     private final CareTargetImageRepository careTargetImageRepository;
-    private final MemberRepository memberRepository;
 
     @Override
     public ResponseEntity<MyResponse> findAll(PrincipalDetails principalDetails) {

@@ -34,6 +34,8 @@ public class CareSitterContractApiController {
         return offer;
     }
 
+
+
     @GetMapping("/dashboard/caresitter/contracts")
     public ResponseEntity<MyResponse> getAll(@AuthenticationPrincipal PrincipalDetails principalDetails) {
 

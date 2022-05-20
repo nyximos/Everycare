@@ -32,4 +32,22 @@ public class CareSitterDTO {
     private LocalDateTime updatedAt;
     private List<ImageDTO> imageDTOs;
 
+    public CareSitter toCareSitter(){
+        return CareSitter.builder()
+                .id(id)
+                .name(name)
+                .preferredType(preferredType)
+                .hopefulRegion(hopefulRegion)
+                .desiredDayWeek(desiredDayWeek)
+                .activityTime(activityTime)
+                .desiredHourlyWage(desiredHourlyWage)
+                .desiredMonthlyWage(desiredMonthlyWage)
+                .cctvAgreement(cctvAgreement)
+                .vaccination(vaccination)
+                .introduction(introduction)
+                .disclosureStatus(disclosureStatus)
+                .createdAt(createdAt)
+                .updatedAt(updatedAt)
+                .build();
+    }
 }

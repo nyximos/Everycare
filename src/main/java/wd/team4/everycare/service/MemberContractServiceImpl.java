@@ -1,26 +1,42 @@
 package wd.team4.everycare.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.Contract;
 import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.dto.PayResponse;
+import wd.team4.everycare.dto.contract.ContractDTO;
+import wd.team4.everycare.dto.contract.SignContractDTO;
 import wd.team4.everycare.dto.contract.JobOfferContractListDTO;
 import wd.team4.everycare.dto.product.ProductListViewDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
-import wd.team4.everycare.repository.*;
+import wd.team4.everycare.repository.CareSitterRepository;
+import wd.team4.everycare.repository.ContractRepository;
+import wd.team4.everycare.repository.JobOfferRepository;
 import wd.team4.everycare.service.interfaces.MemberContractService;
+
+
+import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 @Transactional
@@ -30,6 +46,7 @@ public class MemberContractServiceImpl implements MemberContractService {
     private final CareSitterRepository careSitterRepository;
     private final JobOfferRepository jobOfferRepository;
     private final ContractRepository contractRepository;
+    private final PaymentServiceImpl paymentService;
 
 
     @Override
@@ -72,7 +89,6 @@ public class MemberContractServiceImpl implements MemberContractService {
                 .jobOffer(jobOfferEntity)
                 .member(member)
                 .careSitter(careSitterEntity)
-                .careTarget(jobOfferEntity.getCareTarget())
                 .build();
 
         contractRepository.save(contract);
@@ -84,6 +100,31 @@ public class MemberContractServiceImpl implements MemberContractService {
 
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
+
+
+    @Override
+    public ResponseEntity<MyResponse> signContract(PayResponse payResponse, Long contractId) {
+        LocalDateTime payDateTime = payResponse.getApprovedAt();
+        int amount = payResponse.getTotalAmount();
+        String cardCompany = payResponse.getCardCompany();
+        String cardNumber = payResponse.getCardNumber();
+        String payApprove = payResponse.getApproveNo();
+        int monthlyInstallmentPlan = payResponse.getInstallmentPlanMonths();
+
+        Contract contract = contractRepository.findById(contractId).orElse(null);
+        contract.updateContract(payDateTime, amount, cardCompany, cardNumber, payApprove, monthlyInstallmentPlan);
+
+        ContractDTO contractDTO = contract.toContractDTO();
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("DB업데이트")
+                .body(contractDTO)
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
 
     public ResponseEntity<MyResponse> getRecruitions(PrincipalDetails principalDetails) {
 
@@ -116,4 +157,5 @@ public class MemberContractServiceImpl implements MemberContractService {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
+
 }

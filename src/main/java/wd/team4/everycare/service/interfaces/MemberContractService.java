@@ -2,7 +2,12 @@ package wd.team4.everycare.service.interfaces;
 
 import org.springframework.http.ResponseEntity;
 import wd.team4.everycare.config.auth.PrincipalDetails;
+import wd.team4.everycare.dto.PayResponse;
+import wd.team4.everycare.dto.contract.SignContractDTO;
 import wd.team4.everycare.dto.response.MyResponse;
+
+import java.io.IOException;
+import java.time.LocalDate;
 
 public interface MemberContractService {
 
@@ -10,5 +15,9 @@ public interface MemberContractService {
 
     ResponseEntity<MyResponse> saveContract(PrincipalDetails principalDetails, Long jobOfferId, Long careSitterId);
 
+
+    ResponseEntity<MyResponse> signContract(PayResponse payResponse, Long contractId);
+
     ResponseEntity<MyResponse> getRecruitions(PrincipalDetails principalDetails);
+
 }

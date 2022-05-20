@@ -15,7 +15,8 @@ public class MemberInfoDTO {
     private String id;
     private String name;
     private MemberRole role;
-
+    private Long careSitterId;
+    private Long storeId;
 
     public Member toMemberInfoDTO(){
         return Member.builder()
