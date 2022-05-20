@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class StoreAdminDetailDTO {
     private Long id;
