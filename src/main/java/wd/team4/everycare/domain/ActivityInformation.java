@@ -2,6 +2,7 @@ package wd.team4.everycare.domain;
 
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
+import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationFormDTO;
 import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationViewDTO;
 import wd.team4.everycare.util.StringUtils;
@@ -33,7 +34,7 @@ public class ActivityInformation {
     @Column(name = "activity_information_requirement", length = 500)
     private String requirement;
 
-    @Column(name = "activity_information_content", length = 255)
+    @Column(name = "activity_information_content", length = 500)
     private String content;
 
     @Column(name = "activity_information_upload_file_name", length = 255)
@@ -49,10 +50,6 @@ public class ActivityInformation {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_target_schedule_id")
     private CareTargetSchedule careTargetSchedule;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "care_sitter_activity_id")
-    private CareSitterActivity careSitterActivity;
 
     @Override
     public String toString() {
@@ -101,5 +98,22 @@ public class ActivityInformation {
         if(StringUtils.isNotBlank(activityInformationFormDTO.getRequirement())) {
             this.requirement = activityInformationFormDTO.getRequirement();
         }
+    }
+
+    public void postContent(String content) {
+        this.content = content;
+    }
+
+    public void savePhoto(UploadFile attachFile) {
+        this.uploadFileName = attachFile.getUploadFileName();
+        this.storeFileName = attachFile.getStoreFileName();
+    }
+
+    public void removeContent() {
+        this.content = null;
+    }
+
+    public void removePhoto() {
+        this.content = null;
     }
 }

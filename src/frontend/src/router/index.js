@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-
+import Caresitters from '../pages/Caresitters';
 import Carepeople from '../pages/Carepeople';
 import Alarm from '../pages/Alarm';
 
@@ -89,6 +89,22 @@ const routes = [
         component: () => import('@/pages/Adminpage_report.vue')
     },
     {
+        path: '/wish',
+        name: 'Wish',
+        component: () => import('@/pages/Wish.vue')
+    },
+    {
+        path: '/cart',
+        name: 'Cart',
+        component: () => import('@/pages/Cart.vue')
+    },
+    {
+
+        path: '/joboffer/:id/editwrite',
+        name: 'editwrite',
+        component: () => import('@/components/writeEdit.vue')
+    },
+    {
         path: '/signup',
         name: 'signup',
         component: () => import('@/pages/Signup.vue')
@@ -99,46 +115,53 @@ const routes = [
        component:() => import('@/pages/Calendar.vue')
    },
     {
-        path: '/dashboard/careprofile',
-        name: 'careprofile',
-        component: () => import('@/pages/Careprofile.vue')
+    path: '/stores/product/:contentId',
+    name: 'prodDetail',
+    component: () => import('@/components/prodDetail.vue')
     },
     {
-        path: '/dashboard/careprofile1',
+        path:'/stores',
+        name:'storeMain',
+        component: ()=> import ('@/pages/StoreHome.vue')
+    },
+    {
+        path: '/createstore',
+        name: 'createStore',
+        component: () => import('@/pages/Storesubmit.vue')
+    },
+    {
+        path: '/stores/:id',
+        name: 'storeEdit',
+        component: () => import('@/pages/StoreInfoEdit.vue')
+    },
+    
+    {
+        path: '/joblist',
+        name: 'Job_list',
+        component: () => import('@/pages/Job_list.vue')
+    },
+    {
+        path: '/careprofile1',
         name: 'careprofile1',
         component: () => import('@/pages/Careprofile1.vue')
     },
     {
-        path: '/dashboard/careprofile1/:profileId',
-        name: 'careprofile1',
-        component: () => import('@/pages/Careprofile1.vue')
-    },
-    {
-        path: '/caresitterprofile_delete',
-        name: 'caresitterprofile_delete',
-        component: () => import('@/pages/Caresitterprofile.vue')
-    },
-    // {
-    //     path: '/profile_update/:profileId',
-    //     name: 'profile_update',
-    //     component: () => import('@/pages/Profile_update.vue')
-    // },
-    {
-        path: '/caresitterprofile/:caresitterId',
-        name: 'caresitterprofile',
-        // props:true,
-        component: () => import('@/components/main/caresitterprofile.vue')
-    },
-    {
-        path: '/dashboard/careprofile2',
+        path: '/careprofile2',
         name: 'careprofile2',
         component: () => import('@/pages/Careprofile2.vue')
+    },
+    {
+        path: '/joblist/detail/:contentId',
+        name: 'detail',
+        component: () => import('@/components/itemDetail.vue')
     },
     // {
     //     path: '/recruitions',
     //     name: 'Recruitions',
     //     component: () => import('@/pages/Recruitions.vue')
     // },
+    
+    
     {
         path: '/login',
         name: 'Login',
@@ -150,6 +173,11 @@ const routes = [
         }
     },
     {
+        path: '/caresitters',
+        name: 'caresitters',
+        component: Caresitters
+    },
+
         path: '/works',
         name: 'FindWork',
         component: () => import('@/pages/FindWork.vue'),
@@ -160,10 +188,15 @@ const routes = [
         }
     },
     // {
-    //     path: '/dashboard/caresitter',
-    //     name: '케어시터 프로필생성',
-    //     component: () => import('@/pages/Careprofile.vue')
+    //     path: '/profile',
+    //     name: 'profile',
+    //     component: Profile
     // },
+    {
+        path: '/dashboard/caresitter',
+        name: '케어시터 프로필생성',
+        component: () => import('@/pages/Careprofile.vue')
+    },
     {
         path: '/carepeople',
         name: 'carepeople',
@@ -189,7 +222,31 @@ const routes = [
         name: 'Caretargets',
         component: () => import('@/pages/Caretargets.vue')
     },
-];
+    {
+
+        path: '/caretargetsdetail/:caretargetsId',
+        name: 'CaretargetsDetail',
+        component: () => import('@/components/main/caretargetsdetail.vue')
+    },
+    // {
+    //     path: '/targets_update/:caretargetsId',
+    //     name: 'targets_update',
+    //     component: () => import('@/pages/Targets_update.vue')
+    // },
+    {
+        path: '/caretargets_update/:caretargetsId',
+        name: 'TargetsUpdate',
+        // component: () => import('@/pages/Targets_update.vue')
+        component: () => import('@/components/main/caretargets_update.vue')
+    },
+    
+    {
+        path: '/adminpage',
+        name: 'adminpage',
+        component: () => import('@/pages/Adminpage.vue')
+    },
+    
+]
 
 const router = new VueRouter({
     mode: 'history',

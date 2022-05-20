@@ -38,7 +38,7 @@ public class AdminApiController {
         return responseEntity;
     }
 
-    @DeleteMapping("/members/{id}")
+    @PatchMapping("/members/{id}")
     public ResponseEntity<MyResponse> removeAdmin(@PathVariable("id") String id) {
         ResponseEntity<MyResponse> responseEntity = adminService.removeAdmin(id);
         return responseEntity;

@@ -15,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class CareTargetFormDTO {
-
     private Long id;
     private String name;
     private Gender gender;

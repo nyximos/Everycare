@@ -95,7 +95,6 @@ public class CareSitterApiController {
             @ModelAttribute CareSitterFormDTO careSitterFormDTO,
             @AuthenticationPrincipal PrincipalDetails principalDetails
     ) throws IOException {
-
         LocalDateTime time = LocalDateTime.now();
         careSitterFormDTO.setCreatedAt(time);
         careSitterFormDTO.setUpdatedAt(time);

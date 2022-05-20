@@ -32,7 +32,7 @@ public class JobOfferDTO {
                 .title(this.title)
                 .startDate(this.startDate)
                 .endDate(this.endDate)
-                .desiredDayWeek(this.desiredDayWeek)
+                .day(this.desiredDayWeek)
                 .desiredStartTime(desiredStartTime)
                 .desiredEndTime(this.desiredEndTime)
                 .pay(this.pay)

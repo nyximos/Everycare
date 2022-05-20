@@ -92,7 +92,7 @@ public class InitJobOfferService {
                 .title(title)
                 .startDate(startDate)
                 .endDate(endDate)
-                .desiredDayWeek(desiredDayWeek)
+                .day(desiredDayWeek)
                 .desiredStartTime(desiredStartTime)
                 .desiredEndTime(desiredEndTime)
                 .pay(pay)

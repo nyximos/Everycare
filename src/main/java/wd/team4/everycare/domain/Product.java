@@ -62,6 +62,7 @@ public class Product {
     @JoinColumn(name = "product_category_id")
     private ProductCategory productCategory;
 
+
     public void addStock(int quantity) {
         this.inventoryQuantity += quantity;
     }
