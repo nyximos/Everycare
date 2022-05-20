@@ -1,15 +1,14 @@
 <template>
-      <Certification />
-      
+      <addprofile2 />
 </template>
 
 <script>
-import Certification from '@/components/main/certification'
+import Addprofile2 from '@/components/main/addprofile2'
 
 
 export default {
   components: {
-       Certification
+       Addprofile2
        },
 
 };

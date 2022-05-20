@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import Caresitters from '../pages/Caresitters';
 import Carepeople from '../pages/Carepeople';
 import Alarm from '../pages/Alarm';
+import Profile2 from '../pages/Profile2';
 
 Vue.use(VueRouter);
 const routes = [
@@ -15,78 +16,6 @@ const routes = [
         path: '/',
         name: 'Main',
         component: () => import('@/pages/Main.vue')
-    },
-    {   
-        // 관리자 자격증 조회 화면
-        path: '/admin/caresitter-certifications',
-        name: 'adminpage_certi',
-        component: () => import('@/pages/Adminpage_certi.vue')
-    },
-    {
-        // 관리자 자격증 상세/승인
-        path: '/admin/caresitter-certifications/:contentId',
-        name: 'certification_detail',
-        component: () => import('@/components/main/certification_detail.vue')
-    },
-    {   
-        //자격증 등록화면
-        path: '/dashboard/caresitter/:caresitterId/certifications/new',
-        name: 'certification',
-        component: () => import('@/pages/Certification.vue')
-    },
-    {   
-        // 회원 마이페이지
-        path: '/dashboard',
-        name: 'mypage',
-        component: () => import('@/pages/Mypage.vue')
-    },
-    {   
-        // 구직글 조회
-        path: '/caresitters',
-        name: 'caresitters',
-        component: () => import('@/pages/Caresitters.vue')
-    },
-    {
-        // 케어시터 프로필 등록
-        path: '/dashboard/caresitter',
-        name: 'careprofilecreate',
-        component: () => import('@/pages/Careprofilecreate.vue')
-    },
-    {   
-        // 구직글 케어시터 프로필 상세조회
-        path: '/caresitters/:caresitterId',
-        name: 'addprofile2',
-        props:true,
-        component: () => import('@/components/main/addprofile2.vue')
-    },
-    {   
-        // 계약서
-        path: '/contract/:caresitterId',
-        name: 'contract',
-        component: () => import('@/pages/Contract.vue')
-    },
-    {   
-        //마이페이지 케어시터프로필 조회
-        path:'/mypage_profile/:caresitterId',
-        name:'mypage_profile',
-        component: ()=> import('@/components/main/mypage_profile')
-    },
-    {   
-        // 프로필 수정
-        path: '/profile_update/:caresitterId',
-        name: 'profile_update',
-        component: () => import('@/pages/Profile_update.vue')
-    },
-    {   
-        //마이페이지 자격증 조회
-        path:'/mypage_certi/:caresitterId',
-        name:'mypage_certi',
-        component: ()=> import('@/components/main/mypage_certi')
-    },
-    {
-        path: '/admin_report',
-        name: 'admin_report',
-        component: () => import('@/pages/Adminpage_report.vue')
     },
     {
         path: '/wish',
@@ -136,9 +65,21 @@ const routes = [
     },
     
     {
+        
         path: '/joblist',
         name: 'Job_list',
         component: () => import('@/pages/Job_list.vue')
+    },
+    {
+        path: '/createwrite',
+        name: 'CreateWrite',
+        component: () => import('@/pages/CreateWrite.vue')
+    },
+
+    {
+        path: '/careprofile',
+        name: 'careprofile',
+        component: () => import('@/pages/Careprofile.vue')
     },
     {
         path: '/careprofile1',
@@ -178,6 +119,7 @@ const routes = [
         component: Caresitters
     },
 
+    {
         path: '/works',
         name: 'FindWork',
         component: () => import('@/pages/FindWork.vue'),
@@ -207,11 +149,11 @@ const routes = [
         name: 'alarm',
         component: Alarm
     },
-    // {
-    //     path: '/profile2',
-    //     name: 'profile2',
-    //     component: Profile2
-    // },
+    {
+        path: '/profile2',
+        name: 'profile2',
+        component: Profile2
+    },
     {
         path: '/test',
         name: 'Test',
