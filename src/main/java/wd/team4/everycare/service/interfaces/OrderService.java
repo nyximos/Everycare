@@ -9,5 +9,5 @@ import javax.servlet.http.HttpServletRequest;
 public interface OrderService {
 
     ResponseEntity<MyResponse> order(HttpServletRequest request, OrderDTO orderDTO);
-
+    ResponseEntity<MyResponse> signOrder(Long orderId);
 }

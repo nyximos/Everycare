@@ -20,6 +20,7 @@ public class InitDb {
     private final InitBoardService boardService;
     private final InitJobOfferService jobOfferService;
     private final InitContractService contractService;
+    private final InitOrderService orderService;
 
     @PostConstruct
     public void init() {
@@ -34,5 +35,6 @@ public class InitDb {
         boardService.dbInit();
         jobOfferService.dbInit();
         contractService.dbInit();
+        orderService.dbInit();
     }
 }

@@ -97,4 +97,10 @@ public class OrderServiceImpl implements OrderService {
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
 
     }
+
+    @Override
+    public ResponseEntity<MyResponse> signOrder(Long orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        return null;
+    }
 }
