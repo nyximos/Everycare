@@ -83,6 +83,18 @@ const routes = [
         name:'mypage_certi',
         component: ()=> import('@/components/main/mypage_certi')
     },
+    {   
+        // 마이페이지 계약서 조회
+        path:'/caresitter_contract/:caresitterId',
+        name:'caresitter_contract',
+        component:()=>import('@/pages/Caresitter_contract')
+    },
+    {   
+        //마이페이지 계약서 상세조회
+        path:'/contract_detail/:contractId',
+        name:'contract_detail',
+        component: ()=> import('@/components/main/contract_detail')
+    },
     {
         path: '/admin_report',
         name: 'admin_report',
