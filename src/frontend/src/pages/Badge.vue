@@ -1,18 +1,18 @@
 <template>
 <v-container>
-  <createStore />
+  <badge />
 </v-container>
 </template>
 
 <script>
-import createStore from '@/components/createStore.vue';
+import badge from '@/components/badge.vue';
 export default {
-  components:{
-    createStore
-}
-
+components:{
+	badge,
+  }
 }
 </script>
 
 <style>
+
 </style>
