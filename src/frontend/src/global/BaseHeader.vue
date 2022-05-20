@@ -8,6 +8,7 @@
                 <v-btn text to="/stores">케어스토어</v-btn>
             </div>
             <div>
+
                 <div>
                     <div v-if="this.$store.state.userStore.id !== ''">
                     <v-btn text v-on:click.native="signout()" to="/">로그아웃</v-btn>
@@ -18,6 +19,7 @@
                     <v-btn text to="/signup">회원가입</v-btn>
                     </div>
                 </div>
+
             </div>
         </div>
     </header>
@@ -48,20 +50,6 @@ export default {
             }),
             location.href = '/';
         },
-        // id, 이름, 권한 응답을 넣어준다
-        log() {
-            this.$http
-                .get('/api/user', {
-                    withCredentials: true
-                })
-                .then(res => {
-                    // state에 저장
-                    console.log(this.$store.state.userStore.id);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        }
     }
 };
 </script>
