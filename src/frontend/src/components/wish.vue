@@ -30,16 +30,16 @@ export default {
     console.log(this.$store.state.wish.wish)
   },
   methods:{
-    drop(){
-      this.$http.delete(`/api/dashboard/wishlist/${this.listItem.id}`,{
-      withCredentials: true
-    })
-    .then((res)=> {
-      console.log(res)
-    }).catch((err)=>{
-      console.log(err)
-        })
-      },
+    // drop(){
+    //   this.$http.delete(`/api/dashboard/wishlist/${this.listItem.id}`,{
+    //   withCredentials: true
+    // })
+    // .then((res)=> {
+    //   console.log(res)
+    // }).catch((err)=>{
+    //   console.log(err)
+    //     })
+    //   },
       remove(item,index){
       // this.$http
       // .delete(`/api/cart/${item.productId}`,{
@@ -47,9 +47,8 @@ export default {
       // })
       // .then((res)=> {
       //   console.log(res)
-        // console.log(this.item.index)
+      //   console.log(this.item.index)
         this.$store.commit("wish/remoteList", index)
-
       // }).catch((err)=>{
       //   console.log(err)
       // })

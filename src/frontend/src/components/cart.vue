@@ -60,17 +60,17 @@ export default {
         }
       },
       remove(item,index){
-      this.$http
-      .delete(`/api/cart/${item.productId}`,{
-      withCredentials: true
-      })
-      .then((res)=> {
-        console.log(res)
+      // this.$http
+      // .delete(`/api/cart/${item.productId}`,{
+      // withCredentials: true
+      // })
+      // .then((res)=> {
+      //   console.log(res)
         // console.log(this.item.index)
         this.$store.commit("cart/remoteList", index)
-      }).catch((err)=>{
-        console.log(err)
-      })
+      // }).catch((err)=>{
+      //   console.log(err)
+      // })
       },
       removeAll(){
       this.$http
