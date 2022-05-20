@@ -86,6 +86,11 @@ back(){
     })
 },
 wishList(){
+    const product = {
+    id: this.id,
+    quantity: this.quantity,
+    amount: this.startOffset
+    }
     const id = Number(this.$route.params.contentId);
     var formData = new FormData();
     formData.append('id',this.id);
@@ -95,6 +100,7 @@ wishList(){
     })
      .then(res => {
       console.log(res);
+      this.$store.commit('wish/pushProductToWish', product)
     })
       .catch(err => {
        console.log(err);
