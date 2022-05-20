@@ -3,8 +3,8 @@ package wd.team4.everycare.dto.jobOffer_jobSearch;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import wd.team4.everycare.domain.*;
-import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleDTO;
+import wd.team4.everycare.domain.Gender;
+import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.member.MemberListViewDTO;
 
