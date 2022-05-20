@@ -63,16 +63,7 @@ const routes = [
         name: 'storeEdit',
         component: () => import('@/pages/StoreInfoEdit.vue')
     },
-    {
-        path: '/store/prodcreate',
-        name: 'prodCreate',
-        component: () => import('@/pages/Store_prod_create.vue')
-    },
-    {
-        path: '/stores/:id/prodedit',
-        name: 'prodEdit',
-        component: () => import('@/components/prodEdit.vue')
-    },
+    
     {
         
         path: '/joblist',
