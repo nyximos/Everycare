@@ -84,12 +84,13 @@
             <p>{{comment}}</p>
           </v-col>
           </v-row>
-          <v-btn color="primary">신청</v-btn>
+          <v-btn color="primary" @click="application">신청</v-btn>
           <v-btn @click="back">취소</v-btn>
       </v-container>
 </template>
 
 <script>
+
 export default {
 name:'itemDetail',
 mounted() {
@@ -136,13 +137,34 @@ data(){
     }
 },
 methods:{
+application(p){
+  this.$router.push({ name: 'CaretargetsDetail', params: { caretargetsId: p.id }})
+  const id = Number(this.$route.params.contentId);
+  // console
+   this.$http
+    .post(`/api/recruitions/${id}/contracts`, {
+      withCredentials: true
+    })
+      .then((res) => {
+        console.log(res);
+          // console.log(res.data.body)
+          // this.profiles = res.data.body
+          
+  }).catch(err => {
+    alert(err);
+    console.log(err);
+  })
+  // location.href = '/';
+}
+  
+},
 back(){
     this.$router.push({
         path:'/joblist'
     })
 }
 }
-}
+
 </script>
 
 <style>

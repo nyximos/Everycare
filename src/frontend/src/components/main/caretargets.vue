@@ -21,7 +21,7 @@
       
       
     ></v-img>{{p.attachFiles}}
-<!-- src="https://cdn.vuetifyjs.com/images/cards/cooking.png" -->
+
     <v-card-title text-align="center">{{p.name}}님</v-card-title>
 
     <v-card-text>
@@ -57,9 +57,7 @@
 
   </v-card>
   </li>
-  <!-- <li>
-    <a href="#" class="_3vyujQUKFF">케어대상인을 등록해주세요</a>
-  </li> -->
+
 </ul>
 <v-btn class="ma-2" outlined color="indigo" @click="clickme">돌아가기</v-btn>
 
