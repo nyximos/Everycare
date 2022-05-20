@@ -1,9 +1,10 @@
 package wd.team4.everycare.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 import wd.team4.everycare.dto.member.JobOfferMemberDTO;
@@ -15,8 +16,6 @@ import wd.team4.everycare.util.StringUtils;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Entity
@@ -136,13 +135,6 @@ public class Member {
                 .build();
     }
 
-    public MemberInfoDTO toMemberInfoDTO() {
-        return MemberInfoDTO.builder()
-                .id(this.id)
-                .name(this.name)
-                .role(this.role)
-                .build();
-    }
 
     public JobOfferMemberDTO toJobOfferMemberDTO(){
         return JobOfferMemberDTO.builder()

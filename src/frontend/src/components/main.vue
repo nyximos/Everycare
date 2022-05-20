@@ -17,7 +17,7 @@
                 케어시터 찾기
             </div>
             <v-divider vertical></v-divider>
-            <div @click="go('works')" class="find-job">
+            <div @click="go('joblist')" class="find-job">
                 일자리 찾기
             </div>
         </div>

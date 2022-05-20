@@ -17,6 +17,7 @@ public class ProductCategoryApiController {
 
     @GetMapping("/product-categories")
     public ResponseEntity<MyResponse> getAll() {
+        System.out.println("신호받음");
         ResponseEntity<MyResponse> responseEntity = productCategoryService.getAll();
         return responseEntity;
     }

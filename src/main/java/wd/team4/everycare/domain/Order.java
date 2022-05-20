@@ -3,10 +3,10 @@ package wd.team4.everycare.domain;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.order.SignOrderDTO;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Entity
@@ -81,12 +81,35 @@ public class Order {
         this.status = OrderStatus.CANCEL;
     }
 
-    public void pay(int paymentAmount, String cardCompany, String cardNumber, int approvalNumber, int installmentPlan) {
+    public void pay(int paymentAmount, LocalDateTime approvedAt, String cardCompany, String cardNumber, int approvalNumber, int installmentPlan) {
         this.paymentAmount = paymentAmount;
-        this.paymentTime = LocalDateTime.now();
+        this.paymentTime = approvedAt;
         this.cardCompany = cardCompany;
         this.cardNumber = cardNumber;
         this.approvalNumber = approvalNumber;
         this.installmentPlan = installmentPlan;
+    }
+
+    public SignOrderDTO toSignOrderDTO(){
+        return SignOrderDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .amount(this.amount)
+                .recipientName(this.recipientName)
+                .recipientNumber(this.recipientNumber)
+                .zipcode(this.zipcode)
+                .address(this.address)
+                .detailedAddress(this.detailedAddress)
+                .status(this.status)
+                .orderTime(this.orderTime)
+                .comment(this.comment)
+                .paymentAmount(this.paymentAmount)
+                .paymentTime(this.paymentTime)
+                .cardCompany(this.cardCompany)
+                .cardNumber(this.cardNumber)
+                .approvalNumber(this.approvalNumber)
+                .installmentPlan(this.installmentPlan)
+                .member(this.member.toMemberListViewDTO())
+                .build();
     }
 }
