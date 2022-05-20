@@ -187,6 +187,7 @@ const routes = [
         name: 'adminpage',
         component: () => import('@/pages/Adminpage.vue')
     },
+    
 ]
 
 const router = new VueRouter({
