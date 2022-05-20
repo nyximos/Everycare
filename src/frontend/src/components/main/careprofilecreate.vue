@@ -626,11 +626,11 @@ methods:{
             .then(res=>{
                 console.log(res);
                 console.log(res.data);
-                const userinfo ={
-                  id:res.data.body
+                const userData ={
+                  caresitterId:res.data.body
                 }
-                console.log(userinfo);
-                this.$store.commit('careprofileStore/submit',userinfo);
+                console.log(userData);
+                this.$store.commit('userStore/userData',userData);
             }).catch(err=>{
                 console.log(err);
             })

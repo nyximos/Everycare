@@ -11,6 +11,7 @@
         이름: {{j.careTargetName}} <br>
         시작일: {{j.startDate}} ~ 종료일: {{j.endDate}}<br>
         스케줄: {{j.scheduleName}}
+        {{j.id}}
       </div>
     </v-card-text>
 	<!-- <v-btn class="ma-2" outlined color="indigo" @click="choose">선택</v-btn> -->
@@ -20,20 +21,20 @@
 </template>
 
 <script>
+// import { param } from 'jquery';
+// import 'url-search-params-polyfill';
+
 export default {
   data(){
     return{
       joboffer:[
 
       ],
-      // props:[
-      //   'caresitterId'
-      // ],
       caresitterId:this.$store.state.careprofileStore.caresitterId,
     }
   },
   mounted(){
-    const id = this.$route.params.caresitterId;
+    const id = this.caresitterId;
     console.log(id)
     this.$http
     .get(`/api/caresitters/${id}/recruitions`,{
@@ -41,7 +42,7 @@ export default {
     })
     .then((res)=>{
       this.joboffer = res.data.body
-      console.log(res.data.body)
+      console.log(res.data.body);
     }).catch(err =>{
       console.log(err)
     })
@@ -49,16 +50,26 @@ export default {
   },
   methods:{
     choose(j){
-      const id = this.caresitterId;
-      const careSitterId = this.$store.state.careprofileStore.caresitterId;
-      const jobId = j.id;
-      console.log(careSitterId);
-      console.log(jobId);
+      const searchParams ={
+        jobOfferId: j.id,
+        careSitterId:this.$store.state.careprofileStore.caresitterId
+      }
+      const id = this.caresitterId
+      // const jobId = j.id;
+      // console.log(id)
+      // console.log(jobId);
+      console.log(searchParams);
+      // var params = new URLSearchParams();
+      // params.append('careSitterId',id);
+      // params.append('jobOfferId', jobId);;
       this.$http
       .post(`/api/caresitters/${id}/contracts`,
-      {params: {careSitterId:careSitterId}},
-      {params:{jobOfferId: jobId}},
-      {withCredentials:true}
+      {params:searchParams}
+      // {params:{jobOfferId:jobId,careSitterId:id}},
+          // {params:{careSitterId:id}},
+      // {params: {careSitterId:id},params:{jobOfferId:jobId}},
+      // {params:{jobOfferId:jobId},params:{careSitterId:id}},
+      // {withCredentials:true}
       ).then((res)=>{
         console.log(res);
       }).catch(err=>{

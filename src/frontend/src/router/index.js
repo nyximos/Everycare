@@ -66,10 +66,22 @@ const routes = [
         component: () => import('@/pages/Contract.vue')
     },
     {   
-        // 마이페이지 케어시터 프로필 상세조회
-        path: '/profile_detail/:caresitterId',
-        name: 'profile_detail',
-        component: () => import('@/pages/Profile_detail.vue')
+        //마이페이지 케어시터프로필 조회
+        path:'/mypage_profile/:caresitterId',
+        name:'mypage_profile',
+        component: ()=> import('@/components/main/mypage_profile')
+    },
+    {   
+        // 프로필 수정
+        path: '/profile_update/:caresitterId',
+        name: 'profile_update',
+        component: () => import('@/pages/Profile_update.vue')
+    },
+    {   
+        //마이페이지 자격증 조회
+        path:'/mypage_certi/:caresitterId',
+        name:'mypage_certi',
+        component: ()=> import('@/components/main/mypage_certi')
     },
     {
         path: '/admin_report',
@@ -105,11 +117,6 @@ const routes = [
         path: '/caresitterprofile_delete',
         name: 'caresitterprofile_delete',
         component: () => import('@/pages/Caresitterprofile.vue')
-    },
-    {
-        path: '/profile_update/:caresitterId',
-        name: 'profile_update',
-        component: () => import('@/pages/Profile_update.vue')
     },
     // {
     //     path: '/profile_update/:profileId',

@@ -148,7 +148,6 @@ export default {
 			this.address = res.data.body.memberDTO.address
 			this.detail = res.data.body;
 			this.id = res.data.body.id;
-			console.log(this.id);
 			}).catch(err=>{
 				console.log(err);
 			})

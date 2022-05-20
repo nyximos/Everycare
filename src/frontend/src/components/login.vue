@@ -71,20 +71,19 @@ export default {
                         console.log(userData)
                         this.$store.commit('userStore/userData',userData);
                         // console.log(this.$store.state.userStore.name);
+                        location.href = '/';
                     })
                     .catch(err => {
                     console.log(err);
                     console.log(this.json);
                     });
-                    //  location.href = '/';
                 })
                 .catch(err => {
                     console.log(err);
                     console.log(this.json);
                 });
                     // id, 이름, 권한 응답을 넣어준다
-        
-                 location.href = '/';
+    
         }
     }
 }

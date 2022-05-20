@@ -44,7 +44,7 @@ export default {
             ],
             attachFile:'',
             certification:'',
-            id:this.$store.state.careSitterId,
+            id:this.$store.state.userStore.careSitterId,
             result:[]
         }   
     },
@@ -67,7 +67,7 @@ export default {
         submit(){
             var formData = new FormData();
 
-            const id = this.id;
+            const id = this.$store.state.userStore.careSitterId;
             console.log(this.id);
             formData.append('careSitterId',this.id);
             formData.append('classification', this.certification);
