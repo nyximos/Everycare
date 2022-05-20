@@ -1,14 +1,14 @@
 <template>
-      <Adminpage />
+      <Adminpage_certi />
 </template>
 
 <script>
-import Adminpage from '@/components/main/adminpage'
+import Adminpage_certi from '@/components/main/adminpage_certi'
 
 
 export default {
   components: {
-      Adminpage
+      Adminpage_certi
        },
 
 };

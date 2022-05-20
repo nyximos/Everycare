@@ -19,8 +19,8 @@ const routes = [
     {   
         // 관리자 자격증 조회 화면
         path: '/admin/caresitter-certifications',
-        name: 'adminpage',
-        component: () => import('@/pages/Adminpage.vue')
+        name: 'adminpage_certi',
+        component: () => import('@/pages/Adminpage_certi.vue')
     },
     {
         // 관리자 자격증 상세/승인
