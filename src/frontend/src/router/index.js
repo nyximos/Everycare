@@ -135,11 +135,11 @@ const routes = [
         component: () => import('@/pages/StoreInfoEdit.vue')
     },
     
-    {
-        path: '/joblist',
-        name: 'Job_list',
-        component: () => import('@/pages/Job_list.vue')
-    },
+    // {
+    //     path: '/joblist',
+    //     name: 'Job_list',
+    //     component: () => import('@/pages/Job_list.vue')
+    // },
     {
         path: '/careprofile1',
         name: 'careprofile1',
@@ -150,11 +150,11 @@ const routes = [
         name: 'careprofile2',
         component: () => import('@/pages/Careprofile2.vue')
     },
-    {
-        path: '/joblist/detail/:contentId',
-        name: 'detail',
-        component: () => import('@/components/itemDetail.vue')
-    },
+    // {
+    //     path: '/joblist/detail/:contentId',
+    //     name: 'detail',
+    //     component: () => import('@/components/itemDetail.vue')
+    // },
     // {
     //     path: '/recruitions',
     //     name: 'Recruitions',
@@ -177,7 +177,7 @@ const routes = [
         name: 'caresitters',
         component: Caresitters
     },
-
+    {
         path: '/works',
         name: 'FindWork',
         component: () => import('@/pages/FindWork.vue'),

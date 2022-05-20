@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="box">
     <br><br>
       <v-card class="mx-auto" max-width="344" v-for="(j,index) in joboffer" v-bind:key="index" @click="choose(j)">
@@ -11,13 +12,13 @@
         이름: {{j.careTargetName}} <br>
         시작일: {{j.startDate}} ~ 종료일: {{j.endDate}}<br>
         스케줄: {{j.scheduleName}}
-        {{j.id}}
       </div>
     </v-card-text>
 	<!-- <v-btn class="ma-2" outlined color="indigo" @click="choose">선택</v-btn> -->
   </v-card>
-  <br><br><br><br><br><br><br><br>
   </div>
+  <br><br><br><br><br><br><br><br>  
+</div>
 </template>
 
 <script>
@@ -50,26 +51,12 @@ export default {
   },
   methods:{
     choose(j){
-      const searchParams ={
-        jobOfferId: j.id,
-        careSitterId:this.$store.state.careprofileStore.caresitterId
-      }
       const id = this.caresitterId
-      // const jobId = j.id;
-      // console.log(id)
-      // console.log(jobId);
-      console.log(searchParams);
-      // var params = new URLSearchParams();
-      // params.append('careSitterId',id);
-      // params.append('jobOfferId', jobId);;
+      const jobId = j.id;
+      console.log(typeof id)
+      console.log(typeof jobId);
       this.$http
-      .post(`/api/caresitters/${id}/contracts`,
-      {params:searchParams}
-      // {params:{jobOfferId:jobId,careSitterId:id}},
-          // {params:{careSitterId:id}},
-      // {params: {careSitterId:id},params:{jobOfferId:jobId}},
-      // {params:{jobOfferId:jobId},params:{careSitterId:id}},
-      // {withCredentials:true}
+      .post(`/api/caresitters/${id}/contracts?jobOfferId=${jobId}&careSitterId=${id}`,
       ).then((res)=>{
         console.log(res);
       }).catch(err=>{
