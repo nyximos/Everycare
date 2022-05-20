@@ -18,10 +18,10 @@ public class JobOfferDTO {
     private Long id;
     private String title;
     @DateTimeFormat(pattern = "yyyy-MM")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM", timezone = "Asia/Seoul")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate startDate;                        ////시작일
     @DateTimeFormat(pattern = "yyyy-MM")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM", timezone = "Asia/Seoul")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate endDate;                          ////종료일
     private String desiredDayWeek;                      ////희망 요일
     private Gender desiredCareSitterGender;             ////희망 케어시터 성별
