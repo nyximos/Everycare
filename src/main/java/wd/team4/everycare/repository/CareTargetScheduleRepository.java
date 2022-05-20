@@ -13,4 +13,7 @@ public interface CareTargetScheduleRepository extends JpaRepository<CareTargetSc
     List<CareTargetSchedule> findAllByCareTargetId(Long id);
 
     List<CareTargetSchedule> findByCareTargetId(Long id);
+
+    @EntityGraph(attributePaths = {"careNote"})
+    CareTargetSchedule findByCareNoteId(Long id);
 }
