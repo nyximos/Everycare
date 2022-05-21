@@ -30,6 +30,35 @@
     </template>
   </v-simple-table>
   <h1>총금액 : {{total}}</h1>
+
+    <!-- <v-simple-table>
+    <template v-slot:default>
+      <thead>
+        <tr>
+          <th class="text-left">
+            id
+          </th>
+          <th class="text-left">
+            quantity
+          </th>
+          <th class="text-left">
+            amount
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="(item,index) in desserts"
+          :key="index"
+        >
+          <td>{{index}}/{{item.id }}</td>
+          <td>{{item.quantity}}<v-btn @click="minus(item)">-</v-btn><v-btn @click="plus(item)">+</v-btn></td>
+          <td>{{item.amount * item.quantity}}</td>
+          <td><v-btn @click="remove(item,index)">x</v-btn></td>
+        </tr>
+      </tbody>
+    </template>
+  </v-simple-table> -->
   </div>
 </template> 
 
@@ -42,11 +71,16 @@ export default {
       })
 			.then((res)=>{
         console.log(res.data);
-        // this.desserts=res.data.body
+        this.desserts=res.data.body
       }).catch(err =>{
 				alert(err);
 				console.log(err);
 			})
+  },
+  data(){
+    return{
+      desserts:[]
+    }
   },
     methods:{
       plus(item){
@@ -60,17 +94,16 @@ export default {
         }
       },
       remove(item,index){
-      // this.$http
-      // .delete(`/api/cart/${item.productId}`,{
-      // withCredentials: true
-      // })
-      // .then((res)=> {
-      //   console.log(res)
-        // console.log(this.item.index)
+      this.$http
+      .delete(`/api/cart/${item.productId}`,{
+      withCredentials: true
+      })
+      .then((res)=> {
+        console.log(res)
         this.$store.commit("cart/remoteList", index)
-      // }).catch((err)=>{
-      //   console.log(err)
-      // })
+      }).catch((err)=>{
+        console.log(err)
+      })
       },
       removeAll(){
       this.$http
@@ -79,7 +112,7 @@ export default {
       })
       .then((res)=> {
         console.log(res)
-        this.$store.commit("cart/removeAll")
+        this.$store.state.cart.cart=[]
       }).catch((err)=>{
         console.log(err)
       })
