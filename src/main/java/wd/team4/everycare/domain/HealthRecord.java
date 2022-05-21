@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @Entity
+@Builder
+@AllArgsConstructor
 @Table(name = "health_record")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "health_record_seq_generator",
@@ -37,10 +39,6 @@ public class HealthRecord {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "health_classification_id")
     private HealthClassification healthClassification;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_target_id")
