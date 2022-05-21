@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Order;
 import wd.team4.everycare.domain.OrderProduct;
 import wd.team4.everycare.domain.OrderStatus;
@@ -36,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderProductRepository orderProductRepository;
 
     @Override
-    public ResponseEntity<MyResponse> order(HttpServletRequest request, OrderDTO orderDTO) {
+    public ResponseEntity<MyResponse> order(HttpServletRequest request, PrincipalDetails principalDetails, OrderDTO orderDTO) {
 
         HttpSession session = request.getSession();
         if (session.getAttribute("cart") == null) {
@@ -67,6 +68,7 @@ public class OrderServiceImpl implements OrderService {
                 .status(OrderStatus.ORDER)
                 .orderTime(LocalDateTime.now())
                 .comment(orderDTO.getComment())
+                .member(principalDetails.getUser())
                 .build();
 
         orderRepository.save(order);
