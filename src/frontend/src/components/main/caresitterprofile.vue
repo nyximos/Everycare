@@ -9,7 +9,7 @@
 						<div class="photoArea">
 							<span class="photo">
 								<a href="#ResumeBaseInfo" class="image" style="position:static;left:0;bottom:0;display:block;width:auto;height:auto;padding:0;border:0 none;background:none">
-									<img id="divProfile" :src="'https://localhost:8086/api/images/' + detail.attachFiles[0].storeFileName" alt="사진">		
+									<img id="divProfile" :src="attachFiles" alt="사진">
 									
 								</a>
 							</span>
@@ -17,9 +17,10 @@
 							<ul class="infoList">
 								<li class="name"><strong>{{name}}</strong> <em>{{birth}}</em> · ( {{gender}} ) <br></li>
 								<li class="address"><span class="info-title">주소</span><span class="star">{{address}}</span></li>
-								<li class="contact"> 
+								<li class="contact">
 								<span class="info-title">연락처</span>{{phone}}
-								 </li>
+								{{attachFiles}}
+								</li>
 								<li class="mail"><span class="info-title">이메일</span><span class="star">{{email}}</span></li>
 							</ul>
 					</div>
@@ -27,13 +28,13 @@
 						<h2>정보</h2>
 						<div class="infoArea first"> 	
 							<div class="nameArea">
-								<dt class="title">CCTV 동의여부:{{detail.cctvAgreement}}	</dt>
+								<dt class="title">CCTV 동의여부:{{cctvAgreement}}	</dt>
 								<!-- <p class="date">CCTV 동의여부:{{this.$store.state.careprofileStore.cctv}}</p> -->
 							</div> 	
 							<dl class="infoDetail"> 		
-								<dt class="title">백신접종:{{detail.is_vaccinated}} <span></span></dt> 
+								<dt class="title">백신접종:{{is_vaccinated}} <span></span></dt> 
 								
-								<dt class="title">자격증:{{detail.certification}}</dt> 
+								<dt class="title">자격증</dt> 
 								<dd class="kind">
 									<ul>
 										
@@ -62,19 +63,19 @@
 								<tr>
 									<td>
 										<dl class="item">
-											<dt class="title">{{detail.desiredDayWeek}}</dt>
+											<dt class="title">{{desiredDayWeek}}</dt>
 										</dl>
 									</td>
 									<td>
 										<dl class="item">
-											<dt class="title">{{detail.activityTime}}</dt>
+											<dt class="title">{{activityTime}}</dt>
 										</dl>
 									</td>
 									<td>
 										<dl class="item">
 											<!-- <dt class="title">{{$store.state.careprofileStore.pay}}</dt> -->
-											<dt class="title">시급:{{detail.hourlyWage}}</dt>
-											<dt class="title">월급:{{detail.monthlyWage}}</dt>
+											<dt class="title">시급:{{hourlyWage}}</dt>
+											<dt class="title">월급:{{monthlyWage}}</dt>
 										</dl>
 									</td>
 								</tr>
@@ -84,8 +85,7 @@
 							<li>
 								<span class="title">희망근무지</span>
 								<p class="result">
-									{{detail.hopefulRegion}} 
-									<!-- {{img}} -->
+									{{hopefulRegion}} 
 									<!-- 2순위:&nbsp;&nbsp;&nbsp;
 									3순위: -->
 								</p>
@@ -93,13 +93,13 @@
 							</li>
 							<li>
 								<span class="title">희망업직종</span>
-								<p class="result">{{detail.preferredType}}</p>
+								<p class="result">{{preferredType}}</p>
 							</li>
 						</ul>
 					</div>
 					<div id="ResumePR" class="resumeView">
 						<h2>자기소개서</h2>
-						<div class="ResumeOpenBox"><span class="lockIcon">{{detail.introduction}}</span><p class="first"></p></div>
+						<div class="ResumeOpenBox"><span class="lockIcon">{{introduction}}</span><p class="first"></p></div>
 					</div>
                     <div id="#" class="resumeView">
                         <h2>후기</h2>
@@ -108,9 +108,6 @@
                         <h2>활동내역</h2>
                     </div>
 				</div>
-				<br><br><br><br><br><br><br><br>
-				<v-btn class="ma-2" outlined color="indigo" @click="contract">계약</v-btn>
-                <router-link to="/caresitters"><v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
 			</div>
 			</div>
         </div>
@@ -120,74 +117,58 @@
 <script>
 export default {
 	name:'addprofile2',
-
 	mounted(){
 		const id =this.$route.params.caresitterId;
-		this.$http 
+		this.$http
 		.get(`/api/caresitters/${id}`,{
 			withCredentials:true
 		})
 		.then((res)=>{
-			console.log(res.data.body);
-			// this.introduction = res.data.body.introduction
-			// this.cctvAgreement = res.data.body.cctvAgreement
-			// this.desiredDayWeek = res.data.body.desiredDayWeek
-			// this.hourlyWage = res.data.body.hourlyWage
-			// this.monthlyWage = res.data.body.monthlyWage
-			// this.preferredType = res.data.body.preferredType
-			// this.activityTime = res.data.body.activityTime
-			// this.hopefulRegion = res.data.body.hopefulRegion
-			// this.is_vaccinated = res.data.body.is_vaccinated
-			// this.attachFiles = res.data.body.attachFiles[0].storeFileName
-			// this.certification = res.data.body.certification[0].name
+			// console.log(res.data.body);
+			console.log(res.data.body)
+			this.introduction = res.data.body.introduction
+			this.cctvAgreement = res.data.body.cctvAgreement
+			this.desiredDayWeek = res.data.body.desiredDayWeek
+			this.hourlyWage = res.data.body.hourlyWage
+			this.monthlyWage = res.data.body.monthlyWage
+			this.preferredType = res.data.body.preferredType
+			this.activityTime = res.data.body.activityTime
+			this.attachFiles =`${process.env.VUE_APP_IMG_URL}/ ${res.data.body.attachFiles.uploadFileName}`
+			this.hopefulRegion = res.data.body.hopefulRegion
+			this.is_vaccinated = res.data.body.is_vaccinated
 			this.name = res.data.body.memberDTO.name
 			this.birth = res.data.body.memberDTO.birth
 			this.gender = res.data.body.memberDTO.gender
 			this.phone = res.data.body.memberDTO.phone
 			this.email = res.data.body.memberDTO.email
 			this.address = res.data.body.memberDTO.address
-			this.detail = res.data.body;
-			this.id = res.data.body.id;
-			}).catch(err=>{
-				console.log(err);
-			})
-
+		}).catch(err=>{
+			console.log(err);
+		})
 	},
-	
 		data(){
-			return{
-				props:[
-					'caresitterId'
-				],
-				name:this.name,
-				birth:this.birth,
-				gender:this.gender,
-				phone:this.phone,
-				address:this.address,
-				email:this.email,
-				id:this.id,
-				// storeFileName:[],
-				// certification:this.certification,
-				// is_vaccinated:this.is_vaccinated,
-				// desiredDayWeek:[this.desiredDayWeek],
-				// hourlyWage:this.hourlyWage,
-				// monthlyWage:this.monthlyWage,
-				// cctvAgreement:this.cctvAgreement,
-				// activityTime:[this.activityTime],
-				// preferredType:[this.preferredType],
-				// introduction:this.introduction,
-				// attachFiles:this.attachFiles,
-				// img:this.img,
-				// hopefulRegion:[this.hopefulRegion],
-				detail:[
-				],
+		return{
+			name:this.name,
+			birth:this.birth,
+			gender:this.gender,
+			phone:this.phone,
+			address:this.address,
+			email:this.email,
+			is_vaccinated:this.is_vaccinated,
+			desiredDayWeek:[this.desiredDayWeek],
+			hourlyWage:this.hourlyWage,
+			monthlyWage:this.monthlyWage,
+			cctvAgreement:this.cctvAgreement,
+			activityTime:[this.activityTime],
+			preferredType:[this.preferredType],
+			introduction:this.introduction,
+			attachFiles:this.attachFiles,
+			// imgurl:this.attachFIles[i].uploadFileName,
+			// storeFileName:this.attchFiles[i].storeFileName,
+			hopefulRegion:[this.hopefulRegion],
+			
 		}
 	},
-	methods:{
-		contract(){
-            this.$router.push({name:'contract' , params:{caresitterId:this.id}  })
-		}
-	}
 }
 </script>
 

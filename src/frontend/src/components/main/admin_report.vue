@@ -1,5 +1,5 @@
 <template>
-<div>
+  <div>
     <div class="preloader" style="display: none;">
       <div class="lds-ripple">
         <div class="lds-pos"></div>
@@ -96,196 +96,104 @@
             </div>
           </div>
         </div>
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title mb-0">회원</h5>
+        <div class="card-body">
+                  <h5 class="card-title">Basic Datatable</h5>
+                  <div class="table-responsive">
+                    <div id="zero_config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="zero_config_length"><label>Show <select name="zero_config_length" aria-controls="zero_config" class="form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6"><div id="zero_config_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="zero_config"></label></div></div></div><div class="row"><div class="col-sm-12"><table id="zero_config" class="table table-striped table-bordered dataTable" role="grid" aria-describedby="zero_config_info">
+                      <thead>
+                        <tr role="row"><th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 173px;">Name</th><th class="sorting_desc" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 276.2px;" aria-sort="descending">Position</th><th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 126.6px;">Office</th><th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 58.6px;">Age</th><th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 113.8px;">Start date</th><th class="sorting" tabindex="0" aria-controls="zero_config" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 108.4px;">Salary</th></tr>
+                      </thead>
+                      <tbody>
+                      <tr role="row" class="odd">
+                          <td class="">Prescott Bartlett</td>
+                          <td class="sorting_1">Technical Author</td>
+                          <td class="">London</td>
+                          <td class="">27</td>
+                          <td>2011/05/07</td>
+                          <td>$145,000</td>
+                        </tr><tr role="row" class="even">
+                          <td class="">Gavin Cortez</td>
+                          <td class="sorting_1">Team Leader</td>
+                          <td class="">San Francisco</td>
+                          <td class="">22</td>
+                          <td>2008/10/26</td>
+                          <td>$235,500</td>
+                        </tr><tr role="row" class="odd">
+                          <td class="">Gloria Little</td>
+                          <td class="sorting_1">Systems Administrator</td>
+                          <td class="">New York</td>
+                          <td class="">59</td>
+                          <td>2009/04/10</td>
+                          <td>$237,500</td>
+                        </tr><tr role="row" class="even">
+                          <td class="">Lael Greer</td>
+                          <td class="sorting_1">Systems Administrator</td>
+                          <td class="">London</td>
+                          <td class="">21</td>
+                          <td>2009/02/27</td>
+                          <td>$103,500</td>
+                        </tr><tr role="row" class="odd">
+                          <td class="">Tiger Nixon</td>
+                          <td class="sorting_1">System Architect</td>
+                          <td class="">Edinburgh</td>
+                          <td class="">61</td>
+                          <td>2011/04/25</td>
+                          <td>$320,800</td>
+                        </tr><tr role="row" class="even">
+                          <td class="">Quinn Flynn</td>
+                          <td class="sorting_1">Support Lead</td>
+                          <td class="">Edinburgh</td>
+                          <td class="">22</td>
+                          <td>2013/03/03</td>
+                          <td>$342,000</td>
+                        </tr><tr role="row" class="odd">
+                          <td class="">Sakura Yamamoto</td>
+                          <td class="sorting_1">Support Engineer</td>
+                          <td class="">Tokyo</td>
+                          <td class="">37</td>
+                          <td>2009/08/19</td>
+                          <td>$139,575</td>
+                        </tr><tr role="row" class="even">
+                          <td class="">Olivia Liang</td>
+                          <td class="sorting_1">Support Engineer</td>
+                          <td class="">Singapore</td>
+                          <td class="">64</td>
+                          <td>2011/02/03</td>
+                          <td>$234,500</td>
+                        </tr><tr role="row" class="odd">
+                          <td class="">Finn Camacho</td>
+                          <td class="sorting_1">Support Engineer</td>
+                          <td class="">San Francisco</td>
+                          <td class="">47</td>
+                          <td>2009/07/07</td>
+                          <td>$87,500</td>
+                        </tr><tr role="row" class="even">
+                          <td class="">Zorita Serrano</td>
+                          <td class="sorting_1">Software Engineer</td>
+                          <td class="">San Francisco</td>
+                          <td class="">56</td>
+                          <td>2012/06/01</td>
+                          <td>$115,000</td>
+                        </tr></tbody>
+                      <tfoot>
+                        <tr><th rowspan="1" colspan="1">Name</th><th rowspan="1" colspan="1">Position</th><th rowspan="1" colspan="1">Office</th><th rowspan="1" colspan="1">Age</th><th rowspan="1" colspan="1">Start date</th><th rowspan="1" colspan="1">Salary</th></tr>
+                      </tfoot>
+                    </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="zero_config_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="zero_config_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="zero_config_previous"><a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="4" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="5" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="6" tabindex="0" class="page-link">6</a></li><li class="paginate_button page-item next" id="zero_config_next"><a href="#" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li></ul></div></div></div></div>
+                  </div>
                 </div>
-                <div class="table-responsive custom-table-responsive">
-
-        <table class="table custom-table" show-select :single-select="singleSelect">
-          <thead>
-            <tr>  
-
-              <th scope="col">
-                <label class="control control--checkbox">
-                  <input type="checkbox" @click="selectAll" v-model="allSelected">
-                  <div class="control__indicator"></div>
-                </label>
-              </th>
-              
-              <th scope="col">아이디</th>
-              <th scope="col">이름</th>
-              <th scope="col">권한</th>
-              <th scope="col">성별</th>
-              <th scope="col">생년월일</th>
-              <th scope="col">전화번호</th>
-              <th scope="col">이메일</th>
-              <th scope="col">회원가입일</th>
-              <th scope="col">활동상태</th>
-              <th scope="col">관리자 권한</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(p,index) in profiles" :key="index">
-              <th scope="row">
-                <label class="control control--checkbox">
-                  <input type="checkbox" />
-                  <div class="control__indicator"></div>
-                </label>
-              </th>
-              
-              <td>
-                {{p.id}}
-              </td>
-              <td><a href="#">{{p.name}}</a></td>
-              <td>
-                {{p.role}}
-                
-              </td>
-              <td>{{p.gender}}</td>
-              <td>{{p.birth}}</td>
-              <td>{{p.phone}}</td>
-              <td>{{p.email}}</td>
-              <td>{{p.createdAt}}</td>
-              <td>{{p.activityStatus}}</td>
-              <td><button class="custom-btn btn-11" @click="click(p)">관리자등록</button>
-              <button class="custom-btn btn-11" @click="drop(p)">관리자삭제</button>
-              <button class="custom-btn btn-11">활동정지취소</button></td>
-            </tr>
-            
-            
-            
-            
-            
-          </tbody>
-        </table>
-      </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
-</div>
+    </div>
 </template>
 
 <script>
+export default {
 
-  export default {
-    
-    data () {
-      return {
-        allSelected: false,
-        selected: [],
-        profiles: [],
-        id: this.$route.params.memberId,
-      }
-    },
-    methods: {
-      selectAll: function() {
-            this.userIds = [];
-
-            if (this.allSelected) {
-                for (user in this.users) {
-                    this.userIds.push(this.users[user].id.toString());
-                }
-            }
-        },
-        select: function() {
-            this.allSelected = false;
-        },
-        drop(p){
-          this.$router.push({ params: { memberId: p.id }})
-          this.$http
-          .patch(`/api/admin/members/${p.id}`, {
-            withCredentials: true
-          })
-        },
-        click(p){
-          this.$router.push({ params: { memberId: p.id}})
-          this.$http
-          .post(`/api/admin/members/${p.id}`, {
-            withCredentials: true
-          })
-          .then((res)=> {
-            console.log(res);
-          })
-          .catch((err)=>{
-            console.log(err)
-          })
-        },
-      
-    },
-    mounted() {
-      this.$http
-      .get('/api/admin/members', {
-        withCredentials: true
-      })
-      .then((res)=>{
-        console.log(res.data.body)
-        this.profiles = res.data.body  
-      })
-      .catch((err)=>{
-        alert(err);
-        console.log(err)
-      })
-    },
-    
-  }
-  
+}
 </script>
 
-<style scoped>
-.btn-11 {
-  overflow: hidden;
-  transition: all 0.3s ease;
-  font-size:12px;
-}
-.btn-11:hover {
-   background: #000;
-  color: #fff;
-}
-.btn-11:before {
-    position: absolute;
-    content: '';
-    display: inline-block;
-    top: -180px;
-    left: 0;
-    width: 30px;
-    height: 100%;
-    background-color: #fff;
-    animation: shiny-btn1 3s ease-in-out infinite;
-    font-size: 10;
-}
-.btn-11:active{
-  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
-              -4px -4px 6px 0 rgba(116, 125, 136, .2), 
-    inset -4px -4px 6px 0 rgba(255,255,255,.2),
-    inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
-}
-
-button {
-  margin: 3px;
-  outline: none;
-  
-}
-.custom-btn {
-  width: 130px;
-  height: 40px;
-  padding: 10px 25px;
-  border: 2px solid #000;
-  font-family: 'Lato', sans-serif;
-  font-weight: 500;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  display: inline-block;
-}
-    *,:after,:before{
+<style>
+ *,:after,:before{
         box-sizing: border-box;
     }
 
@@ -297,7 +205,6 @@ button {
         position: fixed;
         z-index: 99999;
         background: #fff;
-        overflow: hidden;
     }
 
      /* .lds-ripple {
@@ -398,6 +305,15 @@ button {
     .navbar-dark .navbar-brand{
         color: #fff;
     }
+
+    /* .navbar-brand{
+        padding-top: 0.3359375rem;
+        padding-bottom: 0.3359375rem;
+        margin-right: 1rem;
+        font-size: 1.09375rem;
+        text-decoration: none;
+        white-space: nowrap;
+    } */
     .topbar .top-navbar .navbar-header .navbar-brand .logo-icon{
         margin-right: 5px;
     }
@@ -760,9 +676,6 @@ button {
       --bs-gutter-y:0;
       display: flex;
       flex-wrap: wrap;
-      margin-top: calc(var(--bs-gutter-y) * -1);
-      margin-right: calc(var(--bs-gutter-x) / -2);
-      margin-left: calc(var(--bs-gutter-x) /-2);
     }
     .align-items-center{
       align-items: center!important;
@@ -773,7 +686,6 @@ button {
     .col-12{
       flex: 0 0 auto;
       width: 100%;
-      
     }
     .row>*{
       /* flex-shrink: 0; */
@@ -851,14 +763,159 @@ button {
 
     .card-body{
       padding: 1.25rem;
-      flex: 1 1 auto;
+      flex: 1 1  auto;
     }
     .card .card-title{
       position: relative;
       font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .table-responsive{
+        overflow-x:auto ;
     }
     .mb-0{
       margin-bottom: 0!important;
     }
+
+    .table-responsive{
+      overflow: auto;
+    }
+
+    .table{
+      --bs-table-bs:transparent;
+      --bs-table-striped-color:#3e5569;
+      --bs-table-striped-bg:rgba(0,0,0,0.05);
+      --bs-table-active-color:#3e5569;
+      --bs-table-active-bg: rgba(0,0,0,0.1);
+      --bs-table-hover-color: #3e5569;
+      --bs-table-hover-bg: #f8f9fa;
+      width: 100%;
+      margin-bottom: 1rem;
+      color: #3e5569;
+      vertical-align: top;
+      border-color: #e9ecef;
+    }
+
+    .table>thead{
+      vertical-align: bottom;
+    }
+    thead, tr{
+      border-color: inherit;
+      border-style: solid;
+      border-width: 0;
+    }
+
+  .table>:not(:last-child)>:last-child>*{
+    border-bottom-color: #e9ecef;
+  }
+  .table .thead-light th{
+    color: #4f5467;
+    background-color: #e9ecef;
+    border-color: #e9ecef;
+  }
+  .table th, .table thead th{
+    font-weight: 500;
+    }
+  .mb-3{
+    margin-bottom:1.4rem!important;
+  }
+  .customcheckbox{
+    display: block;
+    position: relative;
+    padding-left: 24px;
+    cursor: pointer;
+    font-size: 22px;
+    user-select: none;
+  }
+  .customcheckbox input{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  input{
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+  .checkmark{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #cdcdcd;
+     border-radius: 6px;
+   }
+   .table .thead-light th{
+     color: #4f5467;
+     background-color: #e9ecef;
+     border-color: #e9ecef;
+   }
+   .table th{
+     padding: 1rem;
+   }
+
+   .table>tbody{
+     vertical-align: inherit;
+   }
+   .customcheckbox input:checked ~ .checkmark:after{
+     display: block;
+   }
+   .customcheckbox {
+  display: block;
+  position: relative;
+  padding-left: 24px;
+  font-weight: 100;
+  /*margin-bottom: 12px;*/
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+.customcheckbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer; }
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #CDCDCD;
+  border-radius: 6px; }
+
+.customcheckbox:hover input ~ .checkmark {
+  background-color: #ccc; }
+
+.customcheckbox input:checked ~ .checkmark {
+  background-color: #2196BB; }
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none; }
+
+.customcheckbox input:checked ~ .checkmark:after {
+  display: block; }
+
+.customcheckbox .checkmark:after {
+  left: 8px;
+  top: 4px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg); }
+
+.check-1 {
+  margin-top: 12px;
+  margin-left: 14px; }
 
 </style>

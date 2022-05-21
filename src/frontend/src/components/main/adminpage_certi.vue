@@ -82,7 +82,7 @@
         <div class="page-breadcrumb">
           <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
-              <h4 class="page-title">회원 관리</h4>
+              <h4 class="page-title">케어시터 자격증 승인</h4>
               <div class="ms-auto text-end">
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
@@ -101,190 +101,80 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title mb-0">회원</h5>
+                  <h5 class="card-title mb-0">자격증</h5>
                 </div>
-                <div class="table-responsive custom-table-responsive">
-
-        <table class="table custom-table" show-select :single-select="singleSelect">
-          <thead>
-            <tr>  
-
-              <th scope="col">
-                <label class="control control--checkbox">
-                  <input type="checkbox" @click="selectAll" v-model="allSelected">
-                  <div class="control__indicator"></div>
-                </label>
-              </th>
-              
-              <th scope="col">아이디</th>
-              <th scope="col">이름</th>
-              <th scope="col">권한</th>
-              <th scope="col">성별</th>
-              <th scope="col">생년월일</th>
-              <th scope="col">전화번호</th>
-              <th scope="col">이메일</th>
-              <th scope="col">회원가입일</th>
-              <th scope="col">활동상태</th>
-              <th scope="col">관리자 권한</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(p,index) in profiles" :key="index">
-              <th scope="row">
-                <label class="control control--checkbox">
-                  <input type="checkbox" />
-                  <div class="control__indicator"></div>
-                </label>
-              </th>
-              
-              <td>
-                {{p.id}}
-              </td>
-              <td><a href="#">{{p.name}}</a></td>
-              <td>
-                {{p.role}}
-                
-              </td>
-              <td>{{p.gender}}</td>
-              <td>{{p.birth}}</td>
-              <td>{{p.phone}}</td>
-              <td>{{p.email}}</td>
-              <td>{{p.createdAt}}</td>
-              <td>{{p.activityStatus}}</td>
-              <td><button class="custom-btn btn-11" @click="click(p)">관리자등록</button>
-              <button class="custom-btn btn-11" @click="drop(p)">관리자삭제</button>
-              <button class="custom-btn btn-11">활동정지취소</button></td>
-            </tr>
-            
-            
-            
-            
-            
-          </tbody>
-        </table>
-      </div>
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>
+                          <label class="customcheckbox mb-3">
+                            <input type="checkbox" id="mainCheckbox" v-model="checkAll">
+                            <span class="checkmark"></span>
+                          </label>
+                        </th>
+                        <th scope="col">#</th>
+                        <th scope="col">회원 아이디</th>
+                        <th scope="col">이름</th>
+                        <th scope="col">자격증 이름</th>
+                        <!-- <th scope="col">등록일</th> -->
+                      </tr>
+                    </thead>
+                    <tbody class="customtable" v-for="(c,index) in certifications" :key="index" @click="move(c)">
+                      <tr>
+                        <th>
+                          <label class="customcheckbox">
+                            <input type="checkbox" class="listCheckbox">
+                            <span class="checkmark"></span>
+                          </label>
+                        </th>
+                        <td>{{c.id}}</td>
+                        <td>{{c.memberId}}</td>
+                        <td>{{c.memberName}}</td>
+                        <td>{{c.name}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-</div>
+    </div>
 </template>
 
 <script>
-
-  export default {
-    
-    data () {
-      return {
-        allSelected: false,
-        selected: [],
-        profiles: [],
-        id: this.$route.params.memberId,
-      }
-    },
-    methods: {
-      selectAll: function() {
-            this.userIds = [];
-
-            if (this.allSelected) {
-                for (user in this.users) {
-                    this.userIds.push(this.users[user].id.toString());
-                }
-            }
-        },
-        select: function() {
-            this.allSelected = false;
-        },
-        drop(p){
-          this.$router.push({ params: { memberId: p.id }})
-          this.$http
-          .patch(`/api/admin/members/${p.id}`, {
-            withCredentials: true
-          })
-        },
-        click(p){
-          this.$router.push({ params: { memberId: p.id}})
-          this.$http
-          .post(`/api/admin/members/${p.id}`, {
-            withCredentials: true
-          })
-          .then((res)=> {
-            console.log(res);
-          })
-          .catch((err)=>{
-            console.log(err)
-          })
-        },
-      
-    },
-    mounted() {
-      this.$http
-      .get('/api/admin/members', {
-        withCredentials: true
-      })
-      .then((res)=>{
-        console.log(res.data.body)
-        this.profiles = res.data.body  
-      })
-      .catch((err)=>{
-        alert(err);
-        console.log(err)
-      })
-    },
-    
+export default {
+  data(){
+    return{
+      certifications:[],
+      checkAll:'',
+    }
+  },
+  mounted(){
+    this.$http
+    .get('/api/admin//caresitters/certifications',{
+      withCredentials:true
+    })
+    .then((res)=>{
+      console.log(res.data.body)
+      this.certifications = res.data.body
+    }).catch(err=>{
+      alert(err);
+      console.log(err)
+    })
+  },
+  methods:{
+    move(c){
+      this.$router.push({name:'certification_detail', params:{contentId:c.id}})
+    }
   }
-  
+}
 </script>
 
-<style scoped>
-.btn-11 {
-  overflow: hidden;
-  transition: all 0.3s ease;
-  font-size:12px;
-}
-.btn-11:hover {
-   background: #000;
-  color: #fff;
-}
-.btn-11:before {
-    position: absolute;
-    content: '';
-    display: inline-block;
-    top: -180px;
-    left: 0;
-    width: 30px;
-    height: 100%;
-    background-color: #fff;
-    animation: shiny-btn1 3s ease-in-out infinite;
-    font-size: 10;
-}
-.btn-11:active{
-  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
-              -4px -4px 6px 0 rgba(116, 125, 136, .2), 
-    inset -4px -4px 6px 0 rgba(255,255,255,.2),
-    inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
-}
-
-button {
-  margin: 3px;
-  outline: none;
-  
-}
-.custom-btn {
-  width: 130px;
-  height: 40px;
-  padding: 10px 25px;
-  border: 2px solid #000;
-  font-family: 'Lato', sans-serif;
-  font-weight: 500;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  display: inline-block;
-}
+<style>
     *,:after,:before{
         box-sizing: border-box;
     }
@@ -297,7 +187,6 @@ button {
         position: fixed;
         z-index: 99999;
         background: #fff;
-        overflow: hidden;
     }
 
      /* .lds-ripple {
@@ -398,6 +287,15 @@ button {
     .navbar-dark .navbar-brand{
         color: #fff;
     }
+
+    /* .navbar-brand{
+        padding-top: 0.3359375rem;
+        padding-bottom: 0.3359375rem;
+        margin-right: 1rem;
+        font-size: 1.09375rem;
+        text-decoration: none;
+        white-space: nowrap;
+    } */
     .topbar .top-navbar .navbar-header .navbar-brand .logo-icon{
         margin-right: 5px;
     }
@@ -773,7 +671,6 @@ button {
     .col-12{
       flex: 0 0 auto;
       width: 100%;
-      
     }
     .row>*{
       /* flex-shrink: 0; */
@@ -860,5 +757,146 @@ button {
     .mb-0{
       margin-bottom: 0!important;
     }
+
+    .table-responsive{
+      overflow: auto;
+    }
+
+    .table{
+      --bs-table-bs:transparent;
+      --bs-table-striped-color:#3e5569;
+      --bs-table-striped-bg:rgba(0,0,0,0.05);
+      --bs-table-active-color:#3e5569;
+      --bs-table-active-bg: rgba(0,0,0,0.1);
+      --bs-table-hover-color: #3e5569;
+      --bs-table-hover-bg: #f8f9fa;
+      width: 100%;
+      margin-bottom: 1rem;
+      color: #3e5569;
+      vertical-align: top;
+      border-color: #e9ecef;
+    }
+
+    .table>thead{
+      vertical-align: bottom;
+    }
+    thead, tr{
+      border-color: inherit;
+      border-style: solid;
+      border-width: 0;
+    }
+
+  .table>:not(:last-child)>:last-child>*{
+    border-bottom-color: #e9ecef;
+  }
+  .table .thead-light th{
+    color: #4f5467;
+    background-color: #e9ecef;
+    border-color: #e9ecef;
+  }
+  .table th, .table thead th{
+    font-weight: 500;
+    }
+  .mb-3{
+    margin-bottom:1.4rem!important;
+  }
+  .customcheckbox{
+    display: block;
+    position: relative;
+    padding-left: 24px;
+    cursor: pointer;
+    font-size: 22px;
+    user-select: none;
+  }
+  .customcheckbox input{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  input{
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+  .checkmark{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #cdcdcd;
+     border-radius: 6px;
+   }
+   .table .thead-light th{
+     color: #4f5467;
+     background-color: #e9ecef;
+     border-color: #e9ecef;
+   }
+   .table th{
+     padding: 1rem;
+   }
+
+   .table>tbody{
+     vertical-align: inherit;
+   }
+   .customcheckbox input:checked ~ .checkmark:after{
+     display: block;
+   }
+   .customcheckbox {
+  display: block;
+  position: relative;
+  padding-left: 24px;
+  font-weight: 100;
+  /*margin-bottom: 12px;*/
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+.customcheckbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer; }
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #CDCDCD;
+  border-radius: 6px; }
+
+.customcheckbox:hover input ~ .checkmark {
+  background-color: #ccc; }
+
+.customcheckbox input:checked ~ .checkmark {
+  background-color: #2196BB; }
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none; }
+
+.customcheckbox input:checked ~ .checkmark:after {
+  display: block; }
+
+.customcheckbox .checkmark:after {
+  left: 8px;
+  top: 4px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg); }
+
+.check-1 {
+  margin-top: 12px;
+  margin-left: 14px; }
 
 </style>
