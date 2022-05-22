@@ -3,7 +3,6 @@ package wd.team4.everycare.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import wd.team4.everycare.dto.HealthClassificationDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.service.HealthClassificationServiceImpl;
 
@@ -32,13 +31,13 @@ public class HealthClassificationApiController {
         return responseEntity;
     }
 
-    @PostMapping("/health-categories/{id}")
-    public ResponseEntity<MyResponse> save(@PathVariable("id") Long id, @RequestParam("name") String name) {
+    @PatchMapping("/health-categories/{id}")
+    public ResponseEntity<MyResponse> update(@PathVariable("id") Long id, @RequestParam("name") String name) {
         ResponseEntity<MyResponse> responseEntity = healthClassificationService.update(id, name);
         return responseEntity;
     }
 
-    @GetMapping("/health-categories/{id}")
+    @DeleteMapping("/health-categories/{id}")
     public ResponseEntity<MyResponse> remove(@PathVariable("id") Long id) {
         ResponseEntity<MyResponse> responseEntity = healthClassificationService.remove(id);
         return responseEntity;
