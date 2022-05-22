@@ -8,4 +8,7 @@ public interface HealthRecordService {
 
     ResponseEntity<MyResponse> save(Long id, HealthRecordFormDTO healthRecordFormDTO);
 
+    ResponseEntity<MyResponse> update(Long id, HealthRecordFormDTO healthRecordFormDTO);
+
+    ResponseEntity<MyResponse> remove(Long id);
 }

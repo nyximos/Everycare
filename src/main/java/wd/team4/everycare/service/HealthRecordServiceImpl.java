@@ -56,4 +56,34 @@ public class HealthRecordServiceImpl implements HealthRecordService {
 
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<MyResponse> update(Long id, HealthRecordFormDTO healthRecordFormDTO) {
+
+        Optional<HealthRecord> healthRecord = healthRecordRepository.findById(id);
+        HealthRecord healthRecordEntity = healthRecord.orElse(null);
+        Long healthClassificationId = healthRecordFormDTO.getHealthClassificationId();
+        Optional<HealthClassification> healthClassification = healthClassificationRepository.findById(healthClassificationId);
+        HealthClassification healthClassificationEntity = healthClassification.orElse(null);
+        healthRecordEntity.saveCategory(healthClassificationEntity);
+        healthRecordEntity.update(healthRecordFormDTO);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);    }
+
+    @Override
+    public ResponseEntity<MyResponse> remove(Long id) {
+
+        healthRecordRepository.deleteById(id);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
 }
