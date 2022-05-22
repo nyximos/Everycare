@@ -35,8 +35,8 @@ public class HealthRecord {
     private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "health_information_id")
-    private HealthInformation healthInformation;
+    @JoinColumn(name = "health_classification_id")
+    private HealthClassification healthClassification;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -45,5 +45,9 @@ public class HealthRecord {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_target_id")
     private CareTarget careTarget;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "care_note_id")
+    private CareNote careNote;
 
 }
