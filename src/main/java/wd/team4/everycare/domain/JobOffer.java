@@ -75,15 +75,14 @@ public class JobOffer {
     private CareTargetSchedule careTargetSchedule;
 
     @Builder
-    public JobOffer(String title, LocalDate startDate, LocalDate endDate, String day, String desiredStartTime, String desiredEndTime, int pay, int amount, Gender desiredCareSitterGender, String comment, CareTarget careTarget, CareTargetSchedule careTargetSchedule, Member member) {
+    public JobOffer(String title, LocalDate startDate, LocalDate endDate, String desiredDayWeek, String desiredStartTime, String desiredEndTime, int pay, Gender desiredCareSitterGender, String comment, CareTarget careTarget, CareTargetSchedule careTargetSchedule, Member member) {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.day = day;
+        this.day = desiredDayWeek;
         this.desiredStartTime = desiredStartTime;
         this.desiredEndTime = desiredEndTime;
         this.pay = pay;
-        this.amount = amount;
         this.desiredCareSitterGender = desiredCareSitterGender;
         this.comment = comment;
         this.careTarget = careTarget;

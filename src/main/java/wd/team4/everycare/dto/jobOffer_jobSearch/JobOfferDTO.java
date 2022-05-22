@@ -3,9 +3,8 @@ package wd.team4.everycare.dto.jobOffer_jobSearch;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
-import wd.team4.everycare.domain.Gender;
-import wd.team4.everycare.domain.JobOffer;
+import wd.team4.everycare.domain.*;
+import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleDTO;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.member.MemberListViewDTO;
 
@@ -16,9 +15,7 @@ import java.time.LocalDate;
 public class JobOfferDTO {
     private Long id;
     private String title;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;                        ////시작일
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;                          ////종료일
     private String desiredDayWeek;                      ////희망 요일
     private Gender desiredCareSitterGender;             ////희망 케어시터 성별

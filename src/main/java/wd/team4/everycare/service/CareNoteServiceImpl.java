@@ -19,7 +19,7 @@ import wd.team4.everycare.repository.ActivityInformationRepository;
 import wd.team4.everycare.repository.CareNoteRepository;
 import wd.team4.everycare.repository.CareTargetScheduleRepository;
 import wd.team4.everycare.repository.ContractRepository;
-import wd.team4.everycare.service.interfaces.CareSitterCareNoteService;
+import wd.team4.everycare.service.interfaces.CareNoteService;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -30,7 +30,7 @@ import java.util.Optional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class CareSitterCareNoteServiceImpl implements CareSitterCareNoteService {
+public class CareNoteServiceImpl implements CareNoteService {
 
     private final CareNoteRepository careNoteRepository;
     private final ContractRepository contractRepository;
