@@ -2,6 +2,8 @@ package wd.team4.everycare.domain;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.careRecord.HealthRecordFormDTO;
+import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -48,4 +50,21 @@ public class HealthRecord {
     @JoinColumn(name = "care_note_id")
     private CareNote careNote;
 
+    public void saveCategory(HealthClassification healthClassificationEntity) {
+        this.healthClassification = healthClassificationEntity;
+    }
+
+    public void update(HealthRecordFormDTO healthRecordFormDTO) {
+        if(StringUtils.isNotBlank(String.valueOf(healthRecordFormDTO.getHealthStatus()))) {
+            this.healthStatus = healthRecordFormDTO.getHealthStatus();
+        }
+        if(StringUtils.isNotBlank(healthRecordFormDTO.getDetailComment())){
+            this.detailComment = healthRecordFormDTO.getDetailComment();
+        }
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void saveDetailComment(String detailComment) {
+        this.detailComment = detailComment;
+    }
 }

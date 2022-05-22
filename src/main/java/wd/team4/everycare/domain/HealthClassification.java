@@ -22,4 +22,7 @@ public class HealthClassification {
     @Column(name = "health_classification_name", nullable = false)
     private String name;
 
+    public void updateName(String name) {
+        this.name = name;
+    }
 }
