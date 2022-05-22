@@ -5,11 +5,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Order;
 import wd.team4.everycare.domain.OrderProduct;
 import wd.team4.everycare.domain.OrderStatus;
 import wd.team4.everycare.domain.Product;
+import wd.team4.everycare.dto.PayResponse;
 import wd.team4.everycare.dto.order.OrderDTO;
+import wd.team4.everycare.dto.order.SignOrderDTO;
 import wd.team4.everycare.dto.product.CartDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
@@ -34,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderProductRepository orderProductRepository;
 
     @Override
-    public ResponseEntity<MyResponse> order(HttpServletRequest request, OrderDTO orderDTO) {
+    public ResponseEntity<MyResponse> order(HttpServletRequest request, PrincipalDetails principalDetails, OrderDTO orderDTO) {
 
         HttpSession session = request.getSession();
         if (session.getAttribute("cart") == null) {
@@ -65,6 +68,7 @@ public class OrderServiceImpl implements OrderService {
                 .status(OrderStatus.ORDER)
                 .orderTime(LocalDateTime.now())
                 .comment(orderDTO.getComment())
+                .member(principalDetails.getUser())
                 .build();
 
         orderRepository.save(order);
@@ -96,5 +100,27 @@ public class OrderServiceImpl implements OrderService {
 
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
 
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> signOrder(Long orderId, PayResponse payResponse) {
+        int totalAmount = payResponse.getTotalAmount();
+        LocalDateTime approvedAt = payResponse.getApprovedAt();
+        String cardCompany = payResponse.getCardCompany();
+        String cardNumber = payResponse.getCardNumber();
+        String approveNo = payResponse.getApproveNo();
+        int installmentPlanMonths = payResponse.getInstallmentPlanMonths();
+        Order order = orderRepository.findById(orderId).orElse(null);
+
+        order.pay(totalAmount, approvedAt, cardCompany, cardNumber, Integer.parseInt(approveNo), installmentPlanMonths);
+
+        SignOrderDTO signOrderDTO = order.toSignOrderDTO();
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .body(signOrderDTO)
+                .message("결제 및 DB 수정 성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 }
