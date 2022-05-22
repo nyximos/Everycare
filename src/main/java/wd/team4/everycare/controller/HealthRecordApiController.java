@@ -14,6 +14,18 @@ public class HealthRecordApiController {
 
     private final HealthRecordServiceImpl healthRecordService;
 
+    @GetMapping("/carenote/{id}/health-records")
+    public ResponseEntity<MyResponse> getAll(@PathVariable("id") Long id) {
+        ResponseEntity<MyResponse> responseEntity = healthRecordService.getAll(id);
+        return responseEntity;
+    }
+
+    @GetMapping("/carenote/{carenoteId}/health-records/{id}")
+    public ResponseEntity<MyResponse> get(@PathVariable("id") Long id) {
+        ResponseEntity<MyResponse> responseEntity = healthRecordService.get(id);
+        return responseEntity;
+    }
+
     @PostMapping("/carenote/{id}/health-records")
     public ResponseEntity<MyResponse> save(@PathVariable("id") Long id, @ModelAttribute HealthRecordFormDTO healthRecordFormDTO) {
         ResponseEntity<MyResponse> responseEntity = healthRecordService.save(id, healthRecordFormDTO);
