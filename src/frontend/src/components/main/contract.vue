@@ -31,11 +31,11 @@ export default {
       joboffer:[
 
       ],
-      caresitterId:this.$store.state.careprofileStore.caresitterId,
+      caresitterId:this.$store.state.userStore.careSitterId,
     }
   },
   mounted(){
-    const id = this.caresitterId;
+    const id = this.$store.state.userStore.careSitterId;
     console.log(id)
     this.$http
     .get(`/api/caresitters/${id}/recruitions`,{
