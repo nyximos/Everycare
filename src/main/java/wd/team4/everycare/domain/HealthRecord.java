@@ -63,4 +63,8 @@ public class HealthRecord {
         }
         this.updatedAt = LocalDateTime.now();
     }
+
+    public void saveDetailComment(String detailComment) {
+        this.detailComment = detailComment;
+    }
 }

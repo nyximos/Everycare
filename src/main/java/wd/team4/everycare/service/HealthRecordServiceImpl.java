@@ -106,13 +106,16 @@ public class HealthRecordServiceImpl implements HealthRecordService {
 
         HealthRecord healthRecord = HealthRecord.builder()
                 .healthStatus(healthRecordFormDTO.getHealthStatus())
-                .detailComment(healthRecordFormDTO.getDetailComment())
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .healthClassification(healthClassificationEntity)
                 .careTarget(careNoteEntity.getContract().getJobOffer().getCareTarget())
                 .careNote(careNoteEntity)
                 .build();
+
+        if (healthRecord.getDetailComment() != null) {
+            healthRecord.saveDetailComment(healthRecordFormDTO.getDetailComment());
+        }
 
         healthRecordRepository.save(healthRecord);
 
