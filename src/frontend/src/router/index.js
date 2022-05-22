@@ -178,15 +178,15 @@ const routes = [
         component: Caresitters
     },
 
-        path: '/works',
-        name: 'FindWork',
-        component: () => import('@/pages/FindWork.vue'),
-        reEnter: (to, from, next) => {
-            const token = localStorage.getItem('jwt-access-token');
-            if (token !== null) next({ name: 'Main' });
-            else next();
-        }
-    },
+        // path: '/works',
+        // name: 'FindWork',
+        // component: () => import('@/pages/FindWork.vue'),
+        // reEnter: (to, from, next) => {
+        //     const token = localStorage.getItem('jwt-access-token');
+        //     if (token !== null) next({ name: 'Main' });
+        //     else next();
+        // },
+    
     // {
     //     path: '/profile',
     //     name: 'profile',

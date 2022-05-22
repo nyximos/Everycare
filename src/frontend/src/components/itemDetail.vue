@@ -94,6 +94,22 @@
 export default {
 name:'itemDetail',
 mounted() {
+    
+    this.$http
+    .get('/api/dashboard/caresitter/contracts', {
+      withCredentials: true
+    })
+    .then((res) => {
+          console.log(res)
+          console.log(res.data.body)
+          this.id = res.data.body.id
+          
+
+          
+  }).catch(err => {
+    alert(err);
+    console.log(err);
+  })
     const id = Number(this.$route.params.contentId);
     this.$http
     .get(`/api/recruitions/recruition/${id}`,{
@@ -134,11 +150,16 @@ data(){
         paytimepick: this.paytimepick,
         pay: this.pay,
         comment: this.comment,
+        id: this.id
     }
 },
 methods:{
-application(p){
-  this.$router.push({ name: 'CaretargetsDetail', params: { caretargetsId: p.id }})
+
+application(){
+  this.$router.push({name:'jobapplication', params:{contractId:id}})
+
+  console.log(this.id)
+  // this.$router.push({ name: 'CaretargetsDetail', params: { caretargetsId: p.id }})
   const id = Number(this.$route.params.contentId);
   // console
    this.$http
