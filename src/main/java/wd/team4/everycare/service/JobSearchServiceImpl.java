@@ -87,6 +87,7 @@ public class JobSearchServiceImpl implements JobSearchService {
 
 
         DetailJobSearchDTO dto = DetailJobSearchDTO.builder()
+                .id(jobSearchDTO.getId())
                 .cctvAgreement(jobSearchDTO.getCctvAgreement())
                 .is_vaccinated(jobSearchDTO.getIs_vaccinated())
                 .desiredDayWeek(jobSearchDTO.getDesiredDayWeek())
@@ -94,6 +95,7 @@ public class JobSearchServiceImpl implements JobSearchService {
                 .hourlyWage(jobSearchDTO.getHourlyWage())
                 .monthlyWage(jobSearchDTO.getMonthlyWage())
                 .hopefulRegion(jobSearchDTO.getHopefulRegion())
+                .preferredType(jobSearchDTO.getPreferredType())
                 .introduction(jobSearchDTO.getIntroduction())
                 .memberDTO(jobSearchDTO.getMemberDTO())
                 .certification(certificationViewDTOs)
