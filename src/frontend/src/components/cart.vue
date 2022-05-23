@@ -1,6 +1,40 @@
 <template>
   <div>
      <v-card>
+       <v-card-text>
+       <v-btn @click="removeAll">전체삭제</v-btn>
+  <v-simple-table>
+    <template v-slot:default>
+      <thead>
+        <tr>
+          <th class="text-left">
+            id
+          </th>
+          <th class="text-left">
+            quantity
+          </th>
+          <th class="text-left">
+            amount
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="(item,index) in desserts"
+          :key="index"
+        >
+          <td>{{index}}/{{item.id }}</td>
+          <td>{{item.quantity}}</td>
+          <td>{{item.amount * item.quantity}}</td>
+          <td><v-btn @click="remove(item,index)">x</v-btn></td>
+        </tr>
+      </tbody>
+    </template>
+  </v-simple-table>
+  <h1>총금액 : {{total}}</h1>
+        <v-row class="text-center mt-4">
+          <h3>주문정보</h3>
+        </v-row>
         <v-row>
           <v-text-field
             label="이름"
@@ -54,42 +88,12 @@
             v-model="zipcode"
             label="File input"
         ></v-file-input>
-          <span>결제날짜</span><input type="date">
+          <span>결제날짜</span><input type="date" class="form-control">
         </v-row>
-          <v-btn @click="order">주문하기</v-btn>
+          </v-card-text>
+     </v-card>
 
-    </v-card>
-    <v-btn @click="removeAll">전체삭제</v-btn>
-  <v-simple-table>
-    <template v-slot:default>
-      <thead>
-        <tr>
-          <th class="text-left">
-            id
-          </th>
-          <th class="text-left">
-            quantity
-          </th>
-          <th class="text-left">
-            amount
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="(item,index) in desserts"
-          :key="index"
-        >
-          <td>{{index}}/{{item.id }}</td>
-          <td>{{item.quantity}}</td>
-          <td>{{item.amount * item.quantity}}</td>
-          <td><v-btn @click="remove(item,index)">x</v-btn></td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
-  <h1>총금액 : {{total}}</h1>
-  <v-btn @click="order">주문하기</v-btn>
+    <v-btn @click="order" block>주문하기</v-btn>
     <!-- <v-simple-table>
     <template v-slot:default>
       <thead>
@@ -157,7 +161,7 @@ export default {
       formData.append('amount',1);
       formData.append('recipientName','박지은');
       formData.append('recipientNumber',123);
-      formData.append('zipcode','박지은.jpg');
+      formData.append('zipcode',this.zipcode);
       formData.append('address','포항시북구');
       formData.append('detailedAddress','404-222');
       formData.append('comment','배송전문의');
