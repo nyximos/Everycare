@@ -69,7 +69,11 @@ public class JobOfferServiceImpl implements JobOfferService {
     @Override
     public JobOffer save(JobOfferDTO jobOfferDTO) {
         JobOffer jobOffer = jobOfferDTO.toJobOffer();
+        System.out.println("jobOffer = " + jobOffer.getClass());
+        System.out.println("careTarget = " + jobOffer.getCareTarget().toString());
+        System.out.println("schedule = " + jobOffer.getCareTargetSchedule().toString());
         JobOffer saveJobOffer = jobOfferRepository.save(jobOffer);
+        System.out.println("aeaw");
         return saveJobOffer;
     }
 

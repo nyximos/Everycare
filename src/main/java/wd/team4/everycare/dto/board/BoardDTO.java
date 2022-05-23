@@ -3,8 +3,7 @@ package wd.team4.everycare.dto.board;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 import wd.team4.everycare.domain.Board;
-import wd.team4.everycare.domain.Member;
-import wd.team4.everycare.domain.MemberRole;
+import wd.team4.everycare.domain.BoardCategory;
 import wd.team4.everycare.dto.member.MemberInfoDTO;
 
 import java.time.LocalDateTime;
@@ -19,7 +18,7 @@ public class BoardDTO {
     private Long id;
     private String title;
     private String content;
-    private String category;
+    private BoardCategory category;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private int count;
