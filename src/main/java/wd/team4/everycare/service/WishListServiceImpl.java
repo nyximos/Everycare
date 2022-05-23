@@ -52,7 +52,7 @@ public class WishListServiceImpl {
                 .build();
 
         wishListRepository.save(wish);
-
+        System.out.println("wish = " + wish);
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("성공했슴다~")

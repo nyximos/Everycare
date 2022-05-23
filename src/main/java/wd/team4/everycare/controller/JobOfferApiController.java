@@ -63,7 +63,6 @@ public class JobOfferApiController {
                                                    @ModelAttribute JobOfferDTO jobOfferDTO){
         Member username = principalDetails.getUser();
         jobOfferDTO.setMember(username.toMemberListViewDTO());
-
         jobOfferService.save(jobOfferDTO);
 
         MyResponse<JobOfferDTO> body = MyResponse.<JobOfferDTO>builder()

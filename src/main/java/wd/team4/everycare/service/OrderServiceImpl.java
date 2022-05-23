@@ -97,4 +97,27 @@ public class OrderServiceImpl implements OrderService {
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
 
     }
+
+    @Override
+    public ResponseEntity<MyResponse> signOrder(Long orderId, PayResponse payResponse) {
+        int totalAmount = payResponse.getTotalAmount();
+        LocalDateTime approvedAt = payResponse.getApprovedAt();
+        String cardCompany = payResponse.getCardCompany();
+        String cardNumber = payResponse.getCardNumber();
+        String approveNo = payResponse.getApproveNo();
+        int installmentPlanMonths = payResponse.getInstallmentPlanMonths();
+        Order order = orderRepository.findById(orderId).orElse(null);
+
+        order.pay(totalAmount, approvedAt, cardCompany, cardNumber, Integer.parseInt(approveNo), installmentPlanMonths);
+
+        SignOrderDTO signOrderDTO = order.toSignOrderDTO();
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .body(signOrderDTO)
+                .message("결제 및 DB 수정 성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+}
 }

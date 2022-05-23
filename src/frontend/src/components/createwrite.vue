@@ -14,7 +14,7 @@
       v-model="caretarget"
       :items="caretargetlist"
       item-text="name"
-      item-value="id"
+      return-object
       chips
       label="케어대상인 선택">
     </v-select>
@@ -31,6 +31,7 @@
           v-model="pickSchedule"
           :items="schedulelist"
           item-text="name"
+          return-object
           chips
         ></v-select>
           </v-col>
@@ -39,7 +40,6 @@
             <v-col cols="4">
               <v-subheader>시작일</v-subheader>
            <input type="date" v-model="startDay">
-           <input type="datetime-local" name="" id="" v-model="hi">
          </v-col>
          <v-col cols="4">
            <v-subheader>종료일</v-subheader>
@@ -169,8 +169,6 @@ name: 'Create',
          caretargetlist:[],
          pickSchedule: this.pickSchedule,
          schedulelist:[],
-         startDay: this.startDay,
-         endDay: this.endDay,
         startTime: this.startTime,
         endTime: this.endTime,
         day: [],
@@ -181,16 +179,17 @@ name: 'Create',
         comment: this.comment,
         showbtn: true,
         showSchedule: false,
-        btnLock: false,
-        hi: this.hi
+        btnLock: false
       }
     },
     methods: {
       submit(){
+        // console.log({name:this.caretarget.name, gender:this.caretarget.gender, height:this.caretarget.height, weight:this.caretarget.weight})
+        // console.log({id: this.pickSchedule.id, name:this.pickSchedule.name, startTime:this.pickSchedule.startTime, endTime: this.pickSchedule.endTime})  
       var formData = new FormData();
       formData.append('title',this.title);
-      formData.append('careTarget', this.caretarget);
-      formData.append('careTargetSchedule', this.pickSchedule);
+      formData.append('careTarget', {name:this.caretarget.name, gender:this.caretarget.gender, height:this.caretarget.height, weight:this.caretarget.weight})
+      formData.append('careTargetSchedule', {id: this.pickSchedule.id, name:this.pickSchedule.name, startTime:this.pickSchedule.startTime, endTime: this.pickSchedule.endTime});
       formData.append('startDate',this.startDay)
       formData.append('endDate',this.endDay);
       formData.append('desiredDayWeek', this.day.toString());
@@ -214,10 +213,10 @@ name: 'Create',
     //   path:'/joblist'
     // })
   },
-  
   buttonClick(){
+    // console.log({name:this.caretarget.name, gender:this.caretarget.gender, height:this.caretarget.height, weight:this.caretarget.weight})
       var formData = new FormData()
-      formData.append('id', this.caretarget);
+      formData.append('id', this.caretarget.id);
      this.$http
      .post('/api/recruitions/schedules',formData,{
         withCredentials:true

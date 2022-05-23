@@ -1,8 +1,7 @@
 <template>
  <v-container>
-     <h1>wish List</h1>
-     <wish v-for="(listItem, index) in listData" :key="index" 
-     :listItem="listItem"/>
+   WishList
+    <wish />
  </v-container> 
 </template>
 
@@ -13,24 +12,6 @@ name: 'Wish',
 components:{
     wish
   },
-    mounted() {
-        this.$http
-        .get('/api/dashboard/wishlist', {
-        withCredentials: true
-        })
-        .then(res => {
-          console.log(res.data)
-          this.listData = res.data.body;
-        })
-          .catch(err => {
-          console.log(err);
-        });
-    },
-    data(){
-        return{
-            listData: []
-        }
-    },
 }
 </script>
 

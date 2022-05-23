@@ -15,6 +15,10 @@ import java.time.LocalDate;
 public class JobOfferDTO {
     private Long id;
     private String title;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private CareTarget careTarget;                      //케어 대상인
+    private CareTargetSchedule careTargetSchedule;      //스케줄
+    private Member member;
     private LocalDate startDate;                        ////시작일
     private LocalDate endDate;                          ////종료일
     private String desiredDayWeek;                      ////희망 요일

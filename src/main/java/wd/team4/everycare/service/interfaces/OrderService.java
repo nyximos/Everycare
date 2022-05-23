@@ -8,6 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 
 public interface OrderService {
 
-    ResponseEntity<MyResponse> order(HttpServletRequest request, OrderDTO orderDTO);
-
+    ResponseEntity<MyResponse> order(HttpServletRequest request, PrincipalDetails principalDetails, OrderDTO orderDTO);
+    ResponseEntity<MyResponse> signOrder(Long orderId, PayResponse payResponse);
 }
