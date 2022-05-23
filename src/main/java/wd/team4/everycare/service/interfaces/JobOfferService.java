@@ -23,7 +23,7 @@ public interface JobOfferService {
     String update(Long id, JobOfferDTO jobOfferDTO);
     void deleteJobOffer(Long id);
     ResponseEntity<MyResponse> offer(Long jobOfferId, PrincipalDetails principalDetails);
-    ResponseEntity<MyResponse> findOffer(Long contractId, PrincipalDetails principalDetails);
+    ResponseEntity<MyResponse> findOffer(Long jobOfferId, PrincipalDetails principalDetails);
     ResponseEntity<MyResponse> findDetailOffer(Long contractId);
 
 
