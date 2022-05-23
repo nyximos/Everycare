@@ -20,12 +20,14 @@ import java.util.List;
 @Transactional
 public class ActivityClassificationServiceImpl {
 
-    ActivityClassificationRepository activityClassificationRepository;
+    private final ActivityClassificationRepository activityClassificationRepository;
 
 
     public ResponseEntity<MyResponse> getAll() {
 
+        System.out.println("===========");
         List<ActivityClassification> activityClassifications = activityClassificationRepository.findAll();
+        System.out.println("activityClassifications.size() = " + activityClassifications.size());
 
         List<ActivityClassificationDTO> activityClassificationDTOs = new ArrayList<>();
 
@@ -34,8 +36,11 @@ public class ActivityClassificationServiceImpl {
                     .id(activityClassification.getId())
                     .name(activityClassification.getName())
                     .level(activityClassification.getLevel())
-                    .ParentId(activityClassification.getActivityClassification().getId())
                     .build();
+
+            if (activityClassification.getActivityClassification()!=null) {
+                dto.setParentId(activityClassification.getActivityClassification().getId());
+            }
             activityClassificationDTOs.add(dto);
         }
 
