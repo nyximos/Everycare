@@ -28,6 +28,7 @@ public class JobOfferDTO {
     private String desiredDayWeek;                      ////희망 요일
     private Gender desiredCareSitterGender;             ////희망 케어시터 성별
     private int pay;                                    ////급여
+    private int amount;
     private String comment;                             ////코멘트
     private String desiredStartTime;                    //시작시간
     private String desiredEndTime;                      //종료시간
@@ -37,6 +38,7 @@ public class JobOfferDTO {
 
     public JobOffer toJobOffer(){
         return JobOffer.builder()
+                .amount(this.amount)
                 .title(this.title)
                 .startDate(this.startDate)
                 .endDate(this.endDate)

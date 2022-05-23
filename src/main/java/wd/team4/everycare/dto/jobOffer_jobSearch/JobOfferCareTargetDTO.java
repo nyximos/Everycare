@@ -15,7 +15,8 @@ public class JobOfferCareTargetDTO {
     private Long height;
     private Long weight;
 
-    @Builder JobOfferCareTargetDTO(String name, Gender gender, Long height, Long weight){
+    @Builder JobOfferCareTargetDTO(Long id, String name, Gender gender, Long height, Long weight){
+        this.id=id;
         this.name=name;
         this.gender=gender;
         this.height=height;

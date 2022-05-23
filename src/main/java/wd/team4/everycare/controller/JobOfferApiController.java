@@ -59,12 +59,8 @@ public class JobOfferApiController {
     public ResponseEntity<MyResponse> saveJobOffer(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                                    @RequestBody JobOfferDTO jobOfferDTO){
 
-        System.out.println(jobOfferDTO.toString());
-        Member username = principalDetails.getUser();
-        jobOfferDTO.setMember(username.toMemberListViewDTO());
-        jobOfferService.save(jobOfferDTO);
-        System.out.println("asdasdasdasdasdasdasdsa");
-        /* TODO 케어대상인,스케줄 type mismatch */
+        jobOfferService.save(principalDetails, jobOfferDTO);
+        /* TODO 케어대상인,스케줄 type mismatch 해결했는지 확인*/
 
         MyResponse<JobOfferDTO> body = MyResponse.<JobOfferDTO>builder()
                 .header(StatusEnum.OK)
