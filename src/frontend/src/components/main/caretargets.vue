@@ -44,7 +44,7 @@
     </v-btn>
     <v-btn @click="move(p)">보기</v-btn>
         <v-btn
-      
+      @click="schedule(p)"
       outlined
       color="indigo"
     >
@@ -91,6 +91,9 @@ export default {
       console.log(err)
     })
   },
+   schedule(p) {
+      this.$router.push({ name: 'schedule', params: { caretargetsId: p.id }})
+    },
   clickme(){
     location.href = '/';
   }
