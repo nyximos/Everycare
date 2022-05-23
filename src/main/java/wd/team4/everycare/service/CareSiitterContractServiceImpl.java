@@ -43,7 +43,7 @@ public class CareSiitterContractServiceImpl implements ContractService {
         for (Contract contract : contracts) {
 
             CareSitterContractListDTO dto = CareSitterContractListDTO.builder()
-                    .id(contract.getId())
+                    .id(contract.getJobOffer().getId())
                     .title(contract.getJobOffer().getTitle())
                     .startDate(contract.getStartDate())
                     .endDate(contract.getEndDate())

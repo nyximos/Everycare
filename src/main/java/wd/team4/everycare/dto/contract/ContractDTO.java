@@ -1,7 +1,6 @@
 package wd.team4.everycare.dto.contract;
 
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.parameters.P;
 import wd.team4.everycare.domain.CareSitterImage;
 import wd.team4.everycare.domain.Contract;
@@ -21,9 +20,7 @@ public class ContractDTO {
 
     private Long id;
     private String name;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
     private String startTime;
     private String endTime;

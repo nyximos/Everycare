@@ -47,43 +47,24 @@ export default {
             }
             console.log(userinfo);
             this.$http
-            .post('https://localhost:8086/login', userinfo, {
+                .post('https://localhost:8086/login', userinfo, {
                     withCredentials: true
                 })
                 .then(res => {
                     // this.test = response.data;
                     console.log(res);
+                    console.log(this.json);
                     // state에 회원 정보 담기
                     this.$store.commit('userStore/userInfo', userinfo);
-                    this.$http
-                    .get('/api/user', {
-                        withCredentials: true
-                    })
-                    .then(res => {
-                        // state에 저장
-                        const userData={
-                            caresitterId : res.data.body.careSitterId,
-                            storeId:res.data.body.storeId
-                        }
-                        console.log(userData)
-                        this.$store.commit('userStore/userData',userData);
-                        // console.log(this.$store.state.userStore.name);
-                        location.href = '/';
-                    })
-                    .catch(err => {
-                    console.log(err);
-                    console.log(this.json);
-                    });
+                     location.href = '/';
                 })
                 .catch(err => {
                     console.log(err);
                     console.log(this.json);
                 });
-                    // id, 이름, 권한 응답을 넣어준다
-    
         }
     }
-}
+};
 </script>
 
 <style scoped lang="scss">

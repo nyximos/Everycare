@@ -2,11 +2,13 @@ package wd.team4.everycare.domain;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.careSitter.CareSitterNameDTO;
 import wd.team4.everycare.dto.contract.ContractDTO;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Entity
@@ -50,7 +52,7 @@ public class Contract {
 
     @Column(name = "contract_pay_datetime")
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
-    private LocalDateTime payDateTime;
+    private LocalDateTime payDatetime;
 
     @Column(name = "contract_card_company")
     private String cardCompany;
@@ -87,7 +89,7 @@ public class Contract {
         this.pay = pay;
         this.status = status;
         this.amount = amount;
-        this.payDateTime = payDateTime;
+        this.payDatetime = payDateTime;
         this.cardCompany = cardCompany;
         this.cardNumber = cardNumber;
         this.payApprove = payApprove;
@@ -115,7 +117,7 @@ public class Contract {
 
     public void updateContract(LocalDateTime payDateTime, int payAmount, String cardCompany, String cardNumber, String payApprove, int monthlyInstallmentPlan){
         this.status=2;
-        this.payDateTime = payDateTime;
+        this.payDatetime = payDateTime;
         this.amount = payAmount;
         this.cardCompany = cardCompany;
         this.cardNumber = cardNumber;

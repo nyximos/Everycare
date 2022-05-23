@@ -23,6 +23,6 @@ public class CareTargetHealthInformation {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "health_information_id")
-    private HealthClassification healthInformation;
+    private HealthInformation healthInformation;
 
 }

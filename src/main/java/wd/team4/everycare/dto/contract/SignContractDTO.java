@@ -47,7 +47,7 @@ public class SignContractDTO {
                 .pay(this.pay)
                 .status(this.status)
                 .amount(this.amount)
-                .payDateTime(this.payDatetime)
+                .payDatetime(this.payDatetime)
                 .cardNumber(this.cardNumber)
                 .payApprove(this.payApprove)
                 .monthlyInstallmentPlan(this.monthlyInstallmentPlan)

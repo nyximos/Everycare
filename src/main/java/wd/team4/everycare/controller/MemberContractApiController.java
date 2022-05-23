@@ -32,19 +32,15 @@ public class MemberContractApiController {
         return offer;
     }
 
+  
     @PostMapping("/caresitters/{careSitterId}/contracts")
     public ResponseEntity<MyResponse> postMemberContract(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                                          @RequestParam("jobOfferId") Long jobOfferId,
-                                                         @RequestParam("careSitterId")  Long careSitterId){
+                                                         @RequestParam("careSitterId") Long careSitterId){
         ResponseEntity<MyResponse> responseEntity = memberContractService.saveContract(principalDetails, jobOfferId, careSitterId);
         return responseEntity;
     }
 
-    @GetMapping("/caresitters/{careSitterId}/recruitions")
-    public ResponseEntity<MyResponse> getrecruitions(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        ResponseEntity<MyResponse> responseEntity = memberContractService.getRecruitions(principalDetails);
-        return responseEntity;
-    }
 
     @GetMapping("/dashboard/contracts/payments")
     public ResponseEntity<MyResponse> signContract(@RequestParam String paymentKey, @RequestParam String orderId, @RequestParam Long amount, @RequestParam Long contractId) throws IOException {

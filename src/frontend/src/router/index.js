@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import Caresitters from '../pages/Caresitters';
 import Carepeople from '../pages/Carepeople';
 import Alarm from '../pages/Alarm';
+import Profile2 from '../pages/Profile2';
 
 Vue.use(VueRouter);
 const routes = [
@@ -168,11 +169,23 @@ const routes = [
         component: () => import('@/pages/StoreInfoEdit.vue')
     },
     
-    // {
-    //     path: '/joblist',
-    //     name: 'Job_list',
-    //     component: () => import('@/pages/Job_list.vue')
-    // },
+    {
+        
+        path: '/joblist',
+        name: 'Job_list',
+        component: () => import('@/pages/Job_list.vue')
+    },
+    {
+        path: '/createwrite',
+        name: 'CreateWrite',
+        component: () => import('@/pages/CreateWrite.vue')
+    },
+
+    {
+        path: '/careprofile',
+        name: 'careprofile',
+        component: () => import('@/pages/Careprofile.vue')
+    },
     {
         path: '/careprofile1',
         name: 'careprofile1',
@@ -220,6 +233,7 @@ const routes = [
             else next();
         }
     },
+
     // {
     //     path: '/profile',
     //     name: 'profile',
@@ -240,24 +254,24 @@ const routes = [
         name: 'alarm',
         component: Alarm
     },
-    // {
-    //     path: '/profile2',
-    //     name: 'profile2',
-    //     component: Profile2
-    // },
+    {
+        path: '/profile2',
+        name: 'profile2',
+        component: Profile2
+    },
     {
         path: '/test',
         name: 'Test',
         component: () => import('@/pages/Test.vue')
     },
     {
-        path: '/caretargets',
+        path: '/carenote/caretargets',
         name: 'Caretargets',
         component: () => import('@/pages/Caretargets.vue')
     },
     {
 
-        path: '/caretargetsdetail/:caretargetsId',
+        path: '/carenote/caretargets:caretargetsId',
         name: 'CaretargetsDetail',
         component: () => import('@/components/main/caretargetsdetail.vue')
     },
@@ -267,16 +281,21 @@ const routes = [
     //     component: () => import('@/pages/Targets_update.vue')
     // },
     {
-        path: '/caretargets_update/:caretargetsId',
+        path: '/dashboard/caretargets/:caretargetsId/update',
         name: 'TargetsUpdate',
         // component: () => import('@/pages/Targets_update.vue')
         component: () => import('@/components/main/caretargets_update.vue')
     },
     
     {
-        path: '/adminpage',
+        path: '/admin/members',
         name: 'adminpage',
         component: () => import('@/pages/Adminpage.vue')
+    },
+    {
+        path: '/jobapplication',
+        name: 'jobapplication',
+        component: () => import('@/pages/JobApplication.vue')
     },
     
 ]
