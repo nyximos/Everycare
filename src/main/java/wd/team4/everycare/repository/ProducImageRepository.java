@@ -10,4 +10,7 @@ public interface ProducImageRepository extends JpaRepository<ProductImage, Long>
 
     @EntityGraph(attributePaths = {"product"})
     List<ProductImage> findAllByProductId(Long id);
+
+    @EntityGraph(attributePaths = {"product"})
+    void deleteByProductId(Long id);
 }

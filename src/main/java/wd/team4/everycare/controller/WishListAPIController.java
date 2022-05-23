@@ -28,8 +28,8 @@ public class WishListAPIController {
     }
 
     @DeleteMapping("/dashboard/wishlist/{id}")
-    public ResponseEntity<MyResponse> deleteWishList(@PathVariable("id") Long id) {
-        ResponseEntity<MyResponse> responseEntity = wishListService.remove(id);
+    public ResponseEntity<MyResponse> deleteWishList(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable("id") Long id) {
+        ResponseEntity<MyResponse> responseEntity = wishListService.remove(principalDetails,id);
         return responseEntity;
     }
 

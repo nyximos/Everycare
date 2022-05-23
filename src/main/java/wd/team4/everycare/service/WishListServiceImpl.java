@@ -39,6 +39,14 @@ public class WishListServiceImpl {
         Optional<WishList> wishList = wishListRepository.findByMemberAndProduct(user, productEntity);
 
         if (wishList.isEmpty()) {
+            WishList wish = WishList.builder()
+                    .member(user)
+                    .product(productEntity)
+                    .build();
+
+            wishListRepository.save(wish);
+
+            System.out.println("wish = " + wish);
             MyResponse body = MyResponse.builder()
                     .header(StatusEnum.OK)
                     .message("성공했슴다~")
@@ -46,13 +54,7 @@ public class WishListServiceImpl {
             return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
         }
 
-        WishList wish = WishList.builder()
-                .member(user)
-                .product(productEntity)
-                .build();
 
-        wishListRepository.save(wish);
-        System.out.println("wish = " + wish);
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("성공했슴다~")
@@ -95,9 +97,9 @@ public class WishListServiceImpl {
 
     }
 
-    public ResponseEntity<MyResponse> remove(Long id) {
+    public ResponseEntity<MyResponse> remove(PrincipalDetails principalDetails, Long id) {
 
-        wishListRepository.deleteById(id);
+        wishListRepository.deleteByMemberAndProductId(principalDetails.getUser(),id);
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)

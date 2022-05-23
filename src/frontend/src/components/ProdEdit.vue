@@ -80,7 +80,7 @@
 <script>
 export default {
 mounted() {
-  const id = Number(this.$route.params.id);
+  const id = Number(this.$route.params.contentId);
   this.$http
     .get(`/api/store/products/${id}`, {
     withCredentials: true
@@ -110,7 +110,7 @@ mounted() {
 
 data(){
   return{
-    id:this.$route.params.id,
+    id:this.$route.params.contentId,
     name:this.name,
     price: this.price,
     inventoryQuantity: this.inventoryQuantity,

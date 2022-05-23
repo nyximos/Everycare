@@ -55,8 +55,12 @@ public class CartServiceImpl {
     }
 
     public ResponseEntity<MyResponse> remove(HttpServletRequest request, int id) {
-        List<CartDTO> cartList = (List<CartDTO>)request.getSession().getAttribute("cart");
+        HttpSession session = request.getSession();
+
+        List<CartDTO> cartList = (List<CartDTO>)session.getAttribute("cart");
         cartList.remove(id);
+        session.setAttribute("cart", cartList);
+
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)

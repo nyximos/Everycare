@@ -21,8 +21,8 @@
     rounded
     dense
   ></v-text-field> -->
-   <div v-if="!list.length">글이 없습니다</div>
-  <div v-if="!filteredList.length && list.length">
+   <div v-if="!listData.length">글이 없습니다</div>
+  <div v-if="!filteredList.length && listData.length">
     검색결과가 없습니다
   </div>
   <!-- {{this.listData}} -->
