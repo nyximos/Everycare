@@ -4,8 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-import wd.team4.everycare.domain.*;
-import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleDTO;
+import wd.team4.everycare.domain.Gender;
+import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.member.MemberListViewDTO;
 
@@ -16,9 +16,9 @@ import java.time.LocalDate;
 public class JobOfferDTO {
     private Long id;
     private String title;
-    private CareTarget careTarget;                      //케어 대상인
-    private CareTargetSchedule careTargetSchedule;      //스케줄
-    private Member member;
+//    private CareTarget careTarget;                      //케어 대상인
+//    private CareTargetSchedule careTargetSchedule;      //스케줄
+//    private Member member;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;                        ////시작일
     @DateTimeFormat(pattern = "yyyy-MM-dd")
