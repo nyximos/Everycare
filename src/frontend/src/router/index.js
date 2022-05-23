@@ -16,6 +16,16 @@ const routes = [
         name: 'Main',
         component: () => import('@/pages/Main.vue')
     },
+    {
+        path: '/order',
+        name: 'Order',
+        component: () => import('@/components/order.vue')
+    },
+    {
+        path: '/payment',
+        name: 'Payment',
+        component: () => import('@/components/productPayment.vue')
+    },
     {   
         // 관리자 자격증 조회 화면
         path: '/admin/caresitter-certifications',
@@ -177,7 +187,7 @@ const routes = [
         name: 'caresitters',
         component: Caresitters
     },
-
+    {
         path: '/works',
         name: 'FindWork',
         component: () => import('@/pages/FindWork.vue'),

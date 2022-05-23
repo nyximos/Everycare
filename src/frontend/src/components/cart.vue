@@ -1,5 +1,64 @@
 <template>
   <div>
+     <v-card>
+        <v-row>
+          <v-text-field
+            label="이름"
+            v-model="name"
+            solo
+          ></v-text-field>
+        </v-row>
+                <v-row>
+          <v-text-field
+          v-model="amount"
+            label="가격"
+            solo
+          ></v-text-field>
+        </v-row>
+                <v-row>
+          <v-text-field
+          v-model="recipientName"
+            label="수취인 이름"
+            solo
+          ></v-text-field>
+        </v-row>
+                <v-row>
+          <v-text-field
+          v-model="recipientNumber"
+            label="수취인 번호"
+            solo
+          ></v-text-field>
+        </v-row>
+                <v-row>
+          <v-text-field
+          v-model="address"
+            label="주소"
+            solo
+          ></v-text-field>
+            <v-text-field
+            v-model="detailedAddress"
+            label="상세주소"
+            solo
+          ></v-text-field>
+            <v-text-field
+            label="주문요청"
+            v-model="comment"
+            solo
+          ></v-text-field>
+            <v-text-field
+            v-model="paymentAmount"
+            label="결재금액"
+            solo
+          ></v-text-field>
+          <v-file-input
+            v-model="zipcode"
+            label="File input"
+        ></v-file-input>
+          <span>결제날짜</span><input type="date">
+        </v-row>
+          <v-btn @click="order">주문하기</v-btn>
+
+    </v-card>
     <v-btn @click="removeAll">전체삭제</v-btn>
   <v-simple-table>
     <template v-slot:default>
@@ -18,11 +77,11 @@
       </thead>
       <tbody>
         <tr
-          v-for="(item,index) in $store.state.cart.cart"
+          v-for="(item,index) in desserts"
           :key="index"
         >
-          <td>{{index}}/{{item.productId }}</td>
-          <td>{{item.quantity}}<v-btn @click="minus(item)">-</v-btn><v-btn @click="plus(item)">+</v-btn></td>
+          <td>{{index}}/{{item.id }}</td>
+          <td>{{item.quantity}}</td>
           <td>{{item.amount * item.quantity}}</td>
           <td><v-btn @click="remove(item,index)">x</v-btn></td>
         </tr>
@@ -30,7 +89,7 @@
     </template>
   </v-simple-table>
   <h1>총금액 : {{total}}</h1>
-
+  <v-btn @click="order">주문하기</v-btn>
     <!-- <v-simple-table>
     <template v-slot:default>
       <thead>
@@ -79,10 +138,42 @@ export default {
   },
   data(){
     return{
-      desserts:[]
+      desserts:[],
+      name: this.name,
+        amount: this.amount,
+        recipientName: this.recipientName,
+        recipientNumber: this.recipientNumber,
+        zipcode: this.zipcode,
+        address: this.address,
+        detailedAddress: this.detailedAddress,
+        comment: this.comment,
+        paymentAmount: this.paymentAmount
     }
   },
     methods:{
+      order(){
+      var formData = new FormData();
+      formData.append('name','박지은');
+      formData.append('amount',1);
+      formData.append('recipientName','박지은');
+      formData.append('recipientNumber',123);
+      formData.append('zipcode','박지은.jpg');
+      formData.append('address','포항시북구');
+      formData.append('detailedAddress','404-222');
+      formData.append('comment','배송전문의');
+      formData.append('paymentAmount',100);
+        this.$http
+      .post('/api/cart/orders', formData,{
+       withCredentials:true
+      })
+     .then(res => {
+      console.log(res);
+      })
+     .catch(err => {
+       console.log(err);
+       console.log(this.hi)
+    });
+      },
       plus(item){
         this.$store.commit("cart/incrementItemQuantity", item)
       },
@@ -95,7 +186,7 @@ export default {
       },
       remove(item,index){
       this.$http
-      .delete(`/api/cart/${item.productId}`,{
+      .delete(`/api/cart/${item.id}`,{
       withCredentials: true
       })
       .then((res)=> {
@@ -122,7 +213,7 @@ export default {
   computed:{
     total() {
     var total = 0;
-    this.$store.state.cart.cart.forEach((item)=> {
+    this.desserts.forEach((item)=> {
       total += item.quantity * item.amount
     })
     return total;

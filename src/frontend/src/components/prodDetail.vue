@@ -32,7 +32,7 @@
         </v-row>
         <v-row>
             <v-col>
-                <label>개수:</label><input type="number" name="" id="" v-model="quantity">
+                <label>개수:</label><input type="number" class="form-control" v-model="quantity">
             </v-col>
                         <v-col>
                 <label>가격:</label>{{startOffset}}
