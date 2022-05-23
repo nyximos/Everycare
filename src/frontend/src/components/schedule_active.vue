@@ -6,10 +6,7 @@
             max-width="300" 
             >
             <v-card-text>
-                {{ postItem.name }}
-                {{ postItem.actstartTime }} -
-                {{ postItem.actendTime }}
-                {{ postItem }}
+                {{postItem.requirement}}
                 </v-card-text>
                 <v-card-actions>
                  <v-btn x-small color="primary" @click="update(postItem)" dark> 수정 </v-btn>
@@ -101,19 +98,15 @@ export default {
     };
   },
   mounted() {
-    const id = this.$route.params.caretargetsId;
+   const id = this.$route.params.caretargetsId;
     const scid = this.$route.params.scheduleId;
     this.$http
       .get(`/api/dashboard/caretargets/${id}/schedules/${scid}`, {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data.body.careTargetScheduleDTO);
-        this.name = res.data.body.careTargetScheduleDTO.name;
-        this.startTime = res.data.body.careTargetScheduleDTO.startTime;
-        this.endTime = res.data.body.careTargetScheduleDTO.endTime;
-        this.endTime = res.data.body.careTargetScheduleDTO.endTime;
-        this.postItems = res.data.body.careTargetScheduleDTO;
+        console.log(res);
+        this.postItems = res.data.body.activityInformationViewDTOs;
       })
       .catch((err) => {
         console.log(err);
@@ -123,7 +116,7 @@ export default {
   methods: {
       back_pg(){
         this.$router.push({ name: 'schedule' });
-  
+        window.location=document.referrer
       },
     closeDialog() {
       this.$refs.form.reset();
@@ -149,6 +142,7 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+         
     },
     scheBack() {
       this.$router.push({ name: "schedule" });
