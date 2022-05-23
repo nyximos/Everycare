@@ -12,6 +12,7 @@
       </div>
       <!-- <router-link :to="{name:'addprofile2' , params:{caresitterId: .id}}"><p>프로필 조회</p></router-link> -->
       <!-- <p @click="sitter">프로필 보기</p> -->
+      <router-link :to="{name:'caresitter_contract', params:{caresitterId:this.id}}">계약서조회</router-link>
   </div>
 </template>
 
