@@ -188,7 +188,7 @@ mounted() {
 
 data(){
   return{
-    id:this.$route.params.id,
+    id:this.$route.params.contentId,
     storeName: this.storeName,
     storeUrl: this.storeUrl,
     businessNumber: this.businessNumber,
@@ -245,14 +245,14 @@ methods:{
     });
   },
   drop(){
-    // this.$http.delete(`/api/store/account/${this.id}`,{
-    //   withCredentials: true
-    // })
-    // .then((res)=> {
-    //   console.log(res)
-    // }).catch((err)=>{
-    //   console.log(err)
-    // })
+    this.$http.delete(`/api/store/account/${this.id}`,{
+      withCredentials: true
+    })
+    .then((res)=> {
+      console.log(res)
+    }).catch((err)=>{
+      console.log(err)
+    })
   }
 },
 computed:{

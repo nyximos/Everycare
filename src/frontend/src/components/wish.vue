@@ -11,7 +11,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="(item,index) in $store.state.wish.wish"
+          v-for="(item,index) in wishList"
           :key="index"
         >
           <td>{{index}}/{{item.productId }}</td>
@@ -27,7 +27,21 @@
 
 export default {
   mounted() {
-    console.log(this.$store.state.wish.wish)
+    this.$http.get('/api/dashboard/wishlist',{
+      withCredentials: true
+    })
+    .then((res)=> {
+      console.log(res)
+      this.wishList=res.data.body
+
+    }).catch((err)=>{
+      console.log(err)
+        })
+  },
+  data(){
+    return{
+      wishList:[]
+    }
   },
   methods:{
     // drop(){

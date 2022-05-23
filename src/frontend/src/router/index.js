@@ -18,9 +18,19 @@ const routes = [
         component: () => import('@/pages/Main.vue'),
     },
     {
+        path: '/prodcreate',
+        name: 'ProdCreate',
+        component: () => import('@/components/prodCreate.vue')
+    },
+    {
+        path: '/prodedit/:contentId',
+        name: 'ProdEdit',
+        component: () => import('@/components/prodEdit.vue')
+    },
+    {
         path: '/order',
         name: 'Order',
-        component: () => import('@/components/order.vue'),
+        component: () => import('@/components/cart.vue')
     },
     {
         path: '/payment',
@@ -163,7 +173,7 @@ const routes = [
         component: () => import('@/pages/Storesubmit.vue'),
     },
     {
-        path: '/stores/:id',
+        path: '/stores/:contentId',
         name: 'storeEdit',
         component: () => import('@/pages/StoreInfoEdit.vue'),
     },
