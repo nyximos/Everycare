@@ -190,7 +190,7 @@ export default {
       },
       remove(item,index){
       this.$http
-      .delete(`/api/cart/${item.id}`,{
+      .delete(`/api/cart/${index}`,{
       withCredentials: true
       })
       .then((res)=> {
