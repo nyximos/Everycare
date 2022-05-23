@@ -7,16 +7,16 @@ import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.dto.careNote.CareNoteImageDTO;
 import wd.team4.everycare.dto.response.MyResponse;
-import wd.team4.everycare.service.CareNoteServiceImpl;
+import wd.team4.everycare.service.CareSitterCareNoteServiceImpl;
 
 import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
-public class CareNoteApiController {
+public class CareSitterCareNoteApiController {
 
-    private final CareNoteServiceImpl careNoteService;
+    private final CareSitterCareNoteServiceImpl careNoteService;
 
     @GetMapping("/carenotes")
     public ResponseEntity<MyResponse> getAll(@AuthenticationPrincipal PrincipalDetails principalDetails){

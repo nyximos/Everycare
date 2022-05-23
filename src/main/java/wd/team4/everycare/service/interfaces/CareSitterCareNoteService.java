@@ -7,7 +7,7 @@ import wd.team4.everycare.dto.response.MyResponse;
 
 import java.io.IOException;
 
-public interface CareNoteService {
+public interface CareSitterCareNoteService {
     ResponseEntity<MyResponse> getAll(PrincipalDetails principalDetails);
 
     ResponseEntity<MyResponse> get(Long id);
