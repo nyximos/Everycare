@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Careprofile1 from '@/components/main/careprofile1'
+import Careprofile1 from '@/components/main/careprofile'
 
 
 export default {
