@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 
-
 // function loginUser(userdata){
 //     const url = 'https://localhost:8086/login'
 //     return axios.post(url, userdata)
