@@ -2,6 +2,7 @@ package wd.team4.everycare.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import wd.team4.everycare.domain.CareTargetSchedule;
 import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.domain.Member;
 
@@ -15,4 +16,5 @@ public interface JobOfferRepository extends JpaRepository<JobOffer, Long> {
 
     List<JobOffer> findAllByMember(Member member);
 
+    List<JobOffer> findAllByCareTargetSchedule(CareTargetSchedule careTargetScheduleEntity);
 }

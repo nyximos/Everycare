@@ -276,7 +276,26 @@ const routes = [
         // component: () => import('@/pages/Targets_update.vue')
         component: () => import('@/components/main/caretargets_update.vue'),
     },
-
+    {
+        path: '/carenote/caretargets/:caretargetsId/schedules',
+        name: 'schedule',
+        component:() => import('@/pages/Schedule.vue')
+    },
+    {
+        path: '/dashboard/carenote/caretargets/:caretargetsId/schedules/:scheduleId/update',
+        name: 'schupdate',
+        component:() => import('@/pages/Schedule_Update.vue')
+    },
+    {
+     path: '/dashboard/carenote/caretargets/:caretargetsId/schedules/:scheduleId/delete',
+     name: 'schdelete',
+     component:() => import('@/pages/Schedule_Delete.vue')
+ },
+    {
+        path: '/dashboard/carenote/caretargets/:caretargetsId/schedules/:scheduleId/addactive',
+        name: 'scheActive',
+        component:() => import('@/pages/Schedule_Active.vue')
+    },
     {
         path: '/admin/members',
         name: 'adminpage',
