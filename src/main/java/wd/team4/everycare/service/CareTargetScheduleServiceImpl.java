@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.domain.ActivityInformation;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetSchedule;
+import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationListViewDTO;
 import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationViewDTO;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleDTO;
@@ -18,6 +19,7 @@ import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.ActivityInformationRepository;
 import wd.team4.everycare.repository.CareTargetRepository;
 import wd.team4.everycare.repository.CareTargetScheduleRepository;
+import wd.team4.everycare.repository.JobOfferRepository;
 import wd.team4.everycare.service.interfaces.CareTargetScheduleService;
 
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ public class CareTargetScheduleServiceImpl implements CareTargetScheduleService 
     private final CareTargetRepository careTargetRepository;
     private final CareTargetScheduleRepository careTargetScheduleRepository;
     private final ActivityInformationRepository activityInformationRepository;
+    private final JobOfferRepository jobOfferRepository;
 
     @Override
     public List<CareTargetScheduleDTO> findAllByCareTarget(Long id) {
@@ -163,13 +166,25 @@ public class CareTargetScheduleServiceImpl implements CareTargetScheduleService 
         CareTargetSchedule careTargetScheduleEntity = careTargetSchedule.orElse(null);
 
         activityInformationRepository.deleteAllByCareTargetSchedule(careTargetScheduleEntity);
+        List<JobOffer> allByCareTargetSchedule = jobOfferRepository.findAllByCareTargetSchedule(careTargetScheduleEntity);
+        if(allByCareTargetSchedule.isEmpty()){
+            careTargetScheduleRepository.deleteById(scheduleId);
+
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.OK)
+                    .message("성공")
+                    .build();
+
+            return  new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        }
 
         MyResponse body = MyResponse.builder()
-                .header(StatusEnum.OK)
-                .message("성공")
+                .header(StatusEnum.BAD_REQUEST)
+                .message("구인글을 삭제해주세요.")
                 .build();
 
-        return  new ResponseEntity<MyResponse>(body, HttpStatus.OK);    }
+        return  new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
 
     @Override
     public ResponseEntity<MyResponse> update(CareTargetScheduleDTO careTargetScheduleDTO) {
