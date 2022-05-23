@@ -10,191 +10,173 @@ Vue.use(VueRouter);
 const routes = [
     {
         path: '*',
-        redirect: '/'
+        redirect: '/',
     },
     {
         path: '/',
         name: 'Main',
-        component: () => import('@/pages/Main.vue')
+        component: () => import('@/pages/Main.vue'),
     },
     {
         path: '/order',
         name: 'Order',
-        component: () => import('@/components/order.vue')
+        component: () => import('@/components/order.vue'),
     },
     {
         path: '/payment',
         name: 'Payment',
-        component: () => import('@/components/productPayment.vue')
+        component: () => import('@/components/productPayment.vue'),
     },
-    {   
+    {
         // 관리자 자격증 조회 화면
         path: '/admin/caresitter-certifications',
         name: 'adminpage_certi',
-        component: () => import('@/pages/Adminpage_certi.vue')
+        component: () => import('@/pages/Adminpage_certi.vue'),
     },
     {
         // 관리자 자격증 상세/승인
         path: '/admin/caresitter-certifications/:contentId',
         name: 'certification_detail',
-        component: () => import('@/components/main/certification_detail.vue')
+        component: () => import('@/components/main/certification_detail.vue'),
     },
-    {   
+    {
         //자격증 등록화면
         path: '/dashboard/caresitter/:caresitterId/certifications/new',
         name: 'certification',
-        component: () => import('@/pages/Certification.vue')
+        component: () => import('@/pages/Certification.vue'),
     },
-    {   
+    {
         // 회원 마이페이지
         path: '/dashboard',
         name: 'mypage',
-        component: () => import('@/pages/Mypage.vue')
+        component: () => import('@/pages/Mypage.vue'),
     },
-    {   
+    {
         // 구직글 조회
         path: '/caresitters',
         name: 'caresitters',
-        component: () => import('@/pages/Caresitters.vue')
+        component: () => import('@/pages/Caresitters.vue'),
     },
     {
         // 케어시터 프로필 등록
         path: '/dashboard/caresitter',
         name: 'careprofilecreate',
-        component: () => import('@/pages/Careprofilecreate.vue')
+        component: () => import('@/pages/Careprofilecreate.vue'),
     },
-    {   
+    {
         // 구직글 케어시터 프로필 상세조회
         path: '/caresitters/:caresitterId',
         name: 'addprofile2',
-        props:true,
-        component: () => import('@/components/main/addprofile2.vue')
+        props: true,
+        component: () => import('@/components/main/addprofile2.vue'),
     },
-    {   
+    {
         // 계약서
         path: '/contract/:caresitterId',
         name: 'contract',
-        component: () => import('@/pages/Contract.vue')
+        component: () => import('@/pages/Contract.vue'),
     },
-    {   
+    {
         //마이페이지 케어시터프로필 조회
-        path:'/mypage_profile/:caresitterId',
-        name:'mypage_profile',
-        component: ()=> import('@/components/main/mypage_profile')
+        path: '/mypage_profile/:caresitterId',
+        name: 'mypage_profile',
+        component: () => import('@/components/main/mypage_profile'),
     },
-    {   
+    {
         // 프로필 수정
         path: '/profile_update/:caresitterId',
         name: 'profile_update',
-        component: () => import('@/pages/Profile_update.vue')
+        component: () => import('@/pages/Profile_update.vue'),
     },
-    {   
+    {
         //마이페이지 자격증 조회
-        path:'/mypage_certi/:caresitterId',
-        name:'mypage_certi',
-        component: ()=> import('@/components/main/mypage_certi')
+        path: '/mypage_certi/:caresitterId',
+        name: 'mypage_certi',
+        component: () => import('@/components/main/mypage_certi'),
     },
-    {   
+    {
         // 마이페이지 계약서 조회
-        path:'/caresitter_contract/:caresitterId',
-        name:'caresitter_contract',
-        component:()=>import('@/pages/Caresitter_contract')
+        path: '/caresitter_contract/:caresitterId',
+        name: 'caresitter_contract',
+        component: () => import('@/pages/Caresitter_contract'),
     },
-    {   
+    {
         //마이페이지 계약서 상세조회
-        path:'/contract_detail/:contractId',
-        name:'contract_detail',
-        component: ()=> import('@/components/main/contract_detail')
+        path: '/contract_detail/:contractId',
+        name: 'contract_detail',
+        component: () => import('@/components/main/contract_detail'),
     },
-    {   
+    {
         //케어 승낙한 계약서
-        path:'/lastcontract',
-        name:'lastcontract',
-        component: ()=> import('@/pages/Lastcontract')
+        path: '/lastcontract',
+        name: 'lastcontract',
+        component: () => import('@/pages/Lastcontract'),
     },
     {
         path: '/admin_report',
         name: 'admin_report',
-        component: () => import('@/pages/Adminpage_report.vue')
+        component: () => import('@/pages/Adminpage_report.vue'),
     },
     {
         path: '/wish',
         name: 'Wish',
-        component: () => import('@/pages/Wish.vue')
+        component: () => import('@/pages/Wish.vue'),
     },
     {
         path: '/cart',
         name: 'Cart',
-        component: () => import('@/pages/Cart.vue')
+        component: () => import('@/pages/Cart.vue'),
     },
     {
-
         path: '/joboffer/:id/editwrite',
         name: 'editwrite',
-        component: () => import('@/components/writeEdit.vue')
+        component: () => import('@/components/writeEdit.vue'),
     },
     {
         path: '/signup',
         name: 'signup',
-        component: () => import('@/pages/Signup.vue')
-   },
-   {
-       path: '/calendar',
-       name: 'calendar',
-       component:() => import('@/pages/Calendar.vue')
-   },
+        component: () => import('@/pages/Signup.vue'),
+    },
     {
-    path: '/stores/product/:contentId',
-    name: 'prodDetail',
-    component: () => import('@/components/prodDetail.vue')
+        path: '/calendar',
+        name: 'calendar',
+        component: () => import('@/pages/Calendar.vue'),
+    },
+    {
+        path: '/stores/product/:contentId',
+        name: 'prodDetail',
+        component: () => import('@/components/prodDetail.vue'),
     },
     {
         path: '/careprofile',
         name: 'careprofile',
-        component: () => import('@/pages/Careprofile.vue')
+        component: () => import('@/pages/Careprofile.vue'),
     },
     {
-        path:'/stores',
-        name:'storeMain',
-        component: ()=> import ('@/pages/StoreHome.vue')
+        path: '/stores',
+        name: 'storeMain',
+        component: () => import('@/pages/StoreHome.vue'),
     },
     {
         path: '/createstore',
         name: 'createStore',
-        component: () => import('@/pages/Storesubmit.vue')
+        component: () => import('@/pages/Storesubmit.vue'),
     },
     {
         path: '/stores/:id',
         name: 'storeEdit',
-        component: () => import('@/pages/StoreInfoEdit.vue')
+        component: () => import('@/pages/StoreInfoEdit.vue'),
     },
-    
+
     {
-        
         path: '/joblist',
         name: 'Job_list',
-        component: () => import('@/pages/Job_list.vue')
+        component: () => import('@/pages/Job_list.vue'),
     },
     {
         path: '/createwrite',
         name: 'CreateWrite',
-        component: () => import('@/pages/CreateWrite.vue')
-    },
-
-    {
-        path: '/careprofile',
-        name: 'careprofile',
-        component: () => import('@/pages/Careprofile.vue')
-    },
-    {
-        path: '/careprofile1',
-        name: 'careprofile1',
-        component: () => import('@/pages/Careprofile1.vue')
-    },
-    {
-        path: '/careprofile2',
-        name: 'careprofile2',
-        component: () => import('@/pages/Careprofile2.vue')
+        component: () => import('@/pages/CreateWrite.vue'),
     },
     // {
     //     path: '/joblist/detail/:contentId',
@@ -206,8 +188,7 @@ const routes = [
     //     name: 'Recruitions',
     //     component: () => import('@/pages/Recruitions.vue')
     // },
-    
-    
+
     {
         path: '/login',
         name: 'Login',
@@ -216,12 +197,12 @@ const routes = [
             const token = localStorage.getItem('jwt-access-token');
             if (token !== null) next({ name: 'Main' });
             else next();
-        }
+        },
     },
     {
         path: '/caresitters',
         name: 'caresitters',
-        component: Caresitters
+        component: Caresitters,
     },
     {
         path: '/works',
@@ -231,7 +212,7 @@ const routes = [
             const token = localStorage.getItem('jwt-access-token');
             if (token !== null) next({ name: 'Main' });
             else next();
-        }
+        },
     },
 
     // {
@@ -242,38 +223,37 @@ const routes = [
     {
         path: '/dashboard/caresitter',
         name: '케어시터 프로필생성',
-        component: () => import('@/pages/Careprofile.vue')
+        component: () => import('@/pages/Careprofile.vue'),
     },
     {
         path: '/carepeople',
         name: 'carepeople',
-        component: Carepeople
+        component: Carepeople,
     },
     {
         path: '/alarm',
         name: 'alarm',
-        component: Alarm
+        component: Alarm,
     },
     {
         path: '/profile2',
         name: 'profile2',
-        component: Profile2
+        component: Profile2,
     },
     {
         path: '/test',
         name: 'Test',
-        component: () => import('@/pages/Test.vue')
+        component: () => import('@/pages/Test.vue'),
     },
     {
         path: '/carenote/caretargets',
         name: 'Caretargets',
-        component: () => import('@/pages/Caretargets.vue')
+        component: () => import('@/pages/Caretargets.vue'),
     },
     {
-
         path: '/carenote/caretargets:caretargetsId',
         name: 'CaretargetsDetail',
-        component: () => import('@/components/main/caretargetsdetail.vue')
+        component: () => import('@/components/main/caretargetsdetail.vue'),
     },
     // {
     //     path: '/targets_update/:caretargetsId',
@@ -284,25 +264,24 @@ const routes = [
         path: '/dashboard/caretargets/:caretargetsId/update',
         name: 'TargetsUpdate',
         // component: () => import('@/pages/Targets_update.vue')
-        component: () => import('@/components/main/caretargets_update.vue')
+        component: () => import('@/components/main/caretargets_update.vue'),
     },
-    
+
     {
         path: '/admin/members',
         name: 'adminpage',
-        component: () => import('@/pages/Adminpage.vue')
+        component: () => import('@/pages/Adminpage.vue'),
     },
     {
         path: '/jobapplication',
         name: 'jobapplication',
-        component: () => import('@/pages/JobApplication.vue')
+        component: () => import('@/pages/JobApplication.vue'),
     },
-    
-]
+];
 
 const router = new VueRouter({
     mode: 'history',
-    routes
+    routes,
 });
 
 export default router;
