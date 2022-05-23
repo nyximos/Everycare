@@ -147,11 +147,11 @@ const routes = [
         name: 'prodDetail',
         component: () => import('@/components/prodDetail.vue'),
     },
-    {
-        path: '/careprofile',
-        name: 'careprofile',
-        component: () => import('@/pages/Careprofile.vue'),
-    },
+    // {
+    //     path: '/careprofile',
+    //     name: 'careprofile',
+    //     component: () => import('@/pages/Careprofile.vue'),
+    // },
     {
         path: '/stores',
         name: 'storeMain',
@@ -220,11 +220,11 @@ const routes = [
     //     name: 'profile',
     //     component: Profile
     // },
-    {
-        path: '/dashboard/caresitter',
-        name: '케어시터 프로필생성',
-        component: () => import('@/pages/Careprofile.vue'),
-    },
+    // {
+    //     path: '/dashboard/caresitter',
+    //     name: '케어시터 프로필생성',
+    //     component: () => import('@/pages/Careprofile.vue'),
+    // },
     {
         path: '/carepeople',
         name: 'carepeople',

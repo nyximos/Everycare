@@ -20,6 +20,13 @@
                 </div>
             </div>
         </div>
+        <div>
+            <v-btn text @click="logout">로그아웃</v-btn>
+        </div>
+        <div>
+            <v-btn text @click="login">로그인</v-btn>
+            <v-btn text @click="signup">회원가입</v-btn>
+        </div>
     </header>
 </template>
 
@@ -33,7 +40,6 @@ export default {
                 console.log('go main');
             } else {
                 this.$router.push('/');
-                console.log('/');
             }
         },
         signout() {
@@ -63,7 +69,8 @@ export default {
                 });
         }
     }
-};
+}
+    
 </script>
 <style scoped>
 .header {
