@@ -81,7 +81,7 @@
              <label>설명</label>
             </v-col>
           <v-col cols="8">
-            <p>{{comment}}</p>
+            <p>{{comment}} </p>{{this.$store.state.jobstore.id}}
           </v-col>
           </v-row>
           <v-btn color="primary" @click="application">신청</v-btn>
@@ -152,16 +152,16 @@ data(){
 methods:{
 
 application(){
-  this.$router.push({name:'jobapplication', params:{contractId:id}})
-
-  console.log(this.id)
+  
   // this.$router.push({ name: 'CaretargetsDetail', params: { caretargetsId: p.id }})
   const id = Number(this.$route.params.contentId);
   // console
    this.$http
     .post(`/api/recruitions/${id}/contracts`, {
       withCredentials: true
+      
     })
+    // this.$router.push({name:'jobapplication', params:{contentId:id}})
       .then((res) => {
         console.log(res);
           // console.log(res.data.body)

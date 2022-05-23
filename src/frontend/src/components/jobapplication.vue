@@ -38,7 +38,7 @@
 
 <script>
 export default {
-    name:'JobApplication',
+    name:'jobapplication',
     data() {
         return {
             profiles: [],
@@ -49,22 +49,38 @@ export default {
         }
     },
  mounted() {
-    // const id = this.$store.state.userStore.id
-     
-    this.$http
-    .get('/api/dashboard/contracts', {
-      withCredentials: true
-    })
-    .then((res) => {
-          // console.log(res)
-          console.log(res.data.body)
-          // this.id = res.data.body.id
+   
+    // this.$http
+    //     .get('/api/recruitions', {
+    //     withCredentials: true
+    //     })
+    //     .then(res => {
+    //       console.log(res.data)
+
+    //       this.id = res.data.body.id;
+    //       console.log(res)
+          
+    //     })
+    //       .catch(err => {
+    //       console.log(err);
+    //     });
+    
+  //   this.$http
+  //   .get('/api/dashboard/contracts', {
+  //     withCredentials: true
+  //   })
+  //   .then((res) => {
+  //         // console.log(res)
+  //         console.log(res.data.body)
+  //         // this.id = res.data.body.id
         
-  }).catch(err => {
-    alert(err);
-    console.log(err);
-  })
-  const id = this.$route.params.contractId;
+  // }).catch(err => {
+  //   alert(err);
+  //   console.log(err);
+  // })
+  
+  // const id = this.$route.params.contentId;
+  const id = this.$store.state.jobstore.id;
     this.$http
     .get(`/api/dashboard/recruitions/${id}/caresitters`, {
       withCredentials: true

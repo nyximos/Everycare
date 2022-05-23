@@ -27,6 +27,7 @@ export default {
     },
     methods: {
         detail() {
+            
             this.$emit('detail', this.listItem.id);
             // const user = {
             //   user : this.userId, //신청하는 자신의 id

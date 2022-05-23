@@ -24,7 +24,7 @@
    <div v-if="!listData.length">글이 없습니다</div>
   <div v-if="!filteredList.length && listData.length">
     검색결과가 없습니다
-  </div>
+  </div> -->
   <!-- {{this.listData}} -->
   <ListItem class="mt-5" v-for="(listItem, index) in filteredList" :key="index"
   :listItem="listItem" @detail="detailShot"
@@ -55,6 +55,9 @@ export default {
         .then(res => {
           console.log(res.data)
           this.listData = res.data.body;
+          this.id = res.data.body.id;
+          console.log(res)
+          
         })
           .catch(err => {
           console.log(err);
@@ -66,6 +69,7 @@ export default {
           dataPerPage:3,
           curPageNum:1,
           SearchText: '',
+          id: this.id
         }
     },
     methods:{
@@ -75,13 +79,19 @@ export default {
           })
         },
         detailShot(id){
+            const userinfo = {
+                id:id
+            }
+            console.log(userinfo);
           this.$router.push({
-            name: 'detail',
+            name: 'detail', 
             params: {
               contentId: id
             }
           })
-        }
+          this.$store.commit('jobstore/detailShot',userinfo);
+        },
+        
     },
     computed: {
       startOffset() {
