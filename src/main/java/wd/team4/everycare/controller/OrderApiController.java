@@ -25,4 +25,11 @@ public class OrderApiController {
         return responseEntity;
     }
 
+    @GetMapping("/cart/orders/payments")
+    public ResponseEntity<MyResponse> orderPay(@RequestParam String paymentKey, @RequestParam String orderId,
+            @RequestParam Long amount, @RequestParam Long orderTableId) throws JsonProcessingException {
+        PayResponse payment = paymentService.payment(paymentKey, orderId, amount);
+        ResponseEntity<MyResponse> signOrder = orderService.signOrder(orderTableId, payment);
+        return signOrder;
+    }
 }

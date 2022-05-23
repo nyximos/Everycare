@@ -22,11 +22,11 @@ public class CareSitterContractApiController {
     private final CareSiitterContractServiceImpl careSitterContractService;
 
 
-    @GetMapping("/dashboard/caresitter/contracts/{contractId}")
-    public ResponseEntity<MyResponse> findDetailOffer(@PathVariable("contractId") Long id){
-        ResponseEntity<MyResponse> detailOffer = jobOfferService.findDetailOffer(id);
-        return detailOffer;
-    }
+//    @GetMapping("/dashboard/caresitter/contracts/{contractId}")
+//    public ResponseEntity<MyResponse> findDetailOffer(@PathVariable("contractId") Long id){
+//        ResponseEntity<MyResponse> detailOffer = jobOfferService.findDetailOffer(id);
+//        return detailOffer;
+//    }
 
     @PostMapping("/recruitions/{id}/contracts")
     public ResponseEntity<MyResponse> saveContracts(@PathVariable("id")Long id, @AuthenticationPrincipal PrincipalDetails principalDetails) {

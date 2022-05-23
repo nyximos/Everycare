@@ -91,11 +91,11 @@ const routes = [
         name: 'careprofile2',
         component: () => import('@/pages/Careprofile2.vue')
     },
-    {
-        path: '/joblist/detail/:contentId',
-        name: 'detail',
-        component: () => import('@/components/itemDetail.vue')
-    },
+    // {
+    //     path: '/joblist/detail/:contentId',
+    //     name: 'detail',
+    //     component: () => import('@/components/itemDetail.vue')
+    // },
     // {
     //     path: '/recruitions',
     //     name: 'Recruitions',
@@ -118,7 +118,6 @@ const routes = [
         name: 'caresitters',
         component: Caresitters
     },
-
     {
         path: '/works',
         name: 'FindWork',
