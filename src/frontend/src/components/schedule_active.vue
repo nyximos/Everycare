@@ -7,9 +7,9 @@
             >
             <v-card-text>
                 {{ postItem.name }}
-                {{ postItem.startTime }} -
-                {{ postItem.endTime }}
-                {{ postItem.activites }}
+                {{ postItem.actstartTime }} -
+                {{ postItem.actendTime }}
+                {{ postItem }}
                 </v-card-text>
                 <v-card-actions>
                  <v-btn x-small color="primary" @click="update(postItem)" dark> 수정 </v-btn>
