@@ -26,20 +26,13 @@
                 <ul>
                     
                       <li><span >이름 </span><br><input type="text" v-model="name" placeholder = "이름을 입력하세요" class = 'box'/>
-                        <!-- <span class="name_form">이름</span> &nbsp;&nbsp;&nbsp;&nbsp; -->
-                        <!-- <input v-model="name" type="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+                     
                         
                         </li>
                     
                     
                            
-                        <!-- <span class="gender_form">성별</span>
-                        
-                        <v-radio-group type="text" v-model="gender" mandatory row>
-                                    <v-radio label="남" value="M"></v-radio>
-                                    <v-radio label="여" value="W"></v-radio>  
-                         </v-radio-group> -->
-                        
+
                         
                     
                      <li><span>생년월일</span><br><input type="date" v-model="birth" placeholder = "생년월일을 입력하세요." class = 'box'/>&nbsp;&nbsp;
@@ -49,16 +42,9 @@
                         <input type="radio" v-model="gender" id="gender2" value="W">
                             <label for="gender2" >여</label>
                     </li>
-                    <li><span>키,몸무게</span><br><input type="number" v-model="height" placeholder = "생년월일을 입력하세요." class = 'box1'/>&nbsp;cm
-                    <input type="number" v-model="weight" placeholder = "생년월일을 입력하세요." class = 'box1'/>&nbsp;kg
-                    <!-- <li>
-                        <span>키</span>
-                        
-                        &nbsp;&nbsp;<input type="number" v-model="height" class="input_form_number">cm
-                        &nbsp;&nbsp;
-                        <span>몸무게</span>
-                        &nbsp;&nbsp;<input type="number" v-model="weight" class="input_form_number">kg
-                    </li> -->
+                    <li><span>키,몸무게</span><br><input type="number" v-model="height" placeholder = "" class = 'box1'/>&nbsp;cm
+                    <input type="number" v-model="weight" placeholder = "" class = 'box1'/>&nbsp;kg
+                   </li>
                     
                     <li>
                     <span>주소</span><br>  
@@ -67,19 +53,11 @@
                     <button class="addressbutton" @click="execDaumPostcode()">주소 찾기</button>
                     <br><input type="text" v-model="address" name="address" placeholder = "도로명주소" class = 'box' readonly />
                     <br><input type="text" v-model="detailedAddress" name="detailedAddress" placeholder = "상세주소" class = 'box'/>
-                        <!-- <span>주소</span>
-                        &nbsp;&nbsp;<input type="text" v-model="address">
-                        <span>우편번호</span>
-                        &nbsp;&nbsp;<input type="text" v-model="zipcode">
-                        <span>상세주소</span>
-                        &nbsp;&nbsp;<input type="text" v-model="detailedAddress">
-                        <button>우편찾기</button> -->
+
                     </li>
                     <li>
                         <span>장기요양등급</span><br>
-                        <!-- <v-col class="d-flex" cols="12" sm="6">
-                        <v-select :items="longTermCareGrade" outlined></v-select></v-col> -->
-                        
+                      
                         <select type="number" v-model="longTermCareGrade" class="box1">
                             
                             <option>1</option>
@@ -99,14 +77,7 @@
                             <label for="O">O</label>&nbsp;&nbsp;
                         <input type="radio" v-model="pet" id="X" value="1">
                             <label for="X">X</label>
-                        <!-- <span>반려동물 유무</span>
-                        <v-radio-group type="number" v-model="pet" mandatory row>
-                                    <v-radio label="O" value="0"></v-radio>
-                                    <v-radio label="X" value="1"></v-radio>
-                        </v-radio-group> -->
-                        <!--
-                        <v-btn class="ma-2" outlined small fab color="teal" v-model="pet">유</v-btn>
-                        <v-btn class="ma-2" outlined small fab color="teal" v-model="pet">무</v-btn> -->
+
                     </li>
                     <li>
                         <span>cctv 유무</span>
@@ -114,13 +85,7 @@
                             <label for="O1">O</label>&nbsp;&nbsp;
                         <input type="radio" v-model="isCctvAgreement" id="X1" value="1">
                             <label for="X1">X</label>
-                        <!-- <v-radio-group type="number" v-model="isCctvAgreement" mandatory row>
-                                    <v-radio label="O" value="0"></v-radio>
-                                    <v-radio label="X" value="1"></v-radio>
-                        </v-radio-group> -->
-                         <!--
-                        <v-btn class="ma-2" outlined small fab color="teal" v-model="cctv">O</v-btn>
-                        <v-btn class="ma-2" outlined small fab color="teal" v-model="cctv">X</v-btn> -->
+                      
                     </li>
                     <li>
                         <span>케어유형</span>
@@ -132,16 +97,7 @@
                             <label for="pregnantwomen">임산부</label>
                         <input type="radio" v-model="careType" id="patient" value="patient">
                             <label for="patient">환자</label>
-                        <!-- <v-radio-group type="text" v-model="careType" mandatory row>
-                                    <v-radio label="노인" value="oldman"></v-radio>
-                                    <v-radio label="아동" value="child"></v-radio>
-                                    <v-radio label="임산부" value="pregnantwomen"></v-radio>
-                                    <v-radio label="환자" value="patient"></v-radio>
-                        </v-radio-group> -->
-                        <!-- <v-btn class="ma-2" outlined small fab color="teal" v-model="caretype">노인</v-btn>
-                        <v-btn class="ma-2" outlined small fab color="teal" v-model="caretype">아동</v-btn>
-                        <v-btn class="ma-2" outlined small fab color="teal" v-model="caretype">임산부</v-btn>
-                        <v-btn class="ma-2" outlined small fab color="teal" v-model="caretype">환자</v-btn> -->
+                        
                     </li>
                     <li>
                         <span>코로나검사여부</span>
@@ -149,10 +105,7 @@
                             <label for="O2">O</label>&nbsp;&nbsp;
                         <input type="radio" v-model="coronaTest" id="X2" value="1">
                             <label for="X2">X</label>
-                        <!-- <v-radio-group type="number" v-model="coronaTest" mandatory row>
-                                    <v-radio label="O" value="0"></v-radio>
-                                    <v-radio label="X" value="1"></v-radio>
-                        </v-radio-group> -->
+
                     </li>
                     <li>
                     <span>파일 업로드</span>
@@ -174,7 +127,7 @@
 <script>
 
 
-//  import axios from 'axios'
+
 export default {
     
 data(){

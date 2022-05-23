@@ -25,5 +25,4 @@ public class MemberInfoDTO {
                 .role(this.role)
                 .build();
     }
-
 }

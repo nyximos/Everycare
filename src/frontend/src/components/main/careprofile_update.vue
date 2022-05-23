@@ -177,28 +177,28 @@ export default {
         
     },
     mounted(){
-		const id =this.$route.params.caresitterId;
-		this.$http
-		.get(`/api/caresitters/${id}`,{
-			withCredentials:true
-		})
-		.then((res)=>{
-			console.log(res.data.body);
-			// console.log(res.data.body)
-			this.introduction = res.data.body.introduction
-			this.cctvAgreement = res.data.body.cctvAgreement
-			this.desiredDayWeek = res.data.body.desiredDayWeek
-			this.desiredHourlyWage = res.data.body.hourlyWage
-			this.monthlyWage = res.data.body.monthlyWage
-			this.preferredType = res.data.body.preferredType
-			this.activityTime = res.data.body.activityTime
-			this.attachFiles = res.data.body.attachFiles
-			this.hopefulRegion = res.data.body.hopefulRegion
-			this.is_vaccinated = res.data.body.is_vaccinated
+      const id =this.$route.params.caresitterId;
+      this.$http
+      .get(`/api/caresitters/${id}`,{
+         withCredentials:true
+      })
+      .then((res)=>{
+         console.log(res.data.body);
+         // console.log(res.data.body)
+         this.introduction = res.data.body.introduction
+         this.cctvAgreement = res.data.body.cctvAgreement
+         this.desiredDayWeek = res.data.body.desiredDayWeek
+         this.desiredHourlyWage = res.data.body.hourlyWage
+         this.monthlyWage = res.data.body.monthlyWage
+         this.preferredType = res.data.body.preferredType
+         this.activityTime = res.data.body.activityTime
+         this.attachFiles = res.data.body.attachFiles
+         this.hopefulRegion = res.data.body.hopefulRegion
+         this.is_vaccinated = res.data.body.is_vaccinated
       this.disclosureStatus = res.data.body.disclosureStatus
-		}).catch(err=>{
-			console.log(err);
-		})
+      }).catch(err=>{
+         console.log(err);
+      })
     },
     methods:{
         profile_update(){  

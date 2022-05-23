@@ -197,6 +197,7 @@ public class MemberServiceImpl implements MemberService {
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
 
 
+
     }
 
 //    @Override
