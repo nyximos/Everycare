@@ -15,4 +15,7 @@ public interface CertificationRepository extends JpaRepository<Certification, Lo
     List<Certification> findAllByAdminApproval(int i);
 
     List<Certification> findAllByCareSitter(CareSitter careSitter);
+
+    @EntityGraph(attributePaths = {"careSitter"})
+    List<Certification> findAllByCareSitterIdAndAdminApproval(Long id, int i);
 }

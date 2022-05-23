@@ -58,7 +58,7 @@ public class JobSearchServiceImpl implements JobSearchService {
         CareSitter careSitter = findJobSearch.get();
         DetailJobSearchDTO jobSearchDTO = careSitter.toDetailJobSearchDTO();
 
-        List<Certification> certifications = certificationRepository.findAllByCareSitterId(careSitter.getId());
+        List<Certification> certifications = certificationRepository.findAllByCareSitterIdAndAdminApproval(careSitter.getId(),1);
         List<CertificationViewDTO> certificationViewDTOs =  new ArrayList<>();
 
         for (Certification certification : certifications) {

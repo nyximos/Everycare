@@ -45,7 +45,7 @@ public class AdminApiController {
     }
 
 
-        @GetMapping("/stores")
+    @GetMapping("/stores")
     public ResponseEntity<MyResponse> getStores() {
         ResponseEntity<MyResponse> responseEntity = adminService.getStores();
         return responseEntity;

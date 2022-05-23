@@ -15,6 +15,8 @@ import java.util.List;
 @Setter @Getter
 public class DetailJobSearchDTO {
 
+    private Long id;
+    private int disclosureStatus;
     private int cctvAgreement;
     private int is_vaccinated;
     private String desiredDayWeek;

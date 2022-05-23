@@ -19,7 +19,9 @@ public class SignContractDTO {
 
     private Long id;
     private String name;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
     private String startTime;
     private String endTime;
@@ -47,7 +49,7 @@ public class SignContractDTO {
                 .pay(this.pay)
                 .status(this.status)
                 .amount(this.amount)
-                .payDatetime(this.payDatetime)
+                .payDateTime(this.payDatetime)
                 .cardNumber(this.cardNumber)
                 .payApprove(this.payApprove)
                 .monthlyInstallmentPlan(this.monthlyInstallmentPlan)

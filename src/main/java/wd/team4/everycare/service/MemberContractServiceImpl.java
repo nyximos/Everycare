@@ -8,10 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import wd.team4.everycare.config.auth.PrincipalDetails;
-import wd.team4.everycare.domain.CareSitter;
-import wd.team4.everycare.domain.Contract;
-import wd.team4.everycare.domain.JobOffer;
-import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.domain.*;
 import wd.team4.everycare.dto.PayResponse;
 import wd.team4.everycare.dto.contract.ContractDTO;
 import wd.team4.everycare.dto.contract.SignContractDTO;
@@ -19,6 +16,7 @@ import wd.team4.everycare.dto.contract.JobOfferContractListDTO;
 import wd.team4.everycare.dto.product.ProductListViewDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
+import wd.team4.everycare.repository.CareNoteRepository;
 import wd.team4.everycare.repository.CareSitterRepository;
 import wd.team4.everycare.repository.ContractRepository;
 import wd.team4.everycare.repository.JobOfferRepository;
@@ -47,6 +45,7 @@ public class MemberContractServiceImpl implements MemberContractService {
     private final JobOfferRepository jobOfferRepository;
     private final ContractRepository contractRepository;
     private final PaymentServiceImpl paymentService;
+    private final CareNoteRepository careNoteRepository;
 
 
     @Override
@@ -115,6 +114,24 @@ public class MemberContractServiceImpl implements MemberContractService {
         contract.updateContract(payDateTime, amount, cardCompany, cardNumber, payApprove, monthlyInstallmentPlan);
 
         ContractDTO contractDTO = contract.toContractDTO();
+
+        // 케어노트 생성
+        JobOffer jobOffer = contract.getJobOffer();
+        String day = jobOffer.getDay();
+        String[] dayArr = day.split(",");
+
+        for (int i=0; i<dayArr.length; i++) {
+            LocalDate date = LocalDate.parse(dayArr[i], DateTimeFormatter.ISO_DATE);
+
+            CareNote careNote = CareNote.builder()
+                    .date(date)
+                    .contract(contract)
+                    .careSitter(contract.getCareSitter())
+                    .member(contract.getMember())
+                    .build();
+
+            careNoteRepository.save(careNote);
+        }
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)

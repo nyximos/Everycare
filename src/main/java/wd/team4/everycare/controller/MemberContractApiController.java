@@ -41,6 +41,11 @@ public class MemberContractApiController {
         return responseEntity;
     }
 
+    @GetMapping("/caresitters/{careSitterId}/recruitions")
+    public ResponseEntity<MyResponse> getRecruitions(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        ResponseEntity<MyResponse> responseEntity = memberContractService.getRecruitions(principalDetails);
+        return responseEntity;
+    }
 
     @GetMapping("/dashboard/contracts/payments")
     public ResponseEntity<MyResponse> signContract(@RequestParam String paymentKey, @RequestParam String orderId, @RequestParam Long amount, @RequestParam Long contractId) throws IOException {

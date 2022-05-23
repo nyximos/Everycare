@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @Entity
+@Builder
+@AllArgsConstructor
 @DynamicUpdate
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SequenceGenerator(name = "care_note_seq_generator",
