@@ -42,7 +42,7 @@ public class MemberScheduleApiController {
         return responseEntity;
     }
 
-    @DeleteMapping("/health-categories/{id}")
+    @DeleteMapping("/dashboard/calendar/{id}")
     public ResponseEntity<MyResponse> remove(@PathVariable("id") Long id) {
         ResponseEntity<MyResponse> responseEntity = memberScheduleService.remove(id);
         return responseEntity;
