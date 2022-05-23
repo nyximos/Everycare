@@ -20,6 +20,7 @@ import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.ProducImageRepository;
 import wd.team4.everycare.repository.ProductCategoryRepository;
 import wd.team4.everycare.repository.ProductRepository;
+import wd.team4.everycare.repository.WishListRepository;
 import wd.team4.everycare.service.interfaces.ProductService;
 
 import java.io.IOException;
@@ -37,6 +38,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ProductCategoryRepository productCategoryRepository;
     private final ProducImageRepository producImageRepository;
+    private final WishListRepository wishListRepository;
 
     @Override
     public List<MemberProductListViewDTO> webFindAll(Store store) {
@@ -284,6 +286,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ResponseEntity<MyResponse> deleteProduct(Long id) {
+
+        wishListRepository.deleteByProductId(id);
+        producImageRepository.deleteByProductId(id);
 
         productRepository.deleteById(id);
 
