@@ -20,8 +20,8 @@ export default {
         return {
             json: {
                 username: '',
-                password: ''
-            }
+                password: '',
+            },
         };
     },
     components: {
@@ -34,36 +34,53 @@ export default {
     // },
     methods: {
         login() {
-            const userinfo={
-                username:this.json.username,
-                password:this.json.password
-            }
-            if(this.json.username==''){
+            const userinfo = {
+                username: this.json.username,
+                password: this.json.password,
+            };
+            if (this.json.username == '') {
                 alert('아이디를 입력해주세요.');
                 return;
-            } else if (this.json.password==''){
+            } else if (this.json.password == '') {
                 alert('패스워드를 입력해주세요.');
                 return;
             }
             console.log(userinfo);
             this.$http
                 .post('https://localhost:8086/login', userinfo, {
-                    withCredentials: true
+                    withCredentials: true,
                 })
-                .then(res => {
+                .then((res) => {
                     // this.test = response.data;
                     console.log(res);
-                    console.log(this.json);
                     // state에 회원 정보 담기
                     this.$store.commit('userStore/userInfo', userinfo);
-                     location.href = '/';
+                    this.$http
+                        .get('/api/user', {
+                            withCredentials: true,
+                        })
+                        .then((res) => {
+                            // state에 저장
+                            const userData = {
+                                caresitterId: res.data.body.careSitterId,
+                                storeId: res.data.body.storeId,
+                            };
+                            console.log(userData);
+                            this.$store.commit('userStore/userData', userData);
+                            // console.log(this.$store.state.userStore.name);
+                            location.href = '/';
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            console.log(this.json);
+                        });
                 })
-                .catch(err => {
+                .catch((err) => {
                     console.log(err);
                     console.log(this.json);
                 });
-        }
-    }
+        },
+    },
 };
 </script>
 
