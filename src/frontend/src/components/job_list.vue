@@ -14,15 +14,15 @@
         </v-row>
     </div>
  <hr>
-  <v-text-field
+  <!-- <v-text-field
     v-model="SearchText"
     placeholder="Search"
     filled
     rounded
     dense
-  ></v-text-field>
-   <div v-if="!listData.length">글이 없습니다</div>
-  <div v-if="!filteredList.length && listData.length">
+  ></v-text-field> -->
+   <div v-if="!list.length">글이 없습니다</div>
+  <div v-if="!filteredList.length && list.length">
     검색결과가 없습니다
   </div>
   <!-- {{this.listData}} -->

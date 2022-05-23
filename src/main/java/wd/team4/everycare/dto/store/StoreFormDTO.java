@@ -9,7 +9,6 @@ import wd.team4.everycare.domain.Store;
 @NoArgsConstructor
 @ToString
 public class StoreFormDTO {
-    private Long id;
     private String name;
     private String url;
     private int businessLicenseNumber;
@@ -27,7 +26,6 @@ public class StoreFormDTO {
 
     @Builder
     public StoreFormDTO(String name, String url, int businessLicenseNumber, String email, String operationStartTime, String operationEndTime, String lunchStartTime, String lunchEndTime, String closedDay, String companyCorporationName, String representativeName, String businessLocation, String customerServiceNumber, Member member) {
-        this.id = id;
         this.name = name;
         this.url = url;
         this.businessLicenseNumber = businessLicenseNumber;
@@ -46,7 +44,6 @@ public class StoreFormDTO {
 
     public Store toStore(){
         return Store.builder()
-                .id(this.id)
                 .name(this.name)
                 .url(this.url)
                 .businessLicenseNumber(this.businessLicenseNumber)

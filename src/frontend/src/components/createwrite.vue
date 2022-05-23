@@ -169,8 +169,6 @@ name: 'Create',
          caretargetlist:[],
          pickSchedule: this.pickSchedule,
          schedulelist:[],
-         startDay: this.startDay,
-         endDay: this.endDay,
         startTime: this.startTime,
         endTime: this.endTime,
         day: [],
@@ -181,8 +179,7 @@ name: 'Create',
         comment: this.comment,
         showbtn: true,
         showSchedule: false,
-        btnLock: false,
-        hi: this.hi
+        btnLock: false
       }
     },
     methods: {
