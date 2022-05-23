@@ -20,17 +20,17 @@ const routes = [
     {
         path: '/prodcreate',
         name: 'ProdCreate',
-        component: () => import('@/components/prodCreate.vue')
+        component: () => import('@/components/prodCreate.vue'),
     },
     {
         path: '/prodedit/:contentId',
         name: 'ProdEdit',
-        component: () => import('@/components/prodEdit.vue')
+        component: () => import('@/components/prodEdit.vue'),
     },
     {
         path: '/order',
         name: 'Order',
-        component: () => import('@/components/cart.vue')
+        component: () => import('@/components/cart.vue'),
     },
     {
         path: '/payment',
