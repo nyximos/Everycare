@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Caresitters from '../pages/Caresitters';
+// import Caresitters from '../pages/Caresitters';
 import Carepeople from '../pages/Carepeople';
 import Alarm from '../pages/Alarm';
-import Profile2 from '../pages/Profile2';
+// import Profile2 from '../pages/Profile2';
 
 Vue.use(VueRouter);
 const routes = [
@@ -199,11 +199,11 @@ const routes = [
             else next();
         },
     },
-    {
-        path: '/caresitters',
-        name: 'caresitters',
-        component: Caresitters,
-    },
+    // {
+    //     path: '/caresitters',
+    //     name: 'caresitters',
+    //     component: Caresitters,
+    // },
     {
         path: '/works',
         name: 'FindWork',
@@ -235,11 +235,11 @@ const routes = [
         name: 'alarm',
         component: Alarm,
     },
-    {
-        path: '/profile2',
-        name: 'profile2',
-        component: Profile2,
-    },
+    // {
+    //     path: '/profile2',
+    //     name: 'profile2',
+    //     component: Profile2,
+    // },
     {
         path: '/test',
         name: 'Test',

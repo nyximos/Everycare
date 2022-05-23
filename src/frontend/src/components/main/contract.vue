@@ -31,7 +31,7 @@ export default {
       joboffer:[
 
       ],
-      caresitterId:this.$store.state.userStore.careSitterId,
+      caresitterId:this.$store.state.careprofileStore.id,
     }
   },
   mounted(){
@@ -51,7 +51,7 @@ export default {
   },
   methods:{
     choose(j){
-      const id = this.$route.params.caresitterId
+      const id =this.caresitterId;
       const jobId = j.id;
       console.log(id)
       console.log(typeof jobId);

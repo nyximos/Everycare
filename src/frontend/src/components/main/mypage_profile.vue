@@ -32,7 +32,10 @@
 							<dl class="infoDetail"> 		
 								<dt class="title">백신접종:{{details.is_vaccinated}} <span></span></dt> 
 								
-								<dt class="title">자격증:{{details.certification[0].name}}</dt> 
+								<dt class="title">자격증:
+									<!-- <div v-if="certification=''"> -->
+										{{details.certification[0].name}}</dt> 
+									<!-- </div> -->
 								<dd class="kind">
 									<ul>
 										
