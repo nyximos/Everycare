@@ -1,35 +1,44 @@
 <template>
-  <div>
-      <ul>  
+    <div class="profile-page">
+        <br><br>
+    <div class="wrapper">
+        
+        <div class="inputBox">
+            <h3>계약서</h3>
+            <br>
+        <ul>
           <li><h2>케어대상인 정보</h2></li>
-          주소: <li>{{contract.careTargetDetailDTO.address}}</li>
-          생년월일: <li>{{contract.careTargetDetailDTO.birth}}</li>
-          타입: <li>{{contract.careTargetDetailDTO.careType}}</li>
-          <li>{{contract.careTargetDetailDTO.comment}}</li>
-          백신: <li>{{contract.careTargetDetailDTO.coronaTest}}</li>
-          <li>{{contract.careTargetDetailDTO.detailedAddress}}</li>
-          <li>{{contract.careTargetDetailDTO.gender}}</li>
-          <li>{{contract.careTargetDetailDTO.height}}</li>
-          <li>{{contract.careTargetDetailDTO.id}}</li>
-          <li>{{contract.careTargetDetailDTO.isCctvAgreement}}</li>
-          <li>{{contract.careTargetDetailDTO.longTermCareGrade}}</li>
-          <li>{{contract.careTargetDetailDTO.name}}</li>
-          <li>{{contract.careTargetDetailDTO.pet}}</li>
-          <li>{{contract.careTargetDetailDTO.weight}}</li>
-          <li>{{contract.careTargetDetailDTO.zipcode}}</li>
+          <li>아이디:{{contract.careTargetDetailDTO.id}}</li>
+          <li>이름:{{contract.careTargetDetailDTO.name}}</li>
+            <li>주소:{{contract.careTargetDetailDTO.address}}</li>
+        <li>상세주소:{{contract.careTargetDetailDTO.detailedAddress}}</li>
+           <li>생년월일:{{contract.careTargetDetailDTO.birth}}</li>
+          <li>성별:{{contract.careTargetDetailDTO.gender}}</li>
+          <li>키:{{contract.careTargetDetailDTO.height}}</li>
+          <li>몸무게:{{contract.careTargetDetailDTO.weight}}</li>
+           <li>타입:{{contract.careTargetDetailDTO.careType}}</li>
+          <li>comment:{{contract.careTargetDetailDTO.comment}}</li>
+          <li>백신: {{contract.careTargetDetailDTO.coronaTest}}</li>
+          <li>cctv:{{contract.careTargetDetailDTO.isCctvAgreement}}</li>
+          <li>케어등급:{{contract.careTargetDetailDTO.longTermCareGrade}}</li>
+          <li>펫:{{contract.careTargetDetailDTO.pet}}</li>
+          <li>zipcode:{{contract.careTargetDetailDTO.zipcode}}</li>
             <br><br><br>
           <li><h2>계약정보</h2></li>
-          <li>{{contract.contractJobOfferDTO.amount}}</li>
-          <li>{{contract.contractJobOfferDTO.day}}</li>
-          <li>{{contract.contractJobOfferDTO.desiredEndTime}}</li>
-          <li>{{contract.contractJobOfferDTO.desiredStartTime}}</li>
-          <li>{{contract.contractJobOfferDTO.endDate}}</li>
-          <li>{{contract.contractJobOfferDTO.id}}</li>
-          <li>{{contract.contractJobOfferDTO.pay}}</li>
-          <li>{{contract.contractJobOfferDTO.startDate}}</li>
-          <li>{{contract.contractJobOfferDTO.title}}</li>
+          <li>title:{{contract.contractJobOfferDTO.title}}</li>
+          <li>아이디:{{contract.contractJobOfferDTO.id}}</li>
+          <li>날짜:{{contract.contractJobOfferDTO.day}}</li>
+          <li>시작시간:{{contract.contractJobOfferDTO.desiredStartTime}}</li>
+          <li>끝나는시간{{contract.contractJobOfferDTO.desiredEndTime}}</li>
+          <li>시작날짜:{{contract.contractJobOfferDTO.startDate}}</li>
+          <li>끝나는 날짜{{contract.contractJobOfferDTO.endDate}}</li>
+          <li>금액:{{contract.contractJobOfferDTO.amount}}</li>
+          <li>pay:{{contract.contractJobOfferDTO.pay}}</li>
       </ul>  
-      <v-btn class="ma-2" outlined color="indigo" @click="submit">결제</v-btn>
+      <v-btn class="ma-2" outlined color="indigo" @click="submit">수락</v-btn>
+
+        </div>
+  </div>
   </div>
 </template>
 
@@ -84,5 +93,35 @@ export default {
 </script>
 
 <style>
-
+    li{
+        list-style: none;
+    }
+    .profile-page{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: white;
+    }
+    .wrapper{
+        max-width: 500px;
+        width: 100%;
+        box-shadow: 0 0 5px rgba(0, 0, 0,.10);
+        margin: auto;
+        background: white;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    .wrapper h2{
+        text-align: center;
+        font-size: 2rem;
+    }
+    /* .wrapper .inputBox{
+        width: 100%;
+        height: 50px;
+        margin-bottom: 1.3rem;
+    } */
+    /* .wrapper .inputBox:last-child{
+        margin-bottom: 0;
+    } */
 </style>

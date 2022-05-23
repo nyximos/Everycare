@@ -51,9 +51,9 @@ export default {
   },
   methods:{
     choose(j){
-      const id = this.caresitterId
+      const id = this.$route.params.caresitterId
       const jobId = j.id;
-      console.log(typeof id)
+      console.log(id)
       console.log(typeof jobId);
       this.$http
       .post(`/api/caresitters/${id}/contracts?jobOfferId=${jobId}&careSitterId=${id}`,

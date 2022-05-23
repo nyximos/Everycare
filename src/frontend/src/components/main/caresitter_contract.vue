@@ -39,7 +39,7 @@ export default {
     },
     mounted(){
         this.$http
-        .get('/api//dashboard/caresitter/contracts',{
+        .get('/api/dashboard/caresitter/contracts',{
             withCredentials:true
         })
         .then((res)=>{

@@ -95,6 +95,12 @@ const routes = [
         name:'contract_detail',
         component: ()=> import('@/components/main/contract_detail')
     },
+    {   
+        //케어 승낙한 계약서
+        path:'/lastcontract',
+        name:'lastcontract',
+        component: ()=> import('@/pages/Lastcontract')
+    },
     {
         path: '/admin_report',
         name: 'admin_report',

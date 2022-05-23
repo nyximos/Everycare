@@ -79,7 +79,6 @@
                           <v-checkbox v-model="desiredDayWeek" value="금" label="금"></v-checkbox>
                           <v-checkbox v-model="desiredDayWeek" value="토" label="토"></v-checkbox>
                           <v-checkbox v-model="desiredDayWeek" value="일" label="일"></v-checkbox>
-                          {{desiredDayWeek}}
                         </div>
                       </div>
                       <div class="area_time">

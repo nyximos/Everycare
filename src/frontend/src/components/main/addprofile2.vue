@@ -10,7 +10,6 @@
 							<span class="photo">
 								<a href="#ResumeBaseInfo" class="image" style="position:static;left:0;bottom:0;display:block;width:auto;height:auto;padding:0;border:0 none;background:none">
 									<img id="divProfile" :src="'https://localhost:8086/api/images/' + detail.attachFiles[0].storeFileName" alt="사진">		
-									
 								</a>
 							</span>
 						</div>
@@ -109,8 +108,10 @@
                     </div>
 				</div>
 				<br><br><br><br><br><br><br><br>
+				<div style="text-align:center;">
 				<v-btn class="ma-2" outlined color="indigo" @click="contract">계약</v-btn>
                 <router-link to="/caresitters"><v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
+				</div>
 			</div>
 			</div>
         </div>
@@ -192,7 +193,9 @@ export default {
 </script>
 
 <style>
-
+.ma-2{
+    align-items: center;
+}
 .Contents{
 	background: #f1f4f8;
 	padding: 0 0 80px;
