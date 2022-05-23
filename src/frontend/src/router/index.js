@@ -83,6 +83,24 @@ const routes = [
         name:'mypage_certi',
         component: ()=> import('@/components/main/mypage_certi')
     },
+    {   
+        // 마이페이지 계약서 조회
+        path:'/caresitter_contract/:caresitterId',
+        name:'caresitter_contract',
+        component:()=>import('@/pages/Caresitter_contract')
+    },
+    {   
+        //마이페이지 계약서 상세조회
+        path:'/contract_detail/:contractId',
+        name:'contract_detail',
+        component: ()=> import('@/components/main/contract_detail')
+    },
+    {   
+        //케어 승낙한 계약서
+        path:'/lastcontract',
+        name:'lastcontract',
+        component: ()=> import('@/pages/Lastcontract')
+    },
     {
         path: '/admin_report',
         name: 'admin_report',
@@ -135,11 +153,11 @@ const routes = [
         component: () => import('@/pages/StoreInfoEdit.vue')
     },
     
-    {
-        path: '/joblist',
-        name: 'Job_list',
-        component: () => import('@/pages/Job_list.vue')
-    },
+    // {
+    //     path: '/joblist',
+    //     name: 'Job_list',
+    //     component: () => import('@/pages/Job_list.vue')
+    // },
     {
         path: '/careprofile1',
         name: 'careprofile1',
@@ -150,11 +168,11 @@ const routes = [
         name: 'careprofile2',
         component: () => import('@/pages/Careprofile2.vue')
     },
-    {
-        path: '/joblist/detail/:contentId',
-        name: 'detail',
-        component: () => import('@/components/itemDetail.vue')
-    },
+    // {
+    //     path: '/joblist/detail/:contentId',
+    //     name: 'detail',
+    //     component: () => import('@/components/itemDetail.vue')
+    // },
     // {
     //     path: '/recruitions',
     //     name: 'Recruitions',
@@ -177,7 +195,7 @@ const routes = [
         name: 'caresitters',
         component: Caresitters
     },
-
+    {
         path: '/works',
         name: 'FindWork',
         component: () => import('@/pages/FindWork.vue'),
