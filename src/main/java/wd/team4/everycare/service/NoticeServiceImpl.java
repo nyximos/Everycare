@@ -7,6 +7,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Board;
+import wd.team4.everycare.domain.BoardCategory;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.dto.board.BoardDTO;
 import wd.team4.everycare.dto.response.MyResponse;
@@ -30,7 +31,7 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Override
     public ResponseEntity<MyResponse> findAllNotice() {
-        List<Board> allNotice = boardRepository.findAll();
+        List<Board> allNotice = boardRepository.findByCategory(BoardCategory.공지);
         List<BoardDTO> boardDTOs = new ArrayList<>();
         allNotice.stream().map(board -> board.toBoardDTO()).forEach(boardDTOs::add);
         MyResponse body = MyResponse.builder()
@@ -52,7 +53,7 @@ public class NoticeServiceImpl implements NoticeService {
                 .id(boardDTO.getId())
                 .title(boardDTO.getTitle())
                 .content(boardDTO.getContent())
-                .category(boardDTO.getCategory())
+                .category(BoardCategory.공지)
                 .createdAt(boardDTO.getCreatedAt())
                 .updatedAt(boardDTO.getUpdatedAt())
                 .count(boardDTO.getCount())

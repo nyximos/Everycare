@@ -57,10 +57,13 @@ public class JobOfferApiController {
 
     @PostMapping("/recruitions/recruition")
     public ResponseEntity<MyResponse> saveJobOffer(@AuthenticationPrincipal PrincipalDetails principalDetails,
-                                                   @ModelAttribute JobOfferDTO jobOfferDTO){
+                                                   @RequestBody JobOfferDTO jobOfferDTO){
+
+        System.out.println(jobOfferDTO.toString());
         Member username = principalDetails.getUser();
         jobOfferDTO.setMember(username.toMemberListViewDTO());
         jobOfferService.save(jobOfferDTO);
+        System.out.println("asdasdasdasdasdasdasdsa");
         /* TODO 케어대상인,스케줄 type mismatch */
 
         MyResponse<JobOfferDTO> body = MyResponse.<JobOfferDTO>builder()

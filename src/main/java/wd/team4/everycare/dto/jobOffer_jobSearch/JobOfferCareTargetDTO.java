@@ -9,6 +9,7 @@ import wd.team4.everycare.domain.Gender;
 @NoArgsConstructor
 @ToString
 public class JobOfferCareTargetDTO {
+    private Long id;
     private String name;
     private Gender gender;
     private Long height;
@@ -23,6 +24,7 @@ public class JobOfferCareTargetDTO {
 
     public CareTarget toCareTarget(){
         return CareTarget.builder()
+                .id(this.id)
                 .name(this.name)
                 .gender(this.gender)
                 .height(this.height)
