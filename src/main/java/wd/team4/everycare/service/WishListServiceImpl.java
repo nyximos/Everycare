@@ -97,9 +97,9 @@ public class WishListServiceImpl {
 
     }
 
-    public ResponseEntity<MyResponse> remove(Long id) {
+    public ResponseEntity<MyResponse> remove(PrincipalDetails principalDetails, Long id) {
 
-        wishListRepository.deleteById(id);
+        wishListRepository.deleteByMemberAndProductId(principalDetails.getUser(),id);
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
