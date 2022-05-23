@@ -129,6 +129,7 @@ const routes = [
             else next();
         }
     },
+
     // {
     //     path: '/profile',
     //     name: 'profile',
@@ -160,13 +161,13 @@ const routes = [
         component: () => import('@/pages/Test.vue')
     },
     {
-        path: '/caretargets',
+        path: '/carenote/caretargets',
         name: 'Caretargets',
         component: () => import('@/pages/Caretargets.vue')
     },
     {
 
-        path: '/caretargetsdetail/:caretargetsId',
+        path: '/carenote/caretargets:caretargetsId',
         name: 'CaretargetsDetail',
         component: () => import('@/components/main/caretargetsdetail.vue')
     },
@@ -176,14 +177,14 @@ const routes = [
     //     component: () => import('@/pages/Targets_update.vue')
     // },
     {
-        path: '/caretargets_update/:caretargetsId',
+        path: '/dashboard/caretargets/:caretargetsId/update',
         name: 'TargetsUpdate',
         // component: () => import('@/pages/Targets_update.vue')
         component: () => import('@/components/main/caretargets_update.vue')
     },
     
     {
-        path: '/adminpage',
+        path: '/admin/members',
         name: 'adminpage',
         component: () => import('@/pages/Adminpage.vue')
     },

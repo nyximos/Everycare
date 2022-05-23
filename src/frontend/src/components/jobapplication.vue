@@ -42,14 +42,29 @@ export default {
     data() {
         return {
             profiles: [],
+            // id: this.id
             // id: this.$route.params.caresitterId,
-            id
+            
             
         }
     },
  mounted() {
-    const id = this.$route.params.consitterId;
-    
+    // const id = this.$store.state.userStore.id
+     
+    this.$http
+    .get('/api/dashboard/contracts', {
+      withCredentials: true
+    })
+    .then((res) => {
+          // console.log(res)
+          console.log(res.data.body)
+          // this.id = res.data.body.id
+        
+  }).catch(err => {
+    alert(err);
+    console.log(err);
+  })
+  const id = this.$route.params.contractId;
     this.$http
     .get(`/api/dashboard/recruitions/${id}/caresitters`, {
       withCredentials: true
@@ -57,8 +72,7 @@ export default {
       .then((res) => {
           console.log(res.data.body)
           this.profiles = res.data.body
-        //   this.profiles1 = res.data.body.id
-        //   console.log(profiles1)
+        
           
   }).catch(err => {
     alert(err);

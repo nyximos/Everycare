@@ -204,6 +204,7 @@
             withCredentials: true
           })
         },
+        
         click(p){
           this.$router.push({ params: { memberId: p.id}})
           this.$http
