@@ -185,6 +185,7 @@ public class CareTarget {
 
     public JobOfferCareTargetDTO toJobOfferCareTargetDTO(){
         return JobOfferCareTargetDTO.builder()
+                .id(this.id)
                 .name(this.name)
                 .gender(this.gender)
                 .height(this.height)

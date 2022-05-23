@@ -67,13 +67,30 @@ public class JobOfferServiceImpl implements JobOfferService {
     }
 
     @Override
-    public JobOffer save(JobOfferDTO jobOfferDTO) {
-        JobOffer jobOffer = jobOfferDTO.toJobOffer();
-        System.out.println("jobOffer = " + jobOffer.getClass());
-        System.out.println("careTarget = " + jobOffer.getCareTarget().toString());
-        System.out.println("schedule = " + jobOffer.getCareTargetSchedule().toString());
+    public JobOffer save(PrincipalDetails principalDetails, JobOfferDTO jobOfferDTO) {
+        Long careTargetId = jobOfferDTO.getCareTarget().getId();
+        Long scheduleId = jobOfferDTO.getCareTargetSchedule().getId();
+
+        CareTarget careTarget = careTargetRepository.findById(careTargetId).orElse(null);
+        CareTargetSchedule careTargetSchedule = careTargetScheduleRepository.findById(scheduleId).orElse(null);
+
+        JobOffer jobOffer = JobOffer.builder()
+                .title(jobOfferDTO.getTitle())
+                .startDate(jobOfferDTO.getStartDate())
+                .endDate(jobOfferDTO.getEndDate())
+                .day(jobOfferDTO.getDesiredDayWeek())
+                .desiredEndTime(jobOfferDTO.getDesiredEndTime())
+                .pay(jobOfferDTO.getPay())
+                .amount(jobOfferDTO.getAmount())
+                .desiredCareSitterGender(jobOfferDTO.getDesiredCareSitterGender())
+                .comment(jobOfferDTO.getComment())
+                .member(principalDetails.getUser())
+                .careTarget(careTarget)
+                .careTargetSchedule(careTargetSchedule)
+                .build();
+
+
         JobOffer saveJobOffer = jobOfferRepository.save(jobOffer);
-        System.out.println("aeaw");
         return saveJobOffer;
     }
 
@@ -137,6 +154,8 @@ public class JobOfferServiceImpl implements JobOfferService {
             List<ContractDTO> contractDTOs = new ArrayList<>();
             findOffers.stream().map(contract -> contract.toContractDTO()).forEach(contractDTOs::add);
             List<CareSitterImage> careSitterImageList = new ArrayList<>();
+
+            System.out.println("findOffers = " + findOffers);
 
             for (ContractDTO contractDTO : contractDTOs) {
                 Long careSitterId = contractDTO.getCareSitterDTO().getId();

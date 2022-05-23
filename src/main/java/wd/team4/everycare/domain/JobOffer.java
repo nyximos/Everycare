@@ -72,6 +72,7 @@ public class JobOffer {
 
     @Builder
     public JobOffer(String title, LocalDate startDate, LocalDate endDate, String day, String desiredStartTime, String desiredEndTime, int pay, int amount, Gender desiredCareSitterGender, String comment, CareTarget careTarget, CareTargetSchedule careTargetSchedule, Member member) {        this.title = title;
+        this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
         this.day = day;
@@ -110,6 +111,7 @@ public class JobOffer {
                 .desiredStartTime(this.desiredStartTime)
                 .desiredEndTime(this.desiredEndTime)
                 .pay(this.pay)
+                .amount(this.amount)
                 .comment(this.comment)
                 .desiredCareSitterGender(this.desiredCareSitterGender)
                 .careTarget(this.careTarget.toJobOfferCareTargetDTO())

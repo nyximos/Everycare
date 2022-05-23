@@ -26,9 +26,9 @@ public class MemberContractApiController {
     private final PaymentServiceImpl paymentService;
 
 
-    @GetMapping("/dashboard/recruitions/{id}/caresitters")
-    public ResponseEntity<MyResponse> findOffer(@PathVariable("id") Long id, @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        ResponseEntity<MyResponse> offer = jobOfferService.findOffer(id, principalDetails);
+    @GetMapping("/dashboard/recruitions/{jobOfferId}/caresitters")
+    public ResponseEntity<MyResponse> findOffer(@PathVariable("jobOfferId") Long jobOfferId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        ResponseEntity<MyResponse> offer = jobOfferService.findOffer(jobOfferId, principalDetails);
         return offer;
     }
 

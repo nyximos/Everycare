@@ -19,7 +19,7 @@ public interface JobOfferService {
     DetailJobOfferDTO getDetailJobOffer(Long id);
     List<CareTargetScheduleListDTO> findSchedule(Long id);
     List<CareTargetFormDTO> findCareTarget(String id);
-    JobOffer save(JobOfferDTO jobOfferDTO);
+    JobOffer save(PrincipalDetails principalDetails, JobOfferDTO jobOfferDTO);
     String update(Long id, JobOfferDTO jobOfferDTO);
     void deleteJobOffer(Long id);
     ResponseEntity<MyResponse> offer(Long jobOfferId, PrincipalDetails principalDetails);

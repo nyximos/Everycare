@@ -46,6 +46,8 @@ public interface MemberService {
 
     ResponseEntity<MyResponse> updateAccount(PrincipalDetails principalDetails, MemberAccountDTO memberAccountDTO);
 
+    ResponseEntity<MyResponse> getMyJobOffer(PrincipalDetails principalDetails);
+
 //    String getId(String authorization);
 
 }
