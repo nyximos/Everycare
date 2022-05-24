@@ -10,6 +10,7 @@ import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.CareNote;
 import wd.team4.everycare.domain.Contract;
 import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.dto.careNote.CareNoteDetailDTO;
 import wd.team4.everycare.dto.careNote.CareNoteListDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
