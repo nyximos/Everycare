@@ -20,6 +20,7 @@
                 </div>
             </div>
         </div>
+
     </header>
 </template>
 
@@ -60,9 +61,10 @@ export default {
                 .catch((err) => {
                     console.log(err);
                 });
-        },
-    },
-};
+        }
+    }
+}
+  
 </script>
 <style scoped>
 .header {

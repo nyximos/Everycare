@@ -1,6 +1,10 @@
 package wd.team4.everycare.dto.careNote;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Builder
 @Getter
@@ -10,11 +14,10 @@ import lombok.*;
 public class CareNoteScheduleDTO {
 
     private Long id;
-    private String startTime;
-    private String endTime;
-    private String requirement;
-    private String content;
-    private String storeFileName;
-    private String activityClassificationName;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
+    private String startTime; // 스케줄 시작시간
+    private String endTime;   // 스케줄 종료시간
+    private List<ActivityInformationDTO> activityInformationDTOs;
 
 }

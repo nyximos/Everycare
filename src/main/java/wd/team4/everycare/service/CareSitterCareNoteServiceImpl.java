@@ -9,10 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.*;
 import wd.team4.everycare.dto.UploadFile;
-import wd.team4.everycare.dto.careNote.CareNoteDetailDTO;
-import wd.team4.everycare.dto.careNote.CareNoteImageDTO;
-import wd.team4.everycare.dto.careNote.CareNoteListDTO;
-import wd.team4.everycare.dto.careNote.CareNoteScheduleDTO;
+import wd.team4.everycare.dto.careNote.*;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.ActivityInformationRepository;
@@ -43,7 +40,6 @@ public class CareSitterCareNoteServiceImpl implements CareSitterCareNoteService 
 
         CareSitter careSitter = principalDetails.getCareSitter();
         LocalDate today = LocalDate.now();
-//        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE;
 
         List<CareNote> careNotes = careNoteRepository.findAllByCareSitterAndDate(careSitter, today);
         List<CareNoteListDTO> careNoteListDTOs = new ArrayList<>();
@@ -129,33 +125,44 @@ public class CareSitterCareNoteServiceImpl implements CareSitterCareNoteService 
     @Override
     public ResponseEntity<MyResponse> getSchedule(Long id) {
 
+        Optional<CareNote> careNote = careNoteRepository.findById(id);
+        CareNote careNoteEntity = careNote.orElse(null);
         CareTargetSchedule careTargetSchedule = careTargetScheduleRepository.findByCareNoteId(id);
 
         List<ActivityInformation> activityInformations = activityInformationRepository.findAllByCareTargetScheduleId(careTargetSchedule.getId());
-        List<CareNoteScheduleDTO> careNoteScheduleDTOs = new ArrayList<>();
+        List<ActivityInformationDTO> activityInformationDTOs = new ArrayList<>();
 
         for (ActivityInformation activityInformation : activityInformations) {
-            CareNoteScheduleDTO careNoteScheduleDTO = CareNoteScheduleDTO.builder()
+            ActivityInformationDTO activityInformationDTO = ActivityInformationDTO.builder()
                     .id(activityInformation.getId())
+                    .name(activityInformation.getActivityClassification().getName())
                     .startTime(activityInformation.getStartTime())
                     .endTime(activityInformation.getEndTime())
                     .requirement(activityInformation.getRequirement())
                     .build();
 
             if(activityInformation.getContent() != null) {
-                careNoteScheduleDTO.setContent(activityInformation.getContent());
+                activityInformationDTO.setContent(activityInformation.getContent());
             }
             if(activityInformation.getStoreFileName() != null) {
-                careNoteScheduleDTO.setStoreFileName(activityInformation.getStoreFileName());
+                activityInformationDTO.setStoreFileName(activityInformation.getStoreFileName());
             }
 
-            careNoteScheduleDTOs.add(careNoteScheduleDTO);
+            activityInformationDTOs.add(activityInformationDTO);
         }
 
-        MyResponse<List<CareNoteScheduleDTO>> body = MyResponse.<List<CareNoteScheduleDTO>>builder()
+        CareNoteScheduleDTO careNoteScheduleDTO = CareNoteScheduleDTO.builder()
+                .id(careNoteEntity.getId())
+                .date(careNoteEntity.getDate())
+                .startTime(careTargetSchedule.getStartTime())
+                .endTime(careTargetSchedule.getEndTime())
+                .activityInformationDTOs(activityInformationDTOs)
+                .build();
+
+        MyResponse<CareNoteScheduleDTO> body = MyResponse.<CareNoteScheduleDTO>builder()
                 .header(StatusEnum.OK)
                 .message("성공")
-                .body(careNoteScheduleDTOs)
+                .body(careNoteScheduleDTO)
                 .build();
 
         HttpHeaders headers = new HttpHeaders();

@@ -17,4 +17,6 @@ public interface ActivityInformationRepository extends JpaRepository<ActivityInf
     List<ActivityInformation> findAllCareTargetSchedule(Long id);
 
     void deleteAllByCareTargetSchedule(CareTargetSchedule careTargetScheduleEntity);
+
+    List<ActivityInformation> findAllByCareTargetSchedule(CareTargetSchedule targetSchedule);
 }
