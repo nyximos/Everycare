@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import wd.team4.everycare.dto.board.BoardDTO;
+import wd.team4.everycare.dto.board.BoardInquiryDTO;
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class Board {
     @Column(name = "board_content", length = 4000, nullable = false)
     private String content;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "board_category", length = 10, nullable = false)
     private BoardCategory category;
 
@@ -58,7 +60,7 @@ public class Board {
 
     @Builder
     public Board(Long id, String title, String content, BoardCategory category, LocalDateTime createdAt,
-                 LocalDateTime updatedAt, int count, String fileName, String filePath, Member member) {
+                 LocalDateTime updatedAt, int count, String fileName, String filePath, Member member, Product product) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -69,6 +71,7 @@ public class Board {
         this.fileName = fileName;
         this.filePath = filePath;
         this.member = member;
+        this.product = product;
     }
 
     public BoardDTO toBoardDTO(){
@@ -89,6 +92,21 @@ public class Board {
     public void updateInfo(BoardDTO boardDTO){
         if(StringUtils.isNotBlank(boardDTO.getTitle())) this.title=boardDTO.getTitle();
         if(StringUtils.isNotBlank(boardDTO.getContent())) this.content=boardDTO.getContent();
+    }
+
+    public BoardInquiryDTO boardInquiry(){
+        return BoardInquiryDTO.builder()
+                .id(this.id)
+                .title(this.title)
+                .content(this.content)
+                .category(this.category)
+                .createdAt(this.createdAt)
+                .updatedAt(this.updatedAt)
+                .count(this.count)
+                .fileName(this.fileName)
+                .filePath(this.filePath)
+                .member(this.member)
+                .build();
     }
 
 }

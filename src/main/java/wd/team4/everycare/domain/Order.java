@@ -7,7 +7,6 @@ import wd.team4.everycare.dto.order.SignOrderDTO;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Entity
@@ -45,6 +44,7 @@ public class Order {
     @Column(name = "order_detailed_address", nullable = false)
     private String detailedAddress;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "order_status", nullable = false)
     private OrderStatus status;
 

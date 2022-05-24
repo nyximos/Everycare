@@ -50,7 +50,6 @@ public class NoticeServiceImpl implements NoticeService {
         String storeFileName = uploadFile.getStoreFileName();;
 
         Board board = Board.builder()
-                .id(boardDTO.getId())
                 .title(boardDTO.getTitle())
                 .content(boardDTO.getContent())
                 .category(BoardCategory.공지)
