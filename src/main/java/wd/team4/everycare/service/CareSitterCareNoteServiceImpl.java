@@ -138,6 +138,7 @@ public class CareSitterCareNoteServiceImpl implements CareSitterCareNoteService 
                     .name(activityInformation.getActivityClassification().getName())
                     .startTime(activityInformation.getStartTime())
                     .endTime(activityInformation.getEndTime())
+                    .requirement(activityInformation.getRequirement())
                     .build();
 
             if(activityInformation.getContent() != null) {
