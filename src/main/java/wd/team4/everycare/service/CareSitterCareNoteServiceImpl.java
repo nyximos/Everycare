@@ -43,7 +43,6 @@ public class CareSitterCareNoteServiceImpl implements CareSitterCareNoteService 
 
         CareSitter careSitter = principalDetails.getCareSitter();
         LocalDate today = LocalDate.now();
-//        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE;
 
         List<CareNote> careNotes = careNoteRepository.findAllByCareSitterAndDate(careSitter, today);
         List<CareNoteListDTO> careNoteListDTOs = new ArrayList<>();
