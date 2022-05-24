@@ -2,8 +2,8 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 //import modules from '@/store/modules/index.js';
 // import userStore from './userStore';
-import careprofileStore from './careprofileStore'
 import userStore from '@/store/userStore'
+import careprofileStore from '@/store/careprofileStore'
 import cart from './cart'
 import wish from './wish'
 import createPersistedState from "vuex-persistedstate";
