@@ -18,6 +18,11 @@ const routes = [
         component: () => import('@/pages/Main.vue'),
     },
     {
+        path: '/notice',
+        name: 'Notice',
+        component: () => import('@/components/notice.vue'),
+    },
+    {
         path: '/prodcreate',
         name: 'ProdCreate',
         component: () => import('@/components/prodCreate.vue'),
@@ -188,11 +193,11 @@ const routes = [
         name: 'CreateWrite',
         component: () => import('@/pages/CreateWrite.vue'),
     },
-    // {
-    //     path: '/joblist/detail/:contentId',
-    //     name: 'detail',
-    //     component: () => import('@/components/itemDetail.vue')
-    // },
+    {
+        path: '/joblist/detail/:contentId',
+        name: 'detail',
+        component: () => import('@/components/itemDetail.vue')
+    },
     // {
     //     path: '/recruitions',
     //     name: 'Recruitions',
