@@ -20,21 +20,29 @@ const routes = [
     {
         path: '/notice',
         name: 'Notice',
-        component: () => import('@/components/notice.vue'),
+        component: () => import('@/pages/Notice.vue'),
     },
     {
-        path: '/prodcreate',
+        path: '/newNotice',
+        name: 'newNotice',
+        component: () => import('@/components/newNotice.vue'),
+    },
+    // 상품 등록
+    {
+        path: '/store/account/{id}/products/new',
         name: 'ProdCreate',
         component: () => import('@/components/prodCreate.vue'),
     },
+    // 상품 관리
     {
-        path: '/prodedit/:contentId',
+        path: '/store/account/:contentId/products',
         name: 'ProdEdit',
         component: () => import('@/components/prodEdit.vue'),
     },
+    // 장바구니
     {
-        path: '/order',
-        name: 'Order',
+        path: '/dashboard/cart',
+        name: 'Cart',
         component: () => import('@/components/cart.vue'),
     },
     {
@@ -132,15 +140,11 @@ const routes = [
         name: 'admin_report',
         component: () => import('@/pages/Adminpage_report.vue'),
     },
+    // 찜 목록
     {
-        path: '/wish',
+        path: '/dashboard/wishlist',
         name: 'Wish',
         component: () => import('@/pages/Wish.vue'),
-    },
-    {
-        path: '/cart',
-        name: 'Cart',
-        component: () => import('@/pages/Cart.vue'),
     },
     {
         path: '/joboffer/:id/editwrite',
@@ -157,8 +161,9 @@ const routes = [
         name: 'calendar',
         component: () => import('@/pages/Calendar.vue'),
     },
+    // 상품 상세 조회
     {
-        path: '/stores/product/:contentId',
+        path: '/store/account/:contentId/products/:contentId',
         name: 'prodDetail',
         component: () => import('@/components/prodDetail.vue'),
     },
@@ -167,13 +172,16 @@ const routes = [
     //     name: 'careprofile',
     //     component: () => import('@/pages/Careprofile.vue'),
     // },
+    
+    // 케어스토어 메인
     {
-        path: '/stores',
+        path: '/store',
         name: 'storeMain',
         component: () => import('@/pages/StoreHome.vue'),
     },
+    // 케어스토어 생성
     {
-        path: '/createstore',
+        path: '/store/new',
         name: 'createStore',
         component: () => import('@/pages/Storesubmit.vue'),
     },

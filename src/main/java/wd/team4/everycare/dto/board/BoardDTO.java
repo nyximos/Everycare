@@ -1,6 +1,7 @@
 package wd.team4.everycare.dto.board;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 import wd.team4.everycare.domain.Board;
 import wd.team4.everycare.domain.BoardCategory;
@@ -19,7 +20,9 @@ public class BoardDTO {
     private String title;
     private String content;
     private BoardCategory category;
+    @DateTimeFormat(pattern = "yyyy-MM-ddTHH:mm:ss.SSS")
     private LocalDateTime createdAt;
+    @DateTimeFormat(pattern = "yyyy-MM-ddTHH:mm:ss.SSS")
     private LocalDateTime updatedAt;
     private int count;
     private MultipartFile attachFile;

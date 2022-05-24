@@ -147,7 +147,7 @@ public class CareSiitterContractServiceImpl implements ContractService {
 
     @Override
     public ResponseEntity<MyResponse> getCompleteContract(Long id) {
-        ContractDTO
+//        ContractDTO
         return null;
     }
 
