@@ -1,48 +1,42 @@
 <template>
-<div class="container">
-<div class="row">
-<p class="display-5 mt-5">공지사항</p>
-</div>
-<div class="row">
- <v-simple-table>
-    <template v-slot:default>
-      <thead>
-        <tr>
-          <th class="text-left">
-            title
-          </th>
-          <th class="text-left">
-            name
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="item in desserts"
-          :key="item.name"
-        >
-          <td>{{ item.title }}</td>
-          <td>{{ item.memberInfoDTO.name }}</td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
-  <v-pagination
-      class="mt-3"
-      v-model="curPageNum"
-      :length="numOfPages"
-    ></v-pagination>
-</div>
-</div>
+<v-container>
+  <div class="text-end">
+  <v-btn
+    color="primary"
+    dark
+    class="mb-2"
+    @click="newNotice">
+    New Item
+  </v-btn>
+  </div>
+    <v-data-table
+    :headers="headers"
+    :items="desserts"
+    item-key="title"
+    :search="search"
+    class="elevation-1"
+  >
+  <template v-slot:top>
+     <template>
+          </template>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          class="mx-4"
+        ></v-text-field>
+      </template>
+      </v-data-table>
+</v-container>
 </template>
 
 <script>
 export default {
 data(){
     return{
+        search: '',
         desserts: [],
-        dataPerPage:3,
-        curPageNum:1,
+        headers:[{text:'제목', value:'title'},{text:'작성자', value:'memberInfoDTO.name'}]
     }
 },
 mounted() {
@@ -59,6 +53,13 @@ this.$http
         console.log(err);
     });
 },
+methods:{
+  newNotice(){
+    this.$router.push({
+      path: '/newNotice'
+    })
+  }
+}
 
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-card>
-            <v-card-text>
+            
                 <v-btn @click="removeAll">전체삭제</v-btn>
                 <v-simple-table>
                     <template v-slot:default>
@@ -23,6 +23,7 @@
                     </template>
                 </v-simple-table>
                 <h1>총금액 : {{ total }}</h1>
+                <v-card-text>
                 <v-row class="text-center mt-4">
                     <h3>주문정보</h3>
                 </v-row>
@@ -50,34 +51,6 @@
         </v-card>
 
         <v-btn @click="order" block>주문하기</v-btn>
-        <!-- <v-simple-table>
-    <template v-slot:default>
-      <thead>
-        <tr>
-          <th class="text-left">
-            id
-          </th>
-          <th class="text-left">
-            quantity
-          </th>
-          <th class="text-left">
-            amount
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="(item,index) in desserts"
-          :key="index"
-        >
-          <td>{{index}}/{{item.id }}</td>
-          <td>{{item.quantity}}<v-btn @click="minus(item)">-</v-btn><v-btn @click="plus(item)">+</v-btn></td>
-          <td>{{item.amount * item.quantity}}</td>
-          <td><v-btn @click="remove(item,index)">x</v-btn></td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table> -->
     </div>
 </template>
 

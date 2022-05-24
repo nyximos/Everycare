@@ -201,22 +201,6 @@ name: 'Create',
            desiredStartTime: this.startTime,
            desiredEndTime: this.endTime
          }
-      // var careTarget = new FormData();
-      // careTarget.append('careTarget', this.caretarget);
-      // var careTargetSchedule = new FormData();
-      // careTargetSchedule.append('careTargetSchedule', this.pickSchedule)
-      var formData = new FormData();
-      formData.append('title',this.title);
-      // formData.append('careTarget', {name:this.caretarget.name, gender:this.caretarget.gender, height:this.caretarget.height, weight:this.caretarget.weight})
-      // formData.append('careTargetSchedule', {id: this.pickSchedule.id, name:this.pickSchedule.name, startTime:this.pickSchedule.startTime, endTime: this.pickSchedule.endTime});
-      formData.append('startDate',this.startDay)
-      formData.append('endDate',this.endDay);
-      formData.append('desiredDayWeek', this.day.toString());
-      formData.append('desiredCareSitterGender', this.sitterSex);
-      formData.append('pay', this.pay);
-      formData.append('comment',this.comment);
-      formData.append('desiredStartTime', this.startTime);
-      formData.append('desiredEndTime', this.endTime);
       this.$http
       .post('/api/recruitions/recruition',test,{
        withCredentials:true
