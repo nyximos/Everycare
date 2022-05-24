@@ -530,6 +530,7 @@ methods:{
       categoryChange(event){
         if(event =='서울'){
           this.detail_area = this.area1;
+          console.log(this.detail_area)
         }else if(event == '인천'){
           this.detail_area = this.area2;
         }else if(event =='경기'){
