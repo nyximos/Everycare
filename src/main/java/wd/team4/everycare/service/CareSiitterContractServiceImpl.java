@@ -12,6 +12,7 @@ import wd.team4.everycare.dto.ImageDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetDetailDTO;
 import wd.team4.everycare.dto.contract.CareSitterContractDTO;
 import wd.team4.everycare.dto.contract.CareSitterContractListDTO;
+import wd.team4.everycare.dto.contract.ContractDTO;
 import wd.team4.everycare.dto.contract.ContractJobOfferDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
@@ -142,6 +143,12 @@ public class CareSiitterContractServiceImpl implements ContractService {
                 .message("성공")
                 .build();
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> getCompleteContract(Long id) {
+        ContractDTO
+        return null;
     }
 
 }
