@@ -94,7 +94,6 @@
 export default {
 name:'itemDetail',
 mounted() {
-    
     this.$http
     .get('/api/dashboard/caresitter/contracts', {
       withCredentials: true
@@ -103,9 +102,6 @@ mounted() {
           console.log(res)
           console.log(res.data.body)
           this.id = res.data.body.id
-          
-
-          
   }).catch(err => {
     alert(err);
     console.log(err);
@@ -176,14 +172,14 @@ application(){
     console.log(err);
   })
   // location.href = '/';
-}
-  
 },
 back(){
     this.$router.push({
         path:'/joblist'
     })
 }
+},
+
 }
 
 </script>
