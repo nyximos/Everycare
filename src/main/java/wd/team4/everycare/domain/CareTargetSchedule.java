@@ -18,6 +18,7 @@ import javax.persistence.*;
 @SequenceGenerator(name = "care_target_schedule_seq_generator",
         sequenceName = "care_target_schedule_seq",
         initialValue = 1, allocationSize = 1)
+@ToString
 public class CareTargetSchedule {
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "care_target_schedule_seq_generator")
@@ -48,16 +49,6 @@ public class CareTargetSchedule {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "care_note_id")
     private CareNote careNote;
-
-
-    @Builder
-    public CareTargetSchedule(Long id, String name, String startTime, String endTime, CareTarget careTarget) {
-        this.id = id;
-        this.name = name;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.careTarget = careTarget;
-    }
 
     public CareTargetScheduleDTO toDTO(){
         return CareTargetScheduleDTO.builder()

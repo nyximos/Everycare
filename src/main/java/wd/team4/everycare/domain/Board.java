@@ -1,13 +1,15 @@
 package wd.team4.everycare.domain;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import wd.team4.everycare.dto.board.BoardDTO;
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Entity
@@ -27,7 +29,7 @@ public class Board {
     private String content;
 
     @Column(name = "board_category", length = 10, nullable = false)
-    private String category;
+    private BoardCategory category;
 
     @Column(name = "board_created_at", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
@@ -55,7 +57,7 @@ public class Board {
     private Product product;
 
     @Builder
-    public Board(Long id, String title, String content, String category, LocalDateTime createdAt,
+    public Board(Long id, String title, String content, BoardCategory category, LocalDateTime createdAt,
                  LocalDateTime updatedAt, int count, String fileName, String filePath, Member member) {
         this.id = id;
         this.title = title;
@@ -87,7 +89,6 @@ public class Board {
     public void updateInfo(BoardDTO boardDTO){
         if(StringUtils.isNotBlank(boardDTO.getTitle())) this.title=boardDTO.getTitle();
         if(StringUtils.isNotBlank(boardDTO.getContent())) this.content=boardDTO.getContent();
-        if(StringUtils.isNotBlank(boardDTO.getCategory())) this.category=boardDTO.getCategory();
     }
 
 }
