@@ -1,11 +1,8 @@
 package wd.team4.everycare.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
-
 import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetViewDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferCareTargetDTO;
@@ -82,7 +79,8 @@ public class CareTarget {
     private List<CareTargetImage> careTargetImages = new ArrayList<>();
 
     @Builder
-    public CareTarget(String name, Gender gender, LocalDate birth, Long height, Long weight, String zipcode, String address, String detailedAddress, int longTermCareGrade, String comment, int pet, int isCctvAgreement, String careType, int coronaTest, Member member) {
+    public CareTarget(Long id,String name, Gender gender, LocalDate birth, Long height, Long weight, String zipcode, String address, String detailedAddress, int longTermCareGrade, String comment, int pet, int isCctvAgreement, String careType, int coronaTest, Member member) {
+        this.id = id;
         this.name = name;
         this.gender = gender;
         this.birth = birth;
@@ -187,6 +185,7 @@ public class CareTarget {
 
     public JobOfferCareTargetDTO toJobOfferCareTargetDTO(){
         return JobOfferCareTargetDTO.builder()
+                .id(this.id)
                 .name(this.name)
                 .gender(this.gender)
                 .height(this.height)

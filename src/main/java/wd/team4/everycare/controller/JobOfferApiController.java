@@ -7,15 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
-import wd.team4.everycare.domain.CareTarget;
-import wd.team4.everycare.domain.CareTargetSchedule;
 import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobOfferDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
-import wd.team4.everycare.dto.response.MyListResponse;
 import wd.team4.everycare.dto.response.MyOptionalResponse;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
@@ -60,10 +57,10 @@ public class JobOfferApiController {
 
     @PostMapping("/recruitions/recruition")
     public ResponseEntity<MyResponse> saveJobOffer(@AuthenticationPrincipal PrincipalDetails principalDetails,
-                                                   @ModelAttribute JobOfferDTO jobOfferDTO){
-        Member username = principalDetails.getUser();
-        jobOfferDTO.setMember(username.toMemberListViewDTO());
-        jobOfferService.save(jobOfferDTO);
+                                                   @RequestBody JobOfferDTO jobOfferDTO){
+
+        jobOfferService.save(principalDetails, jobOfferDTO);
+        /* TODO 케어대상인,스케줄 type mismatch 해결했는지 확인*/
 
         MyResponse<JobOfferDTO> body = MyResponse.<JobOfferDTO>builder()
                 .header(StatusEnum.OK)

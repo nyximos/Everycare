@@ -12,16 +12,19 @@ import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.config.jwt.JwtProperties;
 import wd.team4.everycare.domain.CareSitter;
+import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.domain.Store;
 import wd.team4.everycare.dto.careSitter.CareSitterDTO;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
+import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
 import wd.team4.everycare.dto.member.MemberAccountDTO;
 import wd.team4.everycare.dto.member.MemberInfoDTO;
 import wd.team4.everycare.dto.member.MemberListViewDTO;
 import wd.team4.everycare.dto.member.SignupDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
+import wd.team4.everycare.repository.JobOfferRepository;
 import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.service.exception.MemberHasExistException;
 import wd.team4.everycare.service.exception.MemberNotFoundException;
@@ -40,6 +43,7 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final JobOfferRepository jobOfferRepository;
 //    private final PrincipalDetails principalDetails;
 
     public MyResponse<SignupDTO> join(SignupDTO signupDTO) {
@@ -214,6 +218,23 @@ public class MemberServiceImpl implements MemberService {
         System.out.println(body.getSubject());
         System.out.println(body.getExpiration());
         System.out.println(body.get("username"));
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> getMyJobOffer(PrincipalDetails principalDetails) {
+        Member user = principalDetails.getUser();
+        List<JobOffer> jobOfferList = jobOfferRepository.findByMember(user);
+        List<JobOfferDTO> jobOfferDTOs = new ArrayList<>();
+
+        jobOfferList.stream().map(jobOffer -> jobOffer.toJobOfferDTO()).forEach(jobOfferDTOs::add);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("등록한 구인글 조회")
+                .body(jobOfferDTOs)
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
 }
