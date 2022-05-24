@@ -17,13 +17,15 @@ const routes = [
         name: 'Main',
         component: () => import('@/pages/Main.vue'),
     },
+    // 공지 조회
     {
         path: '/notice',
         name: 'Notice',
         component: () => import('@/pages/Notice.vue'),
     },
+    // 공지 등록
     {
-        path: '/newNotice',
+        path: '/admin/notice/new',
         name: 'newNotice',
         component: () => import('@/components/newNotice.vue'),
     },
@@ -45,8 +47,9 @@ const routes = [
         name: 'Cart',
         component: () => import('@/components/cart.vue'),
     },
+    // 상품결제
     {
-        path: '/payment',
+        path: '/store/ordersheet/payment',
         name: 'Payment',
         component: () => import('@/components/productPayment.vue'),
     },
@@ -185,24 +188,27 @@ const routes = [
         name: 'createStore',
         component: () => import('@/pages/Storesubmit.vue'),
     },
+    // 케어스토어 수정
     {
-        path: '/stores/:contentId',
+        path: '/store/account/:contentId/update',
         name: 'storeEdit',
         component: () => import('@/pages/StoreInfoEdit.vue'),
     },
-
+    // 구인글 조회
     {
-        path: '/joblist',
+        path: '/recruitions',
         name: 'Job_list',
         component: () => import('@/pages/Job_list.vue'),
     },
+    // 구인글 등록
     {
-        path: '/createwrite',
+        path: '/recruitions/new',
         name: 'CreateWrite',
         component: () => import('@/pages/CreateWrite.vue'),
     },
+    // 구인글 수정
     {
-        path: '/joblist/detail/:contentId',
+        path: '/recruitions/:contentId/update',
         name: 'detail',
         component: () => import('@/components/itemDetail.vue')
     },
