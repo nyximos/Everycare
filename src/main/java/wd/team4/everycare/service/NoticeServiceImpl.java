@@ -17,6 +17,7 @@ import wd.team4.everycare.service.interfaces.NoticeService;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -49,19 +50,21 @@ public class NoticeServiceImpl implements NoticeService {
         String uploadFileName = uploadFile.getUploadFileName();
         String storeFileName = uploadFile.getStoreFileName();;
 
+        LocalDateTime now = LocalDateTime.now();
+
         Board board = Board.builder()
                 .title(boardDTO.getTitle())
                 .content(boardDTO.getContent())
                 .category(BoardCategory.공지)
-                .createdAt(boardDTO.getCreatedAt())
-                .updatedAt(boardDTO.getUpdatedAt())
+                .createdAt(now)
+                .updatedAt(now)
                 .count(boardDTO.getCount())
                 .filePath(uploadFileName)
                 .fileName(storeFileName)
                 .member(principalDetails.getUser())
                 .build();
-
-
+        System.out.println("board = " + board);
+        boardRepository.save(board);
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .body(board)

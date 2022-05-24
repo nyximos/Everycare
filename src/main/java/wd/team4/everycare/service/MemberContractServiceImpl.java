@@ -14,10 +14,7 @@ import wd.team4.everycare.dto.contract.ContractDTO;
 import wd.team4.everycare.dto.contract.JobOfferContractListDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
-import wd.team4.everycare.repository.CareNoteRepository;
-import wd.team4.everycare.repository.CareSitterRepository;
-import wd.team4.everycare.repository.ContractRepository;
-import wd.team4.everycare.repository.JobOfferRepository;
+import wd.team4.everycare.repository.*;
 import wd.team4.everycare.service.interfaces.MemberContractService;
 
 import java.time.LocalDate;
@@ -38,6 +35,8 @@ public class MemberContractServiceImpl implements MemberContractService {
     private final ContractRepository contractRepository;
     private final PaymentServiceImpl paymentService;
     private final CareNoteRepository careNoteRepository;
+    private final CareTargetScheduleRepository careTargetScheduleRepository;
+    private final ActivityInformationRepository activityInformationRepository;
 
 
     @Override
@@ -123,6 +122,37 @@ public class MemberContractServiceImpl implements MemberContractService {
                     .build();
 
             careNoteRepository.save(careNote);
+
+            // 스케줄 생성
+            CareTargetSchedule targetSchedule = jobOffer.getCareTargetSchedule();
+            CareTargetSchedule careTargetSchedule = CareTargetSchedule.builder()
+                    .name(targetSchedule.getName())
+                    .startTime(targetSchedule.getStartTime())
+                    .endTime(targetSchedule.getEndTime())
+                    .careTarget(contract.getJobOffer().getCareTarget())
+                    .contract(contract)
+                    .careSitter(contract.getCareSitter())
+                    .careNote(careNote)
+                    .build();
+
+            careTargetScheduleRepository.save(careTargetSchedule);
+
+            // 활동 정보 생성
+            List<ActivityInformation> activityInformations = activityInformationRepository.findAllByCareTargetSchedule(targetSchedule);
+            for(i=0; i<activityInformations.size(); i++) {
+                ActivityInformation activityInformation = activityInformations.get(i);
+
+                ActivityInformation newActivityInformation = ActivityInformation.builder()
+                        .startTime(activityInformation.getStartTime())
+                        .endTime(activityInformation.getEndTime())
+                        .requirement(activityInformation.getRequirement())
+                        .activityClassification(activityInformation.getActivityClassification())
+                        .careTargetSchedule(careTargetSchedule)
+                        .build();
+
+                activityInformationRepository.save(newActivityInformation);
+            }
+
         }
 
         MyResponse body = MyResponse.builder()

@@ -71,7 +71,6 @@ mounted(){
 	.then((res)=>{
 		console.log(res)
 		this.storeList= res.data.body
-    // this.storeFileName = res.data.body.storeFileName
 	})
 	.catch((err)=>{
 		console.log(err)
@@ -80,7 +79,6 @@ mounted(){
 data(){
 	return{
 		storeList:this.storeList,
-    // storeFileName: this.storeFileName,
 		items: [
           {
             src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',

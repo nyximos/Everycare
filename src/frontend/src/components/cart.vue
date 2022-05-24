@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-card>
-            <v-card-text>
+            
                 <v-btn @click="removeAll">전체삭제</v-btn>
                 <v-simple-table>
                     <template v-slot:default>
@@ -23,6 +23,7 @@
                     </template>
                 </v-simple-table>
                 <h1>총금액 : {{ total }}</h1>
+                <v-card-text>
                 <v-row class="text-center mt-4">
                     <h3>주문정보</h3>
                 </v-row>
@@ -50,52 +51,88 @@
         </v-card>
 
         <v-btn @click="order" block>주문하기</v-btn>
-        <!-- <v-simple-table>
-    <template v-slot:default>
-      <thead>
-        <tr>
-          <th class="text-left">
-            id
-          </th>
-          <th class="text-left">
-            quantity
-          </th>
-          <th class="text-left">
-            amount
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="(item,index) in desserts"
-          :key="index"
-        >
-          <td>{{index}}/{{item.id }}</td>
-          <td>{{item.quantity}}<v-btn @click="minus(item)">-</v-btn><v-btn @click="plus(item)">+</v-btn></td>
-          <td>{{item.amount * item.quantity}}</td>
-          <td><v-btn @click="remove(item,index)">x</v-btn></td>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table> -->
     </div>
 </template>
 
 <script>
 export default {
-    mounted() {
+  mounted() {
+    this.$http.get('/api/cart',{
+        withCredentials:true
+      })
+			.then((res)=>{
+        console.log(res.data);
+        this.desserts=res.data.body
+        this.id=this.desserts[0]
+      }).catch(err =>{
+				alert(err);
+				console.log(err);
+			})
+  },
+  data(){
+    return{
+      desserts:[],
+      id:this.id,
+        name: `${this.id}외건`,
+        amount: this.amount,
+        recipientName: this.recipientName,
+        recipientNumber: this.recipientNumber,
+        zipcode: this.zipcode,
+        address: this.address,
+        detailedAddress: this.detailedAddress,
+        comment: this.comment,
+        paymentAmount: this.paymentAmount
+    }
+  },
+    methods:{
+      order(){
+      var formData = new FormData();
+      formData.append('name','박지은');
+      formData.append('amount',1);
+      formData.append('recipientName','박지은');
+      formData.append('recipientNumber',123);
+      formData.append('zipcode',this.zipcode);
+      formData.append('address','포항시북구');
+      formData.append('detailedAddress','404-222');
+      formData.append('comment','배송전문의');
+      formData.append('paymentAmount',100);
         this.$http
-            .get('/api/cart', {
-                withCredentials: true,
-            })
-            .then((res) => {
-                console.log(res.data);
-                this.desserts = res.data.body;
-            })
-            .catch((err) => {
-                alert(err);
-                console.log(err);
-            });
+      .post('/api/cart/orders', formData,{
+       withCredentials:true
+      })
+     .then(res => {
+      console.log(res);
+      })
+     .catch(err => {
+       console.log(err);
+       console.log(this.hi)
+    });
+      },
+      remove(index){
+      this.$http
+      .delete(`/api/cart/${index}`,{
+      withCredentials: true
+      })
+      .then((res)=> {
+        console.log(res)
+        // this.$store.commit("cart/remoteList", index)
+      }).catch((err)=>{
+        console.log(err)
+      })
+      },
+      removeAll(){
+      this.$http
+      .delete(`/api/cart`,{
+      withCredentials: true
+      })
+      .then((res)=> {
+        console.log(res)
+        this.$store.state.cart.cart=[]
+      }).catch((err)=>{
+        console.log(err)
+      })
+      }
+
     },
     data() {
         return {

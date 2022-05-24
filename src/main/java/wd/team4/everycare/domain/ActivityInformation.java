@@ -74,13 +74,6 @@ public class ActivityInformation {
                 .build();
     }
 
-    @Builder
-    public ActivityInformation(String startTime, String endTime, String requirement) {
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.requirement = requirement;
-    }
-
     public void save(ActivityClassification activityClassification, CareTargetSchedule careTargetSchedule){
         this.activityClassification = activityClassification;
         this.careTargetSchedule = careTargetSchedule;

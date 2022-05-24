@@ -14,10 +14,10 @@
       v-model="caretarget"
       :items="caretargetlist"
       item-text="name"
-      return-object
+      item-value="id"
       chips
       label="케어대상인 선택">
-    </v-select>
+    </v-select>{{this.caretarget}}
           </v-col>
           <v-col
             cols="6">
@@ -31,9 +31,9 @@
           v-model="pickSchedule"
           :items="schedulelist"
           item-text="name"
-          return-object
+          item-value="id"
           chips
-        ></v-select>
+        ></v-select>{{this.pickSchedule}}
           </v-col>
         </v-row>
         <v-row>
@@ -169,6 +169,8 @@ name: 'Create',
          caretargetlist:[],
          pickSchedule: this.pickSchedule,
          schedulelist:[],
+         startDay:this.startDay,
+         endDay:this.endDay,
         startTime: this.startTime,
         endTime: this.endTime,
         day: [],
@@ -184,22 +186,23 @@ name: 'Create',
     },
     methods: {
       submit(){
-        // console.log({name:this.caretarget.name, gender:this.caretarget.gender, height:this.caretarget.height, weight:this.caretarget.weight})
-        // console.log({id: this.pickSchedule.id, name:this.pickSchedule.name, startTime:this.pickSchedule.startTime, endTime: this.pickSchedule.endTime})  
-      var formData = new FormData();
-      formData.append('title',this.title);
-      formData.append('careTarget', {name:this.caretarget.name, gender:this.caretarget.gender, height:this.caretarget.height, weight:this.caretarget.weight})
-      formData.append('careTargetSchedule', {id: this.pickSchedule.id, name:this.pickSchedule.name, startTime:this.pickSchedule.startTime, endTime: this.pickSchedule.endTime});
-      formData.append('startDate',this.startDay)
-      formData.append('endDate',this.endDay);
-      formData.append('desiredDayWeek', this.day.toString());
-      formData.append('desiredCareSitterGender', this.sitterSex);
-      formData.append('pay', this.pay);
-      formData.append('comment',this.comment);
-      formData.append('desiredStartTime', this.startTime);
-      formData.append('desiredEndTime', this.endTime);
+        // var careTarget = {this.caretarget};
+        // var careTargetSchedule= {this.careTargetSchedule};
+         var test = {
+           careTarget: {id:this.caretarget},
+           careTargetSchedule: {id:this.pickSchedule},
+           title: this.title,
+           startDate: this.startDay,
+           endDate: this.endDay,
+           desiredDayWeek: this.day.toString(),
+           desiredCareSitterGender: this.sitterSex,
+           pay: this.pay,
+           comment: this.comment,
+           desiredStartTime: this.startTime,
+           desiredEndTime: this.endTime
+         }
       this.$http
-      .post('/api/recruitions/recruition', formData,{
+      .post('/api/recruitions/recruition',test,{
        withCredentials:true
       })
      .then(res => {
@@ -216,7 +219,7 @@ name: 'Create',
   buttonClick(){
     // console.log({name:this.caretarget.name, gender:this.caretarget.gender, height:this.caretarget.height, weight:this.caretarget.weight})
       var formData = new FormData()
-      formData.append('id', this.caretarget.id);
+      formData.append('id', this.caretarget);
      this.$http
      .post('/api/recruitions/schedules',formData,{
         withCredentials:true

@@ -5,7 +5,7 @@
             <div class="list">
                 <v-btn text>케어매칭</v-btn>
                 <v-btn text>케어노트</v-btn>
-                <v-btn text to="/stores">케어스토어</v-btn>
+                <v-btn text to="/store">케어스토어</v-btn>
             </div>
             <div>
                 <div>
@@ -20,6 +20,7 @@
                 </div>
             </div>
         </div>
+
     </header>
 </template>
 
@@ -60,9 +61,10 @@ export default {
                 .catch((err) => {
                     console.log(err);
                 });
-        },
-    },
-};
+        }
+    }
+}
+  
 </script>
 <style scoped>
 .header {

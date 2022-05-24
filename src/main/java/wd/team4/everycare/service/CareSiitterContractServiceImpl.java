@@ -142,5 +142,10 @@ public class CareSiitterContractServiceImpl implements ContractService {
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<MyResponse> getCompleteContract(Long id) {
+//        ContractDTO
+        return null;
+    }
 
 }
