@@ -38,8 +38,14 @@ public class InitContractService {
 
         //케어 노트 생성
         String day = jobOffer1.getDay();
+        System.out.println("day = " + day);
         String[] dayArr = day.split(",");
+        System.out.println("dayArr[0] = " + dayArr[0]);
+        System.out.println("dayArr[1] = " + dayArr[1]);
+        System.out.println(dayArr.length);
         for (int i=0; i<dayArr.length; i++) {
+            System.out.println("i = " + i);
+            System.out.println("dayArr = " + dayArr[i]);
             LocalDate date = LocalDate.parse(dayArr[i], DateTimeFormatter.ISO_DATE);
 
             //케어 노트 생성
@@ -69,7 +75,7 @@ public class InitContractService {
 
             // 활동 정보
             List<ActivityInformation> activityInformations = activityInformationRepository.findAllByCareTargetSchedule(jobOffer1.getCareTargetSchedule());
-            for(i=0; i<activityInformations.size(); i++) {
+            for(int j=0; j<activityInformations.size(); j++) {
                 ActivityInformation activityInformation = activityInformations.get(i);
 
                 ActivityInformation newActivityInformation = ActivityInformation.builder()
