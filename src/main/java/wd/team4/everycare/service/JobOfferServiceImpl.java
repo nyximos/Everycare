@@ -7,9 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.*;
-import wd.team4.everycare.dto.ImageDTO;
-import wd.team4.everycare.dto.careSitter.CareSitterDTO;
-import wd.team4.everycare.dto.careSitter.CareSitterImageDTO;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.contract.ContractDTO;
@@ -70,8 +67,29 @@ public class JobOfferServiceImpl implements JobOfferService {
     }
 
     @Override
-    public JobOffer save(JobOfferDTO jobOfferDTO) {
-        JobOffer jobOffer = jobOfferDTO.toJobOffer();
+    public JobOffer save(PrincipalDetails principalDetails, JobOfferDTO jobOfferDTO) {
+        Long careTargetId = jobOfferDTO.getCareTarget().getId();
+        Long scheduleId = jobOfferDTO.getCareTargetSchedule().getId();
+
+        CareTarget careTarget = careTargetRepository.findById(careTargetId).orElse(null);
+        CareTargetSchedule careTargetSchedule = careTargetScheduleRepository.findById(scheduleId).orElse(null);
+
+        JobOffer jobOffer = JobOffer.builder()
+                .title(jobOfferDTO.getTitle())
+                .startDate(jobOfferDTO.getStartDate())
+                .endDate(jobOfferDTO.getEndDate())
+                .day(jobOfferDTO.getDesiredDayWeek())
+                .desiredEndTime(jobOfferDTO.getDesiredEndTime())
+                .pay(jobOfferDTO.getPay())
+                .amount(jobOfferDTO.getAmount())
+                .desiredCareSitterGender(jobOfferDTO.getDesiredCareSitterGender())
+                .comment(jobOfferDTO.getComment())
+                .member(principalDetails.getUser())
+                .careTarget(careTarget)
+                .careTargetSchedule(careTargetSchedule)
+                .build();
+
+
         JobOffer saveJobOffer = jobOfferRepository.save(jobOffer);
         return saveJobOffer;
     }
@@ -127,20 +145,22 @@ public class JobOfferServiceImpl implements JobOfferService {
     }
 
     @Override
-    public ResponseEntity<MyResponse> findOffer(Long contractId, PrincipalDetails principalDetails) {
-        Contract contract = contractRepository.findById(contractId).orElse(null);
+    public ResponseEntity<MyResponse> findOffer(Long jobOfferId, PrincipalDetails principalDetails) {
 
-        if (contract != null) {
-            JobOffer jobOffer = contract.getJobOffer();
-            List<Contract> findOffers = contractRepository.findByStatusAndJobOffer(0, jobOffer);
+        JobOffer jobOffer = jobOfferRepository.findById(jobOfferId).orElse(null);
+
+        if (jobOffer != null) {
+            List<Contract> findOffers = contractRepository.findByStatusAndJobOffer(1, jobOffer);
             List<ContractDTO> contractDTOs = new ArrayList<>();
-            findOffers.stream().map(contract1 -> contract1.toContractDTO()).forEach(contractDTOs::add);
+            findOffers.stream().map(contract -> contract.toContractDTO()).forEach(contractDTOs::add);
             List<CareSitterImage> careSitterImageList = new ArrayList<>();
 
-            for (ContractDTO contractDTO: contractDTOs) {
-                Long id = contractDTO.getCareSitterDTO().getId();
-                List<CareSitterImage> careSitterImages = careSitterImageRepository.findByCareSitterId(id);
-                for (CareSitterImage careSitterImage: careSitterImages) {
+            System.out.println("findOffers = " + findOffers);
+
+            for (ContractDTO contractDTO : contractDTOs) {
+                Long careSitterId = contractDTO.getCareSitterDTO().getId();
+                List<CareSitterImage> careSitterImages = careSitterImageRepository.findByCareSitterId(careSitterId);
+                for (CareSitterImage careSitterImage : careSitterImages) {
                     CareSitterImage careSitterImage1 = CareSitterImage.builder()
                             .uploadFileName(careSitterImage.getUploadFileName())
                             .storeFileName(careSitterImage.getStoreFileName())
@@ -149,8 +169,6 @@ public class JobOfferServiceImpl implements JobOfferService {
                 }
                 contractDTO.setCareSitterImage(careSitterImageList);
             }
-
-
             MyResponse body = MyResponse.builder()
                     .header(StatusEnum.OK)
                     .body(contractDTOs)
@@ -158,8 +176,8 @@ public class JobOfferServiceImpl implements JobOfferService {
                     .build();
             return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
         } else return null;
-
     }
+
 
     @Override
     public ResponseEntity<MyResponse> findDetailOffer(Long contractId) {

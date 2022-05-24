@@ -88,6 +88,12 @@ public class MemberApiController {
         return responseEntity;
     }
 
+    @GetMapping("/teeeeest")
+    public ResponseEntity<MyResponse> getMyJobOffer(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        ResponseEntity<MyResponse> myJobOffer = memberService.getMyJobOffer(principalDetails);
+        return myJobOffer;
+    }
+
 }
 
 

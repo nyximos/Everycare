@@ -18,6 +18,7 @@ import javax.persistence.*;
 @SequenceGenerator(name = "care_target_schedule_seq_generator",
         sequenceName = "care_target_schedule_seq",
         initialValue = 1, allocationSize = 1)
+@ToString
 public class CareTargetSchedule {
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "care_target_schedule_seq_generator")

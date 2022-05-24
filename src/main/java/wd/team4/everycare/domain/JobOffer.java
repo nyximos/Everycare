@@ -1,13 +1,9 @@
 package wd.team4.everycare.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
-
 import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobOfferDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
-
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
@@ -70,12 +66,13 @@ public class JobOffer {
     @JoinColumn(name = "care_target_id")
     private CareTarget careTarget;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="care_target_schedule_id")
     private CareTargetSchedule careTargetSchedule;
 
     @Builder
     public JobOffer(String title, LocalDate startDate, LocalDate endDate, String day, String desiredStartTime, String desiredEndTime, int pay, int amount, Gender desiredCareSitterGender, String comment, CareTarget careTarget, CareTargetSchedule careTargetSchedule, Member member) {        this.title = title;
+        this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
         this.day = day;
@@ -114,6 +111,7 @@ public class JobOffer {
                 .desiredStartTime(this.desiredStartTime)
                 .desiredEndTime(this.desiredEndTime)
                 .pay(this.pay)
+                .amount(this.amount)
                 .comment(this.comment)
                 .desiredCareSitterGender(this.desiredCareSitterGender)
                 .careTarget(this.careTarget.toJobOfferCareTargetDTO())
