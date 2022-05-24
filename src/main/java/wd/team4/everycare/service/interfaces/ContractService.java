@@ -12,5 +12,4 @@ public interface ContractService {
 
     ResponseEntity<MyResponse> approve(Long id);
 
-    ResponseEntity<MyResponse> getCompleteContract(Long id);
 }

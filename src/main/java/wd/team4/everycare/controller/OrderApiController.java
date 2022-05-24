@@ -36,4 +36,11 @@ public class OrderApiController {
         return signOrder;
     }
 
+    @GetMapping("/dashboard/orders")
+    public ResponseEntity<MyResponse> completeOrder(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        ResponseEntity<MyResponse> completeOrder = orderService.getCompleteOrder(principalDetails);
+
+        return completeOrder;
+    }
+
 }

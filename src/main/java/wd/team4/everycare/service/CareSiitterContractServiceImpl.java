@@ -10,10 +10,7 @@ import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.*;
 import wd.team4.everycare.dto.ImageDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetDetailDTO;
-import wd.team4.everycare.dto.contract.CareSitterContractDTO;
-import wd.team4.everycare.dto.contract.CareSitterContractListDTO;
-import wd.team4.everycare.dto.contract.ContractDTO;
-import wd.team4.everycare.dto.contract.ContractJobOfferDTO;
+import wd.team4.everycare.dto.contract.*;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.CareTargetImageRepository;
@@ -145,10 +142,5 @@ public class CareSiitterContractServiceImpl implements ContractService {
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
-    @Override
-    public ResponseEntity<MyResponse> getCompleteContract(Long id) {
-        ContractDTO
-        return null;
-    }
 
 }

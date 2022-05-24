@@ -2,6 +2,7 @@ package wd.team4.everycare.domain;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.contract.CompletionContractDTO;
 import wd.team4.everycare.dto.contract.ContractDTO;
 
 import javax.persistence.*;
@@ -110,6 +111,27 @@ public class Contract {
                 .jobOfferDTO(this.jobOffer.toDetailJobOfferDTO(this.jobOffer))
                 .memberDTO(this.member.toJobOfferMemberDTO())
                 .careSitterDTO(this.careSitter.toCareSitterDTO())
+                .build();
+    }
+
+    public CompletionContractDTO toCompletionContractDTO(){
+        return CompletionContractDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .startDate(this.startDate)
+                .endDate(this.endDate)
+                .startTime(this.startTime)
+                .endTime(this.endTime)
+                .pay(this.pay)
+                .status(this.status)
+                .amount(this.amount)
+                .payDateTime(this.payDateTime)
+                .cardCompany(this.cardCompany)
+                .cardNumber(this.cardNumber)
+                .payApprove(this.payApprove)
+                .monthlyInstallmentPlan(this.monthlyInstallmentPlan)
+                .careSitter(this.careSitter.toCareSitterDTO())
+                .member(this.member.toMemberListViewDTO())
                 .build();
     }
 

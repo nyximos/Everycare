@@ -1,19 +1,17 @@
 package wd.team4.everycare.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.*;
 import wd.team4.everycare.dto.PayResponse;
+import wd.team4.everycare.dto.contract.CompletionContractDTO;
 import wd.team4.everycare.dto.contract.ContractDTO;
-import wd.team4.everycare.dto.contract.SignContractDTO;
 import wd.team4.everycare.dto.contract.JobOfferContractListDTO;
-import wd.team4.everycare.dto.product.ProductListViewDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.CareNoteRepository;
@@ -22,15 +20,9 @@ import wd.team4.everycare.repository.ContractRepository;
 import wd.team4.everycare.repository.JobOfferRepository;
 import wd.team4.everycare.service.interfaces.MemberContractService;
 
-
-import java.io.IOException;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -173,6 +165,27 @@ public class MemberContractServiceImpl implements MemberContractService {
 
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> getCompleteContract(PrincipalDetails principalDetails) {
+
+        Member member = principalDetails.getUser();
+
+        List<Contract> completionContract = contractRepository.findByStatusAndMember(2, member);
+
+        List<CompletionContractDTO> completionContractDTOs = new ArrayList<>();
+
+        completionContract.stream().map(contract -> contract.toCompletionContractDTO()).forEach(completionContractDTOs::add);
+
+        MyResponse body = MyResponse.builder()
+                .message("결제완료한 계약서")
+                .body(completionContractDTOs)
+                .header(StatusEnum.OK)
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+
     }
 
 }

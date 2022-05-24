@@ -12,4 +12,6 @@ public interface OrderService {
 
     ResponseEntity<MyResponse> order(HttpServletRequest request, PrincipalDetails principalDetails, OrderDTO orderDTO);
     ResponseEntity<MyResponse> signOrder(Long orderId, PayResponse payResponse);
+    ResponseEntity<MyResponse> getCompleteOrder(PrincipalDetails principalDetails);
+
 }
