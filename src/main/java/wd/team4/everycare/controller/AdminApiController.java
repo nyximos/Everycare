@@ -1,20 +1,16 @@
 package wd.team4.everycare.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.dto.board.BoardDTO;
 import wd.team4.everycare.dto.response.MyResponse;
-import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.service.AdminServiceImpl;
 import wd.team4.everycare.service.MemberServiceImpl;
-
-import java.time.LocalDateTime;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -80,5 +76,23 @@ public class AdminApiController {
         Member admin = principalDetails.getUser();
         ResponseEntity<MyResponse> responseEntity = adminService.approveCertification(id, admin);
         return responseEntity;
+    }
+
+    @PostMapping("/faq")
+    public ResponseEntity<MyResponse> writeFAQ(@AuthenticationPrincipal PrincipalDetails principalDetails, @ModelAttribute BoardDTO boardDTO){
+        ResponseEntity<MyResponse> faq = adminService.writeFAQ(principalDetails, boardDTO);
+        return faq;
+    }
+
+    @PatchMapping("/faq")
+    public ResponseEntity<MyResponse> updateFAQ(@AuthenticationPrincipal PrincipalDetails principalDetails, @ModelAttribute BoardDTO boardDTO){
+        ResponseEntity<MyResponse> updateFAQ = adminService.updateFAQ(principalDetails, boardDTO);
+        return updateFAQ;
+    }
+
+    @DeleteMapping("/faq")
+    public ResponseEntity<MyResponse> removeFAQ(@AuthenticationPrincipal PrincipalDetails principalDetails, Long id){
+        ResponseEntity<MyResponse> removeFAQ = adminService.removeFAQ(principalDetails, id);
+        return removeFAQ;
     }
 }

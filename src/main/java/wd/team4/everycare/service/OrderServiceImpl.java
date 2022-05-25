@@ -139,4 +139,10 @@ public class OrderServiceImpl implements OrderService {
                 .build();
         return new ResponseEntity<MyResponse> (body, HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<MyResponse> findOrderProduct(Long id, String status) {
+        return null;
+        /*TODO 결제하려는 상품: 이름, 각 가격, id, 멤버, 스토어 이름, 상품이미지, 갯수,*/
+    }
 }

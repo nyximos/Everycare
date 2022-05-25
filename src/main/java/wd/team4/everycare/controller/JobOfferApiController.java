@@ -60,7 +60,6 @@ public class JobOfferApiController {
                                                    @RequestBody JobOfferDTO jobOfferDTO){
 
         jobOfferService.save(principalDetails, jobOfferDTO);
-        /* TODO 케어대상인,스케줄 type mismatch 해결했는지 확인*/
 
         MyResponse<JobOfferDTO> body = MyResponse.<JobOfferDTO>builder()
                 .header(StatusEnum.OK)

@@ -6,17 +6,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import wd.team4.everycare.domain.CareSitter;
-import wd.team4.everycare.domain.Certification;
-import wd.team4.everycare.domain.Member;
-import wd.team4.everycare.domain.Store;
-import wd.team4.everycare.dto.certification.CertificationAdminListDTO;
+import wd.team4.everycare.config.auth.PrincipalDetails;
+import wd.team4.everycare.domain.*;
+import wd.team4.everycare.dto.board.BoardDTO;
 import wd.team4.everycare.dto.certification.CertificationAdminDetailDTO;
+import wd.team4.everycare.dto.certification.CertificationAdminListDTO;
 import wd.team4.everycare.dto.member.MemberNameDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.dto.store.StoreAdminDetailDTO;
 import wd.team4.everycare.dto.store.StoreAdminListDTO;
+import wd.team4.everycare.repository.BoardRepository;
 import wd.team4.everycare.repository.CertificationRepository;
 import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.repository.StoreRepository;
@@ -35,6 +35,7 @@ public class AdminServiceImpl implements AdminService {
     private final MemberRepository memberRepository;
     private final StoreRepository storeRepository;
     private final CertificationRepository certificationRepository;
+    private final BoardRepository boardRepository;
 
     @Override
     public ResponseEntity<MyResponse> approveAdmin(String id) {
@@ -62,7 +63,7 @@ public class AdminServiceImpl implements AdminService {
         memberEntity.removeAdmin();
 
 
-        MyResponse body= MyResponse.builder()
+        MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("성공")
                 .build();
@@ -77,8 +78,8 @@ public class AdminServiceImpl implements AdminService {
 
         List<StoreAdminListDTO> storeAdminListDTOs = new ArrayList<>();
 
-        if(stores.isEmpty()){
-            MyResponse body= MyResponse.builder()
+        if (stores.isEmpty()) {
+            MyResponse body = MyResponse.builder()
                     .header(StatusEnum.OK)
                     .message("등록한 스토어가 없습니다.")
                     .build();
@@ -145,7 +146,8 @@ public class AdminServiceImpl implements AdminService {
                 .build();
 
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);    }
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
 
     @Override
     public ResponseEntity<MyResponse> getCertifications() {
@@ -168,7 +170,7 @@ public class AdminServiceImpl implements AdminService {
             certificationAdminListDTOs.add(certificationAdminListDTO);
         }
 
-        if(certificationAdminListDTOs.isEmpty()) {
+        if (certificationAdminListDTOs.isEmpty()) {
             MyResponse body = MyResponse.builder()
                     .header(StatusEnum.OK)
                     .message("등록된 자격증이 없습니다.")
@@ -192,7 +194,7 @@ public class AdminServiceImpl implements AdminService {
         LocalDateTime time = LocalDateTime.now();
         Optional<Store> store = storeRepository.findById(id);
         Store storeEntity = store.orElse(null);
-        if ( storeEntity == null ) {
+        if (storeEntity == null) {
             MyResponse<Object> body = MyResponse.builder()
                     .header(StatusEnum.BAD_REQUEST)
                     .message("스토어가 존재하지 않습니다.").build();
@@ -200,7 +202,7 @@ public class AdminServiceImpl implements AdminService {
         } else {
             storeEntity.approvedByAdmin(1, time);
 
-            MyResponse body= MyResponse.builder()
+            MyResponse body = MyResponse.builder()
                     .header(StatusEnum.OK)
                     .message("성공")
                     .build();
@@ -213,20 +215,85 @@ public class AdminServiceImpl implements AdminService {
         LocalDateTime time = LocalDateTime.now();
         Optional<Certification> certification = certificationRepository.findById(id);
         Certification certificationEntity = certification.orElse(null);
-        if (certificationEntity == null){
+        if (certificationEntity == null) {
             MyResponse<Object> body = MyResponse.builder()
                     .header(StatusEnum.BAD_REQUEST)
                     .message("자격증이 존재하지 않습니다.").build();
             return new ResponseEntity<MyResponse>(body, HttpStatus.BAD_REQUEST);
         } else {
-            certificationEntity.approvedByAdmin(1,time,admin);
+            certificationEntity.approvedByAdmin(1, time, admin);
 
-            MyResponse body= MyResponse.builder()
+            MyResponse body = MyResponse.builder()
                     .header(StatusEnum.OK)
                     .message("성공")
                     .build();
             return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
         }
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> writeFAQ(PrincipalDetails principalDetails, BoardDTO boardDTO) {
+
+        Member member = principalDetails.getUser();
+        if (member.getRole() == MemberRole.ROLE_ADMIN) {
+            Board board = Board.builder()
+                    .title(boardDTO.getTitle())
+                    .content(boardDTO.getContent())
+                    .category(BoardCategory.FAQ)
+                    .createdAt(LocalDateTime.now())
+                    .count(0)
+                    .member(member)
+                    .build();
+
+            boardRepository.save(board);
+
+            BoardDTO toBoardDTO = board.toBoardDTO();
+
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.OK)
+                    .message("FAQ등록")
+                    .body(toBoardDTO)
+                    .build();
+
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> updateFAQ(PrincipalDetails principalDetails, BoardDTO boardDTO) {
+        Member member = principalDetails.getUser();
+
+        if (member.getRole() == MemberRole.ROLE_ADMIN) {
+            Board board = boardRepository.findById(boardDTO.getId()).orElse(null);
+            board.updateInfo(boardDTO);
+
+            BoardDTO toBoardDTO = board.toBoardDTO();
+
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.OK)
+                    .message("FAQ 수정")
+                    .body(toBoardDTO)
+                    .build();
+
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        }
+        else return null;
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> removeFAQ(PrincipalDetails principalDetails, Long id) {
+        Member member = principalDetails.getUser();
+
+        if (member.getRole() == MemberRole.ROLE_ADMIN) {
+            boardRepository.deleteById(id);
+        }
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("FAQ 삭제")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
     @Override

@@ -37,7 +37,7 @@ public class Board {
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime createdAt;
 
-    @Column(name = "board_updated_at", nullable = false)
+    @Column(name = "board_updated_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
     private LocalDateTime updatedAt;
 
