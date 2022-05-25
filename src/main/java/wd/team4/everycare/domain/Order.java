@@ -3,6 +3,7 @@ package wd.team4.everycare.domain;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.order.OrderDTO;
 import wd.team4.everycare.dto.order.SignOrderDTO;
 
 import javax.persistence.*;
@@ -111,6 +112,19 @@ public class Order {
                 .approvalNumber(this.approvalNumber)
                 .installmentPlan(this.installmentPlan)
                 .member(this.member.toMemberListViewDTO())
+                .build();
+    }
+
+    public OrderDTO toOrderDTO(){
+        return OrderDTO.builder()
+                .name(this.name)
+                .amount(this.amount)
+                .recipientName(this.recipientName)
+                .recipientNumber(this.recipientNumber)
+                .zipcode(this.zipcode)
+                .address(this.address)
+                .detailedAddress(this.detailedAddress)
+                .comment(this.comment)
                 .build();
     }
 }

@@ -141,8 +141,20 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public ResponseEntity<MyResponse> findOrderProduct(Long id, String status) {
-        return null;
+    public ResponseEntity<MyResponse> findOrderProduct(PrincipalDetails principalDetails) {
+        Member member = principalDetails.getUser();
+        List<Order> orderList = orderRepository.findByMemberAndStatus(member, OrderStatus.ORDER);
+
+        List<OrderDTO> orderDTOs = new ArrayList<>();
+
+        orderList.stream().map(order -> order.toOrderDTO()).forEach(orderDTOs::add);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("결제할 목록")
+                .body(orderDTOs)
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
         /*TODO 결제하려는 상품: 이름, 각 가격, id, 멤버, 스토어 이름, 상품이미지, 갯수,*/
     }
 }

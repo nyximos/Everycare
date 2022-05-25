@@ -83,6 +83,19 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public ResponseEntity<MyResponse> getDetailInquiry(Long boardId) {
+        Board board = boardRepository.findById(boardId).orElse(null);
+        BoardDTO boardDTO = board.toBoardDTO();
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("문의 상세")
+                .body(boardDTO)
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity<MyResponse> updateInquiry(Long boardId, BoardDTO boardDTO) {
         Board board = boardRepository.findById(boardId).orElse(null);
 

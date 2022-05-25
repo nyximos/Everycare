@@ -15,7 +15,12 @@ public interface BoardService {
     ResponseEntity<MyResponse> getInquiry(Long productId);
     ResponseEntity<MyResponse> updateInquiry(Long boardId, BoardDTO boardDTO);
     ResponseEntity<MyResponse> removeInquiry(Long boardId);
+    ResponseEntity<MyResponse> getDetailInquiry(Long boardId);
 
     //FAQ 조회
     ResponseEntity<MyResponse> getFAQ();
+
+    /* TODO 후기 작성, 수정, 삭제, 조회  */
+    //후기
+//    ResponseEntity<MyResponse>
 }

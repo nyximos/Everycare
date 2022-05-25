@@ -36,11 +36,17 @@ public class OrderApiController {
         return signOrder;
     }
 
-    @GetMapping("/dashboard/orders")
+    @GetMapping("/dashboard/orders/payment-history")
     public ResponseEntity<MyResponse> completeOrder(@AuthenticationPrincipal PrincipalDetails principalDetails){
         ResponseEntity<MyResponse> completeOrder = orderService.getCompleteOrder(principalDetails);
 
         return completeOrder;
+    }
+
+    @GetMapping("/dashboard/orders")
+    public ResponseEntity<MyResponse> findOrder(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        ResponseEntity<MyResponse> orderProduct = orderService.findOrderProduct(principalDetails);
+        return orderProduct;
     }
 
 }

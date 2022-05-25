@@ -25,6 +25,12 @@ public class BoardApiController {
         return getInquiry;
     }
 
+    @GetMapping("/store/products/qna/{boardId}")
+    public ResponseEntity<MyResponse> getDetailInquiry(@PathVariable("boardId") Long boardId){
+        ResponseEntity<MyResponse> getDetail = boardService.getDetailInquiry(boardId);
+        return getDetail;
+    }
+
     @PatchMapping("/store/products/qna/{boardId}")
     public ResponseEntity<MyResponse> updateInquiry(@PathVariable("boardId") Long boardId, @ModelAttribute BoardDTO boardDTO){
         ResponseEntity<MyResponse> updateInquiry = boardService.updateInquiry(boardId, boardDTO);
