@@ -2,10 +2,21 @@
     <div>
       <v-data-table
         :headers="headers"
-        :items="desserts"
+        :items="applications"
         :items-per-page="5"
+        :search="search"
         class="elevation-1"
-      ></v-data-table>
+        @click:row="storeClick"
+      >
+      <template v-slot:top>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          placeholder="스토어명"
+          class="mx-4"
+        ></v-text-field>
+      </template></v-data-table>
     </div>
 </template>
 
@@ -24,9 +35,25 @@ mounted() {
 },
 data(){
     return{
-        applications:[]
+        headers:[
+            {text:'아이디', value:'id'},
+            {text:'스토어명', value:'name'},
+            {text:'멤버', value:'memberId'},
+            ],
+        applications:[],
+        search: '',
     }
-}
+},
+methods: {
+    storeClick(value){
+      this.$router.push({
+      name: 'adminStoresDetail',
+      params: {
+        contentId: value.id
+      }
+    })
+    }
+},
 }
 </script>
 

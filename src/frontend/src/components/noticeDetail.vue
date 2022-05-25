@@ -81,7 +81,7 @@ methods:{
     formData.append('content', this.comment);
 
     this.$http
-    .patch(`/api/admin/notice/${id}`,formData, {
+    .patch(`/api/admin/notice/${id}`,formaData, {
     withCredentials: true
     })
      .then(res => {

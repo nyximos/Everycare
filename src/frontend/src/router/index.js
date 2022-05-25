@@ -13,6 +13,10 @@ const routes = [
         redirect: '/',
     },
     {
+        path: '/addr',
+        component: () => import('@/components/addr.vue'),
+    },
+    {
         path: '/',
         name: 'Main',
         component: () => import('@/pages/Main.vue'),
@@ -181,7 +185,13 @@ const routes = [
     {
         path: '/admin/stores',
         name: 'adminStores',
-        component: () => import('@/pages/adminStores.vue'),
+        component: () => import('@/pages/AdminStores.vue'),
+    },
+    // 관리자 케어스토어 목록 상세
+    {
+        path: '/admin/stores/:contentId',
+        name: 'adminStoresDetail',
+        component: () => import('@/pages/AdminStoresDetail.vue'),
     },
     // 구인글 조회
     {
