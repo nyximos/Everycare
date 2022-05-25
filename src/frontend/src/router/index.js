@@ -178,11 +178,14 @@ const routes = [
         name: 'signup',
         component: () => import('@/pages/Signup.vue'),
     },
-    {
-        path: '/calendar',
-        name: 'calendar',
-        component: () => import('@/pages/Calendar.vue'),
-    },
+    // {
+    //     path: '/calendar',
+    //     name: 'calendar',
+    //     component: () => import('@/pages/Calendar.vue'),
+    //     path: '/stores/product/:contentId',
+    //     name: 'prodDetail',
+    //     component: () => import('@/components/prodDetail.vue'),
+    // },
     // {
     //     path: '/careprofile',
     //     name: 'careprofile',
@@ -399,6 +402,11 @@ const routes = [
         path: '/dashboard/carenote/caretargets/:caretargetsId/schedules/:scheduleId/addactive',
         name: 'scheActive',
         component:() => import('@/pages/Schedule_Active.vue')
+    },
+    {
+       path: '/dashboard/memberschedule',
+       name: 'memberschedule',
+       component:() => import('@/pages/Member_Schedule.vue')
     },
     {
         path: '/admin/members',
