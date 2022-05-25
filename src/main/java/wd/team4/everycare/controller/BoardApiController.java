@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
+import wd.team4.everycare.dto.board.BoardDTO;
 import wd.team4.everycare.dto.board.BoardInquiryDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.service.BoardServiceImpl;
@@ -18,11 +19,29 @@ public class BoardApiController {
 
     private final BoardServiceImpl boardService;
 
+    @GetMapping("/store/products/{productId}/qna")
+    public ResponseEntity<MyResponse> getInquiry(@PathVariable("productId") Long productId){
+        ResponseEntity<MyResponse> getInquiry = boardService.getInquiry(productId);
+        return getInquiry;
+    }
+
+    @PatchMapping("/store/products/qna/{boardId}")
+    public ResponseEntity<MyResponse> updateInquiry(@PathVariable("boardId") Long boardId, @ModelAttribute BoardDTO boardDTO){
+        ResponseEntity<MyResponse> updateInquiry = boardService.updateInquiry(boardId, boardDTO);
+        return updateInquiry;
+    }
+
     @PostMapping("/store/products/{productId}/qna/new")
     public ResponseEntity<MyResponse> inquiry(@PathVariable("productId") Long productId, @AuthenticationPrincipal PrincipalDetails principalDetails,
                                               @ModelAttribute BoardInquiryDTO boardInquiryDTO) throws IOException {
         ResponseEntity<MyResponse> inquiry = boardService.inquiry(boardInquiryDTO, principalDetails, productId);
         return inquiry;
+    }
+
+    @DeleteMapping("/store/products/qna/{boardId}")
+    public ResponseEntity<MyResponse> removeInquiry(@PathVariable("boardId") Long boardId){
+        ResponseEntity<MyResponse> remove = boardService.removeInquiry(boardId);
+        return remove;
     }
 
     @GetMapping("/faq")

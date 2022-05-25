@@ -67,6 +67,50 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public ResponseEntity<MyResponse> getInquiry(Long productId) {
+
+        List<Board> getInquiry = boardRepository.findByCategoryAndProductId(BoardCategory.문의, productId);
+        List<BoardDTO> inquiryDTO = new ArrayList<>();
+
+        getInquiry.stream().map(board -> board.toBoardDTO()).forEach(inquiryDTO::add);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("문의글 조회")
+                .body(inquiryDTO)
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> updateInquiry(Long boardId, BoardDTO boardDTO) {
+        Board board = boardRepository.findById(boardId).orElse(null);
+
+        board.updateInfo(boardDTO);
+
+        BoardDTO updateBoard = board.toBoardDTO();
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("문의글 수정")
+                .body(updateBoard)
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> removeInquiry(Long boardId) {
+        boardRepository.deleteById(boardId);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("문의 삭제")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+
+    @Override
     public ResponseEntity<MyResponse> getFAQ() {
         List<Board> FAQList = boardRepository.findByCategory(BoardCategory.FAQ);
 
