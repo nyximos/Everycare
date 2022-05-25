@@ -43,7 +43,16 @@ const routes = [
         name: 'prodEdit',
         component: () => import('@/components/prodEdit.vue'),
     },
-    // 장바구니
+    {
+            path: '/prodcreate',
+        name: 'ProdCreate',
+        component: () => import('@/components/prodCreate.vue'),
+    },
+    {
+        path: '/prodedit/:contentId',
+        name: 'ProdEdit',
+        component: () => import('@/components/prodEdit.vue'),
+    },
     {
         path: '/dashboard/cart',
         name: 'Cart',
