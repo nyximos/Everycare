@@ -338,10 +338,16 @@ const routes = [
         component: () => import('@/pages/Adminpage.vue'),
     },
     {
-        path: '/jobapplication',
+        path: '/jobapplication/:contentId',
         name: 'jobapplication',
         component: () => import('@/pages/JobApplication.vue'),
     },
+    {
+        path: '/mypage_joblist',
+        name: 'mypage_joblist',
+        component: () => import('@/components/main/mypage_joblist'),
+    },
+
 ];
 
 const router = new VueRouter({

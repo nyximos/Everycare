@@ -4,7 +4,7 @@
         <v-card>
             <v-card-title>{{ listItem.title }}</v-card-title>
             <v-card-text>
-                {{ listItem.id }}
+                {{ this.listItem.id }}
                 <p>시작일 : {{ listItem.startDate }}</p>
                 <p>종료일 : {{ listItem.endDate }}</p>
                 <p>급여 : {{ listItem.pay }}원</p>

@@ -11,7 +11,7 @@
           {{p.name}}
         </div>
         <v-list-item-title class="text-h5 mb-1">
-          {{p.introduction}}
+          {{p.startdate}}~{{p.enddate}}
         </v-list-item-title>
         <v-list-item-subtitle>{{p.introduction}}</v-list-item-subtitle>
       </v-list-item-content>
@@ -32,8 +32,11 @@
         승낙
       </v-btn>
     </v-card-actions>
+    
   </v-card>
+  
 </div>
+
 </template>
 
 <script>
@@ -49,43 +52,17 @@ export default {
         }
     },
  mounted() {
-   
-    // this.$http
-    //     .get('/api/recruitions', {
-    //     withCredentials: true
-    //     })
-    //     .then(res => {
-    //       console.log(res.data)
 
-    //       this.id = res.data.body.id;
-    //       console.log(res)
-          
-    //     })
-    //       .catch(err => {
-    //       console.log(err);
-    //     });
-    
-  //   this.$http
-  //   .get('/api/dashboard/contracts', {
-  //     withCredentials: true
-  //   })
-  //   .then((res) => {
-  //         // console.log(res)
-  //         console.log(res.data.body)
-  //         // this.id = res.data.body.id
-        
-  // }).catch(err => {
-  //   alert(err);
-  //   console.log(err);
-  // })
   
-  // const id = this.$route.params.contentId;
-  const id = this.$store.state.jobstore.id;
+  const id = this.$route.params.contentId;
+ 
+  console.log(id);
     this.$http
     .get(`/api/dashboard/recruitions/${id}/caresitters`, {
       withCredentials: true
     })
       .then((res) => {
+          console.log(res)
           console.log(res.data.body)
           this.profiles = res.data.body
         
