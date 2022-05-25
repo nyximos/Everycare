@@ -12,9 +12,10 @@
     <v-data-table
     :headers="headers"
     :items="desserts"
-    item-key="title"
+    item-key="id"
     :search="search"
     class="elevation-1"
+    @click:row="handleClick"
   >
   <template v-slot:top>
      <template>
@@ -36,7 +37,7 @@ data(){
     return{
         search: '',
         desserts: [],
-        headers:[{text:'제목', value:'title'},{text:'작성자', value:'memberInfoDTO.name'}]
+        headers:[{text:'번호', value:'id'},{text:'제목', value:'title'},{text:'작성자', value:'memberInfoDTO.name'}]
     }
 },
 mounted() {
@@ -56,7 +57,16 @@ this.$http
 methods:{
   newNotice(){
     this.$router.push({
-      path: '/newNotice'
+      path: '/admin/notice/new'
+    })
+  },
+  handleClick(value){
+    // console.log(value.id)
+    this.$router.push({
+      name: 'noticeDetail',
+      params: {
+        contentId: value.id
+      }
     })
   }
 }

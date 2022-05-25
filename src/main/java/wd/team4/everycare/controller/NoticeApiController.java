@@ -21,6 +21,7 @@ public class NoticeApiController {
     @GetMapping("/notice")
     public ResponseEntity<MyResponse> getAllNotice(){
         ResponseEntity<MyResponse> allNotice = noticeService.findAllNotice();
+        System.out.println("bbbbbbbbbbbbbb");
         return allNotice;
     }
 
@@ -33,6 +34,7 @@ public class NoticeApiController {
     @GetMapping("/admin/notice/{id}")
     public ResponseEntity<MyResponse> detailNotice(@PathVariable("id")Long id){
         ResponseEntity<MyResponse> detailNotice = noticeService.findNotice(id);
+
         return detailNotice;
     }
 
@@ -45,6 +47,8 @@ public class NoticeApiController {
     @PatchMapping("/admin/notice/{id}")
     public ResponseEntity<MyResponse> updateNotice(@PathVariable("id") Long id,
                                                    @ModelAttribute BoardDTO boardDTO){
+
+        System.out.println("Aaaaaaaaa");
         ResponseEntity<MyResponse> update = noticeService.update(id, boardDTO);
         return update;
     }
