@@ -11,4 +11,7 @@ public interface BoardService {
 
     //문의
     ResponseEntity<MyResponse> inquiry(BoardInquiryDTO boardInquiryDTO, PrincipalDetails principalDetails, Long productId) throws IOException;
+
+    //FAQ 조회
+    ResponseEntity<MyResponse> getFAQ();
 }

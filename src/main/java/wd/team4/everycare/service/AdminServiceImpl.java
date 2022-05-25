@@ -269,6 +269,7 @@ public class AdminServiceImpl implements AdminService {
             Board board = boardRepository.findById(boardDTO.getId()).orElse(null);
             board.updateInfo(boardDTO);
 
+
             BoardDTO toBoardDTO = board.toBoardDTO();
 
             MyResponse body = MyResponse.builder()

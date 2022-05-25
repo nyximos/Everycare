@@ -24,4 +24,10 @@ public class BoardApiController {
         ResponseEntity<MyResponse> inquiry = boardService.inquiry(boardInquiryDTO, principalDetails, productId);
         return inquiry;
     }
+
+    @GetMapping("/faq")
+    public ResponseEntity<MyResponse> getFAQ(){
+        ResponseEntity<MyResponse> faq = boardService.getFAQ();
+        return faq;
+    }
 }

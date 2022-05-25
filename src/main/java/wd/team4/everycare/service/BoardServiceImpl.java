@@ -20,6 +20,8 @@ import wd.team4.everycare.repository.ProductRepository;
 import wd.team4.everycare.service.interfaces.BoardService;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -59,6 +61,23 @@ public class BoardServiceImpl implements BoardService {
                 .header(StatusEnum.OK)
                 .message("문의글 등록")
                 .body(boardDTO)
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> getFAQ() {
+        List<Board> FAQList = boardRepository.findByCategory(BoardCategory.FAQ);
+
+        List<BoardDTO> FAQListDTO = new ArrayList<>();
+
+        FAQList.stream().map(board -> board.toBoardDTO()).forEach(FAQListDTO::add);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("FAQ조회")
+                .body(FAQListDTO)
                 .build();
 
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);

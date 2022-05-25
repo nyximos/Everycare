@@ -92,6 +92,7 @@ public class Board {
     public void updateInfo(BoardDTO boardDTO){
         if(StringUtils.isNotBlank(boardDTO.getTitle())) this.title=boardDTO.getTitle();
         if(StringUtils.isNotBlank(boardDTO.getContent())) this.content=boardDTO.getContent();
+        this.updatedAt=LocalDateTime.now();
     }
 
     public BoardInquiryDTO boardInquiry(){
