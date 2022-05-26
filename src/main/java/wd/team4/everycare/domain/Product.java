@@ -5,14 +5,14 @@ import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.dto.product.MemberProductListViewDTO;
+import wd.team4.everycare.dto.product.ProductCategoryDTO;
 import wd.team4.everycare.dto.product.ProductFormDTO;
+import wd.team4.everycare.dto.product.ProductViewDTO;
 import wd.team4.everycare.service.exception.NotEnoughStockException;
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Entity
@@ -94,6 +94,23 @@ public class Product {
                 .inventoryQuantity(this.inventoryQuantity)
                 .comment(this.comment)
                 .isSale(this.isSale)
+                .build();
+    }
+
+    public ProductViewDTO toProductViewDTO(){
+        return ProductViewDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .uploadFileName(this.uploadFileName)
+                .storeFileName(this.storeFileName)
+                .store(this.store.toNameDTO())
+                .build();
+    }
+
+    public ProductCategoryDTO toProductCategoryDTO(){
+        return ProductCategoryDTO.builder()
+                .id(this.id)
+                .name(this.name)
                 .build();
     }
 

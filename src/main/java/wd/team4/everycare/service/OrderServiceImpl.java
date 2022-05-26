@@ -6,12 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
-import wd.team4.everycare.domain.Order;
-import wd.team4.everycare.domain.OrderStatus;
+import wd.team4.everycare.domain.*;
 import wd.team4.everycare.dto.PayResponse;
-import wd.team4.everycare.domain.Product;
-import wd.team4.everycare.domain.OrderProduct;
 import wd.team4.everycare.dto.order.OrderDTO;
+import wd.team4.everycare.dto.order.OrderProductDTO;
 import wd.team4.everycare.dto.order.SignOrderDTO;
 import wd.team4.everycare.dto.product.CartDTO;
 import wd.team4.everycare.dto.response.MyResponse;
@@ -24,6 +22,7 @@ import wd.team4.everycare.service.interfaces.OrderService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -129,6 +128,47 @@ public class OrderServiceImpl implements OrderService {
                 .header(StatusEnum.OK)
                 .body(signOrderDTO)
                 .message("결제 및 DB 수정 성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> getCompleteOrder(PrincipalDetails principalDetails) {
+
+        Member member = principalDetails.getUser();
+        List<Order> completionContract = orderRepository.findByMemberAndStatus(member, OrderStatus.COMPLETE);
+
+        List<SignOrderDTO> orderDTOs = new ArrayList<>();
+
+        completionContract.stream().map(order -> order.toSignOrderDTO()).forEach(orderDTOs::add);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .body(orderDTOs)
+                .message("결제한 상품 목록 조회")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+
+    @Override
+    public ResponseEntity<MyResponse> findOrderProduct(Long orderId, PrincipalDetails principalDetails) {
+        Member member = principalDetails.getUser();
+
+        List<OrderProduct> findOrder = orderProductRepository.findByOrderId(orderId);
+        List<OrderProductDTO> orderProductDTOs = new ArrayList<>();
+
+        findOrder.stream().map(orderProduct -> orderProduct.toOrderProductDTO()).forEach(orderProductDTOs::add);
+
+        for (OrderProductDTO orderProductDTO: orderProductDTOs) {
+            orderProductDTO.setMember(member.toMemberNameDTO());
+        }
+
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("결제할 목록")
+                .body(orderProductDTOs)
                 .build();
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }

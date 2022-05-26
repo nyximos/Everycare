@@ -121,7 +121,6 @@ public class JobOfferServiceImpl implements JobOfferService {
 
         if (jobOffer != null) {
             Contract contract = Contract.builder()
-                    .id(jobOffer.getId())
                     .name(jobOffer.getCareTarget().getName() + "_" + careSitter.getName())
                     .startDate(jobOffer.getStartDate())
                     .endDate(jobOffer.getEndDate())

@@ -36,4 +36,17 @@ public class OrderApiController {
         return signOrder;
     }
 
+    @GetMapping("/dashboard/orders/payment-history")
+    public ResponseEntity<MyResponse> completeOrder(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        ResponseEntity<MyResponse> completeOrder = orderService.getCompleteOrder(principalDetails);
+
+        return completeOrder;
+    }
+
+    @GetMapping("/dashboard/orders")
+    public ResponseEntity<MyResponse> findOrder(@RequestParam Long orderId, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        ResponseEntity<MyResponse> orderProduct = orderService.findOrderProduct(orderId, principalDetails);
+        return orderProduct;
+    }
+
 }

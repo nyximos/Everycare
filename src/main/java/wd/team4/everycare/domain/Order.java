@@ -3,11 +3,11 @@ package wd.team4.everycare.domain;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.order.OrderDTO;
 import wd.team4.everycare.dto.order.SignOrderDTO;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Entity
@@ -45,6 +45,7 @@ public class Order {
     @Column(name = "order_detailed_address", nullable = false)
     private String detailedAddress;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "order_status", nullable = false)
     private OrderStatus status;
 
@@ -111,6 +112,20 @@ public class Order {
                 .approvalNumber(this.approvalNumber)
                 .installmentPlan(this.installmentPlan)
                 .member(this.member.toMemberListViewDTO())
+                .build();
+    }
+
+    public OrderDTO toOrderDTO(){
+        return OrderDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .amount(this.amount)
+                .recipientName(this.recipientName)
+                .recipientNumber(this.recipientNumber)
+                .zipcode(this.zipcode)
+                .address(this.address)
+                .detailedAddress(this.detailedAddress)
+                .comment(this.comment)
                 .build();
     }
 }
