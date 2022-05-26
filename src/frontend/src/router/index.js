@@ -13,42 +13,13 @@ const routes = [
         redirect: '/',
     },
     {
+        path: '/addr',
+        component: () => import('@/components/addr.vue'),
+    },
+    {
         path: '/',
         name: 'Main',
         component: () => import('@/pages/Main.vue'),
-    },
-    {
-        path: '/notice',
-        name: 'Notice',
-        component: () => import('@/pages/Notice.vue'),
-    },
-    {
-        path: '/newNotice',
-        name: 'newNotice',
-        component: () => import('@/components/newNotice.vue'),
-    },
-    // 상품 등록
-    {
-        path: '/store/account/{id}/products/new',
-        name: 'ProdCreate',
-        component: () => import('@/components/prodCreate.vue'),
-    },
-    // 상품 관리
-    {
-        path: '/store/account/:contentId/products',
-        name: 'ProdEdit',
-        component: () => import('@/components/prodEdit.vue'),
-    },
-    // 장바구니
-    {
-        path: '/dashboard/cart',
-        name: 'Cart',
-        component: () => import('@/components/cart.vue'),
-    },
-    {
-        path: '/payment',
-        name: 'Payment',
-        component: () => import('@/components/productPayment.vue'),
     },
     {
         // 관리자 자격증 조회 화면
@@ -140,17 +111,6 @@ const routes = [
         name: 'admin_report',
         component: () => import('@/pages/Adminpage_report.vue'),
     },
-    // 찜 목록
-    {
-        path: '/dashboard/wishlist',
-        name: 'Wish',
-        component: () => import('@/pages/Wish.vue'),
-    },
-    {
-        path: '/joboffer/:id/editwrite',
-        name: 'editwrite',
-        component: () => import('@/components/writeEdit.vue'),
-    },
     {
         path: '/signup',
         name: 'signup',
@@ -160,12 +120,6 @@ const routes = [
         path: '/calendar',
         name: 'calendar',
         component: () => import('@/pages/Calendar.vue'),
-    },
-    // 상품 상세 조회
-    {
-        path: '/store/account/:contentId/products/:contentId',
-        name: 'prodDetail',
-        component: () => import('@/components/prodDetail.vue'),
     },
     // {
     //     path: '/careprofile',
@@ -179,39 +133,108 @@ const routes = [
         name: 'storeMain',
         component: () => import('@/pages/StoreHome.vue'),
     },
-    // 케어스토어 생성
+    // 케어스토어 등록
     {
         path: '/store/new',
         name: 'createStore',
         component: () => import('@/pages/Storesubmit.vue'),
     },
+    // 케어스토어 수정
     {
-        path: '/stores/:contentId',
+        path: '/store/account/:contentId/update',
         name: 'storeEdit',
         component: () => import('@/pages/StoreInfoEdit.vue'),
     },
-
+    // 상품 등록
     {
-        path: '/joblist',
+        path: '/store/account/:contentId/products/new',
+        name: 'ProdCreate',
+        component: () => import('@/components/prodCreate.vue'),
+    },
+    // 상품 관리
+    {
+        path: '/store/account/:contentId/products',
+        name: 'ProdEdit',
+        component: () => import('@/components/prodEdit.vue'),
+    },
+    // 상품 상세 조회
+    {
+        path: '/store/account/:contentId/products/:contentId',
+        name: 'prodDetail',
+        component: () => import('@/components/prodDetail.vue'),
+    },
+    // 장바구니,주문
+    {
+        path: '/dashboard/cart',
+        name: 'Cart',
+        component: () => import('@/components/cart.vue'),
+    },
+    // 찜 목록
+    {
+        path: '/dashboard/wishlist',
+        name: 'Wish',
+        component: () => import('@/pages/Wish.vue'),
+    },
+    // 상품결제
+    {
+        path: '/store/ordersheet/payment',
+        name: 'Payment',
+        component: () => import('@/components/productPayment.vue'),
+    },
+    // 관리자 케어스토어 목록
+    {
+        path: '/admin/stores',
+        name: 'adminStores',
+        component: () => import('@/pages/AdminStores.vue'),
+    },
+    // 관리자 케어스토어 목록 상세
+    {
+        path: '/admin/stores/:contentId',
+        name: 'adminStoresDetail',
+        component: () => import('@/pages/AdminStoresDetail.vue'),
+    },
+    // 구인글 조회
+    {
+        path: '/recruitions',
         name: 'Job_list',
         component: () => import('@/pages/Job_list.vue'),
     },
+    // 구인글 등록
     {
-        path: '/createwrite',
+        path: '/recruitions/new',
         name: 'CreateWrite',
         component: () => import('@/pages/CreateWrite.vue'),
     },
+    // 구인글 수정
     {
-        path: '/joblist/detail/:contentId',
+        path: '/recruitions/:id/update',
+        name: 'editwrite',
+        component: () => import('@/components/writeEdit.vue'),
+    },
+    // 구인글 상세
+    {
+        path: '/recruitions/:contentId',
         name: 'detail',
         component: () => import('@/components/itemDetail.vue')
     },
-    // {
-    //     path: '/recruitions',
-    //     name: 'Recruitions',
-    //     component: () => import('@/pages/Recruitions.vue')
-    // },
-
+    // 공지 조회
+    {
+        path: '/notice',
+        name: 'Notice',
+        component: () => import('@/pages/Notice.vue'),
+    },
+    // 공지 등록
+    {
+        path: '/admin/notice/new',
+        name: 'newNotice',
+        component: () => import('@/components/newNotice.vue'),
+    },
+    // 공지 상세조회
+    {
+        path: '/admin/notice/:contentId',
+        name: 'noticeDetail',
+        component: () => import('@/components/noticeDetail.vue'),
+    },
     {
         path: '/login',
         name: 'Login',

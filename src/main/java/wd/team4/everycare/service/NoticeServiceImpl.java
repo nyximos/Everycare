@@ -76,9 +76,16 @@ public class NoticeServiceImpl implements NoticeService {
     @Override
     public ResponseEntity<MyResponse> update(Long id,BoardDTO boardDTO) {
         Board board = boardRepository.findById(id).get();
-        BoardDTO toBoardDTO = board.toBoardDTO();
-        board.updateInfo(toBoardDTO);
-        return null;
+        board.updateInfo(boardDTO);
+
+        BoardDTO updateBoard = board.toBoardDTO();
+        System.out.println("updateBoard = " + updateBoard);
+        MyResponse body = MyResponse.builder()
+                .message("수정")
+                .header(StatusEnum.OK)
+                .body(updateBoard)
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
     @Override

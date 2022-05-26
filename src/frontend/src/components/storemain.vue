@@ -98,17 +98,17 @@ data(){
 methods:{
 	goCreateStore(){
 		this.$router.push({
-			path:'createStore'
+			path:'/store/new'
 		})
 	},
 	goCart(){
 		this.$router.push({
-			path:'/cart'
+			path:'/dashboard/cart'
 		})
 	},
   wish(){
     this.$router.push({
-      path: '/wish'
+      path: '/dashboard/wishlist'
     })
   },
   detailShot(id){
