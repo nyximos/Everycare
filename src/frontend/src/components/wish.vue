@@ -1,6 +1,7 @@
 <template>
     <div>
-        <v-simple-table>
+        <div v-if="this.wishList.length==0">찜이 없습니다</div>
+        <v-simple-table v-else>
             <template v-slot:default>
                 <thead>
                     <tr>
