@@ -81,7 +81,7 @@
              <label>설명</label>
             </v-col>
           <v-col cols="8">
-            <p>{{comment}} </p>
+            <p>{{comment}}</p>
           </v-col>
           </v-row>
           <v-btn color="primary" @click="application">신청</v-btn>
@@ -94,7 +94,6 @@
 export default {
 name:'itemDetail',
 mounted() {
-
     this.$http
     .get('/api/dashboard/caresitter/contracts', {
       withCredentials: true
@@ -108,7 +107,6 @@ mounted() {
     console.log(err);
   })
     const id = Number(this.$route.params.contentId);
-
     this.$http
     .get(`/api/recruitions/recruition/${id}`,{
         withCredentials: true
@@ -148,22 +146,22 @@ data(){
         paytimepick: this.paytimepick,
         pay: this.pay,
         comment: this.comment,
-        id: this.$route.params.contentId,
+        id: this.id
     }
 },
 methods:{
 
 application(){
-  
+  this.$router.push({name:'jobapplication', params:{contractId:id}})
+
+  console.log(this.id)
   // this.$router.push({ name: 'CaretargetsDetail', params: { caretargetsId: p.id }})
-  const id = this.id
-  console.log(id);
+  const id = Number(this.$route.params.contentId);
   // console
    this.$http
     .post(`/api/recruitions/${id}/contracts`, {
-      withCredentials: true  
+      withCredentials: true
     })
-    // this.$router.push({name:'jobapplication', params:{contentId:id}})
       .then((res) => {
         console.log(res);
           // console.log(res.data.body)
@@ -173,7 +171,6 @@ application(){
     alert(err);
     console.log(err);
   })
-
   // location.href = '/';
 },
 back(){

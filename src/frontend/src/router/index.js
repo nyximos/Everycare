@@ -21,6 +21,39 @@ const routes = [
         name: 'Main',
         component: () => import('@/pages/Main.vue'),
     },
+    // {
+    //     path: '/notice',
+    //     name: 'notice',
+    //     component: () => import('@/pages/Notice.vue'),
+    // },
+    {
+        path: '/newNotice',
+        name: 'newNotice',
+        component: () => import('@/components/newNotice.vue'),
+    },
+    // 상품 등록
+    {
+        path: '/store/account/{id}/products/new',
+        name: 'ProdCreate',
+        component: () => import('@/components/prodCreate.vue'),
+    },
+    // 상품 관리
+    {
+        path: '/store/account/:contentId/products',
+        name: 'prodEdit',
+        component: () => import('@/components/prodEdit.vue'),
+    },
+    // 장바구니
+    {
+        path: '/dashboard/cart',
+        name: 'Cart',
+        component: () => import('@/components/cart.vue'),
+    },
+    {
+        path: '/payment',
+        name: 'Payment',
+        component: () => import('@/components/productPayment.vue'),
+    },
     {
         // 관리자 자격증 조회 화면
         path: '/admin/caresitter-certifications',
