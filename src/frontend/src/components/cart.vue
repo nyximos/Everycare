@@ -7,14 +7,19 @@
                     <template v-slot:default>
                         <thead>
                             <tr>
+                                <th class="text-left">img</th>
                                 <th class="text-left">id</th>
+                                <th class="text-left">name</th>
                                 <th class="text-left">quantity</th>
                                 <th class="text-left">amount</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="(item,index) in $store.state.cart.cart" :key="index">
-                                <td>{{index }}/{{ item.productId }}</td>
+                                <td><v-img id="divProfile" :src="'https://localhost:8086/api/images/'+item.image" 
+                                    alt="사진" width="100" height="100"/></td>
+                                <td>{{index}}/{{ item.productId }}</td>
+                                <td>{{item.name}}</td>
                                 <td>{{ item.quantity }}</td>
                                 <td>{{ item.amount * item.quantity }}</td>
                                 <td><v-btn @click="remove(index)">x</v-btn></td>

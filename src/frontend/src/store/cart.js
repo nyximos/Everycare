@@ -4,6 +4,8 @@ export default {
         productId: '',
         amount: '',
         quantity: '',
+        name: '',
+        image:'',
         cart:[]
     },
     mutations: {
@@ -14,7 +16,9 @@ export default {
                 state.cart.push({
                     productId: product.id,
                     amount: product.amount,
-                    quantity: product.quantity
+                    quantity: product.quantity,
+                    name: product.name,
+                    image: product.image
                 });
             } else {
                 cartItems[0].quantity++
