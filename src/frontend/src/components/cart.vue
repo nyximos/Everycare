@@ -50,7 +50,6 @@
           </v-card-text>
         </v-card>
         <v-btn  @click="order" block :disabled="!formIsValid">주문</v-btn>
-        <v-btn  @click="payment" block :disabled="!formIsValid">결제</v-btn>
     </div>
 </template>
 
@@ -79,6 +78,7 @@ export default {
       detailedAddress: this.detailedAddress,
       comment: this.comment,
       paymentAmount: this.total,
+      Order_Id:this.Order_Id
     }
   },
     methods:{
@@ -90,7 +90,7 @@ export default {
             orderId: this.orderId,
             orderName: this.firstName,
             customerName: this.$store.state.userStore.id,
-            successUrl: `https://localhost:8086/api/cart/orders/payments?orderTableId=${this.orderId}`,
+            successUrl: `https://localhost:8086/api/cart/orders/payments?orderTableId=${this.Order_Id}`,
             failUrl: 'https://localhost:8080/fail',
         };
          tossPayments.requestPayment("카드", paymentData);
@@ -148,6 +148,18 @@ export default {
       formData.append('paymentAmount',this.total);
         this.$http
       .post('/api/cart/orders', formData,{
+       withCredentials:true
+      })
+     .then(res => {
+      console.log(res);
+      this.Order_Id=res.data.body
+      this.payment()
+      })
+     .catch(err => {
+       console.log(err);
+    });
+     this.$http
+      .get('/api/cart/orders', formData,{
        withCredentials:true
       })
      .then(res => {

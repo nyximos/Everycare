@@ -95,6 +95,7 @@ public class OrderServiceImpl implements OrderService {
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("성공")
+                .body(order.getId())
                 .build();
 
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
