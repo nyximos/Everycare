@@ -95,6 +95,7 @@ public class OrderServiceImpl implements OrderService {
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("성공")
+                .body(order.getId())
                 .build();
 
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
@@ -110,6 +111,15 @@ public class OrderServiceImpl implements OrderService {
         String approveNo = payResponse.getApproveNo();
         int installmentPlanMonths = payResponse.getInstallmentPlanMonths();
         Order order = orderRepository.findById(orderId).orElse(null);
+        System.out.println("order = " + order);
+        System.out.println("totalAmount, = " + totalAmount);
+        System.out.println("totalAmount, = " + approvedAt);
+        System.out.println("totalAmount, = " + cardCompany);
+        System.out.println("totalAmount, = " + cardNumber);
+        System.out.println("totalAmount, = " + approveNo);
+        System.out.println("totalAmount, = " + installmentPlanMonths);
+        System.out.println("totalAmount, = " + totalAmount);
+
 
         order.pay(totalAmount, approvedAt, cardCompany, cardNumber, Integer.parseInt(approveNo), installmentPlanMonths);
 

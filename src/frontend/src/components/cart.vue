@@ -49,7 +49,7 @@
                 </v-row>
           </v-card-text>
         </v-card>
-        <v-btn @click="order" block :disabled="!formIsValid">주문하기</v-btn>
+        <v-btn  @click="order" block :disabled="!formIsValid">주문</v-btn>
     </div>
 </template>
 
@@ -61,19 +61,15 @@ export default {
       })
 		.then((res)=>{
         console.log(res.data);
-        // this.desserts=res.data.body
-        // this.id=this.$store.state.cart.cart[0].p
-        // this.amount=length
-        // this.name=firstName
       }).catch(err =>{
 				console.log(err);
 			})
   },
   data(){
     return{
-      // desserts:[],
-      // id:this.id,
-      name: this.name,
+      tossPayments : TossPayments("test_ck_Lex6BJGQOVDGPJNGkJq3W4w2zNbg"),
+      orderId : new Date().getTime(),
+      customDate : new Date(),
       amount: this.length,
       recipientName: this.recipientName,
       recipientNumber: this.recipientNumber,
@@ -82,9 +78,24 @@ export default {
       detailedAddress: this.detailedAddress,
       comment: this.comment,
       paymentAmount: this.total,
+      Order_Id:this.Order_Id
     }
   },
     methods:{
+      payment(){
+        var tossPayments = TossPayments("test_ck_Lex6BJGQOVDGPJNGkJq3W4w2zNbg");
+        var customDate = new Date()
+        var paymentData = {
+            amount: this.total,
+            orderId: this.orderId,
+            orderName: this.firstName,
+            customerName: this.$store.state.userStore.id,
+            successUrl: `https://localhost:8086/api/cart/orders/payments?orderTableId=${this.Order_Id}`,
+            failUrl: 'https://localhost:8080/fail',
+        };
+         tossPayments.requestPayment("카드", paymentData);
+         
+    },
       execDaumPostcode() {
         new window.daum.Postcode({
           oncomplete: (data) => {
@@ -137,6 +148,18 @@ export default {
       formData.append('paymentAmount',this.total);
         this.$http
       .post('/api/cart/orders', formData,{
+       withCredentials:true
+      })
+     .then(res => {
+      console.log(res);
+      this.Order_Id=res.data.body
+      this.payment()
+      })
+     .catch(err => {
+       console.log(err);
+    });
+     this.$http
+      .get('/api/cart/orders', formData,{
        withCredentials:true
       })
      .then(res => {
