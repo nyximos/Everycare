@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import vueMoment from 'vue-moment'
 import App from '@/App.vue';
 import vuetify from '@/plugins/vuetify';
 import router from '@/router/index.js';
@@ -8,10 +9,6 @@ import Alert from '@/plugins/Alert.js';
 import axios from 'axios';
 import vueResource from 'vue-resource';
 import jquery from 'jquery'
-
-
-
-
 
 
 global.import();
@@ -26,6 +23,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 Vue.prototype.$axios = axios;
 Vue.use(vueResource);
 Vue.use(Alert);
+Vue.use(vueMoment)
 Vue.config.productionTip = false;
 
 
