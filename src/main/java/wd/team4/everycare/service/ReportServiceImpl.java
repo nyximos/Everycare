@@ -9,7 +9,9 @@ import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Board;
 import wd.team4.everycare.domain.Contract;
 import wd.team4.everycare.domain.Report;
+import wd.team4.everycare.dto.careSitterReview.CareSitterReviewDTO;
 import wd.team4.everycare.dto.report.ReportFormDTO;
+import wd.team4.everycare.dto.report.ReportViewDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.BoardRepository;
@@ -19,6 +21,8 @@ import wd.team4.everycare.service.interfaces.ReportService;
 
 import java.text.Normalizer;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -82,5 +86,120 @@ public class ReportServiceImpl implements ReportService {
 
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<MyResponse> getAll() {
+
+        List<Report> reports = reportRepository.findAll();
+        List<ReportViewDTO> reportDTOs = new ArrayList();
+
+        for (Report report : reports) {
+            ReportViewDTO dto = ReportViewDTO.builder()
+                    .id(report.getId())
+                    .createdAt(report.getCreatedAt())
+                    .type(report.getType())
+                    .status(report.getStatus())
+                    .reason(report.getReason())
+                    .memberId(report.getMember().getId())
+                    .memberName(report.getMember().getName())
+                    .reportedUserId(report.getReportedUserId())
+                    .build();
+
+            if (report.getBoard() != null) {
+                dto.setBoardId(report.getBoard().getId());
+                dto.setBoardTitle(report.getBoard().getTitle());
+            }
+            if(report.getContract() != null) {
+                dto.setContractId(report.getContract().getId());
+                dto.setContractName(report.getContract().getName());
+            }
+
+            reportDTOs.add(dto);
+        }
+
+        MyResponse<List<ReportViewDTO>> body = MyResponse.<List<ReportViewDTO>>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(reportDTOs)
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> getCompletion() {
+
+        List<Report> reports = reportRepository.findByStatus(1);
+        List<ReportViewDTO> reportDTOs = new ArrayList();
+
+        for (Report report : reports) {
+            ReportViewDTO dto = ReportViewDTO.builder()
+                    .id(report.getId())
+                    .createdAt(report.getCreatedAt())
+                    .type(report.getType())
+                    .status(report.getStatus())
+                    .reason(report.getReason())
+                    .memberId(report.getMember().getId())
+                    .memberName(report.getMember().getName())
+                    .reportedUserId(report.getReportedUserId())
+                    .build();
+
+            if (report.getBoard() != null) {
+                dto.setBoardId(report.getBoard().getId());
+                dto.setBoardTitle(report.getBoard().getTitle());
+            }
+            if(report.getContract() != null) {
+                dto.setContractId(report.getContract().getId());
+                dto.setContractName(report.getContract().getName());
+            }
+
+            reportDTOs.add(dto);
+        }
+
+        MyResponse<List<ReportViewDTO>> body = MyResponse.<List<ReportViewDTO>>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(reportDTOs)
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);    }
+
+    @Override
+    public ResponseEntity<MyResponse> getHold() {
+
+        List<Report> reports = reportRepository.findByStatus(0);
+        List<ReportViewDTO> reportDTOs = new ArrayList();
+
+        for (Report report : reports) {
+            ReportViewDTO dto = ReportViewDTO.builder()
+                    .id(report.getId())
+                    .createdAt(report.getCreatedAt())
+                    .type(report.getType())
+                    .status(report.getStatus())
+                    .reason(report.getReason())
+                    .memberId(report.getMember().getId())
+                    .memberName(report.getMember().getName())
+                    .reportedUserId(report.getReportedUserId())
+                    .build();
+
+            if (report.getBoard() != null) {
+                dto.setBoardId(report.getBoard().getId());
+                dto.setBoardTitle(report.getBoard().getTitle());
+            }
+            if(report.getContract() != null) {
+                dto.setContractId(report.getContract().getId());
+                dto.setContractName(report.getContract().getName());
+            }
+
+            reportDTOs.add(dto);
+        }
+
+        MyResponse<List<ReportViewDTO>> body = MyResponse.<List<ReportViewDTO>>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(reportDTOs)
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);    }
 
 }

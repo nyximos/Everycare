@@ -11,4 +11,10 @@ public interface ReportService {
 
     ResponseEntity<MyResponse> saveBoardReports(PrincipalDetails principalDetails, ReportFormDTO reportForm);
 
+    ResponseEntity<MyResponse> getAll();
+
+    ResponseEntity<MyResponse> getCompletion();
+
+    ResponseEntity<MyResponse> getHold();
+
 }

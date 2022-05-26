@@ -9,7 +9,7 @@ import wd.team4.everycare.domain.Board;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReportFormDTO {
-    private Long id;
+
     private String reason;
     private String reportedUserId;
     private Long boardId;

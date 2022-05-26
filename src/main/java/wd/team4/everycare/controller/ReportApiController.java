@@ -31,6 +31,25 @@ public class ReportApiController {
     }
 
     // 목록 조회 - 관리자
+    @GetMapping("/admin/reports")
+    public ResponseEntity<MyResponse> getAll() {
+        ResponseEntity<MyResponse> responseEntity = reportService.getAll();
+        return responseEntity;
+    }
+
+    // 처리 안된 신고 조회
+    @GetMapping("/admin/reports/complitions")
+    public ResponseEntity<MyResponse> getAllByComplition() {
+        ResponseEntity<MyResponse> responseEntity = reportService.getCompletion();
+        return responseEntity;
+    }
+
+    // 처리 된 신고 조회
+    @GetMapping("/admin/reports/hold")
+    public ResponseEntity<MyResponse> getAllByStatusHold() {
+        ResponseEntity<MyResponse> responseEntity = reportService.getHold();
+        return responseEntity;
+    }
 
     // 활동 정지
 
