@@ -29,7 +29,6 @@ public class AdminApiController {
 
     @PostMapping("/members/{id}")
     public ResponseEntity<MyResponse> postAdmin(@PathVariable("id") String id) {
-
         ResponseEntity<MyResponse> responseEntity = adminService.approveAdmin(id);
         return responseEntity;
     }
