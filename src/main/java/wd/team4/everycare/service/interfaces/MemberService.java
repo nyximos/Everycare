@@ -48,6 +48,8 @@ public interface MemberService {
 
     ResponseEntity<MyResponse> getMyJobOffer(PrincipalDetails principalDetails);
 
+    ResponseEntity<MyResponse> redundantCheck(String id);
+
 //    String getId(String authorization);
 
 }

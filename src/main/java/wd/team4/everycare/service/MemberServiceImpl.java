@@ -237,4 +237,27 @@ public class MemberServiceImpl implements MemberService {
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<MyResponse> redundantCheck(String id) {
+
+        Optional<Member> member = memberRepository.findById(id);
+        if(member.isEmpty()) {
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.OK)
+                    .message("성공")
+                    .body(id)
+                    .build();
+
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        } else {
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.OK)
+                    .message("실패")
+                    .body(null)
+                    .build();
+
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        }
+    }
+
 }

@@ -88,6 +88,12 @@ public class MemberApiController {
         return responseEntity;
     }
 
+    @GetMapping("/member/{id}")
+    public ResponseEntity<MyResponse> redundantCheck(@PathVariable("id") String id) {
+        ResponseEntity<MyResponse> responseEntity = memberService.redundantCheck(id);
+        return responseEntity;
+    }
+
     @GetMapping("/teeeeest")
     public ResponseEntity<MyResponse> getMyJobOffer(@AuthenticationPrincipal PrincipalDetails principalDetails){
         ResponseEntity<MyResponse> myJobOffer = memberService.getMyJobOffer(principalDetails);
