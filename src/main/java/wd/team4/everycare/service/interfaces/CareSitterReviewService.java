@@ -17,4 +17,6 @@ public interface CareSitterReviewService {
     ResponseEntity<MyResponse> save(@AuthenticationPrincipal PrincipalDetails principalDetails, Long id, CareSitterReviewFormDTO careSitterReviewFormDTO);
 
     ResponseEntity<MyResponse> update(Long id, CareSitterReviewUpdateFormDTO careSitterReviewUpdateFormDTO);
+
+    ResponseEntity<MyResponse> remove(Long id);
 }

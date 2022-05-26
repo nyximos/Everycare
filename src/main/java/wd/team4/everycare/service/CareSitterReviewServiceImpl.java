@@ -182,4 +182,17 @@ public class CareSitterReviewServiceImpl implements CareSitterReviewService {
 
     }
 
+    @Override
+    public ResponseEntity<MyResponse> remove(Long id) {
+
+        careSitterReviewRepository.deleteById(id);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
 }

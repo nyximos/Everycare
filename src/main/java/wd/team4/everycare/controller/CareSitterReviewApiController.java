@@ -17,28 +17,24 @@ public class CareSitterReviewApiController {
 
     private final CareSitterReviewServiceImpl careSitterReviewService;
 
-    // 카테고리 조회
     @GetMapping("/carenote/{id}/categories")
     public ResponseEntity<MyResponse> getAllCategory(@PathVariable("id") Long id){
         ResponseEntity<MyResponse> responseEntity = careSitterReviewService.getAllCategory(id);
         return responseEntity;
     }
 
-    // 목록 조회
     @GetMapping("/carenote/{id}/reviews")
     public ResponseEntity<MyResponse> getAll(){
         ResponseEntity<MyResponse> responseEntity = careSitterReviewService.getAll();
         return responseEntity;
     }
 
-    // 상세 조회
     @GetMapping("/carenote/{carenoteId}/review/{reviewId}")
     public ResponseEntity<MyResponse> get(@PathVariable("reviewId") Long id){
         ResponseEntity<MyResponse> responseEntity = careSitterReviewService.get(id);
         return responseEntity;
     }
 
-    // 케어시터 활동 후기 등록
     @PostMapping("/api/carenote/{id}/reviews")
     public ResponseEntity<MyResponse> save(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                            @PathVariable("id") Long id,
@@ -47,7 +43,6 @@ public class CareSitterReviewApiController {
         return responseEntity;
     }
 
-    // 케어시터 활동 후기 수정
     @PatchMapping("/carenote/{carenoteId}/review/{reviewId}")
     public ResponseEntity<MyResponse> update(@PathVariable("reviewId") Long id,
                                              @ModelAttribute CareSitterReviewUpdateFormDTO careSitterReviewUpdateFormDTO){
@@ -55,12 +50,10 @@ public class CareSitterReviewApiController {
         return responseEntity;
     }
 
-
-//    // 케어시터 활동 후기 삭제
-//    @DeleteMapping("/carenote/{carenoteId}/review/{reviewId}")
-//    public ResponseEntity<MyResponse> remove(){
-//        ResponseEntity<MyResponse> responseEntity = careSitterReviewService.remove();
-//        return responseEntity;
-//    }
+    @DeleteMapping("/carenote/{carenoteId}/review/{reviewId}")
+    public ResponseEntity<MyResponse> remove(@PathVariable("reviewId") Long id){
+        ResponseEntity<MyResponse> responseEntity = careSitterReviewService.remove(id);
+        return responseEntity;
+    }
 
 }
