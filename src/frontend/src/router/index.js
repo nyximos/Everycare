@@ -198,6 +198,12 @@ const routes = [
         name: 'storeEdit',
         component: () => import('@/pages/StoreInfoEdit.vue'),
     },
+    // 케어스토어 상품 전체 조회 (스토어멤버)
+    {
+        path: '/Mystore/:contentId',
+        name: 'storeMain',
+        component: () => import('@/pages/MyStore.vue'),
+    },
     // 상품 등록
     {
         path: '/store/account/:contentId/products/new',
