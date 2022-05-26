@@ -30,29 +30,34 @@ public class ReportApiController {
         return responseEntity;
     }
 
-    // 목록 조회 - 관리자
     @GetMapping("/admin/reports")
     public ResponseEntity<MyResponse> getAll() {
         ResponseEntity<MyResponse> responseEntity = reportService.getAll();
         return responseEntity;
     }
 
-    // 처리 안된 신고 조회
     @GetMapping("/admin/reports/complitions")
     public ResponseEntity<MyResponse> getAllByComplition() {
         ResponseEntity<MyResponse> responseEntity = reportService.getCompletion();
         return responseEntity;
     }
 
-    // 처리 된 신고 조회
     @GetMapping("/admin/reports/hold")
     public ResponseEntity<MyResponse> getAllByStatusHold() {
         ResponseEntity<MyResponse> responseEntity = reportService.getHold();
         return responseEntity;
     }
 
-    // 활동 정지
+    @PatchMapping("/admin/members/{id}/activites/stop")
+    public ResponseEntity<MyResponse> stop(@PathVariable String id) {
+        ResponseEntity<MyResponse> responseEntity = reportService.stop(id);
+        return responseEntity;
+    }
 
-    // 활동 재개
+    @PatchMapping("/admin/members/{id}/activites/active")
+    public ResponseEntity<MyResponse> active(@PathVariable String id) {
+        ResponseEntity<MyResponse> responseEntity = reportService.active(id);
+        return responseEntity;
+    }
 
 }

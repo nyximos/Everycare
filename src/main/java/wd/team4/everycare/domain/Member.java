@@ -117,6 +117,10 @@ public class Member {
                 .build();
     }
 
+    public void updateStatus(ActivityStatus status) {
+        this.activityStatus = status;
+    }
+
     public MemberInfoDTO toMemberInfoDTO() {
         return MemberInfoDTO.builder()
                 .id(this.id)

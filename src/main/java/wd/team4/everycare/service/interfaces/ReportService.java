@@ -17,4 +17,8 @@ public interface ReportService {
 
     ResponseEntity<MyResponse> getHold();
 
+    ResponseEntity<MyResponse> stop(String id);
+
+    ResponseEntity<MyResponse> active(String id);
+
 }

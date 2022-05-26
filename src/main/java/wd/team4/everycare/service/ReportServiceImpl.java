@@ -6,9 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
-import wd.team4.everycare.domain.Board;
-import wd.team4.everycare.domain.Contract;
-import wd.team4.everycare.domain.Report;
+import wd.team4.everycare.domain.*;
 import wd.team4.everycare.dto.careSitterReview.CareSitterReviewDTO;
 import wd.team4.everycare.dto.report.ReportFormDTO;
 import wd.team4.everycare.dto.report.ReportViewDTO;
@@ -16,6 +14,7 @@ import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.BoardRepository;
 import wd.team4.everycare.repository.ContractRepository;
+import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.repository.ReportRepository;
 import wd.team4.everycare.service.interfaces.ReportService;
 
@@ -33,6 +32,7 @@ public class ReportServiceImpl implements ReportService {
     private final ReportRepository reportRepository;
     private final ContractRepository contractRepository;
     private final BoardRepository boardRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     public ResponseEntity<MyResponse> saveCareReports(PrincipalDetails principalDetails, ReportFormDTO reportFormDTO) {
@@ -198,6 +198,34 @@ public class ReportServiceImpl implements ReportService {
                 .header(StatusEnum.OK)
                 .message("성공")
                 .body(reportDTOs)
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);    }
+
+    @Override
+    public ResponseEntity<MyResponse> stop(String id) {
+
+        Optional<Member> member = memberRepository.findById(id);
+        Member memberEntity = member.orElse(null);
+        memberEntity.updateStatus(ActivityStatus.STOP);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);    }
+
+    @Override
+    public ResponseEntity<MyResponse> active(String id) {
+
+        Optional<Member> member = memberRepository.findById(id);
+        Member memberEntity = member.orElse(null);
+        memberEntity.updateStatus(ActivityStatus.ACTIVE);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
                 .build();
 
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);    }
