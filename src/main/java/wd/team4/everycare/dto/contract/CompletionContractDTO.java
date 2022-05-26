@@ -1,6 +1,8 @@
 package wd.team4.everycare.dto.contract;
 
 import lombok.*;
+import wd.team4.everycare.dto.careSitter.CareSitterDTO;
+import wd.team4.everycare.dto.member.MemberListViewDTO;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -25,5 +27,7 @@ public class CompletionContractDTO {
     private String cardCompany;
     private String cardNumber;
     private String payApprove;
-    private int monthly;
+    private int monthlyInstallmentPlan;
+    private CareSitterDTO careSitter;
+    private MemberListViewDTO member;
 }
