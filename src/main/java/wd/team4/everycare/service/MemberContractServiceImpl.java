@@ -139,7 +139,7 @@ public class MemberContractServiceImpl implements MemberContractService {
 
             // 활동 정보 생성
             List<ActivityInformation> activityInformations = activityInformationRepository.findAllByCareTargetSchedule(targetSchedule);
-            for(i=0; i<activityInformations.size(); i++) {
+            for(int j=0; j<activityInformations.size(); j++) {
                 ActivityInformation activityInformation = activityInformations.get(i);
 
                 ActivityInformation newActivityInformation = ActivityInformation.builder()

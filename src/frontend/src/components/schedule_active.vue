@@ -1,103 +1,129 @@
 <template>
-  <div class="sc-component">
-      <li class="sche_list" v-for="(postItem, i) in postItems" :key="i">
-            <v-card 
-            class="mx-auto" 
-            max-width="300" 
-            >
-            <v-card-text>
-                {{postItem.requirement}}
-                </v-card-text>
-                <v-card-actions>
-                 <v-btn x-small color="primary" @click="update(postItem)" dark> 수정 </v-btn>
-                <v-btn x-small color="error" dark @click="delet(postItem)"> 삭제 </v-btn>
-           </v-card-actions>
-           </v-card>
-        </li>
-          <v-btn
-            class="back_btn"
-            color="grey"
-            dark
-            @click="back_pg"
-          >
-            뒤로
-          </v-btn>  
-    <v-row justify="center">
-        
-      <v-dialog
-        v-model="dialogPg"
-        @click:outside="closeDialog"
-        width="500"
-        scrollable
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            class="sc-add-btn"
-            color="#69f0ae"
-            dark
-            v-bind="attrs"
-            v-on="on"
-          >
-            활동 추가
-          </v-btn>
-        </template>
-        <v-card>
-          <v-card-title>활동 등록</v-card-title>
+  <div class="main_content">
+    <div class="content01">
+      <div class="item">
+    <v-card class="mx-auto" width="250" height="250" v-for="(p,index) in postItems" :key="index">
+    <v-card-text class="write">
+      <p class="text-h5 text--primary">
+        {{p.activityClassificationDTO.name}}
+      </p>
+      <span><p>시작시간:{{p.startTime}}</p> <p>종료시간:{{p.endTime}}</p></span>
+      <div class="text--primary">
+        요구:{{p.requirement}}
+      </div>
+    </v-card-text>
+    <v-card-actions>
+      <br><br>
+      <div class="button">
+        <v-btn text color="teal accent-4" @click="onEdit(p)">수정</v-btn>
+        <v-btn text color="teal accent-4" @click="del(p)">삭제</v-btn>
+      </div>
+    </v-card-actions>
+    
+  </v-card>
+    <v-card class="mx-auto" width="250" height="250" @click="addEdit">
+    <v-img height="150" width="150" src="@/assets/plus.png" style="margin:auto; margin-top:50px;" class="img"></v-img>
+  </v-card>
+  </div>
+</div>
+
+  <br><br><br><br><br><br><br><br><br>
+
+    <!-- 수정 모달창  -->
+    <div class="modal1">
+     <v-dialog v-model="editDialog"
+          
+              max-width="500px"
+              @click:outside="closeDialog"
+              @keydown.esc="closeDialog"
+              style="background-color:white;">
+         <v-card>
+      <!-- <v-form ref="form" lazy-validation> -->
+          <v-card-title>활동 수정</v-card-title>
           <v-divider></v-divider>
-          <v-card-text style="height: 300px">
-            <v-card-text class="v-time-picker">
-              <div>
-          <v-row>
-          <v-col cols="4">시작시간</v-col>
-          <v-col cols="6">
-            <input type="time"
-            v-model="startTime"
-            name="StartTime"
-            id="StartTime"></v-col>
-          </v-row>
-        </div>
-        <div>
-          <v-row>
-          <v-col cols="4">종료시간</v-col>
-          <v-col cols="6">
-            <input type="time" 
-            v-model="endTime"
-            name="EndTime"
-            id="EndTime"></v-col>
-          </v-row>
-        </div>
+          <v-card-text style="max-height: 550px">
+          <v-card-text class="v-time-picker">
+          <div>
+            <v-row>
+              <v-col cols="4">시작시간</v-col>
+              <v-col cols="6"><input type="time" v-model="update_startTime" name="update_StartTime" id="update_StartTime"></v-col>
+            </v-row>
+          </div>
+          <div>
+            <v-row>
+              <v-col cols="4">종료시간</v-col>
+              <v-col cols="6"><input type="time" v-model="update_endTime" name="update_EndTime" id="update_EndTime"></v-col>
+            </v-row>
+          </div>
             </v-card-text>
             <v-container fluid>
-              <v-textarea
-                v-model="requirement"
-                required
-                label="요구사항"
-              ></v-textarea>
               <v-select name="cate" id="cate" v-model="category" :items="cate_level1" label="카테고리" item-text="name" item-value="value" @change="catego($event)"></v-select>
               <v-select name="cate1" id="cate1" v-model="category1" :items="cate_level2" label="카테고리" item-text="name" item-value="value" @change="catego1($event)" v-if="select1" required></v-select>
               <v-select name="cate2" id="cate2" v-model="category2" :items="cate_level3" label="카테고리" item-text="name" item-value="value" v-if="select2" required></v-select>
-           
-            <!-- <select class="" >
-              <option v-for="(c,i) in ccc" :key="i">
-                <p v-if="c.level=='1'">
-                  {{c.name}}
-                  {{c.name}}
-                </p>
-              </option>
-            </select> -->
+              <br>
+            </v-container>
+            <v-container fluid>
+              <v-textarea outlined name="input-7-4" label="요구사항" v-model="update_requirement" value=""></v-textarea>
             </v-container>
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions>
-            <v-btn color="blue darken-1" text @click="closeDialog">
-              닫기
-            </v-btn>
-            <v-btn color="blue darken-1" text @click="dialogsav"> 저장 </v-btn>
+            <div style="margin:auto;">
+            <v-btn class="ma-2" outlined color="indigo" @click="patch()">수정</v-btn>
+            <v-btn class="ma-2" outlined color="indigo" @click="closeDialog">닫기</v-btn>
+            </div>
+          </v-card-actions>
+        <!-- </v-form> -->
+        </v-card>
+    </v-dialog>
+  </div>
+    
+
+  <div class="modal1">
+     <v-dialog v-model="addDialog"
+            
+              max-width="500px"
+              @click:outside="closeDialog"
+              @keydown.esc="closeDialog"
+              >
+         <v-card>
+           <v-card-title>활동 등록</v-card-title>
+          <v-divider></v-divider>
+          <v-card-text style="max-height: 550px">
+            <v-card-text class="v-time-picker">
+          <div>
+            <v-row>
+              <v-col cols="4">시작시간</v-col>
+              <v-col cols="6"><input type="time" v-model="startTime" name="StartTime" id="StartTime"></v-col>
+            </v-row>
+          </div>
+          <div>
+            <v-row>
+              <v-col cols="4">종료시간</v-col>
+              <v-col cols="6"><input type="time" v-model="endTime" name="EndTime" id="EndTime"></v-col>
+            </v-row>
+          </div>
+            </v-card-text>
+            <v-container fluid>
+              <v-select name="cate" id="cate" ref="select" v-model="category" :items="cate_level1" label="카테고리" item-text="name" item-value="value" @change="catego($event)"></v-select>
+              <v-select name="cate1" id="cate1" ref="select" v-model="category1" :items="cate_level2" label="카테고리" item-text="name" item-value="value" @change="catego1($event)" v-if="select1" required></v-select>
+              <v-select name="cate2" id="cate2" ref="select" v-model="category2" :items="cate_level3" label="카테고리" item-text="name" item-value="value" v-if="select2" required></v-select>
+              <br>
+            </v-container>
+            <v-container fluid>
+              <v-textarea outlined name="input-7-4" label="요구사항" v-model="requirement" value=""></v-textarea>
+            </v-container>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <div style="margin:auto;">
+            <v-btn class="ma-2" outlined color="indigo" @click="dialogsav">등록</v-btn>
+            <v-btn class="ma-2" outlined color="indigo" @click="closeDialog">닫기</v-btn>
+            </div>
           </v-card-actions>
         </v-card>
-      </v-dialog>
-    </v-row>
-    
+    </v-dialog>
+  </div>
   </div>
 </template>
 
@@ -106,21 +132,25 @@ export default {
     data() {
     return {
       postItems: [],
-      actstartTime: "",
       startTime:'',
       endTime:'',
-      actendTime: "",
       requirement: "",
       tarid: this.$route.params.caretargetsId,
       schid: this.$route.params.scheduleId,
-      level: "",
-      activityClassificationId: "",
-      dialogPg: false,
+      actid:this.actid,
       select1:false,
       select2:false,
+      editDialog:false,
+      addDialog:false,
       category:'',
       category1:'',
       category2:'',
+      update_startTime:'',
+      update_endTime:'',
+      update_requirement: "",
+      update_category:'',
+      update_category1:'',
+      update_category2:'',
       cate_level1:['노인','임산부','아동','환자'],
       cate_grand:['인지활동','정서지원'],
       cate_child1:['등하원','학습','놀이'],
@@ -191,69 +221,36 @@ export default {
             {name:'스트레칭', value:72},
             {name:'복약', value:73}
       ],
-      // ccc:[
-
-      // ],
-      // cate:[
-      //   // {name:this.ccc[0].name}
-      // ],
     };
   },
   mounted() {
-   const id = this.$route.params.caretargetsId;
+    const id = this.$route.params.caretargetsId;
     const scid = this.$route.params.scheduleId;
     this.$http
       .get(`/api/dashboard/caretargets/${id}/schedules/${scid}`, {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
+        console.log(res.data.body);
         this.postItems = res.data.body.activityInformationViewDTOs;
       })
       .catch((err) => {
         console.log(err);
       })
-    this.$http
-    .get('/api/activity-categories',{
-      withCredentials:true,
-    })
-    .then((res)=>{
-      console.log(res.data);
-      // if(res.data.body.level == 1){
-      this.ccc=res.data.body;
-      // }
-      // console.log(this.ccc)
-    })
-    .catch((err) => {
-        console.log(err);
-      })
   },
   
   methods: {
-      back_pg(){
-        this.$router.push({ name: 'schedule' });
-        window.location=document.referrer
-      },
-    closeDialog() {
-      this.$refs.form.reset();
-    },
     dialogsav() {
       if(this.category2=='') {
         alert("카테고리를 선택해주세요!");
         return 0;
       }
-      const starttime = this.startTime
-      const endtime = this.endTime
-      console.log(starttime)
-      console.log(endtime)
-      const id =this.schid
-      console.log(id)
       var actformData = new FormData();
       actformData.append("activityClassificationId", this.category2);
       actformData.append("startTime", this.startTime);
       actformData.append("endTime", this.endTime);
       actformData.append("requirement", this.requirement);
-    
+
       this.$http
         .post(
           `/api/dashboard/caretargets/${this.tarid}/schedules/${this.schid}/activities`,
@@ -264,25 +261,12 @@ export default {
         )
         .then((res) => {
           console.log(res);
-          this.dialogPg = false;
           // this.$router.go();
         })
         .catch((err) => {
           console.log(err);
         });
          
-    },
-    scheBack() {
-        this.$router.push({ name: "schedule" });
-      this.$router.go();
-    },
-    addActive() {
-      this.dialogPg = true;
-      console.log(this.id);
-    },
-    dialogcel() {
-      this.dialogPg = false;
-      this.$refs.form.reset();
     },
     catego(event){
       this.select1=true
@@ -337,43 +321,93 @@ export default {
       }else{
         this.select2=false
       }
+    },
+    del(p){    
+    const id = this.$route.params.caretargetsId;
+    const scid = this.$route.params.scheduleId;
+    const actid = p.id;
+      this.$http
+      .delete(`/api/dashboard/caretargets/${id}/schedules/${scid}/activities/${actid}`,{
+        withCredentials:true
+      })
+      .then((res)=>{
+        console.log(res)
+      }).catch((err)=>{
+        console.log(err)
+      })
+    },
+    patch(){
+    const id = this.$route.params.caretargetsId;
+    const scid = this.$route.params.scheduleId;
+    const actid = this.$store.state.caretargetStore.actid
+    console.log(actid)
+    var actformData = new FormData();
+      actformData.append("activityClassificationId", this.update_category2);
+      actformData.append("startTime", this.update_startTime);
+      actformData.append("endTime", this.update_endTime);
+      actformData.append("requirement", this.update_requirement);
+      
+      this.$http
+      .patch(`/api/dashboard/caretargets/${id}/schedules/${scid}/activities/${actid}`, actformData,{
+        withCredentials:true
+      })
+      .then(res=>{
+        console.log(res);
+      })
+      .catch(err=>{
+        console.log(err);
+      })
+    },
+
+    onEdit(p){
+      this.editDialog = true;
+      const userData = {
+          actId: p.id,
+        };
+      // console.log(userData);
+      this.$store.commit('caretargetStore/onEdit', userData);
+    },
+    addEdit(){
+      this.addDialog = true;
+    },
+    closeDialog(){
+      // this.$refs.form.reset();
+      this.editDialog = false;
+      this.addDialog = false;
     }
   },
 };
 </script>
 
 <style>
-.sc-component {
-  margin: auto;
+.main_content{
+  display: flex;
+  height: 100%;
 }
+.item .mx-auto:nth-child(2){
+  /* background-color: red; */
+  /* padding-right: 3px; */
 
-.sc-add-btn {
-  position: absolute;
-  top: 10%;
-  left: 10%;
-  width: auto;
 }
-.mx-auto {
-  position: absolute;
-  top: 15%;
+.mx-auto{
+  /* margin-right: 3px; */
+  /* border: 2px; */
 }
-.active_sel {
-  position: relative;
-  bottom: 20px;
-  left: 5px;
+.item{
+  display: flex;
+  /* margin-right: 5px; */
 }
-.act_add {
-  position: absolute;
-  top: 15%;
-  left: 15%;
+.content01{
+  width: 100%;
+  height: 100%;
+  /* display: flex;  */
+  overflow: hidden;
+  margin: 50px;
 }
-.act_sel {
-  position: relative;
-  bottom: 20px;
+.button{
+  margin: 0 auto;
 }
-.back_btn{
-    position: absolute;
-    top: 10%;
-    left: 90%;
+.write{
+  padding: 20px;
 }
 </style>
