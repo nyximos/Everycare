@@ -2,7 +2,10 @@ package wd.team4.everycare.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import wd.team4.everycare.config.auth.PrincipalDetails;
+import wd.team4.everycare.dto.careSitterReview.CareSitterReviewFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.service.CareSitterReviewServiceImpl;
 
@@ -34,13 +37,14 @@ public class CareSitterReviewApiController {
         return responseEntity;
     }
 
-//    // 케어시터 활동 후기 등록
-//    @PostMapping("/api/carenote/{id}/reviews")
-//    public ResponseEntity<MyResponse> save(){
-//        ResponseEntity<MyResponse> responseEntity = careSitterReviewService.save();
-//        return responseEntity;
-//    }
-//
+    // 케어시터 활동 후기 등록
+    @PostMapping("/api/carenote/{id}/reviews")
+    public ResponseEntity<MyResponse> save(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                           @PathVariable("id") Long id,
+                                           @ModelAttribute CareSitterReviewFormDTO careSitterReviewFormDTO){
+        ResponseEntity<MyResponse> responseEntity = careSitterReviewService.save(principalDetails, id, careSitterReviewFormDTO);
+        return responseEntity;
+    }
 //
 //    // 케어시터 활동 후기 수정
 //    @PatchMapping("/carenote/{carenoteId}/review/{reviewId}")

@@ -1,22 +1,22 @@
 package wd.team4.everycare.service;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.jni.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import wd.team4.everycare.domain.ActivityClassification;
-import wd.team4.everycare.domain.CareSitterReview;
-import wd.team4.everycare.domain.CareTargetSchedule;
+import wd.team4.everycare.config.auth.PrincipalDetails;
+import wd.team4.everycare.domain.*;
 import wd.team4.everycare.dto.careSitterReview.CareSitterReviewCategoryDTO;
 import wd.team4.everycare.dto.careSitterReview.CareSitterReviewDTO;
+import wd.team4.everycare.dto.careSitterReview.CareSitterReviewFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
-import wd.team4.everycare.repository.CareSitterReviewQueryRepository;
-import wd.team4.everycare.repository.CareSitterReviewRepository;
-import wd.team4.everycare.repository.CareTargetScheduleRepository;
+import wd.team4.everycare.repository.*;
 import wd.team4.everycare.service.interfaces.CareSitterReviewService;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,9 +26,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CareSitterReviewServiceImpl implements CareSitterReviewService {
 
+    private final CareNoteRepository careNoteRepository;
     private final CareSitterReviewRepository careSitterReviewRepository;
     private final CareTargetScheduleRepository careTargetScheduleRepository;
     private final CareSitterReviewQueryRepository careSitterReviewQueryRepository;
+    private final ActivityClassificationRepository activityClassificationRepository;
 
 
     @Override
@@ -116,5 +118,40 @@ public class CareSitterReviewServiceImpl implements CareSitterReviewService {
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<MyResponse> save(PrincipalDetails principalDetails, Long id, CareSitterReviewFormDTO careSitterReviewFormDTO) {
+
+        Member user = principalDetails.getUser();
+
+        Optional<CareNote> careNote = careNoteRepository.findById(id);
+        CareNote careNoteEntity = careNote.orElse(null);
+
+        CareTargetSchedule careTargetSchedule = careTargetScheduleRepository.findByCareNoteId(careNoteEntity.getId());
+
+        Long activityClassificationId = careSitterReviewFormDTO.getActivityClassificationId();
+        Optional<ActivityClassification> activityClassification = activityClassificationRepository.findById(activityClassificationId);
+        ActivityClassification activityClassificationEntity = activityClassification.orElse(null);
+
+        CareSitterReview careSitterReview = CareSitterReview.builder()
+                .id(careSitterReviewFormDTO.getId())
+                .rating(careSitterReviewFormDTO.getRating())
+                .comment(careSitterReviewFormDTO.getComment())
+                .createdAt(LocalDateTime.now())
+                .activityClassification(activityClassificationEntity)
+                .careSitter(careNoteEntity.getCareSitter())
+                .member(user)
+                .careTargetSchedule(careTargetSchedule)
+                .build();
+
+        careSitterReviewRepository.save(careSitterReview);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+
+    }
 
 }

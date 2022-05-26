@@ -27,7 +27,7 @@ public class CareSitterReview {
     private Long rating;
 
     @Column(name = "care_sitter_review_comment", length = 1000, nullable = false)
-    private Long comment;
+    private String comment;
 
     @Column(name = "care_sitter_review_created_at", nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
