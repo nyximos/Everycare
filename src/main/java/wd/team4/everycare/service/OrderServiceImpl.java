@@ -137,7 +137,7 @@ public class OrderServiceImpl implements OrderService {
                 .body(orderDTOs)
                 .message("상품 결제 목록 조회")
                 .build();
-        return new ResponseEntity<MyResponse> (body, HttpStatus.OK);
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
     @Override
@@ -145,6 +145,12 @@ public class OrderServiceImpl implements OrderService {
         Member member = principalDetails.getUser();
         List<Order> orderList = orderRepository.findByMemberAndStatus(member, OrderStatus.ORDER);
 
+//        for (:) {
+//
+//        }
+        /*TODO 결제로직이랑, 결제할거 찾는거 수정하기
+            결제하려는 상품: 이름, 각 가격, id, 멤버, 스토어 이름, 상품이미지, 갯수
+        *  */
         List<OrderDTO> orderDTOs = new ArrayList<>();
 
         orderList.stream().map(order -> order.toOrderDTO()).forEach(orderDTOs::add);
@@ -155,6 +161,5 @@ public class OrderServiceImpl implements OrderService {
                 .body(orderDTOs)
                 .build();
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
-        /*TODO 결제하려는 상품: 이름, 각 가격, id, 멤버, 스토어 이름, 상품이미지, 갯수,*/
     }
 }

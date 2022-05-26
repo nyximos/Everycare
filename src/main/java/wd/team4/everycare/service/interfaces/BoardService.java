@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.dto.board.BoardDTO;
 import wd.team4.everycare.dto.board.BoardInquiryDTO;
+import wd.team4.everycare.dto.board.CommentDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 
 import java.io.IOException;
@@ -17,10 +18,14 @@ public interface BoardService {
     ResponseEntity<MyResponse> removeInquiry(Long boardId);
     ResponseEntity<MyResponse> getDetailInquiry(Long boardId);
 
-    //FAQ 조회
+    //FAQ 조회 ( 등록, 수정, 삭제는 adminService )
     ResponseEntity<MyResponse> getFAQ();
 
     /* TODO 후기 작성, 수정, 삭제, 조회  */
     //후기
-//    ResponseEntity<MyResponse>
+    ResponseEntity<MyResponse> getComment(Long productId);
+    ResponseEntity<MyResponse> getDetailComment(Long boardId);
+    ResponseEntity<MyResponse> createComment(PrincipalDetails principalDetails, CommentDTO commentDTO) throws IOException;
+    ResponseEntity<MyResponse> updateComment(BoardDTO boardDTO);
+    ResponseEntity<MyResponse> removeComment(Long boardId);
 }

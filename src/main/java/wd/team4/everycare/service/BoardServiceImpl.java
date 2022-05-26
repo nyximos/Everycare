@@ -13,6 +13,7 @@ import wd.team4.everycare.domain.Product;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.dto.board.BoardDTO;
 import wd.team4.everycare.dto.board.BoardInquiryDTO;
+import wd.team4.everycare.dto.board.CommentDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.BoardRepository;
@@ -20,6 +21,7 @@ import wd.team4.everycare.repository.ProductRepository;
 import wd.team4.everycare.service.interfaces.BoardService;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -137,6 +139,96 @@ public class BoardServiceImpl implements BoardService {
                 .body(FAQListDTO)
                 .build();
 
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> getComment(Long productId) {
+        List<Board> all = boardRepository.findByProductId(productId);
+        List<CommentDTO> commentDTOs = new ArrayList<>();
+
+        all.stream().map(board -> board.toCommentDTO()).forEach(commentDTOs::add);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("후기 조회")
+                .body(commentDTOs)
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> getDetailComment(Long boardId) {
+        Board board = boardRepository.findById(boardId).orElse(null);
+        CommentDTO commentDTO = board.toCommentDTO();
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("후기 상세 조회")
+                .body(commentDTO)
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> createComment(PrincipalDetails principalDetails, CommentDTO commentDTO) throws IOException {
+        Member member = principalDetails.getUser();
+
+        UploadFile uploadFile = fileStoreService.storeFile(commentDTO.getAttachFile());
+        String uploadFileName = uploadFile.getUploadFileName();
+        String storeFileName = uploadFile.getStoreFileName();
+
+        Product product = productRepository.findById(commentDTO.getProduct().getId()).orElse(null);
+
+        Board board = Board.builder()
+                .title(commentDTO.getTitle())
+                .content(commentDTO.getContent())
+                .category(BoardCategory.후기)
+                .createdAt(LocalDateTime.now())
+                .count(0)
+                .fileName(uploadFileName)
+                .filePath(storeFileName)
+                .member(member)
+                .product(product)
+                .build();
+
+        CommentDTO comment = board.toCommentDTO();
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("후기 작성")
+                .body(comment)
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> updateComment(BoardDTO boardDTO) {
+        Long boardId = boardDTO.getId();
+        Board board = boardRepository.findById(boardId).orElse(null);
+        board.updateInfo(boardDTO);
+
+        CommentDTO commentDTO = board.toCommentDTO();
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("후기 업데이트")
+                .body(commentDTO)
+                .build();
+        return new ResponseEntity<MyResponse>(body,HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> removeComment(Long boardId) {
+        boardRepository.deleteById(boardId);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("후기 삭제")
+                .build();
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 }

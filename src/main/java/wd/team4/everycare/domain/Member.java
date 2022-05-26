@@ -7,10 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
-import wd.team4.everycare.dto.member.JobOfferMemberDTO;
-import wd.team4.everycare.dto.member.MemberAccountDTO;
-import wd.team4.everycare.dto.member.MemberInfoDTO;
-import wd.team4.everycare.dto.member.MemberListViewDTO;
+import wd.team4.everycare.dto.member.*;
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
@@ -111,6 +108,13 @@ public class Member {
     public void removeAdmin(){
         this.role = MemberRole.ROLE_MEMBER;
         this.adminRegistrationDate = null;
+    }
+
+    public MemberNameDTO toMemberNameDTO(){
+        return MemberNameDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .build();
     }
 
     public MemberInfoDTO toMemberInfoDTO() {

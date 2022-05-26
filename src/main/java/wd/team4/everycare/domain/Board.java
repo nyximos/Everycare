@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import wd.team4.everycare.dto.board.BoardDTO;
 import wd.team4.everycare.dto.board.BoardInquiryDTO;
+import wd.team4.everycare.dto.board.CommentDTO;
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
@@ -107,6 +108,22 @@ public class Board {
                 .fileName(this.fileName)
                 .filePath(this.filePath)
                 .member(this.member)
+                .build();
+    }
+
+    public CommentDTO toCommentDTO(){
+        return CommentDTO.builder()
+                .id(this.id)
+                .title(this.title)
+                .content(this.content)
+                .category(this.category)
+                .createdAt(this.createdAt)
+                .updatedAt(this.updatedAt)
+                .count(this.count)
+                .fileName(this.fileName)
+                .filePath(this.filePath)
+                .member(this.member.toMemberNameDTO())
+                .product(this.product.toProductCategoryDTO())
                 .build();
     }
 
