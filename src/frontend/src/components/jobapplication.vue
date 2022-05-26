@@ -11,7 +11,7 @@
           {{p.name}}
         </div>
         <v-list-item-title class="text-h5 mb-1">
-          {{p.startdate}}~{{p.enddate}}
+          {{p.startDate}}~{{p.enDate}}
         </v-list-item-title>
         <v-list-item-subtitle>{{p.introduction}}</v-list-item-subtitle>
       </v-list-item-content>
@@ -90,6 +90,21 @@ export default {
     alert(err);
     console.log(err);
   })
+},
+methods:{
+   payment(){
+        var tossPayments = TossPayments("test_ck_Lex6BJGQOVDGPJNGkJq3W4w2zNbg");
+        var customDate = new Date()
+        var paymentData = {
+            amount: 15000,
+            orderId: this.orderId,
+            orderName: '토스 티셔츠 외 2건',
+            customerName: '박토스',
+            successUrl: 'https://localhost:8086/api/cart/orders/payments?orderTableId=여기는 값',
+            failUrl: 'https://localhost:8080/fail',
+        };
+         tossPayments.requestPayment("카드", paymentData);
+    }
 }
 }
 </script>
