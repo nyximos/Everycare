@@ -186,4 +186,8 @@ public class Member {
             this.accountNumber = memberAccountDTO.getAccountNumber();
         }
     }
+
+    public void updatePassword(String password) {
+        this.password = password;
+    }
 }

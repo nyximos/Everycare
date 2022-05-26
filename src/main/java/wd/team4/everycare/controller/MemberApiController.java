@@ -11,7 +11,7 @@ import wd.team4.everycare.config.jwt.JwtProperties;
 import wd.team4.everycare.domain.ActivityStatus;
 import wd.team4.everycare.domain.MemberRole;
 import wd.team4.everycare.dto.member.MemberAccountDTO;
-import wd.team4.everycare.dto.member.MemberInfoDTO;
+import wd.team4.everycare.dto.member.PasswordDTO;
 import wd.team4.everycare.dto.member.SignupDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
@@ -91,6 +91,12 @@ public class MemberApiController {
     @GetMapping("/member/{id}")
     public ResponseEntity<MyResponse> redundantCheck(@PathVariable("id") String id) {
         ResponseEntity<MyResponse> responseEntity = memberService.redundantCheck(id);
+        return responseEntity;
+    }
+
+    @PatchMapping("/member/{id}/password")
+    public ResponseEntity<MyResponse> changePassword(@PathVariable("id") String id, @ModelAttribute PasswordDTO passwordDTO) {
+        ResponseEntity<MyResponse> responseEntity = memberService.changePassword(id, passwordDTO);
         return responseEntity;
     }
 
