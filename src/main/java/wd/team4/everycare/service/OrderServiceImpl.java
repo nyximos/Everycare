@@ -9,6 +9,7 @@ import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.*;
 import wd.team4.everycare.dto.PayResponse;
 import wd.team4.everycare.dto.order.OrderDTO;
+import wd.team4.everycare.dto.order.OrderProductDTO;
 import wd.team4.everycare.dto.order.SignOrderDTO;
 import wd.team4.everycare.dto.product.CartDTO;
 import wd.team4.everycare.dto.response.MyResponse;
@@ -135,30 +136,30 @@ public class OrderServiceImpl implements OrderService {
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .body(orderDTOs)
-                .message("상품 결제 목록 조회")
+                .message("결제한 상품 목록 조회")
                 .build();
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
+
     @Override
-    public ResponseEntity<MyResponse> findOrderProduct(PrincipalDetails principalDetails) {
+    public ResponseEntity<MyResponse> findOrderProduct(Long orderId, PrincipalDetails principalDetails) {
         Member member = principalDetails.getUser();
-        List<Order> orderList = orderRepository.findByMemberAndStatus(member, OrderStatus.ORDER);
 
-//        for (:) {
-//
-//        }
-        /*TODO 결제로직이랑, 결제할거 찾는거 수정하기
-            결제하려는 상품: 이름, 각 가격, id, 멤버, 스토어 이름, 상품이미지, 갯수
-        *  */
-        List<OrderDTO> orderDTOs = new ArrayList<>();
+        List<OrderProduct> findOrder = orderProductRepository.findByOrderId(orderId);
+        List<OrderProductDTO> orderProductDTOs = new ArrayList<>();
 
-        orderList.stream().map(order -> order.toOrderDTO()).forEach(orderDTOs::add);
+        findOrder.stream().map(orderProduct -> orderProduct.toOrderProductDTO()).forEach(orderProductDTOs::add);
+
+        for (OrderProductDTO orderProductDTO: orderProductDTOs) {
+            orderProductDTO.setMember(member.toMemberNameDTO());
+        }
+
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("결제할 목록")
-                .body(orderDTOs)
+                .body(orderProductDTOs)
                 .build();
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }

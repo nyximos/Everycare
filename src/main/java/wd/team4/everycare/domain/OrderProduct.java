@@ -2,9 +2,9 @@ package wd.team4.everycare.domain;
 
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
+import wd.team4.everycare.dto.order.OrderProductDTO;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Entity
@@ -39,5 +39,18 @@ public class OrderProduct {
 
     public void cancel() {
         getProduct().addStock(quantity);
+    }
+
+    public OrderProductDTO toOrderProductDTO(){
+        return OrderProductDTO.builder()
+                .quantity(this.quantity)
+                .amount(this.amount)
+                .order(this.order.toOrderDTO())
+                .product(this.product.toProductViewDTO())
+                .build();
+    }
+
+    public void reviewed(OrderProduct orderProduct){
+        orderProduct.review = 1;
     }
 }

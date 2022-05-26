@@ -6,10 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
-import wd.team4.everycare.domain.Board;
-import wd.team4.everycare.domain.BoardCategory;
-import wd.team4.everycare.domain.Member;
-import wd.team4.everycare.domain.Product;
+import wd.team4.everycare.domain.*;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.dto.board.BoardDTO;
 import wd.team4.everycare.dto.board.BoardInquiryDTO;
@@ -17,6 +14,8 @@ import wd.team4.everycare.dto.board.CommentDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.BoardRepository;
+import wd.team4.everycare.repository.OrderProductRepository;
+import wd.team4.everycare.repository.OrderRepository;
 import wd.team4.everycare.repository.ProductRepository;
 import wd.team4.everycare.service.interfaces.BoardService;
 
@@ -33,6 +32,8 @@ public class BoardServiceImpl implements BoardService {
     private final ProductRepository productRepository;
     private final BoardRepository boardRepository;
     private final FileStoreService fileStoreService;
+    private final OrderProductRepository orderProductRepository;
+    private final OrderRepository orderRepository;
 
     @Override
     public ResponseEntity<MyResponse> inquiry(BoardInquiryDTO boardInquiryDTO, PrincipalDetails principalDetails, Long productId) throws IOException {
@@ -172,6 +173,7 @@ public class BoardServiceImpl implements BoardService {
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
+    //변경 필요
     @Override
     public ResponseEntity<MyResponse> createComment(PrincipalDetails principalDetails, CommentDTO commentDTO) throws IOException {
         Member member = principalDetails.getUser();
@@ -194,6 +196,16 @@ public class BoardServiceImpl implements BoardService {
                 .product(product)
                 .build();
 
+        List<Order> orderList = orderRepository.findByMember(member);
+        for (int i = 0; i < orderList.size(); i++) {
+            Long id = orderList.get(i).getId();
+            OrderProduct orderProduct = orderProductRepository.findByOrderIdAndProduct(id, product).orElse(null);
+
+            if(orderProduct!=null){
+                orderProduct.reviewed(orderProduct);
+            }
+        }
+
         CommentDTO comment = board.toCommentDTO();
 
         MyResponse body = MyResponse.builder()
@@ -206,8 +218,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public ResponseEntity<MyResponse> updateComment(BoardDTO boardDTO) {
-        Long boardId = boardDTO.getId();
+    public ResponseEntity<MyResponse> updateComment(Long boardId, BoardDTO boardDTO) {
         Board board = boardRepository.findById(boardId).orElse(null);
         board.updateInfo(boardDTO);
 
@@ -221,6 +232,7 @@ public class BoardServiceImpl implements BoardService {
         return new ResponseEntity<MyResponse>(body,HttpStatus.OK);
     }
 
+    //변경 필요
     @Override
     public ResponseEntity<MyResponse> removeComment(Long boardId) {
         boardRepository.deleteById(boardId);

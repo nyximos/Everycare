@@ -44,8 +44,8 @@ public class OrderApiController {
     }
 
     @GetMapping("/dashboard/orders")
-    public ResponseEntity<MyResponse> findOrder(@AuthenticationPrincipal PrincipalDetails principalDetails){
-        ResponseEntity<MyResponse> orderProduct = orderService.findOrderProduct(principalDetails);
+    public ResponseEntity<MyResponse> findOrder(@RequestParam Long orderId, @AuthenticationPrincipal PrincipalDetails principalDetails){
+        ResponseEntity<MyResponse> orderProduct = orderService.findOrderProduct(orderId, principalDetails);
         return orderProduct;
     }
 

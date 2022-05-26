@@ -117,6 +117,7 @@ public class Order {
 
     public OrderDTO toOrderDTO(){
         return OrderDTO.builder()
+                .id(this.id)
                 .name(this.name)
                 .amount(this.amount)
                 .recipientName(this.recipientName)

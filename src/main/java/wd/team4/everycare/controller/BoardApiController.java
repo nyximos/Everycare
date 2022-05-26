@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.dto.board.BoardDTO;
 import wd.team4.everycare.dto.board.BoardInquiryDTO;
+import wd.team4.everycare.dto.board.CommentDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.service.BoardServiceImpl;
 
@@ -54,5 +55,35 @@ public class BoardApiController {
     public ResponseEntity<MyResponse> getFAQ(){
         ResponseEntity<MyResponse> faq = boardService.getFAQ();
         return faq;
+    }
+
+    @GetMapping("/store/products/reviews/{boardId}")
+    public ResponseEntity<MyResponse> getReviews(@PathVariable("boardId")Long boardId){
+        ResponseEntity<MyResponse> review = boardService.getComment(boardId);
+        return review;
+    }
+
+    @GetMapping("/store/products/review/{boardId}")
+    public ResponseEntity<MyResponse> getDetailReview(@PathVariable("boardId")Long boardId){
+        ResponseEntity<MyResponse> detailReview = boardService.getDetailComment(boardId);
+        return detailReview;
+    }
+
+    @PostMapping("/dashboard/orders/products")
+    public ResponseEntity<MyResponse> createReview(@AuthenticationPrincipal PrincipalDetails principalDetails, @ModelAttribute CommentDTO commentDTO) throws IOException {
+        ResponseEntity<MyResponse> review = boardService.createComment(principalDetails, commentDTO);
+        return review;
+    }
+
+    @PatchMapping("dashboard/orders/products/{boardId}")
+    public ResponseEntity<MyResponse> updateReview(@PathVariable("boardId") Long boardId, @ModelAttribute BoardDTO boardDTO){
+        ResponseEntity<MyResponse> updateReview = boardService.updateComment(boardId, boardDTO);
+        return updateReview;
+    }
+
+    @DeleteMapping("/dashboard/orders/products/{boardId}")
+    public ResponseEntity<MyResponse> removeReview(@PathVariable("boardId") Long boardId){
+        ResponseEntity<MyResponse> removeReview = boardService.removeComment(boardId);
+        return removeReview;
     }
 }

@@ -26,6 +26,6 @@ public interface BoardService {
     ResponseEntity<MyResponse> getComment(Long productId);
     ResponseEntity<MyResponse> getDetailComment(Long boardId);
     ResponseEntity<MyResponse> createComment(PrincipalDetails principalDetails, CommentDTO commentDTO) throws IOException;
-    ResponseEntity<MyResponse> updateComment(BoardDTO boardDTO);
+    ResponseEntity<MyResponse> updateComment(Long boardId, BoardDTO boardDTO);
     ResponseEntity<MyResponse> removeComment(Long boardId);
 }
