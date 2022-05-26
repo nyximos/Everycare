@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import vueMoment from 'vue-moment'
+import { Datetime } from 'vue-datetime'
+import 'vue-datetime/dist/vue-datetime.css'
 import App from '@/App.vue';
 import vuetify from '@/plugins/vuetify';
 import router from '@/router/index.js';
@@ -23,7 +25,8 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 Vue.prototype.$axios = axios;
 Vue.use(vueResource);
 Vue.use(Alert);
-Vue.use(vueMoment)
+Vue.use(vueMoment);
+Vue.use(Datetime);
 Vue.config.productionTip = false;
 
 

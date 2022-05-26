@@ -409,6 +409,21 @@ const routes = [
        component:() => import('@/pages/Member_Schedule.vue')
     },
     {
+        path: '/dashboard/memberschedule/:memberscheduleId/delete',
+        name: 'memberscheduledelete',
+        component:() => import('@/pages/Member_Schedule_Delete.vue')
+     },
+     {
+        path: '/dashboard/memberschedule/:memberscheduleId/detail',
+        name: 'memberscheduledetail',
+        component:() => import('@/pages/Member_Schedule_Detail.vue')
+     },
+     {
+        path: '/dashboard/memberschedule/:memberscheduleId/update',
+        name: 'memberscheduleupdate',
+        component:() => import('@/pages/Member_Schedule_Update.vue')
+     },
+    {
         path: '/admin/members',
         name: 'adminpage',
         component: () => import('@/pages/Adminpage.vue'),

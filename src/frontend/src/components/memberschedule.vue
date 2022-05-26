@@ -1,22 +1,69 @@
 <template>
     <div class="sc-component">
-        
-        <!-- <li class="sche_list" v-for="(postItem, i) in postItems" :key="i">
+    <li class="sche_list" v-for="(postItem, i) in postItems" :key="i">
             <v-card 
             class="mx-auto" 
             max-width="300" 
             >
             <v-card-text>
+                {{postItem.name}}
                 <br>
-                
                 </v-card-text>
                 <v-card-actions>
-                 <v-btn x-small color="primary" @click="update(postItem)" dark> 수정 </v-btn>
+                    <v-btn x-small color="blue" dark @click="update(postItem)"> 수정 </v-btn>
                 <v-btn x-small color="error" dark @click="delet(postItem)"> 삭제 </v-btn>
-                 <v-btn x-small color="green" dark @click="actPage(postItem)"> 활동 </v-btn>
+                 <v-btn x-small color="gray" dark @click="detailPage(postItem)"> 상세 </v-btn>
            </v-card-actions>
            </v-card>
-        </li> -->
+        </li> 
+         <v-dialog v-model="dialogUd" @click:outside="closeDialog" width="500">
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn class="sc-add-btn" color="#69f0ae" dark v-bind="attrs" v-on="on"> 스케줄 추가 </v-btn>
+            </template>
+            <div>
+                <v-card class="mx-auto my-12" max-width="374">
+                    <template slot="progress"> </template>
+                    <v-card-title>스케줄 수정</v-card-title>
+                    <v-divider class="mx-4"></v-divider>
+                    <div id="modalinput">
+                        <v-form ref="form" lazy-validation>
+                            <v-card-text>
+                                <v-text-field v-model="name2" required class="sche-name" label="스케줄 명" hide-details="auto"></v-text-field>
+                            </v-card-text>
+
+                            <v-card-text class="v-time-picker">
+                                <v-row class="sc-date">
+                                    <v-col cols="15" lg="20">
+                        
+                                        <v-card-text>
+                                      <v-datetime-picker id="" label="시작 일시"  v-model="startDatetime2"> </v-datetime-picker>
+                                      <v-datetime-picker label="종료 일시"  v-model="endDatetime2"> </v-datetime-picker>
+                                      </v-card-text>  
+                                    </v-col>
+                                </v-row>
+                                <v-card-text>
+                                        <v-col cols="15" class="pb-0">
+                                           <v-datetime-picker label="알람 시간"  v-model="alarmTime2"> </v-datetime-picker>
+                                        </v-col>
+                                       
+                                    <v-text-field label="장소" v-model="addressName2"></v-text-field>
+                                </v-card-text>
+                                <v-container fluid>
+                                    <v-textarea label="설명" v-model="comment2"></v-textarea>
+                                </v-container>
+                            </v-card-text>
+                        
+                            <v-divider></v-divider>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="primary" text @click="dialogsav2"> 저장 </v-btn>
+                                <v-btn text @click="dialogcel2"> 취소 </v-btn>
+                            </v-card-actions>
+                        </v-form>
+                    </div>
+                </v-card>
+            </div>
+        </v-dialog>
         <v-dialog v-model="dialogPg" @click:outside="closeDialog" width="500">
             <template v-slot:activator="{ on, attrs }">
                 <v-btn class="sc-add-btn" color="#69f0ae" dark v-bind="attrs" v-on="on"> 스케줄 추가 </v-btn>
@@ -31,19 +78,20 @@
                             <v-card-text>
                                 <v-text-field v-model="name" required class="sche-name" label="스케줄 명" hide-details="auto"></v-text-field>
                             </v-card-text>
-
+                              
                             <v-card-text class="v-time-picker">
                                 <v-row class="sc-date">
                                     <v-col cols="15" lg="20">
+                        
                                         <v-card-text>
-                                      <v-datetime-picker label="시작 일시" dateFormat="yyyy-MM-dd'T'HH:mm:ss" v-model="startDatetime"> </v-datetime-picker>
-                                      <v-datetime-picker label="종료 일시" dateFormat="yyyy-MM-dd'T'HH:mm:ss" v-model="endDatetime"> </v-datetime-picker>
+                                      <v-datetime-picker id="" label="시작 일시"  v-model="startDatetime"> </v-datetime-picker>
+                                      <v-datetime-picker label="종료 일시"  v-model="endDatetime"> </v-datetime-picker>
                                       </v-card-text>  
                                     </v-col>
                                 </v-row>
                                 <v-card-text>
                                         <v-col cols="15" class="pb-0">
-                                           <v-datetime-picker label="알람 시간" dateFormat="yyyy-MM-dd'T'HH:mm:ss" v-model="alarmTime"> </v-datetime-picker>
+                                           <v-datetime-picker label="알람 시간"  v-model="alarmTime"> </v-datetime-picker>
                                         </v-col>
                                        
                                     <v-text-field label="장소" v-model="addressName"></v-text-field>
@@ -72,10 +120,11 @@ import Vue from 'vue'
 import DatetimePicker from 'vuetify-datetime-picker'
 
 Vue.use(DatetimePicker)
-
 export default {
+ 
     data() {
         return {
+            id: this.$route.params.memberscheduleId,
             postItems: [],
             name: '',
             startDatetime: '',
@@ -84,7 +133,9 @@ export default {
             addressName: '',
             comment: '',
             dialogPg: false,
+            dialogUd: false
         };
+        
     },
     mounted() {
         this.$http
@@ -92,23 +143,67 @@ export default {
                 withCredentials: true
             })
             .then(res => {
-                console.log(res);
+                console.log(res.body.body);
+                this.postItems = res.data.body;
+               
             })
             .catch(err => {
                 alert(err);
                 console.log(err);
             });
     },
+    computed:{
+        
+    },
     methods: {
+        delet(postItem) {
+            this.$router.push({ name: 'memberscheduledelete', params: {memberscheduleId: postItem.id } });
+        },
+        detailPage(postItem){
+            this.$router.push({name: 'memberscheduledetail', params:{memberscheduleId: postItem.id }});
+        },
+        update(postItem){
+            console.log(postItem.id)
+            const userData ={
+                id : postItem.id
+            }
+            console.log(userData)
+            this.dialogUd = true;
+            this.$store.commit('userCalendar/memsch', postItem);
+            this.id = this.$store.state.userCalendar.id;
+            // this.id = this.$store.state.
+        },
+        dialogsav2(){
+             var upmemschformData = new FormData();
+            upmemschformData.append('name', this.name2);
+            upmemschformData.append('startDatetime', this.startDatetime2.toISOString().replace('.000Z',''));
+            upmemschformData.append('endDatetime', this.endDatetime2.toISOString().replace('.000Z',''));
+            upmemschformData.append('alarmTime', this.alarmTime2.toISOString().replace('.000Z',''));
+            upmemschformData.append('addressName', this.addressName2);
+            upmemschformData.append('comment', this.comment2);
+            this.$http
+                .patch(`/api/dashboard/calendar/${postItem.id}`, upmemschformData, {
+                    withCredentials: true
+                })
+                .then(res => {
+                    console.log(res);
+                    // this.$router.go();
+                    this.dialogPg = false;
+                    
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        },
         closeDialog() {
             this.$refs.form.reset();
         },
         dialogsav() {
             var memschformData = new FormData();
             memschformData.append('name', this.name);
-            memschformData.append('startDatetime', this.startDatetime);
-            memschformData.append('endDatetime', this.endDatetime);
-            memschformData.append('alarmTime', this.alarmTime);
+            memschformData.append('startDatetime', this.startDatetime.toISOString().replace('.000Z',''));
+            memschformData.append('endDatetime', this.endDatetime.toISOString().replace('.000Z',''));
+            memschformData.append('alarmTime', this.alarmTime.toISOString().replace('.000Z',''));
             memschformData.append('addressName', this.addressName);
             memschformData.append('comment', this.comment);
             this.$http
@@ -117,8 +212,9 @@ export default {
                 })
                 .then(res => {
                     console.log(res);
-                    
                     // this.$router.go();
+                    this.dialogPg = false;
+                    
                 })
                 .catch(err => {
                     console.log(err);
@@ -133,7 +229,10 @@ export default {
             this.menu1 = false;
             this.$refs.menu1.save(v);
         }
-    }
+    },
+      filters: {
+     
+    },
 };
 </script>
 

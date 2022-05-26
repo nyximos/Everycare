@@ -1,16 +1,12 @@
-const state = {
-    event: initEvent(),
-    events: [],
-    dialog: false,
+export default {
+    namespaced: true,
+    state: {
+        id: '',
+        
+    },
+    mutations: {
+        memsch(state, postItem){
+            state.id = postItem.id
+        }
+    },
 };
-
-function initEvent(){
-    return {
-        startDate: '',
-        startTime: '',
-        endDate: '',
-        endTime: '',
-        content: '',
-        title: '',
-    }
-}
