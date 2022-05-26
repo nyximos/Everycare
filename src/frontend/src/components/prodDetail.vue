@@ -82,7 +82,7 @@ data(){
 methods:{
 back(){
     this.$router.push({
-        path:'/stores'
+        path:'/store'
     })
 },
 wishList(){

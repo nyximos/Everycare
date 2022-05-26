@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="this.desserts.length==0">장바구니가 비었습니다.</div>
+        <div v-if="this.$store.state.cart.cart.length==0">장바구니가 비었습니다.</div>
         <v-card v-else>
             <v-btn @click="removeAll">전체삭제</v-btn>
                 <v-simple-table>
@@ -13,11 +13,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(item, index) in desserts" :key="index">
-                                <td>{{ index }}/{{ item.id }}</td>
+                            <tr v-for="(item,index) in $store.state.cart.cart" :key="index">
+                                <td>{{index }}/{{ item.productId }}</td>
                                 <td>{{ item.quantity }}</td>
                                 <td>{{ item.amount * item.quantity }}</td>
-                                <td><v-btn @click="remove(item, index)">x</v-btn></td>
+                                <td><v-btn @click="remove(index)">x</v-btn></td>
                             </tr>
                         </tbody>
                     </template>
@@ -28,35 +28,28 @@
                     <h3>주문정보</h3>
                 </v-row>
                 <v-row>
-                    <v-text-field label="이름" v-model="name" solo></v-text-field>
+                    <v-text-field label="이름" v-model="firstName" disabled ></v-text-field>
                 </v-row>
                 <v-row>
-                    <v-text-field v-model="amount" label="가격" solo></v-text-field>
+                    <v-text-field v-model="length" label="개수" disabled></v-text-field>
                 </v-row>
                 <v-row>
-                    <v-text-field v-model="recipientName" label="수취인 이름" solo></v-text-field>
+                    <v-text-field v-model="recipientName" label="수취인 이름" ></v-text-field>
                 </v-row>
                 <v-row>
-                    <v-text-field v-model="recipientNumber" label="수취인 번호" solo></v-text-field>
+                    <v-text-field v-model="recipientNumber" label="수취인 번호" ></v-text-field>
                 </v-row>
-                <v-row>
-                    <v-text-field v-model="address" label="주소" solo></v-text-field>
-                    <v-text-field v-model="detailedAddress" label="상세주소" solo></v-text-field>
-                    <v-text-field label="주문요청" v-model="comment" solo></v-text-field>
-                    <v-text-field v-model="paymentAmount" label="결재금액" solo></v-text-field>
-                    <v-file-input v-model="zipcode" label="File input"></v-file-input>
-                    <span>결제날짜</span><input type="date" class="form-control" />
+                <v-row> 
+                   <v-col cols="4"><v-text-field v-model="zipcode" label="우편번호" ></v-text-field></v-col>
+                    <v-col cols="8"><v-btn @click="execDaumPostcode">주소 찾기</v-btn></v-col>
+                    <v-text-field v-model="address" label="주소" ></v-text-field>
+                    <v-text-field v-model="detailedAddress" label="상세주소" ></v-text-field>
+                    <v-text-field label="주문요청" v-model="comment" ></v-text-field>
+                    <v-text-field v-model="total" label="결재금액" disabled></v-text-field>
                 </v-row>
-                <div class="daummap">
-    <h1>우편번호: <span>{{ zip }}</span></h1>
-    <h1>기본주소: <span>{{ addr1 }}</span></h1>
-    <h1>상세주소: <span>{{ addr2 }}</span></h1>
-    <div ref="embed"></div>
-    <button @click="showApi">주소API 호출</button>
-  </div>
           </v-card-text>
         </v-card>
-        <v-btn @click="order" block>주문하기</v-btn>
+        <v-btn @click="order" block :disabled="!formIsValid">주문하기</v-btn>
     </div>
 </template>
 
@@ -68,43 +61,80 @@ export default {
       })
 		.then((res)=>{
         console.log(res.data);
-        this.desserts=res.data.body
-        this.id=this.desserts[0]
+        // this.desserts=res.data.body
+        // this.id=this.$store.state.cart.cart[0].p
+        // this.amount=length
+        // this.name=firstName
       }).catch(err =>{
-				alert(err);
 				console.log(err);
 			})
   },
   data(){
     return{
-      desserts:[],
-      id:this.id,
-      name: `${this.id}외건`,
-      amount: this.amount,
+      // desserts:[],
+      // id:this.id,
+      name: this.name,
+      amount: this.length,
       recipientName: this.recipientName,
       recipientNumber: this.recipientNumber,
       zipcode: this.zipcode,
       address: this.address,
       detailedAddress: this.detailedAddress,
       comment: this.comment,
-      paymentAmount: this.paymentAmount,
-      zip:'',
-      addr1:'',
-      addr2:''
+      paymentAmount: this.total,
     }
   },
     methods:{
+      execDaumPostcode() {
+        new window.daum.Postcode({
+          oncomplete: (data) => {
+          if (this.extraAddress !== "") {
+            this.extraAddress = "";
+          }
+          if (data.userSelectedType === "R") {
+            // 사용자가 도로명 주소를 선택했을 경우
+            this.address = data.roadAddress;
+          } else {
+            // 사용자가 지번 주소를 선택했을 경우(J)
+            this.address = data.jibunAddress;
+          }
+          // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+          if (data.userSelectedType === "R") {
+            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+            if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
+              this.extraAddress += data.bname;
+            }
+            // 건물명이 있고, 공동주택일 경우 추가한다.
+            if (data.buildingName !== "" && data.apartment === "Y") {
+              this.extraAddress +=
+                this.extraAddress !== ""
+                  ? `, ${data.buildingName}`
+                  : data.buildingName;
+            }
+            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+            if (this.extraAddress !== "") {
+              this.extraAddress = `(${this.extraAddress})`;
+            }
+          } else {
+            this.extraAddress = "";
+          }
+          // 우편번호를 입력한다.
+          this.zipcode = data.zonecode;
+        },
+      }).open();
+    },
       order(){
       var formData = new FormData();
-      formData.append('name','박지은');
-      formData.append('amount',1);
-      formData.append('recipientName','박지은');
-      formData.append('recipientNumber',123);
-      formData.append('zipcode',this.zipcode);
-      formData.append('address','포항시북구');
-      formData.append('detailedAddress','404-222');
-      formData.append('comment','배송전문의');
-      formData.append('paymentAmount',100);
+      formData.append('name',this.firstName);
+      formData.append('amount',this.length);
+      formData.append('recipientName',this.recipientName);
+      formData.append('recipientNumber',this.recipientNumber);
+      formData.append('zipcode','');
+      formData.append('address',this.address);
+      formData.append('detailedAddress',this.detailedAddress);
+      formData.append('comment',this.comment);
+      formData.append('paymentAmount',this.total);
         this.$http
       .post('/api/cart/orders', formData,{
        withCredentials:true
@@ -114,7 +144,6 @@ export default {
       })
      .catch(err => {
        console.log(err);
-       console.log(this.hi)
     });
       },
       remove(index){
@@ -124,7 +153,7 @@ export default {
       })
       .then((res)=> {
         console.log(res)
-        // this.$store.commit("cart/remoteList", index)
+        this.$store.commit("cart/remoteList", index)
       }).catch((err)=>{
         console.log(err)
       })
@@ -140,16 +169,55 @@ export default {
       }).catch((err)=>{
         console.log(err)
       })
-      }
+      },
+      remove(index) {
+            this.$http
+                .delete(`/api/cart/${index}`, {
+                    withCredentials: true,
+                })
+                .then((res) => {
+                    console.log(res);
+                    this.$store.commit('cart/remoteList', index);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
+        removeAll() {
+            this.$http
+                .delete(`/api/cart`, {
+                    withCredentials: true,
+                })
+                .then((res) => {
+                    console.log(res);
+                    this.$store.state.cart.cart = [];
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        },
     },
     computed: {
+        firstName(){
+          return this.$store.state.cart.cart[0].productId+'외'+(this.$store.state.cart.cart.length-1)+'건';
+        },
+        length() {
+            return this.$store.state.cart.cart.length;
+        },
         total() {
             var total = 0;
-            this.desserts.forEach((item) => {
+            this.$store.state.cart.cart.forEach((item) => {
                 total += item.quantity * item.amount;
             });
             return total;
         },
+        formIsValid () {
+        return (
+          this.recipientName &&
+          this.recipientNumber &&
+          this.address &&
+          this.detailedAddress 
+        )},
     },
 };
 </script>

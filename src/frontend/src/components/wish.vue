@@ -9,8 +9,8 @@
                 </thead>
                 <tbody>
                     <tr v-for="(item, index) in wishList" :key="index">
-                        <td>{{ index }}/{{ item.productId }}</td>
-                        <td><v-btn @click="remove(item, index)">x</v-btn></td>
+                        <td>{{ index }}/{{ item.id }}</td>
+                        <td><v-btn @click="remove(item)">x</v-btn></td>
                     </tr>
                 </tbody>
             </template>
@@ -39,24 +39,13 @@ export default {
         };
     },
     methods: {
-        // drop(){
-        //   this.$http.delete(`/api/dashboard/wishlist/${this.listItem.id}`,{
-        //   withCredentials: true
-        // })
-        // .then((res)=> {
-        //   console.log(res)
-        // }).catch((err)=>{
-        //   console.log(err)
-        //     })
-        //   },
-        remove(item, index) {
+        remove(item) {
             this.$http
                 .delete(`/api/dashboard/wishlist/${item.id}`, {
                     withCredentials: true,
                 })
                 .then((res) => {
                     console.log(res);
-                    console.log(this.item.index);
                     this.$store.commit('wish/remoteList', index);
                 })
                 .catch((err) => {

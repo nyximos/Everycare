@@ -147,7 +147,7 @@ const routes = [
     },
     // 상품 등록
     {
-        path: '/store/account/{id}/products/new',
+        path: '/store/account/:contentId/products/new',
         name: 'ProdCreate',
         component: () => import('@/components/prodCreate.vue'),
     },
