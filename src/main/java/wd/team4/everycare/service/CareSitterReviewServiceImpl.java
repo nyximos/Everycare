@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.domain.ActivityClassification;
 import wd.team4.everycare.domain.ActivityInformation;
+import wd.team4.everycare.domain.CareSitterReview;
 import wd.team4.everycare.domain.CareTargetSchedule;
 import wd.team4.everycare.dto.careSitterReview.CareSitterReviewCategoryDTO;
+import wd.team4.everycare.dto.careSitterReview.CareSitterReviewListDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.CareNoteRepository;
@@ -52,6 +54,33 @@ public class CareSitterReviewServiceImpl implements CareSitterReviewService {
                 .header(StatusEnum.OK)
                 .message("성공")
                 .body(careSitterReviewCategoryDTOs)
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> getAll() {
+
+        List<CareSitterReview> careSitterReviews = careSitterReviewRepository.findAll();
+        List<CareSitterReviewListDTO> careSitterReviewListDTOs = new ArrayList<>();
+
+        for (CareSitterReview careSitterReview : careSitterReviews) {
+            CareSitterReviewListDTO dto = CareSitterReviewListDTO.builder()
+                    .id(careSitterReview.getId())
+                    .rating(careSitterReview.getRating())
+                    .comment(careSitterReview.getComment())
+                    .createdAt(careSitterReview.getCreatedAt())
+                    .careTargetScheduleId(careSitterReview.getCareTargetSchedule().getId())
+                    .build();
+
+            careSitterReviewListDTOs.add(dto);
+        }
+
+        MyResponse<List<CareSitterReviewListDTO>> body = MyResponse.<List<CareSitterReviewListDTO>>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(careSitterReviewListDTOs)
                 .build();
 
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
