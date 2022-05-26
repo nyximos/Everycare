@@ -16,7 +16,9 @@ public class CareSitterReviewDTO {
     private Long rating;
     private String comment;
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
-    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private Long activityClassificationId;
+    private String activityClassificationName;
     private Long careTargetScheduleId;
 
 }

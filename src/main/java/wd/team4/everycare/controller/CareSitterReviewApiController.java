@@ -6,6 +6,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.dto.careSitterReview.CareSitterReviewFormDTO;
+import wd.team4.everycare.dto.careSitterReview.CareSitterReviewUpdateFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.service.CareSitterReviewServiceImpl;
 
@@ -45,15 +46,16 @@ public class CareSitterReviewApiController {
         ResponseEntity<MyResponse> responseEntity = careSitterReviewService.save(principalDetails, id, careSitterReviewFormDTO);
         return responseEntity;
     }
-//
-//    // 케어시터 활동 후기 수정
-//    @PatchMapping("/carenote/{carenoteId}/review/{reviewId}")
-//    public ResponseEntity<MyResponse> update(){
-//        ResponseEntity<MyResponse> responseEntity = careSitterReviewService.update();
-//        return responseEntity;
-//    }
-//
-//
+
+    // 케어시터 활동 후기 수정
+    @PatchMapping("/carenote/{carenoteId}/review/{reviewId}")
+    public ResponseEntity<MyResponse> update(@PathVariable("reviewId") Long id,
+                                             @ModelAttribute CareSitterReviewUpdateFormDTO careSitterReviewUpdateFormDTO){
+        ResponseEntity<MyResponse> responseEntity = careSitterReviewService.update(id, careSitterReviewUpdateFormDTO);
+        return responseEntity;
+    }
+
+
 //    // 케어시터 활동 후기 삭제
 //    @DeleteMapping("/carenote/{carenoteId}/review/{reviewId}")
 //    public ResponseEntity<MyResponse> remove(){

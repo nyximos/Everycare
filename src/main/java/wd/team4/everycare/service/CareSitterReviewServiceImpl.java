@@ -11,6 +11,7 @@ import wd.team4.everycare.domain.*;
 import wd.team4.everycare.dto.careSitterReview.CareSitterReviewCategoryDTO;
 import wd.team4.everycare.dto.careSitterReview.CareSitterReviewDTO;
 import wd.team4.everycare.dto.careSitterReview.CareSitterReviewFormDTO;
+import wd.team4.everycare.dto.careSitterReview.CareSitterReviewUpdateFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.*;
@@ -79,7 +80,9 @@ public class CareSitterReviewServiceImpl implements CareSitterReviewService {
                     .id(careSitterReview.getId())
                     .rating(careSitterReview.getRating())
                     .comment(careSitterReview.getComment())
-                    .createdAt(careSitterReview.getCreatedAt())
+                    .updatedAt(careSitterReview.getUpdatedAt())
+                    .activityClassificationId(careSitterReview.getActivityClassification().getId())
+                    .activityClassificationName(careSitterReview.getActivityClassification().getName())
                     .careTargetScheduleId(careSitterReview.getCareTargetSchedule().getId())
                     .build();
 
@@ -105,7 +108,9 @@ public class CareSitterReviewServiceImpl implements CareSitterReviewService {
                 .id(careSitterReviewEntity.getId())
                 .rating(careSitterReviewEntity.getRating())
                 .comment(careSitterReviewEntity.getComment())
-                .createdAt(careSitterReviewEntity.getCreatedAt())
+                .updatedAt(careSitterReviewEntity.getUpdatedAt())
+                .activityClassificationId(careSitterReviewEntity.getActivityClassification().getId())
+                .activityClassificationName(careSitterReviewEntity.getActivityClassification().getName())
                 .careTargetScheduleId(careSitterReviewEntity.getCareTargetSchedule().getId())
                 .build();
 
@@ -137,6 +142,7 @@ public class CareSitterReviewServiceImpl implements CareSitterReviewService {
                 .rating(careSitterReviewFormDTO.getRating())
                 .comment(careSitterReviewFormDTO.getComment())
                 .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
                 .activityClassification(activityClassificationEntity)
                 .careSitter(careNoteEntity.getCareSitter())
                 .member(user)
@@ -144,6 +150,28 @@ public class CareSitterReviewServiceImpl implements CareSitterReviewService {
                 .build();
 
         careSitterReviewRepository.save(careSitterReview);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> update(Long id, CareSitterReviewUpdateFormDTO careSitterReviewUpdateFormDTO) {
+
+        Optional<CareSitterReview> careSitterReview = careSitterReviewRepository.findById(id);
+        CareSitterReview careSitterReviewEntity = careSitterReview.orElse(null);
+
+        Long activityClassificationId = careSitterReviewUpdateFormDTO.getActivityClassificationId();
+        Optional<ActivityClassification> activityClassification = activityClassificationRepository.findById(activityClassificationId);
+        ActivityClassification activityClassificationEntity = activityClassification.orElse(null);
+        careSitterReviewUpdateFormDTO.setActivityClassification(activityClassificationEntity);
+
+        careSitterReviewEntity.update(careSitterReviewUpdateFormDTO);
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
