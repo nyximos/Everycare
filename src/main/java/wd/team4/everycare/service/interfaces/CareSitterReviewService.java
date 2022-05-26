@@ -7,4 +7,6 @@ public interface CareSitterReviewService {
     ResponseEntity<MyResponse> getAllCategory(Long id);
 
     ResponseEntity<MyResponse> getAll();
+
+    ResponseEntity<MyResponse> get(Long id);
 }

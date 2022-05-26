@@ -26,14 +26,14 @@ public class CareSitterReviewApiController {
         ResponseEntity<MyResponse> responseEntity = careSitterReviewService.getAll();
         return responseEntity;
     }
-//
-//    // 상세 조회
-//    @GetMapping("/carenote/{carenoteId}/review/{reviewId}")
-//    public ResponseEntity<MyResponse> get(){
-//        ResponseEntity<MyResponse> responseEntity = careSitterReviewService.get();
-//        return responseEntity;
-//    }
-//
+
+    // 상세 조회
+    @GetMapping("/carenote/{carenoteId}/review/{reviewId}")
+    public ResponseEntity<MyResponse> get(@PathVariable("reviewId") Long id){
+        ResponseEntity<MyResponse> responseEntity = careSitterReviewService.get(id);
+        return responseEntity;
+    }
+
 //    // 케어시터 활동 후기 등록
 //    @PostMapping("/api/carenote/{id}/reviews")
 //    public ResponseEntity<MyResponse> save(){
