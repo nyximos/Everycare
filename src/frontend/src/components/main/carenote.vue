@@ -1,0 +1,62 @@
+<template>
+  <div class="content">
+    <v-card class="mx-auto" max-width="344" v-for="(n,index) in note" :key="index">
+    <v-img src="" height="200px" alt="사진없음"></v-img>
+    <v-card-title>
+      <h2 class="name">{{n.careTargetName}} 님</h2>
+    </v-card-title>
+    
+    <v-card-subtitle style="margin-top:1px;">
+      시작시간:{{n.startTime}} ~ 종료시간:{{n.endTime}}
+    </v-card-subtitle>
+    <v-card-actions>
+        <div class="button" >
+            <v-btn class="ma-2" outlined color="indigo" @click="start(n)">케어시작</v-btn>
+        </div>
+    </v-card-actions>
+  </v-card>
+  </div>
+</template>
+
+<script>
+export default {
+    data(){
+        return{
+            note:[]
+        }
+    },
+    mounted(){
+        this.$http
+        .get('/api/carenotes',{
+            withCredentail:true
+        })
+        .then((res)=>{
+            console.log(res.data.body)
+            this.note = res.data.body
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+
+    },
+    methods:{
+        start(n){
+            this.$router.push({name:'carenotestart' , params:{contentId:n.id}  })
+        }
+    }
+}
+</script>
+
+<style>
+    .content{
+        width: 100%;
+        margin-top: 30px;
+        margin-bottom: 100px;
+    }
+    .name{
+        margin: 0 auto;
+    }
+    .button{
+        margin: 0 auto;
+    }
+</style>
