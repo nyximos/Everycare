@@ -32,21 +32,54 @@
         </v-row>
         <v-row>
             <v-col>
-                <label>개수:</label><input type="number" class="form-control" v-model="quantity">
+            <v-text-field
+                v-model="quantity"
+                label="수량"
+                outlined
+          ></v-text-field>
             </v-col>
-                        <v-col>
-                <label>가격:</label>{{startOffset}}
+            <v-col>
+            <v-text-field
+                v-model="startOffset"
+                label="가격"
+                outlined
+          ></v-text-field>
             </v-col>
         </v-row>
-          <v-btn color="danger" @click="wishList">찜</v-btn>
-          <v-btn color="primary" @click="cart">장바구니</v-btn>
-          <v-btn @click="back">취소</v-btn>
+        
+    <v-bottom-navigation
+    fixed grow
+    dark
+    :value="value"
+    color="primary"
+  >
+    
+    <v-btn>
+      <reviewBtn/>
+    </v-btn>
+
+    <v-btn @click="wishList">
+      <span>wish</span>
+
+      <v-icon>mdi-heart</v-icon>
+    </v-btn>
+
+    <v-btn @click="cart">
+      <span>cart</span>
+
+      <v-icon>mdi-cart</v-icon>
+    </v-btn>
+  </v-bottom-navigation>
       </v-container>
 </template>
 
 <script>
+import reviewBtn from '@/components/reviewBtn'
 export default {
-async mounted() {
+components:{
+    reviewBtn
+},
+mounted() {
     const id = Number(this.$route.params.contentId);
     this.$http
     .get(`/api/dashboard/store/products/${id}`,{
@@ -69,6 +102,14 @@ async mounted() {
 },
 data(){
     return{
+         sheet: false,
+      tiles: [
+        { img: 'keep.png', title: 'Keep' },
+        { img: 'inbox.png', title: 'Inbox' },
+        { img: 'hangouts.png', title: 'Hangouts' },
+        { img: 'messenger.png', title: 'Messenger' },
+        { img: 'google.png', title: 'Google+' },
+      ],
         name: this.name,
         isSale: this.isSale,
         price: this.price,

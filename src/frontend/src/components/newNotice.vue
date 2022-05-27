@@ -71,7 +71,6 @@ methods:{
       })
      .catch(err => {
        console.log(err);
-       console.log(this.hi)
     });
     }
 },

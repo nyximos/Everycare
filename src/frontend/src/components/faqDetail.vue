@@ -19,7 +19,7 @@
             </v-textarea>
           </v-row>
       </v-container>
-      <v-card-actions>
+      <v-card-actions v-if="$store.state.userStore.id==='admin'">
         <v-btn
           text
           @click="edit"

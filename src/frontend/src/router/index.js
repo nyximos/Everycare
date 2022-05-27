@@ -302,7 +302,7 @@ const routes = [
         name: 'Faq',
         component: () => import('@/pages/Faq.vue'),
     },
-    // 자주 묻는 질문 상세조회
+    // 자주 묻는 질문 상세조회, 관리자수정삭제
     {
         path: '/faq/:contentId',
         name: 'FaqDetail',
@@ -314,11 +314,11 @@ const routes = [
         name: 'FapNew',
         component: () => import('@/pages/FaqNew.vue'),
     },
-    // 관리자 자주 묻는 질문 수정
+    // 관리자 자주 묻는 질문 등록
     {
-        path: '/admin/faq/update',
+        path: '/admin/faq/new',
         name: 'FapNew',
-        component: () => import('@/pages/FaqUpdate.vue'),
+        component: () => import('@/pages/FaqNew.vue'),
     },
     {
         path: '/login',
@@ -330,11 +330,6 @@ const routes = [
             else next();
         },
     },
-    // {
-    //     path: '/caresitters',
-    //     name: 'caresitters',
-    //     component: Caresitters,
-    // },
     {
         path: '/works',
         name: 'FindWork',
