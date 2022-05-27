@@ -24,7 +24,7 @@ public class CareSitterReviewApiController {
         return responseEntity;
     }
 
-    // 목록 조회
+    // 리뷰 목록 조회
     @GetMapping("/carenote/{id}/reviews")
     public ResponseEntity<MyResponse> getAll(){
         ResponseEntity<MyResponse> responseEntity = careSitterReviewService.getAll();

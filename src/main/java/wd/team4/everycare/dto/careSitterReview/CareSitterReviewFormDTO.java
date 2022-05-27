@@ -9,7 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 public class CareSitterReviewFormDTO {
 
-    private Long id;
     private Long rating;
     private String comment;
     private Long activityClassificationId;
