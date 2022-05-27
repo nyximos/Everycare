@@ -145,16 +145,6 @@ const routes = [
         component: () => import('@/pages/Adminpage_report.vue'),
     },
     {
-        path: '/wish',
-        name: 'Wish',
-        component: () => import('@/pages/Wish.vue'),
-    },
-    {
-        path: '/cart',
-        name: 'Cart',
-        component: () => import('@/pages/Cart.vue'),
-    },
-    {
         path: '/Test1',
         name: 'Test1',
         component: () => import('@/pages/Test1.vue'),
@@ -293,6 +283,30 @@ const routes = [
         path: '/admin/notice/:contentId',
         name: 'noticeDetail',
         component: () => import('@/components/noticeDetail.vue'),
+    },
+    // 자주 묻는 질문 조회
+    {
+        path: '/faq',
+        name: 'Faq',
+        component: () => import('@/pages/Faq.vue'),
+    },
+    // 자주 묻는 질문 상세조회
+    {
+        path: '/faq/:contentId',
+        name: 'FaqDetail',
+        component: () => import('@/pages/FaqDetail.vue'),
+    },
+    // 관리자 자주 묻는 질문 등록
+    {
+        path: '/admin/faq/new',
+        name: 'FapNew',
+        component: () => import('@/pages/FaqNew.vue'),
+    },
+    // 관리자 자주 묻는 질문 수정
+    {
+        path: '/admin/faq/update',
+        name: 'FapNew',
+        component: () => import('@/pages/FaqUpdate.vue'),
     },
     {
         path: '/login',

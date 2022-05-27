@@ -28,8 +28,7 @@
       </v-container>
       <v-card-actions>
         <v-btn
-          text
-          :to="{name:'Notice'}">
+          text>
           Cancel
         </v-btn>
         <v-spacer></v-spacer>
@@ -40,37 +39,29 @@
           color="primary"
           @click="submit">
           Add
-        </v-btn>
-        
+        </v-btn>        
       </v-card-actions>
       </v-card-text>
-  </v-card>  
+  </v-card>    
 </template>
 
 <script>
 export default {
 data(){
- return{
-     title: this.title,
-     file: [],
-     comment: this.comment
- }   
+    return{
+        title:this.title,
+        comment: this.comment,
+        file: this.file
+    }
 },
 methods:{
-    submit(){
+submit(){
       var formData = new FormData();
-      // formData.append('id',1);
       formData.append('title',this.title);
       formData.append('content',this.comment);
-      // formData.append('BoardCategory',1);
-    //   formData.append('createdAt',);
-    //   formData.append('updatedAt',today);
-      // formData.append('count',1);
       formData.append('attachFile', this.file);
-      // formData.append('fileName','배송전문의');
-      // formData.append('filePath','dsjfahk:dkfja@kdfjal.blcm');
       this.$http
-      .post('/api/admin/notice', formData,{
+      .post('/api/admin/faq', formData,{
        withCredentials:true
       })
      .then(res => {
@@ -78,11 +69,10 @@ methods:{
       })
      .catch(err => {
        console.log(err);
-       console.log(this.hi)
     });
     }
 },
-computed: {
+computed:{
     formIsValid(){
       return (
         this.title &&
@@ -90,6 +80,8 @@ computed: {
       )},
 }
 }
+
+
 </script>
 
 <style>
