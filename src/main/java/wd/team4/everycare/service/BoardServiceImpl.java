@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -138,6 +139,20 @@ public class BoardServiceImpl implements BoardService {
                 .header(StatusEnum.OK)
                 .message("FAQ조회")
                 .body(FAQListDTO)
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> getDetailFAQ(Long boardId) {
+        Board board = boardRepository.findById(boardId).orElse(null);
+        BoardDTO boardDTO = board.toBoardDTO();
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("FAQ상세조회")
+                .body(boardDTO)
                 .build();
 
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
