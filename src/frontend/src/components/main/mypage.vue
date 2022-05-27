@@ -8,7 +8,7 @@
          <router-link :to="{name:'careprofilecreate'}"><p>케어 프로필 생성</p></router-link>
       </div>
       <div v-else>
-          <router-link :to="{name:'mypage_profile' ,params:{caresitterId:this.id}}"><p>프로필 조회</p></router-link>
+          <router-link :to="{name:'myinformation' ,params:{caresitterId:this.id}}"><p>내 정보</p></router-link>
       </div>
     <router-link :to="{name:'memberSchedule', params:{caresitterId:this.id}}"><p>스케줄</p></router-link>
       <router-link :to="{name:'caresitter_contract', params:{caresitterId:this.id}}"><p>계약서조회</p></router-link><br>
@@ -19,7 +19,7 @@
       <router-link :to="{name:'complete_contract'}"><p>완료된 계약서</p></router-link>
 
       <div>
-      <router-link :to="{name:'caresitter_contract', params:{caresitterId:this.id}}">계약서조회</router-link>
+      <router-link :to="{name:'caresitter_contract', params:{caresitterId:this.id}}">계약서</router-link>
      </div>
      <div>
                <router-link :to="{name:'memberschedule', params:{caresitterId:this.id}}">스케줄</router-link>

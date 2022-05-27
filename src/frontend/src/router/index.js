@@ -455,7 +455,7 @@ const routes = [
         component:() => import('@/pages/Member_Schedule_Detail.vue')
      },
      {
-        path: '/dashboard/myinformation',
+        path: '/dashboard/:caresitterId/myinformation',
         name: 'myinformation',
         component:() => import('@/pages/MyInformation')
      },
