@@ -19,8 +19,11 @@
       <router-link :to="{name:'complete_contract'}"><p>완료된 계약서</p></router-link>
       <router-link :to="{name:'MyStore',params:{contentId:memid}}"><p>내 스토어</p></router-link>
       <router-link :to="{name:'OrderList',params:{contentId:memid}}"><p>상품 주문 내역</p></router-link>
-    </div>
-  
+
+      <router-link :to="{name:'caresitter_contract', params:{caresitterId:this.id}}">계약서조회</router-link>
+     </div>
+
+
 </template>
 
 <script>

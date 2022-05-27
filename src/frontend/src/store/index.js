@@ -6,6 +6,7 @@ import userStore from '@/store/userStore'
 import careprofileStore from '@/store/careprofileStore'
 import caretargetStore from '@/store/caretargetStore'
 import carenoteStore from '@/store/carenoteStore'
+import userCalendar from '@/store/userCalendar'
 import cart from './cart'
 import wish from './wish'
 import createPersistedState from "vuex-persistedstate";
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     caretargetStore,
     careprofileStore,
     carenoteStore,
+    userCalendar,
     cart,
     wish,
     userStore,

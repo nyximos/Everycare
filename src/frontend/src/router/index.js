@@ -455,9 +455,9 @@ const routes = [
         component:() => import('@/pages/Member_Schedule_Detail.vue')
      },
      {
-        path: '/dashboard/memberschedule/:memberscheduleId/update',
-        name: 'memberscheduleupdate',
-        component:() => import('@/pages/Member_Schedule_Update.vue')
+        path: '/dashboard/myinformation',
+        name: 'myinformation',
+        component:() => import('@/pages/MyInformation')
      },
     {
         path: '/admin/members',

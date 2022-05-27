@@ -128,11 +128,17 @@ export default {
             id: this.$route.params.memberscheduleId,
             postItems: [],
             name: '',
+            name2:'',
             startDatetime: '',
+            startDatetime2:'',
             endDatetime: '',
+            endDatetime2:'',
             alarmTime: '',
+            alarmTime2:'',
             addressName: '',
+            addressName2: '',
             comment: '',
+            comment2: '',
             dialogPg: false,
             dialogUd: false
         };
@@ -144,7 +150,7 @@ export default {
                 withCredentials: true
             })
             .then(res => {
-                console.log(res.body.body);
+                // console.log(res.body.body);
                 this.postItems = res.data.body;
                
             })
@@ -164,17 +170,18 @@ export default {
             this.$router.push({name: 'memberscheduledetail', params:{memberscheduleId: postItem.id }});
         },
         update(postItem){
-            const userData ={
+            const scheData ={
                 id : postItem.id
             }
-            console.log(userData)
             this.dialogUd = true;
-            this.$store.commit('userCalendar/memsch', userData);
+            this.$store.commit('userCalendar/memsch', scheData);
             // this.id = this.$store.state.userCalendar.id;
             // this.id = this.$store.state.
-            console.log(this.$store.state.userCalendar.id);
+            console.log(this.$store.state.userCalendar.scheid);
         },
         dialogsav2(){
+            const id = this.$store.state.userCalendar.scheid;
+            console.log(id)
              var upmemschformData = new FormData();
             upmemschformData.append('name', this.name2);
             upmemschformData.append('startDatetime', this.startDatetime2.toISOString().replace('.000Z',''));
@@ -183,19 +190,23 @@ export default {
             upmemschformData.append('addressName', this.addressName2);
             upmemschformData.append('comment', this.comment2);
             this.$http
-                .patch(`/api/dashboard/calendar/${this.$store.state.userCalendar.id}`, upmemschformData, {
+                .patch(`/api/dashboard/calendar/${id}`, upmemschformData, {
                     withCredentials: true
                 })
                 .then(res => {
                     console.log(res);
                     // this.$router.go();
-                    this.dialogPg = false;
-                    
+                    this.dialogUd = false;
+                    this.$router.go();
                 })
                 .catch(err => {
                     console.log(err);
                 });
         },
+        dialogcel2(){
+            this.$refs.form.reset();
+           this.dialogUd = false;
+        }, 
         closeDialog() {
             this.$refs.form.reset();
         },
@@ -215,7 +226,7 @@ export default {
                     console.log(res);
                     // this.$router.go();
                     this.dialogPg = false;
-                    
+                    this.$router.go();
                 })
                 .catch(err => {
                     console.log(err);
