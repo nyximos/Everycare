@@ -57,6 +57,12 @@ public class BoardApiController {
         return faq;
     }
 
+    @GetMapping("/faq/{boardId}")
+    public ResponseEntity<MyResponse> getDetailFAQ(@PathVariable("boardId") Long boardId){
+        ResponseEntity<MyResponse> detailFAQ = boardService.getDetailFAQ(boardId);
+        return detailFAQ;
+    }
+
     @GetMapping("/store/products/reviews/{boardId}")
     public ResponseEntity<MyResponse> getReviews(@PathVariable("boardId")Long boardId){
         ResponseEntity<MyResponse> review = boardService.getComment(boardId);

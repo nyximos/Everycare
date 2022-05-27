@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.*;
+import wd.team4.everycare.dto.careNote.ActivityInformationDTO;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.contract.ContractDTO;
@@ -33,6 +34,8 @@ public class JobOfferServiceImpl implements JobOfferService {
     private final ContractRepository contractRepository;
     private final CareSitterRepository careSitterRepository;
     private final CareSitterImageRepository careSitterImageRepository;
+    private final ActivityInformationRepository activityInformationRepository;
+    private final JobOfferCareSitterRepository jobOfferCareSitterRepository;
 
     @Override
     public List<JobOfferDTO> getJobOffer() {
@@ -43,10 +46,26 @@ public class JobOfferServiceImpl implements JobOfferService {
     }
 
     @Override
-    public DetailJobOfferDTO getDetailJobOffer(Long id) {
+    public ResponseEntity<MyResponse> getDetailJobOffer(Long id) {
         JobOffer findJobOffer = jobOfferRepository.findById(id).get();
         DetailJobOfferDTO jobOfferDTO = findJobOffer.toDetailJobOfferDTO(findJobOffer);
-        return jobOfferDTO;
+
+        Long careTargetScheduleId = jobOfferDTO.getCareTargetScheduleListDTO().getId();
+        List<ActivityInformation> activityInformation = activityInformationRepository.findAllByCareTargetScheduleId(careTargetScheduleId);
+
+        List<ActivityInformationDTO> activityInformationDTOs = new ArrayList<>();
+
+        activityInformation.stream().map(activity -> activity.toActivityInformationDTO()).forEach(activityInformationDTOs::add);
+
+        jobOfferDTO.setActivityInformationDTO(activityInformationDTOs);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("구인글 상세조회")
+                .body(jobOfferDTO)
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
     @Override
@@ -68,11 +87,13 @@ public class JobOfferServiceImpl implements JobOfferService {
 
     @Override
     public JobOffer save(PrincipalDetails principalDetails, JobOfferDTO jobOfferDTO) {
+        Member member = principalDetails.getUser();
         Long careTargetId = jobOfferDTO.getCareTarget().getId();
         Long scheduleId = jobOfferDTO.getCareTargetSchedule().getId();
 
         CareTarget careTarget = careTargetRepository.findById(careTargetId).orElse(null);
         CareTargetSchedule careTargetSchedule = careTargetScheduleRepository.findById(scheduleId).orElse(null);
+        CareSitter careSitter = careSitterRepository.findByMember(member);
 
         JobOffer jobOffer = JobOffer.builder()
                 .title(jobOfferDTO.getTitle())
@@ -89,6 +110,12 @@ public class JobOfferServiceImpl implements JobOfferService {
                 .careTargetSchedule(careTargetSchedule)
                 .build();
 
+        JobOfferCareSitter jobOfferCareSitter = JobOfferCareSitter.builder()
+                .jobOffer(jobOffer)
+                .careSitter(careSitter)
+                .build();
+
+        jobOfferCareSitterRepository.save(jobOfferCareSitter);
 
         JobOffer saveJobOffer = jobOfferRepository.save(jobOffer);
         return saveJobOffer;

@@ -5,16 +5,16 @@ import lombok.*;
 import javax.persistence.*;
 
 @Getter
-@Setter
 @Entity
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Table(name = "job_offer_care_sitter")
 @SequenceGenerator(name = "job_offer_care_sitter_seq_generator",
         sequenceName = "job_offer_care_sitter_seq",
         initialValue = 1, allocationSize = 1)
-public class
-JobOfferCareSitter {
+@Builder
+public class JobOfferCareSitter {
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "job_offer_care_sitter_seq_generator")
     @Column(name = "job_offer_care_sitter_id")

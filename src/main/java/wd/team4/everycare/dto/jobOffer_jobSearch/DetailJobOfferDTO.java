@@ -3,10 +3,13 @@ package wd.team4.everycare.dto.jobOffer_jobSearch;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import wd.team4.everycare.domain.*;
+import wd.team4.everycare.domain.Gender;
+import wd.team4.everycare.domain.JobOffer;
+import wd.team4.everycare.dto.careNote.ActivityInformationDTO;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter @Setter
 @Builder
@@ -24,6 +27,7 @@ public class DetailJobOfferDTO {
     private Gender desiredCareSitterGender;   //
     private JobOfferCareTargetDTO careTarget;      //
     private CareTargetScheduleListDTO careTargetScheduleListDTO;
+    private List<ActivityInformationDTO> activityInformationDTO;
 
     public JobOffer toJobOffer(){
         return JobOffer.builder()
