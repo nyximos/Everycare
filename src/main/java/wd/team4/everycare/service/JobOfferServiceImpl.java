@@ -33,6 +33,7 @@ public class JobOfferServiceImpl implements JobOfferService {
     private final ContractRepository contractRepository;
     private final CareSitterRepository careSitterRepository;
     private final CareSitterImageRepository careSitterImageRepository;
+    private final JobOfferCareSitterRepository jobOfferCareSitterRepository;
 
     @Override
     public List<JobOfferDTO> getJobOffer() {
@@ -68,11 +69,13 @@ public class JobOfferServiceImpl implements JobOfferService {
 
     @Override
     public JobOffer save(PrincipalDetails principalDetails, JobOfferDTO jobOfferDTO) {
+        Member member = principalDetails.getUser();
         Long careTargetId = jobOfferDTO.getCareTarget().getId();
         Long scheduleId = jobOfferDTO.getCareTargetSchedule().getId();
 
         CareTarget careTarget = careTargetRepository.findById(careTargetId).orElse(null);
         CareTargetSchedule careTargetSchedule = careTargetScheduleRepository.findById(scheduleId).orElse(null);
+        CareSitter careSitter = careSitterRepository.findByMember(member);
 
         JobOffer jobOffer = JobOffer.builder()
                 .title(jobOfferDTO.getTitle())
@@ -89,6 +92,12 @@ public class JobOfferServiceImpl implements JobOfferService {
                 .careTargetSchedule(careTargetSchedule)
                 .build();
 
+        JobOfferCareSitter jobOfferCareSitter = JobOfferCareSitter.builder()
+                .jobOffer(jobOffer)
+                .careSitter(careSitter)
+                .build();
+
+        jobOfferCareSitterRepository.save(jobOfferCareSitter);
 
         JobOffer saveJobOffer = jobOfferRepository.save(jobOffer);
         return saveJobOffer;
