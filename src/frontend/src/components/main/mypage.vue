@@ -18,6 +18,9 @@
      <div>
                <router-link :to="{name:'memberSchedule', params:{caresitterId:this.id}}">스케줄</router-link>
       </div>
+      <div>
+               <router-link :to="{name:'mypage_joblist', params:{caresitterId:this.id}}">내 구인글 목록</router-link>
+      </div>
   </div>
 </template>
 
