@@ -3,6 +3,7 @@ package wd.team4.everycare.domain;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import wd.team4.everycare.dto.UploadFile;
+import wd.team4.everycare.dto.careNote.ActivityInformationDTO;
 import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationFormDTO;
 import wd.team4.everycare.dto.careTargetSchedule.ActivityInformationViewDTO;
 import wd.team4.everycare.util.StringUtils;
@@ -73,6 +74,18 @@ public class ActivityInformation {
                 .activityClassificationDTO(this.activityClassification.toDTO())
                 .build();
     }
+
+    public ActivityInformationDTO toActivityInformationDTO(){
+        return ActivityInformationDTO.builder()
+                .id(this.id)
+                .startTime(this.startTime)
+                .endTime(this.endTime)
+                .requirement(this.requirement)
+                .content(this.content)
+                .storeFileName(this.storeFileName)
+                .build();
+    }
+
 
     public void save(ActivityClassification activityClassification, CareTargetSchedule careTargetSchedule){
         this.activityClassification = activityClassification;

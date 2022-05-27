@@ -16,7 +16,7 @@ import java.util.List;
 public interface JobOfferService {
 
     List<JobOfferDTO> getJobOffer();
-    DetailJobOfferDTO getDetailJobOffer(Long id);
+    ResponseEntity<MyResponse> getDetailJobOffer(Long id);
     List<CareTargetScheduleListDTO> findSchedule(Long id);
     List<CareTargetFormDTO> findCareTarget(String id);
     JobOffer save(PrincipalDetails principalDetails, JobOfferDTO jobOfferDTO);
