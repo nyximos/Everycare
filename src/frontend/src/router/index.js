@@ -145,6 +145,26 @@ const routes = [
         component: () => import('@/pages/Adminpage_report.vue'),
     },
     {
+        path: '/wish',
+        name: 'Wish',
+        component: () => import('@/pages/Wish.vue'),
+    },
+    {
+        path: '/cart',
+        name: 'Cart',
+        component: () => import('@/pages/Cart.vue'),
+    },
+    {
+        path: '/Test1',
+        name: 'Test1',
+        component: () => import('@/pages/Test1.vue'),
+    },
+    {
+        path: '/joboffer/:id/editwrite',
+        name: 'editwrite',
+        component: () => import('@/components/writeEdit.vue'),
+    },
+    {
         path: '/signup',
         name: 'signup',
         component: () => import('@/pages/Signup.vue'),

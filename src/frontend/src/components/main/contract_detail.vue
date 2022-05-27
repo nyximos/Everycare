@@ -36,7 +36,7 @@
           <li>pay:{{contract.contractJobOfferDTO.pay}}</li>
       </ul>  
       <v-btn class="ma-2" outlined color="indigo" @click="submit">수락</v-btn>
-
+     <v-btn class="ma-2" outlined color="indigo" @click="pay">결제</v-btn>
         </div>
   </div>
   </div>
@@ -65,7 +65,7 @@ export default {
         .then((res)=>{
             console.log(res.data.body);
             this.contract = res.data.body;
-            console.log(this.contract)
+            // console.log(this.contract)
             // this.target = res.data.body.careTargetDetailDTO;
             // this.address = res.data.body.careTargetDetailDTO.address;
             // console.log(this.address);
@@ -87,6 +87,30 @@ export default {
             }).catch(err=>{
                 console.log(err);
             })
+        },
+        pay(){
+            var tossPayments = TossPayments("test_ck_Lex6BJGQOVDGPJNGkJq3W4w2zNbg");
+            var orderId = new Date().getTime();
+            let customDate = new Date();
+            const id = this.$route.params.contractId;
+            
+            console.log(id);
+            console.log(orderId);
+            console.log(customDate);
+            
+            var paymentData = {
+                amount:this.contract.contractJobOfferDTO.amount,
+                orderId:new Date().getTime(),
+                orderName:this.contract.careTargetDetailDTO.name+'계약서',
+                customerName:'박토스',
+                successUrl: `https://localhost:8086/api/dashboard/contracts/payments?contractId=${id}`,
+                failUrl: 'https://localhost:8080/fail'
+            };
+            // console.log(paymentData)
+            tossPayments.requestPayment("카드", paymentData);
+        
+            // this.$http
+            // .get('/api/success',)
         }
     }
 }
