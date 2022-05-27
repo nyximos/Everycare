@@ -43,7 +43,16 @@ const routes = [
         name: 'prodEdit',
         component: () => import('@/components/prodEdit.vue'),
     },
-    // 장바구니
+    {
+            path: '/prodcreate',
+        name: 'ProdCreate',
+        component: () => import('@/components/prodCreate.vue'),
+    },
+    {
+        path: '/prodedit/:contentId',
+        name: 'ProdEdit',
+        component: () => import('@/components/prodEdit.vue'),
+    },
     {
         path: '/dashboard/cart',
         name: 'Cart',
@@ -169,11 +178,14 @@ const routes = [
         name: 'signup',
         component: () => import('@/pages/Signup.vue'),
     },
-    {
-        path: '/calendar',
-        name: 'calendar',
-        component: () => import('@/pages/Calendar.vue'),
-    },
+    // {
+    //     path: '/calendar',
+    //     name: 'calendar',
+    //     component: () => import('@/pages/Calendar.vue'),
+    //     path: '/stores/product/:contentId',
+    //     name: 'prodDetail',
+    //     component: () => import('@/components/prodDetail.vue'),
+    // },
     // {
     //     path: '/careprofile',
     //     name: 'careprofile',
@@ -391,6 +403,26 @@ const routes = [
         name: 'scheActive',
         component:() => import('@/pages/Schedule_Active.vue')
     },
+    {
+       path: '/dashboard/memberschedule',
+       name: 'memberschedule',
+       component:() => import('@/pages/Member_Schedule.vue')
+    },
+    {
+        path: '/dashboard/memberschedule/:memberscheduleId/delete',
+        name: 'memberscheduledelete',
+        component:() => import('@/pages/Member_Schedule_Delete.vue')
+     },
+     {
+        path: '/dashboard/memberschedule/:memberscheduleId/detail',
+        name: 'memberscheduledetail',
+        component:() => import('@/pages/Member_Schedule_Detail.vue')
+     },
+     {
+        path: '/dashboard/memberschedule/:memberscheduleId/update',
+        name: 'memberscheduleupdate',
+        component:() => import('@/pages/Member_Schedule_Update.vue')
+     },
     {
         path: '/admin/members',
         name: 'adminpage',
