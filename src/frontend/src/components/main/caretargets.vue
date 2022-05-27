@@ -15,12 +15,12 @@
       ></v-progress-linear>
     </template>
 
-    <!-- <v-img
+    <v-img
       height="250"
       :src="'https://localhost:8086/api/images/'+p.imageDTOs[0].storeFileName"
+      >
       
-      
-    ></v-img> -->
+    </v-img>
 
     <v-card-title text-align="center">{{p.name}}님</v-card-title>
 
@@ -145,5 +145,4 @@ list-style:none;
     font-weight: bold;
     color: #222;
 }
-
 </style>

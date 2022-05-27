@@ -10,21 +10,21 @@
     </div>
     <div class="header">
         <v-row>
-        <h1>구인리스트</h1>
+        <h1>구인글 목록</h1>
         </v-row>
     </div>
  <hr>
-  <!-- <v-text-field
+  <v-text-field
     v-model="SearchText"
     placeholder="Search"
     filled
     rounded
     dense
-  ></v-text-field> -->
-   <div v-if="!listData.length">글이 없습니다</div>
+  ></v-text-field>
+   <!-- <div v-if="!listData.length">글이 없습니다</div>
   <div v-if="!filteredList.length && listData.length">
     검색결과가 없습니다
-  </div>
+  </div> -->
   <!-- {{this.listData}} -->
   <ListItem class="mt-5" v-for="(listItem, index) in filteredList" :key="index"
   :listItem="listItem" @detail="detailShot"
@@ -43,21 +43,18 @@
 <script>
 import ListItem from '@/components/listItem'
 export default {
-    name: 'componentjoblist',
+    name: 'mypagejoblist',
     components:{
       ListItem
     },
     mounted() {
         this.$http
-        .get('/api/recruitions', {
+        .get('/api/teeeeest', {
         withCredentials: true
         })
         .then(res => {
-          console.log(res.data)
+          console.log(res.data.body)
           this.listData = res.data.body;
-          this.id = res.data.body.id;
-          console.log(res)
-          
         })
           .catch(err => {
           console.log(err);
@@ -69,7 +66,6 @@ export default {
           dataPerPage:3,
           curPageNum:1,
           SearchText: '',
-          
         }
     },
     methods:{
@@ -79,17 +75,13 @@ export default {
           })
         },
         detailShot(id){
-            
-            
           this.$router.push({
-            name: 'detail', 
+            name: 'jobapplication',
             params: {
               contentId: id
             }
           })
-          
-        },
-        
+        }
     },
     computed: {
       startOffset() {
@@ -118,3 +110,5 @@ export default {
 </script>
 
 <style>
+
+</style>

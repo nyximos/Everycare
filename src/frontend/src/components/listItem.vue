@@ -4,7 +4,7 @@
         <v-card>
             <v-card-title>{{ listItem.title }}</v-card-title>
             <v-card-text>
-                {{ this.listItem.id }}
+                {{ listItem.id }}
                 <p>시작일 : {{ listItem.startDate }}</p>
                 <p>종료일 : {{ listItem.endDate }}</p>
                 <p>급여 : {{ listItem.pay }}원</p>
@@ -27,6 +27,7 @@ export default {
     },
     methods: {
         detail() {
+            
             this.$emit('detail', this.listItem.id);
             // const user = {
             //   user : this.userId, //신청하는 자신의 id

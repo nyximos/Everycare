@@ -11,15 +11,15 @@
           {{p.name}}
         </div>
         <v-list-item-title class="text-h5 mb-1">
-          {{p.introduction}}
+          {{p.startDate}}~{{p.endDate}}
         </v-list-item-title>
-        <v-list-item-subtitle>{{p.introduction}}</v-list-item-subtitle>
+        <v-list-item-subtitle>급여 : {{p.pay}}원</v-list-item-subtitle>
       </v-list-item-content>
 
       <v-list-item-avatar
         tile
         size="80"
-        color="grey"
+        :src="'https://localhost:8086/api/images/'+ p.careSitterImage[0].storeFileName"
       ></v-list-item-avatar>
     </v-list-item>
 
@@ -28,60 +28,99 @@
         outlined
         rounded
         text
+        @click="payment(p)"
       >
         승낙
       </v-btn>
     </v-card-actions>
+  
   </v-card>
+  
 </div>
+
 </template>
 
 <script>
 export default {
-    name:'JobApplication',
+    name:'jobapplication',
     data() {
         return {
-            profiles: [],
+          profiles: [],
             // id: this.id
             // id: this.$route.params.caresitterId,
-            
-            
+          tossPayments : TossPayments("test_ck_Lex6BJGQOVDGPJNGkJq3W4w2zNbg"),
+          orderId : new Date().getTime(),
+          customDate : new Date(),
+  
         }
+        
+    },
+    methods:{
+       payment(p){
+        var tossPayments = TossPayments("test_ck_Lex6BJGQOVDGPJNGkJq3W4w2zNbg");
+        var customDate = new Date()
+        var paymentData = {
+            amount: p.pay,
+            orderId: this.orderId,
+            orderName: p.name,
+            
+            successUrl: `https://localhost:8086/api/dashboard/contracts/payments?contractId=${p.id}`,
+            failUrl: 'https://localhost:8080/fail',
+        };
+        
+         tossPayments.requestPayment("카드", paymentData);
+         
+    }
+    
     },
  mounted() {
-    // const id = this.$store.state.userStore.id
-     
-    this.$http
-    .get('/api/dashboard/contracts', {
-      withCredentials: true
-    })
-    .then((res) => {
-          // console.log(res)
-          console.log(res.data.body)
-          // this.id = res.data.body.id
-        
-  }).catch(err => {
-    alert(err);
-    console.log(err);
-  })
-  const id = this.$route.params.contractId;
+
+  const id = this.$route.params.contentId;
+ 
+  console.log(id);
     this.$http
     .get(`/api/dashboard/recruitions/${id}/caresitters`, {
       withCredentials: true
     })
       .then((res) => {
           console.log(res.data.body)
-          this.profiles = res.data.body
-        
+          
+        this.profiles = res.data.body
+        // console.log(typeof res.body.id)
+        // console.log(typeof res.body.body[0].pay)
+        // console.log(typeof res.body.body[0].id)
           
   }).catch(err => {
     alert(err);
     console.log(err);
   })
-}
+},
+// methods:{
+//    payment(){
+//         var tossPayments = TossPayments("test_ck_Lex6BJGQOVDGPJNGkJq3W4w2zNbg");
+//         var customDate = new Date()
+//         var paymentData = {
+//             amount: 15000,
+//             orderId: this.orderId,
+//             orderName: '토스 티셔츠 외 2건',
+//             customerName: '박토스',
+//             successUrl: 'https://localhost:8086/api/cart/orders/payments?orderTableId=여기는 값',
+//             failUrl: 'https://localhost:8080/fail',
+//         };
+//          tossPayments.requestPayment("카드", paymentData);
+//     }
+// }
 }
 </script>
 
 <style>
-
+.mx-auto{
+  display: inline-block;
+    text-align: center;
+    border: 1px dashed #666;
+    background-color: #fff;
+    font-size: 17px;
+    font-weight: bold;
+    color: #222;
+}
 </style>

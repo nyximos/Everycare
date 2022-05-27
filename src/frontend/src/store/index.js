@@ -4,6 +4,7 @@ import Vuex from 'vuex';
 // import userStore from './userStore';
 import userStore from '@/store/userStore'
 import careprofileStore from '@/store/careprofileStore'
+
 import cart from './cart'
 import wish from './wish'
 import createPersistedState from "vuex-persistedstate";
@@ -14,6 +15,7 @@ export default new Vuex.Store({
   modules:{
     // userStore,
     careprofileStore,
+
     cart,
     wish,
     userStore,
