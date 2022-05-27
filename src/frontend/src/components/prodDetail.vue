@@ -110,8 +110,11 @@ cart(){
     const product = {
         id: this.id,
         quantity: this.quantity,
-        amount: this.startOffset
+        amount: this.startOffset,
+        name : this.name,
+        image: this.storeFileName
     }
+    console.log(product)
     const id = Number(this.$route.params.contentId);
     var formData = new FormData();
     formData.append('id',this.id);
@@ -122,7 +125,7 @@ cart(){
     withCredentials: true
     })
      .then(res => {
-      console.log(res);
+      console.log(res.data);
       this.$store.commit('cart/pushProductToCart', product)
       console.log(this.$store.state.cart.cart);
     })
