@@ -9,14 +9,6 @@
             outlined
           ></v-text-field>
         </v-row>
-        <v-row>
-  <v-file-input
-    v-model="file"
-    label="File input"
-    outlined
-    dense
-  ></v-file-input>
-        </v-row>
           <v-row>
               <v-textarea
               v-model="comment"
@@ -51,7 +43,6 @@ data(){
     return{
         title:this.title,
         comment: this.comment,
-        file: this.file
     }
 },
 methods:{
@@ -59,7 +50,6 @@ submit(){
       var formData = new FormData();
       formData.append('title',this.title);
       formData.append('content',this.comment);
-      formData.append('attachFile', this.file);
       this.$http
       .post('/api/admin/faq', formData,{
        withCredentials:true

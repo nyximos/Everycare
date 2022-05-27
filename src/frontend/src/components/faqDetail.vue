@@ -10,11 +10,6 @@
             outlined
           ></v-text-field>
         </v-row>
-        <v-row>
-            <v-img id="divProfile" 
-            :src="'https://localhost:8086/api/images/'+this.image" 
-            alt="사진" width="344" height="200"/>
-        </v-row>
           <v-row>
               <v-textarea
               v-model="comment"
@@ -60,8 +55,8 @@ mounted() {
 	.then((res)=>{
         console.log(res.data);
         this.title=res.data.body.title,
-        this.image=res.data.body.fileName,
         this.comment=res.data.body.content
+        this.id=res.data.body.id
       }).catch(err =>{
 				alert(err);
 				console.log(err);
@@ -69,20 +64,19 @@ mounted() {
 },
 data(){
     return{
+        id: this.id,
         title: this.title,
-        image: this.image,
         comment: this.comment
     }
 },
 methods:{
     edit(){
-    const id = Number(this.$route.params.contentId);
     var formData = new FormData();
+    formData.append('id', this.id);
     formData.append('title', this.title);
     formData.append('content', this.comment);
-
     this.$http
-    .patch(`/api/admin/faq`,formaData, {
+    .patch(`/api/admin/faq`, formData, {
     withCredentials: true
     })
      .then(res => {
@@ -93,7 +87,11 @@ methods:{
     });
   },
   drop(){
-    this.$http.delete(`/api/admin/faq`,{
+    var Id = {
+           id:this.id,
+           }
+    this.$http
+    .delete(`/api/admin/faq/${this.id}`, {
       withCredentials: true
     })
     .then((res)=> {

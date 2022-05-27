@@ -59,16 +59,9 @@ data(){
 methods:{
     submit(){
       var formData = new FormData();
-      // formData.append('id',1);
       formData.append('title',this.title);
       formData.append('content',this.comment);
-      // formData.append('BoardCategory',1);
-    //   formData.append('createdAt',);
-    //   formData.append('updatedAt',today);
-      // formData.append('count',1);
       formData.append('attachFile', this.file);
-      // formData.append('fileName','배송전문의');
-      // formData.append('filePath','dsjfahk:dkfja@kdfjal.blcm');
       this.$http
       .post('/api/admin/notice', formData,{
        withCredentials:true
