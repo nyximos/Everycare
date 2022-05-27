@@ -7,28 +7,20 @@ import global from '@/global/index.js';
 import Alert from '@/plugins/Alert.js';
 import axios from 'axios';
 import vueResource from 'vue-resource';
-import jquery from 'jquery'
-
-
-
-
-
+import jquery from 'jquery';
 
 global.import();
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 axios.defaults.baseURL = 'http://localhost:8086';
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-
 Vue.prototype.$axios = axios;
 Vue.use(vueResource);
 Vue.use(Alert);
 Vue.config.productionTip = false;
-
-
 
 new Vue({
     vuetify,

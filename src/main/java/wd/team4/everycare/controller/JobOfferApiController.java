@@ -10,9 +10,7 @@ import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
-import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobOfferDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
-import wd.team4.everycare.dto.response.MyOptionalResponse;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.CareTargetRepository;
@@ -96,28 +94,9 @@ public class JobOfferApiController {
     }
 //detail 완료
     @GetMapping("/recruitions/recruition/{id}")
-    public ResponseEntity<Object> getDetailJobOffer(@PathVariable("id") Long id) {
-
-        DetailJobOfferDTO detailJobOffer = jobOfferService.getDetailJobOffer(id);
-        System.out.println("detailJobOffer = " + detailJobOffer);
-        if (detailJobOffer!=null) {
-            MyResponse<Object> body = MyResponse.<Object>builder()
-                    .header(StatusEnum.OK)
-                    .message("상세 조회 성공")
-                    .body(detailJobOffer)
-                    .build();
-            HttpHeaders headers = new HttpHeaders();
-
-            return new ResponseEntity<Object>(body, headers, HttpStatus.OK);
-        } else {
-            MyOptionalResponse<JobOffer> body = MyOptionalResponse.<JobOffer>builder()
-                    .header(StatusEnum.NOT_FOUND)
-                    .message("상세 조회 실패! 구인글이 없습니다.")
-                    .body(null)
-                    .build();
-            HttpHeaders headers = new HttpHeaders();
-            return new ResponseEntity<Object>(body, headers, HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<MyResponse> getDetailJobOffer(@PathVariable("id") Long id) {
+        ResponseEntity<MyResponse> detailJobOffer = jobOfferService.getDetailJobOffer(id);
+        return detailJobOffer;
     }
 
     @GetMapping("/recruitions/new")

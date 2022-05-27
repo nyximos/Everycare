@@ -1,7 +1,6 @@
 package wd.team4.everycare.service;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.jni.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -138,7 +137,6 @@ public class CareSitterReviewServiceImpl implements CareSitterReviewService {
         ActivityClassification activityClassificationEntity = activityClassification.orElse(null);
 
         CareSitterReview careSitterReview = CareSitterReview.builder()
-                .id(careSitterReviewFormDTO.getId())
                 .rating(careSitterReviewFormDTO.getRating())
                 .comment(careSitterReviewFormDTO.getComment())
                 .createdAt(LocalDateTime.now())

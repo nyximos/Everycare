@@ -76,7 +76,7 @@ public class InitContractService {
             // 활동 정보
             List<ActivityInformation> activityInformations = activityInformationRepository.findAllByCareTargetSchedule(jobOffer1.getCareTargetSchedule());
             for(int j=0; j<activityInformations.size(); j++) {
-                ActivityInformation activityInformation = activityInformations.get(i);
+                ActivityInformation activityInformation = activityInformations.get(j);
 
                 ActivityInformation newActivityInformation = ActivityInformation.builder()
                         .startTime(activityInformation.getStartTime())

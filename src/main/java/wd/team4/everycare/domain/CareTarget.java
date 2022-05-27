@@ -190,6 +190,8 @@ public class CareTarget {
                 .gender(this.gender)
                 .height(this.height)
                 .weight(this.weight)
+                .address(this.address)
+                .detailAddress(this.detailedAddress)
                 .build();
     }
 }

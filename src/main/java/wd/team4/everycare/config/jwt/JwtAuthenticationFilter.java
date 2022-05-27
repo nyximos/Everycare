@@ -11,7 +11,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import wd.team4.everycare.config.auth.PrincipalDetails;
+import wd.team4.everycare.domain.ActivityStatus;
+import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.LoginRequestDTO;
+import wd.team4.everycare.repository.MemberRepository;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -21,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.Optional;
 
 /*
  스프링 시큐리티에서 UsernamePasswordAuthenticationFilter 가 있음
@@ -31,6 +35,7 @@ import java.util.Date;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter{
 
     private final AuthenticationManager authenticationManager;
+//    private final MemberRepository memberRepository;
 
     // Authentication 객체 만들어서 리턴 => 의존 : AuthenticationManager
     // 인증 요청시에 실행되는 함수 => /login
@@ -53,6 +58,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
 
         System.out.println("JwtAuthenticationFilter : "+loginRequestDTO);
+
+//        // 활동 정지된 멤버 로그인 실패
+//        String username = loginRequestDTO.getUsername();
+//        Optional<Member> member = memberRepository.findById(username);
+//        Member memberEntity = member.orElse(null);
+//        ActivityStatus activityStatus = memberEntity.getActivityStatus();
+//        if (activityStatus == ActivityStatus.STOP) {
+//            return null;
+//        }
 
         // 유저네임패스워드 토큰 생성
         UsernamePasswordAuthenticationToken authenticationToken =

@@ -15,13 +15,8 @@ import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.domain.Store;
-import wd.team4.everycare.dto.careSitter.CareSitterDTO;
-import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
-import wd.team4.everycare.dto.member.MemberAccountDTO;
-import wd.team4.everycare.dto.member.MemberInfoDTO;
-import wd.team4.everycare.dto.member.MemberListViewDTO;
-import wd.team4.everycare.dto.member.SignupDTO;
+import wd.team4.everycare.dto.member.*;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.JobOfferRepository;
@@ -232,6 +227,47 @@ public class MemberServiceImpl implements MemberService {
                 .header(StatusEnum.OK)
                 .message("등록한 구인글 조회")
                 .body(jobOfferDTOs)
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> redundantCheck(String id) {
+
+        Optional<Member> member = memberRepository.findById(id);
+
+        if(member.isEmpty()) {
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.OK)
+                    .message("성공")
+                    .body(id)
+                    .build();
+
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        } else {
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.OK)
+                    .message("실패")
+                    .body(null)
+                    .build();
+
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        }
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> changePassword(String id, PasswordDTO passwordDTO) {
+
+        Optional<Member> member = memberRepository.findById(id);
+        Member memberEntity = member.orElse(null);
+
+        String password = bCryptPasswordEncoder.encode(passwordDTO.getNewPassword());
+        memberEntity.updatePassword(password);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("변경 성공")
                 .build();
 
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
