@@ -17,8 +17,15 @@
       <router-link :to="{name:'carenote'}"><p>케어노트(시터용)</p></router-link><br>
       <router-link :to="{name:'membernote'}"><p>케어노트(멤버용)</p></router-link>
       <router-link :to="{name:'complete_contract'}"><p>완료된 계약서</p></router-link>
-    </div>
-  
+
+      <div>
+      <router-link :to="{name:'caresitter_contract', params:{caresitterId:this.id}}">계약서조회</router-link>
+     </div>
+     <div>
+               <router-link :to="{name:'memberschedule', params:{caresitterId:this.id}}">스케줄</router-link>
+      </div>
+  </div>
+
 </template>
 
 <script>

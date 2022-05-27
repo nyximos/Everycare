@@ -50,7 +50,7 @@
             </v-card-text>
 
             <v-card-actions class="justify-end">
-                <v-placer></v-placer>
+       
 
                 <v-btn text color="red"
                 @click="back_btn">
@@ -79,9 +79,9 @@ export default {
                 console.log(res.body.body);
                 this.memschdata = res.body.body;
                 this.name = res.body.body.name;
-                this.startDatetime = res.body.body.startDatetime.replace('T', ' . ');
-                this.endDatetime = res.body.body.endDatetime.replace('T', ' . ');
-                this.alarmTime = res.body.body.alarmTime.replace('T', ' . ');
+                this.startDatetime = res.body.body.startDatetime.replace('T', ' / ');
+                this.endDatetime = res.body.body.endDatetime.replace('T', ' / ');
+                this.alarmTime = res.body.body.alarmTime.replace('T', ' / ');
                 this.comment = res.body.body.comment;
                 this.addressName = res.body.body.addressName;
             })

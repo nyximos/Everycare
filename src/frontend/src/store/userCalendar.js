@@ -1,12 +1,12 @@
 export default {
     namespaced: true,
     state: {
-        id: '',
+        scheid: '',
         
     },
     mutations: {
-        memsch(state, postItem){
-            state.id = postItem.id
+        memsch(state, scheData){
+            state.scheid = scheData.id
         }
     },
 };
