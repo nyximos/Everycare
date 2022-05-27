@@ -49,6 +49,10 @@ public class MemberContractApiController {
 
     @GetMapping("/dashboard/contracts/payments")
     public ResponseEntity<MyResponse> signContract(@RequestParam String paymentKey, @RequestParam String orderId, @RequestParam Long amount, @RequestParam Long contractId) throws IOException {
+        System.out.println("paymentKey = " + paymentKey);
+        System.out.println("orderId = " + orderId);
+        System.out.println("amount = " + amount);
+        System.out.println("contractId = " + contractId);
         PayResponse payment = paymentService.payment(paymentKey, orderId, amount);
         ResponseEntity<MyResponse> signContract = memberContractService.signContract(payment, contractId);
         return signContract;

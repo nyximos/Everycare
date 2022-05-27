@@ -26,6 +26,7 @@ public class ContractDTO {
     private String endTime;
     private int pay;
     private int status;
+
     private DetailJobOfferDTO jobOfferDTO;
     private JobOfferMemberDTO memberDTO;
     private CareSitterDTO careSitterDTO;

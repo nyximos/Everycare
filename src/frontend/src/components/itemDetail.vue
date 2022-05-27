@@ -152,9 +152,9 @@ data(){
 methods:{
 
 application(){
-  this.$router.push({name:'jobapplication', params:{contractId:id}})
+  // this.$router.push({name:'jobapplication', params:{contractId:id}})
 
-  console.log(this.id)
+  // console.log(this.id)
   // this.$router.push({ name: 'CaretargetsDetail', params: { caretargetsId: p.id }})
   const id = Number(this.$route.params.contentId);
   // console
