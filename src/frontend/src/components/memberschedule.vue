@@ -28,7 +28,7 @@
                     <div id="modalinput">
                         <v-form ref="form" lazy-validation>
                             <v-card-text>
-                                <v-text-field v-model="name" required class="sche-name" label="스케줄 명" hide-details="auto"></v-text-field>
+                                <v-text-field v-model="name2" required class="sche-name" label="스케줄 명" hide-details="auto"></v-text-field>
                                 
                             </v-card-text>
 
@@ -37,20 +37,20 @@
                                     <v-col cols="15" lg="20">
                         
                                         <v-card-text>
-                                      <v-datetime-picker id="" label="시작 일시"  v-model="startDatetime"> </v-datetime-picker>
-                                      <v-datetime-picker label="종료 일시"  v-model="endDatetime"> </v-datetime-picker>
+                                      <v-datetime-picker id="" label="시작 일시"  v-model="startDatetime2"> </v-datetime-picker>
+                                      <v-datetime-picker label="종료 일시"  v-model="endDatetime2"> </v-datetime-picker>
                                       </v-card-text>  
                                     </v-col>
                                 </v-row>
                                 <v-card-text>
                                         <v-col cols="15" class="pb-0">
-                                           <v-datetime-picker label="알람 시간"  v-model="alarmTime"> </v-datetime-picker>
+                                           <v-datetime-picker label="알람 시간"  v-model="alarmTime2"> </v-datetime-picker>
                                         </v-col>
                                        
-                                    <v-text-field label="장소" v-model="addressName"></v-text-field>
+                                    <v-text-field label="장소" v-model="addressName2"></v-text-field>
                                 </v-card-text>
                                 <v-container fluid>
-                                    <v-textarea label="설명" v-model="comment"></v-textarea>
+                                    <v-textarea label="설명" v-model="comment2"></v-textarea>
                                 </v-container>
                             </v-card-text>
                         
@@ -177,11 +177,11 @@ export default {
         dialogsav2(){
              var upmemschformData = new FormData();
             upmemschformData.append('name', this.name2);
-            upmemschformData.append('startDatetime', this.startDatetime.toISOString().replace('.000Z',''));
-            upmemschformData.append('endDatetime', this.endDatetime.toISOString().replace('.000Z',''));
-            upmemschformData.append('alarmTime', this.alarmTime.toISOString().replace('.000Z',''));
-            upmemschformData.append('addressName', this.addressName);
-            upmemschformData.append('comment', this.comment);
+            upmemschformData.append('startDatetime', this.startDatetime2.toISOString().replace('.000Z',''));
+            upmemschformData.append('endDatetime', this.endDatetime2.toISOString().replace('.000Z',''));
+            upmemschformData.append('alarmTime', this.alarmTime2.toISOString().replace('.000Z',''));
+            upmemschformData.append('addressName', this.addressName2);
+            upmemschformData.append('comment', this.comment2);
             this.$http
                 .patch(`/api/dashboard/calendar/${this.$store.state.userCalendar.id}`, upmemschformData, {
                     withCredentials: true
