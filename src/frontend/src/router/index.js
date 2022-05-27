@@ -240,11 +240,11 @@ const routes = [
         component: () => import('@/components/productPayment.vue'),
     },
     // 관리자 케어스토어 목록
-    {
-        path: '/admin/stores',
-        name: 'adminStores',
-        component: () => import('@/pages/AdminStores.vue'),
-    },
+    // {
+    //     path: '/admin/stores',
+    //     name: 'adminStores',
+    //     component: () => import('@/pages/AdminStores.vue'),
+    // },
     // 관리자 케어스토어 목록 상세
     {
         path: '/admin/stores/:contentId',
@@ -276,11 +276,11 @@ const routes = [
         component: () => import('@/components/itemDetail.vue')
     },
     // 공지 조회
-    {
-        path: '/notice',
-        name: 'Notice',
-        component: () => import('@/pages/Notice.vue'),
-    },
+    // {
+    //     path: '/notice',
+    //     name: 'Notice',
+    //     component: () => import('@/pages/Notice.vue'),
+    // },
     // 공지 등록
     {
         path: '/admin/notice/new',
