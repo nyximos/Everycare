@@ -50,12 +50,11 @@
     <v-bottom-navigation
     fixed grow
     dark
-    :value="value"
     color="primary"
   >
     
     <v-btn>
-      <reviewBtn/>
+      <reviewBtn />
     </v-btn>
 
     <v-btn @click="wishList">

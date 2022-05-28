@@ -19,7 +19,7 @@
           <v-icon>mdi-close</v-icon>
         </v-btn>
         <div class="py-3 text-center">
-         <prodReview />
+         <prodReview/>
         </div>
       </v-sheet>
     </v-bottom-sheet>
