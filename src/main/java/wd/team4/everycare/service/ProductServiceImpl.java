@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.*;
 import wd.team4.everycare.dto.ImageDTO;
+import wd.team4.everycare.dto.MultipartFileDTO;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.dto.product.*;
 import wd.team4.everycare.dto.response.MyResponse;
@@ -288,6 +289,41 @@ public class ProductServiceImpl implements ProductService {
         producImageRepository.deleteByProductId(id);
 
         productRepository.deleteById(id);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> saveImage(Long id, MultipartFileDTO imageDTO) throws IOException {
+
+        UploadFile attatchFile = fileStoreService.storeFile(imageDTO.getAttachFile());
+
+        Optional<Product> product = productRepository.findById(id);
+        Product productEntity = product.orElse(null);
+
+        ProductImage productImage = ProductImage.builder()
+                .uploadFileName(attatchFile.getUploadFileName())
+                .storeFileName(attatchFile.getStoreFileName())
+                .product(productEntity)
+                .build();
+
+        producImageRepository.save(productImage);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> removeImage(Long id) {
+
+        producImageRepository.deleteById(id);
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)

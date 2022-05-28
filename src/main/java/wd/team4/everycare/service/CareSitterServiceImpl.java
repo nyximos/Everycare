@@ -11,6 +11,7 @@ import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.CareSitterImage;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.ImageDTO;
+import wd.team4.everycare.dto.MultipartFileDTO;
 import wd.team4.everycare.dto.careSitter.CareSitterDTO;
 import wd.team4.everycare.dto.careSitter.CareSitterFormDTO;
 import wd.team4.everycare.dto.UploadFile;
@@ -147,5 +148,40 @@ public class CareSitterServiceImpl implements CareSitterService {
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
 
 
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> saveImage(Long id, MultipartFileDTO imageDTO) throws IOException {
+
+        UploadFile attatchFile = fileStoreService.storeFile(imageDTO.getAttachFile());
+
+        Optional<CareSitter> careSitter = careSitterRepository.findById(id);
+        CareSitter careSitterEntity = careSitter.orElse(null);
+
+        CareSitterImage careSitterImage = CareSitterImage.builder()
+                .uploadFileName(attatchFile.getUploadFileName())
+                .storeFileName(attatchFile.getStoreFileName())
+                .careSitter(careSitterEntity)
+                .build();
+
+        careSitterImageRepository.save(careSitterImage);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> removeImage(Long id) {
+
+        careSitterImageRepository.deleteById(id);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 }
