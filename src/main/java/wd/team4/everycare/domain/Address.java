@@ -38,7 +38,7 @@ public class Address {
     @Column(name = "address_detail")
     private String detailedAddress;
 
-    @Column(name = "address_comment")
+    @Column(name = "address_delivery_comment")
     private String comment;
 
     @ManyToOne(fetch = FetchType.LAZY)
