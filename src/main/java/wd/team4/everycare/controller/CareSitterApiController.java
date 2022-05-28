@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.dto.MultipartFileDTO;
 import wd.team4.everycare.dto.careSitter.CareSitterFormDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobSearchDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.JobSearchDTO;
@@ -97,5 +98,17 @@ public class CareSitterApiController {
                 .message("성공했슴다~")
                 .build();
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @PostMapping("/dashboard/caresitter/{id}/image")
+    public ResponseEntity<MyResponse> saveImage(@PathVariable Long id, @ModelAttribute MultipartFileDTO imageDTO) throws IOException {
+        ResponseEntity<MyResponse> responseEntity = careSitterService.saveImage(id,imageDTO);
+        return responseEntity;
+    }
+
+    @DeleteMapping("/dashboard/caresitter/{id}/image/{imageId}")
+    public ResponseEntity<MyResponse> removeImage(@PathVariable("imageId") Long id){
+        ResponseEntity<MyResponse> responseEntity = careSitterService.removeImage(id);
+        return responseEntity;
     }
 }
