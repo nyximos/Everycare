@@ -1,4 +1,4 @@
-package wd.team4.everycare.repository;
+package wd.team4.everycare.repository.query;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;

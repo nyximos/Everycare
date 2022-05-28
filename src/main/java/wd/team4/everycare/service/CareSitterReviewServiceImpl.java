@@ -14,6 +14,8 @@ import wd.team4.everycare.dto.careSitterReview.CareSitterReviewUpdateFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.*;
+import wd.team4.everycare.repository.query.CareSitterQueryRepository;
+import wd.team4.everycare.repository.query.CareSitterReviewQueryRepository;
 import wd.team4.everycare.service.interfaces.CareSitterReviewService;
 
 import java.time.LocalDateTime;
