@@ -9,9 +9,11 @@ import lombok.*;
 @AllArgsConstructor
 public class AddressFormDTO {
 
-    private Long id;
+    private String recipientName;
+    private int recipientNumber;
     private String zipcode;
     private String address;
     private String detailedAddress;
+    private String comment;
 
 }

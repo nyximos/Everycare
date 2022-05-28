@@ -45,9 +45,12 @@ public class AddressServiceImpl implements AddressService {
         for (Address address : addresses) {
             AddressViewDTO dto = AddressViewDTO.builder()
                     .id(address.getId())
+                    .recipientName(address.getRecipientName())
+                    .recipientNumber(address.getRecipientNumber())
                     .zipcode(address.getZipcode())
                     .address(address.getAddress())
                     .detailedAddress(address.getDetailedAddress())
+                    .comment(address.getComment())
                     .build();
 
             addressViewDTOs.add(dto);
@@ -69,9 +72,12 @@ public class AddressServiceImpl implements AddressService {
 
         AddressViewDTO addressViewDTO = AddressViewDTO.builder()
                 .id(addressEntity.getId())
+                .recipientName(addressEntity.getRecipientName())
+                .recipientNumber(addressEntity.getRecipientNumber())
                 .zipcode(addressEntity.getZipcode())
                 .address(addressEntity.getAddress())
                 .detailedAddress(addressEntity.getDetailedAddress())
+                .comment(addressEntity.getComment())
                 .build();
 
         MyResponse<AddressViewDTO> body = MyResponse.<AddressViewDTO>builder()
@@ -86,9 +92,12 @@ public class AddressServiceImpl implements AddressService {
     public ResponseEntity<MyResponse> save(PrincipalDetails principalDetails, AddressFormDTO addressFormDTO) {
 
         Address address = Address.builder()
+                .recipientName(addressFormDTO.getRecipientName())
+                .recipientNumber(addressFormDTO.getRecipientNumber())
                 .zipcode(addressFormDTO.getZipcode())
                 .address(addressFormDTO.getAddress())
                 .detailedAddress(addressFormDTO.getDetailedAddress())
+                .comment(addressFormDTO.getComment())
                 .member(principalDetails.getUser())
                 .build();
 

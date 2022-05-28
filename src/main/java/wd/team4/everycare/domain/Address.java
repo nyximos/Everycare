@@ -23,6 +23,12 @@ public class Address {
     @Column(name = "adress_id")
     private Long id;
 
+    @Column(name = "address_recipientName")
+    private String recipientName;
+
+    @Column(name = "address_recipientNumber")
+    private int recipientNumber;
+
     @Column(name = "address_zipcode", length = 45)
     private String zipcode;
 
@@ -32,16 +38,28 @@ public class Address {
     @Column(name = "address_detail")
     private String detailedAddress;
 
+    @Column(name = "address_comment")
+    private String comment;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
     public void update(AddressFormDTO addressFormDTO) {
+        if(StringUtils.isNotBlank(addressFormDTO.getRecipientName())) {
+            this.recipientName = addressFormDTO.getRecipientName();
+        }
+        if(StringUtils.isNotBlank(String.valueOf(addressFormDTO.getRecipientNumber()))){
+            this.recipientNumber = addressFormDTO.getRecipientNumber();
+        }
         if(StringUtils.isNotBlank(addressFormDTO.getZipcode())) {
             this.zipcode = addressFormDTO.getZipcode();
         }
         if(StringUtils.isNotBlank(addressFormDTO.getAddress())) {
             this.address = addressFormDTO.getAddress();
+        }
+        if(StringUtils.isNotBlank(addressFormDTO.getComment())) {
+            this.comment = addressFormDTO.getComment();
         }
         if(StringUtils.isNotBlank(addressFormDTO.getDetailedAddress())) {
             this.detailedAddress = addressFormDTO.getDetailedAddress();
