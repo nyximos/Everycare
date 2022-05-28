@@ -34,13 +34,13 @@ public class AddressApiController {
         return responseEntity;
     }
 
-    @GetMapping("/adresses/{id}")
+    @PatchMapping("/adresses/{id}")
     public ResponseEntity<MyResponse> update(@PathVariable("id") Long id,AddressFormDTO addressFormDTO) {
         ResponseEntity<MyResponse> responseEntity = addressService.update(id, addressFormDTO);
         return responseEntity;
     }
 
-    @GetMapping("/addresses/{id}")
+    @DeleteMapping("/addresses/{id}")
     public ResponseEntity<MyResponse> remove(@PathVariable("id") Long id) {
         ResponseEntity<MyResponse> responseEntity = addressService.remove(id);
         return responseEntity;
