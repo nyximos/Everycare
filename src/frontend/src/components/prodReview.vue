@@ -38,6 +38,7 @@ mounted() {
 		.then((res)=>{
         console.log(res.data);
         this.reviews=res.data.body
+        
       }).catch(err =>{
 		console.log(err);
 	})

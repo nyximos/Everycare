@@ -52,7 +52,10 @@
     dark
     color="primary"
   >
-    
+    <v-btn>
+      <prodQna />
+    </v-btn>
+
     <v-btn>
       <reviewBtn />
     </v-btn>
@@ -73,6 +76,7 @@
 </template>
 
 <script>
+import prodQna from '@/components/prodQna'
 import reviewBtn from '@/components/reviewBtn'
 export default {
 components:{
