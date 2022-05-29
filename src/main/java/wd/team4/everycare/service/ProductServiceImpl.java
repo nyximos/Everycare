@@ -19,6 +19,7 @@ import wd.team4.everycare.repository.ProducImageRepository;
 import wd.team4.everycare.repository.ProductCategoryRepository;
 import wd.team4.everycare.repository.ProductRepository;
 import wd.team4.everycare.repository.WishListRepository;
+import wd.team4.everycare.repository.query.ProductQueryRepository;
 import wd.team4.everycare.service.interfaces.ProductService;
 
 import java.io.IOException;
@@ -37,6 +38,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductCategoryRepository productCategoryRepository;
     private final ProducImageRepository producImageRepository;
     private final WishListRepository wishListRepository;
+    private final ProductQueryRepository productQueryRepository;
 
     @Override
     public List<MemberProductListViewDTO> webFindAll(Store store) {
@@ -331,4 +333,37 @@ public class ProductServiceImpl implements ProductService {
                 .build();
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<MyResponse> findAllByName(String name) {
+
+        List<Product> products = productQueryRepository.findAllByName(name);
+
+        List<ProductListViewDTO> productListViewDTOs = new ArrayList<>();
+
+        if (products.isEmpty()) {
+            return null;
+        }
+
+        for (Product product : products) {
+            ProductListViewDTO productListViewDTO = ProductListViewDTO.builder()
+                    .id(product.getId())
+                    .name(product.getName())
+                    .price(product.getPrice())
+                    .storeFileName(product.getStoreFileName())
+                    .createdAt(product.getCreatedAt())
+                    .store(product.getStore().toNameDTO())
+                    .productCategory(product.getProductCategory().toDTO())
+                    .build();
+            productListViewDTOs.add(productListViewDTO);
+        }
+
+        MyResponse<List<ProductListViewDTO>> body = MyResponse.<List<ProductListViewDTO>>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(productListViewDTOs)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);    }
 }

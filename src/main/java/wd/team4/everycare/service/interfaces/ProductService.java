@@ -34,4 +34,7 @@ public interface ProductService {
     ResponseEntity<MyResponse> saveImage(Long id, MultipartFileDTO imageDTO) throws IOException;
 
     ResponseEntity<MyResponse> removeImage(Long id);
+
+    ResponseEntity<MyResponse> findAllByName(String name);
+
 }

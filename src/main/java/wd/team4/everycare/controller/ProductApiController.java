@@ -72,4 +72,10 @@ public class ProductApiController {
         ResponseEntity<MyResponse> responseEntity = productService.removeImage(id);
         return responseEntity;
     }
+
+    @GetMapping("/store/products")
+    public ResponseEntity<MyResponse> getProducts(@RequestParam("name") String name){
+        ResponseEntity<MyResponse> responseEntity = productService.findAllByName(name);
+        return responseEntity;
+    }
 }
