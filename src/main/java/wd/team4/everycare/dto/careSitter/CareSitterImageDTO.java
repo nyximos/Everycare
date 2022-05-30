@@ -7,6 +7,7 @@ import wd.team4.everycare.domain.CareSitterImage;
 @Setter
 @Builder
 public class CareSitterImageDTO {
+    private Long id;
     private String uploadFileName;
     private String storeFileName;
 

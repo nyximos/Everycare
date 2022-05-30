@@ -40,4 +40,10 @@ public interface CareSitterService {
     ResponseEntity<MyResponse> saveImage(Long id, MultipartFileDTO imageDTO) throws IOException;
 
     ResponseEntity<MyResponse> removeImage(Long id);
+
+    ResponseEntity<MyResponse> getAllByRegion(String area);
+
+    ResponseEntity<MyResponse> getAllByCareType(String type);
+
+    ResponseEntity<MyResponse> getAllByTime(String time);
 }
