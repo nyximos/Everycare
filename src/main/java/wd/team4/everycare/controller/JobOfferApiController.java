@@ -114,4 +114,10 @@ public class JobOfferApiController {
 
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
+
+    @GetMapping("/recruitions/pay")
+    public ResponseEntity<MyResponse> searchPay(@RequestParam int min, @RequestParam int max){
+        ResponseEntity<MyResponse> searchPay = jobOfferService.searchPay(min, max);
+        return searchPay;
+    }
 }
