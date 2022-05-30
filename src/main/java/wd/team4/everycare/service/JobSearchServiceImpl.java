@@ -2,6 +2,7 @@ package wd.team4.everycare.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.CareSitterImage;
 import wd.team4.everycare.domain.Certification;
@@ -29,7 +30,7 @@ public class JobSearchServiceImpl implements JobSearchService {
     private final CareSitterImageRepository careSitterImageRepository;
 
     @Override
-    public List<JobSearchDTO> findAllJobSearch() {
+    public List<JobSearchDTO> findAllJobSearch(PrincipalDetails principalDetails) {
         List<CareSitter> allJobSearch = careSitterRepository.findAllByDisclosureStatus(1);             //1이나 0이 공개일텐데 그거 따라 숫자 바꿔주기
         List<CareSitterImage> careSitterImage = new ArrayList<>();
 

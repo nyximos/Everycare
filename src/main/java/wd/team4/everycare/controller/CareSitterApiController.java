@@ -32,8 +32,8 @@ public class CareSitterApiController {
 
 
     @GetMapping("/caresitters")
-    public ResponseEntity<MyResponse> findJobSearch() {
-        List<JobSearchDTO> all = jobSearchService.findAllJobSearch();
+    public ResponseEntity<MyResponse> findJobSearch(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        List<JobSearchDTO> all = jobSearchService.findAllJobSearch(principalDetails);
         MyResponse<Object> body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .body(all)
@@ -111,4 +111,6 @@ public class CareSitterApiController {
         ResponseEntity<MyResponse> responseEntity = careSitterService.removeImage(id);
         return responseEntity;
     }
+
+
 }
