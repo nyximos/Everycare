@@ -12,10 +12,7 @@ import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.dto.careNote.*;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
-import wd.team4.everycare.repository.ActivityInformationRepository;
-import wd.team4.everycare.repository.CareNoteRepository;
-import wd.team4.everycare.repository.CareTargetScheduleRepository;
-import wd.team4.everycare.repository.ContractRepository;
+import wd.team4.everycare.repository.*;
 import wd.team4.everycare.service.interfaces.CareSitterCareNoteService;
 
 import java.io.IOException;
@@ -34,6 +31,7 @@ public class CareSitterCareNoteServiceImpl implements CareSitterCareNoteService 
     private final FileStoreService fileStoreService;
     private final CareTargetScheduleRepository careTargetScheduleRepository;
     private final ActivityInformationRepository activityInformationRepository;
+    private final CareTargetImageRepository careTargetImageRepository;
 
     @Override
     public ResponseEntity<MyResponse> getAll(PrincipalDetails principalDetails) {
@@ -57,11 +55,15 @@ public class CareSitterCareNoteServiceImpl implements CareSitterCareNoteService 
             Optional<Contract> contract = contractRepository.findById(careNote.getContract().getId());
             Contract contractEntity = contract.orElse(null);
 
+            CareTarget careTarget = contractEntity.getJobOffer().getCareTarget();
+            List<CareTargetImage> images = careTargetImageRepository.findAllByCareTarget(careTarget);
+
             CareNoteListDTO dto = CareNoteListDTO.builder()
                     .id(careNote.getId())
                     .startTime(contractEntity.getStartTime())
                     .endTime(contractEntity.getEndTime())
                     .careTargetName(contractEntity.getJobOffer().getCareTarget().getName())
+                    .storeName(images.get(0).getStoreFileName())
                     .build();
 
             careNoteListDTOs.add(dto);

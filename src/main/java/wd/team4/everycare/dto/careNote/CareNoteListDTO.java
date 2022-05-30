@@ -13,5 +13,6 @@ public class CareNoteListDTO {
     private String startTime;
     private String endTime;
     private String careTargetName;
+    private String storeName;
 
 }
