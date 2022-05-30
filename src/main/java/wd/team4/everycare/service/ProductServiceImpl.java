@@ -264,18 +264,8 @@ public class ProductServiceImpl implements ProductService {
         productEntity.updateProduct(productFormDTO);
 
         UploadFile attachFile = fileStoreService.storeFile(productFormDTO.getAttachFile());
-        List<UploadFile> attachFiles = fileStoreService.storeFiles(productFormDTO.getAttachFiles());
 
         productEntity.saveImage(attachFile);
-
-        for (UploadFile file : attachFiles) {
-            ProductImage productImage = ProductImage.builder()
-                    .uploadFileName(file.getUploadFileName())
-                    .storeFileName(file.getStoreFileName())
-                    .product(productEntity)
-                    .build();
-            producImageRepository.save(productImage);
-        }
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
@@ -302,18 +292,21 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ResponseEntity<MyResponse> saveImage(Long id, MultipartFileDTO imageDTO) throws IOException {
 
-        UploadFile attatchFile = fileStoreService.storeFile(imageDTO.getAttachFile());
+        List<UploadFile> attachFiles = fileStoreService.storeFiles(imageDTO.getAttachFiles());
 
         Optional<Product> product = productRepository.findById(id);
         Product productEntity = product.orElse(null);
 
-        ProductImage productImage = ProductImage.builder()
-                .uploadFileName(attatchFile.getUploadFileName())
-                .storeFileName(attatchFile.getStoreFileName())
-                .product(productEntity)
-                .build();
+        for (UploadFile file : attachFiles) {
 
-        producImageRepository.save(productImage);
+            ProductImage productImage = ProductImage.builder()
+                    .uploadFileName(file.getUploadFileName())
+                    .storeFileName(file.getStoreFileName())
+                    .product(productEntity)
+                    .build();
+
+            producImageRepository.save(productImage);
+        }
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
@@ -365,5 +358,6 @@ public class ProductServiceImpl implements ProductService {
                 .build();
 
         HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);    }
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
 }

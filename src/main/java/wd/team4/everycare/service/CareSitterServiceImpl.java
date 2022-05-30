@@ -157,18 +157,21 @@ public class CareSitterServiceImpl implements CareSitterService {
     @Override
     public ResponseEntity<MyResponse> saveImage(Long id, MultipartFileDTO imageDTO) throws IOException {
 
-        UploadFile attatchFile = fileStoreService.storeFile(imageDTO.getAttachFile());
+        List<UploadFile> attachFiles = fileStoreService.storeFiles(imageDTO.getAttachFiles());
 
         Optional<CareSitter> careSitter = careSitterRepository.findById(id);
         CareSitter careSitterEntity = careSitter.orElse(null);
 
-        CareSitterImage careSitterImage = CareSitterImage.builder()
-                .uploadFileName(attatchFile.getUploadFileName())
-                .storeFileName(attatchFile.getStoreFileName())
-                .careSitter(careSitterEntity)
-                .build();
+        for (UploadFile file : attachFiles) {
 
-        careSitterImageRepository.save(careSitterImage);
+            CareSitterImage careSitterImage = CareSitterImage.builder()
+                    .uploadFileName(file.getUploadFileName())
+                    .storeFileName(file.getStoreFileName())
+                    .careSitter(careSitterEntity)
+                    .build();
+
+            careSitterImageRepository.save(careSitterImage);
+        }
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
