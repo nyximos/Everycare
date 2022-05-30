@@ -73,7 +73,7 @@ public class ProductApiController {
         return responseEntity;
     }
 
-    @GetMapping("/store/products")
+    @GetMapping("/store/products/name")
     public ResponseEntity<MyResponse> getProducts(@RequestParam("name") String name){
         ResponseEntity<MyResponse> responseEntity = productService.findAllByName(name);
         return responseEntity;
