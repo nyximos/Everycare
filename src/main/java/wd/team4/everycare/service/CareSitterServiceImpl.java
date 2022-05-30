@@ -226,8 +226,8 @@ public class CareSitterServiceImpl implements CareSitterService {
                     .monthlyWage(careSitter.getDesiredMonthlyWage())
                     .hopefulRegion(careSitter.getHopefulRegion())
                     .preferredType(careSitter.getPreferredType())
-                    .introduction(careSitter.getIntroduction())
                     .name(member.getName())
+                    .birth(member.getBirth())
                     .gender(member.getGender())
                     .storeFileNames(storeFileNames)
                     .build();
@@ -281,8 +281,8 @@ public class CareSitterServiceImpl implements CareSitterService {
                     .monthlyWage(careSitter.getDesiredMonthlyWage())
                     .hopefulRegion(careSitter.getHopefulRegion())
                     .preferredType(careSitter.getPreferredType())
-                    .introduction(careSitter.getIntroduction())
                     .name(member.getName())
+                    .birth(member.getBirth())
                     .gender(member.getGender())
                     .storeFileNames(storeFileNames)
                     .build();
@@ -336,8 +336,8 @@ public class CareSitterServiceImpl implements CareSitterService {
                     .monthlyWage(careSitter.getDesiredMonthlyWage())
                     .hopefulRegion(careSitter.getHopefulRegion())
                     .preferredType(careSitter.getPreferredType())
-                    .introduction(careSitter.getIntroduction())
                     .name(member.getName())
+                    .birth(member.getBirth())
                     .gender(member.getGender())
                     .storeFileNames(storeFileNames)
                     .build();

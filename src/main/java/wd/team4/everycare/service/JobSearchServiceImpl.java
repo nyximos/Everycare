@@ -1,14 +1,20 @@
 package wd.team4.everycare.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.CareSitterImage;
 import wd.team4.everycare.domain.Certification;
+import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.CertificationViewDTO;
 import wd.team4.everycare.dto.careSitter.CareSitterImageDTO;
+import wd.team4.everycare.dto.careSitter.CareSitterListDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobSearchDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.JobSearchDTO;
+import wd.team4.everycare.dto.response.MyResponse;
+import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.CareSitterImageRepository;
 import wd.team4.everycare.repository.CareSitterRepository;
 import wd.team4.everycare.repository.CertificationRepository;
@@ -29,28 +35,50 @@ public class JobSearchServiceImpl implements JobSearchService {
     private final CareSitterImageRepository careSitterImageRepository;
 
     @Override
-    public List<JobSearchDTO> findAllJobSearch() {
-        List<CareSitter> allJobSearch = careSitterRepository.findAllByDisclosureStatus(1);             //1이나 0이 공개일텐데 그거 따라 숫자 바꿔주기
-        List<CareSitterImage> careSitterImage = new ArrayList<>();
+    public ResponseEntity<MyResponse> findAllJobSearch() {
+        List<CareSitter> careSitters = careSitterRepository.findAllByDisclosureStatus(1);             //1이나 0이 공개일텐데 그거 따라 숫자 바꿔주기
 
-        List<JobSearchDTO> careSitterList = new ArrayList<>();
-        allJobSearch.stream().map(careSitter -> careSitter.toJobSearchDTO()).forEach(careSitterList::add);
-
-        for (JobSearchDTO jobSearchDTO : careSitterList) {
-            Long id = jobSearchDTO.getId();
-            List<CareSitterImage> careSitterImage1 = careSitterImageRepository.findByCareSitterId(id);
-            for (CareSitterImage careSitterImages: careSitterImage1) {
-                CareSitterImage careSitterImage2 = CareSitterImage.builder()
-                        .uploadFileName(careSitterImages.getUploadFileName())
-                        .storeFileName(careSitterImages.getStoreFileName())
-                        .build();
-                careSitterImage.add(careSitterImage2);
-            }
-            jobSearchDTO.setAttachFiles(careSitterImage);
+        if (careSitters.isEmpty()) {
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.OK)
+                    .message("케어시터가 없습니다.")
+                    .build();
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
         }
-        return careSitterList;
-    }
 
+        List<CareSitterListDTO> careSitterDTOList = new ArrayList<>();
+
+        for (CareSitter careSitter : careSitters) {
+            Long id = careSitter.getId();
+            Member member = careSitter.getMember();
+
+            List<String> storeFileNames = new ArrayList<>();
+            List<CareSitterImage> careSitterImage = careSitterImageRepository.findByCareSitterId(id);
+            for (CareSitterImage sitterImage : careSitterImage) {
+                String storeFileName = sitterImage.getStoreFileName();
+                storeFileNames.add(storeFileName);
+            }
+
+            CareSitterListDTO dto = CareSitterListDTO.builder()
+                    .id(careSitter.getId())
+                    .cctvAgreement(careSitter.getCctvAgreement())
+                    .isVaccinated(careSitter.getVaccination())
+                    .desiredDayWeek(careSitter.getDesiredDayWeek())
+                    .activityTime(careSitter.getActivityTime())
+                    .hourlyWage(careSitter.getDesiredHourlyWage())
+                    .monthlyWage(careSitter.getDesiredMonthlyWage())
+                    .hopefulRegion(careSitter.getHopefulRegion())
+                    .preferredType(careSitter.getPreferredType())
+                    .name(member.getName())
+                    .birth(member.getBirth())
+                    .gender(member.getGender())
+                    .storeFileNames(storeFileNames)
+                    .build();
+
+            careSitterDTOList.add(dto);
+
+        }
+    }
 
     @Override
     public DetailJobSearchDTO findDetailJobSearch(Long id) {

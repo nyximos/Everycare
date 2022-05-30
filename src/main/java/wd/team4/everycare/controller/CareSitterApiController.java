@@ -33,14 +33,8 @@ public class CareSitterApiController {
 
     @GetMapping("/caresitters")
     public ResponseEntity<MyResponse> findJobSearch() {
-        List<JobSearchDTO> all = jobSearchService.findAllJobSearch();
-        MyResponse<Object> body = MyResponse.builder()
-                .header(StatusEnum.OK)
-                .body(all)
-                .message("ok").
-                        build();
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+        ResponseEntity<MyResponse> responseEntity = jobSearchService.findAllJobSearch();
+        return responseEntity;
     }
 
     @GetMapping("/caresitters/{id}")

@@ -1,8 +1,10 @@
 package wd.team4.everycare.dto.careSitter;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import wd.team4.everycare.domain.Gender;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -21,9 +23,10 @@ public class CareSitterListDTO {
     private String monthlyWage;
     private String hopefulRegion;
     private String preferredType;
-    private String introduction;
 
     private String name;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birth;
     private Gender gender;
 
     private List<String> storeFileNames;
