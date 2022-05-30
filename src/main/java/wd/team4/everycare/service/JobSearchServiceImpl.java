@@ -78,6 +78,12 @@ public class JobSearchServiceImpl implements JobSearchService {
             careSitterDTOList.add(dto);
 
         }
+        MyResponse<List<CareSitterListDTO>> body = MyResponse.<List<CareSitterListDTO>>builder()
+                .header(StatusEnum.OK)
+                .body(careSitterDTOList)
+                .message("성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
     @Override
