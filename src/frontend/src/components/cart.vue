@@ -45,9 +45,9 @@
                     <v-text-field v-model="recipientNumber" label="수취인 번호" ></v-text-field>
                 </v-row>
                 <v-row> 
-                   <v-col cols="6"><v-text-field v-model="zipcode" label="우편번호" ></v-text-field></v-col>
-                    <v-col cols="3"><v-btn @click="execDaumPostcode">주소 찾기</v-btn></v-col>
-                     <v-col cols="3"><v-btn @click="execDaumPostcode">배송지 목록</v-btn></v-col>
+                   <v-col cols="10"><v-text-field v-model="zipcode" label="우편번호" ></v-text-field></v-col>
+                    <v-col cols="1"><v-btn @click="execDaumPostcode">주소 찾기</v-btn></v-col>
+                     <v-col cols="1"><addrBtn @item="item"/></v-col>
                     <v-text-field v-model="address" label="주소" ></v-text-field>
                     <v-text-field v-model="detailedAddress" label="상세주소" ></v-text-field>
                     <v-text-field label="주문요청" v-model="comment" ></v-text-field>
@@ -60,7 +60,11 @@
 </template>
 
 <script>
+import addrBtn from '@/components/addrBtn'
 export default {
+  components:{
+    addrBtn
+  },
   mounted() {
     this.$http.get('/api/cart',{
         withCredentials:true
@@ -88,6 +92,14 @@ export default {
     }
   },
     methods:{
+      item(item){
+        this.recipientName=item.recipientName
+        this.recipientNumber=item.recipientNumber
+        this.zipcode=item.zipcode
+        this.address=item.address
+        this.detailedAddress=item.detailedAddress
+        this.comment=item.comment
+      },
       payment(){
         var tossPayments = TossPayments("test_ck_Lex6BJGQOVDGPJNGkJq3W4w2zNbg");
         var customDate = new Date()

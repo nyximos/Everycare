@@ -16,31 +16,31 @@ public class AddressApiController {
 
     private final AddressServiceImpl addressService;
 
-    @GetMapping("/adresses")
+    @GetMapping("/address")
     public ResponseEntity<MyResponse> getAll(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         ResponseEntity<MyResponse> responseEntity = addressService.getAll(principalDetails);
         return responseEntity;
     }
 
-    @GetMapping("/addresses/{id}")
+    @GetMapping("/address/{id}")
     public ResponseEntity<MyResponse> get(@PathVariable("id") Long id) {
         ResponseEntity<MyResponse> responseEntity = addressService.get(id);
         return responseEntity;
     }
 
-    @PostMapping("/adresses")
+    @PostMapping("/address")
     public ResponseEntity<MyResponse> save(@AuthenticationPrincipal PrincipalDetails principalDetails, AddressFormDTO addressFormDTO) {
         ResponseEntity<MyResponse> responseEntity = addressService.save(principalDetails, addressFormDTO);
         return responseEntity;
     }
 
-    @PatchMapping("/adresses/{id}")
+    @PatchMapping("/address/{id}")
     public ResponseEntity<MyResponse> update(@PathVariable("id") Long id,AddressFormDTO addressFormDTO) {
         ResponseEntity<MyResponse> responseEntity = addressService.update(id, addressFormDTO);
         return responseEntity;
     }
 
-    @DeleteMapping("/addresses/{id}")
+    @DeleteMapping("/address/{id}")
     public ResponseEntity<MyResponse> remove(@PathVariable("id") Long id) {
         ResponseEntity<MyResponse> responseEntity = addressService.remove(id);
         return responseEntity;

@@ -49,7 +49,21 @@
 </div>
 
 <!--body-->
-		<p class="display-6 text-center mt-5">Menu</p>
+        <p class="display-6 text-center mt-5">Menu</p>
+      <v-row>
+      <v-col cols="10"></v-col>
+      <v-col cols="2">
+          <v-text-field
+            v-model="searchText"
+            @input="search"
+            filled
+            dense
+            rounded
+            label="search"
+            prepend-inner-icon="mdi-magnify"
+          ></v-text-field>
+      </v-col>
+    </v-row>
 			<ProdList v-for="(storeList, index) in storeList"
         :key="index"
         mb-2 :storeList="storeList" @detail="detailShot" />		
@@ -79,6 +93,7 @@ mounted(){
 data(){
 	return{
 		storeList:this.storeList,
+    searchText:this.searchText,
 		items: [
           {
             src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
@@ -96,6 +111,17 @@ data(){
 	}
 },
 methods:{
+  search(){
+     this.$http.get('/api/store/products/name',this.searchText,{
+        withCredentials:true
+      })
+		.then((res)=>{
+        console.log(res.data);
+        this.addrInfo=res.data.body
+      }).catch(err =>{
+				console.log(err);
+			})
+  },
 	goCreateStore(){
 		this.$router.push({
 			path:'/store/new'

@@ -13,10 +13,6 @@ const routes = [
         redirect: '/',
     },
     {
-        path: '/addr',
-        component: () => import('@/components/addr.vue'),
-    },
-    {
         path: '/',
         name: 'Main',
         component: () => import('@/pages/Main.vue'),
