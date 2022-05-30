@@ -46,7 +46,7 @@ public class AdminApiController {
         return responseEntity;
     }
 
-    @GetMapping("stores/{id}")
+    @GetMapping("/stores/{id}")
     public ResponseEntity<MyResponse> getStore(@PathVariable("id") Long id) {
         ResponseEntity<MyResponse> responseEntity = adminService.getStore(id);
         return responseEntity;

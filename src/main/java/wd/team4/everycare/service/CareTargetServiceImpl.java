@@ -137,18 +137,21 @@ public class CareTargetServiceImpl implements CareTargetService {
     @Override
     public ResponseEntity<MyResponse> saveImage(Long id, MultipartFileDTO imageDTO) throws IOException {
 
-        UploadFile attatchFile = fileStoreService.storeFile(imageDTO.getAttachFile());
+        List<UploadFile> attachFiles = fileStoreService.storeFiles(imageDTO.getAttachFiles());
 
         Optional<CareTarget> careTarget = careTargetRepository.findById(id);
         CareTarget careTargetEntity = careTarget.orElse(null);
 
-        CareTargetImage careTargetImage = CareTargetImage.builder()
-                .uploadFileName(attatchFile.getUploadFileName())
-                .storeFileName(attatchFile.getStoreFileName())
-                .careTarget(careTargetEntity)
-                .build();
+        for (UploadFile file : attachFiles) {
 
-        careTargetImageRepository.save(careTargetImage);
+            CareTargetImage careTargetImage = CareTargetImage.builder()
+                    .uploadFileName(file.getUploadFileName())
+                    .storeFileName(file.getStoreFileName())
+                    .careTarget(careTargetEntity)
+                    .build();
+
+            careTargetImageRepository.save(careTargetImage);
+        }
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
