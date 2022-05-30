@@ -7,14 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
-import wd.team4.everycare.domain.CareNote;
-import wd.team4.everycare.domain.Contract;
-import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.domain.*;
 import wd.team4.everycare.dto.careNote.CareNoteDetailDTO;
 import wd.team4.everycare.dto.careNote.CareNoteListDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.CareNoteRepository;
+import wd.team4.everycare.repository.CareTargetImageRepository;
 import wd.team4.everycare.repository.ContractRepository;
 import wd.team4.everycare.service.interfaces.MemberCareNoteService;
 
@@ -30,6 +29,7 @@ public class MemberCareNoteServiceImpl implements MemberCareNoteService {
 
     private final CareNoteRepository careNoteRepository;
     private final ContractRepository contractRepository;
+    private final CareTargetImageRepository careTargetImageRepository;
 
     @Override
     public ResponseEntity<MyResponse> getAll(PrincipalDetails principalDetails) {
@@ -53,11 +53,15 @@ public class MemberCareNoteServiceImpl implements MemberCareNoteService {
             Optional<Contract> contract = contractRepository.findById(careNote.getContract().getId());
             Contract contractEntity = contract.orElse(null);
 
+            CareTarget careTarget = contractEntity.getJobOffer().getCareTarget();
+            List<CareTargetImage> images = careTargetImageRepository.findAllByCareTarget(careTarget);
+
             CareNoteListDTO dto = CareNoteListDTO.builder()
                     .id(careNote.getId())
                     .startTime(contractEntity.getStartTime())
                     .endTime(contractEntity.getEndTime())
                     .careTargetName(contractEntity.getJobOffer().getCareTarget().getName())
+                    .storeName(images.get(0).getStoreFileName())
                     .build();
 
             careNoteListDTOs.add(dto);
