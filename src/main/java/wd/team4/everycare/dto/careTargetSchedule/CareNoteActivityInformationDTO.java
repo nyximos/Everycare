@@ -1,4 +1,4 @@
-package wd.team4.everycare.dto.careNote;
+package wd.team4.everycare.dto.careTargetSchedule;
 
 import lombok.*;
 
@@ -7,12 +7,12 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CareNoteListDTO {
+public class CareNoteActivityInformationDTO {
 
     private Long id;
+    private String name;
     private String startTime;
     private String endTime;
-    private String careTargetName;
-    private String storeName;
+    private String requirement;
 
 }

@@ -32,15 +32,9 @@ public class CareSitterApiController {
 
 
     @GetMapping("/caresitters")
-    public ResponseEntity<MyResponse> findJobSearch(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        List<JobSearchDTO> all = jobSearchService.findAllJobSearch(principalDetails);
-        MyResponse<Object> body = MyResponse.builder()
-                .header(StatusEnum.OK)
-                .body(all)
-                .message("ok").
-                        build();
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    public ResponseEntity<MyResponse> findJobSearch() {
+        ResponseEntity<MyResponse> responseEntity = jobSearchService.findAllJobSearch();
+        return responseEntity;
     }
 
     @GetMapping("/caresitters/{id}")
@@ -112,5 +106,21 @@ public class CareSitterApiController {
         return responseEntity;
     }
 
+    @GetMapping("/caresitters/region")
+    public ResponseEntity<MyResponse> getAllByRegion(@RequestParam("region") String region) {
+        ResponseEntity<MyResponse> responseEntity = careSitterService.getAllByRegion(region);
+        return responseEntity;
+    }
 
+    @GetMapping("/caresitters/caretype")
+    public ResponseEntity<MyResponse> getAllByCareType(@RequestParam("caretype") String caretype) {
+        ResponseEntity<MyResponse> responseEntity = careSitterService.getAllByCareType(caretype);
+        return responseEntity;
+    }
+
+    @GetMapping("/caresitters/time")
+    public ResponseEntity<MyResponse> getAllByTime(@RequestParam("time") String time) {
+        ResponseEntity<MyResponse> responseEntity = careSitterService.getAllByTime(time);
+        return responseEntity;
+    }
 }
