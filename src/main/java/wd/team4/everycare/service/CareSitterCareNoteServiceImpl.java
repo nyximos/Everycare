@@ -10,6 +10,7 @@ import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.*;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.dto.careNote.*;
+import wd.team4.everycare.dto.careTargetSchedule.CareNoteActivityInformationDTO;
 import wd.team4.everycare.dto.contract.CareSitterCompletionContractDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
@@ -35,6 +36,7 @@ public class CareSitterCareNoteServiceImpl implements CareSitterCareNoteService 
     private final ActivityInformationRepository activityInformationRepository;
     private final CareTargetImageRepository careTargetImageRepository;
     private final CareNoteQueryRepository careNoteQueryRepository;
+    private final CareSitterReviewRepository careSitterReviewRepository;
 
     @Override
     public ResponseEntity<MyResponse> getAll(PrincipalDetails principalDetails) {
@@ -343,6 +345,55 @@ public class CareSitterCareNoteServiceImpl implements CareSitterCareNoteService 
 
     @Override
     public ResponseEntity<MyResponse> getCareNote(Long id) {
-        return null;
+
+        Optional<CareNote> careNote = careNoteRepository.findById(id);
+        CareNote careNoteEntity = careNote.orElse(null);
+
+        CareTargetSchedule careTargetSchedule = careTargetScheduleRepository.findByCareNoteId(id);
+
+        List<ActivityInformation> activityInformations = activityInformationRepository.findAllByCareTargetSchedule(careTargetSchedule);
+        List<CareSitterCareNoteReviewDTO> reviewDTOs = new ArrayList<>();
+        List<CareNoteActivityInformationDTO> informationDTOs = new ArrayList<>();
+
+        for (ActivityInformation activityInformation : activityInformations) {
+            CareNoteActivityInformationDTO informationDTO = CareNoteActivityInformationDTO.builder()
+                    .id(activityInformation.getId())
+                    .name(activityInformation.getActivityClassification().getName())
+                    .startTime(activityInformation.getStartTime())
+                    .endTime(activityInformation.getEndTime())
+                    .requirement(activityInformation.getRequirement())
+                    .build();
+            informationDTOs.add(informationDTO);
+        }
+
+        List<CareSitterReview> reviews = careSitterReviewRepository.findAllByCareTargetSchedule(careTargetSchedule);
+        for (CareSitterReview review : reviews) {
+            CareSitterCareNoteReviewDTO reviewDTO = CareSitterCareNoteReviewDTO.builder()
+                    .id(review.getId())
+                    .rating(review.getRating())
+                    .comment(review.getComment())
+                    .updatedAt(review.getUpdatedAt())
+                    .categoryName(review.getActivityClassification().getName())
+                    .build();
+            reviewDTOs.add(reviewDTO);
+        }
+
+        CareSitterCompletionCareNoteDetailDTO careNoteDetailDTO = CareSitterCompletionCareNoteDetailDTO.builder()
+                .id(careNoteEntity.getId())
+                .date(careNoteEntity.getDate())
+                .startTime(careNoteEntity.getStartTime())
+                .endTime(careNoteEntity.getEndTime())
+                .storeFileName(careNoteEntity.getStoreFileName())
+                .careNoteActivityInformationDTOs(informationDTOs)
+                .careSitterCareNoteReviewDTOs(reviewDTOs)
+                .build();
+
+        MyResponse<CareSitterCompletionCareNoteDetailDTO> body = MyResponse.<CareSitterCompletionCareNoteDetailDTO>builder()
+                .header(StatusEnum.OK)
+                .body(careNoteDetailDTO)
+                .message("성공")
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 }
