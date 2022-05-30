@@ -34,7 +34,8 @@
 								
 								<dt class="title">자격증:
 									<!-- <div v-if="certification=''"> -->
-										{{details.certification[0].name}}</dt> 
+										<!-- {{details.certification[0].name}} -->
+										</dt> 
 									<!-- </div> -->
 								<dd class="kind">
 									<ul>

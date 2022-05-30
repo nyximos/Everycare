@@ -37,14 +37,14 @@
                                     <v-col cols="15" lg="20">
                         
                                         <v-card-text>
-                                      <v-datetime-picker id="" label="시작 일시"  v-model="startDatetime2"> </v-datetime-picker>
-                                      <v-datetime-picker label="종료 일시"  v-model="endDatetime2"> </v-datetime-picker>
+                                      <!-- <v-datetime-picker id="" label="시작 일시"  v-model="startDatetime2"> </v-datetime-picker>
+                                      <v-datetime-picker label="종료 일시"  v-model="endDatetime2"> </v-datetime-picker> -->
                                       </v-card-text>  
                                     </v-col>
                                 </v-row>
                                 <v-card-text>
                                         <v-col cols="15" class="pb-0">
-                                           <v-datetime-picker label="알람 시간"  v-model="alarmTime2"> </v-datetime-picker>
+                                           <!-- <v-datetime-picker label="알람 시간"  v-model="alarmTime2"> </v-datetime-picker> -->
                                         </v-col>
                                        
                                     <v-text-field label="장소" v-model="addressName2"></v-text-field>
@@ -85,14 +85,14 @@
                                     <v-col cols="15" lg="20">
                         
                                         <v-card-text>
-                                      <v-datetime-picker id="" label="시작 일시"  v-model="startDatetime"> </v-datetime-picker>
-                                      <v-datetime-picker label="종료 일시"  v-model="endDatetime"> </v-datetime-picker>
+                                      <!-- <v-datetime-picker id="" label="시작 일시"  v-model="startDatetime"> </v-datetime-picker>
+                                      <v-datetime-picker label="종료 일시"  v-model="endDatetime"> </v-datetime-picker> -->
                                       </v-card-text>  
                                     </v-col>
                                 </v-row>
                                 <v-card-text>
                                         <v-col cols="15" class="pb-0">
-                                           <v-datetime-picker label="알람 시간"  v-model="alarmTime"> </v-datetime-picker>
+                                           <!-- <v-datetime-picker label="알람 시간"  v-model="alarmTime"> </v-datetime-picker> -->
                                         </v-col>
                                        
                                     <v-text-field label="장소" v-model="addressName"></v-text-field>
@@ -118,7 +118,7 @@
 
 <script>
 import Vue from 'vue'
-import DatetimePicker from 'vuetify-datetime-picker'
+// import DatetimePicker from 'vuetify-datetime-picker'
 
 Vue.use(DatetimePicker)
 export default {

@@ -634,7 +634,7 @@ methods:{
             }).catch(err=>{
                 console.log(err);
             })
-            this.$router.push({ path: '/Main' })
+            // this.$router.push({ path: '/Main' })
            }
         },
     }
