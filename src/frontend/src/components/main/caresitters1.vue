@@ -9,13 +9,13 @@
                         <span class="tab01">
                             <span class="img01">
                                 <!-- <img src="@/assets/user.png" class="vertical"> -->
-                                <img :src="'https://localhost:8086/api/images/' + p.attachFiles[index].storeFileName" alt="사진" class="vertical" />
+                                <img :src="'https://localhost:8086/api/images/' + p.storeFileNames" alt="사진" class="vertical" />
                             </span>
                         </span>
                         <span class="tab02">
                             <span class="name"
-                                >{{ p.memberDTO.name }}
-                                <span class="age"> 나이:{{ p.memberDTO.birth }}</span>
+                                >{{ p.name }}
+                                <span class="age"> 나이:{{ p.birth }}</span>
                             </span>
                             <span class="area">{{ p.hopefulRegion }}</span>
                             <span class="pay">
@@ -27,7 +27,7 @@
                         <div class="bar01"></div>
                         <span class="tab03">
                             <span class="icon03">{{ p.is_vaccinated }}</span>
-                            <span class="text01">{{ p.memberDTO.gender }}</span>
+                            <span class="text01">{{ p.gender }}</span>
                             <span class="text01">{{ p.preferredType }}</span>
                             <span class="text01">{{ p.activityTime }}</span>
                         </span>

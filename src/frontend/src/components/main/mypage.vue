@@ -17,8 +17,9 @@
       </div>
       <router-link :to="{name:'caresitter_contract', params:{caresitterId:this.id}}">계약서조회</router-link><br>
       <router-link :to="{name:'mypage_joblist'}">구인글 목록 조회</router-link><br>
-      <router-link :to="{name:'carenote'}">케어노트</router-link>
 
+      <router-link :to="{name:'carenote'}">케어노트</router-link><br>
+      <router-link :to="{name:'membernote'}">케어노트</router-link>
   </div>
 </template>
 
