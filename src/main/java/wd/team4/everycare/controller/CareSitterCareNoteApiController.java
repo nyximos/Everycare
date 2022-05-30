@@ -78,4 +78,15 @@ public class CareSitterCareNoteApiController {
         return responseEntity;
     }
 
+    @GetMapping("/carenote/contracts/completion/{id}")
+    public ResponseEntity<MyResponse> getCareNotes(@PathVariable("id") Long id) {
+        ResponseEntity<MyResponse> responseEntity = careNoteService.getCareNotes(id);
+        return responseEntity;
+    }
+
+    @GetMapping("/carenote/contracts/completion/{contractId}/carenotes/{careNoteId}")
+    public ResponseEntity<MyResponse> approve(@PathVariable("careNoteId") Long id) {
+        ResponseEntity<MyResponse> responseEntity = careNoteService.getCareNote(id);
+        return responseEntity;
+    }
 }

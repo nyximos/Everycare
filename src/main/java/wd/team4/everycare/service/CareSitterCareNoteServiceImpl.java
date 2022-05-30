@@ -14,6 +14,7 @@ import wd.team4.everycare.dto.contract.CareSitterCompletionContractDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.*;
+import wd.team4.everycare.repository.query.CareNoteQueryRepository;
 import wd.team4.everycare.service.interfaces.CareSitterCareNoteService;
 
 import java.io.IOException;
@@ -33,6 +34,7 @@ public class CareSitterCareNoteServiceImpl implements CareSitterCareNoteService 
     private final CareTargetScheduleRepository careTargetScheduleRepository;
     private final ActivityInformationRepository activityInformationRepository;
     private final CareTargetImageRepository careTargetImageRepository;
+    private final CareNoteQueryRepository careNoteQueryRepository;
 
     @Override
     public ResponseEntity<MyResponse> getAll(PrincipalDetails principalDetails) {
@@ -309,7 +311,34 @@ public class CareSitterCareNoteServiceImpl implements CareSitterCareNoteService 
 
     @Override
     public ResponseEntity<MyResponse> getCareNotes(Long id) {
-        return null;
+
+        Optional<Contract> contract = contractRepository.findById(id);
+        Contract contractEntity = contract.orElse(null);
+        CareSitter careSitter = contractEntity.getCareSitter();
+
+        List<CareNote> careNotes = careNoteQueryRepository.findAllByCareSitterAndContractId(careSitter, id);
+
+        List<CareSitterCompletionCareNoteDTO> careSitterCompletionCareNoteDTOs = new ArrayList<>();
+
+        for (CareNote careNote : careNotes) {
+            CareSitterCompletionCareNoteDTO dto = CareSitterCompletionCareNoteDTO.builder()
+                    .id(careNote.getId())
+                    .date(careNote.getDate())
+                    .startTime(careNote.getStartTime())
+                    .endTime(careNote.getEndTime())
+                    .storeFileName(careNote.getStoreFileName())
+                    .build();
+
+            careSitterCompletionCareNoteDTOs.add(dto);
+        }
+
+        MyResponse<List<CareSitterCompletionCareNoteDTO>> body = MyResponse.<List<CareSitterCompletionCareNoteDTO>>builder()
+                .header(StatusEnum.OK)
+                .body(careSitterCompletionCareNoteDTOs)
+                .message("성공")
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
     @Override
