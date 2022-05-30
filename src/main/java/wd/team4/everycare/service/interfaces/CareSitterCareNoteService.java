@@ -25,4 +25,10 @@ public interface CareSitterCareNoteService {
     ResponseEntity<MyResponse> removePhoto(Long id);
 
     ResponseEntity<MyResponse> complete(Long id);
+
+    ResponseEntity<MyResponse> getContracts(PrincipalDetails principalDetails);
+
+    ResponseEntity<MyResponse> getCareNotes(Long id);
+
+    ResponseEntity<MyResponse> getCareNote(Long id);
 }

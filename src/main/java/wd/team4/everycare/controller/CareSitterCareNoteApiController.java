@@ -42,33 +42,40 @@ public class CareSitterCareNoteApiController {
         return responseEntity;
     }
 
-    @PatchMapping("/api/carenote/{carenoteId}/schedules/{activityId}/content")
+    @PatchMapping("/carenote/{carenoteId}/schedules/{activityId}/content")
     public ResponseEntity<MyResponse> saveContent(@PathVariable("activityId") Long id, @RequestParam("content") String content) {
         ResponseEntity<MyResponse> responseEntity = careNoteService.saveContent(id, content);
         return responseEntity;
     }
 
-    @PatchMapping("/api/carenote/{carenoteId}/schedules/{activityId}/photo")
+    @PatchMapping("/carenote/{carenoteId}/schedules/{activityId}/photo")
     public ResponseEntity<MyResponse> savePhoto(@PathVariable("activityId") Long id, @ModelAttribute CareNoteImageDTO imageDTO) throws IOException {
         ResponseEntity<MyResponse> responseEntity = careNoteService.savePhoto(id, imageDTO);
         return responseEntity;
     }
 
-    @DeleteMapping("/api/carenote/{carenoteId}/schedules/{activityId}/content")
+    @DeleteMapping("/carenote/{carenoteId}/schedules/{activityId}/content")
     public ResponseEntity<MyResponse> removeContent(@PathVariable("activityId") Long id) {
         ResponseEntity<MyResponse> responseEntity = careNoteService.removeContent(id);
         return responseEntity;
     }
 
-    @DeleteMapping("/api/carenote/{carenoteId}/schedules/{activityId}/photo")
+    @DeleteMapping("/carenote/{carenoteId}/schedules/{activityId}/photo")
     public ResponseEntity<MyResponse> removePhoto(@PathVariable("activityId") Long id) {
         ResponseEntity<MyResponse> responseEntity = careNoteService.removePhoto(id);
         return responseEntity;
     }
 
-    @PatchMapping("/api/carenotes/{id}/schedules/complition")
+    @PatchMapping("/carenotes/{id}/schedules/complition")
     public ResponseEntity<MyResponse> complete(@PathVariable("activityId") Long id) {
         ResponseEntity<MyResponse> responseEntity = careNoteService.complete(id);
         return responseEntity;
     }
+
+    @GetMapping("/carenote/contracts/completion")
+    public ResponseEntity<MyResponse> getContracts(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        ResponseEntity<MyResponse> responseEntity = careNoteService.getContracts(principalDetails);
+        return responseEntity;
+    }
+
 }
