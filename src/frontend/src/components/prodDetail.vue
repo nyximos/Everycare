@@ -53,7 +53,7 @@
     color="primary"
   >
     <v-btn>
-      <prodQna />
+      <qnaBtn />
     </v-btn>
 
     <v-btn>
@@ -76,10 +76,11 @@
 </template>
 
 <script>
-import prodQna from '@/components/prodQna'
+import qnaBtn from '@/components/qnaBtn'
 import reviewBtn from '@/components/reviewBtn'
 export default {
 components:{
+    qnaBtn,
     reviewBtn
 },
 mounted() {

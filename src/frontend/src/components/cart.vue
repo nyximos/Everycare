@@ -45,8 +45,9 @@
                     <v-text-field v-model="recipientNumber" label="수취인 번호" ></v-text-field>
                 </v-row>
                 <v-row> 
-                   <v-col cols="4"><v-text-field v-model="zipcode" label="우편번호" ></v-text-field></v-col>
-                    <v-col cols="8"><v-btn @click="execDaumPostcode">주소 찾기</v-btn></v-col>
+                   <v-col cols="6"><v-text-field v-model="zipcode" label="우편번호" ></v-text-field></v-col>
+                    <v-col cols="3"><v-btn @click="execDaumPostcode">주소 찾기</v-btn></v-col>
+                     <v-col cols="3"><v-btn @click="execDaumPostcode">배송지 목록</v-btn></v-col>
                     <v-text-field v-model="address" label="주소" ></v-text-field>
                     <v-text-field v-model="detailedAddress" label="상세주소" ></v-text-field>
                     <v-text-field label="주문요청" v-model="comment" ></v-text-field>

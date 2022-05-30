@@ -160,7 +160,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public ResponseEntity<MyResponse> getComment(Long productId) {
-        List<Board> all = boardRepository.findByProductId(productId);
+        List<Board> all = boardRepository.findByProductIdAndCategory(productId, BoardCategory.후기);
         List<CommentDTO> commentDTOs = new ArrayList<>();
 
         all.stream().map(board -> board.toCommentDTO()).forEach(commentDTOs::add);

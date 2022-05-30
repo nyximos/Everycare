@@ -31,10 +31,10 @@ public class InitBoardService {
         Board board3 = board("title3", "content3", BoardCategory.공지, LocalDateTime.now(), LocalDateTime.now(), 3, "fileName3", "filePath3", admin);
         Board board4 = board("title4", "content4", BoardCategory.공지, LocalDateTime.now(), LocalDateTime.now(), 4, "fileName4", "filePath4", admin);
 
-        Board board5 = board("title5", "content5", BoardCategory.문의, LocalDateTime.now(), LocalDateTime.now(), 5, "fileName5", "filePath5", admin);
-        Board board6 = board("title6", "content6", BoardCategory.문의, LocalDateTime.now(), LocalDateTime.now(), 6, "fileName6", "filePath6", admin);
-        Board board7 = board("title7", "content7", BoardCategory.문의, LocalDateTime.now(), LocalDateTime.now(), 7, "fileName7", "filePath7", admin);
-        Board board8 = board("title8", "content8", BoardCategory.문의, LocalDateTime.now(), LocalDateTime.now(), 8, "fileName8", "filePath8", admin);
+        Board board5 = inquiryBoard("title5", "content5", BoardCategory.문의, LocalDateTime.now(), LocalDateTime.now(), 5, "fileName5", "filePath5", admin, product);
+        Board board6 = inquiryBoard("title6", "content6", BoardCategory.문의, LocalDateTime.now(), LocalDateTime.now(), 6, "fileName6", "filePath6", admin, product);
+        Board board7 = inquiryBoard("title7", "content7", BoardCategory.문의, LocalDateTime.now(), LocalDateTime.now(), 7, "fileName7", "filePath7", admin, product);
+        Board board8 = inquiryBoard("title8", "content8", BoardCategory.문의, LocalDateTime.now(), LocalDateTime.now(), 8, "fileName8", "filePath8", admin, product);
 
         Board board9 = inquiryBoard("title9", "content9", BoardCategory.후기, LocalDateTime.now(), LocalDateTime.now(), 9, "fileName9", "filePath9", admin, product);
         Board board10 = inquiryBoard("title10", "content10", BoardCategory.후기, LocalDateTime.now(), LocalDateTime.now(), 10, "fileName10", "filePath10", admin, product);

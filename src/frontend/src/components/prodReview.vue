@@ -46,7 +46,7 @@ mounted() {
 data(){
     return{
         reviews:[],
-        dataPerPage:3,
+        dataPerPage:4,
         curPageNum:1,
     }
 },
