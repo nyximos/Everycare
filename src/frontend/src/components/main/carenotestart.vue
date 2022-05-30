@@ -58,13 +58,10 @@ export default {
             // const id = this.$route.params.contentId;
             const sId = this.sId;
 
-            console.log(this.file)
-        //    console.log(this.avatar)
             var formData = new FormData();
-
-            // formData.append('attachFile', this.avatar);
-             formData.append('attachFile', this.file);
-            
+            for(let i = 0; i< this.attachFile.length; i++){
+             formData.append('attachFile', this.attachFile[0]);
+           } 
             this.$http
             .patch(`/api/carenotes/${sId}/photo`, formData,{
                 withCredentail:true
