@@ -9,7 +9,6 @@ import wd.team4.everycare.dto.response.MyResponse;
 import java.util.List;
 
 public interface JobSearchService {
-    List<JobSearchDTO> findAllJobSearch(PrincipalDetails principalDetails);
-    ResponseEntity<MyResponse> findAllJobSearch();
+    ResponseEntity<MyResponse> findAllJobSearch(PrincipalDetails principalDetails);
     DetailJobSearchDTO findDetailJobSearch(Long id);
 }

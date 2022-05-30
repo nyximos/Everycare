@@ -17,7 +17,7 @@ import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.ActivityClassificationRepository;
 import wd.team4.everycare.repository.BadgeRepository;
 import wd.team4.everycare.repository.CareSitterBadgeRepository;
-import wd.team4.everycare.repository.CareSitterReviewQueryRepository;
+import wd.team4.everycare.repository.query.CareSitterReviewQueryRepository;
 import wd.team4.everycare.service.interfaces.BadgeService;
 
 import java.util.ArrayList;

@@ -32,8 +32,8 @@ public class CareSitterApiController {
 
 
     @GetMapping("/caresitters")
-    public ResponseEntity<MyResponse> findJobSearch() {
-        ResponseEntity<MyResponse> responseEntity = jobSearchService.findAllJobSearch();
+    public ResponseEntity<MyResponse> findJobSearch(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        ResponseEntity<MyResponse> responseEntity = jobSearchService.findAllJobSearch(principalDetails);
         return responseEntity;
     }
 

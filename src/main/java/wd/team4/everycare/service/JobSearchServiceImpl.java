@@ -36,10 +36,7 @@ public class JobSearchServiceImpl implements JobSearchService {
     private final CareSitterImageRepository careSitterImageRepository;
 
     @Override
-    public List<JobSearchDTO> findAllJobSearch(PrincipalDetails principalDetails) {
-        List<CareSitter> allJobSearch = careSitterRepository.findAllByDisclosureStatus(1);             //1이나 0이 공개일텐데 그거 따라 숫자 바꿔주기
-        List<CareSitterImage> careSitterImage = new ArrayList<>();
-    public ResponseEntity<MyResponse> findAllJobSearch() {
+    public ResponseEntity<MyResponse> findAllJobSearch(PrincipalDetails principalDetails) {
         List<CareSitter> careSitters = careSitterRepository.findAllByDisclosureStatus(1);             //1이나 0이 공개일텐데 그거 따라 숫자 바꿔주기
 
         if (careSitters.isEmpty()) {
