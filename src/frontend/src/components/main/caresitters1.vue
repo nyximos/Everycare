@@ -30,7 +30,6 @@
                             <span class="text01">{{ p.memberDTO.gender }}</span>
                             <span class="text01">{{ p.preferredType }}</span>
                             <span class="text01">{{ p.activityTime }}</span>
-                            <span class="">{{ p.member }}</span>
                         </span>
                         <!-- </router-link> -->
                     </li>

@@ -1,18 +1,20 @@
 <template>
   <div class="content">
-    <h1 class="title">당일케어노트</h1>
+    <h1 class="title">완료된 케어노트</h1>
     <v-card class="mx-auto" max-width="344" v-for="(n,index) in note" :key="index">
-    <v-img src="" height="200px" alt="사진없음"></v-img>
+    <v-img src="@/assets/writing.png" height="200px" alt="사진없음"></v-img>
     <v-card-title>
       <h2 class="name">{{n.careTargetName}} 님</h2>
     </v-card-title>
-    
-    <!-- <v-card-subtitle style="margin-top:1px;">
+    <v-card-subtitle style="margin-top:1px;">
+        날짜
+    </v-card-subtitle>
+    <v-card-subtitle style="margin-top:1px;">
       시작시간:{{n.startTime}} ~ 종료시간:{{n.endTime}}
-    </v-card-subtitle> -->
+    </v-card-subtitle>
     <v-card-actions>
         <div class="button" >
-            <v-btn class="ma-2" outlined color="indigo" @click="start(n)">케어시작</v-btn>
+            <v-btn class="ma-2" outlined color="indigo" @click="start(n)">스케줄 관리</v-btn>
         </div>
     </v-card-actions>
   </v-card>
@@ -28,7 +30,7 @@ export default {
     },
     mounted(){
         this.$http
-        .get('/api/carenotes',{
+        .get('/api/members/carenotes',{
             withCredentail:true
         })
         .then((res)=>{
@@ -42,7 +44,7 @@ export default {
     },
     methods:{
         start(n){
-            this.$router.push({name:'carenotestart' , params:{contentId:n.id}  })
+            this.$router.push({name:'membernotestart' , params:{contentId:n.id}  })
         }
     }
 }

@@ -5,10 +5,10 @@
         <span class="exam01">지역을 선택하세요.</span>
       </div>
       <div class="text01" id="category_text">
-        <span class="exam01">카테고리를 선택해주세요.</span>
+        <span class="exam01">선호유형를 선택해주세요.</span>
       </div>
       <div class="text01" id="date_text">
-        <span class="exam01">날짜를 선택해주세요.</span>
+        <span class="exam01">활동시간를 선택해주세요.</span>
       </div>
    
     </form>

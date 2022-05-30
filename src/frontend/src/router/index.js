@@ -149,6 +149,29 @@ const routes = [
         component: () => import('@/pages/Lastcontract'),
     },
     {
+        //케어 노트(케어시터)
+        path: '/carenote',
+        name: 'carenote',
+        component: () => import('@/pages/Carenote'),
+    },
+    {
+        //케어노트 출근 시작 시간/출근 시간
+        path: '/carenote/:contentId',
+        name: 'carenotestart',
+        component: () => import('@/components/main/carenotestart'),
+    },
+    {
+        //케어 노트(멤버)
+        path: '/membernote',
+        name: 'membernote',
+        component: () => import('@/pages/MemberCarenote'),
+    },
+    {
+        path: '/carenote/caretarget/:contentId/schedules',
+        name: 'careschedule',
+        component: () => import('@/components/main/careschedule'),
+    },
+    {
         path: '/admin_report',
         name: 'admin_report',
         component: () => import('@/pages/Adminpage_report.vue'),
