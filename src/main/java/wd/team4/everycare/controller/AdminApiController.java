@@ -89,8 +89,8 @@ public class AdminApiController {
         return updateFAQ;
     }
 
-    @DeleteMapping("/faq")
-    public ResponseEntity<MyResponse> removeFAQ(@AuthenticationPrincipal PrincipalDetails principalDetails, Long id){
+    @DeleteMapping("/faq/{id}")
+    public ResponseEntity<MyResponse> removeFAQ(@PathVariable("id")Long id, @AuthenticationPrincipal PrincipalDetails principalDetails){
         ResponseEntity<MyResponse> removeFAQ = adminService.removeFAQ(principalDetails, id);
         return removeFAQ;
     }

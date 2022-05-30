@@ -78,9 +78,7 @@ export default {
             path: '/createwrite'
           })
         },
-        detailShot(id){
-            
-            
+        detailShot(id){   
           this.$router.push({
             name: 'detail', 
             params: {

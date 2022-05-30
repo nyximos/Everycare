@@ -41,10 +41,10 @@ public class InitBoardService {
         Board board11 = inquiryBoard("title11", "content11", BoardCategory.후기, LocalDateTime.now(), LocalDateTime.now(), 11, "fileName11", "filePath11", admin, product);
         Board board12 = inquiryBoard("title12", "content12", BoardCategory.후기, LocalDateTime.now(), LocalDateTime.now(), 12, "fileName12", "filePath12", admin, product);
 
-        Board board13 = inquiryBoard("title13", "content13", BoardCategory.FAQ, LocalDateTime.now(), LocalDateTime.now(), 13, "fileName13", "filePath13", admin, product);
-        Board board14 = inquiryBoard("title14", "content14", BoardCategory.FAQ, LocalDateTime.now(), LocalDateTime.now(), 14, "fileName14", "filePath14", admin, product);
-        Board board15 = inquiryBoard("title15", "content15", BoardCategory.FAQ, LocalDateTime.now(), LocalDateTime.now(), 15, "fileName15", "filePath15", admin, product);
-        Board board16 = inquiryBoard("title16", "content16", BoardCategory.FAQ, LocalDateTime.now(), LocalDateTime.now(), 16, "fileName16", "filePath16", admin, product);
+        Board board13 = board("title13", "content13", BoardCategory.FAQ, LocalDateTime.now(), LocalDateTime.now(), 13, "fileName13", "filePath13", admin);
+        Board board14 = board("title14", "content14", BoardCategory.FAQ, LocalDateTime.now(), LocalDateTime.now(), 14, "fileName14", "filePath14", admin);
+        Board board15 = board("title15", "content15", BoardCategory.FAQ, LocalDateTime.now(), LocalDateTime.now(), 15, "fileName15", "filePath15", admin);
+        Board board16 = board("title16", "content16", BoardCategory.FAQ, LocalDateTime.now(), LocalDateTime.now(), 16, "fileName16", "filePath16", admin);
 
     }
 

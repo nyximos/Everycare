@@ -154,16 +154,6 @@ const routes = [
         component: () => import('@/pages/Adminpage_report.vue'),
     },
     {
-        path: '/wish',
-        name: 'Wish',
-        component: () => import('@/pages/Wish.vue'),
-    },
-    {
-        path: '/cart',
-        name: 'Cart',
-        component: () => import('@/pages/Cart.vue'),
-    },
-    {
         path: '/Test1',
         name: 'Test1',
         component: () => import('@/pages/Test1.vue'),
@@ -306,6 +296,30 @@ const routes = [
         name: 'noticeDetail',
         component: () => import('@/components/noticeDetail.vue'),
     },
+    // 자주 묻는 질문 조회
+    {
+        path: '/faq',
+        name: 'Faq',
+        component: () => import('@/pages/Faq.vue'),
+    },
+    // 자주 묻는 질문 상세조회, 관리자수정삭제
+    {
+        path: '/faq/:contentId',
+        name: 'FaqDetail',
+        component: () => import('@/pages/FaqDetail.vue'),
+    },
+    // 관리자 자주 묻는 질문 등록
+    {
+        path: '/admin/faq/new',
+        name: 'FapNew',
+        component: () => import('@/pages/FaqNew.vue'),
+    },
+    // 관리자 자주 묻는 질문 등록
+    {
+        path: '/admin/faq/new',
+        name: 'FapNew',
+        component: () => import('@/pages/FaqNew.vue'),
+    },
     {
         path: '/login',
         name: 'Login',
@@ -316,11 +330,6 @@ const routes = [
             else next();
         },
     },
-    // {
-    //     path: '/caresitters',
-    //     name: 'caresitters',
-    //     component: Caresitters,
-    // },
     {
         path: '/works',
         name: 'FindWork',
