@@ -3,13 +3,23 @@
   <v-card>
   <v-card-title>상품수정</v-card-title>
   <v-card-text>
-    <v-text-field
+    <div class="text-center"><v-img id="divProfile" :src="'https://localhost:8086/api/images/'+this.thumbnail" 
+      alt="사진" width="300" height="300"/></div>
+      <v-row>
+        <v-col cols="8">
+        <v-text-field
       v-model="name"
       placeholder="상품명"
       filled
       rounded
       dense
     ></v-text-field>
+        </v-col>
+        <v-col cols="4">
+          
+        </v-col>
+      </v-row>
+
     <v-text-field
       v-model="price"
       placeholder="가격"
@@ -36,6 +46,8 @@
       chips
       label="썸네일"
     ></v-file-input>
+    <v-img v-for="item in this.detailImg" :key="item.id" id="divProfile" :src="'https://localhost:8086/api/images/'+item.storeFileName" alt="사진" width="700" height="500"/>
+
     <v-file-input
       v-model="attachFiles"
       chips
@@ -91,6 +103,8 @@ mounted() {
       this.price = res.data.body.price;      
       this.inventoryQuantity = res.data.body.inventoryQuantity;
       this.comment = res.data.body.comment;
+      this.thumbnail = res.data.body.storeFileName;
+      this.detailImg = res.data.body.imagesDTOs;
     })
       .catch(err => {
        console.log(err);
@@ -116,8 +130,10 @@ data(){
     inventoryQuantity: this.inventoryQuantity,
     comment: this.comment,
     productCategory:this.productCategory,
+    thumbnail:this.thumbnail,
     attachFile: [],
     attachFiles: [],
+    detailImg:[],
     isSale:this.isSale,
     prodCategory:[],
     prodStatus : [
