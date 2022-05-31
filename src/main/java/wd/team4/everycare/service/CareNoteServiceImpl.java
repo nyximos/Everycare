@@ -6,9 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.domain.*;
-import wd.team4.everycare.dto.careNote.CareSitterCareNoteReviewDTO;
-import wd.team4.everycare.dto.careNote.CareSitterCompletionCareNoteDTO;
-import wd.team4.everycare.dto.careNote.CareSitterCompletionCareNoteDetailDTO;
+import wd.team4.everycare.dto.careNote.CareNoteReviewDTO;
+import wd.team4.everycare.dto.careNote.CompletionCareNoteDTO;
+import wd.team4.everycare.dto.careNote.CompletionCareNoteDetailDTO;
 import wd.team4.everycare.dto.careTargetSchedule.CareNoteActivityInformationDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
@@ -42,10 +42,10 @@ public class CareNoteServiceImpl implements CareNoteService {
 
         List<CareNote> careNotes = careNoteQueryRepository.findAllByCareSitterAndContractId(careSitter, id);
 
-        List<CareSitterCompletionCareNoteDTO> careSitterCompletionCareNoteDTOs = new ArrayList<>();
+        List<CompletionCareNoteDTO> careSitterCompletionCareNoteDTOs = new ArrayList<>();
 
         for (CareNote careNote : careNotes) {
-            CareSitterCompletionCareNoteDTO dto = CareSitterCompletionCareNoteDTO.builder()
+            CompletionCareNoteDTO dto = CompletionCareNoteDTO.builder()
                     .id(careNote.getId())
                     .date(careNote.getDate())
                     .startTime(careNote.getStartTime())
@@ -56,7 +56,7 @@ public class CareNoteServiceImpl implements CareNoteService {
             careSitterCompletionCareNoteDTOs.add(dto);
         }
 
-        MyResponse<List<CareSitterCompletionCareNoteDTO>> body = MyResponse.<List<CareSitterCompletionCareNoteDTO>>builder()
+        MyResponse<List<CompletionCareNoteDTO>> body = MyResponse.<List<CompletionCareNoteDTO>>builder()
                 .header(StatusEnum.OK)
                 .body(careSitterCompletionCareNoteDTOs)
                 .message("성공")
@@ -74,7 +74,7 @@ public class CareNoteServiceImpl implements CareNoteService {
         CareTargetSchedule careTargetSchedule = careTargetScheduleRepository.findByCareNoteId(id);
 
         List<ActivityInformation> activityInformations = activityInformationRepository.findAllByCareTargetSchedule(careTargetSchedule);
-        List<CareSitterCareNoteReviewDTO> reviewDTOs = new ArrayList<>();
+        List<CareNoteReviewDTO> reviewDTOs = new ArrayList<>();
         List<CareNoteActivityInformationDTO> informationDTOs = new ArrayList<>();
 
         for (ActivityInformation activityInformation : activityInformations) {
@@ -90,7 +90,7 @@ public class CareNoteServiceImpl implements CareNoteService {
 
         List<CareSitterReview> reviews = careSitterReviewRepository.findAllByCareTargetSchedule(careTargetSchedule);
         for (CareSitterReview review : reviews) {
-            CareSitterCareNoteReviewDTO reviewDTO = CareSitterCareNoteReviewDTO.builder()
+            CareNoteReviewDTO reviewDTO = CareNoteReviewDTO.builder()
                     .id(review.getId())
                     .rating(review.getRating())
                     .comment(review.getComment())
@@ -100,7 +100,7 @@ public class CareNoteServiceImpl implements CareNoteService {
             reviewDTOs.add(reviewDTO);
         }
 
-        CareSitterCompletionCareNoteDetailDTO careNoteDetailDTO = CareSitterCompletionCareNoteDetailDTO.builder()
+        CompletionCareNoteDetailDTO careNoteDetailDTO = CompletionCareNoteDetailDTO.builder()
                 .id(careNoteEntity.getId())
                 .date(careNoteEntity.getDate())
                 .startTime(careNoteEntity.getStartTime())
@@ -110,7 +110,7 @@ public class CareNoteServiceImpl implements CareNoteService {
                 .careSitterCareNoteReviewDTOs(reviewDTOs)
                 .build();
 
-        MyResponse<CareSitterCompletionCareNoteDetailDTO> body = MyResponse.<CareSitterCompletionCareNoteDetailDTO>builder()
+        MyResponse<CompletionCareNoteDetailDTO> body = MyResponse.<CompletionCareNoteDetailDTO>builder()
                 .header(StatusEnum.OK)
                 .body(careNoteDetailDTO)
                 .message("성공")

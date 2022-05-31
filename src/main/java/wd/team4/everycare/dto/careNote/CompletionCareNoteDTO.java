@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CareSitterCompletionCareNoteDTO {
+public class CompletionCareNoteDTO {
 
     private Long id;
     private LocalDate date;
