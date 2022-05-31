@@ -5,15 +5,30 @@
         <table class="myinfo_table" border="1" width="600px" cellpadding="15px" frame="void">
             <tr>
                 <th id="id-line" width="20%">아이디</th>
-                <td id="id-text" width="30%"> {{memberData.id}}</td>
+                <td id="id-text" width="30%"> <v-col
+          cols="5"
+          sm="5"
+          md="4"
+        >{{memberData.id}}
+        </v-col></td>
                 <th id="pw-line" width="20%">비밀번호</th>
                 <td id="pw-text" width="30%">....</td>
             </tr>
             <tr>
                 <th id="name-line">이름</th>
-                <td id="name-text" width="30%"> {{memberData.name}}</td>
+                <td id="name-text" width="30%"><v-col
+          cols="5"
+          sm="5"
+          md="4"
+        > {{memberData.name}}
+        </v-col></td>
                 <th id="gen-line" width="20%">성별</th>
-                <td id="gen-text-line" width="30%"> {{memberData.gender}}</td>
+                <td id="gen-text-line" width="30%"> 
+                    <v-col
+          cols="5"
+          sm="5"
+          md="4"
+        >{{memberData.gender}}</v-col></td>
             </tr>
             <tr>
                 <th id="bir-line">생년월일</th>
@@ -23,8 +38,6 @@
           md="4"
         >
         {{memberData.birth}}
-          <v-text-field v-model="birth2"
-          ></v-text-field>
         </v-col></td>
             </tr>
             <tr>
@@ -61,12 +74,38 @@
         {{memberData.zipcode}}
         {{memberData.address}}
         {{memberData.detailedAddress}}
-          <v-text-field v-model="zipcode2"
+          
+                <!-- <input class="form-control" v-model="postcode2" type="text" placeholder="우편번호" aria-label="input example" /> -->
+                <v-col
+          cols="12"
+          sm="6"
+          md="7"
+        >
+         <v-btn class="postbtn" @click="execDaumPostcode()">우편번호 찾기</v-btn>
+                <v-text-field
+                v-model="postcode2"
+            label="우편번호"
           ></v-text-field>
-          <v-text-field v-model="address2"
+           
+          </v-col>
+       
+          <v-col
+          md="14"
+          >
+          <v-text-field
+           id="address"
+                v-model="address2"
+            label="주소"
           ></v-text-field>
-          <v-text-field v-model="detailedAddress2"
+          <v-text-field
+          id="detailAddress"
+                v-model="detailedAddress2"
+            label="상세주소"
           ></v-text-field>
+    </v-col>
+                <!-- <input class="form-control" id="address" v-model="address2" type="text" placeholder="주소" aria-label="input example" />
+                <input class="form-control" id="detailAddress" v-model="detailedAddress2" type="text" placeholder="상세주소" aria-label="input example" /> -->
+
         </v-col></td>
             </tr>
         </table>
@@ -82,12 +121,39 @@
 <script>
 export default {
     methods:{
+         execDaumPostcode() {
+            new window.daum.Postcode({
+                oncomplete: data => {
+                    if (this.extraAddress !== '') {
+                        this.extraAddress = '';
+                    }
+                    if (data.userSelectedType === 'R') {
+                        this.address2 = data.roadAddress;
+                    } else {
+                        this.address2 = data.jibunAddress;
+                    }
+                    if (data.userSelectedType === 'R') {
+                        if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                            this.extraAddress += data.bname;
+                        }
+                        if (data.buildingName !== '' && data.apartment === 'Y') {
+                            this.extraAddress += this.extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
+                        }
+                        if (this.extraAddress !== '') {
+                            this.extraAddress = `(${this.extraAddress})`;
+                        }
+                    } else {
+                        this.extraAddress = '';
+                    }
+                    this.postcode2 = data.zonecode;
+                }
+            }).open();
+        },
         update(){
           var infoformData = new FormData();
-            infoformData.append('birth', this.birth2);
             infoformData.append('phone', this.phone2);
             infoformData.append('email', this.email2);
-            infoformData.append('zipcode', this.zipcode2);
+            infoformData.append('zipcode', this.postcode2);
             infoformData.append('address', this.address2);
             infoformData.append('detailedAddress', this.detailedAddress2);
             this.$http
@@ -96,7 +162,7 @@ export default {
                 })
                 .then(res => {
                     console.log(res);
-                    this.$router.go();
+                   
                 })
                 .catch(err => {
                     console.log(err);
