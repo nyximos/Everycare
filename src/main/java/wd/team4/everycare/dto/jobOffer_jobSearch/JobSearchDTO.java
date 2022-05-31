@@ -1,11 +1,10 @@
 package wd.team4.everycare.dto.jobOffer_jobSearch;
 
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
+import wd.team4.everycare.domain.CareSitterBedge;
 import wd.team4.everycare.domain.CareSitterImage;
 import wd.team4.everycare.domain.Certification;
-import wd.team4.everycare.dto.CertificationViewDTO;
-import wd.team4.everycare.dto.careSitter.CareSitterImageDTO;
+import wd.team4.everycare.dto.badge.CareSitterBadgeDTO;
 import wd.team4.everycare.dto.member.JobOfferMemberDTO;
 
 import java.util.List;
@@ -29,6 +28,8 @@ public class JobSearchDTO {
     private String introduction;
     private JobOfferMemberDTO memberDTO;
     private List<CareSitterImage> attachFiles;
+    private List<Certification> certifications;
+    private List<CareSitterBadgeDTO> badge;
 
 /* TODO 자격증, 벳지, 이미지 */
 }

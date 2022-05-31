@@ -16,8 +16,10 @@ import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.*;
+import wd.team4.everycare.repository.query.JobOfferQueryRepository;
 import wd.team4.everycare.service.interfaces.JobOfferService;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,6 +38,7 @@ public class JobOfferServiceImpl implements JobOfferService {
     private final CareSitterImageRepository careSitterImageRepository;
     private final ActivityInformationRepository activityInformationRepository;
     private final JobOfferCareSitterRepository jobOfferCareSitterRepository;
+    private final JobOfferQueryRepository jobOfferQueryRepository;
 
     @Override
     public List<JobOfferDTO> getJobOffer() {
@@ -218,6 +221,63 @@ public class JobOfferServiceImpl implements JobOfferService {
                     .build();
             return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
         } else return null;
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> searchPay(int min, int max) {
+        List<JobOffer> findByPay = jobOfferQueryRepository.findAllByPay(min, max);
+
+        if (findByPay.isEmpty()) {
+            return null;
+        } else {
+            List<JobOfferDTO> jobOfferDTOs = new ArrayList<>();
+            findByPay.stream().map(jobOffer -> jobOffer.toJobOfferDTO()).forEach(jobOfferDTOs::add);
+
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.OK)
+                    .message("가격에 따른 조회")
+                    .body(jobOfferDTOs)
+                    .build();
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        }
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> searchRegion(String region) {
+        List<JobOffer> findByRegion = jobOfferQueryRepository.findAllByRegion(region);
+
+        if (findByRegion.isEmpty()) {
+            return null;
+        } else {
+            List<JobOfferDTO> jobOfferDTOs = new ArrayList<>();
+            findByRegion.stream().map(jobOffer -> jobOffer.toJobOfferDTO()).forEach(jobOfferDTOs::add);
+
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.OK)
+                    .message("지역에 따른 조회")
+                    .body(jobOfferDTOs)
+                    .build();
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        }
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> searchDate(LocalDate date) {
+        List<JobOffer> findByDate = jobOfferQueryRepository.findAllByDate(date);
+
+        if (findByDate.isEmpty()) {
+            return null;
+        }else{
+            List<JobOfferDTO> jobOfferDTOs = new ArrayList<>();
+            findByDate.stream().map(jobOffer -> jobOffer.toJobOfferDTO()).forEach(jobOfferDTOs::add);
+
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.OK)
+                    .message("날짜에 따른 조회")
+                    .body(jobOfferDTOs)
+                    .build();
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        }
     }
 
 

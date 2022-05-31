@@ -1,9 +1,9 @@
 package wd.team4.everycare.domain;
 
 import lombok.*;
+import wd.team4.everycare.dto.badge.BadgeNameDTO;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Entity
@@ -11,6 +11,8 @@ import java.util.List;
 @SequenceGenerator(name = "bedge_seq_generator",
         sequenceName = "bedge_seq",
         initialValue = 1, allocationSize = 1)
+@AllArgsConstructor
+@Builder
 public class Bedge {
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bedge_seq_generator")
@@ -27,4 +29,12 @@ public class Bedge {
     @JoinColumn(name = "activity_classification_id")
     private ActivityClassification activityClassification;
 
+
+    public BadgeNameDTO toBadgeNameDTO(){
+        return BadgeNameDTO.builder()
+                .id(this.id)
+                .fileName(this.fileName)
+                .filePath(this.filePath)
+                .build();
+    }
 }

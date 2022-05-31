@@ -1,13 +1,15 @@
 package wd.team4.everycare.domain;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.dto.CertificationNameDTO;
 import wd.team4.everycare.dto.CertificationViewDTO;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Entity
@@ -74,6 +76,16 @@ public class Certification {
                 .storeFileName(this.storeFileName)
                 .createdAt(this.createdAt)
                 .careSitter(this.careSitter.toNameDTO())
+                .build();
+    }
+
+    public CertificationNameDTO toNameDTO(){
+        return CertificationNameDTO.builder()
+                .id(this.id)
+                .name(this.name)
+                .adminApproval(this.adminApproval)
+                .storeFileName(this.storeFileName)
+                .uploadFileName(this.uploadFileName)
                 .build();
     }
 

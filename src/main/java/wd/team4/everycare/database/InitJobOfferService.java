@@ -25,6 +25,7 @@ public class InitJobOfferService {
         Member member = memberRepository.findById("member1").get();
 
         CareTarget careTarget = careTargetRepository.findById(1L).orElse(null);
+        CareTarget careTarget2 = careTargetRepository.findById(2L).orElse(null);
         CareTargetSchedule careTargetSchedule = careTargetScheduleRepository.findById(1L).orElse(null);
         careTargetRepository.findById(1L);
 
@@ -36,8 +37,8 @@ public class InitJobOfferService {
 
         JobOffer jobOffer2 = jobOffer("title1", LocalDate.now(), LocalDate.now(), "desiredDayWeek1", "10:00", "10:30", 1, 10, Gender.M, "comment1", member, careTarget, careTargetSchedule);
         JobOffer jobOffer3 = jobOffer("title2", LocalDate.now(), LocalDate.now(), "desiredDayWeek2", "11:00", "11:30", 2, 20, Gender.M, "comment2", member, careTarget, careTargetSchedule);
-        JobOffer jobOffer4 = jobOffer("title3", LocalDate.now(), LocalDate.now(), "desiredDayWeek3", "12:00", "12:30", 3, 20, Gender.M, "comment3", member, careTarget, careTargetSchedule);
-        JobOffer jobOffer5 = jobOffer("title4", LocalDate.now(), LocalDate.now(), "desiredDayWeek4", "13:00", "13:30", 4, 40, Gender.M, "comment4", member, careTarget, careTargetSchedule);
+        JobOffer jobOffer4 = jobOffer("title3", LocalDate.now(), LocalDate.now(), "desiredDayWeek3", "12:00", "12:30", 3, 20, Gender.M, "comment3", member, careTarget2, careTargetSchedule);
+        JobOffer jobOffer5 = jobOffer("title4", LocalDate.now(), LocalDate.now(), "desiredDayWeek4", "13:00", "13:30", 4, 40, Gender.M, "comment4", member, careTarget2, careTargetSchedule);
         JobOffer jobOffer6 = jobOffer("title5", LocalDate.now(), LocalDate.now(), "desiredDayWeek5", "14:00", "14:30", 5, 50, Gender.M, "comment5", member, careTarget, careTargetSchedule);
         System.out.println("jobOffer1 = " + jobOffer1);
     }
