@@ -100,7 +100,7 @@ public class CareSitterServiceImpl implements CareSitterService {
             List<UploadFile> attachFiles = fileStoreService.storeFiles(careSitterFormDTO.getAttachFiles());
 
             for (UploadFile file : attachFiles) {
-                CareSitterImage careSitterImage = careSitterDtoToImage(careSitter, file);
+                CareSitterImage careSitterImage = careSitterDtoToImage(careSitterEntity, file);
                 careSitterImageRepository.save(careSitterImage);
             }
         }
