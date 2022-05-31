@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import wd.team4.everycare.domain.ActivityStatus;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.repository.MemberRepository;
 
@@ -22,6 +23,13 @@ public class PrincipalDetailsService implements UserDetailsService {
     public PrincipalDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         System.out.println("PrincipalDetailsService : DB에 유저 있는지 확인 ");
         Optional<Member> member = memberRepository.findById(username);
+
+        // 활동 정지된 멤버 로그인 실패
+        Member memberEntity = member.orElse(null);
+        ActivityStatus activityStatus = memberEntity.getActivityStatus();
+        if (activityStatus == ActivityStatus.STOP) {
+            return null;
+        }
 
         // session.setAttribute("loginUser", user);
         return new PrincipalDetails(member.get());

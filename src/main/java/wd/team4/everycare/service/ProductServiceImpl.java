@@ -268,6 +268,20 @@ public class ProductServiceImpl implements ProductService {
             productEntity.saveImage(attachFile);
         }
 
+        if(productFormDTO.getAttachFiles()!=null) {
+
+            List<UploadFile> attachFiles = fileStoreService.storeFiles(productFormDTO.getAttachFiles());
+
+            for (UploadFile file : attachFiles) {
+                ProductImage productImage = ProductImage.builder()
+                        .uploadFileName(file.getUploadFileName())
+                        .storeFileName(file.getStoreFileName())
+                        .product(productEntity)
+                        .build();
+                producImageRepository.save(productImage);
+            }
+        }
+
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("성공")

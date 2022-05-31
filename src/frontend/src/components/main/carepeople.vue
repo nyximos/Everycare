@@ -224,7 +224,7 @@ execDaumPostcode() {
                 for (let i = 0; i < this.attachFiles.length; i++) {
                 formData.append('attachFiles', this.attachFiles[i]);
                 }
-                
+                // console.log(formData);
     this.$http
     .post('/api/dashboard/caretargets/new',formData, {
     withCredentials: true

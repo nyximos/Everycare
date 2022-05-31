@@ -35,7 +35,6 @@ import java.util.Optional;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter{
 
     private final AuthenticationManager authenticationManager;
-//    private final MemberRepository memberRepository;
 
     // Authentication 객체 만들어서 리턴 => 의존 : AuthenticationManager
     // 인증 요청시에 실행되는 함수 => /login
@@ -58,15 +57,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         }
 
         System.out.println("JwtAuthenticationFilter : "+loginRequestDTO);
-
-//        // 활동 정지된 멤버 로그인 실패
-//        String username = loginRequestDTO.getUsername();
-//        Optional<Member> member = memberRepository.findById(username);
-//        Member memberEntity = member.orElse(null);
-//        ActivityStatus activityStatus = memberEntity.getActivityStatus();
-//        if (activityStatus == ActivityStatus.STOP) {
-//            return null;
-//        }
 
         // 유저네임패스워드 토큰 생성
         UsernamePasswordAuthenticationToken authenticationToken =
