@@ -25,7 +25,7 @@ public interface CareSitterService {
 
     List<CareSitterImage> findCareSitterImages(Long id);
 
-    String update(Long id, CareSitterFormDTO careSitterFormDTO);
+    String update(Long id, CareSitterFormDTO careSitterFormDTO) throws IOException;
 
     default CareSitterImage careSitterDtoToImage(CareSitter careSitter, UploadFile attachFile) throws IOException {
         return CareSitterImage.builder()
