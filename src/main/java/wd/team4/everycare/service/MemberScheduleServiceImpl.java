@@ -102,6 +102,8 @@ public class MemberScheduleServiceImpl implements MemberScheduleService {
                 .name(memberScheduleFormDTO.getName())
                 .startDatetime(memberScheduleFormDTO.getStartDatetime())
                 .endDatetime(memberScheduleFormDTO.getEndDatetime())
+                .addressName(memberScheduleFormDTO.getAddressName())
+                .comment(memberScheduleFormDTO.getComment())
                 .member(user)
                 .build();
 
