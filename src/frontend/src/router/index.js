@@ -64,19 +64,19 @@ const routes = [
         component: () => import('@/components/productPayment.vue'),
     },
     {
-        // 관리자 자격증 조회 화면
+        // 관리자 자격증 조회 화면(o)
         path: '/admin/caresitter-certifications',
         name: 'adminpage_certi',
         component: () => import('@/pages/Adminpage_certi.vue'),
     },
     {
-        // 관리자 자격증 상세/승인
+        // 관리자 자격증 상세/승인(o)
         path: '/admin/caresitter-certifications/:contentId',
         name: 'certification_detail',
         component: () => import('@/components/main/certification_detail.vue'),
     },
     {
-        //자격증 등록화면
+        //자격증 등록화면(o)
         path: '/dashboard/caresitter/:caresitterId/certifications/new',
         name: 'certification',
         component: () => import('@/pages/Certification.vue'),
@@ -88,26 +88,26 @@ const routes = [
         component: () => import('@/pages/Mypage.vue'),
     },
     {
-        // 구직글 조회
+        // 케어시터 찾기(o)
         path: '/caresitters',
         name: 'caresitters',
         component: () => import('@/pages/Caresitters.vue'),
     },
     {
-        // 케어시터 프로필 등록
-        path: '/dashboard/caresitter',
-        name: 'careprofilecreate',
-        component: () => import('@/pages/Careprofilecreate.vue'),
-    },
-    {
-        // 구직글 케어시터 프로필 상세조회
+        // 케어시터 프로필 상세조회(o)
         path: '/caresitters/:caresitterId',
         name: 'addprofile2',
         props: true,
         component: () => import('@/components/main/addprofile2.vue'),
     },
     {
-        // 계약서
+        // 케어시터 프로필 등록(o)
+        path: '/dashboard/caresitter',
+        name: 'careprofilecreate',
+        component: () => import('@/pages/Careprofilecreate.vue'),
+    },
+    {
+        // 멤버->케어시터 프로필 신청 후 케어대상인 선택 화면 
         path: '/contract/:caresitterId',
         name: 'contract',
         component: () => import('@/pages/Contract.vue'),
@@ -125,20 +125,20 @@ const routes = [
         component: () => import('@/pages/Profile_update.vue'),
     },
     {
-        //마이페이지 자격증 조회
-        path: '/mypage_certi/:caresitterId',
+        //마이페이지 자격증 조회(o)
+        path: '/dashboard/caresitter/:caresitterId/certifications',
         name: 'mypage_certi',
         component: () => import('@/components/main/mypage_certi'),
     },
     {
-        // 마이페이지 계약서 조회
-        path: '/caresitter_contract/:caresitterId',
+        // 마이페이지 계약서 조회(1)
+        path: '/dashboard/caresitter/contracts',
         name: 'caresitter_contract',
         component: () => import('@/pages/Caresitter_contract'),
     },
     {
-        //마이페이지 계약서 상세조회
-        path: '/contract_detail/:contractId',
+        //마이페이지 계약서 상세조회(1)
+        path: '/dashboard/caresitter/contracts/:contractId',
         name: 'contract_detail',
         component: () => import('@/components/main/contract_detail'),
     },
@@ -147,6 +147,42 @@ const routes = [
         path: '/lastcontract',
         name: 'lastcontract',
         component: () => import('@/pages/Lastcontract'),
+    },
+    {
+        //케어 노트(케어시터) (o)
+        path: '/carenote',
+        name: 'carenote',
+        component: () => import('@/pages/Carenote'),
+    },
+    {
+        //케어노트 출근 시작 시간/출근 시간 (o)
+        path: '/carenote/:contentId',
+        name: 'carenotestart',
+        component: () => import('@/components/main/carenotestart'),
+    },
+    {
+        //케어노트 활동 스케줄(케어시터) (o)
+        path: '/carenote/caretarget/:contentId/schedules',
+        name: 'careschedule',
+        component: () => import('@/components/main/careschedule'),
+    },
+    {
+        //케어 노트(멤버)
+        path: '/membernote',
+        name: 'membernote',
+        component: () => import('@/pages/MemberCarenote'),
+    },
+    {
+        //케어노트 활동 스케줄(멤버)
+        path:'/memberschedule/:contentId',
+        name:'memberschedule',
+        component:() => import('@/components/main/memberschedule')
+    },
+    {
+        //완료된 계약서(케어시터) (o)
+        path:'/dashboard/contracts/completion',
+        name:'complete_contract',
+        component:()=> import('@/pages/Complete_contract')
     },
     {
         path: '/admin_report',
