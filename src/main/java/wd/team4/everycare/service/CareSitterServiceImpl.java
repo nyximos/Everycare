@@ -87,7 +87,7 @@ public class CareSitterServiceImpl implements CareSitterService {
     }
 
     @Override
-    public String update(Long id, CareSitterFormDTO careSitterFormDTO) {
+    public String update(Long id, CareSitterFormDTO careSitterFormDTO) throws IOException {
         Optional<CareSitter> careSitter = careSitterRepository.findById(id);
         CareSitter careSitterEntity = careSitter.orElse(null);
         if (careSitterEntity == null) {
@@ -95,6 +95,15 @@ public class CareSitterServiceImpl implements CareSitterService {
             return "실패했씀다~";
         }
         careSitterEntity.updateInfo(careSitterFormDTO);
+
+        if(careSitterFormDTO.getAttachFiles()!=null) {
+            List<UploadFile> attachFiles = fileStoreService.storeFiles(careSitterFormDTO.getAttachFiles());
+
+            for (UploadFile file : attachFiles) {
+                CareSitterImage careSitterImage = careSitterDtoToImage(careSitter, file);
+                careSitterImageRepository.save(careSitterImage);
+            }
+        }
         return "수정했슴다~";
     }
 
