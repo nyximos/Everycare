@@ -112,7 +112,7 @@ data(){
 },
 methods:{
   search(){
-     this.$http.get('/api/store/products/name',this.searchText,{
+     this.$http.get('/api/store/products/name',{params: {name: this.searchText}},{
         withCredentials:true
       })
 		.then((res)=>{

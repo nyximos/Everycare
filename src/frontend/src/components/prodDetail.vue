@@ -27,7 +27,7 @@
         </v-row>
         <v-row>
             <v-col>
-                 <v-img v-for="item in this.imagesDTOs" :key="item.id" id="divProfile" :src="'https://localhost:8086/api/images/'+item.storeFileName" alt="사진" width="344" height="200"/>
+                 <v-img v-for="item in this.imagesDTOs" :key="item.id" id="divProfile" :src="'https://localhost:8086/api/images/'+item.storeFileName" alt="사진" width="700" height="500"/>
             </v-col>
         </v-row>
         <v-row>
@@ -36,6 +36,7 @@
                 v-model="quantity"
                 label="수량"
                 outlined
+                type="number"
           ></v-text-field>
             </v-col>
             <v-col>
