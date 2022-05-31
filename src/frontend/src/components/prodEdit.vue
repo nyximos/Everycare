@@ -1,10 +1,9 @@
 <template>
 <v-container>
   <v-card>
-  <v-card-title>상품수정</v-card-title>
-  <v-card-text>
     <div class="text-center"><v-img id="divProfile" :src="'https://localhost:8086/api/images/'+this.thumbnail" 
       alt="사진" width="300" height="300"/></div>
+  <v-card-text>
       <v-row>
         <v-col cols="8">
         <v-text-field
@@ -152,10 +151,20 @@ methods:{
         formData.append('inventoryQuantity', this.inventoryQuantity);
         formData.append('comment', this.comment);
         formData.append('productCategory', this.productCategory);
-        formData.append('attachFile', this.attachFile);
-        for (let i = 0; i < this.attachFiles.length; i++) {
-                formData.append('attachFiles', this.attachFiles[i]);
-                }
+        if (this.attachFile===null){
+          formData.append('attachFile', this.thumbnail);        
+        } else {
+          formData.append('attachFile', this.attachFile)
+        }
+        if (this.attachFiles===null) {
+          for (let i = 0; i < this.item.length; i++) {
+            formData.append('attachFiles', this.item.detailImg[i]);
+          }
+        }else{
+          for (let i = 0; i < this.attachFiles.length; i++) {
+            formData.append('attachFiles', this.attachFiles[i]);
+          }
+        }
         formData.append('isSale', this.isSale);
         this.$http
         .patch(`/api/dashboard/store/products/${this.id}`,formData, {
