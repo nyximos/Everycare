@@ -19,6 +19,7 @@
                 <input class="form-control" v-model="zipcode" type="text" placeholder="우편번호" aria-label="input example" />
                 <input class="form-control" v-model="address" type="text" placeholder="주소" aria-label="input example" />
                 <input class="form-control" v-model="detailedAddress" type="text" placeholder="상세주소" aria-label="default input example" />
+                <button @click="showApi">주소 찾기</button>
                 <input class="form-control" v-model="bank" type="text" name="bank" placeholder="은행" />
                 <input class="form-control" v-model="accountNumber" type="text" name="accountNumber" placeholder="계좌번호" />
                 <br />
