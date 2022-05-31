@@ -73,7 +73,7 @@
 
         <br />
         <div id="btn-box">
-            <v-btn id="ok-btn" color="#69f0ae" dark > 수정 </v-btn>
+            <v-btn id="ok-btn" color="#69f0ae" dark @click="update" > 수정 </v-btn>
             <v-btn id="cen-btn" color="grey" dark > 뒤로 </v-btn>
         </div>
     </div>
@@ -81,6 +81,28 @@
 
 <script>
 export default {
+    methods:{
+        update(){
+          var infoformData = new FormData();
+            infoformData.append('birth', this.birth2);
+            infoformData.append('phone', this.phone2);
+            infoformData.append('email', this.email2);
+            infoformData.append('zipcode', this.zipcode2);
+            infoformData.append('address', this.address2);
+            infoformData.append('detailedAddress', this.detailedAddress2);
+            this.$http
+                .patch('/api/dashboard/account', infoformData, {
+                    withCredentials: true
+                })
+                .then(res => {
+                    console.log(res);
+                    this.$router.go();
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+    }
+    },
     data(){
         return{
            memberData:[],
