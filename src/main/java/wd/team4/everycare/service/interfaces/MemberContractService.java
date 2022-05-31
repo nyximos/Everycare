@@ -17,5 +17,5 @@ public interface MemberContractService {
 
     ResponseEntity<MyResponse> getCompleteContract(PrincipalDetails principalDetails);
 
-    ResponseEntity<MyResponse> getCareNotes(PrincipalDetails principalDetails, Long id);
+    ResponseEntity<MyResponse> getContracts(PrincipalDetails principalDetails, Long id);
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.dto.careNote.CareNoteImageDTO;
 import wd.team4.everycare.dto.response.MyResponse;
+import wd.team4.everycare.service.CareNoteServiceImpl;
 import wd.team4.everycare.service.CareSitterCareNoteServiceImpl;
 
 import java.io.IOException;
@@ -16,65 +17,66 @@ import java.io.IOException;
 @RequestMapping("/api")
 public class CareSitterCareNoteApiController {
 
-    private final CareSitterCareNoteServiceImpl careNoteService;
+    private final CareSitterCareNoteServiceImpl careSitterCareNoteService;
+    private final CareNoteServiceImpl careNoteService;
 
     @GetMapping("/carenotes")
     public ResponseEntity<MyResponse> getAll(@AuthenticationPrincipal PrincipalDetails principalDetails){
-        ResponseEntity<MyResponse> responseEntity = careNoteService.getAll(principalDetails);
+        ResponseEntity<MyResponse> responseEntity = careSitterCareNoteService.getAll(principalDetails);
         return responseEntity;
     }
 
     @GetMapping("/carenotes/{id}")
     public ResponseEntity<MyResponse> get(@PathVariable("id") Long id) {
-        ResponseEntity<MyResponse> responseEntity = careNoteService.get(id);
+        ResponseEntity<MyResponse> responseEntity = careSitterCareNoteService.get(id);
         return responseEntity;
     }
 
     @PatchMapping("/carenotes/{id}/photo")
     public ResponseEntity<MyResponse> start(@PathVariable("id") Long id, @ModelAttribute CareNoteImageDTO imageDTO) throws IOException {
-        ResponseEntity<MyResponse> responseEntity = careNoteService.start(id, imageDTO);
+        ResponseEntity<MyResponse> responseEntity = careSitterCareNoteService.start(id, imageDTO);
         return responseEntity;
     }
 
     @GetMapping("/carenotes/{id}/schedules")
     public ResponseEntity<MyResponse> getSchedule(@PathVariable("id") Long id) {
-        ResponseEntity<MyResponse> responseEntity = careNoteService.getSchedule(id);
+        ResponseEntity<MyResponse> responseEntity = careSitterCareNoteService.getSchedule(id);
         return responseEntity;
     }
 
     @PatchMapping("/carenote/{carenoteId}/schedules/{activityId}/content")
     public ResponseEntity<MyResponse> saveContent(@PathVariable("activityId") Long id, @RequestParam("content") String content) {
-        ResponseEntity<MyResponse> responseEntity = careNoteService.saveContent(id, content);
+        ResponseEntity<MyResponse> responseEntity = careSitterCareNoteService.saveContent(id, content);
         return responseEntity;
     }
 
     @PatchMapping("/carenote/{carenoteId}/schedules/{activityId}/photo")
     public ResponseEntity<MyResponse> savePhoto(@PathVariable("activityId") Long id, @ModelAttribute CareNoteImageDTO imageDTO) throws IOException {
-        ResponseEntity<MyResponse> responseEntity = careNoteService.savePhoto(id, imageDTO);
+        ResponseEntity<MyResponse> responseEntity = careSitterCareNoteService.savePhoto(id, imageDTO);
         return responseEntity;
     }
 
     @DeleteMapping("/carenote/{carenoteId}/schedules/{activityId}/content")
     public ResponseEntity<MyResponse> removeContent(@PathVariable("activityId") Long id) {
-        ResponseEntity<MyResponse> responseEntity = careNoteService.removeContent(id);
+        ResponseEntity<MyResponse> responseEntity = careSitterCareNoteService.removeContent(id);
         return responseEntity;
     }
 
     @DeleteMapping("/carenote/{carenoteId}/schedules/{activityId}/photo")
     public ResponseEntity<MyResponse> removePhoto(@PathVariable("activityId") Long id) {
-        ResponseEntity<MyResponse> responseEntity = careNoteService.removePhoto(id);
+        ResponseEntity<MyResponse> responseEntity = careSitterCareNoteService.removePhoto(id);
         return responseEntity;
     }
 
     @PatchMapping("/carenotes/{id}/schedules/complition")
     public ResponseEntity<MyResponse> complete(@PathVariable("activityId") Long id) {
-        ResponseEntity<MyResponse> responseEntity = careNoteService.complete(id);
+        ResponseEntity<MyResponse> responseEntity = careSitterCareNoteService.complete(id);
         return responseEntity;
     }
 
     @GetMapping("/carenote/contracts/completion")
     public ResponseEntity<MyResponse> getContracts(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        ResponseEntity<MyResponse> responseEntity = careNoteService.getContracts(principalDetails);
+        ResponseEntity<MyResponse> responseEntity = careSitterCareNoteService.getContracts(principalDetails);
         return responseEntity;
     }
 

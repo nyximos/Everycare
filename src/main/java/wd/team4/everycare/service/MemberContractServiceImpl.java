@@ -222,7 +222,7 @@ public class MemberContractServiceImpl implements MemberContractService {
     }
 
     @Override
-    public ResponseEntity<MyResponse> getCareNotes(PrincipalDetails principalDetails, Long id) {
+    public ResponseEntity<MyResponse> getContracts(PrincipalDetails principalDetails, Long id) {
 
         Member user = principalDetails.getUser();
         Optional<CareTarget> careTarget = careTargetRepository.findById(id);

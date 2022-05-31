@@ -7,15 +7,10 @@ import org.springframework.web.bind.annotation.*;
 
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.dto.PayResponse;
-import wd.team4.everycare.dto.contract.SignContractDTO;
 import wd.team4.everycare.dto.response.MyResponse;
-import wd.team4.everycare.service.JobOfferServiceImpl;
-import wd.team4.everycare.service.MemberCareNoteServiceImpl;
-import wd.team4.everycare.service.MemberContractServiceImpl;
-import wd.team4.everycare.service.PaymentServiceImpl;
+import wd.team4.everycare.service.*;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api")
@@ -25,7 +20,7 @@ public class MemberContractApiController {
     private final JobOfferServiceImpl jobOfferService;
     private final MemberContractServiceImpl memberContractService;
     private final PaymentServiceImpl paymentService;
-    private final MemberCareNoteServiceImpl memberCareNoteService;
+    private final CareNoteServiceImpl careNoteService;
 
     @GetMapping("/dashboard/recruitions/{jobOfferId}/caresitters")
     public ResponseEntity<MyResponse> findOffer(@PathVariable("jobOfferId") Long jobOfferId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
@@ -60,8 +55,20 @@ public class MemberContractApiController {
     }
 
     @GetMapping("/member/caretargets/{id}/contracts/complition")
-    public ResponseEntity<MyResponse> getCareNote(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable("id") Long id) {
-        ResponseEntity<MyResponse> responseEntity = memberContractService.getCareNotes(principalDetails,id);
+    public ResponseEntity<MyResponse> getContracts(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable("id") Long id) {
+        ResponseEntity<MyResponse> responseEntity = memberContractService.getContracts(principalDetails,id);
+        return responseEntity;
+    }
+
+    @GetMapping("/member/caretargets/{caretargetId}/contracts/complition/{contractId}/carenotes")
+    public ResponseEntity<MyResponse> getCareNotes(@PathVariable("contractId") Long id) {
+        ResponseEntity<MyResponse> responseEntity = careNoteService.getCareNotes(id);
+        return responseEntity;
+    }
+
+    @GetMapping("/member/caretargets/{caretargetId}/contracts/complition/{contractId}/carenotes/{careNoteId}")
+    public ResponseEntity<MyResponse> getCareNote(@PathVariable("careNoteId") Long id) {
+        ResponseEntity<MyResponse> responseEntity = careNoteService.getCareNote(id);
         return responseEntity;
     }
 
