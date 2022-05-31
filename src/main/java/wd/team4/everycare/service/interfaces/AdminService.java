@@ -6,7 +6,7 @@ import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.board.BoardDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 
-public interface AdminService {
+public interface    AdminService {
 
     ResponseEntity<MyResponse> approveAdmin(String id);
 

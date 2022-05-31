@@ -3,9 +3,8 @@ package wd.team4.everycare.dto.jobOffer_jobSearch;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import wd.team4.everycare.domain.CareSitterImage;
-import wd.team4.everycare.domain.Certification;
 import wd.team4.everycare.dto.CertificationViewDTO;
+import wd.team4.everycare.dto.badge.BadgeNameDTO;
 import wd.team4.everycare.dto.careSitter.CareSitterImageDTO;
 import wd.team4.everycare.dto.member.JobOfferMemberDTO;
 
@@ -29,5 +28,6 @@ public class DetailJobSearchDTO {
     private JobOfferMemberDTO memberDTO;
     private List<CareSitterImageDTO> attachFiles;
     private List<CertificationViewDTO> certification;
+    private List<BadgeNameDTO> badge;
 
 }

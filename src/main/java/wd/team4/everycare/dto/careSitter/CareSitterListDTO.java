@@ -3,6 +3,8 @@ package wd.team4.everycare.dto.careSitter;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import wd.team4.everycare.domain.Gender;
+import wd.team4.everycare.dto.CertificationNameDTO;
+import wd.team4.everycare.dto.badge.BadgeNameDTO;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -30,4 +32,7 @@ public class CareSitterListDTO {
     private Gender gender;
 
     private List<String> storeFileNames;
+
+    private List<BadgeNameDTO> badge;
+    private List<CertificationNameDTO> certification;
 }

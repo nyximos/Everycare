@@ -22,7 +22,7 @@ public interface BoardService {
     ResponseEntity<MyResponse> getFAQ();
     ResponseEntity<MyResponse> getDetailFAQ(Long boardId);
 
-    /* TODO 후기 작성, 수정, 삭제, 조회  */
+
     //후기
     ResponseEntity<MyResponse> getComment(Long productId);
     ResponseEntity<MyResponse> getDetailComment(Long boardId);

@@ -17,6 +17,7 @@ import wd.team4.everycare.repository.CareTargetRepository;
 import wd.team4.everycare.repository.CareTargetScheduleRepository;
 import wd.team4.everycare.service.JobOfferServiceImpl;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -113,5 +114,23 @@ public class JobOfferApiController {
         HttpHeaders headers = new HttpHeaders();
 
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/recruitions/payment")
+    public ResponseEntity<MyResponse> searchPay(@RequestParam int min, @RequestParam int max){
+        ResponseEntity<MyResponse> searchPay = jobOfferService.searchPay(min, max);
+        return searchPay;
+    }
+
+    @GetMapping("/recruitions/region")
+    public ResponseEntity<MyResponse> searchRegion(@RequestParam String region){
+        ResponseEntity<MyResponse> searchRegion = jobOfferService.searchRegion(region);
+        return searchRegion;
+    }
+
+    @GetMapping("/recruitions/date")
+    public ResponseEntity<MyResponse> searchDate(@RequestParam LocalDate date){
+        ResponseEntity<MyResponse> searchDate = jobOfferService.searchDate(date);
+        return searchDate;
     }
 }
