@@ -3,11 +3,13 @@ export default {
     state: {
         id: '',
         name: '',
+        categoryId:''
     },
     mutations: {
         caretarget(state, caretarget) {
             state.id = caretarget.id;
             state.name = caretarget.name;
+            state.categoryId = caretarget.categoryId;
         },
         // clearUsername(state) {
         //     state.id = '';

@@ -2,10 +2,8 @@
     <div class="content">
         <div class="head">
             <div class="title">
-            <!-- <h1>{{schedule.date}}</h1> -->
                 <h2> 스케줄</h2>
                 <div>
-                    <!-- {{schedule.date}} -->
                     <span class="tit"><h4>케어대상인: OOO</h4></span>
                     <v-btn class="ma-2" outlined color="indigo">활동 종료</v-btn>
                 </div>

@@ -2,19 +2,21 @@
   <div class="content">
     <h1 class="title">완료된 케어노트</h1>
     <v-card class="mx-auto" max-width="344" v-for="(n,index) in note" :key="index">
-    <v-img src="@/assets/writing.png" height="200px" alt="사진없음"></v-img>
+    <div v-if="storeName=''" class="img_div">
+        <v-img src="@/assets/writing.png" width="75%" alt="사진없음"></v-img>
+    </div>
+    <div v-else class="img_div">
+        <img :src="'https://localhost:8086/api/images/' + n.storeName" width="75%"  class="img">
+    </div>
     <v-card-title>
       <h2 class="name">{{n.careTargetName}} 님</h2>
     </v-card-title>
     <v-card-subtitle style="margin-top:1px;">
-        날짜
-    </v-card-subtitle>
-    <v-card-subtitle style="margin-top:1px;">
-      시작시간:{{n.startTime}} ~ 종료시간:{{n.endTime}}
+      <h6 class="start">시작시간:{{n.startTime}} ~ 종료시간:{{n.endTime}}</h6>
     </v-card-subtitle>
     <v-card-actions>
         <div class="button" >
-            <v-btn class="ma-2" outlined color="indigo" @click="start(n)">스케줄 관리</v-btn>
+            <v-btn class="ma-2" outlined color="indigo" @click="start(n)">스케줄 보기</v-btn>
         </div>
     </v-card-actions>
   </v-card>
@@ -30,7 +32,7 @@ export default {
     },
     mounted(){
         this.$http
-        .get('/api/members/carenotes',{
+        .get('/api/member/carenotes',{
             withCredentail:true
         })
         .then((res)=>{
@@ -44,7 +46,7 @@ export default {
     },
     methods:{
         start(n){
-            this.$router.push({name:'membernotestart' , params:{contentId:n.id}  })
+            this.$router.push({name:'memberschedule' , params:{contentId:n.id}  })
         }
     }
 }
@@ -66,5 +68,14 @@ export default {
     }
     .button{
         margin: 0 auto;
+    }
+    .img{
+        margin: 0 auto;
+    }
+    .img_div{
+        text-align: center;
+    }
+    .start{
+        text-align: center;
     }
 </style>

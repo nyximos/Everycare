@@ -1,7 +1,7 @@
 <template>
     <div class="content">
         <h2 class="title">출근 사진 등록</h2>
-        <h5 class="title1">케어 대상인:</h5>
+        <h5 class="title1">케어 대상인:{{start.careTargetName}}</h5>
             <br>
             <v-card class="mx-auto" max-width="344" >
                 <label for="uppic">
