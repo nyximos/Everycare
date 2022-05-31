@@ -11,11 +11,11 @@ public interface MemberContractService {
 
     ResponseEntity<MyResponse> saveContract(PrincipalDetails principalDetails, Long jobOfferId, Long careSitterId);
 
-
     ResponseEntity<MyResponse> signContract(PayResponse payResponse, Long contractId);
 
     ResponseEntity<MyResponse> getRecruitions(PrincipalDetails principalDetails);
 
     ResponseEntity<MyResponse> getCompleteContract(PrincipalDetails principalDetails);
 
+    ResponseEntity<MyResponse> getCareNotes(PrincipalDetails principalDetails, Long id);
 }

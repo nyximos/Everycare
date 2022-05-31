@@ -10,6 +10,7 @@ import wd.team4.everycare.dto.PayResponse;
 import wd.team4.everycare.dto.contract.SignContractDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.service.JobOfferServiceImpl;
+import wd.team4.everycare.service.MemberCareNoteServiceImpl;
 import wd.team4.everycare.service.MemberContractServiceImpl;
 import wd.team4.everycare.service.PaymentServiceImpl;
 
@@ -24,7 +25,7 @@ public class MemberContractApiController {
     private final JobOfferServiceImpl jobOfferService;
     private final MemberContractServiceImpl memberContractService;
     private final PaymentServiceImpl paymentService;
-
+    private final MemberCareNoteServiceImpl memberCareNoteService;
 
     @GetMapping("/dashboard/recruitions/{jobOfferId}/caresitters")
     public ResponseEntity<MyResponse> findOffer(@PathVariable("jobOfferId") Long jobOfferId, @AuthenticationPrincipal PrincipalDetails principalDetails) {
@@ -56,6 +57,12 @@ public class MemberContractApiController {
         PayResponse payment = paymentService.payment(paymentKey, orderId, amount);
         ResponseEntity<MyResponse> signContract = memberContractService.signContract(payment, contractId);
         return signContract;
+    }
+
+    @GetMapping("/member/caretargets/{id}/contracts/complition")
+    public ResponseEntity<MyResponse> getCareNote(@AuthenticationPrincipal PrincipalDetails principalDetails, @PathVariable("id") Long id) {
+        ResponseEntity<MyResponse> responseEntity = memberContractService.getCareNotes(principalDetails,id);
+        return responseEntity;
     }
 
 }
