@@ -81,6 +81,7 @@ public class MemberScheduleServiceImpl implements MemberScheduleService {
                 .endDatetime(memberScheduleEntity.getEndDatetime())
                 .alarmTime(memberScheduleEntity.getAlarmTime())
                 .addressName(memberScheduleEntity.getAddressName())
+                .comment(memberScheduleEntity.getComment())
                 .build();
 
         MyResponse<MemberScheduleDetailDTO> body = MyResponse.<MemberScheduleDetailDTO>builder()
@@ -102,6 +103,8 @@ public class MemberScheduleServiceImpl implements MemberScheduleService {
                 .name(memberScheduleFormDTO.getName())
                 .startDatetime(memberScheduleFormDTO.getStartDatetime())
                 .endDatetime(memberScheduleFormDTO.getEndDatetime())
+                .addressName(memberScheduleFormDTO.getAddressName())
+                .comment(memberScheduleFormDTO.getComment())
                 .member(user)
                 .build();
 

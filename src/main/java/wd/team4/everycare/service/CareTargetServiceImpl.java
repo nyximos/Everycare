@@ -229,7 +229,7 @@ public class CareTargetServiceImpl implements CareTargetService {
     }
 
     @Override
-    public String update(Long id, CareTargetFormDTO careTargetFormDTO) {
+    public String update(Long id, CareTargetFormDTO careTargetFormDTO) throws IOException {
         Optional<CareTarget> careTarget = careTargetRepository.findById(id);
         CareTarget careTargetEntity = careTarget.orElse(null);
         System.out.println(careTargetEntity.getName());
@@ -238,6 +238,15 @@ public class CareTargetServiceImpl implements CareTargetService {
             return "실패";
         }
         careTargetEntity.updateInfo(careTargetFormDTO);
+
+        if(careTargetFormDTO.getAttachFiles()!=null) {
+            List<UploadFile> attachFiles = fileStoreService.storeFiles((careTargetFormDTO.getAttachFiles()));
+
+            for (UploadFile file : attachFiles) {
+                CareTargetImage careTargetImage = careTargetDtoToImage(careTargetEntity, file);
+                careTargetImageRepository.save(careTargetImage);
+            }
+        }
         return "수정완료";
     }
 

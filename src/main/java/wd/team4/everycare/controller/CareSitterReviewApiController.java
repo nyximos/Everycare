@@ -41,7 +41,7 @@ public class CareSitterReviewApiController {
     }
 
     // 케어시터 활동 후기 등록
-    @PostMapping("/api/carenote/{id}/reviews")
+    @PostMapping("/carenote/{id}/reviews")
     public ResponseEntity<MyResponse> save(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                            @PathVariable("id") Long id,
                                            @ModelAttribute CareSitterReviewFormDTO careSitterReviewFormDTO){

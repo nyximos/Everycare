@@ -75,7 +75,7 @@ public class CareSitterApiController {
     public ResponseEntity<MyResponse> patchCareSitter(
             @PathVariable("id") Long id,
             @ModelAttribute CareSitterFormDTO careSitterFormDTO
-    ){
+    ) throws IOException {
         careSitterService.update(id, careSitterFormDTO);
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)

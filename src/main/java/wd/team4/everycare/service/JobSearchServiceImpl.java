@@ -8,15 +8,13 @@ import wd.team4.everycare.domain.*;
 import wd.team4.everycare.dto.CertificationNameDTO;
 import wd.team4.everycare.dto.CertificationViewDTO;
 import wd.team4.everycare.dto.badge.BadgeNameDTO;
+import wd.team4.everycare.dto.careSitter.CareSitterReviewViewDTO;
 import wd.team4.everycare.dto.careSitter.CareSitterImageDTO;
 import wd.team4.everycare.dto.careSitter.CareSitterListDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobSearchDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
-import wd.team4.everycare.repository.CareSitterBadgeRepository;
-import wd.team4.everycare.repository.CareSitterImageRepository;
-import wd.team4.everycare.repository.CareSitterRepository;
-import wd.team4.everycare.repository.CertificationRepository;
+import wd.team4.everycare.repository.*;
 import wd.team4.everycare.service.interfaces.JobSearchService;
 
 import javax.transaction.Transactional;
@@ -32,6 +30,7 @@ public class JobSearchServiceImpl implements JobSearchService {
     private final CertificationRepository certificationRepository;
     private final CareSitterImageRepository careSitterImageRepository;
     private final CareSitterBadgeRepository careSitterBadgeRepository;
+    private final CareSitterReviewRepository careSitterReviewRepository;
 
     @Override
     public ResponseEntity<MyResponse> findAllJobSearch() {
@@ -172,6 +171,23 @@ public class JobSearchServiceImpl implements JobSearchService {
             careSitterBadgeDTOs.add(badgeNameDTO);
         }
 
+        List<CareSitterReviewViewDTO> careSitterReviewDTOs = new ArrayList<>();
+        List<CareSitterReview> careSitterReviewList = careSitterReviewRepository.findByCareSitter(careSitter);
+        for (CareSitterReview careSitterReview: careSitterReviewList) {
+            Long rating = careSitterReview.getRating();
+            String comment = careSitterReview.getComment();
+            ActivityClassification activityClassification = careSitterReview.getActivityClassification();
+            Member member = careSitterReview.getMember();
+
+            CareSitterReviewViewDTO reviewViewDTO = CareSitterReviewViewDTO.builder()
+                    .rating(rating)
+                    .comment(comment)
+                    .activityClassification(activityClassification.toDTO())
+                    .member(member.toMemberNameDTO())
+                    .build();
+
+            careSitterReviewDTOs.add(reviewViewDTO);
+        }
 
         DetailJobSearchDTO dto = DetailJobSearchDTO.builder()
                 .id(jobSearchDTO.getId())
@@ -188,6 +204,7 @@ public class JobSearchServiceImpl implements JobSearchService {
                 .certification(certificationViewDTOs)
                 .attachFiles(careSitterImageDTOs)
                 .badge(careSitterBadgeDTOs)
+                .careSitterReviews(careSitterReviewDTOs)
                 .build();
 
         MyResponse body = MyResponse.builder()

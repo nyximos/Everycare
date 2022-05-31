@@ -173,11 +173,14 @@ public class Member {
         if(StringUtils.isNotBlank(memberAccountDTO.getEmail())) {
             this.email = memberAccountDTO.getEmail();
         }
-        if(StringUtils.isNotBlank(memberAccountDTO.getAccountNumber())) {
+        if(StringUtils.isNotBlank(memberAccountDTO.getZipcode())) {
             this.zipcode = memberAccountDTO.getZipcode();
         }
         if(StringUtils.isNotBlank(memberAccountDTO.getAddress())) {
             this.address = memberAccountDTO.getAddress();
+        }
+        if(StringUtils.isNotBlank(memberAccountDTO.getDetailedAddress())) {
+            this.detailedAddress = memberAccountDTO.getDetailedAddress();
         }
         if(StringUtils.isNotBlank(memberAccountDTO.getBank())) {
             this.bank = memberAccountDTO.getBank();
