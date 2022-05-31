@@ -8,6 +8,7 @@ import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.dto.careSitterReview.CareSitterReviewFormDTO;
 import wd.team4.everycare.dto.careSitterReview.CareSitterReviewUpdateFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
+import wd.team4.everycare.service.BadgeServiceImpl;
 import wd.team4.everycare.service.CareSitterReviewServiceImpl;
 
 @RestController
@@ -16,6 +17,7 @@ import wd.team4.everycare.service.CareSitterReviewServiceImpl;
 public class CareSitterReviewApiController {
 
     private final CareSitterReviewServiceImpl careSitterReviewService;
+    private final BadgeServiceImpl badgeService;
 
     // 카테고리 조회
     @GetMapping("/carenote/{id}/categories")
@@ -44,6 +46,7 @@ public class CareSitterReviewApiController {
                                            @PathVariable("id") Long id,
                                            @ModelAttribute CareSitterReviewFormDTO careSitterReviewFormDTO){
         ResponseEntity<MyResponse> responseEntity = careSitterReviewService.save(principalDetails, id, careSitterReviewFormDTO);
+        badgeService.giveBadge(principalDetails);
         return responseEntity;
     }
 

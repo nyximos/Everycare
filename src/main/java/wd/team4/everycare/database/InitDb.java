@@ -23,6 +23,8 @@ public class InitDb {
     private final InitOrderService orderService;
     private final InitHealthClassificationService healthClassificationService;
     private final InitCareNoteService careNoteService;
+    private final InitCareSitterReviewService careSitterReviewService;
+    private final InitBadgeService badgeService;
 
     @PostConstruct
     public void init() {
@@ -39,6 +41,8 @@ public class InitDb {
         contractService.dbInit();
         orderService.dbInit();
         healthClassificationService.dbInIt();
+        careSitterReviewService.dbInit();
+        badgeService.dbInit();
 //        careNoteService.dbInit();
     }
 }
