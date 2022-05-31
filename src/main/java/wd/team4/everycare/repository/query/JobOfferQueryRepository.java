@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import wd.team4.everycare.domain.JobOffer;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static wd.team4.everycare.domain.QJobOffer.jobOffer;
@@ -24,11 +25,18 @@ public class JobOfferQueryRepository {
     }
 
     public List<JobOffer> findAllByRegion(String region){
-        /*TODO 이거 주소 저장할때 어떤식으로 저장되는지 물어보고 값 두개 이상필요하면 수정*/
         return queryFactory
                 .select(jobOffer)
                 .from(jobOffer)
                 .where(jobOffer.careTarget.address.contains(region))
+                .fetch();
+    }
+
+    public List<JobOffer> findAllByDate(LocalDate date){
+        return queryFactory
+                .select(jobOffer)
+                .from(jobOffer)
+                .where(jobOffer.startDate.after(date).and(jobOffer.endDate.before(date)))
                 .fetch();
     }
 

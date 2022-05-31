@@ -8,6 +8,7 @@ import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface JobOfferService {
@@ -24,4 +25,5 @@ public interface JobOfferService {
     ResponseEntity<MyResponse> findDetailOffer(Long contractId);
     ResponseEntity<MyResponse> searchPay(int min, int max);
     ResponseEntity<MyResponse> searchRegion(String region);
+    ResponseEntity<MyResponse> searchDate(LocalDate date);
 }
