@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CareSitterCompletionCareNoteDetailDTO {
+public class CompletionCareNoteDetailDTO {
 
     private Long id;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -25,5 +25,5 @@ public class CareSitterCompletionCareNoteDetailDTO {
     private String storeFileName;
     private String careTargetName;
     private List<CareNoteActivityInformationDTO> careNoteActivityInformationDTOs;
-    private List<CareSitterCareNoteReviewDTO> careSitterCareNoteReviewDTOs;
+    private List<CareNoteReviewDTO> careSitterCareNoteReviewDTOs;
 }
