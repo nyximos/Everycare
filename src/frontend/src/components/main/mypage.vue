@@ -10,7 +10,7 @@
       <div v-else>
           <router-link :to="{name:'myinformation' ,params:{caresitterId:this.id}}"><p>내 정보</p></router-link>
       </div>
-    <router-link :to="{name:'memberSchedule', params:{caresitterId:this.id}}"><p>스케줄</p></router-link>
+    <router-link :to="{name:'memberSchedule', params:{caresitterId:this.id}}"><p>회원 스케줄</p></router-link>
       <router-link :to="{name:'caresitter_contract', params:{caresitterId:this.id}}"><p>계약서조회</p></router-link><br>
       <router-link :to="{name:'mypage_joblist'}"><p>구인글 목록 조회</p></router-link><br>
 

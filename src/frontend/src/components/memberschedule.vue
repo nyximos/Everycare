@@ -170,7 +170,7 @@ export default {
             this.$router.push({name: 'memberscheduledetail', params:{memberscheduleId: postItem.id }});
         },
         update(postItem){
-            const scheData ={
+            const scheData = {
                 id : postItem.id
             }
             this.dialogUd = true;
