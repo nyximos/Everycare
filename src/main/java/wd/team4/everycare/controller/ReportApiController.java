@@ -36,15 +36,27 @@ public class ReportApiController {
         return responseEntity;
     }
 
-    @GetMapping("/admin/reports/complitions")
-    public ResponseEntity<MyResponse> getAllByComplition() {
-        ResponseEntity<MyResponse> responseEntity = reportService.getCompletion();
+    @GetMapping("/admin/reports/reviews")
+    public ResponseEntity<MyResponse> getAllReviews() {
+        ResponseEntity<MyResponse> responseEntity = reportService.getAllReviews();
         return responseEntity;
     }
 
-    @GetMapping("/admin/reports/hold")
-    public ResponseEntity<MyResponse> getAllByStatusHold() {
-        ResponseEntity<MyResponse> responseEntity = reportService.getHold();
+    @GetMapping("/admin/reports/reviews/status")
+    public ResponseEntity<MyResponse> getAllComletionReviews(@RequestParam("status") int status) {
+        ResponseEntity<MyResponse> responseEntity = reportService.getAllReviewsByStatus(status);
+        return responseEntity;
+    }
+
+    @GetMapping("/admin/reports/contracts")
+    public ResponseEntity<MyResponse> getAllContracts() {
+        ResponseEntity<MyResponse> responseEntity = reportService.getAllContracts();
+        return responseEntity;
+    }
+
+    @GetMapping("/admin/reports/contracts/status")
+    public ResponseEntity<MyResponse> getAllCompletionContracts(@RequestParam("status") int status) {
+        ResponseEntity<MyResponse> responseEntity = reportService.getAllContractsByStatus(status);
         return responseEntity;
     }
 
