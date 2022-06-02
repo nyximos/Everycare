@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -205,6 +204,7 @@ public class BoardServiceImpl implements BoardService {
                 .category(BoardCategory.후기)
                 .createdAt(LocalDateTime.now())
                 .count(0)
+                .rating(commentDTO.getRating())
                 .fileName(uploadFileName)
                 .filePath(storeFileName)
                 .member(member)

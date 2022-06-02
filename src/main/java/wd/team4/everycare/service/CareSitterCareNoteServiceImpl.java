@@ -35,8 +35,6 @@ public class CareSitterCareNoteServiceImpl implements CareSitterCareNoteService 
     private final CareTargetScheduleRepository careTargetScheduleRepository;
     private final ActivityInformationRepository activityInformationRepository;
     private final CareTargetImageRepository careTargetImageRepository;
-    private final CareNoteQueryRepository careNoteQueryRepository;
-    private final CareSitterReviewRepository careSitterReviewRepository;
 
     @Override
     public ResponseEntity<MyResponse> getAll(PrincipalDetails principalDetails) {

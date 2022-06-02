@@ -78,4 +78,10 @@ public class ProductApiController {
         ResponseEntity<MyResponse> responseEntity = productService.findAllByName(name);
         return responseEntity;
     }
+
+    @GetMapping("/store/products/category")
+    public ResponseEntity<MyResponse> getProductsByCategory(@RequestParam("categoryName") String categoryName){
+        ResponseEntity<MyResponse> findByCategory = productService.findAllByCategory(categoryName);
+        return findByCategory;
+    }
 }

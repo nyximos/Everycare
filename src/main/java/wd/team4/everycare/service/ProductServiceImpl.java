@@ -376,4 +376,23 @@ public class ProductServiceImpl implements ProductService {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<MyResponse> findAllByCategory(String categoryName) {
+        List<Product> findByCategory = productQueryRepository.findAllByCategory(categoryName);
+
+        if(findByCategory.isEmpty()){
+            return null;
+        }else{
+            List<MemberProductListViewDTO> productListViewDTOs = new ArrayList<>();
+            findByCategory.stream().map(product -> product.toMemberProductsViewDTO()).forEach(productListViewDTOs::add);
+
+            MyResponse body = MyResponse.builder()
+                    .body(productListViewDTOs)
+                    .header(StatusEnum.OK)
+                    .message("카테고리별 상품 조회")
+                    .build();
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        }
+    }
 }

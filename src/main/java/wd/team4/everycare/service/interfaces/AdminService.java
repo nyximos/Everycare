@@ -30,4 +30,5 @@ public interface    AdminService {
 
     ResponseEntity<MyResponse> removeFAQ(PrincipalDetails principalDetails, Long id);
 
+    ResponseEntity<MyResponse> removeReview(Long boardId, Long reportId);
 }

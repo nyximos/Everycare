@@ -13,12 +13,15 @@ public interface ReportService {
 
     ResponseEntity<MyResponse> getAll();
 
-    ResponseEntity<MyResponse> getCompletion();
-
-    ResponseEntity<MyResponse> getHold();
-
     ResponseEntity<MyResponse> stop(String id);
 
     ResponseEntity<MyResponse> active(String id);
 
+    ResponseEntity<MyResponse> getAllContracts();
+
+    ResponseEntity<MyResponse> getAllReviews();
+
+    ResponseEntity<MyResponse> getAllReviewsByStatus(int status);
+
+    ResponseEntity<MyResponse> getAllContractsByStatus(int status);
 }
