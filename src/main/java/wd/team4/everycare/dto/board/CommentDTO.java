@@ -26,6 +26,7 @@ public class CommentDTO {
     @DateTimeFormat(pattern = "yyyy-MM-ddTHH:mm:ss.SSS")
     private LocalDateTime updatedAt;
     private int count;
+    private int rating;
     private MultipartFile attachFile;
     private String fileName;
     private String filePath;

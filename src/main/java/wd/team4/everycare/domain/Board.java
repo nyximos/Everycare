@@ -45,6 +45,9 @@ public class Board {
     @Column(name = "board_count", nullable = false)
     private int count;
 
+    @Column(name = "board_rating")
+    private int rating;
+
     @Column(name = "board_file_name")
     private String fileName;
 
@@ -61,7 +64,7 @@ public class Board {
 
     @Builder
     public Board(Long id, String title, String content, BoardCategory category, LocalDateTime createdAt,
-                 LocalDateTime updatedAt, int count, String fileName, String filePath, Member member, Product product) {
+                 LocalDateTime updatedAt, int count, int rating, String fileName, String filePath, Member member, Product product) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -69,6 +72,7 @@ public class Board {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.count = count;
+        this.rating = rating;
         this.fileName = fileName;
         this.filePath = filePath;
         this.member = member;
@@ -120,6 +124,7 @@ public class Board {
                 .createdAt(this.createdAt)
                 .updatedAt(this.updatedAt)
                 .count(this.count)
+                .rating(this.rating)
                 .fileName(this.fileName)
                 .filePath(this.filePath)
                 .member(this.member.toMemberNameDTO())

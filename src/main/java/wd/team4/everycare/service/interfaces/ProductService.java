@@ -2,10 +2,9 @@ package wd.team4.everycare.service.interfaces;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import wd.team4.everycare.config.auth.PrincipalDetails;
+import wd.team4.everycare.domain.ProductCategory;
 import wd.team4.everycare.domain.Store;
-import wd.team4.everycare.dto.ImageDTO;
 import wd.team4.everycare.dto.MultipartFileDTO;
 import wd.team4.everycare.dto.product.MemberProductListViewDTO;
 import wd.team4.everycare.dto.product.ProductFormDTO;
@@ -36,5 +35,7 @@ public interface ProductService {
     ResponseEntity<MyResponse> removeImage(Long id);
 
     ResponseEntity<MyResponse> findAllByName(String name);
+
+    ResponseEntity<MyResponse> findAllByCategory(String categoryName);
 
 }
