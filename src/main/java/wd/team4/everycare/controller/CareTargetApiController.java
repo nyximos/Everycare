@@ -62,7 +62,7 @@ public class CareTargetApiController {
     public ResponseEntity<MyResponse> patchCareTarget(
             @PathVariable("id") Long id,
             @ModelAttribute CareTargetFormDTO careTargetFormDTO
-    ){
+    ) throws IOException {
         careTargetService.update(id, careTargetFormDTO);
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)

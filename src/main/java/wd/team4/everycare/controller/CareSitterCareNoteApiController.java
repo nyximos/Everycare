@@ -69,7 +69,7 @@ public class CareSitterCareNoteApiController {
     }
 
     @PatchMapping("/carenotes/{id}/schedules/complition")
-    public ResponseEntity<MyResponse> complete(@PathVariable("activityId") Long id) {
+    public ResponseEntity<MyResponse> complete(@PathVariable("id") Long id) {
         ResponseEntity<MyResponse> responseEntity = careSitterCareNoteService.complete(id);
         return responseEntity;
     }

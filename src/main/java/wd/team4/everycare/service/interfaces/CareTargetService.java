@@ -56,7 +56,7 @@ public interface CareTargetService {
 
     List<CareTargetImage> findCareTargetImages(Long id);
 
-    String update(Long id, CareTargetFormDTO careTargetFormDTO);
+    String update(Long id, CareTargetFormDTO careTargetFormDTO) throws IOException;
 
     CareTargetViewDTO webFindCareTarget(Long id);
 

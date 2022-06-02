@@ -34,7 +34,7 @@ public class InitContractService {
         CareSitter careSitter1 = careSitterRepository.findByMember(member1);
         CareSitter careSitter2 = careSitterRepository.findByMember(member2);
 
-        Contract contract1 = oldContract("표철진_고승희", LocalDate.now(), LocalDate.now(), "09:00", "18:00", 10000, 3, 1500000, LocalDateTime.now(), "BC", "2839746923869", "approvenumber", 0, jobOffer1, jobOffer1.getMember(), careSitter2);
+        Contract contract1 = oldContract("표철진_고승희", LocalDate.now(), LocalDate.now(), "09:00", "18:00", 10000, 2, 1500000, LocalDateTime.now(), "BC", "2839746923869", "approvenumber", 0, jobOffer1, jobOffer1.getMember(), careSitter2);
 
         //케어 노트 생성
         String day = jobOffer1.getDay();
