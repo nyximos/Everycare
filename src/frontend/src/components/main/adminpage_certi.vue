@@ -68,7 +68,7 @@
                     <nav class="sidebar-nav">
                         <ul id="sidebarnav" class="pt-4 in">
                             <li class="sidebar-item">
-                                <router-link to="/adminpage" class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"
+                                <router-link to="/admin/members" class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"
                                     ><i class="mdi mdi-account-box-outline"></i>&nbsp;&nbsp;<span class="hide-menu">회원 관리</span></router-link
                                 >
                             </li>
