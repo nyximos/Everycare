@@ -32,7 +32,6 @@ export default {
             state.cart.quantity=item.quantity--;
         },
         remoteList(state, index){
-            console.log("도착")
             state.cart.splice(index,1);
         },
         removeAll(state){       

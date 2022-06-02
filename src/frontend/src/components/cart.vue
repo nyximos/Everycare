@@ -55,14 +55,17 @@
                 </v-row>
           </v-card-text>
         </v-card>
+        <toast />
         <v-btn  @click="order" block :disabled="!formIsValid">주문</v-btn>
     </div>
 </template>
 
 <script>
+import toast from '@/components/toast'
 import addrBtn from '@/components/addrBtn'
 export default {
   components:{
+    toast,
     addrBtn
   },
   mounted() {

@@ -1,4 +1,6 @@
 <template>
+<div>
+  <Toast v-if="showToast" :message="toastMessage" :type="toastAlertType"/>
 <v-container>
   <v-card>
   <v-card-text>
@@ -88,10 +90,15 @@
   </v-card-text>
 </v-card>
 </v-container>
+</div>
 </template>
 
 <script>
+import Toast from '@/components/toast'
 export default {
+  components:{
+    Toast
+  },
 mounted() {
   this.$http
     .get(`/api/store/products/${this.id}`, {
@@ -109,6 +116,7 @@ mounted() {
     })
       .catch(err => {
        console.log(err);
+       this.triggerToast('Something went wrong', 'error')
     });
     this.$http
         .get('/api/product-categories',{
@@ -141,10 +149,23 @@ data(){
       {name:'판매',value:'1'},
       {name:'입고예정',value:'2'},
       {name:'품절',value:'3'},
-      ]
+      ],
+      showToast : false,
+      toastMessage: '',
+      toastAlertType: ''
   }
 },
 methods:{
+  triggerToast(message, type='success'){
+    this.toastMessage = message;
+    this.toastAlertType = type;
+    this.showToast= true
+    setTimeout(()=>{
+      this.toastMessage='';
+      this.showToast=false;
+      this.showToast = '';
+    },3000)
+  },
   edit(){
     var formData = new FormData();
         formData.append('id', this.id);
@@ -172,9 +193,11 @@ methods:{
          })
      .then(res => {
       console.log(res);
+      this.triggerToast('Successfully saved!')
     })
       .catch(err => {
        console.log(err);
+       this.triggerToast('Something went wrong', 'error')
     });
   },
   drop(){
@@ -185,6 +208,7 @@ methods:{
       console.log(res)
     }).catch((err)=>{
       console.log(err)
+      this.triggerToast('Something went wrong', 'error')
     })
   },
   delImg(item){
@@ -197,6 +221,7 @@ methods:{
       console.log(res)
     }).catch((err)=>{
       console.log(err)
+      this.triggerToast('Something went wrong', 'error')
     })
   }
  },
