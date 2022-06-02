@@ -95,7 +95,7 @@ public class AdminApiController {
         return removeFAQ;
     }
 
-    @DeleteMapping("/comment")
+    @DeleteMapping("/reports/review")
     public ResponseEntity<MyResponse> removeComment(@RequestParam("boardId")Long boardId, @RequestParam("reportId") Long reportId){
         ResponseEntity<MyResponse> removeReview = adminService.removeReview(boardId, reportId);
         return removeReview;
