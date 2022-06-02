@@ -1,11 +1,11 @@
 <template>
 <v-container>
   <v-card>
-    <div class="text-center"><v-img id="divProfile" :src="'https://localhost:8086/api/images/'+this.thumbnail" 
-      alt="사진" width="300" height="300"/></div>
   <v-card-text>
-      <v-row>
-        <v-col cols="8">
+      <div style="float:right">
+      <v-img id="divProfile" :src="'https://localhost:8086/api/images/'+this.thumbnail" 
+      alt="사진" width="300" height="170"/>
+    </div>
         <v-text-field
       v-model="name"
       placeholder="상품명"
@@ -13,12 +13,6 @@
       rounded
       dense
     ></v-text-field>
-        </v-col>
-        <v-col cols="4">
-          
-        </v-col>
-      </v-row>
-
     <v-text-field
       v-model="price"
       placeholder="가격"
@@ -45,8 +39,16 @@
       chips
       label="썸네일"
     ></v-file-input>
-    <v-img v-for="item in this.detailImg" :key="item.id" id="divProfile" :src="'https://localhost:8086/api/images/'+item.storeFileName" alt="사진" width="700" height="500"/>
-
+    <v-row>
+      <v-col cols="2"  v-for="(item,index) in detailImg" :key="index" style="float:left">
+    <div class="text-center">
+    <v-btn icon @click="delImg(item)">
+      <v-icon>mdi-close</v-icon>
+    </v-btn>
+    <v-img id="divProfile" :src="'https://localhost:8086/api/images/'+item.storeFileName" alt="사진" width="150px" height="200px"/>
+    </div>
+    </v-col>
+    </v-row>
     <v-file-input
       v-model="attachFiles"
       chips
@@ -91,9 +93,8 @@
 <script>
 export default {
 mounted() {
-  const id = Number(this.$route.params.contentId);
   this.$http
-    .get(`/api/store/products/${id}`, {
+    .get(`/api/store/products/${this.id}`, {
     withCredentials: true
     })
     .then(res => {
@@ -104,6 +105,7 @@ mounted() {
       this.comment = res.data.body.comment;
       this.thumbnail = res.data.body.storeFileName;
       this.detailImg = res.data.body.imagesDTOs;
+      this.inventoryQuantity = res.data.body.inventoryQuantity;
     })
       .catch(err => {
        console.log(err);
@@ -130,7 +132,7 @@ data(){
     comment: this.comment,
     productCategory:this.productCategory,
     thumbnail:this.thumbnail,
-    attachFile: [],
+    attachFile: null,
     attachFiles: [],
     detailImg:[],
     isSale:this.isSale,
@@ -151,9 +153,7 @@ methods:{
         formData.append('inventoryQuantity', this.inventoryQuantity);
         formData.append('comment', this.comment);
         formData.append('productCategory', this.productCategory);
-        if (this.attachFile===null){
-          formData.append('attachFile', this.thumbnail);        
-        } else {
+        if (this.attachFile!=null){
           formData.append('attachFile', this.attachFile)
         }
         if (this.attachFiles===null) {
@@ -182,6 +182,18 @@ methods:{
       withCredentials: true
     })
     .then((res)=> {
+      console.log(res)
+    }).catch((err)=>{
+      console.log(err)
+    })
+  },
+  delImg(item){
+    // console.log(item.id)
+    this.$http
+    .delete(`/api/dashboard/store/products/${this.id}/image/${item.id}`,{
+      withCredentials:true
+    })
+    .then((res)=>{
       console.log(res)
     }).catch((err)=>{
       console.log(err)

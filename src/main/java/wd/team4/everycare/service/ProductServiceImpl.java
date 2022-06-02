@@ -231,6 +231,7 @@ public class ProductServiceImpl implements ProductService {
                 .id(productEntity.getId())
                 .name(productEntity.getName())
                 .price(productEntity.getPrice())
+                .inventoryQuantity(productEntity.getInventoryQuantity())
                 .storeFileName(productEntity.getStoreFileName())
                 .comment(productEntity.getComment())
                 .isSale(productEntity.getIsSale())
