@@ -634,11 +634,8 @@ methods:{
             }).catch(err=>{
                 console.log(err);
             })
-            this.$router.push({ path: '/Main' })
+            // this.$router.push({ path: '/Main' })
            }
-            // console.log(formData)
-            // this.$store.commit('careprofileStore/submit' ,formData)
-            // // console.log(this.$store.state.careprofileStore.id)
         },
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.dto.MultipartFileDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
@@ -61,7 +62,7 @@ public class CareTargetApiController {
     public ResponseEntity<MyResponse> patchCareTarget(
             @PathVariable("id") Long id,
             @ModelAttribute CareTargetFormDTO careTargetFormDTO
-    ){
+    ) throws IOException {
         careTargetService.update(id, careTargetFormDTO);
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
@@ -78,5 +79,17 @@ public class CareTargetApiController {
                 .message("성공했슴다~")
                 .build();
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @PostMapping("/dashboard/caretargets/{id}/image")
+    public ResponseEntity<MyResponse> saveImage(@PathVariable Long id, @ModelAttribute MultipartFileDTO imageDTO) throws IOException {
+        ResponseEntity<MyResponse> responseEntity = careTargetService.saveImage(id,imageDTO);
+        return responseEntity;
+    }
+
+    @DeleteMapping("/dashboard/caretargets/{id}/image/{imageId}")
+    public ResponseEntity<MyResponse> removeImage(@PathVariable("imageId") Long id){
+        ResponseEntity<MyResponse> responseEntity = careTargetService.removeImage(id);
+        return responseEntity;
     }
 }

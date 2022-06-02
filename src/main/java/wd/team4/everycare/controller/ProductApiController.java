@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
+import wd.team4.everycare.dto.MultipartFileDTO;
 import wd.team4.everycare.dto.product.ProductFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.service.ProductServiceImpl;
@@ -60,4 +61,21 @@ public class ProductApiController {
         return responseEntity;
     }
 
+    @PostMapping("/dashboard/store/products/{id}/image")
+    public ResponseEntity<MyResponse> saveImage(@PathVariable Long id, @ModelAttribute MultipartFileDTO imageDTO) throws IOException {
+        ResponseEntity<MyResponse> responseEntity = productService.saveImage(id,imageDTO);
+        return responseEntity;
+    }
+
+    @DeleteMapping("/dashboard/store/products/{id}/image/{imageId}")
+    public ResponseEntity<MyResponse> removeImage(@PathVariable("imageId") Long id){
+        ResponseEntity<MyResponse> responseEntity = productService.removeImage(id);
+        return responseEntity;
+    }
+
+    @GetMapping("/store/products/name")
+    public ResponseEntity<MyResponse> getProducts(@RequestParam("name") String name){
+        ResponseEntity<MyResponse> responseEntity = productService.findAllByName(name);
+        return responseEntity;
+    }
 }

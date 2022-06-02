@@ -27,6 +27,7 @@ public class ReportViewDTO {
 
     private Long boardId;
     private String boardTitle;
+    private String boardContent;
 
     private Long contractId;
     private String contractName;

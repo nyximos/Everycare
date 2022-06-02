@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.*;
 import wd.team4.everycare.dto.ImageDTO;
+import wd.team4.everycare.dto.MultipartFileDTO;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.dto.product.*;
 import wd.team4.everycare.dto.response.MyResponse;
@@ -18,6 +19,7 @@ import wd.team4.everycare.repository.ProducImageRepository;
 import wd.team4.everycare.repository.ProductCategoryRepository;
 import wd.team4.everycare.repository.ProductRepository;
 import wd.team4.everycare.repository.WishListRepository;
+import wd.team4.everycare.repository.query.ProductQueryRepository;
 import wd.team4.everycare.service.interfaces.ProductService;
 
 import java.io.IOException;
@@ -36,6 +38,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductCategoryRepository productCategoryRepository;
     private final ProducImageRepository producImageRepository;
     private final WishListRepository wishListRepository;
+    private final ProductQueryRepository productQueryRepository;
 
     @Override
     public List<MemberProductListViewDTO> webFindAll(Store store) {
@@ -260,18 +263,23 @@ public class ProductServiceImpl implements ProductService {
         }
         productEntity.updateProduct(productFormDTO);
 
-        UploadFile attachFile = fileStoreService.storeFile(productFormDTO.getAttachFile());
-        List<UploadFile> attachFiles = fileStoreService.storeFiles(productFormDTO.getAttachFiles());
+        if(productFormDTO.getAttachFile()!=null) {
+            UploadFile attachFile = fileStoreService.storeFile(productFormDTO.getAttachFile());
+            productEntity.saveImage(attachFile);
+        }
 
-        productEntity.saveImage(attachFile);
+        if(productFormDTO.getAttachFiles()!=null) {
 
-        for (UploadFile file : attachFiles) {
-            ProductImage productImage = ProductImage.builder()
-                    .uploadFileName(file.getUploadFileName())
-                    .storeFileName(file.getStoreFileName())
-                    .product(productEntity)
-                    .build();
-            producImageRepository.save(productImage);
+            List<UploadFile> attachFiles = fileStoreService.storeFiles(productFormDTO.getAttachFiles());
+
+            for (UploadFile file : attachFiles) {
+                ProductImage productImage = ProductImage.builder()
+                        .uploadFileName(file.getUploadFileName())
+                        .storeFileName(file.getStoreFileName())
+                        .product(productEntity)
+                        .build();
+                producImageRepository.save(productImage);
+            }
         }
 
         MyResponse body = MyResponse.builder()
@@ -294,5 +302,77 @@ public class ProductServiceImpl implements ProductService {
                 .message("성공")
                 .build();
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> saveImage(Long id, MultipartFileDTO imageDTO) throws IOException {
+
+        List<UploadFile> attachFiles = fileStoreService.storeFiles(imageDTO.getAttachFiles());
+
+        Optional<Product> product = productRepository.findById(id);
+        Product productEntity = product.orElse(null);
+
+        for (UploadFile file : attachFiles) {
+
+            ProductImage productImage = ProductImage.builder()
+                    .uploadFileName(file.getUploadFileName())
+                    .storeFileName(file.getStoreFileName())
+                    .product(productEntity)
+                    .build();
+
+            producImageRepository.save(productImage);
+        }
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> removeImage(Long id) {
+
+        producImageRepository.deleteById(id);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> findAllByName(String name) {
+
+        List<Product> products = productQueryRepository.findAllByName(name);
+
+        List<ProductListViewDTO> productListViewDTOs = new ArrayList<>();
+
+        if (products.isEmpty()) {
+            return null;
+        }
+
+        for (Product product : products) {
+            ProductListViewDTO productListViewDTO = ProductListViewDTO.builder()
+                    .id(product.getId())
+                    .name(product.getName())
+                    .price(product.getPrice())
+                    .storeFileName(product.getStoreFileName())
+                    .createdAt(product.getCreatedAt())
+                    .store(product.getStore().toNameDTO())
+                    .productCategory(product.getProductCategory().toDTO())
+                    .build();
+            productListViewDTOs.add(productListViewDTO);
+        }
+
+        MyResponse<List<ProductListViewDTO>> body = MyResponse.<List<ProductListViewDTO>>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(productListViewDTOs)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 }

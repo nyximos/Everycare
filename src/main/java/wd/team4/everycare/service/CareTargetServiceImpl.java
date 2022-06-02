@@ -11,6 +11,7 @@ import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetImage;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.ImageDTO;
+import wd.team4.everycare.dto.MultipartFileDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetDetailDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetListViewDTO;
@@ -134,6 +135,42 @@ public class CareTargetServiceImpl implements CareTargetService {
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);    }
 
     @Override
+    public ResponseEntity<MyResponse> saveImage(Long id, MultipartFileDTO imageDTO) throws IOException {
+
+        List<UploadFile> attachFiles = fileStoreService.storeFiles(imageDTO.getAttachFiles());
+
+        Optional<CareTarget> careTarget = careTargetRepository.findById(id);
+        CareTarget careTargetEntity = careTarget.orElse(null);
+
+        for (UploadFile file : attachFiles) {
+
+            CareTargetImage careTargetImage = CareTargetImage.builder()
+                    .uploadFileName(file.getUploadFileName())
+                    .storeFileName(file.getStoreFileName())
+                    .careTarget(careTargetEntity)
+                    .build();
+
+            careTargetImageRepository.save(careTargetImage);
+        }
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);    }
+
+    @Override
+    public ResponseEntity<MyResponse> removeImage(Long id) {
+
+        careTargetImageRepository.deleteById(id);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);    }
+
+    @Override
     public Long save(CareTargetFormDTO careTargetFormDTO) throws IOException {
 
         CareTarget careTarget = careTargetDtoToEntity(careTargetFormDTO);
@@ -192,7 +229,7 @@ public class CareTargetServiceImpl implements CareTargetService {
     }
 
     @Override
-    public String update(Long id, CareTargetFormDTO careTargetFormDTO) {
+    public String update(Long id, CareTargetFormDTO careTargetFormDTO) throws IOException {
         Optional<CareTarget> careTarget = careTargetRepository.findById(id);
         CareTarget careTargetEntity = careTarget.orElse(null);
         System.out.println(careTargetEntity.getName());
@@ -201,6 +238,15 @@ public class CareTargetServiceImpl implements CareTargetService {
             return "실패";
         }
         careTargetEntity.updateInfo(careTargetFormDTO);
+
+        if(careTargetFormDTO.getAttachFiles()!=null) {
+            List<UploadFile> attachFiles = fileStoreService.storeFiles((careTargetFormDTO.getAttachFiles()));
+
+            for (UploadFile file : attachFiles) {
+                CareTargetImage careTargetImage = careTargetDtoToImage(careTargetEntity, file);
+                careTargetImageRepository.save(careTargetImage);
+            }
+        }
         return "수정완료";
     }
 

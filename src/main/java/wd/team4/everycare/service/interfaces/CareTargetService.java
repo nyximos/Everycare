@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.CareTarget;
 import wd.team4.everycare.domain.CareTargetImage;
+import wd.team4.everycare.dto.MultipartFileDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetViewDTO;
 import wd.team4.everycare.dto.UploadFile;
@@ -55,11 +56,15 @@ public interface CareTargetService {
 
     List<CareTargetImage> findCareTargetImages(Long id);
 
-    String update(Long id, CareTargetFormDTO careTargetFormDTO);
+    String update(Long id, CareTargetFormDTO careTargetFormDTO) throws IOException;
 
     CareTargetViewDTO webFindCareTarget(Long id);
 
     ResponseEntity<MyResponse> findAll(PrincipalDetails principalDetails);
 
     ResponseEntity<MyResponse> findById(Long id);
+
+    ResponseEntity<MyResponse> saveImage(Long id, MultipartFileDTO imageDTO) throws IOException;
+
+    ResponseEntity<MyResponse> removeImage(Long id);
 }

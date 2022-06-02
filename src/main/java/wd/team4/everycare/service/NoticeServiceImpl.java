@@ -58,7 +58,7 @@ public class NoticeServiceImpl implements NoticeService {
                 .category(BoardCategory.공지)
                 .createdAt(now)
                 .updatedAt(now)
-                .count(boardDTO.getCount())
+                .count(0)
                 .filePath(uploadFileName)
                 .fileName(storeFileName)
                 .member(principalDetails.getUser())
@@ -102,6 +102,7 @@ public class NoticeServiceImpl implements NoticeService {
     public ResponseEntity<MyResponse> findNotice(Long id) {
         Optional<Board> detailNotice = boardRepository.findById(id);
         Board detailBoard = detailNotice.get();
+        detailBoard.updateCount();
         BoardDTO boardDTO = detailBoard.toBoardDTO();
 
         MyResponse body = MyResponse.builder()

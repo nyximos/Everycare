@@ -1,11 +1,9 @@
 package wd.team4.everycare.service.interfaces;
 
-import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobSearchDTO;
-import wd.team4.everycare.dto.jobOffer_jobSearch.JobSearchDTO;
-
-import java.util.List;
+import org.springframework.http.ResponseEntity;
+import wd.team4.everycare.dto.response.MyResponse;
 
 public interface JobSearchService {
-    List<JobSearchDTO> findAllJobSearch();
-    DetailJobSearchDTO findDetailJobSearch(Long id);
+    ResponseEntity<MyResponse> findAllJobSearch();
+    ResponseEntity<MyResponse> findDetailJobSearch(Long id);
 }

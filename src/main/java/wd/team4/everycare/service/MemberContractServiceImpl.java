@@ -12,9 +12,11 @@ import wd.team4.everycare.dto.PayResponse;
 import wd.team4.everycare.dto.contract.CompletionContractDTO;
 import wd.team4.everycare.dto.contract.ContractDTO;
 import wd.team4.everycare.dto.contract.JobOfferContractListDTO;
+import wd.team4.everycare.dto.contract.MemberCompletionContractDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.*;
+import wd.team4.everycare.repository.query.MemberCareNoteQueryRepository;
 import wd.team4.everycare.service.interfaces.MemberContractService;
 
 import java.time.LocalDate;
@@ -33,11 +35,12 @@ public class MemberContractServiceImpl implements MemberContractService {
     private final CareSitterRepository careSitterRepository;
     private final JobOfferRepository jobOfferRepository;
     private final ContractRepository contractRepository;
-    private final PaymentServiceImpl paymentService;
     private final CareNoteRepository careNoteRepository;
+    private final CareTargetRepository careTargetRepository;
     private final CareTargetScheduleRepository careTargetScheduleRepository;
     private final ActivityInformationRepository activityInformationRepository;
-
+    private final MemberCareNoteQueryRepository memberCareNoteQueryRepository;
+    private final CareSitterImageRepository careSitterImageRepository;
 
     @Override
     public ResponseEntity<MyResponse> removeContract(Long id) {
@@ -216,6 +219,49 @@ public class MemberContractServiceImpl implements MemberContractService {
 
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
 
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> getContracts(PrincipalDetails principalDetails, Long id) {
+
+        Member user = principalDetails.getUser();
+        Optional<CareTarget> careTarget = careTargetRepository.findById(id);
+        CareTarget careTargetEntity = careTarget.orElse(null);
+
+        List<Contract> contracts = memberCareNoteQueryRepository.findContracts(user, careTargetEntity);
+
+        List<MemberCompletionContractDTO> memberCompletionContractDTOs = new ArrayList<>();
+
+        for (Contract contract : contracts) {
+
+            JobOffer jobOffer = contract.getJobOffer();
+            CareSitter careSitter = contract.getCareSitter();
+            List<CareSitterImage> images = careSitterImageRepository.findAllByCareSitter(careSitter);
+            CareSitterImage careSitterImage = images.get(0);
+
+            MemberCompletionContractDTO dto = MemberCompletionContractDTO.builder()
+                    .id(contract.getId())
+                    .startDate(contract.getStartDate())
+                    .endDate(contract.getEndDate())
+                    .amount(contract.getAmount())
+                    .payDateTime(contract.getPayDateTime())
+                    .jobOfferId(jobOffer.getId())
+                    .day(jobOffer.getDay())
+                    .careSitterId(careSitter.getId())
+                    .careSitterName(careSitter.getName())
+                    .careSitterStoreFileName(careSitterImage.getStoreFileName())
+                    .build();
+
+            memberCompletionContractDTOs.add(dto);
+        }
+
+        MyResponse<List<MemberCompletionContractDTO>> body = MyResponse.<List<MemberCompletionContractDTO>>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(memberCompletionContractDTOs)
+                .build();
+
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
 }

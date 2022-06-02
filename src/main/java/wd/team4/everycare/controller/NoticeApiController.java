@@ -21,7 +21,6 @@ public class NoticeApiController {
     @GetMapping("/notice")
     public ResponseEntity<MyResponse> getAllNotice(){
         ResponseEntity<MyResponse> allNotice = noticeService.findAllNotice();
-        System.out.println("bbbbbbbbbbbbbb");
         return allNotice;
     }
 

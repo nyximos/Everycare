@@ -8,9 +8,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.dto.MultipartFileDTO;
 import wd.team4.everycare.dto.careSitter.CareSitterFormDTO;
-import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobSearchDTO;
-import wd.team4.everycare.dto.jobOffer_jobSearch.JobSearchDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.service.CareSitterServiceImpl;
@@ -18,7 +17,6 @@ import wd.team4.everycare.service.JobSearchServiceImpl;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.List;
 
 
 @RestController
@@ -32,27 +30,14 @@ public class CareSitterApiController {
 
     @GetMapping("/caresitters")
     public ResponseEntity<MyResponse> findJobSearch() {
-        List<JobSearchDTO> all = jobSearchService.findAllJobSearch();
-        MyResponse<Object> body = MyResponse.builder()
-                .header(StatusEnum.OK)
-                .body(all)
-                .message("ok").
-                        build();
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+        ResponseEntity<MyResponse> responseEntity = jobSearchService.findAllJobSearch();
+        return responseEntity;
     }
 
     @GetMapping("/caresitters/{id}")
     public ResponseEntity<MyResponse> getDetailJobSearch(@PathVariable("id") Long id) {
-
-        DetailJobSearchDTO detailJobSearch = jobSearchService.findDetailJobSearch(id);
-        MyResponse body = MyResponse.builder()
-                .header(StatusEnum.OK)
-                .body(detailJobSearch)
-                .message("ok")
-                .build();
-
-        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        ResponseEntity<MyResponse> detailJobSearch = jobSearchService.findDetailJobSearch(id);
+        return detailJobSearch;
     }
 
     @GetMapping("/dashboard/caresitter")
@@ -90,12 +75,42 @@ public class CareSitterApiController {
     public ResponseEntity<MyResponse> patchCareSitter(
             @PathVariable("id") Long id,
             @ModelAttribute CareSitterFormDTO careSitterFormDTO
-    ){
+    ) throws IOException {
         careSitterService.update(id, careSitterFormDTO);
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("성공했슴다~")
                 .build();
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @PostMapping("/dashboard/caresitter/{id}/image")
+    public ResponseEntity<MyResponse> saveImage(@PathVariable Long id, @ModelAttribute MultipartFileDTO imageDTO) throws IOException {
+        ResponseEntity<MyResponse> responseEntity = careSitterService.saveImage(id,imageDTO);
+        return responseEntity;
+    }
+
+    @DeleteMapping("/dashboard/caresitter/{id}/image/{imageId}")
+    public ResponseEntity<MyResponse> removeImage(@PathVariable("imageId") Long id){
+        ResponseEntity<MyResponse> responseEntity = careSitterService.removeImage(id);
+        return responseEntity;
+    }
+
+    @GetMapping("/caresitters/region")
+    public ResponseEntity<MyResponse> getAllByRegion(@RequestParam("region") String region) {
+        ResponseEntity<MyResponse> responseEntity = careSitterService.getAllByRegion(region);
+        return responseEntity;
+    }
+
+    @GetMapping("/caresitters/caretype")
+    public ResponseEntity<MyResponse> getAllByCareType(@RequestParam("caretype") String caretype) {
+        ResponseEntity<MyResponse> responseEntity = careSitterService.getAllByCareType(caretype);
+        return responseEntity;
+    }
+
+    @GetMapping("/caresitters/time")
+    public ResponseEntity<MyResponse> getAllByTime(@RequestParam("time") String time) {
+        ResponseEntity<MyResponse> responseEntity = careSitterService.getAllByTime(time);
+        return responseEntity;
     }
 }
