@@ -6,7 +6,4 @@ import wd.team4.everycare.domain.Report;
 import java.util.List;
 
 public interface ReportRepository extends JpaRepository<Report, Long> {
-
-    List<Report> findByStatus(int i);
-
 }

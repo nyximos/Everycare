@@ -2,7 +2,6 @@ package wd.team4.everycare.dto.report;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
-import wd.team4.everycare.domain.Board;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +10,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReportViewDTO {
+public class ReportContractViewDTO {
 
     private Long id;
     @DateTimeFormat(pattern = "yyyy-MM-dd`T`HH:mm:ss")
@@ -25,11 +24,7 @@ public class ReportViewDTO {
 
     private String reportedUserId;
 
-    private Long boardId;
-    private String boardTitle;
-    private String boardContent;
-
     private Long contractId;
     private String contractName;
 
-}
+    }
