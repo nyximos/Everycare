@@ -11,6 +11,7 @@ import wd.team4.everycare.dto.careNote.ActivityInformationDTO;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.contract.ContractDTO;
+import wd.team4.everycare.dto.jobOffer_jobSearch.AnnounceJobOfferDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobOfferDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
 import wd.team4.everycare.dto.response.MyResponse;
@@ -159,7 +160,7 @@ public class JobOfferServiceImpl implements JobOfferService {
                     .pay(jobOffer.getPay())
                     .status(1)
                     .jobOffer(jobOffer)
-                    .member(member)
+                    .member(jobOffer.getMember())               //구인글에서 회원 찾아서 계약서에 넣기 (원래는 케어시터였음)
                     .careSitter(careSitter)
                     .build();
 
@@ -277,6 +278,37 @@ public class JobOfferServiceImpl implements JobOfferService {
                     .body(jobOfferDTOs)
                     .build();
             return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        }
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> announceOffer(PrincipalDetails principalDetails) {
+        Member member = principalDetails.getUser();
+        List<Contract> contractList = contractRepository.findByStatusAndMember(1, member);
+
+        if(contractList.isEmpty()){
+            return null;
+        }else{
+            List<AnnounceJobOfferDTO> jobOfferDTOs = new ArrayList<>();
+
+            for (Contract contract:contractList) {
+                JobOffer jobOffer = contract.getJobOffer();
+                CareSitter careSitter = contract.getCareSitter();
+
+                AnnounceJobOfferDTO announceJobOfferDTO = AnnounceJobOfferDTO.builder()
+                        .careSitter(careSitter.toCareSitterDTO())
+                        .jobOffer(jobOffer.toJobOfferDTO())
+                        .build();
+
+                jobOfferDTOs.add(announceJobOfferDTO);
+            }
+
+            MyResponse body = MyResponse.builder()
+                    .message("알림")
+                    .header(StatusEnum.OK)
+                    .body(jobOfferDTOs)
+                    .build();
+            return new ResponseEntity<>(body, HttpStatus.OK);
         }
     }
 
