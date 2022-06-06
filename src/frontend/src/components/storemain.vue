@@ -6,13 +6,19 @@
         <p class="display-5 fw-bold">Carestore</p>
       </div>
       <div class="col-4 d-grid gap-2 d-md-flex justify-content-md-end">
-      <button class="position-relative" @click="goCart">
-		🛒
-		</button>
-          <button class="position-relative btn-danger" @click="wish">
-		❤
-		</button>
-		<button class="btn btn-warning" type="button" @click="goCreateStore">입점하기</button>
+      <v-btn @click="goCart">
+        <v-badge v-if="!this.$store.state.cart.cart.length==0" content="1">
+        <v-icon>mdi-cart</v-icon>
+        </v-badge>
+      </v-btn>
+      <v-btn @click="wish">
+          <v-badge v-if="!this.$store.state.wish.wish.length==0" content="1">
+        <v-icon>mdi-heart</v-icon>
+          </v-badge>
+      </v-btn>
+		<v-btn  type="button" @click="goCreateStore">
+      <v-icon>mdi-login</v-icon>
+    </v-btn>
       </div>
     </div>
   </header>
