@@ -17,8 +17,46 @@ const routes = [
         name: 'Main',
         component: () => import('@/pages/Main.vue'),
     },
+/*    {
+        path: '/newNotice',
+        name: 'newNotice',
+        component: () => import('@/components/newNotice.vue'),
+    },
+    // 상품 등록
     {
-        // 관리자 자격증 조회 화면
+        path: '/store/account/{id}/products/new',
+        name: 'ProdCreate',
+        component: () => import('@/components/prodCreate.vue'),
+    },
+    // 상품 관리
+    {
+        path: '/store/account/:contentId/products',
+        name: 'prodEdit',
+        component: () => import('@/components/prodEdit.vue'),
+    },
+    {
+        path: '/prodcreate',
+        name: 'ProdCreate',
+        component: () => import('@/components/prodCreate.vue'),
+    },
+    {
+        path: '/prodedit/:contentId',
+        name: 'ProdEdit',
+        component: () => import('@/components/prodEdit.vue'),
+    },
+    {
+        path: '/dashboard/cart',
+        name: 'Cart',
+        component: () => import('@/components/cart.vue'),
+    },
+    {
+        path: '/payment',
+        name: 'Payment',
+        component: () => import('@/components/productPayment.vue'),
+    },
+    */
+    {
+        // 관리자 자격증 조회 화면(o)
         path: '/admin/caresitter-certifications',
         name: 'adminpage_certi',
         component: () => import('@/pages/Adminpage_certi.vue'),
@@ -141,6 +179,30 @@ const routes = [
 //         path: '/carenote/caretarget/:contentId/schedules',
 //         name: 'careschedule',
 //         component: () => import('@/components/main/careschedule'),
+    },
+    {
+        //완료된 케어노트(케어시터)
+        path:'/dashboard/contracts/completion/note/:contentId',
+        name:'complete_note',
+        component:()=> import('@/components/main/complete_note')
+    },
+    {
+        //완료된 케어노트 상세(케어시터)
+        path:'/dashboard/contracts/completion/note/detail/:noteId',
+        name:'note_detail',
+        component:()=> import('@/components/main/complete_note_detail')
+    },
+    {
+        //완료된 계약서(멤버)
+        path:'/dashboard/memcontracts/completion',
+        name:'complete_memcontract',
+        component:()=> import('@/pages/Complete_memcontract')
+    },
+    {
+        // 시간 검색 모달창
+        path:'/timesearch',
+        name:'timesearch',
+        component:()=> import('@/components/main/timesearch')
     },
     {
         path: '/admin_report',

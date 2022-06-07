@@ -129,7 +129,7 @@ export default {
             var formData = new FormData();
             formData.append('rating', this.rating)
             formData.append('comment', this.text)
-            formData.append('activityClassificationId', id)
+            formData.append('activityClassificationId', this.$store.state.carenoteStore.categoryId)
             this.$http
             .post(`/api/carenote/${id}/reviews`,formData,{
                 withCredentail:true
