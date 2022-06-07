@@ -124,6 +124,7 @@ public class JobOfferApiController {
 
     @GetMapping("/recruitions/region")
     public ResponseEntity<MyResponse> searchRegion(@RequestParam String region){
+        System.out.println("region");
         ResponseEntity<MyResponse> searchRegion = jobOfferService.searchRegion(region);
         return searchRegion;
     }

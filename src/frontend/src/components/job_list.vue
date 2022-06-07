@@ -17,7 +17,9 @@
  <div class="search">
     <form name="search_form" method="">
       <div class="text01" id="area_text">
-        <span class="exam01">지역을 선택하세요.</span>
+        <button class="addressbutton" @click="search">🔍</button>
+        <input type="text" v-model="address" name="address" @click="execDaumPostcode()" placeholder = "지역을 선택하세요." readonly />
+        
       </div>
       <div class="text01" id="category_text">
         <span class="exam01">카테고리를 선택해주세요.</span>
@@ -71,11 +73,14 @@ export default {
           this.listData = res.data.body;
           this.id = res.data.body.id;
           console.log(res)
+          console.log(res.body.body[0].careTarget.address)
+          
           
         })
           .catch(err => {
           console.log(err);
         });
+        
     },
     data(){
         return{
@@ -83,18 +88,30 @@ export default {
           dataPerPage:3,
           curPageNum:1,
           SearchText: '',
+          address:'',
+          detailedAddress:'',
           
         }
     },
     methods:{
+      search(){
+       this.$route.params({ params: { region:res.body.body[i].careTarget.address}})
+        this.$http.get('/api/recruitions/region',{
+        withCredentials: true  
+        })
+        .then((res)=> {
+          console.log(res)
+        }).catch((err)=>{
+          console.log(err)
+        })
+        console.log(region)
+      },
         gocreate(){
           this.$router.push({
             path: '/recruitions/new'
           })
         },
-        detailShot(id){
-            
-            
+        detailShot(id){              
           this.$router.push({
             name: 'detail', 
             params: {
@@ -103,6 +120,42 @@ export default {
           })
           
         },
+        execDaumPostcode() {
+      new window.daum.Postcode({
+        oncomplete: (data) => {
+          if (this.extraAddress !== "") {
+            this.extraAddress = "";
+          }
+          if (data.userSelectedType === "R") {
+            // 사용자가 도로명 주소를 선택했을 경우
+            this.address = data.roadAddress;
+          } 
+ 
+          // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+          if (data.userSelectedType === "R") {
+            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+            if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
+              this.extraAddress += data.bname;
+            }
+            // 건물명이 있고, 공동주택일 경우 추가한다.
+            if (data.buildingName !== "" && data.apartment === "Y") {
+              this.extraAddress +=
+                this.extraAddress !== ""
+                  ? `, ${data.buildingName}`
+                  : data.buildingName;
+            }
+            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+            if (this.extraAddress !== "") {
+              this.extraAddress = `(${this.extraAddress})`;
+            }
+          } else {
+            this.extraAddress = "";
+          }
+          
+        },
+      }).open();
+    },
         
     },
     computed: {
@@ -159,5 +212,8 @@ export default {
 }
 .search #category_text{
   border-bottom: 1px solid #eaeaea;
+}
+input{
+  width: 70%;
 }
 </style>

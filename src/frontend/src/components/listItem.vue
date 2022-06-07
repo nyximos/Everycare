@@ -1,6 +1,7 @@
 
 <template>
     <div>
+        
         <v-card>
             <v-card-title>{{ listItem.title }}</v-card-title>
             <v-card-text>
@@ -8,7 +9,9 @@
                 <p>시작일 : {{ listItem.startDate }}</p>
                 <p>종료일 : {{ listItem.endDate }}</p>
                 <p>급여 : {{ listItem.pay }}원</p>
+                <p>지역 : {{ listItem.careTarget.address}} {{ listItem.careTarget.detailAddress}}</p>
                 <v-btn @click="detail">상세보기</v-btn>
+                
             </v-card-text>
         </v-card>
     </div>
@@ -26,6 +29,7 @@ export default {
         return {};
     },
     methods: {
+        
         detail() {
             
             this.$emit('detail', this.listItem.id);

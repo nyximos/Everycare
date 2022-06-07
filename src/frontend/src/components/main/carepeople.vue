@@ -25,16 +25,8 @@
             <div class="content1">
                 <ul>
                     
-                      <li><span >이름 </span><br><input type="text" v-model="name" placeholder = "이름을 입력하세요" class = 'box'/>
-                     
-                        
+                      <li><span >이름 </span><br><input type="text" v-model="name" placeholder = "이름을 입력하세요" class = 'box'/>                                     
                         </li>
-                    
-                    
-                           
-
-                        
-                    
                      <li><span>생년월일</span><br><input type="date" v-model="birth" placeholder = "생년월일을 입력하세요." class = 'box'/>&nbsp;&nbsp;
                      <span class="gender_form">성별</span>
                         <input type="radio" v-model="gender" id="gender1" value="M" checked="checked">&nbsp;&nbsp;&nbsp;

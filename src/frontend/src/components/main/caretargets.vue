@@ -19,7 +19,6 @@
       height="250"
       :src="'https://localhost:8086/api/images/'+p.imageDTOs[0].storeFileName"
       >
-      
     </v-img>
 
     <v-card-title text-align="center">{{p.name}}님</v-card-title>
@@ -74,6 +73,7 @@ export default {
     }
   },
   methods: {
+    
     move(p) {
       this.$router.push({ name: 'CaretargetsDetail', params: { caretargetsId: p.id }})
     },

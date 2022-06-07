@@ -251,7 +251,7 @@ public class JobOfferServiceImpl implements JobOfferService {
         } else {
             List<JobOfferDTO> jobOfferDTOs = new ArrayList<>();
             findByRegion.stream().map(jobOffer -> jobOffer.toJobOfferDTO()).forEach(jobOfferDTOs::add);
-
+            System.out.println("jobOfferDTOs = " + jobOfferDTOs);
             MyResponse body = MyResponse.builder()
                     .header(StatusEnum.OK)
                     .message("지역에 따른 조회")
