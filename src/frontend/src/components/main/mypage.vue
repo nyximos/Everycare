@@ -16,7 +16,8 @@
 
       <router-link :to="{name:'carenote'}"><p>케어노트(시터용)</p></router-link><br>
       <router-link :to="{name:'membernote'}"><p>케어노트(멤버용)</p></router-link>
-      <router-link :to="{name:'complete_contract'}"><p>완료된 계약서</p></router-link>
+      <router-link :to="{name:'complete_contract'}"><p>완료된 계약서(케어시터)</p></router-link>
+      <router-link :to="{name:'complete_memcontract'}"><p>완료된 계약서(회원)</p></router-link>
     </div>
   
 </template>

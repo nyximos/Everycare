@@ -44,7 +44,7 @@ const routes = [
         component: () => import('@/components/prodEdit.vue'),
     },
     {
-            path: '/prodcreate',
+        path: '/prodcreate',
         name: 'ProdCreate',
         component: () => import('@/components/prodCreate.vue'),
     },
@@ -183,6 +183,30 @@ const routes = [
         path:'/dashboard/contracts/completion',
         name:'complete_contract',
         component:()=> import('@/pages/Complete_contract')
+    },
+    {
+        //완료된 케어노트(케어시터)
+        path:'/dashboard/contracts/completion/note/:contentId',
+        name:'complete_note',
+        component:()=> import('@/components/main/complete_note')
+    },
+    {
+        //완료된 케어노트 상세(케어시터)
+        path:'/dashboard/contracts/completion/note/detail/:noteId',
+        name:'note_detail',
+        component:()=> import('@/components/main/complete_note_detail')
+    },
+    {
+        //완료된 계약서(멤버)
+        path:'/dashboard/memcontracts/completion',
+        name:'complete_memcontract',
+        component:()=> import('@/pages/Complete_memcontract')
+    },
+    {
+        // 시간 검색 모달창
+        path:'/timesearch',
+        name:'timesearch',
+        component:()=> import('@/components/main/timesearch')
     },
     {
         path: '/admin_report',
