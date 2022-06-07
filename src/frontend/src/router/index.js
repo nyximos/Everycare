@@ -358,6 +358,16 @@ const routes = [
         },
     },
     {
+        path: '/findinfo',
+        name: 'findinfo',
+        component: () => import('@/pages/Findinfo.vue')
+    },
+    // {
+    //     path: '/caresitters',
+    //     name: 'caresitters',
+    //     component: Caresitters,
+    // },
+    {
         path: '/works',
         name: 'FindWork',
         component: () => import('@/pages/FindWork.vue'),

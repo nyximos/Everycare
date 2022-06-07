@@ -5,7 +5,8 @@
             <br />
             <h2>회원가입</h2>
             <div id="in-input">
-                <input type="text" v-model="id" name="username" class="form-control input-lg" placeholder="아이디" ng-required="true" />
+                <input type="text" v-model="id" id="id" name="username" class="form-control input-lg" placeholder="아이디" ng-required="true">
+                <v-btn class="findid" @click="findID">ID중복조회</v-btn>
                 <input type="password" v-model="password" name="password" class="form-control input-lg" placeholder="패스워드" ng-required="true" />
                 <div>
                     <input type="text" v-model="name" name="name" class="form-control input-lg" placeholder="이름" ng-required="true" />
@@ -22,6 +23,7 @@
                 <input class="form-control" id="detailAddress" v-model="detailedAddress" type="text" placeholder="상세주소" aria-label="input example" />
                 <input class="form-control" v-model="bank" type="text" name="bank" placeholder="은행" />
                 <input class="form-control" v-model="accountNumber" type="text" name="accountNumber" placeholder="계좌번호" />
+                
                 <br />
             </div>
             <!-- </form> -->
@@ -32,11 +34,14 @@
 
 <script>
 export default {
-    mounted() {},
+    mounted() {
+         
+    },
     data() {
         return {
             id: '',
             password: '',
+            postcode:'',
             name: '',
             birth: '',
             gender: '',
@@ -50,6 +55,21 @@ export default {
         };
     },
     methods: {
+        findID(){
+            const id=document.getElementById('id').value;
+            console.log(id)
+            this.$http
+                .get(`/api/signup/${id}`, {
+                    withCredentials: true
+                })
+                .then(res => {
+                    console.log(res);
+                   
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        },
         execDaumPostcode() {
             new window.daum.Postcode({
                 oncomplete: data => {
@@ -153,6 +173,10 @@ h2 {
     color: white;
 }
 .postbtn {
+    position: relative;
+    left: 10px;
+}
+.findid{
     position: relative;
     left: 10px;
 }
