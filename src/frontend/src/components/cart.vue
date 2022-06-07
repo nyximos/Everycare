@@ -1,5 +1,8 @@
 <template>
     <div>
+              <transition name="fade">
+          <toast  v-if="showToast" :message="toastMessage" :type="toastAlertType" />
+        </transition>
         <div v-if="this.$store.state.cart.cart.length==0">장바구니가 비었습니다.</div>
         <v-card v-else>
             <v-btn @click="removeAll">전체삭제</v-btn>
@@ -55,7 +58,6 @@
                 </v-row>
           </v-card-text>
         </v-card>
-        <toast />
         <v-btn  @click="order" block :disabled="!formIsValid">주문</v-btn>
     </div>
 </template>
@@ -91,10 +93,23 @@ export default {
       detailedAddress: this.detailedAddress,
       comment: this.comment,
       paymentAmount: this.total,
-      Order_Id:this.Order_Id
+      Order_Id:this.Order_Id,
+      showToast : false,
+      toastMessage: '',
+      toastAlertType: ''
     }
   },
     methods:{
+      triggerToast(message, type='success'){
+        this.toastMessage = message;
+        this.toastAlertType = type;
+        this.showToast= true
+        setTimeout(()=>{
+          this.toastMessage='';
+          this.showToast=false;
+          this.showToast = '';
+        },3000)
+      },
       item(item){
         this.recipientName=item.recipientName
         this.recipientNumber=item.recipientNumber
@@ -167,7 +182,7 @@ export default {
       formData.append('detailedAddress',this.detailedAddress);
       formData.append('comment',this.comment);
       formData.append('paymentAmount',this.total);
-        this.$http
+      this.$http
       .post('/api/cart/orders', formData,{
        withCredentials:true
       })
@@ -180,14 +195,16 @@ export default {
        console.log(err);
     });
      this.$http
-      .get('/api/cart/orders', formData,{
+      .get('/api/cart/orders/payments', formData,{
        withCredentials:true
       })
      .then(res => {
       console.log(res);
+      this.triggerToast('Successfully saved!')
       })
      .catch(err => {
        console.log(err);
+       this.triggerToast('Something went wrong', 'error')
     });
       },
       remove(index){
@@ -198,8 +215,10 @@ export default {
       .then((res)=> {
         console.log(res)
         this.$store.commit("cart/remoteList", index)
+        this.triggerToast('Successfully saved!')
       }).catch((err)=>{
         console.log(err)
+        this.triggerToast('Something went wrong', 'error')
       })
       },
       removeAll(){
@@ -210,36 +229,12 @@ export default {
       .then((res)=> {
         console.log(res)
         this.$store.state.cart.cart=[]
+        this.triggerToast('Successfully saved!')
       }).catch((err)=>{
         console.log(err)
+        this.triggerToast('Something went wrong', 'error')
       })
       },
-      remove(index) {
-            this.$http
-                .delete(`/api/cart/${index}`, {
-                    withCredentials: true,
-                })
-                .then((res) => {
-                    console.log(res);
-                    this.$store.commit('cart/remoteList', index);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        },
-        removeAll() {
-            this.$http
-                .delete(`/api/cart`, {
-                    withCredentials: true,
-                })
-                .then((res) => {
-                    console.log(res);
-                    this.$store.state.cart.cart = [];
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        },
     },
     computed: {
         firstName(){
@@ -266,4 +261,21 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s ease;;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+  transform: translateY(0px);
+}
+</style>

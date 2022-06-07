@@ -5,7 +5,7 @@
       text
       max-width="300"
       max-height="50"
-      style="left: 80%; top:10px;"
+      style="left: 80%;"
     >
       {{message}}    
 </v-alert>

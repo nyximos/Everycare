@@ -6,19 +6,12 @@
         <p class="display-5 fw-bold">Carestore</p>
       </div>
       <div class="col-4 d-grid gap-2 d-md-flex justify-content-md-end">
-      <v-btn @click="goCart">
-        <v-badge v-if="!this.$store.state.cart.cart.length==0" :content="this.$store.state.cart.cart.length">
-        <v-icon>mdi-cart</v-icon>
-        </v-badge>
-      </v-btn>
-      <v-btn @click="wish">
-          <v-badge v-if="!this.$store.state.wish.wish.length==0" :content="this.$store.state.wish.wish.length">
-        <v-icon>mdi-heart</v-icon>
-          </v-badge>
-      </v-btn>
-		<v-btn  type="button" @click="goCreateStore">
-      <v-icon>mdi-login</v-icon>
-    </v-btn>
+        
+          <v-icon  @click="goCart">mdi-cart</v-icon>
+          <v-badge overlap v-if="!this.$store.state.cart.cart.length==0" :content="this.$store.state.cart.cart.length" />
+          <v-icon  @click="wish">mdi-heart</v-icon>
+          <v-badge overlap v-if="!this.$store.state.wish.wish.length==0" :content="this.$store.state.wish.wish.length" />
+          <v-icon @click="goCreateStore">mdi-login</v-icon>
       </div>
     </div>
   </header>
@@ -42,18 +35,7 @@
 </div>
 
 <!--ranking-->
-
-<div class="row">
-	<p class="fs-2 mt-5 fw-bold">Top 3</p>
-      <div class="ranking col" v-for="index in 3" :key="index">
-	<img src="../images/ear.jpg" class="rounded-circle mx-auto d-block" width="140" height="140">
-        <div class="text-center">
-		<h2 class="mt-2">체온계</h2>
-<button class="btn btn-secondary" href="#">View details &raquo;</button>
-		</div>
-      </div>
-</div>
-
+      <ProdRank :storeList="storeList" @detail="detailShot" />
 <!--body-->
         <p class="display-6 text-center mt-5">Menu</p>
       <v-row>
@@ -77,11 +59,13 @@
 </template>
 
 <script>
+import ProdRank from '@/components/prodRank'
 import ProdList from '@/components/prodList'
 export default {
 name: 'storeMain',
 components:{
- ProdList
+ ProdList,
+ ProdRank
 },
 mounted(){
 	this.$http
