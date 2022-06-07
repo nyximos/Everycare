@@ -52,20 +52,25 @@
           ></v-text-field>
       </v-col>
     </v-row>
-			<ProdList v-for="(storeList, index) in storeList"
-        :key="index"
-        mb-2 :storeList="storeList" @detail="detailShot" />		
+    <v-row>
+			<ProdList v-if="!searchvalue" :storeList="storeList" @detail="detailShot" />
+    </v-row>
+        <v-row>
+        <SearchResult v-if="searchvalue" :result="result" @detail="detailShot"/>	
+        </v-row>
 </v-container>   
 </template>
 
 <script>
+import SearchResult from '@/components/searchResult'
 import ProdRank from '@/components/prodRank'
 import ProdList from '@/components/prodList'
 export default {
 name: 'storeMain',
 components:{
  ProdList,
- ProdRank
+ ProdRank,
+ SearchResult
 },
 mounted(){
 	this.$http
@@ -98,16 +103,21 @@ data(){
             src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
           },
         ],
+        result:this.result,
+        searchvalue:false
 	}
 },
 methods:{
   search(){
-     this.$http.get('/api/store/products/name',{params: {name: this.searchText}},{
+     this.$http
+     .get('/api/store/products/name',
+     {params: {name: this.searchText}},{
         withCredentials:true
       })
 		.then((res)=>{
+        this.result=res.data.body
         console.log(res.data);
-        this.addrInfo=res.data.body
+        this.searchvalue=true
       }).catch(err =>{
 				console.log(err);
 			})
