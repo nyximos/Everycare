@@ -5,7 +5,7 @@
                 <h2> 스케줄</h2>
                 <div>
                     <span class="tit"><h4>케어대상인: OOO</h4></span>
-                    <v-btn class="ma-2" outlined color="indigo" @click="end">활동 종료</v-btn>
+                    <v-btn class="ma-2" outlined color="indigo">활동 종료</v-btn>
                 </div>
             </div>
         <div class="table">
@@ -133,10 +133,14 @@ export default {
                 name : s.name
             };
             this.$store.commit('carenoteStore/caretarget', caretarget);
+            // console.log(caretarget);
         },
         submit(){
             const carenoteId = this.$route.params.contentId;
             const activityId = this.$store.state.carenoteStore.id;
+            // console.log(this.file)
+            // console.log(carenoteId)
+            // console.log(activityId)
             
             
             var formData = new FormData();
@@ -190,20 +194,6 @@ export default {
            })
            .catch((err)=>{
                console.log(err);
-           })
-       },
-       end(){
-           const carenoteId = this.$route.params.contentId;
-           console.log(carenoteId);
-           this.$http
-           .patch(`/api/carenotes/${carenoteId}/schedules/complition`,{
-               withCredentail:true
-           })
-           .then((res)=>{
-               console.log(res)
-           })
-           .catch((err)=>{
-               console.log(err)
            })
        }
     }
