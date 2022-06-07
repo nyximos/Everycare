@@ -352,6 +352,11 @@ const routes = [
             else next();
         },
     },
+    {
+        path: '/findinfo',
+        name: 'findinfo',
+        component: () => import('@/pages/Findinfo.vue')
+    },
     // {
     //     path: '/caresitters',
     //     name: 'caresitters',
