@@ -7,12 +7,12 @@
       </div>
       <div class="col-4 d-grid gap-2 d-md-flex justify-content-md-end">
       <v-btn @click="goCart">
-        <v-badge v-if="!this.$store.state.cart.cart.length==0" content="1">
+        <v-badge v-if="!this.$store.state.cart.cart.length==0" :content="this.$store.state.cart.cart.length">
         <v-icon>mdi-cart</v-icon>
         </v-badge>
       </v-btn>
       <v-btn @click="wish">
-          <v-badge v-if="!this.$store.state.wish.wish.length==0" content="1">
+          <v-badge v-if="!this.$store.state.wish.wish.length==0" :content="this.$store.state.wish.wish.length">
         <v-icon>mdi-heart</v-icon>
           </v-badge>
       </v-btn>
