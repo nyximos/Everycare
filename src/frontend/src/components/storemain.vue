@@ -1,21 +1,19 @@
 <template>
-<v-container>
-  <header class="blog-header py-3">
-    <div class="row flex-nowrap justify-content-between align-items-center">
-      <div class="col-4 text-center">
-        <p class="display-5 fw-bold">Carestore</p>
-      </div>
-      <div class="col-4 d-grid gap-2 d-md-flex justify-content-md-end">
-        
-          <v-icon  @click="goCart">mdi-cart</v-icon>
-          <v-badge overlap v-if="!this.$store.state.cart.cart.length==0" :content="this.$store.state.cart.cart.length" />
-          <v-icon  @click="wish">mdi-heart</v-icon>
-          <v-badge overlap v-if="!this.$store.state.wish.wish.length==0" :content="this.$store.state.wish.wish.length" />
-          <v-icon @click="goCreateStore">mdi-login</v-icon>
-      </div>
-    </div>
-  </header>
+<div>
+  <!--carousel-->
+ <v-carousel
+  cycle
+  hide-delimiters
+  show-arrows-on-hover>
+    <v-carousel-item
+      v-for="(item,i) in items"
+      :key="i"
+      :src="item.src"
+    ></v-carousel-item>
+  </v-carousel>
   
+<v-container>
+<!--nav-->
 <nav class="nav d-flex justify-content-between">
       <a class="p-2 text-black" href="#">패션/잡화</a>
       <a class="p-2 text-black" href="#">화장품/미용</a>
@@ -23,34 +21,40 @@
       <a class="p-2 text-black" href="#">생활/건강</a>
       <a class="p-2 text-black" href="#">스포츠/레저</a>
     </nav>
-<!--carousel-->
-<div class="container">
- <v-carousel hide-delimiters>
-    <v-carousel-item
-      v-for="(item,i) in items"
-      :key="i"
-      :src="item.src"
-    ></v-carousel-item>
-  </v-carousel>
-</div>
 
-<!--ranking-->
-      <ProdRank :storeList="storeList" @detail="detailShot" />
+
 <!--body-->
-        <p class="display-6 text-center mt-5">Menu</p>
-      <v-row>
-      <v-col cols="10"></v-col>
-      <v-col cols="2">
-          <v-text-field
-            v-model="searchText"
-            @input="search"
-            filled
-            dense
-            rounded
-            label="search"
-            prepend-inner-icon="mdi-magnify"
-          ></v-text-field>
-      </v-col>
+    </v-container>
+    <!--ranking-->
+      <ProdRank :storeList="storeList" @detail="detailShot" class="mb-10"/>
+    
+  <v-row class="mt-10">
+    <v-toolbar class="elevation-0">
+      <v-spacer></v-spacer>
+      <v-cols col="1">
+        <v-text-field
+        v-model="searchText"
+        @input="search"
+        hide-details
+        prepend-icon="mdi-magnify"
+        single-line
+      ></v-text-field>
+      </v-cols>
+      
+      <v-btn icon @click="goCart">
+        <v-icon>mdi-cart</v-icon>
+          <v-badge v-if="!this.$store.state.cart.cart.length==0" :content="this.$store.state.cart.cart.length" />
+      </v-btn>
+
+      <v-btn icon @click="wish">
+        <v-icon>mdi-heart</v-icon>
+          <v-badge v-if="!this.$store.state.wish.wish.length==0" :content="this.$store.state.wish.wish.length" />
+      </v-btn>
+      
+      <v-btn icon @click="goCreateStore">
+        <v-icon>mdi-login</v-icon>
+      </v-btn>
+    </v-toolbar>
     </v-row>
     <v-row>
 			<ProdList v-if="!searchvalue" :storeList="storeList" @detail="detailShot" />
@@ -58,7 +62,8 @@
         <v-row>
         <SearchResult v-if="searchvalue" :result="result" @detail="detailShot"/>	
         </v-row>
-</v-container>   
+ 
+</div>  
 </template>
 
 <script>
@@ -95,9 +100,6 @@ data(){
           },
           {
             src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
           },
           {
             src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',

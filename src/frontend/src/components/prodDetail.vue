@@ -1,36 +1,17 @@
 <template>
-<v-container fluid>
-    <h1>상품 상세정보</h1>
-        <v-row>
-          <v-col cols="4">
-              <label>상품명</label>
-              </v-col>
-              <v-col col cols="4">
-                <p>{{this.name}}</p>
-              </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="4">
-              <label>가격</label>
-              </v-col>
-              <v-col col cols="4">
-                <p>{{this.price}}</p>
-              </v-col>
-        </v-row>
-          <v-row>
-          <v-col cols="4">
-              <label>스토어</label>
-              </v-col>
-              <v-col col cols="4">
-                <p>{{this.store}}</p>
-              </v-col>
-        </v-row>
-        <v-row>
-            <v-col>
-                 <v-img v-for="item in this.imagesDTOs" :key="item.id" id="divProfile" :src="'https://localhost:8086/api/images/'+item.storeFileName" alt="사진" width="700" height="500"/>
-            </v-col>
-        </v-row>
-        <v-row>
+<div>
+<Toast />
+<v-container>
+ <v-card>
+    <v-img :src="'https://localhost:8086/api/images/'+storeFileName" alt="사진" height="600"/>
+      <v-card-title class="fw-bold">{{store.name}}</v-card-title>
+      <v-card-text class="text-black">
+        <p>{{name}}</p>
+        <hr>
+        <v-row class="mt-3 mb-5">
+       <b class="fs-4">{{price}}원</b>
+       </v-row>
+       <v-row>
             <v-col>
             <v-text-field
                 v-model="quantity"
@@ -47,11 +28,17 @@
           ></v-text-field>
             </v-col>
         </v-row>
-        
+       <v-row>
+         <p class="fs-4 text-center">Details</p>
+            <v-col>
+                 <v-img v-for="item in this.imagesDTOs" :key="item.id" :src="'https://localhost:8086/api/images/'+item.storeFileName" alt="사진" />
+            </v-col>
+        </v-row>
+      </v-card-text>
+    <v-row>
     <v-bottom-navigation
     fixed grow
     dark
-    color="primary"
   >
     <v-btn>
       <qnaBtn />
@@ -62,27 +49,30 @@
     </v-btn>
 
     <v-btn @click="wishList">
-      <span>wish</span>
-
-      <v-icon>mdi-heart</v-icon>
+      <wishBtn />
     </v-btn>
 
     <v-btn @click="cart">
-      <span>cart</span>
-
-      <v-icon>mdi-cart</v-icon>
+      <cartBtn />
     </v-btn>
   </v-bottom-navigation>
-      </v-container>
+  </v-row>
+  </v-card>
+</v-container>
+</div>
 </template>
 
 <script>
+import wishBtn from '@/components/wishBtn'
+import cartBtn from '@/components/cartBtn'
 import qnaBtn from '@/components/qnaBtn'
 import reviewBtn from '@/components/reviewBtn'
 export default {
 components:{
-    qnaBtn,
-    reviewBtn
+  cartBtn,
+  wishBtn,
+  qnaBtn,
+  reviewBtn,
 },
 mounted() {
     const id = Number(this.$route.params.contentId);

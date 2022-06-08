@@ -1,16 +1,17 @@
 <template>
-<div class="row">
-	<p class="fs-2 mt-5 fw-bold">Top 3</p>
+<v-row>
+	<p class="fs-4 mt-10 ">HOT LIST</p>
     <div class="ranking col" v-for="item in storeList.slice(0,3)" :key="item.index">
 	<img :src="'https://localhost:8086/api/images/'+item.storeFileName" 
   class="rounded-circle mx-auto d-block" width="140" 
   height="140">
         <div class="text-center">
-		<h3 class="mt-2">{{item.name}}</h3>
+		<b class="mt-2">{{item.name}}</b><br>
 <button class="btn btn-secondary" @click="detail(item)">View details &raquo;</button>
 		</div>
       </div>
-</div>  
+</v-row>  
+
 </template>
 
 <script>
