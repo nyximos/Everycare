@@ -21,58 +21,30 @@
       <a class="p-2 text-black" href="#">생활/건강</a>
       <a class="p-2 text-black" href="#">스포츠/레저</a>
     </nav>
+</v-container>
 
-
-<!--body-->
-    </v-container>
-    <!--ranking-->
-      <ProdRank :storeList="storeList" @detail="detailShot" class="mb-10"/>
+ <!--ranking-->
+  <ProdRank :storeList="storeList" @detail="detailShot" class="mb-10"/>
     
-  <v-row class="mt-10">
-    <v-toolbar class="elevation-0">
-      <v-spacer></v-spacer>
-      <v-cols col="1">
-        <v-text-field
-        v-model="searchText"
-        @input="search"
-        hide-details
-        prepend-icon="mdi-magnify"
-        single-line
-      ></v-text-field>
-      </v-cols>
-      
-      <v-btn icon @click="goCart">
-        <v-icon>mdi-cart</v-icon>
-          <v-badge v-if="!this.$store.state.cart.cart.length==0" :content="this.$store.state.cart.cart.length" />
-      </v-btn>
+<!--body-->
+  <StoreBar @result="result" @searchvalue="searchvalue" @goCart="goCart" @goCreateStore="goCreateStore" @wish="wish"/>
+	
+  <ProdList v-if="!searchvalue" :storeList="storeList" @detail="detailShot" />
 
-      <v-btn icon @click="wish">
-        <v-icon>mdi-heart</v-icon>
-          <v-badge v-if="!this.$store.state.wish.wish.length==0" :content="this.$store.state.wish.wish.length" />
-      </v-btn>
-      
-      <v-btn icon @click="goCreateStore">
-        <v-icon>mdi-login</v-icon>
-      </v-btn>
-    </v-toolbar>
-    </v-row>
-    <v-row>
-			<ProdList v-if="!searchvalue" :storeList="storeList" @detail="detailShot" />
-    </v-row>
-        <v-row>
-        <SearchResult v-if="searchvalue" :result="result" @detail="detailShot"/>	
-        </v-row>
+  <SearchResult v-if="searchvalue" :result="result" @detail="detailShot"/>	
  
 </div>  
 </template>
 
 <script>
+import StoreBar from '@/components/storeBar'
 import SearchResult from '@/components/searchResult'
 import ProdRank from '@/components/prodRank'
 import ProdList from '@/components/prodList'
 export default {
 name: 'storeMain',
 components:{
+ StoreBar,
  ProdList,
  ProdRank,
  SearchResult

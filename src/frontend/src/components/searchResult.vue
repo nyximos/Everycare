@@ -1,5 +1,5 @@
 <template>
-      <div>
+      <v-row>
         <p>검색결과 총 {{result.length}}건</p>
         <v-card v-for="item in result" :key="item.index" class="cards mx-auto mt-2" max-width="344">
           <v-img id="divProfile" :src="'https://localhost:8086/api/images/'+item.storeFileName" alt="사진" width="344" height="200"/>
@@ -15,7 +15,7 @@
               </v-btn>
             </v-card-actions>
         </v-card>
-  </div>
+  </v-row>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-row>
         <v-card v-for="item in storeList" :key="item.index" class="cards mx-auto mt-8 ml-15" max-width="350" elevation="0" @click="detail(item)">
           <v-img id="divProfile" :src="'https://localhost:8086/api/images/'+item.storeFileName" alt="사진" width="350" height="250"/>
           <v-card-text class="text-black">
@@ -10,7 +10,7 @@
             
           </v-card-text>
         </v-card>
-  </div>
+  </v-row>
 </template>
 
 <script>
