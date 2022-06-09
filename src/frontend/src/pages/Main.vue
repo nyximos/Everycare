@@ -1,21 +1,18 @@
 <template>
-    <v-container fluid class="main">
+<div>
         <componentpage />
-        <Main />
         <ul>
             <li><router-link to="/Carepeople">케어대상인 조회</router-link></li>
             <li><router-link to="/dashboard">마이페이지</router-link></li>
             <li><router-link to="/CaretargetsDetail">대상인상세조회</router-link></li>
             <p>{{ this.$store.state.userStore.careSitterId }}</p>
         </ul>
-    </v-container>
+        </div>
 </template>
 <script>
 import componentpage from '@/components/main.vue';
-import Main from '@/components/main/index';
 export default {
     components: {
-        Main,
         componentpage,
     },
 };

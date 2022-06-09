@@ -1,17 +1,28 @@
 <template>
     <div>
         <div>
-            <v-carousel v-model="model" height="300px" hide-delimiters cycle interval="3000">
-                <v-carousel-item v-for="(color, i) in colors" :key="color">
-                    <v-sheet :color="color" height="100%" tile>
-                        <v-row class="fill-height" align="center" justify="center">
-                            <div class="text-h2">Slide {{ i + 1 }}</div>
-                        </v-row>
-                    </v-sheet>
-                </v-carousel-item>
-            </v-carousel>
+            <img src='https://cdn.vuetifyjs.com/images/carousel/planet.jpg' width="100%" height="500">
         </div>
-
+        <v-container fluid>
+<v-row dense class="mt-15">
+        <v-col
+          v-for="card in cards"
+          :key="card.title"
+          :cols="card.flex"
+        >
+          <v-card elevation="4" class="mt-10 v-card">  
+              <v-card-title class="fw-bold" v-text="card.title"></v-card-title>
+              <v-img
+              :src="card.src"
+              class="white--text align-end"
+              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+              height="500"
+            >
+            </v-img>
+          </v-card>
+        </v-col>
+      </v-row>
+      </v-container>
         <div class="main-form">
             <div @click="go('caresitters')" class="find-care-sitter">
                 케어시터 찾기
@@ -28,8 +39,27 @@ export default {
     name: 'Main',
     data() {
         return {
-            model: 0,
-            colors: ['primary', 'secondary', 'yellow darken-2', 'red', 'orange']
+           		items: [
+          {
+            src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg'
+          },
+          {
+            src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg'
+          },
+          {
+            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+          },
+        ],
+        cards: [
+        { title: 'Pre-fab homes', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 12 },
+        { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 4 },
+        { title: '공지사항', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
+        { title: '고양이파우치', src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg', flex: 4 },
+        { title: '춘식이', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
+        { title: '띠용~?', src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg', flex: 6 },
+
+
+      ],
         };
     },
     methods: {
@@ -58,4 +88,5 @@ export default {
     align-items: center;
     cursor: pointer;
 }
+
 </style>
