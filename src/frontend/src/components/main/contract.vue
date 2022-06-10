@@ -53,8 +53,6 @@ export default {
     choose(j){
       const id =this.caresitterId;
       const jobId = j.id;
-      console.log(id)
-      console.log(typeof jobId);
       this.$http
       .post(`/api/caresitters/${id}/contracts?jobOfferId=${jobId}&careSitterId=${id}`,
       ).then((res)=>{

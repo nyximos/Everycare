@@ -1,28 +1,17 @@
-<template>  <div class="content">
+<template>
+  <div class="content">
       <h2>완료된 계약서</h2>
-      <v-card
-    class="mx-auto"
-    max-width="300"
-    v-for="(c,index) in contract" :key="index"
-  >
-    <v-img
-      src="@/assets/handshake.png"
-      height="200px"
-      width="150px"
-      style="margin:0 auto;"
-    ></v-img>
-
-    <v-card-title>
+      <v-card class="mx-auto" max-width="300" v-for="(c,index) in contract" :key="index">
+        <v-img src="@/assets/handshake.png" height="200px" width="150px" style="margin:0 auto;"></v-img>
+      <v-card-title>
         회원 아이디:{{c.memberId}} <br>
         회원 이름:{{c.memberName}} <br>
         케어대상인:{{c.careTargetName}}
-    </v-card-title>
-    <v-card-subtitle>
-      날짜: {{c.day}}<br>
-      {{c.payDateTime}}
-    </v-card-subtitle>
- 
-
+      </v-card-title>
+      <v-card-subtitle>
+        날짜: {{c.day}}<br>
+        {{c.payDateTime}}
+      </v-card-subtitle>
     <v-card-actions>
       <div style="margin:0 auto;">
         <v-btn color="#69f0ae" text @click="note(c)">노트</v-btn>
@@ -50,14 +39,7 @@
           <p class="text-h9 text--primary">금여: {{c.amount}}</p>
         </v-card-text>
         <v-card-actions class="pt-0">
-          <v-btn
-            text
-            color="#69f0ae"
-            style="margin:0 auto;"
-            @click="reveal = false"
-          >
-            Close
-          </v-btn>
+          <v-btn text color="#69f0ae" style="margin:0 auto;" @click="reveal = false">Close</v-btn>
         </v-card-actions>
       </v-card>
     </v-expand-transition>
@@ -75,13 +57,15 @@ export default {
         }
     },
     mounted(){
-        // console.log(id)
+        const id = this.$route.params.targetId;
+        console.log(id)
         this.$http
         .get(`/api/member/caretargets/${id}/contracts/complition`,{
+          
             withCredential:true
         })
         .then((res)=>{
-            console.log(res);
+            console.log(res.data.body);
             this.contract = res.data.body
         })
         .catch((err)=>{

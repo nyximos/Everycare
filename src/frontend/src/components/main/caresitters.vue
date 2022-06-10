@@ -199,6 +199,7 @@ export default {
       dialogm1:'',
       dialogm2:'',
       hopeloc1_detail:[],
+      time:[],
       select: [
         {name: '서울', value: '서울'},
         {name: '인천', value: '인천'},
@@ -499,6 +500,7 @@ export default {
      this.timedialog = false
    },
     regionsearch(){
+      
       this.$http
       .get(`/api/caresitters/region`,{
         withCredentials:true
@@ -518,13 +520,16 @@ export default {
          console.log(err)
        })
      },
-   timesearch(){
+   timesearch01(){
+     const time = this.dialogm1
+     console.log(time)
      this.$http
-     .get(`/api/caresitters/activityTime`,{
+     .get(`/api/caresitters/time?time=${time}`,{
        withCredentials:true
      }).then((res)=>{
        console.log(res)
-      //  this.time = res.data.body
+       this.time = res.data.body
+       console.log(this.time)
      }).catch((err)=>{
        console.log(err)
      })
