@@ -61,7 +61,7 @@ export default {
         console.log(id)
         this.$http
         .get(`/api/member/caretargets/${id}/contracts/complition`,{
-          
+
             withCredential:true
         })
         .then((res)=>{

@@ -25,7 +25,7 @@ public class MemberCareNoteQueryRepository {
                 .join(contract.jobOffer, jobOffer).fetchJoin()
                 .where(jobOffer.careTarget.eq(careTarget),
                         contract.member.eq(member),
-                        contract.status.eq(3))
+                        contract.status.eq(2))
                 .fetch();
     }
 
