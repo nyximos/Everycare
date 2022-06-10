@@ -484,6 +484,15 @@ const routes = [
         name: 'mypage_joblist',
         component: () => import('@/components/main/mypage_joblist'),
     },
+    {
+        path: '/idcheck',
+        name: 'idcheck',
+        component: () => import('@/pages/Idcheck.vue'),
+        meta: {
+            hideNavbar: true,
+            hideFooter: true,
+           }
+    }
 
 ];
 

@@ -8,7 +8,6 @@
                     <v-text-field v-model="json.password" type="password" label="Password" placeholder="Placeholder" dense outlined></v-text-field>
                 </div>
                 <div><v-btn @click="login" color="#69f0ae" elevation="2" class="login-button">로그인</v-btn></div>
-                <router-link to="/findinfo" class="idpwfind">ID / PW 찾기</router-link>
             </div>
         </div>
     </div>

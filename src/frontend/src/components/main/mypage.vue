@@ -1,7 +1,7 @@
 <template>
   <div>
       <h2>마이페이지</h2>
-      
+      <router-link :to="{name:'findinfo', params:{caresitterId:this.id}}">비밀번호 변경</router-link>
       <router-link :to="{name:'certification',params:{caresitterId:this.id}}"><p>자격증 등록</p></router-link>
       <router-link :to="{name:'mypage_certi' ,params:{caresitterId:this.id}}"><p>케어 자격증 조회</p></router-link>
       <div v-if="this.id=='' ">

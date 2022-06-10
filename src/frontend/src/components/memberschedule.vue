@@ -17,9 +17,6 @@
            </v-card>
         </li> 
          <v-dialog v-model="dialogUd" @click:outside="closeDialog" width="500">
-            <template v-slot:activator="{ on, attrs }">
-                <v-btn class="sc-add-btn" color="#69f0ae" dark v-bind="attrs" v-on="on"> 스케줄 추가 </v-btn>
-            </template>
             <div>
                 <v-card class="mx-auto my-12" max-width="374">
                     <template slot="progress"> </template>
@@ -67,7 +64,10 @@
         </v-dialog>
         <v-dialog v-model="dialogPg" @click:outside="closeDialog" width="500">
             <template v-slot:activator="{ on, attrs }">
-                <v-btn class="sc-add-btn" color="#69f0ae" dark v-bind="attrs" v-on="on"> 스케줄 추가 </v-btn>
+                <v-btn class="mx-2" id="memschbtn"
+      fab color="#69f0ae" dark v-bind="attrs" v-on="on"><v-icon dark>
+        mdi-plus
+      </v-icon></v-btn>
             </template>
             <div>
                 <v-card class="mx-auto my-12" max-width="374">
@@ -281,5 +281,11 @@ export default {
     position: relative;
     left: 180px;
     bottom: 74px;
+}
+#memschbtn{
+    position: absolute;
+    left: 95%;
+    top: 75%;
+     transform: translate(-80%, -70%);
 }
 </style>
