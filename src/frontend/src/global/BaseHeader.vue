@@ -21,10 +21,9 @@
             </div>
         </div>
     </header> -->
-  <div>
+  <div class="pt-15">
     <v-app-bar
       color="green lighten-2"
-      class="fixed-bar"
       dark
       fixed
     >
