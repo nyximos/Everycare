@@ -1,13 +1,13 @@
 <template>
   <div>
       <h2>마이페이지</h2>
+      <div v-if="this.$store.state.userStore.careSitterId  !==null">
         <router-link :to="{name:'certification',params:{caresitterId:this.id}}"><p>자격증 등록</p></router-link>
         <router-link :to="{name:'mypage_certi' ,params:{caresitterId:this.id}}"><p>케어 자격증 조회</p></router-link>
-      <div v-if="this.id=='' ">
-         <router-link :to="{name:'careprofilecreate'}"><p>케어 프로필 생성</p></router-link>
+          <router-link :to="{name:'mypage_profile' ,params:{caresitterId:this.id}}"><p>프로필 조회</p></router-link>
       </div>
       <div v-else>
-          <router-link :to="{name:'mypage_profile' ,params:{caresitterId:this.id}}"><p>프로필 조회</p></router-link>
+         <router-link :to="{name:'careprofilecreate'}"><p>케어 프로필 생성</p></router-link>
       </div>
         <router-link :to="{name:'memberSchedule', params:{caresitterId:this.id}}"><p>스케줄</p></router-link>
         <router-link :to="{name:'caresitter_contract', params:{caresitterId:this.id}}"><p>계약서조회</p></router-link><br>
