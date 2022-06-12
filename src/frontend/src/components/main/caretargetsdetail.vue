@@ -63,6 +63,7 @@
 			</div>
         </div>
 		<v-btn class="ma-2" outlined color="indigo" @click="clickme">돌아가기</v-btn>
+		
 		</div>
 		
 </template>
@@ -94,7 +95,8 @@ mounted() {
 		this.coronaTest = res.data.body.coronaTest
 		
 		// this.attachFiles = res.data.body.attachFiles[0].storeFileName
-		this.attachFiles = res.data.body.imageDTOs[0].storeFileName
+		this.attachFiles = res.data.body.storeFileName
+		this.detailImg = res.data.body.imagesDTOs;
 
     })
     .catch((err)=>{
@@ -117,7 +119,7 @@ data(){
         isCctvAgreement: this.isCctvAgreement,
         careType: this.careType,
         coronaTest: this.coronaTest,
-        attachFiles: this.attachFiles,
+        attachFiles: null,
 		img: this.img
     }
 },

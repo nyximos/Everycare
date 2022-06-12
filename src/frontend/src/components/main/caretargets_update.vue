@@ -1,10 +1,13 @@
 <template>
+<v-container>
+  <v-card>
+  <v-card-text>
   <div class="content">
       <div class="join">
           <div class="div_join">
               <div class="contents">
     <div class="upload-box">
-      <div id="drop-file" class="drag-file">
+      <!-- <div id="drop-file" class="drag-file">
           <div class="div_img">
                               <label for="input_file">
                                   <img :src="avatar" class="img-avatar">                                  
@@ -18,7 +21,7 @@
          <img src="" alt="미리보기 이미지" class="preview"> 
       </div>
       <label class="file-label" for="attachFiles">이미지 찾기</label>
-      <v-file-input class="file" v-model="attachFiles" id="attachFiles" type="file" multiple="multiple" accept="image/png, image/jpeg, image/gif"></v-file-input>
+      <v-file-input class="file" v-model="attachFiles" id="attachFiles" type="file" multiple="multiple" accept="image/png, image/jpeg, image/gif"></v-file-input> -->
     </div>
   </div>
   <br>
@@ -134,21 +137,46 @@
                                     <v-radio label="X" value="1"></v-radio>
                         </v-radio-group> -->
                     </li>
-                    <li>
+                    <br>
+                   
+      
+    <v-row>
+      <v-col cols="10"  v-for="(item,index) in detailImg" :key="index" style="float:left">
+    <div class="text-center">
+    <v-btn icon @click="delImg(item)">
+      <v-icon>mdi-close</v-icon>
+    </v-btn>
+    <v-img id="divProfile" :src="'https://localhost:8086/api/images/'+item.storeFileName" alt="사진" width="150px" height="200px"/>
+    </div>
+    </v-col>
+    </v-row>
+    <!-- <v-file-input
+      v-model="attachFiles"
+      chips
+      multiple
+      label="사진"
+    ></v-file-input> -->
+                    <!-- <li>
                     <span>파일 업로드</span>
                     
                     
- 
+                    
                     <v-file-input type="file" v-model="attachFiles" name="attachFiles" id="attachFiles" multiple="multiple"></v-file-input>
                     
-                    </li>
+                    </li> -->
                 </ul>
                 <v-btn class="ma-2" outlined color="indigo" @click="clickme">수정</v-btn>
+                
             </div>
         </div>
             
       </div>
+      
   </div>
+  </v-card-text>
+</v-card>
+</v-container>
+
 </template>
 
 <script>
@@ -174,8 +202,9 @@ data(){
         isCctvAgreement:'',
         careType:'',
         coronaTest:'',
-        attachFiles:'',
-        id:this.$route.params.caretargetsId
+        attachFiles:null,
+        id:this.$route.params.caretargetsId,
+        detailImg:[],
     }
 },
 mounted(){
@@ -200,7 +229,8 @@ const id = this.$route.params.caretargetsId;
 		this.isCctvAgreement = res.data.body.isCctvAgreement
 		this.careType = res.data.body.careType
 		this.coronaTest = res.data.body.coronaTest
-		this.attachFiles = res.data.body.attachFiles
+		this.attachFiles = res.data.body.storeFileName
+    this.detailImg = res.data.body.imagesDTOs;
     })
     .catch((err)=>{
         console.log(err)
@@ -275,9 +305,21 @@ execDaumPostcode() {
                 formData.append('coronaTest',this.coronaTest);
                 
 
-                for (let i = 0; i < this.attachFiles.length; i++) {
-                formData.append('attachFiles', this.attachFiles[i]);
-                }
+                // for (let i = 0; i < this.attachFiles.length; i++) {
+                // formData.append('attachFiles', this.attachFiles[i]);
+                // }
+                if (this.attachFile!=null){
+          formData.append('attachFile', this.attachFile)
+        }
+          if (this.attachFiles===null) {
+          for (let i = 0; i < this.item.length; i++) {
+            formData.append('attachFiles', this.item.detailImg[i]);
+          }
+        }else{
+          for (let i = 0; i < this.attachFiles.length; i++) {
+            formData.append('attachFiles', this.attachFiles[i]);
+          }
+        }
                 
     this.$http
     .patch(`/api/dashboard/caretargets/${this.id}`,formData, {
@@ -291,6 +333,18 @@ execDaumPostcode() {
     });    
         },        
     },
+    delImg(item){
+    // console.log(item.id)
+    this.$http
+    .delete(`/api/dashboard/caretargets/${this.id}/image/${item.id}`,{
+      withCredentials:true
+    })
+    .then((res)=>{
+      console.log(res)
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }
 }
 
 </script>
