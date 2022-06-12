@@ -16,13 +16,19 @@
                           <div class="div_text">
                           <br><br>
                           <h5>프로필 사진</h5>
-                          <br>
-                              <v-file-input 
+                          <div v-for="(i,index) in imgfile" :key="index">
+                              <img :src="'https://localhost:8086/api/images/' + i.storeFileName" width="250px" height="250px" alt="@/assets/profile.png">
+                              <v-btn @click="del(i)">삭제하기</v-btn>
+                              {{i.id}}
+                          </div>
+                          <br>        
+                            <v-file-input 
                               v-model="attachFiles" 
                               label="File input" 
                               type="file"
                               id="attachFiles"
                               multiple="multiple"
+                              @click="del"
                               outlined dense>
                               </v-file-input>
                           </div>
@@ -172,7 +178,8 @@ export default {
             is_vaccinated: '',
             attachFiles: [],
             disclosureStatus:'',
-            id:this.$route.params.caresitterId
+            imgfile:this.imgfile,
+            id:this.$route.params.caresitterId,
         }
         
     },
@@ -183,19 +190,20 @@ export default {
          withCredentials:true
       })
       .then((res)=>{
-         console.log(res.data.body);
-         // console.log(res.data.body)
-         this.introduction = res.data.body.introduction
-         this.cctvAgreement = res.data.body.cctvAgreement
-         this.desiredDayWeek = res.data.body.desiredDayWeek
-         this.desiredHourlyWage = res.data.body.hourlyWage
-         this.monthlyWage = res.data.body.monthlyWage
-         this.preferredType = res.data.body.preferredType
-         this.activityTime = res.data.body.activityTime
-         this.attachFiles = res.data.body.attachFiles
-         this.hopefulRegion = res.data.body.hopefulRegion
-         this.is_vaccinated = res.data.body.is_vaccinated
-      this.disclosureStatus = res.data.body.disclosureStatus
+        console.log(res.data.body);
+        // console.log(res.data.body)
+        this.introduction = res.data.body.introduction
+        this.cctvAgreement = res.data.body.cctvAgreement
+        this.desiredDayWeek = res.data.body.desiredDayWeek
+        this.desiredHourlyWage = res.data.body.hourlyWage
+        this.monthlyWage = res.data.body.monthlyWage
+        this.preferredType = res.data.body.preferredType
+        this.activityTime = res.data.body.activityTime
+        this.imgfile = res.data.body.attachFiles
+        this.hopefulRegion = res.data.body.hopefulRegion
+        this.is_vaccinated = res.data.body.is_vaccinated
+        this.disclosureStatus = res.data.body.disclosureStatus
+        console.log(this.imgfile)
       }).catch(err=>{
          console.log(err);
       })
@@ -228,7 +236,33 @@ export default {
             }).catch(err=> {
                 console.log(err);
             })
-        }
+        },
+        del(i){
+          const id = this.$route.params.caresitterId
+          const imageId = i.id
+          this.$http
+          .delete(`/api/dashboard/caresitter/${id}/image/${imageId}`,{
+            withCredentials:true
+          })
+          .then((res)=>{
+            console.log(res)
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
+        },
+        changeImage(e) {
+         document.getElementById("uppic").click();   
+         var file = e.target.files[0]
+         console.log(file)
+         this.file = file
+         var that = this
+         var reader = new FileReader()
+         reader.readAsDataURL(file)
+         reader.onload = function(e) {
+           that.imgfile = this.result
+         }
+       }
     }
 }
 </script>

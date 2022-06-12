@@ -44,7 +44,7 @@ const routes = [
         component: () => import('@/components/prodEdit.vue'),
     },
     {
-            path: '/prodcreate',
+        path: '/prodcreate',
         name: 'ProdCreate',
         component: () => import('@/components/prodCreate.vue'),
     },
@@ -183,6 +183,42 @@ const routes = [
         path:'/dashboard/contracts/completion',
         name:'complete_contract',
         component:()=> import('@/pages/Complete_contract')
+    },
+    {
+        //완료된 케어노트(케어시터)
+        path:'/dashboard/contracts/completion/note/:contentId',
+        name:'complete_note',
+        component:()=> import('@/components/main/complete_note')
+    },
+    {
+        //완료된 케어노트 상세(케어시터)
+        path:'/dashboard/contracts/completion/note/detail/:noteId',
+        name:'note_detail',
+        component:()=> import('@/components/main/complete_note_detail')
+    },
+    {
+        //완료된 계약서 대상인 선택(멤버)
+        path:'/dashboard/complete_target',
+        name:'complete_target',
+        component:()=> import('@/pages/Complete_target')
+    },
+    {
+        //완료된 계약서(멤버)
+        path:'/dashboard/memcontracts/completion/:targetId',
+        name:'complete_memcontract',
+        component:()=> import('@/pages/Complete_memcontract')
+    },
+    {
+        // 시간 검색 모달창
+        path:'/timesearch',
+        name:'timesearch',
+        component:()=> import('@/components/main/timesearch')
+    },
+    {
+        // 후기 조회
+        path:'/review',
+        name:'review_list',
+        component:()=> import('@/components/main/review')
     },
     {
         path: '/admin_report',
@@ -367,17 +403,6 @@ const routes = [
             else next();
         },
     },
-
-    // {
-    //     path: '/profile',
-    //     name: 'profile',
-    //     component: Profile
-    // },
-    // {
-    //     path: '/dashboard/caresitter',
-    //     name: '케어시터 프로필생성',
-    //     component: () => import('@/pages/Careprofile.vue'),
-    // },
     {
         path: '/carepeople',
         name: 'carepeople',
@@ -388,11 +413,6 @@ const routes = [
         name: 'alarm',
         component: Alarm,
     },
-    // {
-    //     path: '/profile2',
-    //     name: 'profile2',
-    //     component: Profile2,
-    // },
     {
         path: '/test',
         name: 'Test',

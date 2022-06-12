@@ -497,7 +497,6 @@ export default {
       activityTime:"",
       radios:'',
       desiredDayWeek: [],
-      // starttimepicker:[],
       cctvAgreement:'',
       vaccination: '',
       attachFiles: [],
@@ -507,26 +506,6 @@ export default {
       }
     },
 methods:{
-    // onFileChange(e) {
-    //   var files = e.target.files || e.dataTransfer.files;
-    //   if (!files.length)
-    //     return;
-    //   this.createImage(files[0]);
-    // },
-    // createImage(file) {
-    //   var image = new Image();
-    //   var reader = new FileReader();
-    //   var vm = this;
-
-    //   reader.onload = (e) => {
-    //     vm.image = e.target.result;
-    //   };
-    //   reader.readAsDataURL(file);
-    // },
-    // removeImage: function (e) {
-    //   this.image = '';
-    // },
-
       categoryChange(event){
         if(event =='서울'){
           this.detail_area = this.area1;
@@ -578,10 +557,13 @@ methods:{
             formData.append('preferredType',this.preferredType);
             formData.append('vaccination',this.vaccination)
             formData.append('activityTime', this.activityTime);
-            // formData.append('activityTime', this.starttimepicker + this.endtimepicker);
            for(let i = 0; i< this.attachFiles.length; i++){
              formData.append('attachFiles', this.attachFiles[0]);
            } 
+          if(this.attachFiles ==""){
+            alert("사진");
+            return;
+          }
           if(this.hope_loc1 + this.hopeloc1_detail==""){
             alert("희망지역을 선택해주세요!");
             return;
@@ -624,17 +606,13 @@ methods:{
                 withCredentials:true
             })
             .then(res=>{
-                console.log(res);
-                console.log(res.data);
-                const userData ={
-                  caresitterId:res.data.body
-                }
-                console.log(userData);
-                this.$store.commit('userStore/userData',userData);
+              console.log(res);
+              alert("프로필 생성완료");
+              this.$router.push({ path: '/Main' })
             }).catch(err=>{
-                console.log(err);
+              console.log(err);
+              alert("실패")
             })
-            // this.$router.push({ path: '/Main' })
            }
         },
     }

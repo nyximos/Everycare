@@ -8,9 +8,14 @@
                   <h2 class="hide">기본정보</h2>
                   <div class="photoArea">
                      <span class="photo">
-                        <a href="#ResumeBaseInfo" class="image" style="position:static;left:0;bottom:0;display:block;width:auto;height:auto;padding:0;border:0 none;background:none">
-                           <img id="divProfile" :src="'https://localhost:8086/api/images/' + detail.attachFiles[0].storeFileName" alt="사진">      
-                        </a>
+                        <div v-if="this.detail.attachFiles ==''"> 
+								<a href="#ResumeBaseInfo" class="image" style="position:static;left:0;bottom:0;display:block;width:auto;height:auto;padding:0;border:0 none;background:none">
+									<img :src="'https://localhost:8086/api/images/' + detail.attachFiles[0].storeFileName" width="90" height="120" alt="프로필사진" id="per_pic">		
+								</a>
+								</div>
+								<!-- <div v-else>
+									<img src="@/assets/profile.png">
+								</div> -->
                      </span>
                   </div>
                      <ul class="infoList">
@@ -26,13 +31,12 @@
                   <h2>정보</h2>
                   <div class="infoArea first">    
                      <div class="nameArea">
-                        <dt class="title">CCTV 동의여부:{{detail.cctvAgreement}}   </dt>
-                        <!-- <p class="date">CCTV 동의여부:{{this.$store.state.careprofileStore.cctv}}</p> -->
+                        <dt class="title">CCTV 동의여부:{{detail.cctvAgreement}}</dt>
                      </div>    
                      <dl class="infoDetail">       
                         <dt class="title">백신접종:{{detail.is_vaccinated}} <span></span></dt> 
                         
-                        <dt class="title">자격증:{{detail.certification}}</dt> 
+                        <dt class="title">자격증:<span class="certi" v-for="(c,index) in certification" :key="index">{{c.name}}</span></dt> 
                         <dd class="kind">
                            <ul>
                               
@@ -84,11 +88,7 @@
                         <span class="title">희망근무지</span>
                         <p class="result">
                            {{detail.hopefulRegion}} 
-                           <!-- {{img}} -->
-                           <!-- 2순위:&nbsp;&nbsp;&nbsp;
-                           3순위: -->
                         </p>
-                  
                      </li>
                      <li>
                         <span class="title">희망업직종</span>
@@ -102,6 +102,7 @@
                </div>
                     <div id="#" class="resumeView">
                         <h2>후기</h2>
+                  <div class="ResumeOpenBox"><span class="lockIcon" v-for="(r,index) in review" :key="index">{{r.member.name}}:{{r.comment}}<br></span><p class="first"></p></div>
                     </div>
                     <div id="#" class="resumeView">
                         <h2>활동내역</h2>
@@ -149,6 +150,9 @@ export default {
          this.address = res.data.body.memberDTO.address
          this.detail = res.data.body;
          this.id = res.data.body.id;
+         this.review = res.data.body.careSitterReviews
+         this.certification = res.data.body.certification
+         console.log(this.certification)
          }).catch(err=>{
             console.log(err);
          })
@@ -160,6 +164,8 @@ export default {
             props:[
                'caresitterId'
             ],
+            certification:[],
+            review:[],
             name:this.name,
             birth:this.birth,
             gender:this.gender,
@@ -180,8 +186,7 @@ export default {
             // attachFiles:this.attachFiles,
             // img:this.img,
             // hopefulRegion:[this.hopefulRegion],
-            detail:[
-            ],
+            detail:[],
       }
    },
    methods:{
@@ -195,6 +200,9 @@ export default {
 <style>
 .ma-2{
     align-items: center;
+}
+.certi{
+   padding: 5px;
 }
 li{
    list-style: none;

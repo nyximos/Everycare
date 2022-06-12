@@ -7,7 +7,7 @@
                         <span class="name">케어대상인: OOO</span>
                         <span class="name">케어시터: OOO</span>
                         <span class="button"><v-btn depressed>출근/퇴근 정보</v-btn></span>
-                        <span class="button"><v-btn depressed>후기작성 정보</v-btn></span>
+                        <span class="button"><v-btn depressed @click="information">후기작성 정보</v-btn></span>
                 </div>
           
             </div>
@@ -126,10 +126,16 @@ export default {
         },
         submit(){
             const id =this.$route.params.contentId;
+            // const activity = this.$store.state.carenoteStore.categoryId;
+            // const rating = this.rating
+            // const comment = this.text
+            // console.log(rating)
+            // console.log(comment)
+            // console.log(activity);
             var formData = new FormData();
             formData.append('rating', this.rating)
             formData.append('comment', this.text)
-            formData.append('activityClassificationId', id)
+            formData.append('activityClassificationId', this.$store.state.carenoteStore.categoryId)
             this.$http
             .post(`/api/carenote/${id}/reviews`,formData,{
                 withCredentail:true
@@ -140,6 +146,9 @@ export default {
             .catch((err)=>{
                 console.log(err);
             })
+        },
+        information(c){
+            this.$router.push({name:'review_list' , params:{contentId:this.$route.params.contentId}})
         }
     }
 }   

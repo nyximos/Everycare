@@ -8,9 +8,14 @@
 						<h2 class="hide">기본정보</h2>
 						<div class="photoArea">
 							<span class="photo">
+								<div v-if="details.attachFiles[0]==''"> 
 								<a href="#ResumeBaseInfo" class="image" style="position:static;left:0;bottom:0;display:block;width:auto;height:auto;padding:0;border:0 none;background:none">
 									<img :src="'https://localhost:8086/api/images/' + details.attachFiles[0].storeFileName" width="90" height="120" alt="프로필사진" id="per_pic">		
 								</a>
+								</div>
+								<div v-else>
+									<img src="@/assets/profile.png">
+								</div>
 							</span>
 						</div>
 							<ul class="infoList">
