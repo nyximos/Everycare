@@ -30,7 +30,7 @@ public class InitJobOfferService {
                 careTargetRepository.findById(1L);
 
                 JobOffer jobOffer1 = jobOffer("케어시터분 구합니다.", LocalDate.parse("2022-05-01"),
-                                LocalDate.parse("2022-05-31"), "2022-06-07,2022-06-08", "09:00",
+                                LocalDate.parse("2022-06-12"), "2022-06-12,2022-06-13,2022-06-14", "09:00",
                                 "18:00", 10000, 130000, Gender.M, "잘 부탁 드립니다.", member, careTarget, careTargetSchedule);
 
                 JobOffer jobOffer2 = jobOffer("title1", LocalDate.now(), LocalDate.now(), "desiredDayWeek1", "10:00",

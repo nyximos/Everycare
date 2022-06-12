@@ -27,6 +27,7 @@
                     <th>요구사항</th>
                     <th>사진</th>
                     <th>활동</th>
+                    <th>건강</th>
                 </tr>
             </thead>
             <tbody v-for="( s ,index) in schedule" :key="index">
@@ -38,6 +39,7 @@
                     <td v-if="schedule.storeFileName=''"><img :src="'https://localhost:8086/api/images/' + s.storeFileName"></td>
                     <td v-else>사진</td>
                     <td>활동</td>
+                    <td>{{status}}</td>
                 </tr>
             </tbody>
         </table>
@@ -83,10 +85,10 @@
             <div class="pop_content">
                 <div class="lst_report">
                     <dl class="report_area">
-                        <dt><span class="inner">작성자</span></dt>
-                        <dd class="report_nick">성남신사</dd>
-                        <dt><span class="inner">내 용</span></dt>
-                        <dd class="report_cont">q600a 사운드바 미개봉새상품</dd>
+                        <dt><span class="inner">신고자</span></dt>
+                        <dd class="report_nick"></dd>
+                        <dt><span class="inner">내용</span></dt>
+                        <dd class="report_cont"></dd>
                     </dl>
                 </div>
                 <div class="lst_reason"><strong class="reason_title">사유선택</strong>
@@ -177,6 +179,19 @@ export default {
         .then((res)=>{
             console.log(res.data.body);
             this.schedule= res.data.body.activityInformationDTOs
+            
+            // console.log("데이터" + res);
+        })
+        .catch((err)=>{
+            console.log(err);
+        }),
+        this.$http
+        .get(`/api/carenote/${id}/health-records`,{
+            withCredentail:true
+        })
+        .then((res)=>{
+            console.log(res.data.body);
+            this.status= res.data.body.healthstatus
             
             // console.log("데이터" + res);
         })
