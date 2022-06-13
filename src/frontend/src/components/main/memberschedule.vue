@@ -13,8 +13,14 @@
             </div>
             <div class="review">
              <v-chip class="ma-2" color="success" outlined v-for="(c,index) in cate" :key="index" style="width:100px;" @click="write(c)">
+                
                  <!-- <v-icon left>mdi-server-plus</v-icon> -->
                 <h6 class="cate_name">{{c.name}}</h6>
+            </v-chip>
+             <v-chip class="ma-2" color="success" outlined style="width:100px;" @click="write(c)">
+                
+                 <!-- <v-icon left>mdi-server-plus</v-icon> -->
+                <h6 class="cate_name">건강기록</h6>
             </v-chip>
             </div>
         <div class="table">
@@ -27,7 +33,7 @@
                     <th>요구사항</th>
                     <th>사진</th>
                     <th>활동</th>
-                    <th>건강</th>
+                    
                 </tr>
             </thead>
             <tbody v-for="( s ,index) in schedule" :key="index">
@@ -39,7 +45,7 @@
                     <td v-if="schedule.storeFileName=''"><img :src="'https://localhost:8086/api/images/' + s.storeFileName"></td>
                     <td v-else>사진</td>
                     <td>활동</td>
-                    <td>{{status}}</td>
+                    
                 </tr>
             </tbody>
         </table>
