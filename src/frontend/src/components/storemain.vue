@@ -14,12 +14,8 @@
   
 <v-container>
 <!--nav-->
-<nav class="nav d-flex justify-content-between">
-      <a class="p-2 text-black" href="#">패션/잡화</a>
-      <a class="p-2 text-black" href="#">화장품/미용</a>
-      <a class="p-2 text-black" href="#">출산/육아</a>
-      <a class="p-2 text-black" href="#">생활/건강</a>
-      <a class="p-2 text-black" href="#">스포츠/레저</a>
+<nav class="nav d-flex justify-content-between" v-for="item in prodCategory" :key="item.index">
+      <a class="p-2 text-black" href="#">{{item.name}}</a>
     </nav>
 </v-container>
 
@@ -60,10 +56,22 @@ mounted(){
 	})
 	.catch((err)=>{
 		console.log(err)
-	})
+	});
+  this.$http
+        .get('/api/product-categories',{
+          withCredentials: true
+        })
+        .then(res => {
+          console.log(res);
+          this.prodCategory= res.data.body
+        })
+        .catch(err => {
+          console.log(err);
+        })
 },
 data(){
 	return{
+    prodCategory:this.prodCategory,
 		storeList:this.storeList,
     searchText:this.searchText,
 		items: [
