@@ -1,4 +1,4 @@
-package wd.team4.everycare.controller;
+package wd.team4.everycare.controller.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -84,4 +84,14 @@ public class ProductApiController {
         ResponseEntity<MyResponse> findByCategory = productService.findAllByCategory(categoryName);
         return findByCategory;
     }
+
+    @GetMapping("/store/products/best")
+    public ResponseEntity<MyResponse> getBestProducts() {
+        ResponseEntity<MyResponse> responseEntity = productService.findBestProducts();
+        return responseEntity;
+    }
+
+    // TODO 월별 상품
+    // TODO 월별 스토어 총 매출
+
 }
