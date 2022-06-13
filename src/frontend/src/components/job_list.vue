@@ -162,13 +162,13 @@
       cols="12"
       sm="6"
     >
-      <v-text-field
+      <!-- <v-text-field
         v-model="dateRangeText"
         label="Date range"
         prepend-icon="mdi-calendar"
         readonly
       ></v-text-field>
-      model: {{ dialogm2 }}
+      model: {{ dialogm2 }} -->
     </v-col>
   </v-row>
           <!-- <v-radio-group
@@ -250,18 +250,24 @@
                 </ul>
             </div>
         </div>
+        <div class="btn-cover">
+          <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">이전</button>
+            <span class="page-count">{{pageNum + 1 }} / {{pageCount}} 페이지</span>
+          <button :disabled="pageNum >= pageCount -1" @click="nextPage" class="page-btn">다음</button>
+            <!-- <v-pagination v-model="curpage" :length="pages" circle></v-pagination> -->
+        </div>
   <!-- {{this.listData}} -->
   <!-- <ListItem class="mt-5" v-for="(listItem, index) in filteredList" :key="index"
   :listItem="listItem" @detail="detailShot"
   /> -->
-  <div class="text-center">
+  <!-- <div class="text-center">
     <v-pagination
       class="mt-3"
       v-model="curPageNum"
       :length="numOfPages"
       circle
     ></v-pagination>
-  </div>
+  </div> -->
  </div>
 </template>
 
@@ -296,7 +302,7 @@ export default {
           dataPerPage:3,
           curPageNum:1,
           // SearchText: '',
-          
+          pageNum:0,
             regiondialog:false,
             timedialog:false,
             catedialog:false,
@@ -704,20 +710,41 @@ export default {
           this.detail_area = this.area17
         }
       },
+      nextPage(){
+        this.pageNum += 1;
+      },
+      prevPage(){
+        this.pageNum -= 1;
+      }
     },
     computed: {
-      startOffset() {
-        return ((this.curPageNum - 1) * this.dataPerPage);
+       pageCount(){
+        let listLeng = this.listData.length,
+            listSize = this.pageSize,
+            page = Math.floor(listLeng / listSize);
+
+        if (listLeng % listSize > 0) page += 1;
+
+        return page;
       },
-      endOffset() {
-        return (this.startOffset + this.dataPerPage);
-      },   
-      numOfPages() {
-        return Math.ceil(this.listData.length / this.dataPerPage);
-      },
-      calData() {
-        return this.listData.slice(this.startOffset, this.endOffset)
-      },
+      listData(){
+        const start = this.pageNum * this.pageSize,
+              end = start + this.pageSize;
+
+        return this.listData.slice(start,end);
+      }
+      // startOffset() {
+      //   return ((this.curPageNum - 1) * this.dataPerPage);
+      // },
+      // endOffset() {
+      //   return (this.startOffset + this.dataPerPage);
+      // },   
+      // numOfPages() {
+      //   return Math.ceil(this.listData.length / this.dataPerPage);
+      // },
+      // calData() {
+      //   return this.listData.slice(this.startOffset, this.endOffset)
+      // },
       
       // filteredList(){
       //   if (this.SearchText) {
