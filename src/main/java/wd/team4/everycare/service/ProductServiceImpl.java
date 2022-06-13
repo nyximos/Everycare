@@ -23,6 +23,8 @@ import wd.team4.everycare.repository.query.ProductQueryRepository;
 import wd.team4.everycare.service.interfaces.ProductService;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -378,8 +380,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ResponseEntity<MyResponse> findAllByCategory(String categoryName) {
-        List<Product> findByCategory = productQueryRepository.findAllByCategory(categoryName);
+    public ResponseEntity<MyResponse> findAllByCategory(Long categoryId) {
+        List<Product> findByCategory = productQueryRepository.findAllByCategory(categoryId);
 
         if(findByCategory.isEmpty()){
             return null;
