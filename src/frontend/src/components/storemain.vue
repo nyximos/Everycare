@@ -60,7 +60,7 @@
     </v-row>  
 	
   <ProdList v-if="!cateResult && !searchText" :storeList="storeList" @detail="detailShot" />
-  <CateResult :cateResult="cateResult"/>
+  <CateResult :cateResult="cateResult" @detail="detailShot"/>
   <SearchResult v-if="searchText" :result="result" @detail="detailShot"/>	
  
 </div>  
