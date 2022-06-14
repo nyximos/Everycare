@@ -397,4 +397,37 @@ public class ProductServiceImpl implements ProductService {
             return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
         }
     }
+
+    @Override
+    public ResponseEntity<MyResponse> findBestProducts() {
+        List<Product> products = productQueryRepository.findBestProducts();
+
+        List<ProductListViewDTO> productListViewDTOs = new ArrayList<>();
+
+        if (products.isEmpty()) {
+            return null;
+        }
+
+        for (Product product : products) {
+            ProductListViewDTO productListViewDTO = ProductListViewDTO.builder()
+                    .id(product.getId())
+                    .name(product.getName())
+                    .price(product.getPrice())
+                    .storeFileName(product.getStoreFileName())
+                    .createdAt(product.getCreatedAt())
+                    .store(product.getStore().toNameDTO())
+                    .productCategory(product.getProductCategory().toDTO())
+                    .build();
+            productListViewDTOs.add(productListViewDTO);
+        }
+
+        MyResponse<List<ProductListViewDTO>> body = MyResponse.<List<ProductListViewDTO>>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(productListViewDTOs)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
 }

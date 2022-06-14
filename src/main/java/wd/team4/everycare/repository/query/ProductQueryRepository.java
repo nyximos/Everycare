@@ -4,10 +4,12 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import wd.team4.everycare.domain.Product;
+import wd.team4.everycare.domain.QWishList;
 
 import java.util.List;
 
 import static wd.team4.everycare.domain.QProduct.product;
+import static wd.team4.everycare.domain.QWishList.*;
 
 @Repository
 @RequiredArgsConstructor
@@ -27,6 +29,17 @@ public class ProductQueryRepository {
         return queryFactory
                 .selectFrom(product)
                 .where(product.productCategory.id.eq(id))
+                .fetch();
+    }
+
+    public List<Product> findBestProducts(){
+        return queryFactory
+                .select(product)
+                .from(wishList)
+                .join(wishList.product, product)
+                .groupBy(wishList.product)
+                .orderBy(wishList.count().desc())
+                .limit(3)
                 .fetch();
     }
 }

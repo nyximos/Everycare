@@ -38,4 +38,6 @@ public interface ProductService {
 
     ResponseEntity<MyResponse> findAllByCategory(Long categoryId);
 
+    ResponseEntity<MyResponse> findBestProducts();
+
 }
