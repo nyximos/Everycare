@@ -11,6 +11,8 @@
       :src="item.src"
     ></v-carousel-item>
   </v-carousel>
+
+  <!--nav-->
   <v-card>
     <v-tabs
       background-color="green lighten-3"
@@ -21,13 +23,9 @@
       <v-tab v-for="item in prodCategory" :key="item.index" @click="nav(item)">{{item.name}}</v-tab>  
     </v-tabs>
   </v-card>
-<v-container>
-<!--nav-->
-
-</v-container>
 
  <!--ranking-->
-  <ProdRank :storeList="storeList" @detail="detailShot" class="mb-10"/>
+  <ProdRank :storeRank="storeRank" @detail="detailShot" class="mb-10"/>
     
 <!--body-->
   <v-row class="mt-10">
@@ -80,6 +78,17 @@ components:{
  SearchResult
 },
 mounted(){
+  this.$http
+	.get('/api/store/products/best',{
+		withCredential: true
+	})
+	.then((res)=>{
+		console.log(res)
+		this.storeRank= res.data.body
+	})
+	.catch((err)=>{
+		console.log(err)
+	});
 	this.$http
 	.get('/api/store/products',{
 		withCredential: true
@@ -107,6 +116,7 @@ data(){
 	return{
     prodCategory:this.prodCategory,
 		storeList:this.storeList,
+    storeRank:this.storeRank,
     searchText:this.searchText,
 		items: [
           {

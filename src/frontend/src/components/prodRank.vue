@@ -1,7 +1,7 @@
 <template>
 <v-row>
 	<p class="fs-4 mt-10 ml-15">HOT LIST</p>
-    <div class="ranking col" v-for="item in storeList.slice(0,3)" :key="item.index">
+    <div class="ranking col" v-for="item in storeRank" :key="item.index">
 	<img :src="'https://localhost:8086/api/images/'+item.storeFileName" 
   class="rounded-circle mx-auto d-block" width="140" 
   height="140">
@@ -17,7 +17,7 @@
 <script>
 export default {
 props:{
-    storeList:{
+    storeRank:{
         required:true
     }
 },
