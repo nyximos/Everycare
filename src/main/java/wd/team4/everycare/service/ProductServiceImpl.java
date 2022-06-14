@@ -15,10 +15,8 @@ import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.dto.product.*;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
-import wd.team4.everycare.repository.ProducImageRepository;
-import wd.team4.everycare.repository.ProductCategoryRepository;
-import wd.team4.everycare.repository.ProductRepository;
-import wd.team4.everycare.repository.WishListRepository;
+import wd.team4.everycare.repository.*;
+import wd.team4.everycare.repository.query.OrderProductQueryRepository;
 import wd.team4.everycare.repository.query.ProductQueryRepository;
 import wd.team4.everycare.service.interfaces.ProductService;
 
@@ -39,6 +37,8 @@ public class ProductServiceImpl implements ProductService {
     private final ProducImageRepository producImageRepository;
     private final WishListRepository wishListRepository;
     private final ProductQueryRepository productQueryRepository;
+    private final StoreRepository storeRepository;
+    private final OrderProductQueryRepository orderProductQueryRepository;
 
     @Override
     public List<MemberProductListViewDTO> webFindAll(Store store) {
@@ -258,17 +258,17 @@ public class ProductServiceImpl implements ProductService {
         Long productCategoryId = productFormDTO.getProductCategory();
         Optional<ProductCategory> productCategory = productCategoryRepository.findById(productCategoryId);
         ProductCategory productCategoryEntity = productCategory.orElse(null);
-        if(productCategory !=null) {
+        if (productCategory != null) {
             productEntity.saveProductCategory(productCategoryEntity);
         }
         productEntity.updateProduct(productFormDTO);
 
-        if(productFormDTO.getAttachFile()!=null) {
+        if (productFormDTO.getAttachFile() != null) {
             UploadFile attachFile = fileStoreService.storeFile(productFormDTO.getAttachFile());
             productEntity.saveImage(attachFile);
         }
 
-        if(productFormDTO.getAttachFiles()!=null) {
+        if (productFormDTO.getAttachFiles() != null) {
 
             List<UploadFile> attachFiles = fileStoreService.storeFiles(productFormDTO.getAttachFiles());
 
@@ -374,5 +374,20 @@ public class ProductServiceImpl implements ProductService {
 
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> findAllStatistics(PrincipalDetails principalDetails, LocalDateTime start, LocalDateTime end) {
+        Member member = principalDetails.getUser();
+        List<Store> storeList = storeRepository.findByMember(member);
+        int total = 0;
+        for (Store store : storeList) {
+            List<OrderProduct> statistics = orderProductQueryRepository.findStatistics(start, end, store);
+            for (OrderProduct orderProduct: statistics) {
+                int quantity = orderProduct.getQuantity();
+                total+=quantity;
+            }
+        }
+        return null;
     }
 }
