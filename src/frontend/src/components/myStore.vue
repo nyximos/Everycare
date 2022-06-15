@@ -14,6 +14,7 @@
           v-for="item in items"
           :key="item.title"
           link
+          @click="message(item)"
         >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
@@ -24,14 +25,7 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-
-      <template v-slot:append>
-        <div class="pa-2">
-          <v-btn block>
             Logout
-          </v-btn>
-        </div>
-      </template>
     </v-navigation-drawer>
   </v-card>
     </v-col>
@@ -69,6 +63,11 @@
         mdi-clock
       </v-icon>
       <span class="text-caption grey--text font-weight-light">last registration 26 minutes ago</span>
+      <br>
+      <input type="text" v-model="search">
+      <input type="date" name="" id="" v-model="startdate">
+      <input type="date" name="" id="" v-model="enddate">
+      <v-btn @click="searchh">search</v-btn>
     </v-card-text>
   </v-card>
     </v-col>
@@ -80,25 +79,16 @@
 
 <script>
 export default {
-    mounted() {
-        this.$http.get('/api/dashboard/store/products',{
-        withCredentials:true
-      })
-		.then((res)=>{
-        console.log(res.data);
-        // this.applications=res.data.body
-      }).catch(err =>{
-		console.log(err);
-        
-	})
-    },
 data(){
     return{
+        search:this.search,
+        startdate:this.startdate,
+        enddate:this.enddate,
         id: this.$route.params.contentId,
         items: [
           { title: '상품 등록', icon: 'mdi-home-city', name:'ProdCreate'},
-          { title: '상품 수정', icon: 'mdi-account', name:'prodEdit'},
-          { title: '스토어 수정', icon: 'mdi-account-group-outline', name:'storeEdit' },
+          { title: '상품 관리', icon: 'mdi-home-city', name:'storeProdList'},
+          { title: '스토어 관리', icon: 'mdi-account-group-outline', name:'storeEdit' },
         ],
  labels: [
         '1',
@@ -132,8 +122,24 @@ data(){
     },
     methods:{
         message(item){     
-            this.$router.push({ name: item.name, params: { contentId: this.$store.state.userStore.storeId}})
-        }
+            this.$router.push({ 
+              name: item.name, 
+              params: { contentId: this.$store.state.userStore.storeId}
+              })
+            },
+        searchh(){     
+          this.$http
+          .get('/api/store/account/sales',
+          {params: {product: 1, start:'2021-12-31', end:'2021-06-15'}},{
+          withCredentials:true
+          })
+        .then(res => {
+          console.log(res);
+          })
+        .catch(err => {
+          console.log(err);
+        });
+            },
         
     }
 }

@@ -26,5 +26,5 @@ public interface StoreService {
 
     StoreAdminViewDTO webFindStore(Long id);
 
-    ResponseEntity<MyResponse> findSalesByProduct(Long id, LocalDateTime start, LocalDateTime end);
+    ResponseEntity<MyResponse> findSalesByProduct(Long id, String start, String end);
 }

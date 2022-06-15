@@ -85,8 +85,8 @@ public class StoreApiController {
 
     @GetMapping("/store/account/sales")
     public ResponseEntity<MyResponse> getBestProducts(@RequestParam("product") Long id,
-                                                      @RequestParam("start") LocalDateTime start,
-                                                      @RequestParam("end") LocalDateTime end) {
+                                                      @RequestParam("start") String start,
+                                                      @RequestParam("end") String end) {
         ResponseEntity<MyResponse> responseEntity = storeService.findSalesByProduct(id, start, end);
         return responseEntity;
     }
