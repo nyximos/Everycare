@@ -7,7 +7,33 @@
             <div id="in-input">
                 <div id="input-id">   
                     <input type="text" v-model="id" id="id" name="username" class="form-control input-lg" placeholder="아이디" ng-required="true" />
-                <v-btn class="findid" @click="findID">ID중복확인</v-btn>
+                     <v-dialog v-model="dialogPg" @click:outside="closeDialog" width="500">
+            <template v-slot:activator="{ on, attrs }">
+                <v-btn class="findid" v-bind="attrs" v-on="on" @click="findID">ID중복확인</v-btn>
+                 </template>
+            <div>
+                <v-card class="mx-auto my-12" max-width="374">
+                    <template slot="progress"> </template>
+                    <div id="modalinput">
+                        <v-form 
+                        ref="form" 
+                        lazy-validation>
+                            <div id="input-id">   
+                                <v-card-text>
+                    <input type="text" v-model="chkid" id="checkedid" class="form-control input-lg" placeholder="아이디" ng-required="true" />
+                </v-card-text>
+                <v-card-text>
+                <v-btn class="findid" @click="checkid">ID중복체크</v-btn>
+                </v-card-text>
+                </div>  
+                <v-card-text>
+                    <v-btn v-if="useid" class="submitid" @click="submitid">사용하기</v-btn>
+                </v-card-text>
+                        </v-form>
+                    </div>
+                </v-card>
+            </div>
+        </v-dialog>
                 </div>  
                 <input type="password" v-model="password" name="password" class="form-control input-lg" placeholder="패스워드" ng-required="true" />
                 <div>
@@ -40,11 +66,11 @@ import $ from 'jquery';
 export default {
     mounted() {
         $("#id").prop('disabled',true);
-        
     },
     data() {
         return {
-            id:this.$store.state.checkId.chkid,
+            id:'',
+            chkid:'',
             password: '',
             postcode: '',
             name: '',
@@ -56,13 +82,52 @@ export default {
             address: '',
             detailedAddress: '',
             bank: '',
-            accountNumber: ''
+            accountNumber: '',
+             useid: false,
+             dialogPg:false,
         };
     },
     methods: {
-        findID() {
-            window.open('/idcheck', '아이디 중복확인', 'width=350, height=150, left=800, top=200');
+         closeDialog() {
+            this.chkid='',
+            this.useid=false
         },
+        submitid(){    
+            const useid = this.chkid;
+            this.id = useid;
+            console.log(useid)
+           this.dialogPg=false
+           this.chkid=''
+           this.useid=false
+        },
+        findID() {
+            // window.open('/idcheck', '아이디 중복확인', 'width=500, height=250, left=800, top=200');
+        },
+        checkid(){
+           const id = document.getElementById('checkedid').value;
+            if(id == ''){
+                alert('아이디를 입력해주세요.')
+            }
+            console.log(id);
+            this.$http
+                .get(`/api/member/${id}`, {
+                    withCredentials: true
+                })
+                .then(res => {
+                    console.log(res);
+                    this.$store.commit('checkId/checkIds', id);
+                    //window.close();
+                    if(res.data.message == '성공'){
+                        alert('사용하실수 있는 아이디입니다.');
+                        this.useid=true;
+                    }else if(res.data.message == '실패'){
+                        alert('이미 존재하는 아이디입니다.');
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }, 
         execDaumPostcode() {
             new window.daum.Postcode({
                 oncomplete: data => {
@@ -181,5 +246,9 @@ h2 {
     display: flex;
     position: relative;
     top:10px;
+}
+.submitid{
+    position: relative;
+    left: 13px;
 }
 </style>
