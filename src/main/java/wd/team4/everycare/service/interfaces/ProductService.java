@@ -38,4 +38,6 @@ public interface ProductService {
 
     ResponseEntity<MyResponse> findAllByCategory(String categoryName);
 
+    ResponseEntity<MyResponse> findBestProducts();
+
 }
