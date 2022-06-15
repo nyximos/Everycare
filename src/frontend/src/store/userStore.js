@@ -6,6 +6,7 @@ export default {
         role: '',
         careSitterId: '',
         storeId: '',
+
     },
     mutations: {
         userInfo(state, userinfo) {

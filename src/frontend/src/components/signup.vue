@@ -40,10 +40,11 @@ import $ from 'jquery';
 export default {
     mounted() {
         $("#id").prop('disabled',true);
+        
     },
     data() {
         return {
-            id: '',
+            id:this.$store.state.checkId.chkid,
             password: '',
             postcode: '',
             name: '',
@@ -60,7 +61,7 @@ export default {
     },
     methods: {
         findID() {
-            window.open('/idcheck', '아이디 중복확인', 'width=350, height=150, left=200, top=200');
+            window.open('/idcheck', '아이디 중복확인', 'width=350, height=150, left=800, top=200');
         },
         execDaumPostcode() {
             new window.daum.Postcode({
