@@ -25,7 +25,6 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-            Logout
     </v-navigation-drawer>
   </v-card>
     </v-col>
@@ -130,7 +129,7 @@ data(){
         searchh(){     
           this.$http
           .get('/api/store/account/sales',
-          {params: {product: 1, start:'2021-12-31', end:'2021-06-15'}},{
+          {params: {product: this.search, start:this.startdate, end:this.enddate}},{
           withCredentials:true
           })
         .then(res => {
