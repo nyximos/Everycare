@@ -18,14 +18,14 @@ export default {
         checkid() {
             const id = document.getElementById('checkedid').value;
             console.log(id);
-            var chkformData = new FormData();
-            chkformData.append('id', this.shkid);
             this.$http
-                .get(`/api/signup/${id}`, chkformData, {
+                .get(`/api/member/${id}`, {
                     withCredentials: true
                 })
                 .then(res => {
                     console.log(res);
+                    this.$store.commit('checkId/checkIds', id);
+                    //window.close();
                 })
                 .catch(err => {
                     console.log(err);

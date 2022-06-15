@@ -1,7 +1,8 @@
 <template>
-    <div class="findIdPage">
+<div class="findinfo">
+
         <v-card class="mx-auto" max-width="344">
-            <v-col cols="12" sm="10" md="3">
+            <v-col cols="12" sm="10" md="10">
                 <v-text-field id="pw" v-model="password" label="기존 비밀번호 입력" outlined></v-text-field>
                 <v-text-field id="newpw" v-model="newpassword" label="새 비밀번호 입력" outlined></v-text-field>
                 <v-card-actions>
@@ -54,7 +55,8 @@ export default {
 </script>
 
 <style>
-.findIdPage {
+.mx-auto {
+    margin: 400px;
 }
 .chpw {
     position: relative;

@@ -7,6 +7,7 @@ import careprofileStore from '@/store/careprofileStore'
 import caretargetStore from '@/store/caretargetStore'
 import carenoteStore from '@/store/carenoteStore'
 import userCalendar from '@/store/userCalendar'
+import checkId from '@/store/checkId';
 import cart from './cart'
 import wish from './wish'
 import createPersistedState from "vuex-persistedstate";
@@ -23,9 +24,10 @@ export default new Vuex.Store({
     cart,
     wish,
     userStore,
+    checkId
   },
   plugins:[createPersistedState({
-    paths:["userStore"]
+    paths:["userStore","checkId"]
   })],
 
 })
