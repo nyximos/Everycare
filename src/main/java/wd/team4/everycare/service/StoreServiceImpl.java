@@ -19,7 +19,9 @@ import wd.team4.everycare.repository.StoreRepository;
 import wd.team4.everycare.repository.query.ProductQueryRepository;
 import wd.team4.everycare.service.interfaces.StoreService;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -134,9 +136,22 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public ResponseEntity<MyResponse> findSalesByProduct(Long id, LocalDateTime start, LocalDateTime end) {
+    public ResponseEntity<MyResponse> findSalesByProduct(Long id, String start, String end) {
 
-        List<Integer> list = productQueryRepository.findSalesByProduct(id, start, end);
+        LocalDate startDate = LocalDate.parse(start);
+        LocalDate endDate = LocalDate.parse(end);
+
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+        LocalDateTime endDateTime = endDate.atStartOfDay();
+
+        System.out.println("startDateTime = " + startDateTime);
+        System.out.println("endDateTime = " + endDateTime);
+
+
+//        LocalDateTime startDateTime = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//        LocalDateTime endDateTime = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        List<Integer> list = productQueryRepository.findSalesByProduct(id, startDateTime, endDateTime);
         int sum = 0;
         for (Integer l : list) {
             sum += l;

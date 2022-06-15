@@ -51,8 +51,7 @@ public class ProductQueryRepository {
                 .from(orderProduct)
                 .join(orderProduct.order, order)
                 .where(order.status.eq(OrderStatus.COMPLETE),
-                        order.paymentTime.before(start),
-                        order.paymentTime.after(end),
+                        order.paymentTime.between(start,end),
                         orderProduct.product.id.eq(id))
                 .groupBy(orderProduct.product)
                 .fetch();

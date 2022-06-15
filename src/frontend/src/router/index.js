@@ -17,13 +17,6 @@ const routes = [
         name: 'Main',
         component: () => import('@/pages/Main.vue'),
     },
-
-    // 상품 관리
-    {
-        path: '/store/account/:contentId/products',
-        name: 'prodEdit',
-        component: () => import('@/components/prodEdit.vue'),
-    },
     {
         // 관리자 자격증 조회 화면
         path: '/admin/caresitter-certifications',
@@ -197,11 +190,17 @@ const routes = [
         name: 'storeEdit',
         component: () => import('@/pages/StoreInfoEdit.vue'),
     },
-    // 케어스토어 상품 전체 조회 (스토어멤버)
+    // 마이스토어 메인 (스토어멤버)
     {
         path: '/Mystore/:contentId',
         name: 'MyStore',
         component: () => import('@/pages/MyStore.vue'),
+    },
+    // 마이스토어 상품관리 (자신이 등록한 상품 전체 조회)
+    {
+        path: '/Mystore/:contentId/storeProdList',
+        name: 'storeProdList',
+        component: () => import('@/components/storeProdList.vue'),
     },
     // 상품 등록
     {
@@ -233,6 +232,7 @@ const routes = [
         name: 'Wish',
         component: () => import('@/pages/Wish.vue'),
     },
+    
     // 상품결제
     {
         path: '/store/ordersheet/payment',
