@@ -36,6 +36,5 @@ public interface ProductService {
 
     ResponseEntity<MyResponse> findAllByName(String name);
 
-    ResponseEntity<MyResponse> findAllStatistics(PrincipalDetails principalDetails, LocalDateTime start, LocalDateTime end);
 
 }

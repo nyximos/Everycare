@@ -14,6 +14,8 @@ import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.StoreRepository;
 import wd.team4.everycare.service.StoreServiceImpl;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -77,5 +79,13 @@ public class StoreApiController {
                 .message("성공했슴다~")
                 .build();
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @GetMapping("/store/statistics")
+    public ResponseEntity<MyResponse> findAllStatistics(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                                        @RequestParam LocalDateTime startDate,
+                                                        @RequestParam LocalDateTime endDate){
+        ResponseEntity<MyResponse> allStatistics = storeService.findAllStatistics(principalDetails, startDate, endDate);
+        return allStatistics;
     }
 }

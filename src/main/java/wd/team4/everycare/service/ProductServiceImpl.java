@@ -376,18 +376,4 @@ public class ProductServiceImpl implements ProductService {
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 
-    @Override
-    public ResponseEntity<MyResponse> findAllStatistics(PrincipalDetails principalDetails, LocalDateTime start, LocalDateTime end) {
-        Member member = principalDetails.getUser();
-        List<Store> storeList = storeRepository.findByMember(member);
-        int total = 0;
-        for (Store store : storeList) {
-            List<OrderProduct> statistics = orderProductQueryRepository.findStatistics(start, end, store);
-            for (OrderProduct orderProduct: statistics) {
-                int quantity = orderProduct.getQuantity();
-                total+=quantity;
-            }
-        }
-        return null;
-    }
 }
