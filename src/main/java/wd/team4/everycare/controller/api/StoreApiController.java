@@ -1,6 +1,7 @@
 package wd.team4.everycare.controller.api;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.jni.Local;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,9 @@ import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.StoreRepository;
 import wd.team4.everycare.service.StoreServiceImpl;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api")
@@ -78,4 +82,13 @@ public class StoreApiController {
                 .build();
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
+
+    @GetMapping("/store/account/sales")
+    public ResponseEntity<MyResponse> getBestProducts(@RequestParam("product") Long id,
+                                                      @RequestParam("start") LocalDateTime start,
+                                                      @RequestParam("end") LocalDateTime end) {
+        ResponseEntity<MyResponse> responseEntity = storeService.findSalesByProduct(id, start, end);
+        return responseEntity;
+    }
+
 }

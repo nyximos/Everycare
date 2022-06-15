@@ -91,7 +91,4 @@ public class ProductApiController {
         return responseEntity;
     }
 
-    // TODO 월별 상품
-    // TODO 월별 스토어 총 매출
-
 }
