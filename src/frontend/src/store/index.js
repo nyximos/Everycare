@@ -27,7 +27,7 @@ export default new Vuex.Store({
     checkId
   },
   plugins:[createPersistedState({
-    paths:["userStore","checkId"]
+    paths:["userStore"]
   })],
 
 })
