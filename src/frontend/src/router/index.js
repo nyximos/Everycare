@@ -17,12 +17,7 @@ const routes = [
         name: 'Main',
         component: () => import('@/pages/Main.vue'),
     },
-    // 상품 등록
-    {
-        path: '/store/account/{id}/products/new',
-        name: 'ProdCreate',
-        component: () => import('@/components/prodCreate.vue'),
-    },
+
     // 상품 관리
     {
         path: '/store/account/:contentId/products',
@@ -205,7 +200,7 @@ const routes = [
     // 케어스토어 상품 전체 조회 (스토어멤버)
     {
         path: '/Mystore/:contentId',
-        name: 'storeMain',
+        name: 'MyStore',
         component: () => import('@/pages/MyStore.vue'),
     },
     // 상품 등록
