@@ -1,16 +1,22 @@
 package wd.team4.everycare.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.domain.Product;
 import wd.team4.everycare.domain.Store;
+import wd.team4.everycare.dto.product.ProductListViewDTO;
 import wd.team4.everycare.dto.store.StoreAdminViewDTO;
 import wd.team4.everycare.dto.store.StoreFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.repository.StoreRepository;
+import wd.team4.everycare.repository.query.ProductQueryRepository;
 import wd.team4.everycare.service.interfaces.StoreService;
 
 import java.time.LocalDateTime;
@@ -25,6 +31,7 @@ public class StoreServiceImpl implements StoreService {
 
     private final MemberRepository memberRepository;
     private final StoreRepository storeRepository;
+    private final ProductQueryRepository productQueryRepository;
 
     @Override
     public Long save(StoreFormDTO storeFormDTO) {
@@ -124,6 +131,26 @@ public class StoreServiceImpl implements StoreService {
             StoreAdminViewDTO storeAdminViewDTO = storeEntity.toAdminViewDTO();
             return storeAdminViewDTO;
         }
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> findSalesByProduct(Long id, LocalDateTime start, LocalDateTime end) {
+
+        List<Integer> list = productQueryRepository.findSalesByProduct(id, start, end);
+        int sum = 0;
+        for (Integer l : list) {
+            sum += l;
+        }
+
+        MyResponse<Integer> body = MyResponse.<Integer>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(sum)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+
     }
 
 }
