@@ -19,6 +19,7 @@ public class ProductDetailViewDTO {
     private Long id;
     private String name;
     private int price;
+    private int inventoryQuantity;
     private String storeFileName;
     private String comment;
     private int isSale;

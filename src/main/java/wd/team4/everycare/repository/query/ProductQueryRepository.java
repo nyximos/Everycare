@@ -27,10 +27,10 @@ public class ProductQueryRepository {
                 .fetch();
     }
 
-    public List<Product> findAllByCategory(String categoryName){
+    public List<Product> findAllByCategory(Long id){
         return queryFactory
                 .selectFrom(product)
-                .where(product.productCategory.name.eq(categoryName))
+                .where(product.productCategory.id.eq(id))
                 .fetch();
     }
 

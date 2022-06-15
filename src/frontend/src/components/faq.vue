@@ -1,12 +1,12 @@
 <template>
-<v-container>
-  <div class="text-end">
+    <div>
+        <div class="text-end">
   <v-btn
     v-if="$store.state.userStore.id==='admin'"
     color="primary"
     dark
     class="mb-2"
-    @click="newNotice">
+    @click="newFaq">
     New Item
   </v-btn>
   </div>
@@ -29,7 +29,7 @@
         ></v-text-field>
       </template>
       </v-data-table>
-</v-container>
+    </div>
 </template>
 
 <script>
@@ -43,7 +43,7 @@ data(){
 },
 mounted() {
 this.$http
-    .get('/api/notice', {
+    .get('/api/faq', {
     withCredentials: true,
     })
     .then((res) => {
@@ -56,22 +56,21 @@ this.$http
     });
 },
 methods:{
-  newNotice(){
+  newFaq(){
     this.$router.push({
-      path: '/admin/notice/new'
+      path: '/admin/faq/new'
     })
   },
   handleClick(value){
     // console.log(value.id)
     this.$router.push({
-      name: 'noticeDetail',
+      name: 'FaqDetail',
       params: {
         contentId: value.id
       }
     })
   }
 }
-
 }
 </script>
 

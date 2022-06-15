@@ -76,10 +76,13 @@ mounted() {
         .then(res => {
           console.log(res);
           this.prodCategory= res.data.body
+                console.log(this.$route)
         })
         .catch(err => {
           console.log(err);
+                console.log(this.$route)
         })
+                    
 },
 data(){
   return{

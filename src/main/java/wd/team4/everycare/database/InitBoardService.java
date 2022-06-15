@@ -31,20 +31,20 @@ public class InitBoardService {
         Board board3 = board("title3", "content3", BoardCategory.공지, LocalDateTime.now(), LocalDateTime.now(), 3, "fileName3", "filePath3", admin);
         Board board4 = board("title4", "content4", BoardCategory.공지, LocalDateTime.now(), LocalDateTime.now(), 4, "fileName4", "filePath4", admin);
 
-        Board board5 = board("title5", "content5", BoardCategory.문의, LocalDateTime.now(), LocalDateTime.now(), 5, "fileName5", "filePath5", admin);
-        Board board6 = board("title6", "content6", BoardCategory.문의, LocalDateTime.now(), LocalDateTime.now(), 6, "fileName6", "filePath6", admin);
-        Board board7 = board("title7", "content7", BoardCategory.문의, LocalDateTime.now(), LocalDateTime.now(), 7, "fileName7", "filePath7", admin);
-        Board board8 = board("title8", "content8", BoardCategory.문의, LocalDateTime.now(), LocalDateTime.now(), 8, "fileName8", "filePath8", admin);
+        Board board5 = inquiryBoard("title5", "content5", BoardCategory.문의, LocalDateTime.now(), LocalDateTime.now(), 5, "fileName5", "filePath5", admin, product);
+        Board board6 = inquiryBoard("title6", "content6", BoardCategory.문의, LocalDateTime.now(), LocalDateTime.now(), 6, "fileName6", "filePath6", admin, product);
+        Board board7 = inquiryBoard("title7", "content7", BoardCategory.문의, LocalDateTime.now(), LocalDateTime.now(), 7, "fileName7", "filePath7", admin, product);
+        Board board8 = inquiryBoard("title8", "content8", BoardCategory.문의, LocalDateTime.now(), LocalDateTime.now(), 8, "fileName8", "filePath8", admin, product);
 
         Board board9 = commentBoard("title9", "content9", BoardCategory.후기, LocalDateTime.now(), LocalDateTime.now(), 9, 5, "fileName9", "filePath9", admin, product);
         Board board10 = commentBoard("title10", "content10", BoardCategory.후기, LocalDateTime.now(), LocalDateTime.now(), 10, 5, "fileName10", "filePath10", admin, product);
         Board board11 = commentBoard("title11", "content11", BoardCategory.후기, LocalDateTime.now(), LocalDateTime.now(), 11, 5, "fileName11", "filePath11", admin, product);
         Board board12 = commentBoard("title12", "content12", BoardCategory.후기, LocalDateTime.now(), LocalDateTime.now(), 12, 5, "fileName12", "filePath12", admin, product);
 
-        Board board13 = inquiryBoard("title13", "content13", BoardCategory.FAQ, LocalDateTime.now(), LocalDateTime.now(), 13, "fileName13", "filePath13", admin, product);
-        Board board14 = inquiryBoard("title14", "content14", BoardCategory.FAQ, LocalDateTime.now(), LocalDateTime.now(), 14, "fileName14", "filePath14", admin, product);
-        Board board15 = inquiryBoard("title15", "content15", BoardCategory.FAQ, LocalDateTime.now(), LocalDateTime.now(), 15, "fileName15", "filePath15", admin, product);
-        Board board16 = inquiryBoard("title16", "content16", BoardCategory.FAQ, LocalDateTime.now(), LocalDateTime.now(), 16, "fileName16", "filePath16", admin, product);
+        Board board13 = board("title13", "content13", BoardCategory.FAQ, LocalDateTime.now(), LocalDateTime.now(), 13, "fileName13", "filePath13", admin);
+        Board board14 = board("title14", "content14", BoardCategory.FAQ, LocalDateTime.now(), LocalDateTime.now(), 14, "fileName14", "filePath14", admin);
+        Board board15 = board("title15", "content15", BoardCategory.FAQ, LocalDateTime.now(), LocalDateTime.now(), 15, "fileName15", "filePath15", admin);
+        Board board16 = board("title16", "content16", BoardCategory.FAQ, LocalDateTime.now(), LocalDateTime.now(), 16, "fileName16", "filePath16", admin);
 
     }
 

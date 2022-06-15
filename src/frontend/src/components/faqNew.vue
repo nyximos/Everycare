@@ -9,14 +9,6 @@
             outlined
           ></v-text-field>
         </v-row>
-        <v-row>
-  <v-file-input
-    v-model="file"
-    label="File input"
-    outlined
-    dense
-  ></v-file-input>
-        </v-row>
           <v-row>
               <v-textarea
               v-model="comment"
@@ -28,8 +20,7 @@
       </v-container>
       <v-card-actions>
         <v-btn
-          text
-          :to="{name:'Notice'}">
+          text>
           Cancel
         </v-btn>
         <v-spacer></v-spacer>
@@ -40,30 +31,27 @@
           color="primary"
           @click="submit">
           Add
-        </v-btn>
-        
+        </v-btn>        
       </v-card-actions>
       </v-card-text>
-  </v-card>  
+  </v-card>    
 </template>
 
 <script>
 export default {
 data(){
- return{
-     title: this.title,
-     file: [],
-     comment: this.comment
- }   
+    return{
+        title:this.title,
+        comment: this.comment,
+    }
 },
 methods:{
-    submit(){
+submit(){
       var formData = new FormData();
       formData.append('title',this.title);
       formData.append('content',this.comment);
-      formData.append('attachFile', this.file);
       this.$http
-      .post('/api/admin/notice', formData,{
+      .post('/api/admin/faq', formData,{
        withCredentials:true
       })
      .then(res => {
@@ -74,7 +62,7 @@ methods:{
     });
     }
 },
-computed: {
+computed:{
     formIsValid(){
       return (
         this.title &&
@@ -82,6 +70,8 @@ computed: {
       )},
 }
 }
+
+
 </script>
 
 <style>

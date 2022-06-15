@@ -13,30 +13,11 @@ const routes = [
         redirect: '/',
     },
     {
-        path: '/addr',
-        component: () => import('@/components/addr.vue'),
-    },
-    {
         path: '/',
         name: 'Main',
         component: () => import('@/pages/Main.vue'),
     },
-    // {
-    //     path: '/notice',
-    //     name: 'notice',
-    //     component: () => import('@/pages/Notice.vue'),
-    // },
-    {
-        path: '/newNotice',
-        name: 'newNotice',
-        component: () => import('@/components/newNotice.vue'),
-    },
-    // 상품 등록
-    {
-        path: '/store/account/{id}/products/new',
-        name: 'ProdCreate',
-        component: () => import('@/components/prodCreate.vue'),
-    },
+
     // 상품 관리
     {
         path: '/store/account/:contentId/products',
@@ -44,27 +25,7 @@ const routes = [
         component: () => import('@/components/prodEdit.vue'),
     },
     {
-            path: '/prodcreate',
-        name: 'ProdCreate',
-        component: () => import('@/components/prodCreate.vue'),
-    },
-    {
-        path: '/prodedit/:contentId',
-        name: 'ProdEdit',
-        component: () => import('@/components/prodEdit.vue'),
-    },
-    {
-        path: '/dashboard/cart',
-        name: 'Cart',
-        component: () => import('@/components/cart.vue'),
-    },
-    {
-        path: '/payment',
-        name: 'Payment',
-        component: () => import('@/components/productPayment.vue'),
-    },
-    {
-        // 관리자 자격증 조회 화면(o)
+        // 관리자 자격증 조회 화면
         path: '/admin/caresitter-certifications',
         name: 'adminpage_certi',
         component: () => import('@/pages/Adminpage_certi.vue'),
@@ -190,16 +151,6 @@ const routes = [
         component: () => import('@/pages/Adminpage_report.vue'),
     },
     {
-        path: '/wish',
-        name: 'Wish',
-        component: () => import('@/pages/Wish.vue'),
-    },
-    {
-        path: '/cart',
-        name: 'Cart',
-        component: () => import('@/pages/Cart.vue'),
-    },
-    {
         path: '/Test1',
         name: 'Test1',
         component: () => import('@/pages/Test1.vue'),
@@ -249,7 +200,7 @@ const routes = [
     // 케어스토어 상품 전체 조회 (스토어멤버)
     {
         path: '/Mystore/:contentId',
-        name: 'storeMain',
+        name: 'MyStore',
         component: () => import('@/pages/MyStore.vue'),
     },
     // 상품 등록
@@ -342,6 +293,36 @@ const routes = [
         name: 'noticeDetail',
         component: () => import('@/components/noticeDetail.vue'),
     },
+    // 자주 묻는 질문 조회
+    {
+        path: '/faq',
+        name: 'Faq',
+        component: () => import('@/pages/Faq.vue'),
+    },
+    // 자주 묻는 질문 상세조회, 관리자수정삭제
+    {
+        path: '/faq/:contentId',
+        name: 'FaqDetail',
+        component: () => import('@/pages/FaqDetail.vue'),
+    },
+    // 관리자 자주 묻는 질문 등록
+    {
+        path: '/admin/faq/new',
+        name: 'FapNew',
+        component: () => import('@/pages/FaqNew.vue'),
+    },
+    // 관리자 자주 묻는 질문 등록
+    {
+        path: '/admin/faq/new',
+        name: 'FapNew',
+        component: () => import('@/pages/FaqNew.vue'),
+    },
+    // 상품 문의 등록
+    {
+        path: '/store/:contentId/products/:contentId/qna/new',
+        name: 'FapNew',
+        component: () => import('@/components/qnaNew.vue'),
+    },
     {
         path: '/login',
         name: 'Login',
@@ -352,11 +333,6 @@ const routes = [
             else next();
         },
     },
-    // {
-    //     path: '/caresitters',
-    //     name: 'caresitters',
-    //     component: Caresitters,
-    // },
     {
         path: '/works',
         name: 'FindWork',

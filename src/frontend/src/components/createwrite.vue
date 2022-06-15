@@ -212,12 +212,8 @@ name: 'Create',
        console.log(err);
        console.log(this.hi)
     });
-    // this.$router.push({
-    //   path:'/joblist'
-    // })
   },
   buttonClick(){
-    // console.log({name:this.caretarget.name, gender:this.caretarget.gender, height:this.caretarget.height, weight:this.caretarget.weight})
       var formData = new FormData()
       formData.append('id', this.caretarget);
      this.$http

@@ -36,7 +36,7 @@ public interface ProductService {
 
     ResponseEntity<MyResponse> findAllByName(String name);
 
-    ResponseEntity<MyResponse> findAllByCategory(String categoryName);
+    ResponseEntity<MyResponse> findAllByCategory(Long categoryId);
 
     ResponseEntity<MyResponse> findBestProducts();
 

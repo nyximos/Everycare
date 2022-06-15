@@ -28,8 +28,7 @@
       </v-container>
       <v-card-actions>
         <v-btn
-          text
-          :to="{name:'Notice'}">
+          text>
           Cancel
         </v-btn>
         <v-spacer></v-spacer>
