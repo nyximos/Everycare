@@ -61,6 +61,7 @@
                     <th>건강분류 </th>
                     <th>건강상태</th>
                     <th>건강기록</th>
+                    
                 
             </tr>
           </thead>
@@ -70,6 +71,7 @@
                     <td @click="upadte(h)">{{h.healthClassification}}</td>
                     <td>{{h.healthStatus}}</td>
                     <td>{{h.detailComment}}</td>
+                    <td>삭제</td>
                 </tr>
             </tbody>
 
@@ -446,7 +448,7 @@ export default {
             formData.append('healthClassificationId', this.health1);
             formData.append('healthStatus', this.healthstatus);
            this.$http
-           .put(`/api/carenote/${carenoteId}/health-records/${id}`, formData,{
+           .patch(`/api/carenote/${carenoteId}/health-records/${id}`, formData,{
                withCredentail:true
            })
            .then((res)=>{

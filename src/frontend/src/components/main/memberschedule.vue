@@ -17,7 +17,7 @@
                  <!-- <v-icon left>mdi-server-plus</v-icon> -->
                 <h6 class="cate_name">{{c.name}}</h6>
             </v-chip>
-             <v-chip class="ma-2" color="success" outlined style="width:100px;" @click="write(c)">
+             <v-chip class="ma-2" color="success" outlined style="width:100px;" @click="healthview()">
                 
                  <!-- <v-icon left>mdi-server-plus</v-icon> -->
                 <h6 class="cate_name">건강기록</h6>
@@ -72,15 +72,7 @@
       v-model="dialog"
       width="700"
     >
-      <template v-slot:activator="{ on, attrs }">
-        <button
-          
-          v-bind="attrs"
-          v-on="on"
-        >
-          💡
-        </button>
-      </template>
+      
 
       <v-card>
         <div class="pop_wrap">
@@ -148,6 +140,43 @@
     </div>
       </v-card>
     </v-dialog>
+    <!-- 건강 조회 -->
+    <v-dialog v-model="Dialog03" max-width="1000px" @click:outside="closeDialog" @keydown.esc="closeDialog">
+         <v-card style="background:#f8f8f8;">
+          <v-card-text style="max-height: 1000px; padding-bottom:0px;">
+            <v-card-text>
+                <h2 class="title01"></h2>
+            </v-card-text>            
+          </v-card-text>
+          <table class="table custom-table" show-select >
+          <thead>
+            <tr>  
+              
+                    <th>건강분류 </th>
+                    <th>건강상태</th>
+                    <th>건강기록</th>
+                    
+                
+            </tr>
+          </thead>
+          
+             <tbody v-for="(h ,index) in healthRecordDTO" :key="index">
+                <tr>
+                    <td @click="upadte(h)">{{h.healthClassification}}</td>
+                    <td>{{h.healthStatus}}</td>
+                    <td>{{h.detailComment}}</td>
+                    
+                </tr>
+            </tbody>
+
+        </table>
+          
+          <v-divider style="margin:auto;"></v-divider>
+          <v-card-actions>
+            
+          </v-card-actions>
+        </v-card>
+    </v-dialog>
           </v-card-text>
           <v-divider style="margin:auto;"></v-divider>
           <v-card-actions>
@@ -173,7 +202,8 @@ export default {
             cate:[],
             reason:'',
             reportedUserId:'',
-            contractId:''
+            contractId:'',        
+            Dialog03:false,
         }
     },
     mounted(){
@@ -196,8 +226,11 @@ export default {
             withCredentail:true
         })
         .then((res)=>{
-            console.log(res.data.body);
-            this.status= res.data.body.healthstatus
+            this.healthRecordDTO = res.data.body
+            console.log(this.healthRecordDTO);
+            console.log(this.healthRecordDTO[0].id);
+            // console.log(res.data.body);
+            // this.status= res.data.body.healthstatus
             
             // console.log("데이터" + res);
         })
@@ -255,8 +288,14 @@ export default {
             };
             this.$store.commit('carenoteStore/caretarget', caretarget);
         },
+        healthview(){
+            this.Dialog03 = true
+            
+        
+        },
         closeDialog(){
             this.Dialog=false
+            this.Dialog03=false;
         },
         submit(){
             const id =this.$route.params.contentId;
