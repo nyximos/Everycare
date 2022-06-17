@@ -49,8 +49,7 @@
 export default {
     data(){
         return{
-            note : [],
-            // date : this.date(new Date()).format('YYYY-MM-DD'),
+            note : []
         }
     },
     mounted(){
@@ -62,8 +61,6 @@ export default {
         .then((res)=>{
             console.log(res.data.body);
             this.note = res.data.body
-            this.time = res.data.body[0].endTime
-            console.log(this.time)
             // this.date = res.data.body.endTime.format('YYYY-MM-DD');
             // console.log(this.date)
             
