@@ -68,77 +68,17 @@
                 <v-textarea solo name="input-7-4" label="내용을 입력하시오" v-model="text"></v-textarea>
             </v-col>
           <!-- <button>💡</button> -->
-          <v-dialog
-      v-model="dialog"
-      width="700"
-    >
-      
-
-      <v-card>
-        <div class="pop_wrap">
-        <div class="pop_header">
-            <h1>신고하기</h1>
-        </div>
-        <div class="pop_container">
-            <div class="pop_content">
-                <div class="lst_report">
-                    <dl class="report_area">
-                        <dt><span class="inner">신고자</span></dt>
-                        <dd class="report_nick"></dd>
-                        <dt><span class="inner">내용</span></dt>
-                        <dd class="report_cont"></dd>
-                    </dl>
-                </div>
-                <div class="lst_reason"><strong class="reason_title">사유선택</strong>
-                    <!---->
-                    <div class="list_type">
-                        <ul>
-                            <li class="list"><input type="radio" v-model="reason" name="select" id="0" class="report_reason">
-                                <div class="check_area"><label for="0">스팸홍보/도배글입니다.</label> 
-                                   
-                                </div>
-                            </li>
-                            <li class="list"><input type="radio" v-model="reason" name="select" id="1" class="report_reason">
-                                <div class="check_area"><label for="1">음란물입니다.</label> 
-                                  
-                                </div>
-                            </li>
-                            <li class="list"><input type="radio" v-model="reason" name="select" id="2" class="report_reason">
-                                <div class="check_area"><label for="2">불법정보를 포함하고 있습니다.</label> 
-                                    
-                                </div>
-                            </li>
-                            <li class="list"><input type="radio" v-model="reason" name="select" id="3" class="report_reason">
-                                <div class="check_area"><label for="3">청소년에게 유해한 내용입니다.</label> 
-                                    
-                                </div>
-                            </li>
-                            <li class="list"><input type="radio" v-model="reason" name="select" id="4" class="report_reason">
-                                <div class="check_area"><label for="4">욕설/생명경시/혐오/차별적 표현입니다.</label> 
-                                    
-                                </div>
-                            </li>
-                            <li class="list"><input type="radio" v-model="reason" name="select" id="5" class="report_reason">
-                                <div class="check_area"><label for="5">개인정보 노출 게시물입니다.</label> 
-                                    
-                                </div>
-                            </li>
-                            <li class="list"><input type="radio" v-model="reason" name="select" id="6" class="report_reason">
-                                <div class="check_area"><label for="6">불쾌한 표현이 있습니다.</label> 
-                                   
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-               
-                
+          
+    
+          </v-card-text>
+          <v-divider style="margin:auto;"></v-divider>
+          <v-card-actions>
+            <div style="margin:auto;">
+            <v-btn class="ma-2" outlined color="indigo" @click="submit">등록</v-btn>
+            <v-btn class="ma-2" outlined color="indigo" @click="closeDialog">닫기</v-btn>
             </div>
-        </div>
-        <div class="pop_footer"><a href="#" class="btn_submit" @click="report">신고하기</a></div> <button type="button"
-            class="btn_close"><span class="blind">닫기</span></button>
-    </div>
-      </v-card>
+          </v-card-actions>
+        </v-card>
     </v-dialog>
     <!-- 건강 조회 -->
     <v-dialog v-model="Dialog03" max-width="1000px" @click:outside="closeDialog" @keydown.esc="closeDialog">
@@ -154,7 +94,7 @@
               
                     <th>건강분류 </th>
                     <th>건강상태</th>
-                    <th>건강기록</th>
+                    <!-- <th>건강기록</th> -->
                     
                 
             </tr>
@@ -164,7 +104,7 @@
                 <tr>
                     <td @click="upadte(h)">{{h.healthClassification}}</td>
                     <td>{{h.healthStatus}}</td>
-                    <td>{{h.detailComment}}</td>
+                    <!-- <td>{{h.detailComment}}</td> -->
                     
                 </tr>
             </tbody>
@@ -177,12 +117,37 @@
           </v-card-actions>
         </v-card>
     </v-dialog>
+    <!-- 상세조회 -->
+    <v-dialog v-model="Dialog04" max-width="500px" @click:outside="closeDialog" @keydown.esc="closeDialog">
+         <v-card style="background:#f8f8f8;">
+          <v-card-text style="max-height: 550px; padding-bottom:0px;">
+            <v-card-text>
+                <h2 class="title01">건강기록수정</h2>
+                
+            </v-card-text>            
           </v-card-text>
+
+          
+ 
+    
+ 
+
+ 
+    
+
+
+          <v-col cols="12" md="8" style="margin:0 auto;">
+        <v-textarea
+          solo
+          name="input-7-4"
+          label="내용을 입력해주세요"
+          
+        ></v-textarea>
+      </v-col>
           <v-divider style="margin:auto;"></v-divider>
           <v-card-actions>
             <div style="margin:auto;">
-            <v-btn class="ma-2" outlined color="indigo" @click="submit">등록</v-btn>
-            <v-btn class="ma-2" outlined color="indigo" @click="closeDialog">닫기</v-btn>
+            
             </div>
           </v-card-actions>
         </v-card>
@@ -204,6 +169,8 @@ export default {
             reportedUserId:'',
             contractId:'',        
             Dialog03:false,
+            Dialog04:false,
+            healthRecordDTO:[],
         }
     },
     mounted(){
@@ -279,7 +246,26 @@ export default {
             console.log(err);
         })
         },
-        
+        upadte(h){
+             const carenoteId = this.$route.params.contentId;
+            this.Dialog04 = true
+            this.id = h.id
+            this.$http
+        .get(`/api/carenote/${carenoteId}/health-records/${h.id}`,{
+            withCredentail:true
+        })
+        .then((res)=>{
+            console.log(res.data.body);
+            console.log(res)
+            // this.schedule= res.data.body.activityInformationDTOs
+            // console.log(this.schedule)
+            // console.log("데이터" + res);
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+            // console.log(id)
+        },
         write(c){
             this.Dialog = true
             const caretarget ={
@@ -296,6 +282,7 @@ export default {
         closeDialog(){
             this.Dialog=false
             this.Dialog03=false;
+            this.Dialog04=false;
         },
         submit(){
             const id =this.$route.params.contentId;
