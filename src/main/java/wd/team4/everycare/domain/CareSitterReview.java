@@ -1,5 +1,6 @@
 package wd.team4.everycare.domain;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 @SequenceGenerator(name = "care_sitter_review_seq_generator",
         sequenceName = "care_sitter_review_seq",
         initialValue = 1, allocationSize = 1)
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class CareSitterReview {
 
     @Id

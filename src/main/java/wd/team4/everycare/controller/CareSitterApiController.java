@@ -10,8 +10,6 @@ import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.dto.MultipartFileDTO;
 import wd.team4.everycare.dto.careSitter.CareSitterFormDTO;
-import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobSearchDTO;
-import wd.team4.everycare.dto.jobOffer_jobSearch.JobSearchDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.service.CareSitterServiceImpl;
@@ -19,7 +17,6 @@ import wd.team4.everycare.service.JobSearchServiceImpl;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.List;
 
 
 @RestController
@@ -39,15 +36,8 @@ public class CareSitterApiController {
 
     @GetMapping("/caresitters/{id}")
     public ResponseEntity<MyResponse> getDetailJobSearch(@PathVariable("id") Long id) {
-
-        DetailJobSearchDTO detailJobSearch = jobSearchService.findDetailJobSearch(id);
-        MyResponse body = MyResponse.builder()
-                .header(StatusEnum.OK)
-                .body(detailJobSearch)
-                .message("ok")
-                .build();
-
-        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        ResponseEntity<MyResponse> detailJobSearch = jobSearchService.findDetailJobSearch(id);
+        return detailJobSearch;
     }
 
     @GetMapping("/dashboard/caresitter")
@@ -85,7 +75,7 @@ public class CareSitterApiController {
     public ResponseEntity<MyResponse> patchCareSitter(
             @PathVariable("id") Long id,
             @ModelAttribute CareSitterFormDTO careSitterFormDTO
-    ){
+    ) throws IOException {
         careSitterService.update(id, careSitterFormDTO);
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)

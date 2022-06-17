@@ -44,7 +44,7 @@ const routes = [
         component: () => import('@/components/prodEdit.vue'),
     },
     {
-            path: '/prodcreate',
+        path: '/prodcreate',
         name: 'ProdCreate',
         component: () => import('@/components/prodCreate.vue'),
     },
@@ -64,19 +64,19 @@ const routes = [
         component: () => import('@/components/productPayment.vue'),
     },
     {
-        // 관리자 자격증 조회 화면
+        // 관리자 자격증 조회 화면(o)
         path: '/admin/caresitter-certifications',
         name: 'adminpage_certi',
         component: () => import('@/pages/Adminpage_certi.vue'),
     },
     {
-        // 관리자 자격증 상세/승인
+        // 관리자 자격증 상세/승인(o)
         path: '/admin/caresitter-certifications/:contentId',
         name: 'certification_detail',
         component: () => import('@/components/main/certification_detail.vue'),
     },
     {
-        //자격증 등록화면
+        //자격증 등록화면(o)
         path: '/dashboard/caresitter/:caresitterId/certifications/new',
         name: 'certification',
         component: () => import('@/pages/Certification.vue'),
@@ -88,26 +88,26 @@ const routes = [
         component: () => import('@/pages/Mypage.vue'),
     },
     {
-        // 구직글 조회
+        // 케어시터 찾기(o)
         path: '/caresitters',
         name: 'caresitters',
         component: () => import('@/pages/Caresitters.vue'),
     },
     {
-        // 케어시터 프로필 등록
-        path: '/dashboard/caresitter',
-        name: 'careprofilecreate',
-        component: () => import('@/pages/Careprofilecreate.vue'),
-    },
-    {
-        // 구직글 케어시터 프로필 상세조회
+        // 케어시터 프로필 상세조회(o)
         path: '/caresitters/:caresitterId',
         name: 'addprofile2',
         props: true,
         component: () => import('@/components/main/addprofile2.vue'),
     },
     {
-        // 계약서
+        // 케어시터 프로필 등록(o)
+        path: '/dashboard/caresitter',
+        name: 'careprofilecreate',
+        component: () => import('@/pages/Careprofilecreate.vue'),
+    },
+    {
+        // 멤버->케어시터 프로필 신청 후 케어대상인 선택 화면 
         path: '/contract/:caresitterId',
         name: 'contract',
         component: () => import('@/pages/Contract.vue'),
@@ -125,20 +125,20 @@ const routes = [
         component: () => import('@/pages/Profile_update.vue'),
     },
     {
-        //마이페이지 자격증 조회
-        path: '/mypage_certi/:caresitterId',
+        //마이페이지 자격증 조회(o)
+        path: '/dashboard/caresitter/:caresitterId/certifications',
         name: 'mypage_certi',
         component: () => import('@/components/main/mypage_certi'),
     },
     {
-        // 마이페이지 계약서 조회
-        path: '/caresitter_contract/:caresitterId',
+        // 마이페이지 계약서 조회(1)
+        path: '/dashboard/caresitter/contracts',
         name: 'caresitter_contract',
         component: () => import('@/pages/Caresitter_contract'),
     },
     {
-        //마이페이지 계약서 상세조회
-        path: '/contract_detail/:contractId',
+        //마이페이지 계약서 상세조회(1)
+        path: '/dashboard/caresitter/contracts/:contractId',
         name: 'contract_detail',
         component: () => import('@/components/main/contract_detail'),
     },
@@ -149,16 +149,22 @@ const routes = [
         component: () => import('@/pages/Lastcontract'),
     },
     {
-        //케어 노트(케어시터)
+        //케어 노트(케어시터) (o)
         path: '/carenote',
         name: 'carenote',
         component: () => import('@/pages/Carenote'),
     },
     {
-        //케어노트 출근 시작 시간/출근 시간
+        //케어노트 출근 시작 시간/출근 시간 (o)
         path: '/carenote/:contentId',
         name: 'carenotestart',
         component: () => import('@/components/main/carenotestart'),
+    },
+    {
+        //케어노트 활동 스케줄(케어시터) (o)
+        path: '/carenote/caretarget/:contentId/schedules',
+        name: 'careschedule',
+        component: () => import('@/components/main/careschedule'),
     },
     {
         //케어 노트(멤버)
@@ -167,9 +173,58 @@ const routes = [
         component: () => import('@/pages/MemberCarenote'),
     },
     {
-        path: '/carenote/caretarget/:contentId/schedules',
-        name: 'careschedule',
-        component: () => import('@/components/main/careschedule'),
+        //케어노트 활동 스케줄(멤버)
+        path:'/memberschedule/:contentId',
+        name:'memberschedule',
+        component:() => import('@/components/main/memberschedule')
+    },
+    {
+        //완료된 계약서(케어시터) (o)
+        path:'/dashboard/contracts/completion',
+        name:'complete_contract',
+        component:()=> import('@/pages/Complete_contract')
+    },
+    {
+        //완료된 케어노트(케어시터)
+        path:'/dashboard/contracts/completion/note/:contentId',
+        name:'complete_note',
+        component:()=> import('@/components/main/complete_note')
+    },
+    {
+        //완료된 케어노트 상세(케어시터)
+        path:'/dashboard/contracts/completion/note/detail/:noteId',
+        name:'note_detail',
+        component:()=> import('@/components/main/complete_note_detail')
+    },
+    {
+        //완료된 계약서 대상인 선택(멤버)
+        path:'/dashboard/complete_target',
+        name:'complete_target',
+        component:()=> import('@/pages/Complete_target')
+    },
+    {
+        //완료된 계약서(멤버)
+        path:'/dashboard/memcontracts/completion/:targetId',
+        name:'complete_memcontract',
+        component:()=> import('@/pages/Complete_memcontract')
+    },
+    {
+        //완료된 계약서 -> 노트(멤버)
+        path:'/dashboard/membernote/completion/',
+        name:'complete_membernote',
+        component:()=> import('@/components/main/complete_memnote')
+    },
+    {
+        // 시간 검색 모달창
+        path:'/timesearch',
+        name:'timesearch',
+        component:()=> import('@/components/main/timesearch')
+    },
+    {
+        // 후기 조회
+        path:'/review',
+        name:'review_list',
+        component:()=> import('@/components/main/review')
     },
     {
         path: '/admin_report',
@@ -354,17 +409,6 @@ const routes = [
             else next();
         },
     },
-
-    // {
-    //     path: '/profile',
-    //     name: 'profile',
-    //     component: Profile
-    // },
-    // {
-    //     path: '/dashboard/caresitter',
-    //     name: '케어시터 프로필생성',
-    //     component: () => import('@/pages/Careprofile.vue'),
-    // },
     {
         path: '/carepeople',
         name: 'carepeople',
@@ -375,11 +419,6 @@ const routes = [
         name: 'alarm',
         component: Alarm,
     },
-    // {
-    //     path: '/profile2',
-    //     name: 'profile2',
-    //     component: Profile2,
-    // },
     {
         path: '/test',
         name: 'Test',

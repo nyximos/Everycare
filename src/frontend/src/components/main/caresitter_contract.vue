@@ -61,5 +61,7 @@ export default {
 </script>
 
 <style>
-
+  .mx-auto{
+    margin-bottom: 50px;
+  }
 </style>

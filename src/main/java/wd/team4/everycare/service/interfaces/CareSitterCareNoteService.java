@@ -28,7 +28,4 @@ public interface CareSitterCareNoteService {
 
     ResponseEntity<MyResponse> getContracts(PrincipalDetails principalDetails);
 
-    ResponseEntity<MyResponse> getCareNotes(Long id);
-
-    ResponseEntity<MyResponse> getCareNote(Long id);
 }
