@@ -105,8 +105,8 @@
                           <v-radio label="월급" value="monthpay">
                           </v-radio>
                           </v-radio-group>
-                           <v-text-field v-model="desiredHourlyWage" label="시급제"></v-text-field>
-                          <v-text-field v-model="desiredMonthlyWage" label="월급제"></v-text-field>
+                           <v-text-field type="number" v-model="desiredHourlyWage" label="시급제"></v-text-field>
+                          <v-text-field type="number" v-model="desiredMonthlyWage" label="월급제"></v-text-field>
                         </div>
                       </div>
                       <div class="con10 con1">
@@ -606,7 +606,12 @@ methods:{
                 withCredentials:true
             })
             .then(res=>{
-              console.log(res);
+              // console.log(res);
+              const profile = {
+                activityTime : this.activityTime
+              }
+              console.log(profile)
+              this.$store.commit('careprofileStore/profile',profile);
               alert("프로필 생성완료");
               this.$router.push({ path: '/Main' })
             }).catch(err=>{
@@ -622,6 +627,9 @@ methods:{
 <style>
 div{
     display: block;
+}
+ul{
+  list-style: none;
 }
     .content{
         width: 100%;

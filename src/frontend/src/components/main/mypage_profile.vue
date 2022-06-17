@@ -8,14 +8,11 @@
 						<h2 class="hide">기본정보</h2>
 						<div class="photoArea">
 							<span class="photo">
-								<div v-if="details.attachFiles[0]==''"> 
+								<!-- <div v-if="details.attachFiles[0]==''">  -->
 								<a href="#ResumeBaseInfo" class="image" style="position:static;left:0;bottom:0;display:block;width:auto;height:auto;padding:0;border:0 none;background:none">
 									<img :src="'https://localhost:8086/api/images/' + details.attachFiles[0].storeFileName" width="90" height="120" alt="프로필사진" id="per_pic">		
 								</a>
-								</div>
-								<div v-else>
-									<img src="@/assets/profile.png">
-								</div>
+								<!-- </div> -->
 							</span>
 						</div>
 							<ul class="infoList">
@@ -113,7 +110,7 @@
 				<br><br><br><br><br><br><br><br>
                 <div style="text-align:center;">
 				<v-btn class="ma-2" outlined color="indigo" @click="move">수정하기</v-btn>
-				<v-btn class="ma-2" outlined color="indigo">취소</v-btn>
+				<v-btn class="ma-2" outlined color="indigo" @click="back">뒤로가기</v-btn>
                 </div>
 			</div>
 			</div>
@@ -132,6 +129,7 @@ export default {
     },
     mounted(){
         const id = this.$store.state.userStore.careSitterId
+		console.log(this.$route)
         this.$http
         .get(`/api/caresitters/${id}`,{
             withCredentials:true
@@ -147,7 +145,10 @@ export default {
         move(){
             // const id = this.$store.state.userStore.careSitterId
             this.$router.push({name:'profile_update' , params:{caresitterId:this.$store.state.userStore.careSitterId}  })
-        }
+        },
+		back(){
+			this.$router.push({name:'mypage'})
+		}
     }
 
 }

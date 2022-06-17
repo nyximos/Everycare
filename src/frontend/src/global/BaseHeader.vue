@@ -3,7 +3,7 @@
         <div class="header">
             <div class="logo" @click="goMain()">Everycare</div>
             <div class="list">
-                <v-btn text>케어매칭</v-btn>
+                <v-btn text @click="match">케어매칭</v-btn>
                 <v-btn text>케어노트</v-btn>
                 <v-btn text to="/store">케어스토어</v-btn>
             </div>
@@ -91,6 +91,9 @@ export default {
                 .catch((err) => {
                     console.log(err);
                 });
+        },
+        match(){
+            this.$router.push({name:'caresitters'})
         }
     }
 }

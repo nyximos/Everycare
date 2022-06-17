@@ -6,16 +6,16 @@
             <div class="resumeType1-inner">
                <div id="ResumeBaseInfo" class="resumeView">
                   <h2 class="hide">기본정보</h2>
+                  <div v-for="(b,index) in badge" :key="index">
+                     <img :src="'https://localhost:8086/api/images/' + b.storeFileName">
+                  </div>
                   <div class="photoArea">
                      <span class="photo">
-                        <div v-if="this.detail.attachFiles ==''"> 
+                        <!-- <div v-if="this.attachFile == ' ' ">  -->
 								<a href="#ResumeBaseInfo" class="image" style="position:static;left:0;bottom:0;display:block;width:auto;height:auto;padding:0;border:0 none;background:none">
 									<img :src="'https://localhost:8086/api/images/' + detail.attachFiles[0].storeFileName" width="90" height="120" alt="프로필사진" id="per_pic">		
 								</a>
-								</div>
-								<!-- <div v-else>
-									<img src="@/assets/profile.png">
-								</div> -->
+								<!-- </div> -->
                      </span>
                   </div>
                      <ul class="infoList">
@@ -131,17 +131,6 @@ export default {
       })
       .then((res)=>{
          console.log(res.data.body);
-         // this.introduction = res.data.body.introduction
-         // this.cctvAgreement = res.data.body.cctvAgreement
-         // this.desiredDayWeek = res.data.body.desiredDayWeek
-         // this.hourlyWage = res.data.body.hourlyWage
-         // this.monthlyWage = res.data.body.monthlyWage
-         // this.preferredType = res.data.body.preferredType
-         // this.activityTime = res.data.body.activityTime
-         // this.hopefulRegion = res.data.body.hopefulRegion
-         // this.is_vaccinated = res.data.body.is_vaccinated
-         // this.attachFiles = res.data.body.attachFiles[0].storeFileName
-         // this.certification = res.data.body.certification[0].name
          this.name = res.data.body.memberDTO.name
          this.birth = res.data.body.memberDTO.birth
          this.gender = res.data.body.memberDTO.gender
@@ -152,7 +141,9 @@ export default {
          this.id = res.data.body.id;
          this.review = res.data.body.careSitterReviews
          this.certification = res.data.body.certification
-         console.log(this.certification)
+         this.badge = res.data.body.badge
+         this.attachFile = res.data.body.attachFiles
+         console.log(this.attachFile)
          }).catch(err=>{
             console.log(err);
          })
@@ -173,6 +164,8 @@ export default {
             address:this.address,
             email:this.email,
             id:this.id,
+            badge:this.badge,
+            attachFile:this.attachFile,
             // storeFileName:[],
             // certification:this.certification,
             // is_vaccinated:this.is_vaccinated,
