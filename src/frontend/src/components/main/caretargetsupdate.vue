@@ -133,9 +133,15 @@
                                     <v-radio label="O" value="0"></v-radio>
                                     <v-radio label="X" value="1"></v-radio>
                         </v-radio-group> -->
+                         <div v-for="(i,index) in imgfile" :key="index">
+                              <img :src="'https://localhost:8086/api/images/' + i.storeFileName" width="250px" height="250px" alt="@/assets/profile.png">
+                              <v-btn @click="del(i)">삭제하기</v-btn>
+                      </div>
                     </li>
                     <li>
+                      
                     <span>파일 업로드</span>
+                    
                     
                     
  

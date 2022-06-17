@@ -138,18 +138,20 @@
                         </v-radio-group> -->
                     </li>
                     <br>
-                   
-      
-    <v-row>
-      <v-col cols="10"  v-for="(item,index) in detailImg" :key="index" style="float:left">
-    <div class="text-center">
-    <v-btn icon @click="delImg(item)">
-      <v-icon>mdi-close</v-icon>
-    </v-btn>
-    <v-img id="divProfile" :src="'https://localhost:8086/api/images/'+item.storeFileName" alt="사진" width="150px" height="200px"/>
-    </div>
-    </v-col>
-    </v-row>
+                    <h5>케어대상인 사진</h5>
+                    <div v-for="(i,index) in imgfile" :key="index">
+                              <img :src="'https://localhost:8086/api/images/' " width="250px" height="250px"  alt="@/assets/profile.png">
+                              <v-btn @click="del(i)">삭제하기</v-btn>
+                    </div>
+                    <v-file-input 
+                              v-model="attachFiles" 
+                              label="File input" 
+                              type="file"
+                              id="attachFiles"
+                              multiple="multiple"
+                              outlined dense>
+                              </v-file-input>
+    
     <!-- <v-file-input
       v-model="attachFiles"
       chips
@@ -203,8 +205,11 @@ data(){
         careType:'',
         coronaTest:'',
         attachFiles:null,
+        img:[],
         id:this.$route.params.caretargetsId,
+        imgfile:this.imgfile,
         detailImg:[],
+        
     }
 },
 mounted(){
@@ -214,6 +219,7 @@ const id = this.$route.params.caretargetsId;
 	})
 	
     .then((res)=>{
+      console.log(res.data)
         console.log(res.data.body);
         this.name = res.data.body.name
         this.gender = res.data.body.gender
@@ -229,14 +235,35 @@ const id = this.$route.params.caretargetsId;
 		this.isCctvAgreement = res.data.body.isCctvAgreement
 		this.careType = res.data.body.careType
 		this.coronaTest = res.data.body.coronaTest
-		this.attachFiles = res.data.body.storeFileName
-    this.detailImg = res.data.body.imagesDTOs;
+		
+    this.imgfile = res.data.body.imageDTOs[0]
+    
+    
+    console.log(this.imgfile)
+    
+    
+    
     })
     .catch((err)=>{
         console.log(err)
     })
 },
 methods:{  
+  del(i){
+          
+          
+          console.log(i)
+          this.$http
+          .delete(`/api/dashboard/caretargets/${this.id}/image/${i}`,{
+            withCredentials:true
+          })
+          .then((res)=>{
+            console.log(res)
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
+        },
 execDaumPostcode() {
       new window.daum.Postcode({
         oncomplete: (data) => {
