@@ -1,7 +1,7 @@
 <template>
   <div>
       <h2>마이페이지</h2>
-      <div v-if="this.$store.state.userStore.careSitterId  !==null">
+      <div v-if="this.$store.state.userStore.careSitterId  !==null ||  this.$store.state.careprofileStore.activityTime !== ''" >
         <router-link :to="{name:'certification',params:{caresitterId:this.id}}"><p>자격증 등록</p></router-link>
         <router-link :to="{name:'mypage_certi' ,params:{caresitterId:this.id}}"><p>케어 자격증 조회</p></router-link>
           <router-link :to="{name:'mypage_profile' ,params:{caresitterId:this.id}}"><p>프로필 조회</p></router-link>

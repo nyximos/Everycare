@@ -210,7 +210,7 @@
                         </span>
                         <div class="bar01"></div>
                         <span class="tab03">
-                            <span class="icon03">{{ p.is_vaccinated }}</span>
+                            <span class="icon03">{{ p.isVaccinated }}</span>
                             <span class="text01">{{ p.gender }}</span>
                             <span class="text01">{{ p.preferredType }}</span>
                             <span class="text01">{{ p.activityTime }}</span>
@@ -219,12 +219,12 @@
                 </ul>
             </div>
         </div>
-        <div class="btn-cover">
+        <!-- <div class="btn-cover">
           <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">이전</button>
             <span class="page-count">{{pageNum + 1 }} / {{pageCount}} 페이지</span>
-          <button :disabled="pageNum >= pageCount -1" @click="nextPage" class="page-btn">다음</button>
+          <button :disabled="pageNum >= pageCount -1" @click="nextPage" class="page-btn">다음</button> -->
             <!-- <v-pagination v-model="curpage" :length="pages" circle></v-pagination> -->
-        </div>
+        <!-- </div> -->
     </div>
 </template>
 <script>
@@ -554,7 +554,7 @@ export default {
      this.timedialog = true
    },
    dialog(){
-     this.searchdialog = false
+     this.regiondialog = false
      this.catedialog = false
      this.timedialog = false
    },
@@ -635,12 +635,12 @@ export default {
           this.detail_area = this.area17
         }
       },
-      nextPage(){
-        this.pageNum += 1;
-      },
-      prevPage(){
-        this.pageNum -= 1;
-      }
+      // nextPage(){
+      //   this.pageNum += 1;
+      // },
+      // prevPage(){
+      //   this.pageNum -= 1;
+      // }
     },
     mounted() {
         this.$http
@@ -648,8 +648,6 @@ export default {
                 withCredentials: true,
             })
             .then((res) => {
-                // this.attachFiles = res.data.body.attachFiles[0].storeFileName
-                // console.log(this.attachFiles)
                 console.log(res.data.body);
                 this.profiles = res.data.body;
             })
@@ -668,12 +666,12 @@ export default {
 
         return page;
       },
-      profiles(){
-        const start = this.pageNum * this.pageSize,
-              end = start + this.pageSize;
+      // profiles(){
+      //   const start = this.pageNum * this.pageSize,
+      //         end = start + this.pageSize;
 
-        return this.profiles.slice(start,end);
-      }
+      //   return this.profiles.slice(start,end);
+      // }
     }
 }
 </script>
@@ -863,7 +861,7 @@ ul{
 }
 .ul01 .li01 .tab03 .icon03 {
     display: inline-block;
-    background-color: #ffff93;
+    background-color:  #ffff93;
     padding: 1px 10px 1px 10px;
     border-radius: 20px;
     color: green;

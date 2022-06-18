@@ -11,7 +11,7 @@
               class="grey darken-4"
             ></v-img>
             <v-card-title class="text-h6">
-              {{c.name}}
+              <p style="margin:0 auto;">{{c.name}}</p>
             </v-card-title>
           </v-card>
         </v-col>
@@ -26,6 +26,7 @@ export default {
     data(){
         return{
             target:[]
+
         }
     }, 
     mounted(){
@@ -42,7 +43,7 @@ export default {
     },
     methods:{
         move(c){
-            this.$router.push({name:'complete_memcontract' , params:{targetId:c.id}})
+            this.$router.push({name:'complete_memcontract' , params:{targetId:c.id,}})
         }
     }
 }

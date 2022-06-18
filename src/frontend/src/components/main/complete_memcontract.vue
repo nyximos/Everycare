@@ -1,12 +1,11 @@
 <template>
   <div class="content">
-      <h2>완료된 계약서</h2>
-      <v-card class="mx-auto" max-width="300" v-for="(c,index) in contract" :key="index">
-        <v-img src="@/assets/handshake.png" height="200px" width="150px" style="margin:0 auto;"></v-img>
+      <v-card class="mx-auto" max-width="500" v-for="(c,index) in contract" :key="index">
+        <h5>계약서:{{index+1}}</h5>
+        <v-img :src="'https://localhost:8086/api/images/'+ c.careSitterStoreFileName" height="250px" width="300px" style="margin:0 auto;"></v-img>
       <v-card-title>
-        회원 아이디:{{c.memberId}} <br>
-        회원 이름:{{c.memberName}} <br>
-        케어대상인:{{c.careTargetName}}
+        시터 이름:{{c.careSitterName}} <br>
+        amount:{{c.amount}}
       </v-card-title>
       <v-card-subtitle>
         날짜: {{c.day}}<br>
@@ -15,34 +14,8 @@
     <v-card-actions>
       <div style="margin:0 auto;">
         <v-btn color="#69f0ae" text @click="note(c)">노트</v-btn>
-        <v-btn text color="#69f0ae" @click="reveal = true">계약서</v-btn>
       </div>
     </v-card-actions>
-    <v-expand-transition>
-      <v-card
-        v-if="reveal"
-        class="transition-fast-in-fast-out v-card--reveal"
-        style="height: 100%;"
-      >
-        <v-card-text class="pb-0">
-          <p class="text-h5 text--primary" style="text-align:center; margin-bottom:10px;">
-            계약정보
-          </p>
-          <p class="text-h6 text--primary" style="font-style:bold; margin-bottom:10px;">회원정보</p>
-          <p class="text-h8 text--primary">이름:{{c.careTargetName}}({{c.gender}}) / 생년월일:{{c.birth}}</p>
-          <p class="text-h8 text--primary">주소: {{c.address}} {{c.detailedAddress}}</p>
-          <p class="text-h8 text--primary">반려동물:<span class="check">{{c.pet}}</span> / CCTV:<span class="check">{{c.isCctvAgreement}}</span> / 백신: <span class="check">{{c.coronaTest}}</span></p>
-          <p class="text-h8 text--primary">케어타입:{{c.careTpe}} / 장기요양등급: {{c.longTermCareGrade}}</p>
-          <p class="text-h6 text--primary" style="font-style:bold; margin-bottom:10px;">계약정보</p>
-          <p class="text-h9 text--primary">시작시간: {{c.startDate}}</p>
-          <p class="text-h9 text--primary">종료시간: {{c.endDate}}</p>
-          <p class="text-h9 text--primary">금여: {{c.amount}}</p>
-        </v-card-text>
-        <v-card-actions class="pt-0">
-          <v-btn text color="#69f0ae" style="margin:0 auto;" @click="reveal = false">Close</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-expand-transition>
   </v-card>
     
   </div>
@@ -57,10 +30,9 @@ export default {
         }
     },
     mounted(){
-        const id = this.$route.params.targetId;
-        console.log(id)
+        const targetId = this.$route.params.targetId;
         this.$http
-        .get(`/api/member/caretargets/${id}/contracts/complition`,{
+        .get(`/api/member/caretargets/${targetId}/contracts/complition`,{
 
             withCredential:true
         })
@@ -74,12 +46,15 @@ export default {
     },
     methods:{
         note(c){        
-            this.$router.push({ name: 'complete_membernote', params: { contentId: c.id }})
+            this.$router.push({ name: 'complete_membernote', params: { contractId: c.id, targetId:this.$route.params.targetId }})
         }
     }
 }
 </script>
 
 <style>
-
+  .content{
+    padding: 40px;
+    display: flex;
+  }
 </style>

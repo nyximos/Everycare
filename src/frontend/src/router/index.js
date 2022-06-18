@@ -154,12 +154,12 @@ const routes = [
         name: 'carenote',
         component: () => import('@/pages/Carenote'),
     },
-    // {
-    //     //케어노트 출근 시작 시간/출근 시간 (o)
-    //     path: '/carenote/:contentId',
-    //     name: 'carenotestart',
-    //     component: () => import('@/components/main/carenotestart'),
-    // },
+    {
+        //케어노트 출근 시작 시간/출근 시간 (o)
+        path: '/carenote/:contentId',
+        name: 'carenotestart',
+        component: () => import('@/components/main/carenotestart'),
+    },
     {
         //케어노트 활동 스케줄(케어시터) (o)
         path: '/carenote/caretarget/:contentId/schedules',
@@ -207,6 +207,12 @@ const routes = [
         path:'/dashboard/memcontracts/completion/:targetId',
         name:'complete_memcontract',
         component:()=> import('@/pages/Complete_memcontract')
+    },
+    {
+        //완료된 계약서 -> 노트(멤버)
+        path:'/dashboard/membernote/completion/',
+        name:'complete_membernote',
+        component:()=> import('@/components/main/complete_memnote')
     },
     {
         // 시간 검색 모달창
