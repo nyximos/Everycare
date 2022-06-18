@@ -250,12 +250,12 @@
                 </ul>
             </div>
         </div>
-        <div class="btn-cover">
+        <!-- <div class="btn-cover">
           <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">이전</button>
             <span class="page-count">{{pageNum + 1 }} / {{pageCount}} 페이지</span>
           <button :disabled="pageNum >= pageCount -1" @click="nextPage" class="page-btn">다음</button>
-            <!-- <v-pagination v-model="curpage" :length="pages" circle></v-pagination> -->
-        </div>
+            < <v-pagination v-model="curpage" :length="pages" circle></v-pagination> -->
+        </div> 
   <!-- {{this.listData}} -->
   <!-- <ListItem class="mt-5" v-for="(listItem, index) in filteredList" :key="index"
   :listItem="listItem" @detail="detailShot"
@@ -268,7 +268,7 @@
       circle
     ></v-pagination>
   </div> -->
- </div>
+ 
 </template>
 
 <script>
@@ -629,7 +629,7 @@ export default {
      this.timedialog = true
    },
    dialog(){
-     this.searchdialog = false
+     this.regiondialog = false
      this.catedialog = false
      this.timedialog = false
    },
@@ -644,6 +644,7 @@ export default {
       }).then((res)=>{
         console.log(res)
         this.listData = res.data.body
+        console.log(res.data.body)
         this.regiondialog = false
       }).catch((err)=>{
         console.log(err)
@@ -727,12 +728,7 @@ export default {
 
         return page;
       },
-      listData(){
-        const start = this.pageNum * this.pageSize,
-              end = start + this.pageSize;
-
-        return this.listData.slice(start,end);
-      }
+      
       // startOffset() {
       //   return ((this.curPageNum - 1) * this.dataPerPage);
       // },

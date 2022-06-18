@@ -227,7 +227,7 @@ execDaumPostcode() {
       .catch(err => {
        console.log(err);
     });    
-    location.href = '/caretargets';
+    // location.href = '/caretargets';
         },        
         
     },
