@@ -181,7 +181,7 @@
         <v-textarea
           solo
           name="input-7-4"
-          label="내용을 입력해주세요"
+          placeholder="내용을 입력해주세요"
           v-model="content1"
         ></v-textarea>
       </v-col>
