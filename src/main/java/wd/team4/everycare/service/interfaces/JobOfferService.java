@@ -26,4 +26,6 @@ public interface JobOfferService {
     ResponseEntity<MyResponse> searchPay(int min, int max);
     ResponseEntity<MyResponse> searchRegion(String region);
     ResponseEntity<MyResponse> searchDate(LocalDate date);
+
+    ResponseEntity<MyResponse> announceOffer(PrincipalDetails principalDetails);
 }

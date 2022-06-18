@@ -133,4 +133,10 @@ public class JobOfferApiController {
         ResponseEntity<MyResponse> searchDate = jobOfferService.searchDate(date);
         return searchDate;
     }
+
+    @GetMapping("/recruitions/announce")
+    public ResponseEntity<MyResponse> announceJobOffer(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        ResponseEntity<MyResponse> announceOffer = jobOfferService.announceOffer(principalDetails);
+        return announceOffer;
+    }
 }

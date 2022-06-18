@@ -15,7 +15,6 @@ import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.StoreRepository;
 import wd.team4.everycare.service.StoreServiceImpl;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @RestController
@@ -91,4 +90,11 @@ public class StoreApiController {
         return responseEntity;
     }
 
+    @GetMapping("/store/statistics")
+    public ResponseEntity<MyResponse> findAllStatistics(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                                        @RequestParam LocalDateTime startDate,
+                                                        @RequestParam LocalDateTime endDate){
+        ResponseEntity<MyResponse> allStatistics = storeService.findAllStatistics(principalDetails, startDate, endDate);
+        return allStatistics;
+    }
 }

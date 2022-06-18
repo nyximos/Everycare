@@ -1,7 +1,6 @@
 package wd.team4.everycare.dto.jobOffer_jobSearch;
 
 import lombok.*;
-import wd.team4.everycare.domain.CareSitterBedge;
 import wd.team4.everycare.domain.CareSitterImage;
 import wd.team4.everycare.domain.Certification;
 import wd.team4.everycare.dto.badge.CareSitterBadgeDTO;
@@ -31,5 +30,4 @@ public class JobSearchDTO {
     private List<Certification> certifications;
     private List<CareSitterBadgeDTO> badge;
 
-/* TODO 자격증, 벳지, 이미지 */
 }

@@ -12,6 +12,7 @@ import static wd.team4.everycare.domain.QOrder.*;
 import static wd.team4.everycare.domain.QOrderProduct.*;
 import static wd.team4.everycare.domain.QProduct.product;
 import static wd.team4.everycare.domain.QWishList.*;
+import static wd.team4.everycare.domain.QProduct.product;
 
 @Repository
 @RequiredArgsConstructor
@@ -57,4 +58,7 @@ public class ProductQueryRepository {
                 .fetch();
 
     }
+    /* TODO 총 매출 통계 */
+
+
 }

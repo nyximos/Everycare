@@ -26,6 +26,8 @@ public class InitDb {
     private final InitCareSitterReviewService careSitterReviewService;
     private final InitBadgeService badgeService;
 
+    private final InitCareSitterBadgeService careSitterBadgeService;
+
     @PostConstruct
     public void init() {
         memberService.dbInit();
@@ -43,6 +45,7 @@ public class InitDb {
         healthClassificationService.dbInIt();
         careSitterReviewService.dbInit();
         badgeService.dbInit();
+        careSitterBadgeService.dbInit();
 //        careNoteService.dbInit();
     }
 }
