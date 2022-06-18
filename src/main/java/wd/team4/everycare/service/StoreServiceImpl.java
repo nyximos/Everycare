@@ -6,7 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
+
+import wd.team4.everycare.domain.OrderProduct;
+
 import wd.team4.everycare.domain.Product;
 import wd.team4.everycare.domain.Store;
 import wd.team4.everycare.dto.product.ProductListViewDTO;
@@ -14,9 +18,14 @@ import wd.team4.everycare.dto.store.StoreAdminViewDTO;
 import wd.team4.everycare.dto.store.StoreFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
+import wd.team4.everycare.dto.store.StoreAdminViewDTO;
+import wd.team4.everycare.dto.store.StoreFormDTO;
 import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.repository.StoreRepository;
+
+import wd.team4.everycare.repository.query.OrderProductQueryRepository;
 import wd.team4.everycare.repository.query.ProductQueryRepository;
+
 import wd.team4.everycare.service.interfaces.StoreService;
 
 import java.time.LocalDate;
@@ -33,6 +42,7 @@ public class StoreServiceImpl implements StoreService {
 
     private final MemberRepository memberRepository;
     private final StoreRepository storeRepository;
+    private final OrderProductQueryRepository orderProductQueryRepository;
     private final ProductQueryRepository productQueryRepository;
 
     @Override
@@ -114,7 +124,7 @@ public class StoreServiceImpl implements StoreService {
         List<Store> stores = storeRepository.findAllByAdminApproval(0);
         List<StoreAdminViewDTO> storeAdminViewDTOs = new ArrayList<>();
 
-        if(stores.isEmpty()){
+        if (stores.isEmpty()) {
             return null;
         }
 
@@ -127,7 +137,7 @@ public class StoreServiceImpl implements StoreService {
     public StoreAdminViewDTO webFindStore(Long id) {
         Optional<Store> store = storeRepository.findById(id);
         Store storeEntity = store.orElse(null);// 있으면 get() 엔티티꺼내고, 없으면 null을 넣는다.
-        if(storeEntity==null){
+        if (storeEntity == null) {
             return null;
         } else {
             StoreAdminViewDTO storeAdminViewDTO = storeEntity.toAdminViewDTO();
@@ -136,6 +146,23 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
+    public ResponseEntity<MyResponse> findAllStatistics(PrincipalDetails principalDetails, String start, String end) {
+        Member member = principalDetails.getUser();
+        List<Store> storeList = storeRepository.findByMember(member);
+        int total = 0;
+//        for (Store store : storeList) {
+//            List<OrderProduct> statistics = orderProductQueryRepository.findStatistics(start, end, store);
+//            for (OrderProduct orderProduct: statistics) {
+//                int quantity = orderProduct.getQuantity();
+//                total+=quantity;
+//            }
+//        }
+        for (Store store : storeList) {
+            List<OrderProduct> statistics = orderProductQueryRepository.findStatistics(LocalDateTime.parse(start), LocalDateTime.parse(end), store);
+            System.out.println("statistics = " + statistics);
+        }
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
     public ResponseEntity<MyResponse> findSalesByProduct(Long id, String start, String end) {
 
         LocalDate startDate = LocalDate.parse(start);
