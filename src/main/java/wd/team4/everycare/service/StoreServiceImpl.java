@@ -133,7 +133,7 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public ResponseEntity<MyResponse> findAllStatistics(PrincipalDetails principalDetails, LocalDateTime start, LocalDateTime end) {
+    public ResponseEntity<MyResponse> findAllStatistics(PrincipalDetails principalDetails, String start, String end) {
         Member member = principalDetails.getUser();
         List<Store> storeList = storeRepository.findByMember(member);
         int total = 0;
@@ -145,7 +145,7 @@ public class StoreServiceImpl implements StoreService {
 //            }
 //        }
         for (Store store : storeList) {
-            List<OrderProduct> statistics = orderProductQueryRepository.findStatistics(start, end, store);
+            List<OrderProduct> statistics = orderProductQueryRepository.findStatistics(LocalDateTime.parse(start), LocalDateTime.parse(end), store);
             System.out.println("statistics = " + statistics);
         }
         return new ResponseEntity<>(null, HttpStatus.OK);

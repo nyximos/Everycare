@@ -26,6 +26,6 @@ public interface StoreService {
 
     StoreAdminViewDTO webFindStore(Long id);
 
-    ResponseEntity<MyResponse> findAllStatistics(PrincipalDetails principalDetails, LocalDateTime start, LocalDateTime end);
+    ResponseEntity<MyResponse> findAllStatistics(PrincipalDetails principalDetails, String start, String end);
 
 }

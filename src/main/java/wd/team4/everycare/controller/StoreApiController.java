@@ -83,8 +83,8 @@ public class StoreApiController {
 
     @GetMapping("/store/statistics")
     public ResponseEntity<MyResponse> findAllStatistics(@AuthenticationPrincipal PrincipalDetails principalDetails,
-                                                        @RequestParam LocalDateTime startDate,
-                                                        @RequestParam LocalDateTime endDate){
+                                                        @RequestParam String startDate,
+                                                        @RequestParam String endDate){
         ResponseEntity<MyResponse> allStatistics = storeService.findAllStatistics(principalDetails, startDate, endDate);
         return allStatistics;
     }
