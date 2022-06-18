@@ -42,9 +42,7 @@
                   <a class="dropdown-item" href="javascript:void(0)"><i class="mdi mdi-wallet me-1 ms-1"></i> My 1</a>
                   <a class="dropdown-item" href="javascript:void(0)"><i class="mdi mdi-email me-1 ms-1"></i> email</a>
                   <div class="dropdown-divider"></div>
-                  <!-- <div class="ps-4 p-10">
-                    <a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded text-white">Logout</a>
-                  </div> -->
+                  
                   <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-power-off me-1 ms-1"></i> Logout</a>
                 </ul>
               </li>
