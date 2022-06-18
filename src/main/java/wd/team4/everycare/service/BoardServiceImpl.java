@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -160,7 +159,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public ResponseEntity<MyResponse> getComment(Long productId) {
-        List<Board> all = boardRepository.findByProductId(productId);
+        List<Board> all = boardRepository.findByProductIdAndCategory(productId, BoardCategory.후기);
         List<CommentDTO> commentDTOs = new ArrayList<>();
 
         all.stream().map(board -> board.toCommentDTO()).forEach(commentDTOs::add);
@@ -205,6 +204,7 @@ public class BoardServiceImpl implements BoardService {
                 .category(BoardCategory.후기)
                 .createdAt(LocalDateTime.now())
                 .count(0)
+                .rating(commentDTO.getRating())
                 .fileName(uploadFileName)
                 .filePath(storeFileName)
                 .member(member)

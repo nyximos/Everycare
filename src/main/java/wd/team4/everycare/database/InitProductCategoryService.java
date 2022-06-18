@@ -18,13 +18,13 @@ public class InitProductCategoryService {
 
         ProductCategory productCategory1 = createParentProductCategory("건강측정");
         ProductCategory productCategory2 = createParentProductCategory("보행보조");
-        ProductCategory productCategory3 = createParentProductCategory("배변간병");
+        ProductCategory productCategory3 = createParentProductCategory("간병용품");
         ProductCategory productCategory4 = createParentProductCategory("목욕보조");
         ProductCategory productCategory5 = createParentProductCategory("생활건강");
         ProductCategory productCategory6 = createParentProductCategory("생활편의");
 
 
-        createChildProductCategory("건강측정", productCategory1);
+        createChildProductCategory("혈압계", productCategory1);
         createChildProductCategory("혈당측정기/혈당지", productCategory1);
         createChildProductCategory("체중/체지방/체온계", productCategory1);
 
@@ -56,7 +56,6 @@ public class InitProductCategoryService {
         createChildProductCategory("돋보기", productCategory6);
         createChildProductCategory("주방생활용품", productCategory6);
         createChildProductCategory("생활가전/가구", productCategory6); //삭제
-
     }
 
     private ProductCategory createParentProductCategory(String name){

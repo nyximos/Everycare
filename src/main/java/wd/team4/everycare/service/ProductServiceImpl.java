@@ -21,6 +21,8 @@ import wd.team4.everycare.repository.query.ProductQueryRepository;
 import wd.team4.everycare.service.interfaces.ProductService;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -231,6 +233,7 @@ public class ProductServiceImpl implements ProductService {
                 .id(productEntity.getId())
                 .name(productEntity.getName())
                 .price(productEntity.getPrice())
+                .inventoryQuantity(productEntity.getInventoryQuantity())
                 .storeFileName(productEntity.getStoreFileName())
                 .comment(productEntity.getComment())
                 .isSale(productEntity.getIsSale())
@@ -376,4 +379,55 @@ public class ProductServiceImpl implements ProductService {
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<MyResponse> findAllByCategory(Long categoryId) {
+        List<Product> findByCategory = productQueryRepository.findAllByCategory(categoryId);
+
+        if(findByCategory.isEmpty()){
+            return null;
+        }else{
+            List<MemberProductListViewDTO> productListViewDTOs = new ArrayList<>();
+            findByCategory.stream().map(product -> product.toMemberProductsViewDTO()).forEach(productListViewDTOs::add);
+
+            MyResponse body = MyResponse.builder()
+                    .body(productListViewDTOs)
+                    .header(StatusEnum.OK)
+                    .message("카테고리별 상품 조회")
+                    .build();
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        }
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> findBestProducts() {
+        List<Product> products = productQueryRepository.findBestProducts();
+
+        List<ProductListViewDTO> productListViewDTOs = new ArrayList<>();
+
+        if (products.isEmpty()) {
+            return null;
+        }
+
+        for (Product product : products) {
+            ProductListViewDTO productListViewDTO = ProductListViewDTO.builder()
+                    .id(product.getId())
+                    .name(product.getName())
+                    .price(product.getPrice())
+                    .storeFileName(product.getStoreFileName())
+                    .createdAt(product.getCreatedAt())
+                    .store(product.getStore().toNameDTO())
+                    .productCategory(product.getProductCategory().toDTO())
+                    .build();
+            productListViewDTOs.add(productListViewDTO);
+        }
+
+        MyResponse<List<ProductListViewDTO>> body = MyResponse.<List<ProductListViewDTO>>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(productListViewDTOs)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+    }
 }

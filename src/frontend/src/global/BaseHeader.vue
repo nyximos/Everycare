@@ -1,7 +1,7 @@
 <template>
-    <header>
+    <!-- <header>
         <div class="header">
-            <div class="logo" @click="goMain()">logo</div>
+            <div class="logo" @click="goMain()">Everycare</div>
             <div class="list">
                 <v-btn text>케어매칭</v-btn>
                 <v-btn text>케어노트</v-btn>
@@ -20,7 +20,38 @@
                 </div>
             </div>
         </div>
-    </header>
+    </header> -->
+  <div class="pt-15">
+    <v-app-bar
+      color="green lighten-2"
+      dark
+      fixed
+    >
+      <v-toolbar-title @click="goMain" class="logo">Everycare</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+    <div class="list">
+                <v-btn text>케어매칭</v-btn>
+                <v-btn text>케어노트</v-btn>
+                <v-btn text to="/store">케어스토어</v-btn>
+            </div>
+            <v-spacer></v-spacer>
+            
+              <div>
+                <div>
+                    <div v-if="this.$store.state.userStore.id !== ''">
+                        <v-btn text v-on:click.native="signout()" to="/">로그아웃</v-btn>
+                        <v-btn text v-on:click.native="mypage()" to="/mypage">{{ this.$store.state.userStore.id }}님</v-btn>
+                    </div>
+                    <div v-else>
+                        <v-btn text to="/login">로그인</v-btn>
+                        <v-btn text to="/signup">회원가입</v-btn>
+                    </div>
+                </div>
+            </div>
+    </v-app-bar>
+  </div>
+
 </template>
 
 <script>
@@ -66,21 +97,9 @@ export default {
   
 </script>
 <style scoped>
-.header {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    height: 50px;
-    color: rgb(255, 255, 255);
-    background: #69f0ae;
-    align-items: center;
-}
+
 .logo {
-    padding-left: 10px;
     cursor: pointer;
 }
-.list {
-    display: flex;
-    align-items: center;
-}
+
 </style>

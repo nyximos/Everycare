@@ -1,24 +1,36 @@
 package wd.team4.everycare.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
+
 import wd.team4.everycare.domain.OrderProduct;
+
+import wd.team4.everycare.domain.Product;
 import wd.team4.everycare.domain.Store;
+import wd.team4.everycare.dto.product.ProductListViewDTO;
+import wd.team4.everycare.dto.store.StoreAdminViewDTO;
+import wd.team4.everycare.dto.store.StoreFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.dto.store.StoreAdminViewDTO;
 import wd.team4.everycare.dto.store.StoreFormDTO;
 import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.repository.StoreRepository;
+
 import wd.team4.everycare.repository.query.OrderProductQueryRepository;
+import wd.team4.everycare.repository.query.ProductQueryRepository;
+
 import wd.team4.everycare.service.interfaces.StoreService;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +43,7 @@ public class StoreServiceImpl implements StoreService {
     private final MemberRepository memberRepository;
     private final StoreRepository storeRepository;
     private final OrderProductQueryRepository orderProductQueryRepository;
+    private final ProductQueryRepository productQueryRepository;
 
     @Override
     public Long save(StoreFormDTO storeFormDTO) {
@@ -150,4 +163,36 @@ public class StoreServiceImpl implements StoreService {
         }
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
+    public ResponseEntity<MyResponse> findSalesByProduct(Long id, String start, String end) {
+
+        LocalDate startDate = LocalDate.parse(start);
+        LocalDate endDate = LocalDate.parse(end);
+
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+        LocalDateTime endDateTime = endDate.atStartOfDay();
+
+        System.out.println("startDateTime = " + startDateTime);
+        System.out.println("endDateTime = " + endDateTime);
+
+
+//        LocalDateTime startDateTime = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+//        LocalDateTime endDateTime = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        List<Integer> list = productQueryRepository.findSalesByProduct(id, startDateTime, endDateTime);
+        int sum = 0;
+        for (Integer l : list) {
+            sum += l;
+        }
+
+        MyResponse<Integer> body = MyResponse.<Integer>builder()
+                .header(StatusEnum.OK)
+                .message("성공")
+                .body(sum)
+                .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+
+    }
+
 }

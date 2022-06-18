@@ -3,6 +3,7 @@ package wd.team4.everycare.service.interfaces;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import wd.team4.everycare.config.auth.PrincipalDetails;
+import wd.team4.everycare.domain.ProductCategory;
 import wd.team4.everycare.domain.Store;
 import wd.team4.everycare.dto.MultipartFileDTO;
 import wd.team4.everycare.dto.product.MemberProductListViewDTO;
@@ -36,5 +37,8 @@ public interface ProductService {
 
     ResponseEntity<MyResponse> findAllByName(String name);
 
+    ResponseEntity<MyResponse> findAllByCategory(Long categoryId);
+
+    ResponseEntity<MyResponse> findBestProducts();
 
 }
