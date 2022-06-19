@@ -4,7 +4,10 @@
        <div v-else>Question({{question.length}})
        <hr>
        <v-container>
-        <v-card v-for="item in question" :key="item.index" class="mt-4">
+        <div class="text-end">
+          <v-btn @click="goNewQna">문의 등록</v-btn>
+        </div>
+        <v-card v-for="item in question" :key="item.index" class="mt-4" @click="QnaDetail(item)">
             <v-card-title>{{item.title}}</v-card-title>
             
             <v-card-text>
@@ -49,6 +52,21 @@ data(){
         dataPerPage:4,
         curPageNum:1,
     }
+},
+methods:{
+  QnaDetail(item){
+    this.$router.push({
+      name:'QnaDetail',
+      params: {
+        contentId: item.id
+      }
+    })
+  },
+goNewQna(){
+  this.$router.push({
+    name:'QnaNew'
+  })
+}
 },
     computed: {
       startOffset() {
