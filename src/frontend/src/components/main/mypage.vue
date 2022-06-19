@@ -50,7 +50,7 @@
     </div>
     <a href="#" class="item">
         <div class="icon">ii</div>
-        <div class="text">케어 대상인 등록</div>
+        <router-link :to="{name:'Caretargets'}"><div class="text">케어 대상인 조회</div></router-link>
         <div class="right"> > </div>
     </a>
     <a href="#" class="item">

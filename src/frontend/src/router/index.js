@@ -154,12 +154,12 @@ const routes = [
         name: 'carenote',
         component: () => import('@/pages/Carenote'),
     },
-    {
-        //케어노트 출근 시작 시간/출근 시간 (o)
-        path: '/carenote/:contentId',
-        name: 'carenotestart',
-        component: () => import('@/components/main/carenotestart'),
-    },
+    // {
+    //     //케어노트 출근 시작 시간/출근 시간 (o)
+    //     path: '/carenote/:contentId',
+    //     name: 'carenotestart',
+    //     component: () => import('@/components/main/carenotestart'),
+    // },
     {
         //케어노트 활동 스케줄(케어시터) (o)
         path: '/carenote/caretarget/:contentId/schedules',
