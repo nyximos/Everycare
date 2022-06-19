@@ -46,9 +46,9 @@ public class ProductQueryRepository {
                 .fetch();
     }
 
-    public List<Integer> findSalesByProduct(Long id, LocalDateTime start, LocalDateTime end) {
+    public List<OrderProduct> findSalesByProduct(Long id, LocalDateTime start, LocalDateTime end) {
         return queryFactory
-                .select(orderProduct.amount.sum())
+                .select(orderProduct)
                 .from(orderProduct)
                 .join(orderProduct.order, order)
                 .where(order.status.eq(OrderStatus.COMPLETE),

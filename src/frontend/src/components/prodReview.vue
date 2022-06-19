@@ -8,7 +8,7 @@
             <v-card-title>{{item.title}}</v-card-title>
             <v-card-text>
                 <div class="text-end">
-                    {{item.createdAt}}
+                    {{item.createdAt.slice(0,10)}}
                     <v-btn icon>
                       <v-icon> mdi-cancel</v-icon>
                     </v-btn>

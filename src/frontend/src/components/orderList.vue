@@ -1,6 +1,17 @@
 <template>
     <div>
-        orderList
+        <h3>{{ this.$store.state.userStore.id }}님 주문내역</h3>
+         <v-card v-for="item in orderList" :key="item.index" class="cards mx-auto mt-8 ml-15" max-width="700">
+          <v-card-text class="text-black">
+            <p>{{item.paymentTime.slice(0,10)}}</p>
+            <div class="mt-3">{{item.name}}</div>
+            <p>{{item.amount}} 원</p>
+            <v-card-action>
+                <v-btn block @click="goReview">후기글 쓰기</v-btn>
+            </v-card-action>
+            
+          </v-card-text>
+        </v-card>
     </div>
 </template>
 
@@ -12,11 +23,26 @@ export default {
       })
 		.then((res)=>{
         console.log(res.data);
-        
+        this.orderList = res.data.body
       }).catch(err =>{
 				console.log(err);
 			})
     },
+    data() {
+        return {
+            orderList: this.orderList
+        }
+    },
+    methods:{
+        goReview(){
+            this.$route.push({
+                name: 'adminStoresDetail',
+                params: {
+                    contentId: value.id
+                }
+            })
+        }
+    }
 }
 </script>
 

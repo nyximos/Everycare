@@ -184,10 +184,11 @@ public class StoreServiceImpl implements StoreService {
 //        LocalDateTime startDateTime = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 //        LocalDateTime endDateTime = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-        List<Integer> list = productQueryRepository.findSalesByProduct(id, startDateTime, endDateTime);
+        List<OrderProduct> list = productQueryRepository.findSalesByProduct(id, startDateTime, endDateTime);
+
         int sum = 0;
-        for (Integer l : list) {
-            sum += l;
+        for (OrderProduct orderProduct : list) {
+            sum+=orderProduct.getAmount();
         }
 
         MyResponse<Integer> body = MyResponse.<Integer>builder()

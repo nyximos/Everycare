@@ -70,7 +70,10 @@
     </v-card-text>
   </v-card>
     </v-col>
-
+    <input v-model="searchValue" />
+    <input type="date" name="" id="" v-model="startsearch">
+      <input type="date" name="" id="" v-model="endsearch">
+            <v-btn @click="searchprod">search</v-btn>
       
   </v-row>
 </div>
@@ -84,6 +87,9 @@ data(){
         startdate:this.startdate,
         enddate:this.enddate,
         id: this.$route.params.contentId,
+        searchValue:this.searchValue,
+        startsearch:this.startsearch,
+        endsearch:this.endsearch,
         items: [
           { title: '상품 등록', icon: 'mdi-home-city', name:'ProdCreate'},
           { title: '상품 관리', icon: 'mdi-home-city', name:'storeProdList'},
@@ -139,6 +145,19 @@ data(){
           console.log(err);
         });
             },
+            searchprod(){
+               this.$http
+          .get('/api/store/account/sales',
+          {params: {product:this.searchValue,start:this.startsearch, end:this.endsearch}},{
+          withCredentials:true
+          })
+        .then(res => {
+          console.log(res);
+          })
+        .catch(err => {
+          console.log(err);
+        });
+            }
         
     }
 }
