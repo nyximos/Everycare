@@ -56,7 +56,7 @@ public class HealthRecordServiceImpl implements HealthRecordService {
                     .id(healthRecord.getId())
                     .healthStatus(healthRecord.getHealthStatus())
                     .updatedAt(healthRecord.getUpdatedAt())
-                    .healthClassification(String.valueOf(healthRecord.getHealthClassification()))
+                    .healthClassification(healthRecord.getHealthClassification().getName())
                     .build();
 
             healthRecordDTOs.add(dto);
