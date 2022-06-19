@@ -146,14 +146,7 @@ public class StoreServiceImpl implements StoreService {
     public ResponseEntity<MyResponse> findAllStatistics(PrincipalDetails principalDetails, String start, String end) {
         Member member = principalDetails.getUser();
         List<Store> storeList = storeRepository.findByMember(member);
-//        int total = 0;
-//        for (Store store : storeList) {
-//            List<OrderProduct> statistics = orderProductQueryRepository.findStatistics(start, end, store);
-//            for (OrderProduct orderProduct: statistics) {
-//                int quantity = orderProduct.getQuantity();
-//                total+=quantity;
-//            }
-//        }
+
         LocalDateTime startTime = StringToLocalDateTime(start);
         LocalDateTime endTime = StringToLocalDateTime(end);
 

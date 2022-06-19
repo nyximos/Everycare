@@ -25,7 +25,7 @@ public class OrderProductQueryRepository {
                 .join(orderProduct.order, order)
                 .where(orderProduct.product.store.eq(store),
                         orderProduct.order.paymentTime.between(startDate, endDate))
-                .groupBy(orderProduct.order.paymentTime)
+                .groupBy(orderProduct.order.paymentTime, orderProduct.id)
                 .fetch();
     }
 }
