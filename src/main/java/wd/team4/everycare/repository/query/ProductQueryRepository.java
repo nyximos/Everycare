@@ -58,7 +58,4 @@ public class ProductQueryRepository {
                 .fetch();
 
     }
-    /* TODO 총 매출 통계 */
-
-
 }
