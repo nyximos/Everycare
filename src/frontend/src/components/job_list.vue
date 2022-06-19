@@ -109,7 +109,7 @@
 		</span>
 	</div>
 	<div class="rlist">
-		<div class="list_more list_more1"><ul class="ul01"><li class="li01" v-for="(p, index) in listData" :key="index" >
+		<div class="list_more list_more1"><ul class="ul01"><li class="li01" v-for="(p, index) in listData" :key="index" @click="move(p)">
 
 	<span class="tab01">
 		<span class="img01"><img src="" class=""></span>
@@ -126,8 +126,7 @@
 	<div class="bar01"></div>
 	<span class="tab03">
 
-		<span class="text01">CCTV설치</span>
-		<span class="text01">반려동물있음</span>
+
 
 	</span>
   <!-- </a> -->
@@ -495,6 +494,14 @@ export default {
         }
     },
     methods:{
+      
+        move(p) {
+            
+            this.$router.push({ name: 'detail', params: { contentId: p.id } });
+            
+            
+        },
+      
       detail() {
             
             this.$emit('detail', this.listItem.id);
