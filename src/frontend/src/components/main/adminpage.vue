@@ -55,7 +55,7 @@
           <nav class="sidebar-nav">
             <ul id="sidebarnav" class="pt-4 in">
               <li class="sidebar-item">
-                <router-link to="/adminpage" class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="mdi mdi-account-box-outline"></i>&nbsp;&nbsp;<span class="hide-menu">회원 관리</span></router-link>
+                <router-link to="/admin/members" class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="mdi mdi-account-box-outline"></i>&nbsp;&nbsp;<span class="hide-menu">회원 관리</span></router-link>
               </li>
               <li class="sidebar-item">
                 <router-link to="/admin_report" class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="mdi mdi-alert-box"></i>&nbsp;&nbsp;<span class="hide-menu">신고 관리</span></router-link>
@@ -699,7 +699,7 @@ button {
       position: absolute;
       width: 250px;
       height: 100%;
-      top: 50px;
+
       z-index: 10;
       padding-top: 64px;
       /* background: #fff; */

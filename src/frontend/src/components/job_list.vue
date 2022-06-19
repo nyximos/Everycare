@@ -10,85 +10,7 @@
 
 				<div class="text01" id="area_text"><span class="exam01" @click="search01">지역을 선택하시려면 클릭해주세요.</span></div>
 						<div class="text01" id="sphere_text"><span class="exam01" @click="search02" >희망날짜를 선택하시려면 클릭해주세요.</span></div>
-			
-		<div class="layer01" id="search_layer">
-		</div>
-	</div>
-	<div class="tit">일자리찾기
-		<span class="sort01">
-		<v-btn @click="gocreate">
-          <v-icon left>
-            mdi-pencil
-          </v-icon>
-            Create
-        </v-btn>
-		</span>
-	</div>
-	<div class="rlist">
-		<div class="list_more list_more1"><ul class="ul01"><li class="li01" v-for="(p, index) in listData" :key="index" >
-<!-- <a href="/recruit/view.php?idx=21557"> -->
-	<span class="tab01">
-		<span class="img01"><img src="" class=""></span>
-		<span class="text01">{{p.careTargetSchedule.name}}</span>
-	</span>
-	<span class="tab02">
-		
-		<span class="sphere"> 베이비시터<span class="edit_date">35분전</span></span>
-		<span class="subject">하루 야간 아기봐주실분</span>
-		<!-- <span class="area">경기 부천시 원종동</span> -->
-		<span class="pay"><img src="/images/common/icon_won.png" class="icon_won">시급 13,000 <span class="bar0101">&nbsp;</span> <span class="working_time">19:00 ~ 07:00</span></span>
-	</span>
-	<div class="bar01"></div>
-	<span class="tab03">
-		<!-- <span class="text01">단기근무</span>
-		
-		<span class="text01">6월 25일부터</span>
-		<span class="text01">한국인</span> -->
-		<span class="text01">CCTV설치</span>
-		<span class="text01">반려동물있음</span>
-		<!-- <span class="text01">면접비지급하지않음</span>
-		<span class="text01">보험무관</span> -->
-	</span>
-  <!-- </a> -->
-
-</li></ul></div>
-		<div class="list_none" style="display: none;">현재 선택하신 조건의 정보가 없습니다.<br>다시 검색해주세요!</div>
-		<div class="loading" style="display: none;"><img src="/images/common/icon_loading.gif"></div>
-	</div>
-
-	
-	
-</div>
-
-	</div>
-</div>
-
-    <!-- <div class="text-end mt-4">
-        <v-btn @click="gocreate">
-          <v-icon left>
-            mdi-pencil
-          </v-icon>
-            Create
-        </v-btn>
-    </div>
-    <div class="header">
-        <v-row>
-        <h1>구인리스트</h1>
-        </v-row>
-    </div> -->
-    <!-- <div class="search">
-      <div class="text01" id="area_text">
-        <span class="exam01" @click="search01">지역을 선택하세요.</span>
-      </div>
-      <div class="text01" id="category_text">
-        <span class="exam01" @click="search02">희망날짜를 선택해주세요.</span>
-      </div>
-      <div class="text01" id="date_text">
-        <span class="exam01" @click="search03">활동시간를 선택해주세요.</span>
-      </div>
-   </div> -->
-
-    <!-- <v-dialog v-model="regiondialog" max-width="500px">
+			 <v-dialog v-model="regiondialog" max-width="500px">
         <v-card>
           <v-card-title>
             희망지역
@@ -127,88 +49,12 @@
             </v-btn>
           </v-card-actions>
         </v-card>
-      </v-dialog> -->
+      </v-dialog> 
 
-   <!-- <v-dialog v-model="timedialog" max-width="500px" @click:outside="dialog" @keydown.esc="dialog">
+   
+     <v-dialog v-model="catedialog" max-width="1000px" @click:outside="dialog" @keydown.esc="dialog">
          <v-card>
-        <v-card-title>활동 시간</v-card-title>
-        <v-divider></v-divider>
-        <v-card-text style="height: 400px;">
-          <v-radio-group
-            v-model="dialogm1"
-            column
-          >
-            <v-radio
-              label="1시간"
-              value="1"
-            ></v-radio>
-            <v-radio
-              label="2시간"
-              value="2"
-            ></v-radio>
-            <v-radio
-              label="3시간"
-              value="3"
-            ></v-radio>
-            <v-radio
-              label="4시간"
-              value="4"
-            ></v-radio><v-radio
-              label="5시간"
-              value="5"
-            ></v-radio>
-            <v-radio
-              label="6시간"
-              value="6"
-            ></v-radio>
-            <v-radio
-              label="7시간"
-              value="7"
-            ></v-radio>
-            <v-radio
-              label="8시간"
-              value="8"
-            ></v-radio>
-            <v-radio
-              label="9시간"
-              value="9"
-            ></v-radio>
-            <v-radio
-              label="10시간"
-              value="10"
-            ></v-radio>
-            <v-radio
-              label="11시간"
-              value="11"
-            ></v-radio>
-            <v-radio
-              label="12시간"
-              value="12"
-            ></v-radio>
-          </v-radio-group>
-        </v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="timesearch01"
-          >
-            검색
-          </v-btn>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="timedialog = false"
-          >
-            취소
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog> -->
-    <!-- <v-dialog v-model="catedialog" max-width="1000px" @click:outside="dialog" @keydown.esc="dialog">
-         <v-card>
-        <v-card-title>선호 유형</v-card-title>
+        <v-card-title>희망 날짜</v-card-title>
         <v-divider></v-divider>
         <v-card-text style="height: 600px;">
         <v-row>
@@ -248,66 +94,75 @@
           </v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog> -->
+    </v-dialog> 
+		
+	</div>
+ 
+	<div class="tit">일자리찾기
+		<span class="sort01">
+		<v-btn @click="gocreate">
+          <v-icon left>
+            mdi-pencil
+          </v-icon>
+            Create
+        </v-btn>
+		</span>
+	</div>
+	<div class="rlist">
+		<div class="list_more list_more1"><ul class="ul01"><li class="li01" v-for="(p, index) in listData" :key="index" >
 
-  <!-- <v-text-field
-    v-model="SearchText"
-    placeholder="Search"
-    filled
-    rounded
-    dense
-  ></v-text-field>
-   <div v-if="!listData.length">글이 없습니다</div>
-  <div v-if="!filteredList.length && listData.length">
-    검색결과가 없습니다
-  </div> -->
-  <!-- <div class="title">시터찾기</div>
-        <div class="r_list">
-            <div class="list_more">
-                <ul class="ul01">
-                    <li class="li01" v-for="(p, index) in listData" :key="index" >
-                        <span class="tab01">
-                            <span class="img01">
-                              
-                            </span>
-                        </span>
-                        <span class="tab02">
-                            <span class="name"
-                                >{{ p.title }}
-                                <span class="age"></span>
-                            </span>
-                            <span class="area">{{ p.careTarget.address }}</span>
-                            <span class="pay">
-                                시작일:{{ p.startDate }} 종료일:{{ p.endDate }}
-                                <span class="bar0101">&nbsp;</span>
-                                <span class="week01">희망날짜: {{ p.desiredDayWeek }}</span>
-                            </span>
-                        </span>
-                        <v-btn @click="detail">상세보기</v-btn>
-                        <div class="bar01"></div>
-                        
-                    </li>
-                </ul>
-            </div>
-        </div> -->
-        <!-- <div class="btn-cover">
-          <button :disabled="pageNum === 0" @click="prevPage" class="page-btn">이전</button>
-            <span class="page-count">{{pageNum + 1 }} / {{pageCount}} 페이지</span>
-          <button :disabled="pageNum >= pageCount -1" @click="nextPage" class="page-btn">다음</button>
-            < <v-pagination v-model="curpage" :length="pages" circle></v-pagination> -->
-        <!-- </div>  -->
-  <!-- {{this.listData}} -->
-  <!-- <ListItem class="mt-5" v-for="(listItem, index) in filteredList" :key="index"
+	<span class="tab01">
+		<span class="img01"><img src="" class=""></span>
+		<span class="text01">{{p.careTargetSchedule.name}}</span>
+	</span>
+	<span class="tab02">
+		
+		<span class="sphere"> {{p.careTarget.address}}</span>
+		<span class="subject">{{p.title}}</span>
+
+		<span class="pay">시급 {{p.pay}}원 <span class="bar0101">&nbsp;&nbsp;월급 {{p.amount}} 원</span></span>
+    <span class="subject">희망날짜 : {{p.startDate}} ~ {{p.endDate}}</span>
+	</span>
+	<div class="bar01"></div>
+	<span class="tab03">
+
+		<span class="text01">CCTV설치</span>
+		<span class="text01">반려동물있음</span>
+
+	</span>
+  <!-- </a> -->
+
+</li></ul></div>
+		<div class="list_none" style="display: none;">현재 선택하신 조건의 정보가 없습니다.<br>다시 검색해주세요!</div>
+		<div class="loading" style="display: none;"><img src="/images/common/icon_loading.gif"></div>
+	</div>
+  <div class="btn-cover">
+          <button :disabled="pageNum === 0" @click="prevPage" class="page-btn"></button>
+            <span class="page-count"></span>
+          <button :disabled="pageNum >= pageCount -1" @click="nextPage" class="page-btn"></button>
+            <v-pagination v-model="curpage" :length="pages" circle></v-pagination> 
+        </div>  
+
+   <ListItem class="mt-5" v-for="(listItem, index) in filteredList" :key="index"
   :listItem="listItem" @detail="detailShot"
-  /> -->
-  <!-- <div class="text-center">
+  />
+   <!-- <div class="text-center">
     <v-pagination
       class="mt-3"
       v-model="curPageNum"
       :length="numOfPages"
       circle
     ></v-pagination>
-  </div> -->
+  </div>  -->
+  
+</div>
+
+	</div>
+</div>
+              
+
+   
+   
  
 </template>
 
