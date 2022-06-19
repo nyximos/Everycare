@@ -10,7 +10,7 @@
                 <div class="text-end">
                     {{item.createdAt}}
                     <v-btn icon>
-                      <v-icon>mdi-heart</v-icon>
+                      <v-icon> mdi-cancel</v-icon>
                     </v-btn>
                 </div>
                 <div>
