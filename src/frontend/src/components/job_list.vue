@@ -652,7 +652,7 @@ export default {
     },
      catesearch(){
        this.$http
-       .get(`/api/recruitions/date?date=${this.dialogm2}`,{
+       .get(`/api/recruitions/date?startDate=${this.dialogm2}`,{
          withCredentials:true
        }).then((res)=>{
          console.log(res)

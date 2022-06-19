@@ -1,6 +1,10 @@
 <template>
 <div class="container">
+  <div class="dropZone" id="dropZone" style="width: 300px; height: 410px; border-style: solid; border-color: black; ">
+                <div id="fileDragDesc"> 파일을 드래그 해주세요. </div>
+                </div>
 <ul class="ul01">
+  
 <li class="li01" v-for="(p,index) in profiles.slice(0,2)" :key="index">
   <v-card
     :loading="loading"
@@ -55,9 +59,7 @@
     </v-card-text>
 
   </v-card>
-  <div class="dropZone" id="dropZone" style="width: 300px; height: 410px; border-style: solid; border-color: black; ">
-                <div id="fileDragDesc"> 파일을 드래그 해주세요. </div>
-                </div>
+  
   </li>
 
 </ul>
@@ -126,6 +128,7 @@ export default {
 
 <style scoped>
 ul {
+  
   text-align: center;
 }
 v-chip-group{
