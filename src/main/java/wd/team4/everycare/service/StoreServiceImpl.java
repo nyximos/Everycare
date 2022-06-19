@@ -28,8 +28,10 @@ import wd.team4.everycare.repository.query.ProductQueryRepository;
 
 import wd.team4.everycare.service.interfaces.StoreService;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -149,7 +151,7 @@ public class StoreServiceImpl implements StoreService {
     public ResponseEntity<MyResponse> findAllStatistics(PrincipalDetails principalDetails, String start, String end) {
         Member member = principalDetails.getUser();
         List<Store> storeList = storeRepository.findByMember(member);
-        int total = 0;
+//        int total = 0;
 //        for (Store store : storeList) {
 //            List<OrderProduct> statistics = orderProductQueryRepository.findStatistics(start, end, store);
 //            for (OrderProduct orderProduct: statistics) {
@@ -157,12 +159,15 @@ public class StoreServiceImpl implements StoreService {
 //                total+=quantity;
 //            }
 //        }
+        LocalDateTime startTime = StringToLocalDateTime(start);
+        LocalDateTime endTime = StringToLocalDateTime(end);
         for (Store store : storeList) {
-            List<OrderProduct> statistics = orderProductQueryRepository.findStatistics(LocalDateTime.parse(start), LocalDateTime.parse(end), store);
+            List<OrderProduct> statistics = orderProductQueryRepository.findStatistics(startTime, endTime, store);
             System.out.println("statistics = " + statistics);
         }
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
+
     public ResponseEntity<MyResponse> findSalesByProduct(Long id, String start, String end) {
 
         LocalDate startDate = LocalDate.parse(start);
@@ -193,6 +198,16 @@ public class StoreServiceImpl implements StoreService {
         HttpHeaders headers = new HttpHeaders();
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
 
+    }
+
+    private LocalDateTime StringToLocalDateTime(String LocalDateTimeStr) {
+
+        LocalDateTime dateTime = LocalDateTime.from(
+                Instant.from(
+                        DateTimeFormatter.ISO_DATE_TIME.parse(LocalDateTimeStr)
+                ).atZone(ZoneId.of("Asia/Seoul"))
+        );
+        return dateTime;
     }
 
 }
