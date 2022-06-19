@@ -34,6 +34,10 @@
        class="mt-5"
   >
   <v-card-title>월별 판매량</v-card-title>
+  <input type="date" name="" id="" v-model="startdate">
+      <input type="date" name="" id="" v-model="enddate">
+            <v-btn @click="searchh">search</v-btn>
+
     <v-sheet
       color="blue"
       max-width="calc(100% - 32px)"
@@ -63,10 +67,6 @@
       </v-icon>
       <span class="text-caption grey--text font-weight-light">last registration 26 minutes ago</span>
       <br>
-      <input type="text" v-model="search">
-      <input type="date" name="" id="" v-model="startdate">
-      <input type="date" name="" id="" v-model="enddate">
-      <v-btn @click="searchh">search</v-btn>
     </v-card-text>
   </v-card>
     </v-col>
@@ -128,8 +128,8 @@ data(){
             },
         searchh(){     
           this.$http
-          .get('/api/store/account/sales',
-          {params: {product: this.search, start:this.startdate, end:this.enddate}},{
+          .get('/api/store/statistics',
+          {params: {startDate:this.startdate, endDate:this.enddate}},{
           withCredentials:true
           })
         .then(res => {
