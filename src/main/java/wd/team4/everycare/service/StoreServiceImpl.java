@@ -154,12 +154,13 @@ public class StoreServiceImpl implements StoreService {
                 Integer amount = tuple.get(0, Integer.class);
                 LocalDateTime payTime = tuple.get(1, LocalDateTime.class);
 
+                System.out.println("payTime = " + payTime);
                 StatisticsDTO statisticsItem = new StatisticsDTO(amount, payTime);
 
                 statisticsDTOs.add(statisticsItem);
             }
         }
-
+        System.out.println("statisticsDTOs = " + statisticsDTOs);
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
