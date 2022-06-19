@@ -202,12 +202,11 @@ public class StoreServiceImpl implements StoreService {
 
     private LocalDateTime StringToLocalDateTime(String LocalDateTimeStr) {
 
-        LocalDateTime dateTime = LocalDateTime.from(
-                Instant.from(
-                        DateTimeFormatter.ISO_DATE_TIME.parse(LocalDateTimeStr)
-                ).atZone(ZoneId.of("Asia/Seoul"))
-        );
-        return dateTime;
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate ld = LocalDate.parse(LocalDateTimeStr, dateTimeFormatter);
+        LocalDateTime ldt = LocalDateTime.of(ld, LocalDateTime.now().toLocalTime());
+        System.out.println(ldt);
+        return ldt;
     }
 
 }
