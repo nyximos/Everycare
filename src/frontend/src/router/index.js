@@ -323,6 +323,12 @@ const routes = [
         name: 'FapNew',
         component: () => import('@/components/qnaNew.vue'),
     },
+    // 주문 내역
+    {
+        path: '/dashboard/orders',
+        name: 'OrderList',
+        component: () => import('@/components/orderList.vue'),
+    },
     {
         path: '/login',
         name: 'Login',
