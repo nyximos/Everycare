@@ -1,7 +1,7 @@
 <template>
     <div>
         <h3>{{ this.$store.state.userStore.id }}님 주문내역</h3>
-         <v-card v-for="item in orderList" :key="item.index" class="cards mx-auto mt-8 ml-15" max-width="700">
+         <v-card v-for="item in orderList" :key="item.index" class="cards mx-auto mt-8 ml-15 mb-4" width="1600">
           <v-card-text class="text-black">
             <p>{{item.paymentTime.slice(0,10)}}</p>
             <div class="mt-3">{{item.name}}</div>
@@ -35,11 +35,9 @@ export default {
     },
     methods:{
         goReview(){
-            this.$route.push({
-                name: 'adminStoresDetail',
-                params: {
-                    contentId: value.id
-                }
+            console.log('hi')
+            this.$router.push({
+                name: 'NewReview',
             })
         }
     }

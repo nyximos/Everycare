@@ -331,7 +331,7 @@ const routes = [
     },
     // 리뷰 등록
     {
-        path: 'dashboard/review/new',
+        path: '/dashboard/review/new',
         name: 'NewReview',
         component: () => import('@/components/reviewNew.vue'),
     },

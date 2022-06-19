@@ -62,7 +62,7 @@ methods:{
       formData.append('content',this.comment);
       formData.append('attachFile', this.file);
       this.$http
-      .post('/api/admin/notice', formData,{
+      .post('/api/dashboard/orders/products', formData,{
        withCredentials:true
       })
      .then(res => {
