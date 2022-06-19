@@ -21,6 +21,7 @@ import wd.team4.everycare.repository.query.JobOfferQueryRepository;
 import wd.team4.everycare.service.interfaces.JobOfferService;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -263,8 +264,10 @@ public class JobOfferServiceImpl implements JobOfferService {
     }
 
     @Override
-    public ResponseEntity<MyResponse> searchDate(String date) {
-        List<JobOffer> findByDate = jobOfferQueryRepository.findAllByDate(LocalDate.parse(date));
+    public ResponseEntity<MyResponse> searchDate(String dateStr) {
+
+        LocalDate date = StringToLocalDateTime(dateStr);
+        List<JobOffer> findByDate = jobOfferQueryRepository.findAllByDate(date);
 
         if (findByDate.isEmpty()) {
             return null;
@@ -312,5 +315,10 @@ public class JobOfferServiceImpl implements JobOfferService {
         }
     }
 
+    private LocalDate StringToLocalDateTime(String localDateTimeStr) {
+
+        LocalDate date = LocalDate.parse(localDateTimeStr, DateTimeFormatter.ISO_DATE);
+        return date;
+    }
 
 }
