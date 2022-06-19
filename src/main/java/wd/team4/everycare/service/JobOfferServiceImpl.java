@@ -264,10 +264,12 @@ public class JobOfferServiceImpl implements JobOfferService {
     }
 
     @Override
-    public ResponseEntity<MyResponse> searchDate(String startDateStr, String endDateStr) {
+    public ResponseEntity<MyResponse> searchDate(String dates) {
 
-        LocalDate startDate = StringToLocalDateTime(startDateStr);
-        LocalDate endDate = StringToLocalDateTime(endDateStr);
+        String[] date = dates.split(",");
+        LocalDate startDate = StringToLocalDateTime(date[0]);
+        LocalDate endDate = StringToLocalDateTime(date[1]);
+
         List<JobOffer> findByDate = jobOfferQueryRepository.findAllByDate(startDate, endDate);
 
         if (findByDate.isEmpty()) {
