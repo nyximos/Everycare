@@ -1,7 +1,7 @@
 <template>
 <div class="container">
 <ul class="ul01">
-<li class="li01" v-for="(p,index) in profiles" :key="index">
+<li class="li01" v-for="(p,index) in profiles.slice(0,2)" :key="index">
   <v-card
     :loading="loading"
     class="mx-auto my-12"
@@ -55,9 +55,16 @@
     </v-card-text>
 
   </v-card>
+  <div class="dropZone" id="dropZone" style="width: 300px; height: 410px; border-style: solid; border-color: black; ">
+                <div id="fileDragDesc"> 파일을 드래그 해주세요. </div>
+                </div>
   </li>
 
 </ul>
+
+
+                
+                
 <v-btn class="ma-2" outlined color="indigo" @click="clickme">돌아가기</v-btn>
 
 </div>
@@ -118,6 +125,9 @@ export default {
 </script>
 
 <style scoped>
+ul {
+  text-align: center;
+}
 v-chip-group{
 text-align: center;
 }
@@ -127,7 +137,10 @@ list-style:none;
 
 }
 
-
+.dropZone{
+  display: inline-block;
+  text-align: center;
+}
 .li01{
   
   width: 400px;
