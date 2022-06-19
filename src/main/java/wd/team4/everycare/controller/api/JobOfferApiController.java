@@ -132,6 +132,7 @@ public class JobOfferApiController {
     @GetMapping("/recruitions/date")
     public ResponseEntity<MyResponse> searchDate(@RequestParam String date){
         ResponseEntity<MyResponse> searchDate = jobOfferService.searchDate(date);
+        System.out.println("searchDate = " + searchDate);
         return searchDate;
     }
 

@@ -269,9 +269,11 @@ public class JobOfferServiceImpl implements JobOfferService {
         String[] date = dates.split(",");
         LocalDate startDate = StringToLocalDateTime(date[0]);
         LocalDate endDate = StringToLocalDateTime(date[1]);
-
+        
+        System.out.println("endDate = " + startDate);
+        System.out.println("endDate = " + endDate);
         List<JobOffer> findByDate = jobOfferQueryRepository.findAllByDate(startDate, endDate);
-
+        System.out.println("findByDate = " + findByDate);
         if (findByDate.isEmpty()) {
             return null;
         }else{

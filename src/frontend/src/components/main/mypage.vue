@@ -10,15 +10,15 @@
   <div class="summaryContainer">
     <div class="item">
         <div class="number">354</div>
-        <div>단골상점</div>
+        <div>ㅁㅁㅁ</div>
       </div>
       <div class="item">
         <div class="number">354</div>
-        <div>상품후기</div>
+        <div>ㄴㄴㄴ</div>
       </div>
       <div class="item">
         <div class="number">354</div>
-        <div>적립금(BLCT)</div>
+        <div>ㄷㄷㄷ</div>
       </div>
   </div>  
    
@@ -118,11 +118,11 @@
     </a>    
     <a href="#" class="item">
       <div>icos</div>
-      <div>이용안내</div>
+      <div>공지사항2</div>
     </a>    
     <a href="#" class="item">
       <div>icon</div>
-      <div>고객센터</div>
+      <div>공지사항3</div>
     </a>
   </div>
 </div>
@@ -161,7 +161,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+a {
+  text-decoration: none;
+}
+
 body{
   padding: 0;
   margin: 0;

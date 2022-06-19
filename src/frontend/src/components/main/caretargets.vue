@@ -1,10 +1,10 @@
 <template>
 <div class="container">
-  <div class="dropZone" id="dropZone" style="width: 300px; height: 410px; border-style: solid; border-color: black; ">
-                <div id="fileDragDesc"> 파일을 드래그 해주세요. </div>
-                </div>
+  <label class="control-label">케어대상인 목록&nbsp;<br class="visible-xs"><span class="sub-text text-muted">(<i class="text-primary">1</i>/9)</span><i ng-show="vm.isRequiredOptionalImages" class="icon-must ng-hide" aria-label="필수항목"></i></label>
 <ul class="ul01">
-  
+  <div class="dropZone" id="dropZone" style="width: 300px; height: 410px; border-style: solid; border-color: black; ">
+                
+                </div>
 <li class="li01" v-for="(p,index) in profiles.slice(0,2)" :key="index">
   <v-card
     :loading="loading"
@@ -127,6 +127,10 @@ export default {
 </script>
 
 <style scoped>
+.dropZone {
+  display: inline-block;
+  margin: -16px;
+}
 ul {
   
   text-align: center;
@@ -139,11 +143,10 @@ display: inline-block;
 list-style:none; 
 
 }
-
-.dropZone{
-  display: inline-block;
-  text-align: center;
+.ma-2{
+  float: right
 }
+
 .li01{
   
   width: 400px;

@@ -39,7 +39,7 @@ public class Report {
     private String reportedUserId;
 
     @ManyToOne
-    @JoinColumn(name = "board_id", nullable = false)
+    @JoinColumn(name = "board_id")
     private Board board;
 
     @ManyToOne
@@ -47,6 +47,6 @@ public class Report {
     private Member member;
 
     @ManyToOne
-    @JoinColumn(name = "contract_id", nullable = false)
+    @JoinColumn(name = "contract_id")
     private Contract contract;
 }
