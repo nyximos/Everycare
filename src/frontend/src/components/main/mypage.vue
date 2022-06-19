@@ -60,7 +60,7 @@
     </a>
     <a href="#" class="item">
         <div class="icon">ii</div>
-          <router-link :to="{name:'MyStore',params:{contentId:memid}}"><div class="text">채용내역</div></router-link>
+          <router-link :to="{name:'MyStore',params:{contentId:memid}}"><div class="text">내 스토어</div></router-link>
         <div class="right"> > </div>
     </a>
     <a href="#" class="item">

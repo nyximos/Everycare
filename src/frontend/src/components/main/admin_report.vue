@@ -57,13 +57,13 @@
           <nav class="sidebar-nav">
             <ul id="sidebarnav" class="pt-4 in">
               <li class="sidebar-item">
-                <router-link to="/adminpage" class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="mdi mdi-account-box-outline"></i>&nbsp;&nbsp;<span class="hide-menu">회원 관리</span></router-link>
+                <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i class="mdi mdi-account-box-outline"></i>&nbsp;&nbsp;<button class="hide-menu" @click="member()">회원 관리</button></a>
               </li>
               <li class="sidebar-item">
-                <router-link to="/admin_report" class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="mdi mdi-alert-box"></i>&nbsp;&nbsp;<span class="hide-menu">신고 관리</span></router-link>
+                <router-link to="/admin_report" class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="mdi mdi-alert-box"></i>&nbsp;&nbsp;<span class="hide-menu" >신고 관리</span></router-link>
               </li>
               <li class="sidebar-item">
-                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="mdi mdi-store"></i>&nbsp;&nbsp;<span class="hide-menu">스토어 관리</span></a>
+                <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i class="mdi mdi-store"></i>&nbsp;&nbsp;<button class="hide-menu" @click="store()">스토어 관리</button></a>
               </li>
               <li class="sidebar-item selected">
                 <a class="sidebar-link waves-effect waves-dark sidebar-link active" href="#" aria-expanded="false"><i class="mdi mdi-file-outline"></i>&nbsp;&nbsp;<span class="hide-menu">케어시터 자격증 승인</span></a>
@@ -175,7 +175,18 @@
         report: [],
       }
     },
+    
     methods: {
+      member(){
+      this.$router.push({
+            path: '/admin/members'
+          })
+      },
+      store(){
+        this.$router.push({
+          path: '/admin/stores'
+        })
+      },
       selectAll: function() {
             this.userIds = [];
 
