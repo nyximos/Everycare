@@ -6,14 +6,17 @@
        <v-container>
         <v-card v-for="item in reviews" :key="item.index" class="mt-4">
             <v-card-title>{{item.title}}</v-card-title>
-            
             <v-card-text>
                 <div class="text-end">
                     {{item.createdAt}}
+                    <v-btn icon>
+                      <v-icon>mdi-heart</v-icon>
+                    </v-btn>
                 </div>
                 <div>
                     {{item.content}}
                 </div>
+                
             </v-card-text>
         </v-card>
           <div class="text-center">

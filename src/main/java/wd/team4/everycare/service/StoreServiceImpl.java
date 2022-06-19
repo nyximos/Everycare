@@ -147,23 +147,23 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public ResponseEntity<MyResponse> findAllStatistics(PrincipalDetails principalDetails, String start, String end) {
-        Member member = principalDetails.getUser();
-        List<Store> storeList = storeRepository.findByMember(member);
-        int total = 0;
+//    public ResponseEntity<MyResponse> findAllStatistics(PrincipalDetails principalDetails, String start, String end) {
+//        Member member = principalDetails.getUser();
+//        List<Store> storeList = storeRepository.findByMember(member);
+//        int total = 0;
+////        for (Store store : storeList) {
+////            List<OrderProduct> statistics = orderProductQueryRepository.findStatistics(start, end, store);
+////            for (OrderProduct orderProduct: statistics) {
+////                int quantity = orderProduct.getQuantity();
+////                total+=quantity;
+////            }
+////        }
 //        for (Store store : storeList) {
-//            List<OrderProduct> statistics = orderProductQueryRepository.findStatistics(start, end, store);
-//            for (OrderProduct orderProduct: statistics) {
-//                int quantity = orderProduct.getQuantity();
-//                total+=quantity;
-//            }
+//            List<OrderProduct> statistics = orderProductQueryRepository.findStatistics(LocalDateTime.parse(start), LocalDateTime.parse(end), store);
+//            System.out.println("statistics = " + statistics);
 //        }
-        for (Store store : storeList) {
-            List<OrderProduct> statistics = orderProductQueryRepository.findStatistics(LocalDateTime.parse(start), LocalDateTime.parse(end), store);
-            System.out.println("statistics = " + statistics);
-        }
-        return new ResponseEntity<>(null, HttpStatus.OK);
-    }
+//        return new ResponseEntity<>(null, HttpStatus.OK);
+//    }
     public ResponseEntity<MyResponse> findSalesByProduct(Long id, String start, String end) {
 
         LocalDate startDate = LocalDate.parse(start);
