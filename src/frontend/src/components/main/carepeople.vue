@@ -16,7 +16,7 @@
                     <label for="username">이름</label>
                     <div class="input-group">
                         
-                        <input type="text" class="form-control" id="username" placeholder="이름을 입력하세요" required name="user-id">
+                        <input type="text" class="form-control" id="username" placeholder="이름을 입력하세요" v-model="name" required name="user-id">
                     </div>        
                 </div>
                 
@@ -29,26 +29,97 @@
                 <div class="mb-3">
                     <label for="firstName">성별</label> 
                     <br>
-                    <input id="toggle-on" class="toggle toggle-left" name="toggle" value="false" type="radio" checked>
-<label for="toggle-on" class="btn">Yes</label>
-<input id="toggle-off" class="toggle toggle-right" name="toggle" value="true" type="radio">
-<label for="toggle-off" class="btn">No</label>
+                    <input type="radio" v-model="gender" id="gender1" value="M" checked="checked">
+                            <label for="gender1">남</label>&nbsp;
+  <input type="radio" v-model="gender" id="gender2" value="W">
+                            <label for="gender2" >여</label>
 
                 </div>
 
+                <div class="mb-3" style="width: 336px;">
+                    <label for="email">키</label>
+                    <input type="email"  v-model="height" class="form-control" id="email" placeholder="키를 입력하세요" name="user-email" cm>
+                    
+                </div>
+                <div class="mb-3" style="width: 336px;">
+                    <label for="email">몸무게</label>
+                    <input type="email" class="form-control" v-model="weight" id="email" placeholder="몸무게를 입력하세요" name="user-email">
+                </div>
+
+                <div class="mb-3"> 
+                    <label for="address">주소</label> <button class="addressbutton" @click="execDaumPostcode()">주소 찾기</button>
+                    <input type="text" class="form-control" v-model="zipcode" style="width: 250px;" name="zipcode" placeholder = "우편번호" readonly/>
+                    
+                    <input type="text" class="form-control" v-model="address" name="address" placeholder = "도로명주소" readonly />
+                    <input type="text" v-model="detailedAddress" name="detailedAddress" placeholder = "상세주소" class="form-control"/>
+                </div>
+                <div class="mb-3" style="width: 336px;">
+                    <label for="email">장기요양등급</label>
+                   
+        <v-select
+        v-model="longTermCareGrade"
+          :items="items"
+          label="Standard"
+          item-text="name"
+        item-value="value"
+        ></v-select>  
+                </div>
                 <div class="mb-3">
-                    <label for="email">이메일</label>
-                    <input type="email" class="form-control" id="email" placeholder="you@example.com" name="user-email">
-                    <div class="invalid-feedback">올바른 이메일을 입력하세요.</div>
+                    <label for="email">특이사항</label>
+                    <v-col
+        cols="12"
+        md="6"
+      >
+        <v-textarea v-model="comment"
+          solo
+          name="input-7-4"
+          label="Solo textarea"
+        ></v-textarea>
+      </v-col>   
                 </div>
-
                 <div class="mb-3">
-                    <label for="address">좋아하는 음식</label> <input type="text" class="form-control" id="food" placeholder="예) 치킨" required name="user-food">
-                    <div class="invalid-feedback">좋아하는 음식을 입력하세요.</div>
-                </div>
+                    <label for="firstName">반려동물유무</label> 
+                    <br>
+                    <input type="radio" v-model="pet" id="O" value="0" checked="checked">
+                            <label for="O">O</label>&nbsp;
+                        <input type="radio" v-model="pet" id="X" value="1">
+                            <label for="X">X</label>
 
+                </div>
+                <div class="mb-3">
+                    <label for="firstName">cctv 유무</label> 
+                    <br>
+                    <input type="radio" v-model="isCctvAgreement" id="O1" value="0" checked="checked">
+                            <label for="O1">O</label>&nbsp;
+                        <input type="radio" v-model="isCctvAgreement" id="X1" value="1">
+                            <label for="X1">X</label>
+
+                </div>
+                <div class="mb-3">
+                  <label for="firstName">케어유형</label> <br>
+     <input type="radio" v-model="careType" id="oldman" value="oldman" checked="checked">
+                            <label for="oldman">노인</label>&nbsp;
+                        <input type="radio" v-model="careType" id="child" value="child">
+                            <label for="child">아동</label>&nbsp;
+                        <input type="radio" v-model="careType" id="pregnantwomen" value="pregnantwomen">
+                            <label for="pregnantwomen">임산부</label>&nbsp;
+                        <input type="radio" v-model="careType" id="patient" value="patient">
+                            <label for="patient">환자</label>
+                </div>
+<div class="mb-3">
+  <label for="firstName">코로나검사여부</label> <br>
+                
+<input type="radio" v-model="coronaTest" id="O2" value="0" checked="checked ">
+                            <label for="O2">O</label>&nbsp;
+                        <input type="radio" v-model="coronaTest" id="X2" value="1">
+                            <label for="X2">X</label>
+</div>
+<div class="mb-3">
+  <label for="firstName">이미지 업로드</label> <br>
+ <v-file-input type="file" v-model="attachFiles" name="attachFiles" id="attachFiles" multiple="multiple"></v-file-input>
+ </div>
                 <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">가입하기</button>
+                <v-btn class="ma-2" outlined color="indigo" id="clickme" @click="clickme">등록</v-btn>
                 <hr class="mb-4">
 
                 <footer th:replace="/fragments/semantic :: footer"></footer>
@@ -84,7 +155,12 @@ data(){
         isCctvAgreement:'',
         careType:'',
         coronaTest:'',
-        attachFiles:''
+        attachFiles:'',
+        items:[
+          {name:'1',value:'1'},
+      {name:'2',value:'2'},
+      {name:'3',value:'3'},
+        ]
     }
 },
 methods:{  
@@ -199,7 +275,7 @@ input[type="radio"].toggle {
         cursor: pointer;
         min-width: 60px;
         &:hover{
-            background: #1a1a1a;
+            background: green ;
             color: #1a1a1a;
         }
         &:after{
@@ -214,7 +290,7 @@ input[type="radio"].toggle {
         }
     }
     &.toggle-left + label {
-        border-right: 0;
+        border-right: -5px;
         &:after{
             left: 100%
         }
@@ -228,22 +304,200 @@ input[type="radio"].toggle {
     &:checked + label {
         cursor: default;
         color: #1a1a1a;
+        background: green ;
         transition: color 200ms;
         &:after{
             left: 0;
         }
     }
 }
-html,
-body {
-  height: 100%;
-  background: #efefef;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100%;
-
+.contents {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
 }
+.contents .upload-box {
+  width: 100%;
+  margin-right: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.contents .upload-box .drag-file {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 3px dashed #dbdbdb;
+}
+.contents .upload-box .drag-file.highlight {
+  border: 3px dashed red;
+}
+.contents .upload-box .drag-file .image {
+  width: 40px;
+}
+.contents .upload-box .drag-file .message {
+  margin-bottom: 0;
+}
+.contents .upload-box .drag-file .preview {
+  display: none;
+  position: absolute;
+  left: 0;
+  height: 0;
+  width: 100%;
+  height: 100%;
+}
+.contents .upload-box .file-label {
+  margin-top: 30px;
+  background-color: #5b975b;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  width: 65%;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.contents .upload-box .file {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .contents {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+  }
+  .contents .upload-box {
+    width: 100%;
+    box-sizing: border-box;
+    margin-right: 0;
+  }
+  .contents .upload-box .drag-file {
+    height: 150px;
+  }
+  .contents .files {
+    width: 100%;
+    box-sizing: border-box;
+    margin-right: 0;
+    overflow: initial;
+  }
+}
+        
+
+.box{width: 450px; height: 45px; border: 1px solid #666; padding: 10px;}
+.box1{width: 250px; height: 45px; border: 1px solid #666; padding: 10px;}
+.pbox{width: 120px; height: 45px; border: 1px solid #666; padding: 10px;}
+
+
+ul{
+    list-style: none;
+}
+    .content{
+        width:100%;
+        min-height: 800px;
+        overflow: hidden;
+    }
+    .content .join{
+        width:100%;
+        max-width: 800px;
+        margin: 50px auto 150px auto;
+        position: relative;
+        text-align: left;
+        box-sizing: border-box;
+        padding: 0 15px 0 15px;
+    }
+    .content .join .div_join{
+        width: 100%;
+        position: relative;
+        box-sizing: border-box;
+        text-align: center;
+        background-color: #ffffff;
+        border: 0;
+        box-shadow: 0 0 18px #d3d3d3;
+        border-radius: 10px;
+        padding: 40px 10px 40px 10px;
+    }
+    .content1{
+        text-align: left;
+        display: block;
+        
+        
+    }
+    .content1 span{
+        font-size: 20px;
+        
+    }
+    .content1 input[type="text"],
+    input[type="number"]{
+        border-radius: 5px;
+        border: 1px #e3e3e3 solid;
+        border: 1px solid #666;
+    }
+    .data_form{
+        border: 2px black solid;
+        border-radius: 3;
+    }
+    .submit{
+        text-align: center;
+        
+    }
+    .information{
+        width: 700px;
+        height: 150px;
+        border: 2px #e3e3e3 double;
+    }
+    .input_form_number{
+        text-align: right;
+    }
+    
+
+input[type=radio]{
+	width: 0;
+  height: 0;
+  position: absolute;
+  left: -9999px;
+  
+}
+input[type=radio] + label{
+  line-height: 50px;
+  width: 50px;
+  height: 50px;
+  
+  box-sizing: border-box;
+  position: relative;
+  display: inline-block;
+  border: solid 1px #DDD;
+  background-color: #FFF;
+  
+  text-align: center;
+  box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  transition: border-color .15s ease-out,  color .25s ease-out,  background-color .15s ease-out, box-shadow .15s ease-out;
+  cursor: pointer;
+  border-radius: 100%;
+}
+input[type=radio]:checked + label{
+	background-color: #69f0ae;
+  color: #FFF;
+  
+  border-color: #69f0ae;
+  z-index: 1;
+}
+
+// html,
+// body {
+//   height: 100%;
+//   background: #efefef;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     min-height: 100%;
+
+// }
 
 // body {
 //   display: flex;
@@ -253,32 +507,32 @@ body {
 //   background-color: #f5f5f5;
 // }
 
-.form-signin {
-  width: 100%;
-  max-width: 330px;
-  padding: 15px;
-  margin: auto;
-}
+// .form-signin {
+//   width: 100%;
+//   max-width: 330px;
+//   padding: 15px;
+//   margin: auto;
+// }
 
-.form-signin .checkbox {
-  font-weight: 400;
-}
+// .form-signin .checkbox {
+//   font-weight: 400;
+// }
 
-.form-signin .form-floating:focus-within {
-  z-index: 2;
-}
+// .form-signin .form-floating:focus-within {
+//   z-index: 2;
+// }
 
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
+// .form-signin input[type="email"] {
+//   margin-bottom: -1px;
+//   border-bottom-right-radius: 0;
+//   border-bottom-left-radius: 0;
+// }
 
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
+// .form-signin input[type="password"] {
+//   margin-bottom: 10px;
+//   border-top-left-radius: 0;
+//   border-top-right-radius: 0;
+// }
 
 /* .signup-box {
     margin-left: 60px;
