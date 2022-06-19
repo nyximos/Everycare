@@ -13,7 +13,7 @@
              <v-chip class="ma-2" color="success" outlined style="width:150px;" @click="healthview()">
                  <h6 class="cate_name">건강기록조회</h6>
              </v-chip>
-             <v-chip class="ma-2" color="success" outlined style="width:150px;" @click="health(s)">
+             <v-chip class="ma-2" color="success" outlined style="width:150px;" @click="health()">
                  <h6 class="cate_name">건강기록등록</h6>
              </v-chip>
              </div>
@@ -71,7 +71,7 @@
                     <td @click="upadte(h)">{{h.healthClassification}}</td>
                     <td>{{h.healthStatus}}</td>
                     <td>{{h.detailComment}}</td>
-                    
+                    <td>삭제</td>
                 </tr>
             </tbody>
 
@@ -89,7 +89,7 @@
           <v-card-text style="max-height: 550px; padding-bottom:0px;">
             <v-card-text>
                 <h2 class="title01">건강기록수정</h2>
-                {{id}}
+                
             </v-card-text>            
           </v-card-text>
 
@@ -98,8 +98,7 @@
     :items="healthList"
     item-text="name"
     item-value="value"
-    label="건강분류"
-      
+    label="건강분류" 
   >
  
     
@@ -182,8 +181,8 @@
         <v-textarea
           solo
           name="input-7-4"
-          label="내용을 입력해주세요"
-          v-model="content2"
+          placeholder="내용을 입력해주세요"
+          v-model="content1"
         ></v-textarea>
       </v-col>
           <v-divider style="margin:auto;"></v-divider>
@@ -266,9 +265,11 @@ export default {
             avatar:require('@/assets/writing.png'),
             file:this.file,
             content:'',
+            content1:'',
             content2:'',
             health1:'',
             healthstatus:'',
+            detailComment:'',
             healthList:[
                  { name: '신체기능', value: '1'},
                 { name: '식사기능', value: '2'},
@@ -284,9 +285,12 @@ export default {
         }
     },
     mounted(){
-        const id = this.$route.params.contentId;
+        // const id = this.$route.params.contentId;
+         const carenoteId = this.$route.params.contentId;
+        
+        
         this.$http
-        .get(`/api/carenotes/${id}/schedules`,{
+        .get(`/api/carenotes/${ carenoteId}/schedules`,{
             withCredentail:true
         })
         .then((res)=>{
@@ -299,7 +303,7 @@ export default {
             console.log(err);
         })
         this.$http
-        .get(`/api/carenote/${id}/health-records`, {
+        .get(`/api/carenote/${carenoteId}/health-records`, {
             withCredentail:true
         })
         .then((res)=>{
@@ -321,6 +325,9 @@ export default {
         .catch((err)=>{
             console.log(err);
         })
+        
+        
+        
         
     },
     
@@ -361,17 +368,28 @@ export default {
             })
         },
         upadte(h){
+             const carenoteId = this.$route.params.contentId;
             this.Dialog04 = true
             this.id = h.id
-            console.log(id)
+            this.$http
+        .get(`/api/carenote/${carenoteId}/health-records/${h.id}`,{
+            withCredentail:true
+        })
+        .then((res)=>{
+            console.log(res.data.body);
+            console.log(res)
+            // this.schedule= res.data.body.activityInformationDTOs
+            // console.log(this.schedule)
+            // console.log("데이터" + res);
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+            // console.log(id)
         },
-        health(s){
+        health(){
             this.Dialog02 = true
-            const caretarget ={
-                id : s.id,
-                name : s.name
-            };
-            this.$store.commit('carenoteStore/caretarget', caretarget);
+            
         },
         healthview(){
             this.Dialog03 = true
@@ -424,7 +442,7 @@ export default {
 
             var formData = new FormData();
             
-            formData.append('detailComment', this.content2);
+            formData.append('detailComment', this.content1);
             formData.append('healthClassificationId', this.health1);
             formData.append('healthStatus', this.healthstatus);
            this.$http

@@ -46,7 +46,22 @@ public class InitJobOfferService {
                 System.out.println("jobOffer1 = " + jobOffer1);
         }
 
+                JobOffer jobOffer1 = jobOffer("케어시터분 구합니다.", LocalDate.parse("2022-05-01"),
+                                LocalDate.parse("2022-06-18"), "2022-06-18,2022-06-19,2022-06-20", "09:00",
+                                "18:00", 10000, 130000, Gender.M, "잘 부탁 드립니다.", member, careTarget, careTargetSchedule);
 
+                JobOffer jobOffer2 = jobOffer("title1", LocalDate.now(), LocalDate.now(), "desiredDayWeek1", "10:00",
+                                "10:30", 1, 10, Gender.M, "comment1", member, careTarget, careTargetSchedule);
+                JobOffer jobOffer3 = jobOffer("title2", LocalDate.now(), LocalDate.now(), "desiredDayWeek2", "11:00",
+                                "11:30", 2, 20, Gender.M, "comment2", member, careTarget, careTargetSchedule);
+                JobOffer jobOffer4 = jobOffer("title3", LocalDate.now(), LocalDate.now(), "desiredDayWeek3", "12:00",
+                                "12:30", 3, 20, Gender.M, "comment3", member, careTarget2, careTargetSchedule);
+                JobOffer jobOffer5 = jobOffer("title4", LocalDate.now(), LocalDate.now(), "desiredDayWeek4", "13:00",
+                                "13:30", 4, 40, Gender.M, "comment4", member, careTarget2, careTargetSchedule);
+                JobOffer jobOffer6 = jobOffer("title5", LocalDate.now(), LocalDate.now(), "desiredDayWeek5", "14:00",
+                                "14:30", 5, 50, Gender.M, "comment5", member, careTarget, careTargetSchedule);
+                System.out.println("jobOffer1 = " + jobOffer1);
+        }
 
 
         private CareTarget careTarget(String name, Gender gender, LocalDate birth, Long height, Long weight,

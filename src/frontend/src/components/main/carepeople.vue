@@ -149,6 +149,8 @@ execDaumPostcode() {
           if (this.extraAddress !== "") {
             this.extraAddress = "";
           }
+
+          
           if (data.userSelectedType === "R") {
             // 사용자가 도로명 주소를 선택했을 경우
             this.address = data.roadAddress;

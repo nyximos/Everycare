@@ -7,7 +7,7 @@
     v-for="(c,index) in contract" :key="index"
   >
     <v-img
-      src="@/assets/handshake.png"
+      
       height="200px"
       width="150px"
       style="margin:0 auto;"
@@ -63,7 +63,87 @@
         </v-card-actions>
       </v-card>
     </v-expand-transition>
+    <!-- <v-expand-transition>
+      <div v-show="show">
+        <v-divider></v-divider>
+
+        <v-card-text>
+          I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
+        </v-card-text>
+      </div>
+    </v-expand-transition> -->
   </v-card>
+    
+    <!-- <v-dialog
+        v-model="contractdialog"
+        fullscreen
+        hide-overlay
+        transition="dialog-bottom-transition"
+        scrollable
+      >
+        <v-card tile>
+          <v-toolbar flat dark color="primary">
+            <v-btn
+              icon
+              dark
+              @click="close"
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+            <v-toolbar-title>계약서</v-toolbar-title>
+            <v-spacer></v-spacer>
+          </v-toolbar>
+          <v-card-text>
+            <v-list
+              three-line
+              subheader
+            >
+              <v-subheader></v-subheader>
+            <v-subheader>회원 정보</v-subheader>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>회원 아이디:OOO / 회원 이름:OOO </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>대상인 이름:OOO / 성별:M</v-list-item-title>
+                  <v-list-item-subtitle>생년월일:1999-01-01</v-list-item-subtitle>
+                  <v-list-item-subtitle>주소:대구광역시~~</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+            <v-divider></v-divider>
+            <v-list
+              three-line
+              subheader
+            >
+              <v-subheader>계약 정보</v-subheader>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>대상인 이름:OOO   /   성별:M</v-list-item-title>
+                  <v-list-item-subtitle>생년월일:1999-01-01</v-list-item-subtitle>
+                  <v-list-item-subtitle>주소:대구~~</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>Sound</v-list-item-title>
+                  <v-list-item-subtitle>Auto-update apps at any time. Data charges may apply</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title>Auto-add widgets</v-list-item-title>
+                  <v-list-item-subtitle>Automatically add home screen widgets</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-card-text>
+
+          <div style="flex: 1 1 auto;"></div>
+        </v-card>
+      </v-dialog> -->
   </div>
   
 </template>
@@ -101,11 +181,21 @@ export default {
         this.$router.push({ name: 'complete_note', params: { contentId: c.id }})
       },
       
+      // dialog(c){
+      //   this.contractdialog = true;
+      //   // console.log(c.pet)
+      // },
+      // close(){
+      //   this.contractdialog = false;
+      // }
     }
 }
 </script>
 
 <style>
+    /* .v-toolbar__content{
+      height: 0px;
+    } */
   .content{
     width: 100%;
     height: 100%;
@@ -127,8 +217,5 @@ export default {
 .title{
   text-align: center;
   /* font-size: 10px; */
-}
-.v-card__subtitle{
-  padding-top: 20px;
 }
 </style>
