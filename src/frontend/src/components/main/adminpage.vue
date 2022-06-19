@@ -103,7 +103,7 @@
                 </div>
                 <div class="table-responsive custom-table-responsive">
 
-        <table class="table custom-table" show-select :single-select="singleSelect">
+        <table class="table custom-table" show-select >
           <thead>
             <tr>  
 

@@ -91,12 +91,22 @@
     </a>
     <a href="#" class="item">
         <div class="icon">ii</div>
-         <router-link :to="{name:'membernote'}"><div class="text">케어노트</div></router-link>
+         <router-link :to="{name:'membernote'}"><div class="text">케어노트(멤버용)</div></router-link>
+        <div class="right"> > </div>
+    </a>
+     <a href="#" class="item">
+        <div class="icon">ii</div>
+         <router-link :to="{name:'carenote'}"><div class="text">케어노트(시터용)</div></router-link>
         <div class="right"> > </div>
     </a>
     <a href="#" class="item">
         <div class="icon">ii</div>
-         <router-link :to="{name:'complete_contract'}"><div class="text">완료된 계약서</div></router-link>
+         <router-link :to="{name:'complete_contract'}"><div class="text">완료된 계약서(케어시터)</div></router-link>
+        <div class="right"> > </div>
+    </a>
+    <a href="#" class="item">
+        <div class="icon">ii</div>
+         <router-link :to="{name:'complete_target'}"><div class="text">완료된 계약서(회원)</div></router-link>
         <div class="right"> > </div>
     </a>
     <!-- <a href="#" cl

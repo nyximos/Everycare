@@ -71,7 +71,7 @@
                     <td @click="upadte(h)">{{h.healthClassification}}</td>
                     <td>{{h.healthStatus}}</td>
                     <td>{{h.detailComment}}</td>
-                    <td>삭제</td>
+                    <td @click="delete1(h)">삭제</td>
                 </tr>
             </tbody>
 
@@ -332,6 +332,21 @@ export default {
     },
     
     methods:{
+        delete1(h){
+            const carenoteId = this.$route.params.contentId;
+            const id = h.id
+            
+            this.$http
+            .delete(`/api/carenote/${carenoteId}/health-records/${id}`,{
+                withCredentail:true
+            })
+            .then((res)=>{
+                console.log(res);
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        },
         closeDialog(){
             this.Dialog = false;
             this.Dialog01 = false;

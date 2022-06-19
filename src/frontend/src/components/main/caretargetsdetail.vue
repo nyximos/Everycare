@@ -9,7 +9,7 @@
 				<span style="display:inline-block; width:200px; height:200px; border-radius:200px; overflow:hidden;">
 								<img :src="'https://localhost:8086/api/images/'+this.attachFiles" class="main_img img_sample">
 								</span>
-			</span>
+			
 			
 			<div class="layer01" id="layer_alert">
 			</div>			

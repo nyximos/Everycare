@@ -82,14 +82,11 @@
         <div class="page-breadcrumb">
           <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
-              <h4 class="page-title">회원 관리</h4>
+              <h4 class="page-title">신고 관리</h4>
               <div class="ms-auto text-end">
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">
-                      관리자 페이지
-                    </li>
+                    
                   </ol>
                 </nav>
               </div>
@@ -101,11 +98,11 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title mb-0">회원</h5>
+                  <h5 class="card-title mb-0">신고 계약 목록</h5>
                 </div>
                 <div class="table-responsive custom-table-responsive">
 
-        <table class="table custom-table" show-select :single-select="singleSelect">
+        <table class="table custom-table">
           <thead>
             <tr>  
 
@@ -116,20 +113,17 @@
                 </label>
               </th>
               
-              <th scope="col">아이디</th>
-              <th scope="col">이름</th>
-              <th scope="col">권한</th>
-              <th scope="col">성별</th>
-              <th scope="col">생년월일</th>
-              <th scope="col">전화번호</th>
-              <th scope="col">이메일</th>
-              <th scope="col">회원가입일</th>
-              <th scope="col">활동상태</th>
+              <th scope="col">계약서 이름</th>
+              <th scope="col">신고대상</th>
+              <th scope="col">신고자</th>
+              <th scope="col">신고사유</th>
+              
+              <th scope="col">신고날짜</th>
               <th scope="col">관리자 권한</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(p,index) in profiles" :key="index">
+            <tr v-for="(r,index) in report" :key="index">
               <th scope="row">
                 <label class="control control--checkbox">
                   <input type="checkbox" />
@@ -138,22 +132,18 @@
               </th>
               
               <td>
-                {{p.id}}
+                {{r.contractName}}
               </td>
-              <td><a href="#">{{p.name}}</a></td>
-              <td>
-                {{p.role}}
+              <td><a href="#"></a></td>
+              
+                <td><a href="#">{{r.memberId}}({{r.memberName}})</a>
                 
               </td>
-              <td>{{p.gender}}</td>
-              <td>{{p.birth}}</td>
-              <td>{{p.phone}}</td>
-              <td>{{p.email}}</td>
-              <td>{{p.createdAt}}</td>
-              <td>{{p.activityStatus}}</td>
-              <td><button class="custom-btn btn-11" @click="click(p)">관리자등록</button>
-              <button class="custom-btn btn-11" @click="drop(p)">관리자삭제</button>
-              <button class="custom-btn btn-11">활동정지취소</button></td>
+              <td>{{r.reason}}</td>
+              <td>{{r.createdAt}}</td>
+
+              <td><button class="custom-btn btn-11" @click="stop(r)">활동정지</button>
+              </td>
             </tr>
             
             
@@ -182,6 +172,7 @@
         selected: [],
         profiles: [],
         id: this.$route.params.memberId,
+        report: [],
       }
     },
     methods: {
@@ -197,27 +188,15 @@
         select: function() {
             this.allSelected = false;
         },
-        drop(p){
-          this.$router.push({ params: { memberId: p.id }})
+        stop(r){
+          
           this.$http
-          .patch(`/api/admin/members/${p.id}`, {
+          .patch(`/api/admin/members/${r.reportedUserId}/activites/stop`, {
             withCredentials: true
           })
         },
         
-        click(p){
-          this.$router.push({ params: { memberId: p.id}})
-          this.$http
-          .post(`/api/admin/members/${p.id}`, {
-            withCredentials: true
-          })
-          .then((res)=> {
-            console.log(res);
-          })
-          .catch((err)=>{
-            console.log(err)
-          })
-        },
+       
       
     },
     mounted() {
@@ -228,6 +207,18 @@
       .then((res)=>{
         console.log(res.data.body)
         this.profiles = res.data.body  
+      })
+      .catch((err)=>{
+        alert(err);
+        console.log(err)
+      })
+      this.$http
+      .get('/api/admin/reports/contracts', {
+        withCredentials: true
+      })
+      .then((res)=>{
+        console.log(res.data.body)
+        this.report = res.data.body  
       })
       .catch((err)=>{
         alert(err);
@@ -701,7 +692,7 @@ button {
       position: absolute;
       width: 250px;
       height: 100%;
-      top: 50px;
+
       z-index: 10;
       padding-top: 64px;
       /* background: #fff; */
