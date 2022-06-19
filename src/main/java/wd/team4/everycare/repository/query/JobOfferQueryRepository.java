@@ -32,11 +32,11 @@ public class JobOfferQueryRepository {
                 .fetch();
     }
 
-    public List<JobOffer> findAllByDate(LocalDate date){
+    public List<JobOffer> findAllByDate(LocalDate startDate, LocalDate endDate){
         return queryFactory
                 .select(jobOffer)
                 .from(jobOffer)
-                .where(jobOffer.startDate.after(date).and(jobOffer.endDate.before(date)))
+                .where(jobOffer.startDate.after(startDate).and(jobOffer.endDate.before(endDate)))
                 .fetch();
     }
 
