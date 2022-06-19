@@ -21,6 +21,7 @@ import wd.team4.everycare.service.interfaces.BoardService;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,6 +77,12 @@ public class BoardServiceImpl implements BoardService {
         List<BoardDTO> inquiryDTO = new ArrayList<>();
 
         getInquiry.stream().map(board -> board.toBoardDTO()).forEach(inquiryDTO::add);
+
+        /* TODO */
+        for (BoardDTO boardDTO:inquiryDTO) {
+            String yyyyMMdd = boardDTO.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            boardDTO.setCreatedAt(boardDTO.getCreatedAt());
+        }
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)

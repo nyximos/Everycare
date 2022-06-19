@@ -8,31 +8,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
-
 import wd.team4.everycare.domain.OrderProduct;
-
-import wd.team4.everycare.domain.Product;
 import wd.team4.everycare.domain.Store;
 import wd.team4.everycare.dto.product.ProductListViewDTO;
 import wd.team4.everycare.dto.store.StoreAdminViewDTO;
 import wd.team4.everycare.dto.store.StoreFormDTO;
 import wd.team4.everycare.domain.OrderProduct;
+import wd.team4.everycare.dto.order.OrderProductDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.dto.store.StoreAdminViewDTO;
 import wd.team4.everycare.dto.store.StoreFormDTO;
 import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.repository.StoreRepository;
-
 import wd.team4.everycare.repository.query.OrderProductQueryRepository;
 import wd.team4.everycare.repository.query.ProductQueryRepository;
-
 import wd.team4.everycare.service.interfaces.StoreService;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -162,11 +156,24 @@ public class StoreServiceImpl implements StoreService {
 //        }
         LocalDateTime startTime = StringToLocalDateTime(start);
         LocalDateTime endTime = StringToLocalDateTime(end);
+
+        List<OrderProductDTO> orderProductDTOs = new ArrayList<>();
+        List<OrderProduct> orderProducts = new ArrayList<>();
+
         for (Store store : storeList) {
             List<OrderProduct> statistics = orderProductQueryRepository.findStatistics(startTime, endTime, store);
-            System.out.println("statistics = " + statistics);
+            orderProducts.addAll(statistics);
         }
-        return new ResponseEntity<>(null, HttpStatus.OK);
+
+        orderProducts.stream().map(orderProduct -> orderProduct.toOrderProductDTO()).forEach(orderProductDTOs::add);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("총 매출 통계")
+                .body(orderProductDTOs)
+                .build();
+
+        return new ResponseEntity<>(body, HttpStatus.OK);
     }
 
     public ResponseEntity<MyResponse> findSalesByProduct(Long id, String start, String end) {
