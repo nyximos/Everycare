@@ -402,6 +402,18 @@ const routes = [
         name: 'FapNew',
         component: () => import('@/components/qnaNew.vue'),
     },
+    // 주문 내역
+    {
+        path: '/dashboard/orders',
+        name: 'OrderList',
+        component: () => import('@/components/orderList.vue'),
+    },
+    // 리뷰 등록
+    {
+        path: '/dashboard/review/new',
+        name: 'NewReview',
+        component: () => import('@/components/reviewNew.vue'),
+    },
     {
         path: '/login',
         name: 'Login',

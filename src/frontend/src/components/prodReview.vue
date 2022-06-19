@@ -6,14 +6,17 @@
        <v-container>
         <v-card v-for="item in reviews" :key="item.index" class="mt-4">
             <v-card-title>{{item.title}}</v-card-title>
-            
             <v-card-text>
                 <div class="text-end">
-                    {{item.createdAt}}
+                    {{item.createdAt.slice(0,10)}}
+                    <v-btn icon>
+                      <v-icon> mdi-cancel</v-icon>
+                    </v-btn>
                 </div>
                 <div>
                     {{item.content}}
                 </div>
+                
             </v-card-text>
         </v-card>
           <div class="text-center">

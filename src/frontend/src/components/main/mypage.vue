@@ -60,10 +60,14 @@
     </a>
     <a href="#" class="item">
         <div class="icon">ii</div>
-         <router-link :to="{name:'memberSchedule', params:{caresitterId:this.id}}"><div class="text">채용내역</div></router-link>
+          <router-link :to="{name:'MyStore',params:{contentId:memid}}"><div class="text">채용내역</div></router-link>
         <div class="right"> > </div>
     </a>
-    
+    <a href="#" class="item">
+        <div class="icon">ii</div>
+         <router-link :to="{name:'OrderList',params:{contentId:memid}}"><div class="text">상품 주문 내역</div></router-link>
+        <div class="right"> > </div>
+    </a>
   </div>
   <div class="listContainer">
     <!-- <a href="#" class="item">
@@ -109,6 +113,9 @@
          <router-link :to="{name:'complete_target'}"><div class="text">완료된 계약서(회원)</div></router-link>
         <div class="right"> > </div>
     </a>
+    
+
+
     <!-- <a href="#" cl
     ass="item">
         <div class="icon">ii</div>
@@ -136,24 +143,7 @@
     </a>
   </div>
 </div>
-  <!-- <div>
-      <h2>마이페이지</h2>
-      <div v-if="this.$store.state.userStore.careSitterId  !==null ||  this.$store.state.careprofileStore.activityTime !== ''" >
-        <router-link :to="{name:'certification',params:{caresitterId:this.id}}"><p>자격증 등록</p></router-link>
-        <router-link :to="{name:'mypage_certi' ,params:{caresitterId:this.id}}"><p>케어 자격증 조회</p></router-link>
-          <router-link :to="{name:'mypage_profile' ,params:{caresitterId:this.id}}"><p>프로필 조회</p></router-link>
-      </div>
-      <div v-else>
-         <router-link :to="{name:'careprofilecreate'}"><p>케어 프로필 생성</p></router-link>
-      </div>
-        <router-link :to="{name:'memberSchedule', params:{caresitterId:this.id}}"><p>스케줄</p></router-link>
-        <router-link :to="{name:'caresitter_contract', params:{caresitterId:this.id}}"><p>계약서조회</p></router-link><br>
-        <router-link :to="{name:'mypage_joblist'}"><p>구인글 목록 조회</p></router-link><br>
-        <router-link :to="{name:'carenote'}"><p>케어노트(시터용)</p></router-link><br>
-        <router-link :to="{name:'membernote'}"><p>케어노트(멤버용)</p></router-link>
-        <router-link :to="{name:'complete_contract'}"><p>완료된 계약서(케어시터)</p></router-link>
-        <router-link :to="{name:'complete_target'}"><p>완료된 계약서(회원)</p></router-link>
-    </div> -->
+ 
   
 </template>
 

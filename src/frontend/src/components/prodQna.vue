@@ -9,7 +9,7 @@
             
             <v-card-text>
                 <div class="text-end">
-                    {{item.createdAt}}
+                    {{item.createdAt.slice(0,10)}}
                 </div>
                 <div>
                     {{item.content}}
