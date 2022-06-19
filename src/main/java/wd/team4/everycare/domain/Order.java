@@ -90,6 +90,7 @@ public class Order {
         this.cardNumber = cardNumber;
         this.approvalNumber = approvalNumber;
         this.installmentPlan = installmentPlan;
+        this.status = OrderStatus.COMPLETE;
     }
 
     public SignOrderDTO toSignOrderDTO(){
