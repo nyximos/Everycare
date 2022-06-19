@@ -1,52 +1,80 @@
 <template>
-<v-container fluid>
-    <h1>상품 상세정보</h1>
-        <v-row>
-          <v-col cols="4">
-              <label>상품명</label>
-              </v-col>
-              <v-col col cols="4">
-                <p>{{this.name}}</p>
-              </v-col>
-        </v-row>
-        <v-row>
-          <v-col cols="4">
-              <label>가격</label>
-              </v-col>
-              <v-col col cols="4">
-                <p>{{this.price}}</p>
-              </v-col>
-        </v-row>
-          <v-row>
-          <v-col cols="4">
-              <label>스토어</label>
-              </v-col>
-              <v-col col cols="4">
-                <p>{{this.store}}</p>
-              </v-col>
-        </v-row>
-        <v-row>
+<div>
+<Toast />
+<v-container>
+ <v-card>
+    <v-img :src="'https://localhost:8086/api/images/'+storeFileName" alt="사진" height="600"/>
+      <v-card-title class="fw-bold">{{store.name}}</v-card-title>
+      <v-card-text class="text-black">
+        <p>{{name}}</p>
+        <hr>
+        <v-row class="mt-3 mb-5">
+       <b class="fs-4">{{price}}원</b>
+       </v-row>
+       <v-row>
             <v-col>
-                 <v-img v-for="item in this.imagesDTOs" :key="item.id" id="divProfile" :src="'https://localhost:8086/api/images/'+item.storeFileName" alt="사진" width="344" height="200"/>
+            <v-text-field
+                v-model="quantity"
+                label="수량"
+                outlined
+                type="number"
+          ></v-text-field>
             </v-col>
-        </v-row>
-        <v-row>
             <v-col>
-                <label>개수:</label><input type="number" class="form-control" v-model="quantity">
-            </v-col>
-                        <v-col>
-                <label>가격:</label>{{startOffset}}
+            <v-text-field
+                v-model="startOffset"
+                label="가격"
+                outlined
+          ></v-text-field>
             </v-col>
         </v-row>
-          <v-btn color="danger" @click="wishList">찜</v-btn>
-          <v-btn color="primary" @click="cart">장바구니</v-btn>
-          <v-btn @click="back">취소</v-btn>
-      </v-container>
+       <v-row>
+         <p class="fs-4 text-center">Details</p>
+            <v-col>
+                 <v-img v-for="item in this.imagesDTOs" :key="item.id" :src="'https://localhost:8086/api/images/'+item.storeFileName" alt="사진" />
+            </v-col>
+        </v-row>
+      </v-card-text>
+    <v-row>
+    <v-bottom-navigation
+    fixed grow
+    dark
+  >
+    <v-btn>
+      <qnaBtn />
+    </v-btn>
+
+    <v-btn>
+      <reviewBtn />
+    </v-btn>
+
+    <v-btn @click="wishList">
+      <wishBtn />
+    </v-btn>
+
+    <v-btn @click="cart">
+      <cartBtn />
+    </v-btn>
+  </v-bottom-navigation>
+  </v-row>
+  </v-card>
+</v-container>
+</div>
 </template>
 
 <script>
+import wishBtn from '@/components/wishBtn'
+import cartBtn from '@/components/cartBtn'
+import qnaBtn from '@/components/qnaBtn'
+import reviewBtn from '@/components/reviewBtn'
 export default {
-async mounted() {
+components:{
+  cartBtn,
+  wishBtn,
+  qnaBtn,
+  reviewBtn,
+},
+mounted() {
     const id = Number(this.$route.params.contentId);
     this.$http
     .get(`/api/dashboard/store/products/${id}`,{
@@ -69,6 +97,14 @@ async mounted() {
 },
 data(){
     return{
+         sheet: false,
+      tiles: [
+        { img: 'keep.png', title: 'Keep' },
+        { img: 'inbox.png', title: 'Inbox' },
+        { img: 'hangouts.png', title: 'Hangouts' },
+        { img: 'messenger.png', title: 'Messenger' },
+        { img: 'google.png', title: 'Google+' },
+      ],
         name: this.name,
         isSale: this.isSale,
         price: this.price,

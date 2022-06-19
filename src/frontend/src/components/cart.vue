@@ -1,5 +1,8 @@
 <template>
     <div>
+              <transition name="fade">
+          <toast  v-if="showToast" :message="toastMessage" :type="toastAlertType" />
+        </transition>
         <div v-if="this.$store.state.cart.cart.length==0">장바구니가 비었습니다.</div>
         <v-card v-else>
             <v-btn @click="removeAll">전체삭제</v-btn>
@@ -45,8 +48,9 @@
                     <v-text-field v-model="recipientNumber" label="수취인 번호" ></v-text-field>
                 </v-row>
                 <v-row> 
-                   <v-col cols="4"><v-text-field v-model="zipcode" label="우편번호" ></v-text-field></v-col>
-                    <v-col cols="8"><v-btn @click="execDaumPostcode">주소 찾기</v-btn></v-col>
+                   <v-col cols="10"><v-text-field v-model="zipcode" label="우편번호" ></v-text-field></v-col>
+                    <v-col cols="1"><v-btn @click="execDaumPostcode">주소 찾기</v-btn></v-col>
+                     <v-col cols="1"><addrBtn @item="item"/></v-col>
                     <v-text-field v-model="address" label="주소" ></v-text-field>
                     <v-text-field v-model="detailedAddress" label="상세주소" ></v-text-field>
                     <v-text-field label="주문요청" v-model="comment" ></v-text-field>
@@ -59,7 +63,13 @@
 </template>
 
 <script>
+import toast from '@/components/toast'
+import addrBtn from '@/components/addrBtn'
 export default {
+  components:{
+    toast,
+    addrBtn
+  },
   mounted() {
     this.$http.get('/api/cart',{
         withCredentials:true
@@ -83,10 +93,31 @@ export default {
       detailedAddress: this.detailedAddress,
       comment: this.comment,
       paymentAmount: this.total,
-      Order_Id:this.Order_Id
+      Order_Id:this.Order_Id,
+      showToast : false,
+      toastMessage: '',
+      toastAlertType: ''
     }
   },
     methods:{
+      triggerToast(message, type='success'){
+        this.toastMessage = message;
+        this.toastAlertType = type;
+        this.showToast= true
+        setTimeout(()=>{
+          this.toastMessage='';
+          this.showToast=false;
+          this.showToast = '';
+        },3000)
+      },
+      item(item){
+        this.recipientName=item.recipientName
+        this.recipientNumber=item.recipientNumber
+        this.zipcode=item.zipcode
+        this.address=item.address
+        this.detailedAddress=item.detailedAddress
+        this.comment=item.comment
+      },
       payment(){
         var tossPayments = TossPayments("test_ck_Lex6BJGQOVDGPJNGkJq3W4w2zNbg");
         var customDate = new Date()
@@ -151,7 +182,7 @@ export default {
       formData.append('detailedAddress',this.detailedAddress);
       formData.append('comment',this.comment);
       formData.append('paymentAmount',this.total);
-        this.$http
+      this.$http
       .post('/api/cart/orders', formData,{
        withCredentials:true
       })
@@ -164,14 +195,16 @@ export default {
        console.log(err);
     });
      this.$http
-      .get('/api/cart/orders', formData,{
+      .get('/api/cart/orders/payments', formData,{
        withCredentials:true
       })
      .then(res => {
       console.log(res);
+      this.triggerToast('Successfully saved!')
       })
      .catch(err => {
        console.log(err);
+       this.triggerToast('Something went wrong', 'error')
     });
       },
       remove(index){
@@ -182,8 +215,10 @@ export default {
       .then((res)=> {
         console.log(res)
         this.$store.commit("cart/remoteList", index)
+        this.triggerToast('Successfully saved!')
       }).catch((err)=>{
         console.log(err)
+        this.triggerToast('Something went wrong', 'error')
       })
       },
       removeAll(){
@@ -194,36 +229,12 @@ export default {
       .then((res)=> {
         console.log(res)
         this.$store.state.cart.cart=[]
+        this.triggerToast('Successfully saved!')
       }).catch((err)=>{
         console.log(err)
+        this.triggerToast('Something went wrong', 'error')
       })
       },
-      remove(index) {
-            this.$http
-                .delete(`/api/cart/${index}`, {
-                    withCredentials: true,
-                })
-                .then((res) => {
-                    console.log(res);
-                    this.$store.commit('cart/remoteList', index);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        },
-        removeAll() {
-            this.$http
-                .delete(`/api/cart`, {
-                    withCredentials: true,
-                })
-                .then((res) => {
-                    console.log(res);
-                    this.$store.state.cart.cart = [];
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        },
     },
     computed: {
         firstName(){
@@ -250,4 +261,19 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: all 0.5s ease;
+  }
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 1;
+    transform: translateY(-30px);
+  }
+  .fade-enter-to,
+  .fade-leave-from {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+</style>

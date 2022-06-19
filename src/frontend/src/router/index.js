@@ -13,19 +13,10 @@ const routes = [
         redirect: '/',
     },
     {
-        path: '/addr',
-        component: () => import('@/components/addr.vue'),
-    },
-    {
         path: '/',
         name: 'Main',
         component: () => import('@/pages/Main.vue'),
     },
-    // {
-    //     path: '/notice',
-    //     name: 'notice',
-    //     component: () => import('@/pages/Notice.vue'),
-    // },
     {
         path: '/newNotice',
         name: 'newNotice',
@@ -232,16 +223,6 @@ const routes = [
         component: () => import('@/pages/Adminpage_report.vue'),
     },
     {
-        path: '/wish',
-        name: 'Wish',
-        component: () => import('@/pages/Wish.vue'),
-    },
-    {
-        path: '/cart',
-        name: 'Cart',
-        component: () => import('@/pages/Cart.vue'),
-    },
-    {
         path: '/Test1',
         name: 'Test1',
         component: () => import('@/pages/Test1.vue'),
@@ -288,11 +269,17 @@ const routes = [
         name: 'storeEdit',
         component: () => import('@/pages/StoreInfoEdit.vue'),
     },
-    // 케어스토어 상품 전체 조회 (스토어멤버)
+    // 마이스토어 메인 (스토어멤버)
     {
         path: '/Mystore/:contentId',
-        name: 'storeMain',
+        name: 'MyStore',
         component: () => import('@/pages/MyStore.vue'),
+    },
+    // 마이스토어 상품관리 (자신이 등록한 상품 전체 조회)
+    {
+        path: '/Mystore/:contentId/storeProdList',
+        name: 'storeProdList',
+        component: () => import('@/components/storeProdList.vue'),
     },
     // 상품 등록
     {
@@ -324,6 +311,7 @@ const routes = [
         name: 'Wish',
         component: () => import('@/pages/Wish.vue'),
     },
+    
     // 상품결제
     {
         path: '/store/ordersheet/payment',
@@ -384,6 +372,36 @@ const routes = [
         name: 'noticeDetail',
         component: () => import('@/components/noticeDetail.vue'),
     },
+    // 자주 묻는 질문 조회
+    {
+        path: '/faq',
+        name: 'Faq',
+        component: () => import('@/pages/Faq.vue'),
+    },
+    // 자주 묻는 질문 상세조회, 관리자수정삭제
+    {
+        path: '/faq/:contentId',
+        name: 'FaqDetail',
+        component: () => import('@/pages/FaqDetail.vue'),
+    },
+    // 관리자 자주 묻는 질문 등록
+    {
+        path: '/admin/faq/new',
+        name: 'FapNew',
+        component: () => import('@/pages/FaqNew.vue'),
+    },
+    // 관리자 자주 묻는 질문 등록
+    {
+        path: '/admin/faq/new',
+        name: 'FapNew',
+        component: () => import('@/pages/FaqNew.vue'),
+    },
+    // 상품 문의 등록
+    {
+        path: '/store/:contentId/products/:contentId/qna/new',
+        name: 'FapNew',
+        component: () => import('@/components/qnaNew.vue'),
+    },
     {
         path: '/login',
         name: 'Login',
@@ -394,11 +412,6 @@ const routes = [
             else next();
         },
     },
-    // {
-    //     path: '/caresitters',
-    //     name: 'caresitters',
-    //     component: Caresitters,
-    // },
     {
         path: '/works',
         name: 'FindWork',

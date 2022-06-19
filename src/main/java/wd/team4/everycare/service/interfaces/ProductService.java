@@ -11,6 +11,7 @@ import wd.team4.everycare.dto.product.ProductFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ProductService {
@@ -36,6 +37,8 @@ public interface ProductService {
 
     ResponseEntity<MyResponse> findAllByName(String name);
 
-    ResponseEntity<MyResponse> findAllByCategory(String categoryName);
+    ResponseEntity<MyResponse> findAllByCategory(Long categoryId);
+
+    ResponseEntity<MyResponse> findBestProducts();
 
 }

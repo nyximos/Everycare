@@ -1,10 +1,13 @@
 package wd.team4.everycare.service.interfaces;
 
+import org.springframework.http.ResponseEntity;
+import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Store;
 import wd.team4.everycare.dto.store.StoreAdminViewDTO;
 import wd.team4.everycare.dto.store.StoreFormDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface StoreService {
@@ -22,4 +25,8 @@ public interface StoreService {
     List<StoreAdminViewDTO> findStoresThatRequireApproval();
 
     StoreAdminViewDTO webFindStore(Long id);
+
+    ResponseEntity<MyResponse> findSalesByProduct(Long id, String start, String end);
+
+    public ResponseEntity<MyResponse> findAllStatistics(PrincipalDetails principalDetails, String start, String end);
 }
