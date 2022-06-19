@@ -329,6 +329,12 @@ const routes = [
         name: 'OrderList',
         component: () => import('@/components/orderList.vue'),
     },
+    // 리뷰 등록
+    {
+        path: 'dashboard/review/new',
+        name: 'NewReview',
+        component: () => import('@/components/reviewNew.vue'),
+    },
     {
         path: '/login',
         name: 'Login',
