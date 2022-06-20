@@ -2,7 +2,6 @@
     <v-app>
         <BaseHeader />
         <router-view />
-        <BaseFooter />
         <BaseAlert />
     </v-app>
 </template>
