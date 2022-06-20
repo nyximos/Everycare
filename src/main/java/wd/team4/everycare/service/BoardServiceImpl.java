@@ -6,7 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
-import wd.team4.everycare.domain.*;
+import wd.team4.everycare.domain.Board;
+import wd.team4.everycare.domain.BoardCategory;
+import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.domain.Product;
+import wd.team4.everycare.dto.CommentFormDTO;
 import wd.team4.everycare.dto.UploadFile;
 import wd.team4.everycare.dto.board.BoardDTO;
 import wd.team4.everycare.dto.board.BoardInquiryDTO;
@@ -170,7 +174,6 @@ public class BoardServiceImpl implements BoardService {
         List<CommentDTO> commentDTOs = new ArrayList<>();
 
         all.stream().map(board -> board.toCommentDTO()).forEach(commentDTOs::add);
-
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("후기 조회")
@@ -183,6 +186,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public ResponseEntity<MyResponse> getDetailComment(Long boardId) {
         Board board = boardRepository.findById(boardId).orElse(null);
+        board.updateCount();
         CommentDTO commentDTO = board.toCommentDTO();
 
         MyResponse body = MyResponse.builder()
@@ -196,44 +200,34 @@ public class BoardServiceImpl implements BoardService {
 
     //변경 필요
     @Override
-    public ResponseEntity<MyResponse> createComment(PrincipalDetails principalDetails, CommentDTO commentDTO) throws IOException {
+    public ResponseEntity<MyResponse> createComment(PrincipalDetails principalDetails, CommentFormDTO commentFormDTO) throws IOException {
+
         Member member = principalDetails.getUser();
 
-        UploadFile uploadFile = fileStoreService.storeFile(commentDTO.getAttachFile());
-        String uploadFileName = uploadFile.getUploadFileName();
+        UploadFile uploadFile = fileStoreService.storeFile(commentFormDTO.getAttachFile());
         String storeFileName = uploadFile.getStoreFileName();
 
-        Product product = productRepository.findById(commentDTO.getProduct().getId()).orElse(null);
+        Long productId = commentFormDTO.getProductId();
+
+        Product product = productRepository.findById(productId).orElse(null);
 
         Board board = Board.builder()
-                .title(commentDTO.getTitle())
-                .content(commentDTO.getContent())
+                .title(commentFormDTO.getTitle())
+                .content(commentFormDTO.getContent())
                 .category(BoardCategory.후기)
                 .createdAt(LocalDateTime.now())
                 .count(0)
-                .rating(commentDTO.getRating())
-                .fileName(uploadFileName)
-                .filePath(storeFileName)
+                .rating(commentFormDTO.getRating())
+                .fileName(storeFileName)
                 .member(member)
                 .product(product)
                 .build();
 
-        List<Order> orderList = orderRepository.findByMember(member);
-        for (int i = 0; i < orderList.size(); i++) {
-            Long id = orderList.get(i).getId();
-            OrderProduct orderProduct = orderProductRepository.findByOrderIdAndProduct(id, product).orElse(null);
-
-            if(orderProduct!=null){
-                orderProduct.reviewed(orderProduct);
-            }
-        }
-
-        CommentDTO comment = board.toCommentDTO();
+        boardRepository.save(board);
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("후기 작성")
-                .body(comment)
                 .build();
 
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);

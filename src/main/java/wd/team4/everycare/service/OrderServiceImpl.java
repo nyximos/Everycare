@@ -17,6 +17,7 @@ import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.OrderProductRepository;
 import wd.team4.everycare.repository.OrderRepository;
 import wd.team4.everycare.repository.ProductRepository;
+import wd.team4.everycare.repository.query.OrderProductQueryRepository;
 import wd.team4.everycare.service.interfaces.OrderService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +35,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
     private final OrderProductRepository orderProductRepository;
+    private final OrderProductQueryRepository orderProductQueryRepository;
 
     @Override
     public ResponseEntity<MyResponse> order(HttpServletRequest request, PrincipalDetails principalDetails, OrderDTO orderDTO) {
@@ -137,15 +139,16 @@ public class OrderServiceImpl implements OrderService {
     public ResponseEntity<MyResponse> getCompleteOrder(PrincipalDetails principalDetails) {
 
         Member member = principalDetails.getUser();
-        List<Order> completionContract = orderRepository.findByMemberAndStatus(member, OrderStatus.COMPLETE);
 
-        List<SignOrderDTO> orderDTOs = new ArrayList<>();
+        List<OrderProduct> results = orderProductQueryRepository.findResult(member, OrderStatus.COMPLETE);
 
-        completionContract.stream().map(order -> order.toSignOrderDTO()).forEach(orderDTOs::add);
+        List<OrderProductDTO> orderProductDTOs = new ArrayList<>();
+
+        results.stream().map(result -> result.toOrderProductDTO()).forEach(orderProductDTOs::add);
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
-                .body(orderDTOs)
+                .body(orderProductDTOs)
                 .message("결제한 상품 목록 조회")
                 .build();
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);

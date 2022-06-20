@@ -4,6 +4,9 @@ import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import wd.team4.everycare.domain.Member;
+import wd.team4.everycare.domain.OrderProduct;
+import wd.team4.everycare.domain.OrderStatus;
 import wd.team4.everycare.domain.Store;
 
 import java.time.LocalDateTime;
@@ -26,6 +29,16 @@ public class OrderProductQueryRepository {
                 .where(orderProduct.product.store.eq(store),
                         orderProduct.order.paymentTime.between(startDate, endDate))
                 .groupBy(orderProduct.order.paymentTime, orderProduct.id)
+                .fetch();
+    }
+
+    public List<OrderProduct> findResult(Member member, OrderStatus status){
+        return queryFactory
+                .select(orderProduct)
+                .from(orderProduct)
+                .where(orderProduct.order.member.eq(member),
+                        orderProduct.order.status.eq(status))
+                .groupBy(orderProduct.order.paymentTime)
                 .fetch();
     }
 }
