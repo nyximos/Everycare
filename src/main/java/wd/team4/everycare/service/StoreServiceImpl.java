@@ -149,7 +149,7 @@ public class StoreServiceImpl implements StoreService {
         LocalDateTime endTime = StringToLocalDateTime(end);
 
 
-        HashMap<String, StatisticsDTO> statisticsItem = new HashMap<>();
+        HashMap<String, Object> statisticsItem = new HashMap<>();
         for (Store store : storeList) {
             List<Tuple> statistics = orderProductQueryRepository.findStatistics(startTime, endTime, store);
             for (Tuple tuple : statistics) {
@@ -159,7 +159,11 @@ public class StoreServiceImpl implements StoreService {
 
                 switch (month) {
                     case 1:
-                        statisticsItem.put("1", new StatisticsDTO(amount, payTime));
+                        if (amount != null) {
+                            statisticsItem.put("1", new StatisticsDTO(amount, payTime));
+                        } else {
+                            statisticsItem.put("1", 0);
+                        }
                         break;
                     case 2:
                         statisticsItem.put("2", new StatisticsDTO(amount, payTime));
@@ -200,11 +204,12 @@ public class StoreServiceImpl implements StoreService {
         }
 
         MyResponse body = MyResponse.builder()
+
                 .header(StatusEnum.OK)
                 .message("총 매출 통계")
                 .body(statisticsItem)
                 .build();
-
+        System.out.println(statisticsItem.get("1"));
         return new ResponseEntity<>(body, HttpStatus.OK);
     }
 
@@ -223,8 +228,9 @@ public class StoreServiceImpl implements StoreService {
         List<Integer> list = productQueryRepository.findSalesByProduct(id, startTime, endTime);
 
         int sum = 0;
-        for (OrderProduct orderProduct : list) {
-            sum += orderProduct.getAmount();
+        for (Integer integer : list) {
+            int i = integer.intValue();
+            sum+=i;
         }
 
         MyResponse<Integer> body = MyResponse.<Integer>builder()

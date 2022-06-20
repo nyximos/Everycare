@@ -238,7 +238,7 @@ export default {
     },
     computed: {
         firstName(){
-          return this.$store.state.cart.cart[0].productId+'외'+(this.$store.state.cart.cart.length-1)+'건';
+          return this.$store.state.cart.cart[0].name+' 외 '+(this.$store.state.cart.cart.length-1)+'건';
         },
         length() {
             return this.$store.state.cart.cart.length;

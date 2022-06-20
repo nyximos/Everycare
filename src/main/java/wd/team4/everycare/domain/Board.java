@@ -131,6 +131,9 @@ public class Board {
                 .product(this.product.toProductCategoryDTO())
                 .build();
     }
+    public void updateRating(int rating) {
+        this.rating = rating;
+    }
 
     public void updateCount(){
         this.count+=1;
