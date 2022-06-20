@@ -5,9 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import wd.team4.everycare.config.auth.PrincipalDetails;
+import wd.team4.everycare.dto.CommentFormDTO;
 import wd.team4.everycare.dto.board.BoardDTO;
 import wd.team4.everycare.dto.board.BoardInquiryDTO;
-import wd.team4.everycare.dto.board.CommentDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.service.BoardServiceImpl;
 
@@ -76,8 +76,8 @@ public class BoardApiController {
     }
 
     @PostMapping("/dashboard/orders/products")
-    public ResponseEntity<MyResponse> createReview(@AuthenticationPrincipal PrincipalDetails principalDetails, @ModelAttribute CommentDTO commentDTO) throws IOException {
-        ResponseEntity<MyResponse> review = boardService.createComment(principalDetails, commentDTO);
+    public ResponseEntity<MyResponse> createReview(@AuthenticationPrincipal PrincipalDetails principalDetails, @ModelAttribute CommentFormDTO commentFormDTO) throws IOException {
+        ResponseEntity<MyResponse> review = boardService.createComment(principalDetails, commentFormDTO);
         return review;
     }
 

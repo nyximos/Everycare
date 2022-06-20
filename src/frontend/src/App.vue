@@ -1,8 +1,7 @@
 <template>
     <v-app>
-        <BaseHeader />
+        <BaseHeader v-if="!$route.meta.hideNavbar"/>
         <router-view />
-        <BaseFooter />
         <BaseAlert />
     </v-app>
 </template>

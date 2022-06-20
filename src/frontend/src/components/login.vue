@@ -41,10 +41,8 @@ export default {
             if (this.json.username == '') {
                 alert('아이디를 입력해주세요.');
                 return;
-            } else if (this.json.password == '') {
-                alert('패스워드를 입력해주세요.');
-                return;
-            }
+            } 
+            
             console.log(userinfo);
             this.$http
                 .post('https://localhost:8086/login', userinfo, {
@@ -125,5 +123,10 @@ export default {
 .login-button {
     margin-top: 10%;
     width: 100%;
+}
+.idpwfind{
+    position: relative;
+    left: 110px;
+    top: 10px;
 }
 </style>

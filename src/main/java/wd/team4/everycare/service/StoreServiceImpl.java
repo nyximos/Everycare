@@ -1,5 +1,6 @@
 package wd.team4.everycare.service;
 
+import com.querydsl.core.Tuple;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
-import wd.team4.everycare.domain.OrderProduct;
 import wd.team4.everycare.domain.Store;
 import wd.team4.everycare.dto.product.ProductListViewDTO;
 import wd.team4.everycare.dto.store.StoreAdminViewDTO;
@@ -17,6 +17,7 @@ import wd.team4.everycare.domain.OrderProduct;
 import wd.team4.everycare.dto.order.OrderProductDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
+import wd.team4.everycare.dto.store.StatisticsDTO;
 import wd.team4.everycare.dto.store.StoreAdminViewDTO;
 import wd.team4.everycare.dto.store.StoreFormDTO;
 import wd.team4.everycare.repository.MemberRepository;
@@ -146,31 +147,30 @@ public class StoreServiceImpl implements StoreService {
     public ResponseEntity<MyResponse> findAllStatistics(PrincipalDetails principalDetails, String start, String end) {
         Member member = principalDetails.getUser();
         List<Store> storeList = storeRepository.findByMember(member);
-//        int total = 0;
-//        for (Store store : storeList) {
-//            List<OrderProduct> statistics = orderProductQueryRepository.findStatistics(start, end, store);
-//            for (OrderProduct orderProduct: statistics) {
-//                int quantity = orderProduct.getQuantity();
-//                total+=quantity;
-//            }
-//        }
+
         LocalDateTime startTime = StringToLocalDateTime(start);
         LocalDateTime endTime = StringToLocalDateTime(end);
 
-        List<OrderProductDTO> orderProductDTOs = new ArrayList<>();
-        List<OrderProduct> orderProducts = new ArrayList<>();
+        List<StatisticsDTO> statisticsDTOs = new ArrayList<>();
 
         for (Store store : storeList) {
-            List<OrderProduct> statistics = orderProductQueryRepository.findStatistics(startTime, endTime, store);
-            orderProducts.addAll(statistics);
-        }
+            List<Tuple> statistics = orderProductQueryRepository.findStatistics(startTime, endTime, store);
+            for (Tuple tuple : statistics) {
+                Integer amount = tuple.get(0, Integer.class);
+                LocalDateTime payTime = tuple.get(1, LocalDateTime.class);
 
-        orderProducts.stream().map(orderProduct -> orderProduct.toOrderProductDTO()).forEach(orderProductDTOs::add);
+                System.out.println("payTime = " + payTime);
+                StatisticsDTO statisticsItem = new StatisticsDTO(amount, payTime);
+
+                statisticsDTOs.add(statisticsItem);
+            }
+        }
+        System.out.println("statisticsDTOs = " + statisticsDTOs);
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("총 매출 통계")
-                .body(orderProductDTOs)
+                .body(statisticsDTOs)
                 .build();
 
         return new ResponseEntity<>(body, HttpStatus.OK);
@@ -181,21 +181,19 @@ public class StoreServiceImpl implements StoreService {
         LocalDate startDate = LocalDate.parse(start);
         LocalDate endDate = LocalDate.parse(end);
 
-        LocalDateTime startDateTime = startDate.atStartOfDay();
-        LocalDateTime endDateTime = endDate.atStartOfDay();
+        LocalDateTime startTime = startDate.atStartOfDay();
+        LocalDateTime endTime = endDate.atStartOfDay();
 
-        System.out.println("startDateTime = " + startDateTime);
-        System.out.println("endDateTime = " + endDateTime);
+        System.out.println("startDateTime = " + startTime);
+        System.out.println("endDateTime = " + endTime);
 
 
-//        LocalDateTime startDateTime = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-//        LocalDateTime endDateTime = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-        List<OrderProduct> list = productQueryRepository.findSalesByProduct(id, startDateTime, endDateTime);
+        List<Integer> list = productQueryRepository.findSalesByProduct(id, startTime, endTime);
 
         int sum = 0;
-        for (OrderProduct orderProduct : list) {
-            sum+=orderProduct.getAmount();
+        for (Integer integer : list) {
+            int i = integer.intValue();
+            sum+=i;
         }
 
         MyResponse<Integer> body = MyResponse.<Integer>builder()
