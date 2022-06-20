@@ -38,7 +38,7 @@ public class OrderProductQueryRepository {
                 .from(orderProduct)
                 .where(orderProduct.order.member.eq(member),
                         orderProduct.order.status.eq(status))
-                .groupBy(orderProduct.order.paymentTime)
+                .groupBy(orderProduct.order.paymentTime, orderProduct.id)
                 .fetch();
     }
 }

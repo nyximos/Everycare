@@ -344,7 +344,7 @@ const routes = [
     // 리뷰 상세
     {
         path: '/dashboard/review/new',
-        name: 'NewReview',
+        name: 'ReviewDetail',
         component: () => import('@/components/reviewNew.vue'),
     },
     {

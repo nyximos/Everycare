@@ -4,7 +4,13 @@
        <div v-else>Review({{reviews.length}})
        <hr>
        <v-container>
-        <v-card v-for="item in reviews" :key="item.index" class="mt-4">
+        <v-card v-for="item in calData" :key="item.index" class="mt-4">
+          <v-rating
+            :value="item.rating"
+            background-color="purple lighten-3"
+            color="purple"
+            large
+          ></v-rating>
             <v-card-title>{{item.title}}</v-card-title>
             <v-card-text>
                 <div class="text-end">
@@ -20,10 +26,11 @@
             </v-card-text>
         </v-card>
           <div class="text-center">
-    <v-pagination
-      class="mt-3"
+            <v-pagination
+            class="mt-3"
       v-model="curPageNum"
       :length="numOfPages"
+      circle
     ></v-pagination>
   </div>
         </v-container>
@@ -41,6 +48,7 @@ mounted() {
 		.then((res)=>{
         console.log(res.data);
         this.reviews=res.data.body
+        // this.rating= res.data.body
         
       }).catch(err =>{
 		console.log(err);
@@ -48,8 +56,9 @@ mounted() {
 },
 data(){
     return{
+        // rating: this.rating,
         reviews:[],
-        dataPerPage:4,
+        dataPerPage:2,
         curPageNum:1,
     }
 },
