@@ -8,16 +8,16 @@
     max-width="300"
     v-for="(n,index) in note" :key="index">
     <v-img 
-    v-if="n.storename==''"
-      src="'https://localhost:8086/api/images/' + n.storeName"
-      height="250px"
-    ></v-img>
-    <v-img 
-    v-else
+    v-if="n.storeFileName ==null"
     src="@/assets/note.png"
     height="200px"
     width="200px"
     style="margin:0 auto;"
+    ></v-img>
+    <v-img 
+      v-else
+      :src="'https://localhost:8086/api/images/' + n.storeName"
+      height="250px"
     ></v-img>
     <v-card-title>
         <h4 class="write">{{n.date}}</h4>
@@ -61,9 +61,6 @@ export default {
         .then((res)=>{
             console.log(res.data.body);
             this.note = res.data.body
-            // this.date = res.data.body.endTime.format('YYYY-MM-DD');
-            // console.log(this.date)
-            
         })
         .catch((err)=>{
             console.log(err);
@@ -71,13 +68,6 @@ export default {
     },
     methods:{    
         detail(n){
-            // const contract ={
-            //     contractId : this.$route.params.contentId,
-            // };
-            // // console.log(caretarget)
-            // this.$store.commit('carenoteStore/contract', contract);
-            
-        // console.log(c.id);
             this.$router.push({name:'note_detail', params:{noteId:n.id , contractId : this.$route.params.contentId}});
         }
     }
@@ -90,14 +80,14 @@ export default {
         width:100%;
     }
     .subtitle{
-      padding-bottom: 60px;
+      padding-bottom: 20px;
     }
     .title{
         width: 100%
     }
     .title h2{
         text-align: center;
-        padding: 70px;
+        padding: 30px;
     }
     .v-card__title{
         padding: 5px;

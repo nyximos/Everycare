@@ -11,7 +11,14 @@
       height="200px"
       width="150px"
       style="margin:0 auto;"
-      v-if="c.caretargetImage == null"
+      v-if="c.careTargetImage == null"
+    ></v-img>
+    <v-img
+      v-else
+      :src="'https://localhost:8086/api/images/'+ c.careTargetImage"
+      height="200px"
+      width="200px"
+      style="margin:0 auto;"
     ></v-img>
 
 

@@ -1,5 +1,6 @@
 <template>
   <div class="content">
+
       <v-card
     class="mx-auto"
     max-width="300"
