@@ -20,7 +20,7 @@
         dark
         @click="report(c)"
       >
-        Decline
+        신고
         <v-icon
           dark
           right
@@ -75,7 +75,7 @@
             </div>
         </div>
         <div class="pop_footer"><a href="#" class="btn_submit" @click="report2()">신고하기</a></div> <button type="button"
-            class="btn_close"><span class="blind">닫기</span></button>
+            class="btn_close" @click="closeDialog"><span class="blind">닫기</span></button>
     </div>
     </v-dialog>
   </div>
@@ -111,6 +111,11 @@ export default {
         })
     },
     methods:{
+        closeDialog(){
+            
+            this.Dialog01 = false;
+            
+        },
         note(c){        
             this.$router.push({ name: 'complete_membernote', params: { contractId: c.id, targetId:this.$route.params.targetId }})
         },
@@ -133,7 +138,7 @@ export default {
                 formData.append('contractId',this.id);
 
                 this.$http
-    .post('/api/reports/care',formData, {
+    .post('/api/reports/care/member',formData, {
     withCredentials: true
     })
      .then(res => {

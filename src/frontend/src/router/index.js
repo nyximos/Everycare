@@ -527,11 +527,11 @@ const routes = [
         name: 'memberscheduledetail',
         component: () => import('@/pages/Member_Schedule_Detail.vue')
     },
-    {
-        path: '/dashboard/memberschedule/:memberscheduleId/update',
-        name: 'memberscheduleupdate',
-        component: () => import('@/pages/Member_Schedule_Update.vue')
-    },
+    // {
+    //     path: '/dashboard/memberschedule/:memberscheduleId/update',
+    //     name: 'memberscheduleupdate',
+    //     component: () => import('@/pages/Member_Schedule_Update.vue')
+    // },
     {
         path: '/admin/members',
         name: 'adminpage',
