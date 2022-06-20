@@ -19,6 +19,7 @@ public class BoardDTO {
     private Long id;
     private String title;
     private String content;
+    private int rating;
     private BoardCategory category;
     @DateTimeFormat(pattern = "yyyy-MM-ddTHH:mm:ss.SSS")
     private LocalDateTime createdAt;
@@ -33,6 +34,7 @@ public class BoardDTO {
     public Board toBoard(){
         return Board.builder()
                 .id(this.id)
+                .rating(this.rating)
                 .title(this.title)
                 .content(this.content)
                 .category(this.category)

@@ -139,4 +139,7 @@ public class Board {
         this.count+=1;
     }
 
+    public void updateRating(int rating) {
+        this.rating = rating;
+    }
 }
