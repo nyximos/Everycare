@@ -32,6 +32,7 @@ public class BoardDTO {
     private String filePath;
     private MemberInfoDTO memberInfoDTO;
     private ProductCategoryDTO product;
+
     public Board toBoard(){
         return Board.builder()
                 .id(this.id)
