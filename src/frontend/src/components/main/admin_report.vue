@@ -140,7 +140,7 @@
                 
               </td>
               <td>{{r.reason}}</td>
-              <td>{{r.createdAt}}</td>
+              <td>{{r.createdAt.slice(0,10)}}</td>
 
               <td><button class="custom-btn btn-11" @click="stop(r)">활동정지</button>
               </td>
@@ -248,7 +248,7 @@
   font-size:12px;
 }
 .btn-11:hover {
-   background: #000;
+   background: #81C784;
   color: #fff;
 }
 .btn-11:before {
