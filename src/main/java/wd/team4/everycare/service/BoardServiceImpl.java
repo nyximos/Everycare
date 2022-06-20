@@ -83,7 +83,7 @@ public class BoardServiceImpl implements BoardService {
         getInquiry.stream().map(board -> board.toBoardDTO()).forEach(inquiryDTO::add);
 
         /* TODO */
-        for (BoardDTO boardDTO:inquiryDTO) {
+        for (BoardDTO boardDTO : inquiryDTO) {
             String yyyyMMdd = boardDTO.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             boardDTO.setCreatedAt(boardDTO.getCreatedAt());
         }
@@ -211,19 +211,34 @@ public class BoardServiceImpl implements BoardService {
 
         Product product = productRepository.findById(productId).orElse(null);
 
-        Board board = Board.builder()
-                .title(commentFormDTO.getTitle())
-                .content(commentFormDTO.getContent())
-                .category(BoardCategory.후기)
-                .createdAt(LocalDateTime.now())
-                .count(0)
-                .rating(commentFormDTO.getRating())
-                .fileName(storeFileName)
-                .member(member)
-                .product(product)
-                .build();
+        if (commentFormDTO.getAttachFile() != null) {
 
-        boardRepository.save(board);
+            Board board = Board.builder()
+                    .title(commentFormDTO.getTitle())
+                    .content(commentFormDTO.getContent())
+                    .category(BoardCategory.후기)
+                    .createdAt(LocalDateTime.now())
+                    .count(0)
+                    .rating(commentFormDTO.getRating())
+                    .fileName(storeFileName)
+                    .member(member)
+                    .product(product)
+                    .build();
+            boardRepository.save(board);
+        } else {
+            Board board = Board.builder()
+                    .title(commentFormDTO.getTitle())
+                    .content(commentFormDTO.getContent())
+                    .category(BoardCategory.후기)
+                    .createdAt(LocalDateTime.now())
+                    .count(0)
+                    .rating(commentFormDTO.getRating())
+                    .member(member)
+                    .product(product)
+                    .build();
+            boardRepository.save(board);
+        }
+
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
@@ -245,7 +260,7 @@ public class BoardServiceImpl implements BoardService {
                 .message("후기 업데이트")
                 .body(commentDTO)
                 .build();
-        return new ResponseEntity<MyResponse>(body,HttpStatus.OK);
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }
 
     //변경 필요
