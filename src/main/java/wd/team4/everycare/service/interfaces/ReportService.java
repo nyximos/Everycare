@@ -9,6 +9,8 @@ public interface ReportService {
 
     ResponseEntity<MyResponse> saveCareReports(PrincipalDetails principalDetails, ReportFormDTO reportForm);
 
+    ResponseEntity<MyResponse> saveCareSitterReports(PrincipalDetails principalDetails, ReportFormDTO reportForm);
+
     ResponseEntity<MyResponse> saveBoardReports(PrincipalDetails principalDetails, ReportFormDTO reportForm);
 
     ResponseEntity<MyResponse> getAll();
@@ -24,4 +26,5 @@ public interface ReportService {
     ResponseEntity<MyResponse> getAllReviewsByStatus(int status);
 
     ResponseEntity<MyResponse> getAllContractsByStatus(int status);
+
 }
