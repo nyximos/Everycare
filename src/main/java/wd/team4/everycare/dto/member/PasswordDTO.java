@@ -9,6 +9,8 @@ import javax.validation.constraints.NotBlank;
 @Setter
 public class PasswordDTO {
 
+    private String password;
+
     @NotBlank(message = "비밀번호가 입력되지 않았어요")
     private String newPassword;
 

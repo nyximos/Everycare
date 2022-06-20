@@ -262,12 +262,19 @@ public class MemberServiceImpl implements MemberService {
         Optional<Member> member = memberRepository.findById(id);
         Member memberEntity = member.orElse(null);
 
-        String password = bCryptPasswordEncoder.encode(passwordDTO.getNewPassword());
-        memberEntity.updatePassword(password);
+        if(memberEntity.getPassword().equals(passwordDTO.getPassword())){
+            String password = bCryptPasswordEncoder.encode(passwordDTO.getNewPassword());
+            memberEntity.updatePassword(password);
+
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.OK)
+                    .message("변경 성공")
+                    .build();
+        }
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
-                .message("변경 성공")
+                .message("변경 실패")
                 .build();
 
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
