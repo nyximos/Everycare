@@ -113,11 +113,12 @@
                 </label>
               </th>
               
-              <th scope="col">계약서 이름</th>
-              <th scope="col">신고대상</th>
+              <th scope="col">리뷰 번호</th>
+              <th scope="col">리뷰 내용</th>
               <th scope="col">신고자</th>
-              <th scope="col">신고사유</th>
+              <th scope="col">작성자</th>
               
+              <th scope="col">신고사유</th>
               <th scope="col">신고날짜</th>
               <th scope="col">관리자 권한</th>
             </tr>
@@ -132,17 +133,18 @@
               </th>
               
               <td>
-                {{r.contractName}}
+                {{r.boardId}}
               </td>
-              <td><a href="#"></a></td>
+              <td><a href="#">{{r.boardContent}}</a></td>
+              <td><a href="#">{{r.memberId}}({{r.memberName}})</a></td>
               
-                <td><a href="#">{{r.memberId}}({{r.memberName}})</a>
+                <td><a href="#">{{r.reportedUserId}}</a>
                 
               </td>
               <td>{{r.reason}}</td>
-              <td></td>
+              <td>{{r.createdAt.slice(0,10)}}</td>
 
-              <td><button class="custom-btn btn-11" @click="stop(r)">활동정지</button>
+              <td><button class="custom-btn btn-11" @click="stop()">해당리뷰삭제</button>
               </td>
             </tr>
             
@@ -199,10 +201,10 @@
         select: function() {
             this.allSelected = false;
         },
-        stop(r){
+        stop(){
           
           this.$http
-          .patch(`/api/admin/members/${r.reportedUserId}/activites/stop`, {
+          .delete(`/api/admin/reports/review`, {
             withCredentials: true
           })
         },
