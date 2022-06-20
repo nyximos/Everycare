@@ -8,7 +8,7 @@
       <v-container fluid>
         <v-rating
             class="text-start"
-            v-model="this.rating"
+            v-model="rating"
             background-color="yellow darken-1"
             color="yellow darken-1"
             large
