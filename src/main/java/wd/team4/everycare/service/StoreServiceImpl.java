@@ -150,20 +150,31 @@ public class StoreServiceImpl implements StoreService {
 
 
         HashMap<String, Object> statisticsItem = new HashMap<>();
+        statisticsItem.put("1",0);
+        statisticsItem.put("2",0);
+        statisticsItem.put("3",0);
+        statisticsItem.put("4",0);
+        statisticsItem.put("5",0);
+        statisticsItem.put("6",0);
+        statisticsItem.put("7",0);
+        statisticsItem.put("8",0);
+        statisticsItem.put("9",0);
+        statisticsItem.put("10",0);
+        statisticsItem.put("11",0);
+        statisticsItem.put("12",0);
+
         for (Store store : storeList) {
             List<Tuple> statistics = orderProductQueryRepository.findStatistics(startTime, endTime, store);
+
             for (Tuple tuple : statistics) {
+
                 Integer amount = tuple.get(0, Integer.class);
                 LocalDateTime payTime = tuple.get(1, LocalDateTime.class);
                 int month = payTime.getMonthValue();
 
                 switch (month) {
                     case 1:
-                        if (amount != null) {
-                            statisticsItem.put("1", new StatisticsDTO(amount, payTime));
-                        } else {
-                            statisticsItem.put("1", 0);
-                        }
+                        statisticsItem.put("1", new StatisticsDTO(amount, payTime));
                         break;
                     case 2:
                         statisticsItem.put("2", new StatisticsDTO(amount, payTime));

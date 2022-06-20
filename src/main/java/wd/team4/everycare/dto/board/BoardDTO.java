@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import wd.team4.everycare.domain.Board;
 import wd.team4.everycare.domain.BoardCategory;
 import wd.team4.everycare.dto.member.MemberInfoDTO;
+import wd.team4.everycare.dto.product.ProductCategoryDTO;
 
 import java.time.LocalDateTime;
 
@@ -30,6 +31,7 @@ public class BoardDTO {
     private String fileName;
     private String filePath;
     private MemberInfoDTO memberInfoDTO;
+    private ProductCategoryDTO product;
 
     public Board toBoard(){
         return Board.builder()

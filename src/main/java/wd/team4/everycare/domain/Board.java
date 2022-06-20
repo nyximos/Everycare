@@ -91,6 +91,7 @@ public class Board {
                 .fileName(this.fileName)
                 .filePath(this.filePath)
                 .memberInfoDTO(this.member.toMemberInfoDTO())
+                .product(this.product.toProductCategoryDTO())
                 .build();
     }
 
