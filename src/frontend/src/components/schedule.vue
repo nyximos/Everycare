@@ -3,7 +3,7 @@
         <li class="sche_list" v-for="(postItem, i) in postItems" :key="i">
             <v-card class="mx-auto" max-width="300">
                 <v-card-text>
-                    {{ postItem.name }}님 <br />
+                    {{ postItem.name }} <br />
                     {{ postItem.startTime }} -
                     {{ postItem.endTime }}
                 </v-card-text>
