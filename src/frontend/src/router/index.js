@@ -108,12 +108,12 @@ const routes = [
         name: 'carenote',
         component: () => import('@/pages/Carenote'),
     },
-    {
-        //케어노트 출근 시작 시간/출근 시간 (o)
-        path: '/carenote/:contentId',
-        name: 'carenotestart',
-        component: () => import('@/components/main/carenotestart'),
-    },
+    // {
+    //     //케어노트 출근 시작 시간/출근 시간 (o)
+    //     path: '/carenote/:contentId',
+    //     name: 'carenotestart',
+    //     component: () => import('@/components/main/carenotestart'),
+    // },
     {
         //케어노트 활동 스케줄(케어시터) (o)
         path: '/carenote/caretarget/:contentId/schedules',
@@ -240,11 +240,11 @@ const routes = [
         component: () => import('@/components/productPayment.vue'),
     },
     // 관리자 케어스토어 목록
-    {
-        path: '/admin/stores',
-        name: 'adminStores',
-        component: () => import('@/pages/AdminStores.vue'),
-    },
+    // {
+    //     path: '/admin/stores',
+    //     name: 'adminStores',
+    //     component: () => import('@/pages/AdminStores.vue'),
+    // },
     // 관리자 케어스토어 목록 상세
     {
         path: '/admin/stores/:contentId',
@@ -276,11 +276,11 @@ const routes = [
         component: () => import('@/components/itemDetail.vue')
     },
     // 공지 조회
-    {
-        path: '/notice',
-        name: 'Notice',
-        component: () => import('@/pages/Notice.vue'),
-    },
+    // {
+    //     path: '/notice',
+    //     name: 'Notice',
+    //     component: () => import('@/pages/Notice.vue'),
+    // },
     // 공지 등록
     {
         path: '/admin/notice/new',
@@ -357,6 +357,16 @@ const routes = [
             else next();
         },
     },
+    {
+        path: '/findinfo',
+        name: 'findinfo',
+        component: () => import('@/pages/Findinfo.vue')
+    },
+    // {
+    //     path: '/caresitters',
+    //     name: 'caresitters',
+    //     component: Caresitters,
+    // },
     {
         path: '/works',
         name: 'FindWork',
@@ -455,9 +465,9 @@ const routes = [
         component:() => import('@/pages/Member_Schedule_Detail.vue')
      },
      {
-        path: '/dashboard/memberschedule/:memberscheduleId/update',
-        name: 'memberscheduleupdate',
-        component:() => import('@/pages/Member_Schedule_Update.vue')
+        path: '/dashboard/:caresitterId/myinformation',
+        name: 'myinformation',
+        component:() => import('@/pages/MyInformation')
      },
     {
         path: '/admin/members',
@@ -474,6 +484,15 @@ const routes = [
         name: 'mypage_joblist',
         component: () => import('@/components/main/mypage_joblist'),
     },
+    {
+        path: '/idcheck',
+        name: 'idcheck',
+        component: () => import('@/pages/Idcheck.vue'),
+        meta: {
+            hideNavbar: true,
+            hideFooter: true,
+           }
+    }
 
 ];
 

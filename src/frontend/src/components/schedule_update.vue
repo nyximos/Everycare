@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div>
       <v-btn
             class="back_btn"
@@ -61,6 +61,7 @@ export default {
                 this.name = res.body.body.careTargetScheduleDTO.name;
                 this.startTime = res.body.body.careTargetScheduleDTO.startTime;
                 this.endTime = res.body.body.careTargetScheduleDTO.endTime;
+                
             })
             .catch((err) => {
                 console.log(err);
@@ -105,4 +106,4 @@ export default {
 
 <style>
 
-</style>
+</style> -->

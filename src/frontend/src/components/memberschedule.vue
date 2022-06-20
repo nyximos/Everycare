@@ -2,24 +2,23 @@
     <div class="sc-component">
     <li class="sche_list" v-for="(postItem, i) in postItems" :key="i">
             <v-card 
+            id="memschcard"
             class="mx-auto" 
-            max-width="300" 
+            max-width="1000" 
             >
-            <v-card-text>
-                {{postItem.name}}
+            <v-card-text id="schname">
+                <h3>{{postItem.name}}</h3>
                 <br>
                 </v-card-text>
+                <v-divider id='line' class="mx-4"></v-divider>
                 <v-card-actions>
-                    <v-btn x-small color="blue" dark @click="update(postItem)"> 수정 </v-btn>
-                <v-btn x-small color="error" dark @click="delet(postItem)"> 삭제 </v-btn>
-                 <v-btn x-small color="gray" dark @click="detailPage(postItem)"> 상세 </v-btn>
+                    <v-btn color="blue" id="btn" fab text @click="update(postItem)"> 수정 </v-btn>
+                <v-btn color="red" id="btn" fab text @click="delet(postItem)"> 삭제 </v-btn>
+                 <v-btn color="gray" id="btn" fab text @click="detailPage(postItem)"> 상세 </v-btn>
            </v-card-actions>
            </v-card>
         </li> 
          <v-dialog v-model="dialogUd" @click:outside="closeDialog" width="500">
-            <template v-slot:activator="{ on, attrs }">
-                <v-btn class="sc-add-btn" color="#69f0ae" dark v-bind="attrs" v-on="on"> 스케줄 추가 </v-btn>
-            </template>
             <div>
                 <v-card class="mx-auto my-12" max-width="374">
                     <template slot="progress"> </template>
@@ -37,14 +36,14 @@
                                     <v-col cols="15" lg="20">
                         
                                         <v-card-text>
-                                      <!-- <v-datetime-picker id="" label="시작 일시"  v-model="startDatetime2"> </v-datetime-picker>
-                                      <v-datetime-picker label="종료 일시"  v-model="endDatetime2"> </v-datetime-picker> -->
+                                      <v-datetime-picker id="" label="시작 일시"  v-model="startDatetime2"> </v-datetime-picker>
+                                      <v-datetime-picker label="종료 일시"  v-model="endDatetime2"> </v-datetime-picker>
                                       </v-card-text>  
                                     </v-col>
                                 </v-row>
                                 <v-card-text>
                                         <v-col cols="15" class="pb-0">
-                                           <!-- <v-datetime-picker label="알람 시간"  v-model="alarmTime2"> </v-datetime-picker> -->
+                                           <v-datetime-picker label="알람 시간"  v-model="alarmTime2"> </v-datetime-picker>
                                         </v-col>
                                        
                                     <v-text-field label="장소" v-model="addressName2"></v-text-field>
@@ -67,7 +66,12 @@
         </v-dialog>
         <v-dialog v-model="dialogPg" @click:outside="closeDialog" width="500">
             <template v-slot:activator="{ on, attrs }">
-                <v-btn class="sc-add-btn" color="#69f0ae" dark v-bind="attrs" v-on="on"> 스케줄 추가 </v-btn>
+            <v-container>
+                <v-btn class="mx-2" id="memschbtn"
+      fab color="#69f0ae" dark v-bind="attrs" v-on="on"><v-icon dark>
+        mdi-plus
+      </v-icon></v-btn>
+      </v-container>
             </template>
             <div>
                 <v-card class="mx-auto my-12" max-width="374">
@@ -85,14 +89,14 @@
                                     <v-col cols="15" lg="20">
                         
                                         <v-card-text>
-                                      <!-- <v-datetime-picker id="" label="시작 일시"  v-model="startDatetime"> </v-datetime-picker>
-                                      <v-datetime-picker label="종료 일시"  v-model="endDatetime"> </v-datetime-picker> -->
+                                      <v-datetime-picker id="" label="시작 일시"  v-model="startDatetime"> </v-datetime-picker>
+                                      <v-datetime-picker label="종료 일시"  v-model="endDatetime"> </v-datetime-picker>
                                       </v-card-text>  
                                     </v-col>
                                 </v-row>
                                 <v-card-text>
                                         <v-col cols="15" class="pb-0">
-                                           <!-- <v-datetime-picker label="알람 시간"  v-model="alarmTime"> </v-datetime-picker> -->
+                                           <v-datetime-picker label="알람 시간"  v-model="alarmTime"> </v-datetime-picker>
                                         </v-col>
                                        
                                     <v-text-field label="장소" v-model="addressName"></v-text-field>
@@ -118,7 +122,7 @@
 
 <script>
 import Vue from 'vue'
-// import DatetimePicker from 'vuetify-datetime-picker'
+import DatetimePicker from 'vuetify-datetime-picker'
 
 Vue.use(DatetimePicker)
 export default {
@@ -128,11 +132,17 @@ export default {
             id: this.$route.params.memberscheduleId,
             postItems: [],
             name: '',
+            name2:'',
             startDatetime: '',
+            startDatetime2:'',
             endDatetime: '',
+            endDatetime2:'',
             alarmTime: '',
+            alarmTime2:'',
             addressName: '',
+            addressName2: '',
             comment: '',
+            comment2: '',
             dialogPg: false,
             dialogUd: false
         };
@@ -144,7 +154,7 @@ export default {
                 withCredentials: true
             })
             .then(res => {
-                console.log(res.body.body);
+                // console.log(res.body.body);
                 this.postItems = res.data.body;
                
             })
@@ -164,17 +174,18 @@ export default {
             this.$router.push({name: 'memberscheduledetail', params:{memberscheduleId: postItem.id }});
         },
         update(postItem){
-            const userData ={
+            const scheData = {
                 id : postItem.id
             }
-            console.log(userData)
             this.dialogUd = true;
-            this.$store.commit('userCalendar/memsch', userData);
+            this.$store.commit('userCalendar/memsch', scheData);
             // this.id = this.$store.state.userCalendar.id;
             // this.id = this.$store.state.
-            console.log(this.$store.state.userCalendar.id);
+            console.log(this.$store.state.userCalendar.scheid);
         },
         dialogsav2(){
+            const id = this.$store.state.userCalendar.scheid;
+            console.log(id)
              var upmemschformData = new FormData();
             upmemschformData.append('name', this.name2);
             upmemschformData.append('startDatetime', this.startDatetime2.toISOString().replace('.000Z',''));
@@ -183,19 +194,23 @@ export default {
             upmemschformData.append('addressName', this.addressName2);
             upmemschformData.append('comment', this.comment2);
             this.$http
-                .patch(`/api/dashboard/calendar/${this.$store.state.userCalendar.id}`, upmemschformData, {
+                .patch(`/api/dashboard/calendar/${id}`, upmemschformData, {
                     withCredentials: true
                 })
                 .then(res => {
                     console.log(res);
                     // this.$router.go();
-                    this.dialogPg = false;
-                    
+                    this.dialogUd = false;
+                    this.$router.go();
                 })
                 .catch(err => {
                     console.log(err);
                 });
         },
+        dialogcel2(){
+            this.$refs.form.reset();
+           this.dialogUd = false;
+        }, 
         closeDialog() {
             this.$refs.form.reset();
         },
@@ -215,7 +230,7 @@ export default {
                     console.log(res);
                     // this.$router.go();
                     this.dialogPg = false;
-                    
+                    this.$router.go();
                 })
                 .catch(err => {
                     console.log(err);
@@ -270,5 +285,25 @@ export default {
     position: relative;
     left: 180px;
     bottom: 74px;
+}
+#memschbtn{
+    position: absolute;
+    left: 98%;
+    top: 98%;
+     transform: translate(-80%, -70%);
+}
+#memschcard{
+    width: 700px;
+    height: 160px;
+}
+#btn{
+ position: relative;
+ left: 500px;
+ bottom: 33px;
+}
+#line{
+    position: relative;
+    bottom: 15px;
+
 }
 </style>
