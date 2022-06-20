@@ -128,12 +128,12 @@
                                     <table class="table">
                                         <thead class="thead-light">
                                             <tr>
-                                                <th>
+                                                <!-- <th>
                                                     <label class="customcheckbox mb-3">
                                                         <input type="checkbox" id="mainCheckbox" v-model="checkAll" />
                                                         <span class="checkmark"></span>
                                                     </label>
-                                                </th>
+                                                </th> -->
                                                 <th scope="col">#</th>
                                                 <th scope="col">회원 아이디</th>
                                                 <th scope="col">이름</th>
@@ -143,12 +143,12 @@
                                         </thead>
                                         <tbody class="customtable" v-for="(c, index) in certifications" :key="index" @click="move(c)">
                                             <tr>
-                                                <th>
+                                                <!-- <th>
                                                     <label class="customcheckbox">
                                                         <input type="checkbox" class="listCheckbox" />
                                                         <span class="checkmark"></span>
                                                     </label>
-                                                </th>
+                                                </th> -->
                                                 <td>{{ c.id }}</td>
                                                 <td>{{ c.memberId }}</td>
                                                 <td>{{ c.memberName }}</td>

@@ -1,12 +1,13 @@
 <template>
   <div class="content">
-    <h1 class="title">완료된 케어노트</h1>
     <v-card class="mx-auto" max-width="344" v-for="(n,index) in note" :key="index">
-    <div v-if="n.storeName==''" class="img_div">
-        <img :src="'https://localhost:8086/api/images/' + n.storeName" width="75%"  class="img">
+    <div v-if="n.storeName==null" class="img_div">
+        <v-img src="@/assets/writing.png" width="75%" alt="사진없음"></v-img>
     </div>
     <div v-else class="img_div">
-        <v-img src="@/assets/writing.png" width="75%" alt="사진없음"></v-img>
+        <!-- <div style="margin 0 auto;"> -->
+        <img :src="'https://localhost:8086/api/images/' + n.storeName" width="70%"  class="img">
+        <!-- </div> -->
     </div>
     <v-card-title>
       <h2 class="name">{{n.careTargetName}} 님</h2>
@@ -69,8 +70,11 @@ export default {
     .button{
         margin: 0 auto;
     }
+    .img_div{
+        width: 100%;
+    }
     .img{
-        margin: 0 auto;
+        margin: 0 auto;;
     }
     /* .img_div{
         text-align: center;

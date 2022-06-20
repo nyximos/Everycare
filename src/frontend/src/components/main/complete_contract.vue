@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-      <h2>완료된 계약서</h2>
+      <h2 class="subtitle">완료된 계약서</h2>
       <v-card
     class="mx-auto"
     max-width="300"
@@ -11,7 +11,9 @@
       height="200px"
       width="150px"
       style="margin:0 auto;"
+      v-if="c.caretargetImage == null"
     ></v-img>
+
 
     <v-card-title>
         회원 아이디:{{c.memberId}} <br>
@@ -20,7 +22,7 @@
     </v-card-title>
     <v-card-subtitle>
       날짜: {{c.day}}<br>
-      {{c.payDateTime}}
+      결제날짜: {{c.payDateTime}}
     </v-card-subtitle>
  
 
@@ -110,6 +112,11 @@ export default {
     width: 100%;
     height: 100%;
     margin-bottom: 20px;
+  }
+  .subtitle{
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 30px;
   }
   .v-card--reveal {
   bottom: 0;

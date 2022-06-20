@@ -1,7 +1,7 @@
 <template>
   <div class="content">
       <div class="title">
-        <h2>완료된 케어노트</h2>
+        <h2 class="subtitle">완료된 케어노트</h2>
       </div>
       <v-card
     class="mx-auto"
@@ -88,6 +88,9 @@ export default {
     .content{
         height: 700px;
         width:100%;
+    }
+    .subtitle{
+      padding-bottom: 60px;
     }
     .title{
         width: 100%

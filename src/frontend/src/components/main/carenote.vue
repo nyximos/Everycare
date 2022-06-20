@@ -11,8 +11,8 @@
       시작시간:{{n.startTime}} ~ 종료시간:{{n.endTime}}
     </v-card-subtitle> -->
     <v-card-actions>
-        <div class="button" >
-            <v-btn class="ma-2" outlined color="indigo" @click="start(n)">케어시작</v-btn>
+        <div class="button">
+            <v-btn class="ma-2" outlined color="success" @click="start(n)">케어시작</v-btn>
         </div>
     </v-card-actions>
   </v-card>
@@ -42,6 +42,10 @@ export default {
     },
     methods:{
         start(n){
+            const targetData = {
+                targetName:n.careTargetName
+            }
+            this.$store.commit('caretargetStore/targetData', targetData);
             this.$router.push({name:'carenotestart' , params:{contentId:n.id}  })
         }
     }

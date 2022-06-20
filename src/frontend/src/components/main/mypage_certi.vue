@@ -1,11 +1,5 @@
 <template>
   <div>
-      <!-- <ul v-for="(c,index) in certification" :key="index">
-        <li>{{certification[index].id}}</li>
-        <li>{{certification[index].name}}</li>
-        <li>{{certification[index].createdAt}}</li>
-        <li>{{certification[index].approvalDate}}</li>
-      </ul> -->
       <br><br><br>
       <section class="main">
             <div class="board">

@@ -548,7 +548,7 @@ export default {
             formData.append('cctvAgreement', this.cctvAgreement);
             formData.append('introduction', this.introduction);
             formData.append('desiredDayWeek', this.desiredDayWeek);
-            formData.append('hopefuleRegion',this.hopefuleRegion);
+            formData.append('hopefulRegion',this.hope_loc1+this.hopeloc1_detail);
             formData.append('desiredHourlyWage', this.desiredHourlyWage);
             formData.append('desiredMonthlyWage', this.monthlyWage);
             formData.append('disclosureStatus',this.disclosureStatus);
@@ -559,14 +559,54 @@ export default {
             formData.append('attachFiles', this.img[i]);
           // console.log(this.img[i]);
           }
+          //  if(this.img ==""){
+          //   alert("사진");
+          //   return;
+          // }
+          if(this.hope_loc1 + this.hopeloc1_detail==""){
+            alert("희망지역을 선택해주세요!");
+            return;
+          }
+           if(this.desiredDayWeek==""){
+            alert("희망근무요일을 선택해주세요!");
+            return;
+          }
+          if(this.activityTime==""){
+            alert("희망활동시간을 선택해주세요!");
+            return;
+          }
+          if(this.desiredHourlyWage==""){
+            alert("시급을 입력해주세요!");
+            return;
+          }
+          if(this.desiredMonthlyWage==""){
+            alert("월급을 입력해주세요!");
+            return;
+          }
+          if(this.preferredType==""){
+             alert("선호유형을 선택해주세요!");
+             return;
+          }
+          if(this.vaccination==""){
+            alert("백신여부을 선택해주세요!");
+            return;
+          }
+          if(this.cctvAgreement==""){
+            alert("cctv 동의여부을 선택해주세요!");
+            return;
+          }
+           if(this.introduction==""){
+             alert("자기소개를 입력해주세요!");
+             return;
+           }
            this.$http
             .patch(`/api/dashboard/caresitter/${this.id}`, formData,{
                 withCredentials:true
             })
             .then(res=>{
                 console.log(res);
-              // alert("프로필 수정완료");
-              // this.$router.push({ path: '/Main' })
+              alert("프로필 수정완료");
+              this.$router.push({ path: '/Main' })
             }).catch(err=> {
                 console.log(err);
             })
@@ -580,6 +620,7 @@ export default {
           })
           .then((res)=>{
             console.log(res)
+            alert("이미지가 삭제되었습니다.")
           })
           .catch((err)=>{
             console.log(err)
@@ -600,7 +641,6 @@ export default {
        categoryChange(event){
         if(event =='서울'){
           this.detail_area = this.area1;
-          console.log(this.detail_area)
         }else if(event == '인천'){
           this.detail_area = this.area2;
         }else if(event =='경기'){

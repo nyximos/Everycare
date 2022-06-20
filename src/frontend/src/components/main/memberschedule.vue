@@ -6,7 +6,7 @@
                 <div class="tit">
                         <span class="name">케어대상인: OOO</span>
                         <span class="name">케어시터: OOO</span>
-                        <span class="button"><v-btn depressed>출근/퇴근 정보</v-btn></span>
+                        <!-- <span class="button"><v-btn depressed>출근/퇴근 정보</v-btn></span> -->
                         <span class="button"><v-btn depressed @click="information">후기작성 정보</v-btn></span>
                 </div>
           
@@ -35,9 +35,14 @@
                     <td>{{s.startTime}}</td>
                     <td>{{s.name}}</td>
                     <td>{{s.requirement}}</td>
-                    <td v-if="schedule.storeFileName=''"><img :src="'https://localhost:8086/api/images/' + s.storeFileName"></td>
-                    <td v-else>사진</td>
-                    <td>활동</td>
+                    <td v-if="s.storeFileName == null">사진</td>
+                    <td v-else>
+                        <img :src="'https://localhost:8086/api/images/' + s.storeFileName">
+                    </td>
+                    <td v-if="s.content == null">활동</td>
+                    <td v-else>
+                        {{s.content}}
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -126,12 +131,6 @@ export default {
         },
         submit(){
             const id =this.$route.params.contentId;
-            // const activity = this.$store.state.carenoteStore.categoryId;
-            // const rating = this.rating
-            // const comment = this.text
-            // console.log(rating)
-            // console.log(comment)
-            // console.log(activity);
             var formData = new FormData();
             formData.append('rating', this.rating)
             formData.append('comment', this.text)
@@ -142,6 +141,7 @@ export default {
             })
             .then((res)=>{
                 console.log(res);
+                alert("등록완료")
             })
             .catch((err)=>{
                 console.log(err);

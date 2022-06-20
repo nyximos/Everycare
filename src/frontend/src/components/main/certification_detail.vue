@@ -17,9 +17,9 @@
                     <div class="font-weight-light grey--text text-h7 mb-2">
                         회원 이름: <span>{{ detail.memberName }}</span>
                     </div>
-                    <div class="font-weight-light grey--text text-h7 mb-2">
+                    <!-- <div class="font-weight-light grey--text text-h7 mb-2">
                         uploadName: <span>{{ detail.uploadName }}</span>
-                    </div>
+                    </div> -->
                     <div class="font-weight-light grey--text text-h7 mb-2">
                         등록일: <span>{{ detail.createdAt }}</span>
                     </div>
@@ -65,6 +65,8 @@ export default {
                 })
                 .then((res) => {
                     console.log(res);
+                alert('등록완료')
+                this.$router.push({ path: '/admin/caresitter-certifications'})
                 })
                 .catch((err) => {
                     alert(err);
