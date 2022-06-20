@@ -93,7 +93,7 @@ public class ActivityInformation {
     }
 
 
-    public void update(ActivityInformationFormDTO activityInformationFormDTO) {
+    public void update(ActivityInformationFormDTO activityInformationFormDTO, ActivityClassification activityClassification) {
 
         if(StringUtils.isNotBlank(activityInformationFormDTO.getStartTime())) {
             this.startTime = activityInformationFormDTO.getStartTime();
@@ -104,6 +104,7 @@ public class ActivityInformation {
         if(StringUtils.isNotBlank(activityInformationFormDTO.getRequirement())) {
             this.requirement = activityInformationFormDTO.getRequirement();
         }
+        this.activityClassification = activityClassification;
     }
 
     public void postContent(String content) {
