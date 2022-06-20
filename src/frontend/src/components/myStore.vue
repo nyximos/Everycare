@@ -68,6 +68,18 @@
 export default {
 data(){
     return{
+        jan:this.jan,
+        feb:this.feb,
+        mar:this.mar,
+        apr:this.apr,
+        may:this.may,
+        june:this.june,
+        jul:this.jul,
+        aug:this.aug,
+        sep:this.sep,
+        oct:this.oct,
+        nov:this.nov,
+        dec:this.dec,
         search:this.search,
         startdate:this.startdate,
         enddate:this.enddate,
@@ -125,6 +137,18 @@ data(){
           })
         .then(res => {
           console.log(res);
+          this.jan = res.data.body[0];
+          this.feb = res.data.body[0];
+          this.mar = res.data.body[0];
+          this.apr = res.data.body[0];
+          this.may = res.data.body[0];
+          this.june = res.data.body[0];
+          this.jul = res.data.body[0];
+          this.aug = res.data.body[0];
+          this.sep = res.data.body[0];
+          this.oct = res.data.body[0];
+          this.nov = res.data.body[0];
+          this.dec = res.data.body[0];
           })
         .catch(err => {
           console.log(err);
