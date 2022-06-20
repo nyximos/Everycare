@@ -2,7 +2,17 @@
     <div>
         <v-card flat>
     <v-card-text>
+        
+          <v-img id="divProfile" :src="'https://localhost:8086/api/images/'+this.fileName" 
+                  class="mb-4"  alt="사진" width="300" height="300"/>
       <v-container fluid>
+        <v-rating
+            class="text-start"
+            v-model="this.rating"
+            background-color="yellow darken-1"
+            color="yellow darken-1"
+            large
+          ></v-rating>
         <v-row class="mt-5">
             <v-text-field
             v-model="title"
@@ -49,12 +59,14 @@ export default {
 mounted() {
      const id = Number(this.$route.params.contentId);
     this.$http
-    .get(`/api/store/products/qna/${id}`,{
+    .get(`/api/store/products/review/${id}`,{
         withCredentials:true
       })
 	.then((res)=>{
         console.log(res.data);
-        this.title=res.data.body.title,
+        this.fileName = res.data.body.fileName
+        this.rating = res.data.body.rating
+        this.title=res.data.body.title
         this.comment=res.data.body.content
         this.id=res.data.body.id
       }).catch(err =>{
@@ -64,7 +76,9 @@ mounted() {
 },
 data(){
     return{
-        boardId: this.id,
+        fileName: this.fileName,
+        rating: this.rating,
+        id: this.id,
         title: this.title,
         comment: this.comment
     }
@@ -72,11 +86,12 @@ data(){
 methods:{
     edit(){
     var formData = new FormData();
+    formData.append('rating', this.rating);
     formData.append('id', this.id);
     formData.append('title', this.title);
     formData.append('content', this.comment);
     this.$http
-    .patch(`/api/store/{id}/products/qna/${this.boardId}`, formData, {
+    .patch(`/api/dashboard/orders/products/${this.id}`, formData, {
     withCredentials: true
     })
      .then(res => {
@@ -91,7 +106,7 @@ methods:{
            id:this.id,
            }
     this.$http
-    .delete(`/api/admin/faq/${this.id}`, {
+    .delete(`/api/dashboard/orders/products/${this.id}`, {
       withCredentials: true
     })
     .then((res)=> {

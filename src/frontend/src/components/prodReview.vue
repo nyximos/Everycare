@@ -4,22 +4,27 @@
        <div v-else>Review({{reviews.length}})
        <hr>
        <v-container>
-        <v-card v-for="item in calData" :key="item.index" class="mt-4">
+        <v-card v-for="item in calData" :key="item.index" class="mt-4" @click="detail(item)">
           <v-rating
+            class="text-start"
             :value="item.rating"
-            background-color="purple lighten-3"
-            color="purple"
+            background-color="yellow darken-1"
+            color="yellow darken-1"
             large
           ></v-rating>
-            <v-card-title>{{item.title}}</v-card-title>
-            <v-card-text>
+          <v-card-text>
+          <v-img id="divProfile" :src="'https://localhost:8086/api/images/'+item.fileName" 
+                  class="mb-4"  alt="사진" width="80" height="80"/>
+            <h6 class="fw-bold text-black text-start">
+              {{item.title}}
+              </h6>
                 <div class="text-end">
                     {{item.createdAt.slice(0,10)}}
                     <v-btn icon>
                       <v-icon> mdi-cancel</v-icon>
                     </v-btn>
                 </div>
-                <div>
+                <div class="text-start">
                     {{item.content}}
                 </div>
                 
@@ -61,6 +66,16 @@ data(){
         dataPerPage:2,
         curPageNum:1,
     }
+},
+methods:{
+  detail(item){
+    this.$router.push({
+      name:'ReviewDetail',
+      params: {
+        contentId: item.id
+      }
+    })
+  },
 },
     computed: {
       startOffset() {
