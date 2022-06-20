@@ -40,24 +40,17 @@ export default {
                 })
                 .then(res => {
                     console.log(res);
-                    if(res.body.message='변경 실패'){
-                        alert('기존 비밀번호가 일치하지 않습니다.')
-                    }else if(res.data.message='변경 성공'){
+                    if(res.body.message=='변경 성공'){
+                        
                     this.$router.push({ name: 'main' });
                     this.$router.go();
-                    this.$store.commit('userStore/clearUsername');
-                    $.ajax({
-                        url: '/api/token',
-                        type: 'DELETE',
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        async: false
-                    });
+
                     }
                 })
                 .catch(err => {
                     console.log(err);
+                    alert('기존 비밀번호가 일치하지 않습니다.')
+
                 });
             }
         }

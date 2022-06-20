@@ -57,20 +57,21 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Optional<Member> isPresent(String id){
+    public Optional<Member> isPresent(String id) {
         Optional<Member> member = memberRepository.findById(id);
-        if(member.isPresent()){
+        if (member.isPresent()) {
             return member;
-        } else{
+        } else {
             throw new MemberNotFoundException();
         }
     }
 
     @Override
-    public boolean isEmpty(String id){
-        if(memberRepository.findById(id).isEmpty()) {
+    public boolean isEmpty(String id) {
+        if (memberRepository.findById(id).isEmpty()) {
             return true;
-        } throw new MemberHasExistException(id);
+        }
+        throw new MemberHasExistException(id);
     }
 
 
@@ -92,7 +93,7 @@ public class MemberServiceImpl implements MemberService {
                     .activityStatus(member.getActivityStatus())
                     .build();
             memberListViewDTOs.add(memberListViewDTO);
-         }
+        }
 
         MyResponse<List<MemberListViewDTO>> body = MyResponse.<List<MemberListViewDTO>>builder()
                 .header(StatusEnum.OK)
@@ -113,7 +114,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member signupDtoToEntity(SignupDTO signupDTO){
+    public Member signupDtoToEntity(SignupDTO signupDTO) {
         return MemberService.super.signupDtoToEntity(signupDTO);
     }
 
@@ -132,14 +133,14 @@ public class MemberServiceImpl implements MemberService {
                 .role(memberEntity.getRole())
                 .build();
 
-        if(careSitter!=null) {
+        if (careSitter != null) {
             memberInfoDTO.setCareSitterId(memberEntity.getCareSitter().getId());
         }
-        if(store!=null) {
+        if (store != null) {
             memberInfoDTO.setStoreId(memberEntity.getStore().getId());
         }
 
-            MyResponse<MemberInfoDTO> body = MyResponse.<MemberInfoDTO>builder()
+        MyResponse<MemberInfoDTO> body = MyResponse.<MemberInfoDTO>builder()
                 .header(StatusEnum.OK)
                 .message("성공했슴다~")
                 .body(memberInfoDTO)
@@ -196,7 +197,6 @@ public class MemberServiceImpl implements MemberService {
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
 
 
-
     }
 
 //    @Override
@@ -237,7 +237,7 @@ public class MemberServiceImpl implements MemberService {
 
         Optional<Member> member = memberRepository.findById(id);
 
-        if(member.isEmpty()) {
+        if (member.isEmpty()) {
             MyResponse body = MyResponse.builder()
                     .header(StatusEnum.OK)
                     .message("성공")
@@ -263,7 +263,7 @@ public class MemberServiceImpl implements MemberService {
         Member memberEntity = member.orElse(null);
 
 
-        if(bCryptPasswordEncoder.matches(passwordDTO.getPassword(), memberEntity.getPassword()) ){
+        if (bCryptPasswordEncoder.matches(passwordDTO.getPassword(), memberEntity.getPassword())) {
 
             String password = bCryptPasswordEncoder.encode(passwordDTO.getNewPassword());
             memberEntity.updatePassword(password);
@@ -273,16 +273,18 @@ public class MemberServiceImpl implements MemberService {
                     .message("변경 성공")
                     .build();
 
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+
+
         } else {
 
             MyResponse body = MyResponse.builder()
-                    .header(StatusEnum.OK)
+                    .header(StatusEnum.BAD_REQUEST)
                     .message("변경 실패")
                     .build();
 
-            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+            return new ResponseEntity<MyResponse>(body, HttpStatus.BAD_REQUEST);
         }
-
     }
-
 }
+
