@@ -52,29 +52,14 @@
     </v-sheet>
 
     <v-card-text class="pt-0">
-      <div class="text-h6 font-weight-light mb-2">
-        User Registrations
-      </div>
-      <div class="subheading font-weight-light grey--text">
-        Last Campaign Performance
-      </div>
-      <v-divider class="my-2"></v-divider>
-      <v-icon
-        class="mr-2"
-        small
-      >
-        mdi-clock
-      </v-icon>
-      <span class="text-caption grey--text font-weight-light">last registration 26 minutes ago</span>
-      <br>
-    </v-card-text>
-  </v-card>
-    </v-col>
-    <input v-model="searchValue" />
+      <p>상품 별 통계</p>
+        <input v-model="searchValue" placeholder="상품 아이디 입력"/>
     <input type="date" name="" id="" v-model="startsearch">
       <input type="date" name="" id="" v-model="endsearch">
             <v-btn @click="searchprod">search</v-btn>
-      
+    </v-card-text>
+  </v-card>
+    </v-col>      
   </v-row>
 </div>
 </template>

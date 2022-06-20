@@ -182,7 +182,7 @@ public class StoreServiceImpl implements StoreService {
         LocalDate endDate = LocalDate.parse(end);
 
         LocalDateTime startTime = startDate.atStartOfDay();
-        LocalDateTime endTime = endDate.atStartOfDay();
+        LocalDateTime endTime = StringToLocalDateTime(end);
 
         System.out.println("startDateTime = " + startTime);
         System.out.println("endDateTime = " + endTime);
