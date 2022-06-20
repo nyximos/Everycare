@@ -12,6 +12,7 @@ import static wd.team4.everycare.domain.QOrder.*;
 import static wd.team4.everycare.domain.QOrderProduct.*;
 import static wd.team4.everycare.domain.QProduct.product;
 import static wd.team4.everycare.domain.QWishList.*;
+import static wd.team4.everycare.domain.QProduct.product;
 
 @Repository
 @RequiredArgsConstructor
@@ -45,9 +46,9 @@ public class ProductQueryRepository {
                 .fetch();
     }
 
-    public List<Integer> findSalesByProduct(Long id, LocalDateTime start, LocalDateTime end) {
+    public List<OrderProduct> findSalesByProduct(Long id, LocalDateTime start, LocalDateTime end) {
         return queryFactory
-                .select(orderProduct.amount.sum())
+                .select(orderProduct)
                 .from(orderProduct)
                 .join(orderProduct.order, order)
                 .where(order.status.eq(OrderStatus.COMPLETE),

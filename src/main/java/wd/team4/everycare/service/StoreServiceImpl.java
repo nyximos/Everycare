@@ -1,5 +1,6 @@
 package wd.team4.everycare.service;
 
+import com.querydsl.core.Tuple;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -8,30 +9,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
-
-import wd.team4.everycare.domain.OrderProduct;
-
-import wd.team4.everycare.domain.Product;
 import wd.team4.everycare.domain.Store;
 import wd.team4.everycare.dto.product.ProductListViewDTO;
 import wd.team4.everycare.dto.store.StoreAdminViewDTO;
 import wd.team4.everycare.dto.store.StoreFormDTO;
+import wd.team4.everycare.domain.OrderProduct;
+import wd.team4.everycare.dto.order.OrderProductDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
+import wd.team4.everycare.dto.store.StatisticsDTO;
 import wd.team4.everycare.dto.store.StoreAdminViewDTO;
 import wd.team4.everycare.dto.store.StoreFormDTO;
 import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.repository.StoreRepository;
-
 import wd.team4.everycare.repository.query.OrderProductQueryRepository;
 import wd.team4.everycare.repository.query.ProductQueryRepository;
-
 import wd.team4.everycare.service.interfaces.StoreService;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -151,21 +147,33 @@ public class StoreServiceImpl implements StoreService {
     public ResponseEntity<MyResponse> findAllStatistics(PrincipalDetails principalDetails, String start, String end) {
         Member member = principalDetails.getUser();
         List<Store> storeList = storeRepository.findByMember(member);
-//        int total = 0;
-//        for (Store store : storeList) {
-//            List<OrderProduct> statistics = orderProductQueryRepository.findStatistics(start, end, store);
-//            for (OrderProduct orderProduct: statistics) {
-//                int quantity = orderProduct.getQuantity();
-//                total+=quantity;
-//            }
-//        }
+
         LocalDateTime startTime = StringToLocalDateTime(start);
         LocalDateTime endTime = StringToLocalDateTime(end);
+
+        List<StatisticsDTO> statisticsDTOs = new ArrayList<>();
+
         for (Store store : storeList) {
-            List<OrderProduct> statistics = orderProductQueryRepository.findStatistics(startTime, endTime, store);
-            System.out.println("statistics = " + statistics);
+            List<Tuple> statistics = orderProductQueryRepository.findStatistics(startTime, endTime, store);
+            for (Tuple tuple : statistics) {
+                Integer amount = tuple.get(0, Integer.class);
+                LocalDateTime payTime = tuple.get(1, LocalDateTime.class);
+
+                System.out.println("payTime = " + payTime);
+                StatisticsDTO statisticsItem = new StatisticsDTO(amount, payTime);
+
+                statisticsDTOs.add(statisticsItem);
+            }
         }
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        System.out.println("statisticsDTOs = " + statisticsDTOs);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("총 매출 통계")
+                .body(statisticsDTOs)
+                .build();
+
+        return new ResponseEntity<>(body, HttpStatus.OK);
     }
 
     public ResponseEntity<MyResponse> findSalesByProduct(Long id, String start, String end) {
@@ -183,10 +191,11 @@ public class StoreServiceImpl implements StoreService {
 //        LocalDateTime startDateTime = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 //        LocalDateTime endDateTime = LocalDateTime.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-        List<Integer> list = productQueryRepository.findSalesByProduct(id, startDateTime, endDateTime);
+        List<OrderProduct> list = productQueryRepository.findSalesByProduct(id, startDateTime, endDateTime);
+
         int sum = 0;
-        for (Integer l : list) {
-            sum += l;
+        for (OrderProduct orderProduct : list) {
+            sum+=orderProduct.getAmount();
         }
 
         MyResponse<Integer> body = MyResponse.<Integer>builder()

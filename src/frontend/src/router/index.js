@@ -320,8 +320,32 @@ const routes = [
     // 상품 문의 등록
     {
         path: '/store/:contentId/products/:contentId/qna/new',
-        name: 'FapNew',
+        name: 'QnaNew',
         component: () => import('@/components/qnaNew.vue'),
+    },
+    // 상품 문의 상세
+    {
+        path: '/api/store/products/qna/:contentId',
+        name: 'QnaDetail',
+        component: () => import('@/components/qnaDetail.vue'),
+    },
+    // 주문 내역
+    {
+        path: '/dashboard/orders',
+        name: 'OrderList',
+        component: () => import('@/components/orderList.vue'),
+    },
+    // 리뷰 등록
+    {
+        path: '/dashboard/orders/products/:contentId',
+        name: 'NewReview',
+        component: () => import('@/components/reviewNew.vue'),
+    },
+    // 리뷰 상세
+    {
+        path: '/dashboard/review/new',
+        name: 'NewReview',
+        component: () => import('@/components/reviewNew.vue'),
     },
     {
         path: '/login',

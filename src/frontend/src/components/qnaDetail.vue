@@ -1,5 +1,6 @@
 <template>
-  <v-card flat>
+    <div>
+        <v-card flat>
     <v-card-text>
       <v-container fluid>
         <v-row class="mt-5">
@@ -8,11 +9,6 @@
             placeholder="제목을 입력하세요"
             outlined
           ></v-text-field>
-        </v-row>
-        <v-row>
-            <v-img id="divProfile" 
-            :src="'https://localhost:8086/api/images/'+this.image" 
-            alt="사진" width="344" height="200"/>
         </v-row>
           <v-row>
               <v-textarea
@@ -45,6 +41,7 @@
       </v-card-actions>
       </v-card-text>
   </v-card>  
+    </div>
 </template>
 
 <script>
@@ -52,15 +49,14 @@ export default {
 mounted() {
      const id = Number(this.$route.params.contentId);
     this.$http
-    .get(`/api/admin/notice/${id}`,{
+    .get(`/api/store/products/qna/${id}`,{
         withCredentials:true
       })
 	.then((res)=>{
         console.log(res.data);
         this.title=res.data.body.title,
-        this.image=res.data.body.fileName,
         this.comment=res.data.body.content
-        console.log(this.image)
+        this.id=res.data.body.id
       }).catch(err =>{
 				alert(err);
 				console.log(err);
@@ -68,20 +64,19 @@ mounted() {
 },
 data(){
     return{
+        id: this.id,
         title: this.title,
-        image: this.image,
         comment: this.comment
     }
 },
 methods:{
     edit(){
-    const id = Number(this.$route.params.contentId);
     var formData = new FormData();
+    formData.append('id', this.id);
     formData.append('title', this.title);
     formData.append('content', this.comment);
-
     this.$http
-    .patch(`/api/admin/notice/${id}`,formaData, {
+    .patch(`/api/admin/faq`, formData, {
     withCredentials: true
     })
      .then(res => {
@@ -92,8 +87,11 @@ methods:{
     });
   },
   drop(){
-    const id = Number(this.$route.params.contentId);
-    this.$http.delete(`/api/admin/notice/${id}`,{
+    var Id = {
+           id:this.id,
+           }
+    this.$http
+    .delete(`/api/admin/faq/${this.id}`, {
       withCredentials: true
     })
     .then((res)=> {
@@ -104,7 +102,7 @@ methods:{
   },
 back(){
     this.$router.push({
-        path:'/notice'
+        path:'/faq'
     })
 }
 }
