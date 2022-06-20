@@ -9,12 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
-import wd.team4.everycare.domain.Store;
-import wd.team4.everycare.dto.product.ProductListViewDTO;
-import wd.team4.everycare.dto.store.StoreAdminViewDTO;
-import wd.team4.everycare.dto.store.StoreFormDTO;
 import wd.team4.everycare.domain.OrderProduct;
-import wd.team4.everycare.dto.order.OrderProductDTO;
+import wd.team4.everycare.domain.Store;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.dto.store.StatisticsDTO;
@@ -30,6 +26,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -151,26 +148,61 @@ public class StoreServiceImpl implements StoreService {
         LocalDateTime startTime = StringToLocalDateTime(start);
         LocalDateTime endTime = StringToLocalDateTime(end);
 
-        List<StatisticsDTO> statisticsDTOs = new ArrayList<>();
 
+        HashMap<String, StatisticsDTO> statisticsItem = new HashMap<>();
         for (Store store : storeList) {
             List<Tuple> statistics = orderProductQueryRepository.findStatistics(startTime, endTime, store);
             for (Tuple tuple : statistics) {
                 Integer amount = tuple.get(0, Integer.class);
                 LocalDateTime payTime = tuple.get(1, LocalDateTime.class);
+                int month = payTime.getMonthValue();
 
-                System.out.println("payTime = " + payTime);
-                StatisticsDTO statisticsItem = new StatisticsDTO(amount, payTime);
+                switch (month) {
+                    case 1:
+                        statisticsItem.put("1", new StatisticsDTO(amount, payTime));
+                        break;
+                    case 2:
+                        statisticsItem.put("2", new StatisticsDTO(amount, payTime));
+                        break;
+                    case 3:
+                        statisticsItem.put("3", new StatisticsDTO(amount, payTime));
+                        break;
+                    case 4:
+                        statisticsItem.put("4", new StatisticsDTO(amount, payTime));
+                        break;
+                    case 5:
+                        statisticsItem.put("5", new StatisticsDTO(amount, payTime));
+                        break;
+                    case 6:
+                        statisticsItem.put("6", new StatisticsDTO(amount, payTime));
+                        break;
+                    case 7:
+                        statisticsItem.put("7", new StatisticsDTO(amount, payTime));
+                        break;
+                    case 8:
+                        statisticsItem.put("8", new StatisticsDTO(amount, payTime));
+                        break;
+                    case 9:
+                        statisticsItem.put("9", new StatisticsDTO(amount, payTime));
+                        break;
+                    case 10:
+                        statisticsItem.put("10", new StatisticsDTO(amount, payTime));
+                        break;
+                    case 11:
+                        statisticsItem.put("11", new StatisticsDTO(amount, payTime));
+                        break;
+                    case 12:
+                        statisticsItem.put("12", new StatisticsDTO(amount, payTime));
+                        break;
+                }
 
-                statisticsDTOs.add(statisticsItem);
             }
         }
-        System.out.println("statisticsDTOs = " + statisticsDTOs);
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("총 매출 통계")
-                .body(statisticsDTOs)
+                .body(statisticsItem)
                 .build();
 
         return new ResponseEntity<>(body, HttpStatus.OK);
@@ -195,7 +227,7 @@ public class StoreServiceImpl implements StoreService {
 
         int sum = 0;
         for (OrderProduct orderProduct : list) {
-            sum+=orderProduct.getAmount();
+            sum += orderProduct.getAmount();
         }
 
         MyResponse<Integer> body = MyResponse.<Integer>builder()
