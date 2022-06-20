@@ -1,5 +1,5 @@
 <template>
-<div class="list_wrap">
+    <!-- <div class="list_wrap">
    <label class="control-label">케어대상인 목록&nbsp;<br class="visible-xs"><span class="sort01">
 		<v-btn @click="gocreate" >
           <v-icon left>
@@ -46,139 +46,108 @@
                 </li>
   
             </ul>
-        </div>
-<!-- <div class="container">
-  <label class="control-label">케어대상인 목록&nbsp;<br class="visible-xs"><span class="sub-text text-muted"><i class="text-primary"></i></span><i ng-show="vm.isRequiredOptionalImages" class="icon-must ng-hide" aria-label="필수항목"></i></label>
-  
-<ul class="ul01">
-  
-<li class="li01" v-for="(p,index) in profiles" :key="index" >
-  <v-card 
-    
-    class="mx-auto my-12"
-    max-width="300"
-  >
-    <template slot="progress">
-      <v-progress-linear
-        color="deep-purple"
-        height="10"
-        indeterminate
-      ></v-progress-linear>
-    </template>
+        </div> -->
+    <div class="container">
+        <label class="control-label"
+            >케어대상인 목록&nbsp;<br class="visible-xs"/><span class="sub-text text-muted"><i class="text-primary"></i></span
+            ><i ng-show="vm.isRequiredOptionalImages" class="icon-must ng-hide" aria-label="필수항목"></i
+        ></label>
 
-    <v-img
-      height="250"
-      :src="'https://localhost:8086/api/images/'+p.imageDTOs.storeFileName"
-      >
-    </v-img>
+        <ul class="ul01">
+            <li class="li01" v-for="(p, index) in profiles" :key="index">
+                <v-card class="mx-auto my-12" max-width="300">
+                    <template slot="progress">
+                        <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
+                    </template>
 
-    <v-card-title text-align="center">{{p.name}}님</v-card-title>
+                    <v-img height="250" :src="'https://localhost:8086/api/images/' + p.imageDTO.storeFileName"> </v-img>
 
-    <v-card-text>
-      <v-chip-group
-        v-model="selection"
-        active-class="deep-purple accent-4 white--text"
-        column
-      >
-        <v-btn color="error" @click="drop(p)">
-      삭제
-    </v-btn>
-    <v-btn 
-      tile
-      color="success" 
-      @click="update(p)"
-    >
-      수정
+                    <v-card-title text-align="center">{{ p.name }}님</v-card-title>
 
-    
-    </v-btn>
-    <v-btn @click="move(p)">보기</v-btn>
-        <v-btn
-      @click="schedule(p)"
-      outlined
-      color="indigo"
-    >
-      스케줄 관리
-    </v-btn>
+                    <v-card-text>
+                        <v-chip-group v-model="selection" active-class="deep-purple accent-4 white--text" column>
+                            <v-btn color="error" @click="drop(p)">
+                                삭제
+                            </v-btn>
+                            <v-btn tile color="success" @click="update(p)">
+                                수정
+                            </v-btn>
+                            <v-btn @click="move(p)">보기</v-btn>
+                            <v-btn @click="schedule(p)" outlined color="indigo">
+                                스케줄 관리
+                            </v-btn>
+                        </v-chip-group>
+                    </v-card-text>
+                </v-card>
+            </li>
+            <div class="dropZone" id="dropZone" style="width: 300px; height: 410px; border-style: solid; border-color: black; ">
+                <router-link :to="{ name: 'carepeople' }"><div id="fileDragDesc">케어대상인을 등록 해주세요.</div></router-link>
+            </div>
+        </ul>
 
-        
-      </v-chip-group>
-    </v-card-text>
-
-  </v-card>
-  
-  </li>
-<div class="dropZone" id="dropZone" style="width: 300px; height: 410px; border-style: solid; border-color: black; ">
-                 <router-link :to="{name:'carepeople'}"><div id="fileDragDesc" > 케어대상인을 등록 해주세요. </div></router-link> 
-                </div>
-</ul>
-
-
-                
-                
-<v-btn class="ma-2" outlined color="indigo" @click="clickme">돌아가기</v-btn>
-
-</div> -->
+        <v-btn class="ma-2" outlined color="indigo" @click="clickme">돌아가기</v-btn>
+    </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      profiles: [],
-      id: this.$route.params.caretargetsId,
-      selection:'',
-      imgfile:this.imgfile
-    }
-  },
-  methods: {
-    gocreate(){
-          this.$router.push({
-            path: '/carepeople'
-          })
+    data() {
+        return {
+            profiles: [],
+            id: this.$route.params.caretargetsId,
+            selection: ''
+        };
+    },
+    methods: {
+        gocreate() {
+            this.$router.push({
+                path: '/carepeople'
+            });
         },
-    move(p) {
-      this.$router.push({ name: 'CaretargetsDetail', params: { caretargetsId: p.id }})
+        move(p) {
+            this.$router.push({ name: 'CaretargetsDetail', params: { caretargetsId: p.id } });
+        },
+        update(p) {
+            this.$router.push({ name: 'TargetsUpdate', params: { caretargetsId: p.id } });
+        },
+        drop(p) {
+            this.$router.push({ params: { caretargetsId: p.id } });
+            this.$http
+                .delete(`/api/dashboard/caretargets/${p.id}`, {
+                    withCredentials: true
+                })
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        },
+        schedule(p) {
+            this.$router.push({ name: 'schedule', params: { caretargetsId: p.id } });
+        },
+        clickme() {
+            location.href = '/';
+        }
     },
-    update(p) {
-      this.$router.push({ name: 'TargetsUpdate', params: { caretargetsId: p.id }})
-    },
-    drop(p){
-    this.$router.push({ params: { caretargetsId: p.id }})
-    this.$http.delete(`/api/dashboard/caretargets/${p.id}`,{
-      withCredentials: true
-    })
-    .then((res)=> {
-      console.log(res)
-    }).catch((err)=>{
-      console.log(err)
-    })
-  },
-   schedule(p) {
-      this.$router.push({ name: 'schedule', params: { caretargetsId: p.id }})
-    },
-  clickme(){
-    location.href = '/';
-  }
 
-  },
-  
-  mounted() {
-    this.$http
-    .get('/api/dashboard/caretargets', {
-      withCredentials: true
-    })
-      .then((res) => {
-          console.log(res.data.body)
-          this.profiles = res.data.body
-          this.imgfile = res.data.body.imgDTOs
-          
-  }).catch(err => {
-    alert(err);
-    console.log(err);
-  })
-}
-}
+    mounted() {
+        this.$http
+            .get('/api/dashboard/caretargets', {
+                withCredentials: true
+            })
+            .then(res => {
+                console.log(res.data);
+                this.profiles = res.data.body;
+                // this.imgfile = res.data.body[1].imageDTOs[0].storeFileName;
+                console.log(this.imgfile);
+            })
+            .catch(err => {
+                alert(err);
+                console.log(err);
+            });
+    }
+};
 </script>
 
 <style scoped>
@@ -186,7 +155,8 @@ export default {
     margin: 0;
     padding: 0;
 }
-ul, li {
+ul,
+li {
     list-style: none;
 }
 a {
@@ -197,7 +167,7 @@ a {
     width: 1000px;
     margin: 0 auto;
     padding: 100px;
-   
+
     padding: 0;
     text-align: center;
     box-sizing: border-box;
@@ -214,7 +184,7 @@ a {
     margin-left: 5%;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
-.list_wrap .item:nth-child(-n+3) {
+.list_wrap .item:nth-child(-n + 3) {
     margin-top: 0;
 }
 .list_wrap .item:nth-child(3n-2) {
@@ -228,15 +198,6 @@ a {
     background-position: 50% 50%;
     background-size: cover;
 }
-
-
-
-
-
-
-
-
-
 
 .list_wrap .item .cont {
     padding: 20px;
@@ -263,8 +224,8 @@ a {
     background: #325cb2;
     color: #fff;
 }
-.create{
-  float: right;
+.create {
+    float: right;
 }
 /* #fileDragDesc {
             width: 100%; 
