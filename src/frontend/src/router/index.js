@@ -223,6 +223,11 @@ const routes = [
         component: () => import('@/pages/Adminpage_report.vue')
     },
     {
+        path: '/admin_report_review',
+        name: 'admin_report_review',
+        component: () => import('@/components/main/admin_report_review')
+    },
+    {
         path: '/Test1',
         name: 'Test1',
         component: () => import('@/pages/Test1.vue')

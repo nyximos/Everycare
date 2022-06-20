@@ -513,7 +513,7 @@ input[type*=radio], button {
 }
 
 .pop_wrap .report_reason:checked + .check_area {
-    border: 1px solid #03c75a !important;
+    border: 1px solid #81C784 !important;
     box-sizing: border-box;
     margin-top: -1px;
 }
@@ -535,7 +535,7 @@ input[type*=radio], button {
 
 .pop_footer .btn_submit {
     display: block;
-    background-color: #03c75a;
+    background-color: #81C784;
     color: #fff;
     font-size: 18px;
     font-weight: bold;

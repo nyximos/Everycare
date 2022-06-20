@@ -98,7 +98,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title mb-0">신고 계약 목록</h5>
+                  <h5 class="card-title mb-0">상품 리뷰 신고 목록</h5>
                 </div>
                 <div class="table-responsive custom-table-responsive">
 
@@ -140,7 +140,7 @@
                 
               </td>
               <td>{{r.reason}}</td>
-              <td>{{r.createdAt.slice(0,10)}}</td>
+              <td></td>
 
               <td><button class="custom-btn btn-11" @click="stop(r)">활동정지</button>
               </td>
@@ -211,20 +211,9 @@
       
     },
     mounted() {
+      
       this.$http
-      .get('/api/admin/members', {
-        withCredentials: true
-      })
-      .then((res)=>{
-        console.log(res.data.body)
-        this.profiles = res.data.body  
-      })
-      .catch((err)=>{
-        alert(err);
-        console.log(err)
-      })
-      this.$http
-      .get('/api/admin/reports/contracts', {
+      .get('/api/admin/reports/reviews', {
         withCredentials: true
       })
       .then((res)=>{

@@ -116,6 +116,14 @@ data(){
     }
 },
 methods:{
+  // review(){
+  //   this.$router.push({
+  //     name:'reviewBtn',
+  //     params: {
+  //       contentId: this.id
+  //     }
+  //   })
+  // },
 back(){
     this.$router.push({
         path:'/store'
