@@ -41,10 +41,8 @@ export default {
             if (this.json.username == '') {
                 alert('아이디를 입력해주세요.');
                 return;
-            } else if (this.json.password == '') {
-                alert('패스워드를 입력해주세요.');
-                return;
-            }
+            } 
+            
             console.log(userinfo);
             this.$http
                 .post('https://localhost:8086/login', userinfo, {

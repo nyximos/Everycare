@@ -340,9 +340,11 @@ export default {
     const id = this.$route.params.caretargetsId;
     const scid = this.$route.params.scheduleId;
     const actid = this.$store.state.caretargetStore.actid
+    console.log(this.update_category2);
     console.log(actid)
     var actformData = new FormData();
       actformData.append("activityClassificationId", this.update_category2);
+      console.log(this.update_category2)
       actformData.append("startTime", this.update_startTime);
       actformData.append("endTime", this.update_endTime);
       actformData.append("requirement", this.update_requirement);

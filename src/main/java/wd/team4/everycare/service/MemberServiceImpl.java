@@ -262,7 +262,7 @@ public class MemberServiceImpl implements MemberService {
         Optional<Member> member = memberRepository.findById(id);
         Member memberEntity = member.orElse(null);
 
-        if(memberEntity.getPassword().equals(passwordDTO.getPassword())){
+        if(memberEntity.getPassword().matches(bCryptPasswordEncoder.encode(passwordDTO.getPassword()))){
             String password = bCryptPasswordEncoder.encode(passwordDTO.getNewPassword());
             memberEntity.updatePassword(password);
 
@@ -270,14 +270,17 @@ public class MemberServiceImpl implements MemberService {
                     .header(StatusEnum.OK)
                     .message("변경 성공")
                     .build();
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+        }else{
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.BAD_REQUEST)
+                    .message("변경 실패")
+                    .build();
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
         }
 
-        MyResponse body = MyResponse.builder()
-                .header(StatusEnum.OK)
-                .message("변경 실패")
-                .build();
 
-        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+
     }
 
 }

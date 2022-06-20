@@ -18,13 +18,21 @@ export default {
     data() {
         return {
             newpassword: '',
+            password:'',
             id: this.$store.state.userStore.id
         };
     },
     methods: {
         chpw() {
+            if(this.password==''){
+                 alert('기존 비밀번호를 입력해 주세요')
+            }else
+             if(this.newpassword==''){
+                alert('새 비밀번호를 입력해 주세요')
+            }else{
             console.log(this.id);
             var pwformData = new FormData();
+            pwformData.append('password', this.password);
             pwformData.append('newPassword', this.newpassword);
             this.$http
                 .patch(`/api/member/${this.id}/password`, pwformData, {
@@ -32,6 +40,9 @@ export default {
                 })
                 .then(res => {
                     console.log(res);
+                    if(res.body.message='변경 실패'){
+                        alert('기존 비밀번호가 일치하지 않습니다.')
+                    }else if(res.data.message='변경 성공'){
                     this.$router.push({ name: 'main' });
                     this.$router.go();
                     this.$store.commit('userStore/clearUsername');
@@ -43,10 +54,12 @@ export default {
                         processData: false,
                         async: false
                     });
+                    }
                 })
                 .catch(err => {
                     console.log(err);
                 });
+            }
         }
     }
 };

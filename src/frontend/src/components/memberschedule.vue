@@ -289,7 +289,7 @@ export default {
 #memschbtn{
     position: absolute;
     left: 98%;
-    top: 74%;
+    top: 98%;
      transform: translate(-80%, -70%);
 }
 #memschcard{
