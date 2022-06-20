@@ -32,7 +32,6 @@
     <!-- 수정 모달창  -->
     <div class="modal1">
      <v-dialog v-model="editDialog"
-          
               max-width="500px"
               @click:outside="closeDialog"
               @keydown.esc="closeDialog"
