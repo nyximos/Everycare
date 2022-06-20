@@ -54,10 +54,9 @@ mounted() {
       })
 	.then((res)=>{
         console.log(res.data);
-        this.productId= res.data.body.product.id
         this.title=res.data.body.title,
         this.comment=res.data.body.content
-        this.boardId=res.data.body.id
+        this.id=res.data.body.id
       }).catch(err =>{
 				alert(err);
 				console.log(err);
@@ -65,8 +64,7 @@ mounted() {
 },
 data(){
     return{
-        productId: this.productId,
-        boardId: this.boardId,
+        id: this.id,
         title: this.title,
         comment: this.comment
     }
@@ -78,7 +76,7 @@ methods:{
     formData.append('title', this.title);
     formData.append('content', this.comment);
     this.$http
-    .patch(`/api/store/${this.productId}/products/qna/${this.boardId}`, formData, {
+    .patch(`/api/store/products/qna/${this.id}`, formData, {
     withCredentials: true
     })
      .then(res => {
@@ -93,7 +91,7 @@ methods:{
            id:this.id,
            }
     this.$http
-    .delete(`/api/store/${this.productId}/products/${this.productId}/qna/${this.boardId}`, {
+    .delete(`/api/store/products/qna/${this.id}`, {
       withCredentials: true
     })
     .then((res)=> {

@@ -56,7 +56,8 @@
         <input v-model="searchValue" placeholder="상품 아이디 입력"/>
     <input type="date" name="" id="" v-model="startsearch">
       <input type="date" name="" id="" v-model="endsearch">
-            <v-btn @click="searchprod">search</v-btn>
+            <v-btn @click="searchprod">search</v-btn><br>
+            {{prodTotal}}
     </v-card-text>
   </v-card>
     </v-col>      
@@ -80,6 +81,7 @@ data(){
         oct:this.oct,
         nov:this.nov,
         dec:this.dec,
+        prodTotal:this.prodTotal,
         search:this.search,
         startdate:this.startdate,
         enddate:this.enddate,
@@ -136,19 +138,19 @@ data(){
           withCredentials:true
           })
         .then(res => {
-          console.log(res);
-          this.jan = res.data.body[0];
-          this.feb = res.data.body[0];
-          this.mar = res.data.body[0];
-          this.apr = res.data.body[0];
-          this.may = res.data.body[0];
-          this.june = res.data.body[0];
-          this.jul = res.data.body[0];
-          this.aug = res.data.body[0];
-          this.sep = res.data.body[0];
-          this.oct = res.data.body[0];
-          this.nov = res.data.body[0];
-          this.dec = res.data.body[0];
+          console.log(res.data.body.a);
+          // this.jan = res.data.body.1;
+          // this.feb = res.data.body[0];
+          // this.mar = res.data.body[0];
+          // this.apr = res.data.body[0];
+          // this.may = res.data.body[0];
+          // this.june = res.data.body[0];
+          // this.jul = res.data.body[0];
+          // this.aug = res.data.body[0];
+          // this.sep = res.data.body[0];
+          // this.oct = res.data.body[0];
+          // this.nov = res.data.body[0];
+          // this.dec = res.data.body[0];
           })
         .catch(err => {
           console.log(err);
@@ -162,6 +164,7 @@ data(){
           })
         .then(res => {
           console.log(res);
+          this.prodTotal = res.data.body
           })
         .catch(err => {
           console.log(err);
