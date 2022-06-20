@@ -91,7 +91,12 @@ export default {
     methods:{
       move(p) {
             
-            this.$router.push({ name: 'detail', params: { contentId: p.id } });
+            this.$router.push({
+            name: 'jobapplication',
+            params: {
+              contentId: p.id
+            }
+          })
             
             
         },

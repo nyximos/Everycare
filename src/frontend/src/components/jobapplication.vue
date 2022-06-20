@@ -13,8 +13,8 @@
 		<div class="con02">
 		
 			<ul class="tab01">
-				<a href="javascript:tab_list(1);"><li class="menu01">받은 내역</li></a>
-				<a href="javascript:tab_list(2);"><li class="menu02 on">신청 내역</li></a>
+				<!-- <a href="javascript:tab_list(1);"><li class="menu01">받은 내역</li></a> -->
+				<a href="javascript:tab_list(2);"><li class="menu02 on">받은 내역</li></a>
 			</ul>
 		</div>
 		<div class="con_bar02"></div>
@@ -30,9 +30,9 @@
      >
 			<ul class="list01">
 								<li class="con0301">
-					<a href="/caresitters/${p.careSitterDTO.id}" target="_BLANK"><span class="more01">상세보기</span></a>
+					<a><span class="more01" @click="move(p)">상세보기</span></a>
 					<!-- <a href="/resume/view.php?encrypt_id=bldQVktKbmhtanRQM1F4K3ErR1NOUT09" target="_BLANK"><span class="date01">2022-06-18 19:23:09</span> -->
-					<span class="name01">{{p.memberDTO.name}}</span>
+					<span class="name01">{{p.careSitterDTO.name}}</span>
 					<span class="sex01">{{p.memberDTO.gender}} <span class="bar01">|</span> {{p.memberDTO.birth}}</span>
 					<span class="pay01">* 희망급여 <span>시급 : <span style="color: #3c3c3c">{{p.pay}}원</span></span></span>
           					<span class="pay01">* 케어날짜 <span>시작일 : <span style="color: #3c3c3c">{{p.startDate}}</span></span> <span class="bar01">|</span> <span>종료일 : {{p.endDate}}</span></span>
@@ -107,6 +107,14 @@ export default {
         
     },
     methods:{
+      move(p) {
+            
+            
+            this.$router.push({ name: 'addprofile2', params: { caresitterId: p.careSitterDTO.id } });
+           
+           
+            
+        },
        payment(p){
         var tossPayments = TossPayments("test_ck_Lex6BJGQOVDGPJNGkJq3W4w2zNbg");
         var customDate = new Date()
@@ -196,8 +204,8 @@ li{
 .content .match .match_div .con02 { width:100%; position:relative; margin:0 auto; padding:0 0 0 0; box-sizing:border-box; overflow:hidden; }
 .content .match .match_div .con02 .tab01 { width:100%; position:relative; }
 .content .match .match_div .con02 .tab01 .menu01 { width:50%; padding:20px 0 20px 0; box-sizing:border-box; position:relative; border-bottom:1px solid #EFEFEF; float:left; text-align:center; background-color:#2c786c2e; color:#2c786ca8 }
-.content .match .match_div .con02 .tab01 .menu02 { width:50%; padding:20px 0 20px 0; box-sizing:border-box; position:relative; border-bottom:1px solid #EFEFEF; float:left; text-align:center; background-color:#2c786c2e; color:#2c786ca8 }
-.content .match .match_div .con02 .tab01 .on { color:#FFFFFF; background-color:#2c786c; }
+.content .match .match_div .con02 .tab01 .menu02 { width:100%; padding:20px 0 20px 0; box-sizing:border-box; position:relative; border-bottom:1px solid #EFEFEF; float:left; text-align:center; background-color:#2c786c2e; color:#2c786ca8 }
+.content .match .match_div .con02 .tab01 .on { color:#FFFFFF; background-color:#81C784 }
 
 
 .content .match .match_div .con03 { width:100%; position:relative; margin:0 auto; padding:15px; box-sizing:border-box; overflow:hidden; display:none; }

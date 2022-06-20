@@ -140,7 +140,7 @@
                     <br>
                     <h5>케어대상인 사진</h5>
                     <div v-for="(i,index) in imgfile" :key="index">
-                              <img :src="'https://localhost:8086/api/images/' " width="250px" height="250px"  alt="@/assets/profile.png">
+                              <img :src="'https://localhost:8086/api/images/' + i.storeFileName " width="250px" height="250px"  alt="@/assets/profile.png">
                               <v-btn @click="del(i)">삭제하기</v-btn>
                     </div>
                     <v-file-input 
@@ -236,7 +236,7 @@ const id = this.$route.params.caretargetsId;
 		this.careType = res.data.body.careType
 		this.coronaTest = res.data.body.coronaTest
 		
-    this.imgfile = res.data.body.imageDTOs[0]
+    this.imgfile = res.data.body.imageDTOs
     
     
     console.log(this.imgfile)

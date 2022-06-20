@@ -2,12 +2,12 @@
 <div class="wrap">
   <div class="greenContainer">
     <div>
-      <div class="grade">GOLD</div>
-      <div class="name">Jaden</div>
+
+      <div class="name">{{ this.$store.state.userStore.id }} 님</div>
     </div>    
     <div class="modify">i</div>    
   </div>
-  <div class="summaryContainer">
+  <!-- <div class="summaryContainer">
     <div class="item">
         <div class="number">354</div>
         <div>ㅁㅁㅁ</div>
@@ -20,7 +20,7 @@
         <div class="number">354</div>
         <div>ㄷㄷㄷ</div>
       </div>
-  </div>  
+  </div>   -->
    
   <div class="listContainer">
     <div v-if="this.$store.state.userStore.careSitterId  !==null ||  this.$store.state.careprofileStore.activityTime !== ''" >
@@ -116,19 +116,9 @@
     
 
 
-    <!-- <a href="#" cl
-    ass="item">
-        <div class="icon">ii</div>
-        <div class="text">알림</div>
-        <div class="right"> > </div>
-    </a>
-    <a href="#" class="item">
-        <div class="icon">ii</div>
-        <div class="text">설정</div>
-        <div class="right"> > </div>
-    </a>    -->
+  
   </div>
-  <div class="infoContainer">
+  <!-- <div class="infoContainer">
     <a href="#" class="item">
       <div>icon</div>
       <div>공지사항</div>
@@ -141,7 +131,7 @@
       <div>icon</div>
       <div>공지사항3</div>
     </a>
-  </div>
+  </div> -->
 </div>
  
   
@@ -197,7 +187,7 @@ div{
 /* 녹색배경 */
 .greenContainer{  
   height: 132px;
-  background-color: #24855b;    
+  background-color: #616161;    
   
   display: flex;
   align-items: flex-end;

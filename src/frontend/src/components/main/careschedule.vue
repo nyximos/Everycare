@@ -71,7 +71,7 @@
                     <td @click="upadte(h)">{{h.healthClassification}}</td>
                     <td>{{h.healthStatus}}</td>
                     <td>{{h.detailComment}}</td>
-                    <td @click="delete1(h)">삭제</td>
+                    <td ><button class="custom-btn btn-11" @click="delete1(h)">삭제</button></td>
                 </tr>
             </tbody>
 
@@ -1053,5 +1053,33 @@ input[type*=radio], button {
 }
 li {
     list-style: none;
+}
+.btn-11 {
+  overflow: hidden;
+  transition: all 0.3s ease;
+  font-size:18px;
+  border: solid 1px;
+}
+.btn-11:hover {
+   background: #81C784;
+  color: #fff;
+}
+.btn-11:before {
+    position: absolute;
+    content: '';
+    display: inline-block;
+    top: -180px;
+    left: 0;
+    width: 30px;
+    height: 100%;
+    background-color: #fff;
+    animation: shiny-btn1 3s ease-in-out infinite;
+    font-size: 10;
+}
+.btn-11:active{
+  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
+              -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+    inset -4px -4px 6px 0 rgba(255,255,255,.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
 }
 </style>

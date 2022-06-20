@@ -259,58 +259,7 @@ execDaumPostcode() {
 <style scoped lang="scss">
 
 
-.btn{
-    border: 3px solid #1a1a1a;
-    border-radius: 3px;
-    display: inline-block;
-    padding: 10px;
-    position: relative;
-    text-align: center;
-    transition: background 600ms ease, color 600ms ease;
-}
 
-input[type="radio"].toggle {
-    display: none;
-    & + label{
-        cursor: pointer;
-        min-width: 60px;
-        &:hover{
-            background: green ;
-            color: #1a1a1a;
-        }
-        &:after{
-            background: #1a1a1a;
-            content: "";
-            height: 100%;
-            position: absolute;
-            top: 0;
-            transition: left 200ms cubic-bezier(0.77, 0, 0.175, 1);
-            width: 100%;
-            z-index: -1;
-        }
-    }
-    &.toggle-left + label {
-        border-right: -5px;
-        &:after{
-            left: 100%
-        }
-    }
-    &.toggle-right + label{
-        margin-left: -5px;
-        &:after{
-            left: -100%;
-        }
-    }
-    &:checked + label {
-        cursor: default;
-        color: #1a1a1a;
-        background: green ;
-        transition: color 200ms;
-        &:after{
-            left: 0;
-        }
-    }
-}
 .contents {
   display: flex;
   flex-direction: row;
@@ -354,7 +303,7 @@ input[type="radio"].toggle {
 }
 .contents .upload-box .file-label {
   margin-top: 30px;
-  background-color: #5b975b;
+  background-color: #81C784;
   color: #fff;
   text-align: center;
   padding: 10px 0;
@@ -481,10 +430,10 @@ input[type=radio] + label{
   border-radius: 100%;
 }
 input[type=radio]:checked + label{
-	background-color: #69f0ae;
+	background-color: #81C784;
   color: #FFF;
   
-  border-color: #69f0ae;
+  border-color: #81C784;
   z-index: 1;
 }
 

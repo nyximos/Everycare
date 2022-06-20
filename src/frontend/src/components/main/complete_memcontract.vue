@@ -9,12 +9,25 @@
       </v-card-title>
       <v-card-subtitle>
         날짜: {{c.day}}<br>
-        {{c.payDateTime}}
+        {{c.payDateTime.slice(0,10)}}
       </v-card-subtitle>
     <v-card-actions>
       <div style="margin:0 auto;">
         <v-btn color="#69f0ae" text @click="note(c)">노트</v-btn>
-        <button type="button" @click="report(c)"> <img src="src\frontend\src\assets\report.png" height ="80" width="100" /></button>
+          <v-btn
+        class="ma-2"
+        color="red"
+        dark
+        @click="report(c)"
+      >
+        Decline
+        <v-icon
+          dark
+          right
+        >
+          mdi-cancel
+        </v-icon>
+      </v-btn>
       </div>
     </v-card-actions>
   </v-card>
@@ -112,8 +125,9 @@ export default {
           this.Dialog01 = false
         },
         report2(){
+            const memberId = this.$store.state.userStore.id;
           let formData = new FormData() 
-                
+                formData.append('id',memberId);
                 formData.append('reason',this.reports);
                 formData.append('reportedUserId',this.caresitterid);
                 formData.append('contractId',this.id);
