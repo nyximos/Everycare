@@ -2,6 +2,13 @@
 <v-card flat>
     <v-card-text>
       <v-container fluid>
+        <v-row>
+          <v-rating
+            v-model="rating"
+            background-color="purple lighten-3"
+            large
+          ></v-rating>
+        </v-row>
         <v-row class="mt-5">
             <v-text-field
             v-model="title"
@@ -50,6 +57,7 @@
 export default {
 data(){
  return{
+     rating: this.rating,
      title: this.title,
      file: [],
      comment: this.comment
@@ -57,10 +65,13 @@ data(){
 },
 methods:{
     submit(){
+      const id = Number(this.$route.params.contentId);
       var formData = new FormData();
+      formData.append('rating',this.rating);
       formData.append('title',this.title);
       formData.append('content',this.comment);
       formData.append('attachFile', this.file);
+      formData.append('productId', id)
       this.$http
       .post('/api/dashboard/orders/products', formData,{
        withCredentials:true

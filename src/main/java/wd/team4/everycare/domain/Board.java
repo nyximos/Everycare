@@ -132,8 +132,12 @@ public class Board {
                 .build();
     }
 
+
     public void updateCount(){
         this.count+=1;
     }
 
+    public void updateRating(int rating) {
+        this.rating = rating;
+    }
 }
