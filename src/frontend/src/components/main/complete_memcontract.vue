@@ -122,7 +122,7 @@ export default {
         report(c){
           this.id = c.id
           this.caresitterid = c.careSitterId
-          console.log(this.id)
+        //   console.log(this.id)
           console.log(this.caresitterid)
           this.Dialog01 = true
         },
@@ -134,11 +134,11 @@ export default {
           let formData = new FormData() 
                 formData.append('id',memberId);
                 formData.append('reason',this.reports);
-                formData.append('reportedUserId',this.caresitterid);
+                formData.append('reportedCareSitterId',this.caresitterid);
                 formData.append('contractId',this.id);
-
+                console.log(this.caresitterid)
                 this.$http
-    .post('/api/reports/care/member',formData, {
+    .post('/api/reports/care/sitter',formData, {
     withCredentials: true
     })
      .then(res => {

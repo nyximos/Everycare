@@ -97,6 +97,7 @@
           <div class="row">
             <div class="col-12">
               <div class="card">
+                <v-chip class="ma-2" color="success" outlined style="width:110px;" @click="care()">케어신고목록</v-chip>
                 <div class="card-body">
                   <h5 class="card-title mb-0">상품 리뷰 신고 목록</h5>
                 </div>
@@ -179,6 +180,11 @@
     },
     
     methods: {
+      care() {
+this.$router.push({
+            path: '/admin_report'
+          })
+      },
       member(){
       this.$router.push({
             path: '/admin/members'
@@ -233,6 +239,7 @@
 </script>
 
 <style scoped>
+
 .btn-11 {
   overflow: hidden;
   transition: all 0.3s ease;

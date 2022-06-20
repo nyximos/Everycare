@@ -151,7 +151,7 @@
               <td>{{p.activityStatus}}</td>
               <td><button class="custom-btn btn-11" @click="click(p)">관리자등록</button>
               <button class="custom-btn btn-11" @click="drop(p)">관리자삭제</button>
-              <button class="custom-btn btn-11">활동정지취소</button></td>
+              </td>
             </tr>
             
             
@@ -173,7 +173,7 @@
 <script>
 
   export default {
-    
+  
     data () {
       return {
         allSelected: false,

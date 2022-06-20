@@ -20,7 +20,7 @@
                     </div>        
                 </div>
                 
-                <div class="mb-3">
+                <div class="mb-3" style="width: 336px;">
                     <label for="password">생년월일</label> 
                     <input type="date" class="form-control" id="password" placeholder="" value="" required name="user-password">
 
@@ -159,7 +159,7 @@ data(){
         coronaTest:'',
         attachFiles:'',
         items:[
-          {name:'0',value:'null'},
+          {name:'없음',value:'null'},
           {name:'1',value:'1'},
       {name:'2',value:'2'},
       {name:'3',value:'3'},
@@ -244,14 +244,17 @@ execDaumPostcode() {
     this.$http
     .post('/api/dashboard/caretargets/new',formData, {
     withCredentials: true
+    
     })
+    
      .then(res => {
       console.log(res);
     })
       .catch(err => {
        console.log(err);
-    });    
-    // location.href = '/caretargets';
+    }); 
+       this.$router.push({ path: '/carenote/caretargets' })
+    
         },        
         
     },

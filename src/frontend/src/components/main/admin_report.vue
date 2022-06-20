@@ -97,9 +97,13 @@
           <div class="row">
             <div class="col-12">
               <div class="card">
+                <v-chip class="ma-2" color="success" outlined style="width:135px;" @click="review()">상품리뷰신고목록</v-chip>
                 <div class="card-body">
-                  <h5 class="card-title mb-0">멤버 케어 신고 목록</h5>
+                  
+                  <h5 class="card-title mb-0">케어 신고 목록</h5>
+                  
                 </div>
+                
                 <div class="table-responsive custom-table-responsive">
 
         <table class="table custom-table">
@@ -134,7 +138,7 @@
               <td>
                 {{r.contractName}}
               </td>
-              <td><a href="#"></a></td>
+              <td><a href="#">{{r.reportedUserId}}</a></td>
               
                 <td><a href="#">{{r.memberId}}({{r.memberName}})</a>
                 
@@ -177,6 +181,12 @@
     },
     
     methods: {
+      review(){
+    this.$router.push({
+            path: '/admin_report_review'
+          })
+      
+      },
       member(){
       this.$router.push({
             path: '/admin/members'
@@ -276,7 +286,7 @@ button {
   
 }
 .custom-btn {
-  width: 130px;
+  width: 110px;
   height: 40px;
   padding: 10px 25px;
   border: 2px solid #000;
