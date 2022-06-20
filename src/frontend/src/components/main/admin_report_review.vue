@@ -98,7 +98,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title mb-0">멤버 케어 신고 목록</h5>
+                  <h5 class="card-title mb-0">신고 계약 목록</h5>
                 </div>
                 <div class="table-responsive custom-table-responsive">
 

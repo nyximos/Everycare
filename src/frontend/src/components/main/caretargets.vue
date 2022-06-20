@@ -1,5 +1,5 @@
 <template>
-    <!-- <div class="list_wrap">
+    <div class="list_wrap">
    <label class="control-label">케어대상인 목록&nbsp;<br class="visible-xs"><span class="sort01">
 		<v-btn @click="gocreate" >
           <v-icon left>
@@ -16,7 +16,8 @@
    
             <ul>
                 <li class="item item1" v-for="(p,index) in profiles" :key="index" >
-                    <div class="image">사진</div>
+                <v-img height="250" :src="'https://localhost:8086/api/images/' + p.imageDTO.storeFileName"> </v-img>
+                    <!-- <div class="image" :src="'https://localhost:8086/api/images/' + p.imageDTO.storeFileName">사진</div> -->
                     <div class="cont">
                         <strong>{{p.name}}님</strong>
                         
@@ -46,8 +47,8 @@
                 </li>
   
             </ul>
-        </div> -->
-    <div class="container">
+        </div>
+    <!-- <div class="container">
         <label class="control-label"
             >케어대상인 목록&nbsp;<br class="visible-xs"/><span class="sub-text text-muted"><i class="text-primary"></i></span
             ><i ng-show="vm.isRequiredOptionalImages" class="icon-must ng-hide" aria-label="필수항목"></i
@@ -86,7 +87,7 @@
         </ul>
 
         <v-btn class="ma-2" outlined color="indigo" @click="clickme">돌아가기</v-btn>
-    </div>
+    </div> -->
 </template>
 
 <script>

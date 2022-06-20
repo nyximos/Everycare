@@ -5,8 +5,8 @@
                 <div class="con01">
                     <div class="con0101">
                         <!-- <span class="icon03" id="btn_alert" @click="update">수정하기</span>			<span class="file"> -->
-                        <span style="display:inline-block; width:200px; height:200px; border-radius:200px; overflow:hidden;">
-                            <img :src="'https://localhost:8086/api/images/' + this.attachFiles" class="main_img img_sample" />
+                        <span style="display:inline-block; width:300px; height:300px; border-radius:100px; overflow:hidden;">
+                            <img :src="'https://localhost:8086/api/images/' + attachFiles.imageDTOs[0].storeFileName" class="main_img img_sample" />
                         </span>
 
                         <div class="layer01" id="layer_alert"></div>
@@ -163,7 +163,8 @@ export default {
                 this.coronaTest = res.data.body.coronaTest;
 
                 // this.attachFiles = res.data.body.attachFiles[0].storeFileName
-                this.attachFiles = res.data.body.imgDTOs.storeFileName;
+                this.attachFiles = res.data.body
+                console.log(this.attachFiles)
                 this.detailImg = res.data.body.imagesDTOs;
             })
             .catch(err => {

@@ -47,8 +47,10 @@
                 </div>
 
                 <div class="mb-3"> 
-                    <label for="address">주소</label> <button class="addressbutton" @click="execDaumPostcode()">주소 찾기</button>
-                    <input type="text" class="form-control" v-model="zipcode" style="width: 250px;" name="zipcode" placeholder = "우편번호" readonly/>
+                    <label for="address">주소</label> 
+
+                    <button @click="execDaumPostcode()">주소 찾기</button> 
+                    <input type="text" class="form-control" v-model="zipcode" style="width: 250px;" name="zipcode" placeholder = "우편번호" readonly />
                     
                     <input type="text" class="form-control" v-model="address" name="address" placeholder = "도로명주소" readonly />
                     <input type="text" v-model="detailedAddress" name="detailedAddress" placeholder = "상세주소" class="form-control"/>
@@ -157,6 +159,7 @@ data(){
         coronaTest:'',
         attachFiles:'',
         items:[
+          {name:'0',value:'null'},
           {name:'1',value:'1'},
       {name:'2',value:'2'},
       {name:'3',value:'3'},
@@ -436,266 +439,28 @@ input[type=radio]:checked + label{
   border-color: #81C784;
   z-index: 1;
 }
-
-// html,
-// body {
-//   height: 100%;
-//   background: #efefef;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     min-height: 100%;
-
-// }
-
-// body {
-//   display: flex;
-//   align-items: center;
-//   padding-top: 40px;
-//   padding-bottom: 40px;
-//   background-color: #f5f5f5;
-// }
-
-// .form-signin {
-//   width: 100%;
-//   max-width: 330px;
-//   padding: 15px;
-//   margin: auto;
-// }
-
-// .form-signin .checkbox {
-//   font-weight: 400;
-// }
-
-// .form-signin .form-floating:focus-within {
-//   z-index: 2;
-// }
-
-// .form-signin input[type="email"] {
-//   margin-bottom: -1px;
-//   border-bottom-right-radius: 0;
-//   border-bottom-left-radius: 0;
-// }
-
-// .form-signin input[type="password"] {
-//   margin-bottom: 10px;
-//   border-top-left-radius: 0;
-//   border-top-right-radius: 0;
-// }
-
-/* .signup-box {
-    margin-left: 60px;
-}
-input {
-    margin: 10px;
-}
-#in-input {
-    width: 600px;
-}
-h2 {
-    position: relative;
-    left: 13px;
-    color: #69f0ae;
-    text-align: center;
-    padding: 20px;
-}
-#up-btn {
-    position: relative;
-    left: 13px;
-    margin: auto;
-    display: block;
-    background-color: #69f0ae;
-    border: 1px solid #69f0ae;
-    color: white;
-}
-.contents {
-  display: flex;
-  flex-direction: row;
-  margin-top: 30px;
-}
-.contents .upload-box {
-  width: 100%;
-  margin-right: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+button {
+    color: #444444;
+    background: #F3F3F3;
+    border: 1px #DADADA solid;
+    padding: 5px 10px;
+    border-radius: 2px;
+    font-weight: bold;
+    font-size: 9pt;
+    outline: none;
 }
 
-.contents .upload-box .drag-file {
-  position: relative;
-  width: 100%;
-  height: 360px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 3px dashed #dbdbdb;
-}
-.contents .upload-box .drag-file.highlight {
-  border: 3px dashed red;
-}
-.contents .upload-box .drag-file .image {
-  width: 40px;
-}
-.contents .upload-box .drag-file .message {
-  margin-bottom: 0;
-}
-.contents .upload-box .drag-file .preview {
-  display: none;
-  position: absolute;
-  left: 0;
-  height: 0;
-  width: 100%;
-  height: 100%;
-}
-.contents .upload-box .file-label {
-  margin-top: 30px;
-  background-color: #5b975b;
-  color: #fff;
-  text-align: center;
-  padding: 10px 0;
-  width: 65%;
-  border-radius: 6px;
-  cursor: pointer;
-}
-.contents .upload-box .file {
-  display: none;
+button:hover {
+    border: 1px #C6C6C6 solid;
+    box-shadow: 1px 1px 1px #EAEAEA;
+    color: #333333;
+    background: #F7F7F7;
 }
 
-@media (max-width: 700px) {
-  .contents {
-    display: flex;
-    flex-direction: column;
-    margin-top: 30px;
-  }
-  .contents .upload-box {
-    width: 100%;
-    box-sizing: border-box;
-    margin-right: 0;
-  }
-  .contents .upload-box .drag-file {
-    height: 150px;
-  }
-  .contents .files {
-    width: 100%;
-    box-sizing: border-box;
-    margin-right: 0;
-    overflow: initial;
-  }
+button:active {
+    box-shadow: inset 1px 1px 1px #DFDFDF;   
 }
-        
 
-.box{width: 450px; height: 45px; border: 1px solid #666; padding: 10px;}
-.box1{width: 250px; height: 45px; border: 1px solid #666; padding: 10px;}
-.pbox{width: 120px; height: 45px; border: 1px solid #666; padding: 10px;}
-
-
-ul{
-    list-style: none;
-}
-    .content{
-        width:100%;
-        min-height: 800px;
-        overflow: hidden;
-    }
-    .content .join{
-        width:100%;
-        max-width: 800px;
-        margin: 50px auto 150px auto;
-        position: relative;
-        text-align: left;
-        box-sizing: border-box;
-        padding: 0 15px 0 15px;
-    }
-    .content .join .div_join{
-        width: 100%;
-        position: relative;
-        box-sizing: border-box;
-        text-align: center;
-        background-color: #ffffff;
-        border: 0;
-        box-shadow: 0 0 18px #d3d3d3;
-        border-radius: 10px;
-        padding: 40px 10px 40px 10px;
-    }
-    .content1{
-        text-align: left;
-        display: block;
-        
-        
-    }
-    .content1 span{
-        font-size: 20px;
-        
-    }
-    .content1 input[type="text"],
-    input[type="number"]{
-        border-radius: 5px;
-        border: 1px #e3e3e3 solid;
-        border: 1px solid #666;
-    }
-    .data_form{
-        border: 2px black solid;
-        border-radius: 3;
-    }
-    .submit{
-        text-align: center;
-        
-    }
-    .information{
-        width: 700px;
-        height: 150px;
-        border: 2px #e3e3e3 double;
-    }
-    .input_form_number{
-        text-align: right;
-    }
-    
-
-input[type=radio]{
-	width: 0;
-  height: 0;
-  position: absolute;
-  left: -9999px;
-  
-}
-input[type=radio] + label{
-  line-height: 50px;
-  width: 50px;
-  height: 50px;
-  
-  box-sizing: border-box;
-  position: relative;
-  display: inline-block;
-  border: solid 1px #DDD;
-  background-color: #FFF;
-  
-  text-align: center;
-  box-shadow: 0 0 0 rgba(255, 255, 255, 0);
-  transition: border-color .15s ease-out,  color .25s ease-out,  background-color .15s ease-out, box-shadow .15s ease-out;
-  cursor: pointer;
-  border-radius: 100%;
-}
-input[type=radio]:checked + label{
-	background-color: #69f0ae;
-  color: #FFF;
-  
-  border-color: #69f0ae;
-  z-index: 1;
-}
-.addressbutton{
-  
-    background-color: #5b975b;
-    color: #fff;
-    text-align: center;
-    
-    width: 250px;
-    height: 50px;
-    border-radius: 6px;
-    
-    line-height: 50px;
-} */
 
 
 
