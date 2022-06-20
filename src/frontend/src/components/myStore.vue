@@ -52,29 +52,14 @@
     </v-sheet>
 
     <v-card-text class="pt-0">
-      <div class="text-h6 font-weight-light mb-2">
-        User Registrations
-      </div>
-      <div class="subheading font-weight-light grey--text">
-        Last Campaign Performance
-      </div>
-      <v-divider class="my-2"></v-divider>
-      <v-icon
-        class="mr-2"
-        small
-      >
-        mdi-clock
-      </v-icon>
-      <span class="text-caption grey--text font-weight-light">last registration 26 minutes ago</span>
-      <br>
-    </v-card-text>
-  </v-card>
-    </v-col>
-    <input v-model="searchValue" />
+      <p>상품 별 통계</p>
+        <input v-model="searchValue" placeholder="상품 아이디 입력"/>
     <input type="date" name="" id="" v-model="startsearch">
       <input type="date" name="" id="" v-model="endsearch">
             <v-btn @click="searchprod">search</v-btn>
-      
+    </v-card-text>
+  </v-card>
+    </v-col>      
   </v-row>
 </div>
 </template>
@@ -83,6 +68,18 @@
 export default {
 data(){
     return{
+        jan:this.jan,
+        feb:this.feb,
+        mar:this.mar,
+        apr:this.apr,
+        may:this.may,
+        june:this.june,
+        jul:this.jul,
+        aug:this.aug,
+        sep:this.sep,
+        oct:this.oct,
+        nov:this.nov,
+        dec:this.dec,
         search:this.search,
         startdate:this.startdate,
         enddate:this.enddate,
@@ -140,6 +137,18 @@ data(){
           })
         .then(res => {
           console.log(res);
+          this.jan = res.data.body[0];
+          this.feb = res.data.body[0];
+          this.mar = res.data.body[0];
+          this.apr = res.data.body[0];
+          this.may = res.data.body[0];
+          this.june = res.data.body[0];
+          this.jul = res.data.body[0];
+          this.aug = res.data.body[0];
+          this.sep = res.data.body[0];
+          this.oct = res.data.body[0];
+          this.nov = res.data.body[0];
+          this.dec = res.data.body[0];
           })
         .catch(err => {
           console.log(err);

@@ -337,15 +337,15 @@ const routes = [
     },
     // 리뷰 등록
     {
-        path: '/dashboard/orders/products/:contentId',
+        path: '/dashboard/orders/products/:contentId/new',
         name: 'NewReview',
         component: () => import('@/components/reviewNew.vue'),
     },
     // 리뷰 상세
     {
-        path: '/dashboard/review/new',
-        name: 'NewReview',
-        component: () => import('@/components/reviewNew.vue'),
+        path: '/store/:contentId/products/:contentId/review',
+        name: 'ReviewDetail',
+        component: () => import('@/components/reviewDetail.vue'),
     },
     {
         path: '/login',
