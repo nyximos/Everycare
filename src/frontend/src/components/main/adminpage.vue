@@ -211,6 +211,12 @@
           .patch(`/api/admin/members/${p.id}`, {
             withCredentials: true
           })
+          .then((res)=> {
+            console.log(res);
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
         },
         
         click(p){

@@ -145,7 +145,7 @@
               <td>{{r.reason}}</td>
               <td>{{r.createdAt.slice(0,10)}}</td>
 
-              <td><button class="custom-btn btn-11" @click="stop()">해당리뷰삭제</button>
+              <td><button class="custom-btn btn-11" @click="stop(r)">해당리뷰삭제</button>
               </td>
             </tr>
             
@@ -207,10 +207,10 @@ this.$router.push({
         select: function() {
             this.allSelected = false;
         },
-        stop(){
+        stop(r){
           
           this.$http
-          .delete(`/api/admin/reports/review`, {
+          .delete(`/api/admin/reports/review?boardId=${r.boardId}&reportId=${r.id}`, {
             withCredentials: true
           })
         },

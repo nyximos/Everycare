@@ -135,16 +135,9 @@
 		<div class="list_none" style="display: none;">현재 선택하신 조건의 정보가 없습니다.<br>다시 검색해주세요!</div>
 		<div class="loading" style="display: none;"><img src="/images/common/icon_loading.gif"></div>
 	</div>
-  <div class="btn-cover">
-          <button :disabled="pageNum === 0" @click="prevPage" class="page-btn"></button>
-            <span class="page-count"></span>
-          <button :disabled="pageNum >= pageCount -1" @click="nextPage" class="page-btn"></button>
-            <v-pagination v-model="curpage" :length="pages" circle></v-pagination> 
-        </div>  
+  
 
-   <ListItem class="mt-5" v-for="(listItem, index) in filteredList" :key="index"
-  :listItem="listItem" @detail="detailShot"
-  />
+   
    <!-- <div class="text-center">
     <v-pagination
       class="mt-3"

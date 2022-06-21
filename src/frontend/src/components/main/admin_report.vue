@@ -147,6 +147,7 @@
               <td>{{r.createdAt.slice(0,10)}}</td>
 
               <td><button class="custom-btn btn-11" @click="stop(r)">활동정지</button>
+               <button class="custom-btn btn-11" @click="drop(r)">정지해제</button>
               </td>
             </tr>
             
@@ -215,8 +216,27 @@
           .patch(`/api/admin/members/${r.reportedUserId}/activites/stop`, {
             withCredentials: true
           })
+          .then((res)=> {
+            console.log(res);
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
         },
-        
+         drop(r){
+          
+          this.$http
+          .patch(`/api/admin/members/${r.reportedUserId}/activites/active`, {
+            withCredentials: true
+          })
+          .then((res)=> {
+            console.log(res);
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
+        },
+        // /api/admin/members/member6/activites/stop
        
       
     },

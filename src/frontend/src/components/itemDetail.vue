@@ -178,6 +178,10 @@ application(){
     alert(err);
     console.log(err);
   })
+  alert('계약신청 되었습니다.')
+                
+       this.$router.push({ path: '/recruitions' })
+       location.reload();
   // location.href = '/';
 },
 back(){

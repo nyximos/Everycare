@@ -21,7 +21,7 @@
                     <div class="cont">
                         <strong>{{p.name}}님</strong>
                         
-                         <v-btn color="error" @click="drop(p)">
+                         <v-btn color="error" @click="drop(p)" >
       삭제
     </v-btn>
     <v-btn 
@@ -100,6 +100,8 @@ export default {
         };
     },
     methods: {
+       
+
         gocreate() {
             this.$router.push({
                 path: '/carepeople'
@@ -123,6 +125,9 @@ export default {
                 .catch(err => {
                     console.log(err);
                 });
+                alert('대상인이 삭제 되었습니다.')
+                location.reload();
+                
         },
         schedule(p) {
             this.$router.push({ name: 'schedule', params: { caretargetsId: p.id } });

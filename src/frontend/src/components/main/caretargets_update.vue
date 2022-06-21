@@ -117,11 +117,15 @@
                             <label for="X2">X</label>
 </div>
 <div class="mb-3">
-  <label for="firstName">이미지 업로드</label> <br>
+  <label for="firstName">케어대상이미지 업로드</label> <br>
  <v-file-input type="file" v-model="attachFiles" name="attachFiles" id="attachFiles" multiple="multiple"></v-file-input>
+ <!-- <div v-for="(i,index) in imgfile" :key="index">
+                              <img :src="'https://localhost:8086/api/images/' + i.storeFileName " width="250px" height="250px"  alt="@/assets/profile.png">
+                              <v-btn @click="del(i)">삭제하기</v-btn>
+                    </div> -->
  </div>
                 <hr class="mb-4">
-                <v-btn class="ma-2" outlined color="indigo" id="clickme" @click="clickme">등록</v-btn>
+                <v-btn class="ma-2" outlined color="indigo" id="clickme" @click="clickme">수정</v-btn>
                 <hr class="mb-4">
 
                 <footer th:replace="/fragments/semantic :: footer"></footer>
@@ -329,9 +333,9 @@ methods:{
   del(i){
           
           
-          console.log(i)
+          console.log(i.storeFileName)
           this.$http
-          .delete(`/api/dashboard/caretargets/${this.id}/image/${i}`,{
+          .delete(`/api/dashboard/caretargets/${this.id}/image/${i.storeFileName}`,{
             withCredentials:true
           })
           .then((res)=>{
@@ -434,7 +438,11 @@ execDaumPostcode() {
     })
       .catch(err => {
        console.log(err);
-    });    
+    });   
+    alert('대상인이 수정 되었습니다.')
+         this.$router.push({ path: '/carenote/caretargets' })       
+       
+       
         },        
     },
     delImg(item){

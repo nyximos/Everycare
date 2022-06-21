@@ -253,7 +253,10 @@ execDaumPostcode() {
       .catch(err => {
        console.log(err);
     }); 
+    alert('대상인이 등록 되었습니다.')
+                
        this.$router.push({ path: '/carenote/caretargets' })
+       location.reload();
     
         },        
         
