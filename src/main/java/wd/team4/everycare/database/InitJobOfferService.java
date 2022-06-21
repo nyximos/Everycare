@@ -16,6 +16,7 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 public class InitJobOfferService {
 
+
     private final EntityManager em;
     private final CareTargetRepository careTargetRepository;
     private final MemberRepository memberRepository;
@@ -98,4 +99,5 @@ public class InitJobOfferService {
 
         return jobOffer;
     }
+
 }

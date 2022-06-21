@@ -1,17 +1,22 @@
 <template>
   <div class="content">
 
+
+
       <v-card
     class="mx-auto"
     max-width="300"
     v-for="(n,index) in note" :key="index">
     <v-img 
+
     v-if="n.storeFileName==null"
+
     src="@/assets/note.png"
     height="200px"
     width="200px"
     style="margin:0 auto;"
     ></v-img>
+
     <v-img 
     v-else
     :src="'https://localhost:8086/api/images/' + n.storeFileName"
@@ -24,6 +29,7 @@
     </v-card-title> -->
     <v-card-title>
       <h5 class="write">{{n.startTime.slice(0,10)}} ~ {{n.endTime.slice(0,10)}}</h5>
+
     </v-card-title>
     <v-card-actions>
       <v-btn
@@ -63,6 +69,7 @@
           three-line
           subheader
         >
+
           <h3 class="title01">케어 대상인 이름:{{notedetail.careTargetName}}</h3>
           <v-list-item>
             <!-- <v-list-item-content>
@@ -77,6 +84,7 @@
               <h2 class="subtitle">활동</h2>
                 <table class="table">
                     <thead>
+
                 <tr>
                     <th>Id</th>
                     <th>시간</th>
@@ -92,9 +100,11 @@
                     <td>{{a.requirement}}</td>
                 </tr>
             </tbody>
+
                 </table>
             </div>
     </section>
+
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -103,6 +113,7 @@
           three-line
           subheader
         >
+
           <v-list-item>
             <v-list-item-content>
             <section class="main">
@@ -136,6 +147,7 @@
                 </table>
             </div>
     </section>
+
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -195,6 +207,7 @@ export default {
 </script>
 
 <style>
+
 .title01{
   padding-top: 10px;
   text-align: center;
@@ -243,4 +256,5 @@ td{
     height: 20px;
     border-bottom:1px solid black;
 }
+
 </style>

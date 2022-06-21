@@ -1,4 +1,5 @@
 <template>
+
   <div class="content">
       <div class="table">
         <h3 class="title">대상인 이름:{{detail.careTargetName}}</h3>
@@ -8,6 +9,7 @@
             <h2>스케줄</h2>
         </div> -->
         <table  style="margin:0 auto;" class="content-table">
+
             <thead>
                 <tr class="head">
                     <th>Id</th>
@@ -24,6 +26,7 @@
                     <td>{{n.endTime}}</td>
                     <td>{{n.name}}</td>
                     <td>{{n.requirement}}</td>
+
                 </tr>
             </tbody>
         </table>
@@ -51,6 +54,7 @@
                             readonly
                             ></v-rating>
                     </td>
+
                 </tr>
             </tbody>
         </table>
@@ -62,28 +66,34 @@
 export default {
     data(){
         return{
+
             detail:[],
             note:[],
             note01:[],
             review:[]
+
         }
     },
     mounted(){
         const contractId = this.$route.params.contractId;
+
         // console.log(contractId);
         const id = this.$route.params.noteId;
         // console.log(id);
+
         this.$http
         .get(`/api/carenote/contracts/completion/${contractId}/carenotes/${id}`,{
             withCredentail:true
         })
         .then((res)=>{
             console.log(res.data.body);
+
             this.detail = res.data.body
             this.note = res.data.body.careNoteActivityInformationDTOs
             this.note01 = res.data.body.careSitterCareNoteReviewDTOs
             // console.log(this.note);
             // console.log(this.note01);
+
         })
         .catch((err)=>{
             console.log(err);
@@ -93,6 +103,7 @@ export default {
 </script>
 
 <style>
+
     .content{
         width: 100%;
     }
@@ -107,11 +118,14 @@ export default {
         text-align: right;
         padding: 10px;
     }
+
     .content-table{
         border-collapse: collapse;
         margin: 25px 0;
         font-size: 0.9em;
+
         min-width: 300px;
+
         width: 100%;
     }
     .content-table thead tr{
@@ -139,6 +153,7 @@ export default {
     .content-table tbody tr td{
         text-align: center;
     }
+
      .content-table01{
         border-collapse: collapse;
         margin: 25px 0;
@@ -171,4 +186,5 @@ export default {
     .content-table01 tbody tr td{
         text-align: center;
     }
+
 </style>

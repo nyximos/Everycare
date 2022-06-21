@@ -1,127 +1,137 @@
 <template>
-  <div class="content">
-      <div class="join">
-          <div class="div_join">
-              <div class="contents">
-    <div class="upload-box">
-      <!-- <div id="drop-file" class="drag-file">
-          <div class="div_img">
-                              <label for="input_file">
-                                  <img :src="avatar" class="img-avatar">                                  
-                              </label>
-                          </div>
-                        
-                              
-         <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" >
-        <p class="message">사진을 등록 해주세요.</p>
-        <span><input type="file" v-bind:src="attachFiles" accept="image/gif,image/jpg,image/png" @change="changeImage($event)" ref="avatarInput" class="preview"></span>
-         <img src="" alt="미리보기 이미지" class="preview"> 
-      </div> -->
-      <!-- <label class="file-label" for="attachFiles">이미지 찾기</label>
-      <v-file-input class="file" v-model="attachFiles" id="attachFiles" type="file" multiple="multiple" accept="image/png, image/jpeg, image/gif"></v-file-input> -->
-    </div>
-  </div>
-  <br>
-            <div class="content1">
-                <ul>
-                    
-                      <li><span >이름 </span><br><input type="text" v-model="name" placeholder = "이름을 입력하세요" class = 'box'/>
-                     
-                        
-                        </li>
-                    
-                    
-                           
+<body>
+    <div class="container">
+        <div class="py-5 text-center">
 
+            <h2>케어 대상인 등록</h2>
+            <!-- <p class="lead">케어 대상인 등록</p> -->
+        </div>
+
+        <div class="col-md-12 order-md-1">
+            <h4 class="mb-3">케어대상인 정보</h4>
+
+
+
+                <div class="mb-3">
+                    <label for="username">이름</label>
+                    <div class="input-group">
                         
-                    
-                     <li><span>생년월일</span><br><input type="date" v-model="birth" placeholder = "생년월일을 입력하세요." class = 'box'/>&nbsp;&nbsp;
-                     <span class="gender_form">성별</span>
-                        <input type="radio" v-model="gender" id="gender1" value="M" checked="checked">&nbsp;&nbsp;&nbsp;
-                            <label for="gender1">남</label>&nbsp;&nbsp;
-                        <input type="radio" v-model="gender" id="gender2" value="W">
+                        <input type="text" class="form-control" id="username" placeholder="이름을 입력하세요" v-model="name" required name="user-id">
+                    </div>        
+                </div>
+                
+                <div class="mb-3" style="width: 336px;">
+                    <label for="password">생년월일</label> 
+                    <input type="date" class="form-control" id="password" placeholder="" value="" required name="user-password">
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="firstName">성별</label> 
+                    <br>
+                    <input type="radio" v-model="gender" id="gender1" value="M" checked="checked">
+                            <label for="gender1">남</label>&nbsp;
+  <input type="radio" v-model="gender" id="gender2" value="W">
                             <label for="gender2" >여</label>
-                    </li>
-                    <li><span>키,몸무게</span><br><input type="number" v-model="height" placeholder = "" class = 'box1'/>&nbsp;cm
-                    <input type="number" v-model="weight" placeholder = "" class = 'box1'/>&nbsp;kg
-                   </li>
-                    
-                    <li>
-                    <span>주소</span><br>  
-                    <input type="text" v-model="zipcode" name="zipcode" placeholder = "우편번호" class = 'box1' readonly/>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button class="addressbutton" @click="execDaumPostcode()">주소 찾기</button>
-                    <br><input type="text" v-model="address" name="address" placeholder = "도로명주소" class = 'box' readonly />
-                    <br><input type="text" v-model="detailedAddress" name="detailedAddress" placeholder = "상세주소" class = 'box'/>
 
-                    </li>
-                    <li>
-                        <span>장기요양등급</span><br>
-                      
-                        <select type="number" v-model="longTermCareGrade" class="box1">
-                            
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                        등급
-                    </li>
-                    <li>
-                        <span>특이사항</span>
-                        <br>
-                        <textarea type="text" class="information" placeholder="특이사항써주세요" v-model="comment"></textarea>
-                    </li>
-                    <li>
-                      <span>반려동물 유무</span>
-                        <input type="radio" v-model="pet" id="O" value="0" checked="checked">&nbsp;&nbsp;&nbsp;
-                            <label for="O">O</label>&nbsp;&nbsp;
+                </div>
+
+                <div class="mb-3" style="width: 336px;">
+                    <label for="email">키</label>
+                    <input type="email"  v-model="height" class="form-control" id="email" placeholder="키를 입력하세요" name="user-email" cm>
+                    
+                </div>
+                <div class="mb-3" style="width: 336px;">
+                    <label for="email">몸무게</label>
+                    <input type="email" class="form-control" v-model="weight" id="email" placeholder="몸무게를 입력하세요" name="user-email">
+                </div>
+
+                <div class="mb-3"> 
+                    <label for="address">주소</label> 
+
+                    <button @click="execDaumPostcode()">주소 찾기</button> 
+                    <input type="text" class="form-control" v-model="zipcode" style="width: 250px;" name="zipcode" placeholder = "우편번호" readonly />
+                    
+                    <input type="text" class="form-control" v-model="address" name="address" placeholder = "도로명주소" readonly />
+                    <input type="text" v-model="detailedAddress" name="detailedAddress" placeholder = "상세주소" class="form-control"/>
+                </div>
+                <div class="mb-3" style="width: 336px;">
+                    <label for="email">장기요양등급</label>
+                   
+        <v-select
+        v-model="longTermCareGrade"
+          :items="items"
+          label="Standard"
+          item-text="name"
+        item-value="value"
+        ></v-select>  
+                </div>
+                <div class="mb-3">
+                    <label for="email">특이사항</label>
+                    <v-col
+        cols="12"
+        md="6"
+      >
+        <v-textarea v-model="comment"
+          solo
+          name="input-7-4"
+          label="Solo textarea"
+        ></v-textarea>
+      </v-col>   
+                </div>
+                <div class="mb-3">
+                    <label for="firstName">반려동물유무</label> 
+                    <br>
+                    <input type="radio" v-model="pet" id="O" value="0" checked="checked">
+                            <label for="O">O</label>&nbsp;
                         <input type="radio" v-model="pet" id="X" value="1">
                             <label for="X">X</label>
 
-                    </li>
-                    <li>
-                        <span>cctv 유무</span>
-                        <input type="radio" v-model="isCctvAgreement" id="O1" value="0" checked="checked">&nbsp;&nbsp;&nbsp;
-                            <label for="O1">O</label>&nbsp;&nbsp;
+                </div>
+                <div class="mb-3">
+                    <label for="firstName">cctv 유무</label> 
+                    <br>
+                    <input type="radio" v-model="isCctvAgreement" id="O1" value="0" checked="checked">
+                            <label for="O1">O</label>&nbsp;
                         <input type="radio" v-model="isCctvAgreement" id="X1" value="1">
                             <label for="X1">X</label>
-                      
-                    </li>
-                    <li>
-                        <span>케어유형</span>
-                        <input type="radio" v-model="careType" id="oldman" value="oldman" checked="checked">&nbsp;&nbsp;&nbsp;
-                            <label for="oldman">노인</label>&nbsp;&nbsp;
+
+                </div>
+                <div class="mb-3">
+                  <label for="firstName">케어유형</label> <br>
+     <input type="radio" v-model="careType" id="oldman" value="oldman" checked="checked">
+                            <label for="oldman">노인</label>&nbsp;
                         <input type="radio" v-model="careType" id="child" value="child">
-                            <label for="child">아동</label>
+                            <label for="child">아동</label>&nbsp;
                         <input type="radio" v-model="careType" id="pregnantwomen" value="pregnantwomen">
-                            <label for="pregnantwomen">임산부</label>
+                            <label for="pregnantwomen">임산부</label>&nbsp;
                         <input type="radio" v-model="careType" id="patient" value="patient">
                             <label for="patient">환자</label>
-                        
-                    </li>
-                    <li>
-                        <span>코로나검사여부</span>
-                        <input type="radio" v-model="coronaTest" id="O2" value="0" checked="checked">&nbsp;&nbsp;&nbsp;
-                            <label for="O2">O</label>&nbsp;&nbsp;
+                </div>
+<div class="mb-3">
+  <label for="firstName">코로나검사여부</label> <br>
+                
+<input type="radio" v-model="coronaTest" id="O2" value="0" checked="checked ">
+                            <label for="O2">O</label>&nbsp;
                         <input type="radio" v-model="coronaTest" id="X2" value="1">
                             <label for="X2">X</label>
-
-                    </li>
-                    <li>
-                    <span>파일 업로드</span>
-                    
-                    
- 
-                    <v-file-input type="file" v-model="attachFiles" name="attachFiles" id="attachFiles" multiple="multiple"></v-file-input>
-                    
-                    </li>
-                </ul>
+</div>
+<div class="mb-3">
+  <label for="firstName">이미지 업로드</label> <br>
+ <v-file-input type="file" v-model="attachFiles" name="attachFiles" id="attachFiles" multiple="multiple"></v-file-input>
+ </div>
+                <hr class="mb-4">
                 <v-btn class="ma-2" outlined color="indigo" id="clickme" @click="clickme">등록</v-btn>
-            </div>
+                <hr class="mb-4">
+
+                <footer th:replace="/fragments/semantic :: footer"></footer>
+
         </div>
-            
-      </div>
-  </div>
+
+    </div>
+
+</body>
+  
 </template>
 
 <script>
@@ -147,7 +157,13 @@ data(){
         isCctvAgreement:'',
         careType:'',
         coronaTest:'',
-        attachFiles:''
+        attachFiles:'',
+        items:[
+          {name:'없음',value:'null'},
+          {name:'1',value:'1'},
+      {name:'2',value:'2'},
+      {name:'3',value:'3'},
+        ]
     }
 },
 methods:{  
@@ -228,14 +244,20 @@ execDaumPostcode() {
     this.$http
     .post('/api/dashboard/caretargets/new',formData, {
     withCredentials: true
+    
     })
+    
      .then(res => {
       console.log(res);
     })
       .catch(err => {
        console.log(err);
-    });    
-    location.href = '/caretargets';
+    }); 
+    alert('대상인이 등록 되었습니다.')
+                
+       this.$router.push({ path: '/carenote/caretargets' })
+       location.reload();
+    
         },        
         
     },
@@ -243,7 +265,10 @@ execDaumPostcode() {
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
+
+
 .contents {
   display: flex;
   flex-direction: row;
@@ -287,7 +312,7 @@ execDaumPostcode() {
 }
 .contents .upload-box .file-label {
   margin-top: 30px;
-  background-color: #5b975b;
+  background-color: #81C784;
   color: #fff;
   text-align: center;
   padding: 10px 0;
@@ -414,24 +439,34 @@ input[type=radio] + label{
   border-radius: 100%;
 }
 input[type=radio]:checked + label{
-	background-color: #69f0ae;
+	background-color: #81C784;
   color: #FFF;
   
-  border-color: #69f0ae;
+  border-color: #81C784;
   z-index: 1;
 }
-.addressbutton{
-  
-    background-color: #5b975b;
-    color: #fff;
-    text-align: center;
-    
-    width: 250px;
-    height: 50px;
-    border-radius: 6px;
-    
-    line-height: 50px;
+button {
+    color: #444444;
+    background: #F3F3F3;
+    border: 1px #DADADA solid;
+    padding: 5px 10px;
+    border-radius: 2px;
+    font-weight: bold;
+    font-size: 9pt;
+    outline: none;
 }
+
+button:hover {
+    border: 1px #C6C6C6 solid;
+    box-shadow: 1px 1px 1px #EAEAEA;
+    color: #333333;
+    background: #F7F7F7;
+}
+
+button:active {
+    box-shadow: inset 1px 1px 1px #DFDFDF;   
+}
+
 
 
 

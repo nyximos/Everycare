@@ -97,13 +97,10 @@
           <div class="row">
             <div class="col-12">
               <div class="card">
-                <v-chip class="ma-2" color="success" outlined style="width:135px;" @click="review()">상품리뷰신고목록</v-chip>
+                <v-chip class="ma-2" color="success" outlined style="width:110px;" @click="care()">케어신고목록</v-chip>
                 <div class="card-body">
-                  
-                  <h5 class="card-title mb-0">케어 신고 목록</h5>
-                  
+                  <h5 class="card-title mb-0">상품 리뷰 신고 목록</h5>
                 </div>
-                
                 <div class="table-responsive custom-table-responsive">
 
         <table class="table custom-table">
@@ -117,11 +114,12 @@
                 </label>
               </th>
               
-              <th scope="col">계약서 이름</th>
-              <th scope="col">신고대상</th>
+              <th scope="col">리뷰 번호</th>
+              <th scope="col">리뷰 내용</th>
               <th scope="col">신고자</th>
-              <th scope="col">신고사유</th>
+              <th scope="col">작성자</th>
               
+              <th scope="col">신고사유</th>
               <th scope="col">신고날짜</th>
               <th scope="col">관리자 권한</th>
             </tr>
@@ -136,18 +134,18 @@
               </th>
               
               <td>
-                {{r.contractName}}
+                {{r.boardId}}
               </td>
-              <td><a href="#">{{r.reportedUserId}}</a></td>
+              <td><a href="#">{{r.boardContent}}</a></td>
+              <td><a href="#">{{r.memberId}}({{r.memberName}})</a></td>
               
-                <td><a href="#">{{r.memberId}}({{r.memberName}})</a>
+                <td><a href="#">{{r.reportedUserId}}</a>
                 
               </td>
               <td>{{r.reason}}</td>
               <td>{{r.createdAt.slice(0,10)}}</td>
 
-              <td><button class="custom-btn btn-11" @click="stop(r)">활동정지</button>
-               <button class="custom-btn btn-11" @click="drop(r)">정지해제</button>
+              <td><button class="custom-btn btn-11" @click="stop(r)">해당리뷰삭제</button>
               </td>
             </tr>
             
@@ -182,11 +180,10 @@
     },
     
     methods: {
-      review(){
-    this.$router.push({
-            path: '/admin_report_review'
+      care() {
+this.$router.push({
+            path: '/admin_report'
           })
-      
       },
       member(){
       this.$router.push({
@@ -213,48 +210,18 @@
         stop(r){
           
           this.$http
-          .patch(`/api/admin/members/${r.reportedUserId}/activites/stop`, {
+          .delete(`/api/admin/reports/review?boardId=${r.boardId}&reportId=${r.id}`, {
             withCredentials: true
           })
-          .then((res)=> {
-            console.log(res);
-          })
-          .catch((err)=>{
-            console.log(err)
-          })
         },
-         drop(r){
-          
-          this.$http
-          .patch(`/api/admin/members/${r.reportedUserId}/activites/active`, {
-            withCredentials: true
-          })
-          .then((res)=> {
-            console.log(res);
-          })
-          .catch((err)=>{
-            console.log(err)
-          })
-        },
-        // /api/admin/members/member6/activites/stop
+        
        
       
     },
     mounted() {
+      
       this.$http
-      .get('/api/admin/members', {
-        withCredentials: true
-      })
-      .then((res)=>{
-        console.log(res.data.body)
-        this.profiles = res.data.body  
-      })
-      .catch((err)=>{
-        alert(err);
-        console.log(err)
-      })
-      this.$http
-      .get('/api/admin/reports/contracts', {
+      .get('/api/admin/reports/reviews', {
         withCredentials: true
       })
       .then((res)=>{
@@ -272,6 +239,7 @@
 </script>
 
 <style scoped>
+
 .btn-11 {
   overflow: hidden;
   transition: all 0.3s ease;
@@ -306,7 +274,7 @@ button {
   
 }
 .custom-btn {
-  width: 110px;
+  width: 130px;
   height: 40px;
   padding: 10px 25px;
   border: 2px solid #000;

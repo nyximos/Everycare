@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <section class="main">
             <div class="board">
               <h2 class="subtitle">리뷰 보기</h2>
@@ -29,6 +30,7 @@
                 </table>
             </div>
     </section>
+
       <v-dialog
         transition="dialog-bottom-transition"
         max-width="600"
@@ -38,7 +40,9 @@
       >
           <v-card>
             <v-toolbar
+
               color="#69f0ae"
+
               dark
             >후기</v-toolbar>
             <v-card-text v-if="commentform">
@@ -50,6 +54,8 @@
                     readonly
                     ></v-rating>
                 </div>
+
+
                 <div class="text-h6 pa-2">{{review_detail.comment}}</div>
             </v-card-text>
             <v-card-actions class="justify-end" v-if="commentform">
@@ -126,9 +132,11 @@ export default {
                 console.log(err)
             })
 
+
         },
         del(review_detail){
             if(confirm("삭제하시겠습니까??") ==true){
+
             const carenoteId = this.id;
             const reviewId = review_detail.activityClassificationId
             this.$http
@@ -137,14 +145,18 @@ export default {
             })
             .then((res)=>{
                 console.log(res)
+
                 alert("삭제완료")
                 this.dialog = false
+
             })
             .catch((err)=>{
                 console.log(err)
             })
+
             }
             return false
+
         },
         open(){
             this.commentform01 = true
@@ -171,9 +183,11 @@ export default {
             })
             .then((res)=>{
                 console.log(res);
+
                 alert("수정완료")
                 
                 this.dialog = false
+
             })
             .catch((err)=>{
                 console.log(err)
@@ -184,6 +198,7 @@ export default {
 </script>
 
 <style>
+
       html{
     height:100%;
 }
@@ -231,5 +246,6 @@ td{
     height: 40px;
     border-bottom:1px solid black;
 }
+
 
 </style>

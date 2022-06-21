@@ -48,6 +48,7 @@ export default {
             console.log(res.data.body);
             this.start = res.data.body
             this.sId = res.data.body.id
+
         })
         .catch((err)=>{
             console.log(err);

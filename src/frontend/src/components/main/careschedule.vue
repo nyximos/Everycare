@@ -4,12 +4,23 @@
             <div class="title">
                 <h2> 스케줄</h2>
                 <div>
+
                     <span class="tit"><h4>케어대상인: {{this.$store.state.caretargetStore.targetName}}</h4></span>
                     <div class="btn">
                         <v-btn class="ma-2" outlined color="success" @click="end">활동 종료</v-btn>
                     </div>
+
                 </div>
             </div>
+            <div class="review">
+               
+             <v-chip class="ma-2" color="success" outlined style="width:150px;" @click="healthview()">
+                 <h6 class="cate_name">건강기록조회</h6>
+             </v-chip>
+             <v-chip class="ma-2" color="success" outlined style="width:150px;" @click="health()">
+                 <h6 class="cate_name">건강기록등록</h6>
+             </v-chip>
+             </div>
         <div class="table">
         <table  style="margin:0 auto;" class="content-table" >
             <thead>
@@ -20,6 +31,7 @@
                     <th>요구사항</th>
                     <th>사진</th>
                     <th>활동</th>
+                    
                 </tr>
             </thead>
             <tbody v-for="( s ,index) in schedule" :key="index">
@@ -28,17 +40,21 @@
                     <td>{{s.startTime}}</td>
                     <td>{{s.name}}</td>
                     <td>{{s.requirement}}</td>
+
                     <td v-if="s.storeFileName == null" @click="add(s)">사진</td>
                     <td v-else><img :src="'https://localhost:8086/api/images/' + s.storeFileName" width="15px" height="20px"></td>
                     <td v-if="s.content == null" @click="activity(s)">활동</td>
                     <td v-else>{{s.content}}</td>
+
                 </tr>
             </tbody>
         </table>
         </div>
         <br><br><br><br><br><br><br><br>
         </div>
+
         
+
         <!-- 건강 조회 -->
          <v-dialog v-model="Dialog03" max-width="1000px" @click:outside="closeDialog" @keydown.esc="closeDialog">
          <v-card style="background:#f8f8f8;">
@@ -50,20 +66,30 @@
           <table class="table custom-table" show-select >
           <thead>
             <tr>  
+
                     <th>건강분류 </th>
                     <th>건강상태</th>
                     <th>건강기록</th> 
             </tr>
           </thead>
+
              <tbody v-for="(h ,index) in healthRecordDTO" :key="index">
                 <tr>
                     <td @click="upadte(h)">{{h.healthClassification}}</td>
                     <td>{{h.healthStatus}}</td>
-                    <td>{{h.detailComment}}</td>  
+
+                    <td>{{h.detailComment}}</td>
+                    <td ><button class="custom-btn btn-11" @click="delete1(h)">삭제</button></td>
                 </tr>
             </tbody>
+
         </table>
+          
           <v-divider style="margin:auto;"></v-divider>
+          <v-card-actions>
+            
+          </v-card-actions>
+
         </v-card>
     </v-dialog>
     <!-- 상세조회 -->
@@ -72,7 +98,9 @@
           <v-card-text style="max-height: 550px; padding-bottom:0px;">
             <v-card-text>
                 <h2 class="title01">건강기록수정</h2>
+
                 {{id}}
+
             </v-card-text>            
           </v-card-text>
 
@@ -81,8 +109,10 @@
     :items="healthList"
     item-text="name"
     item-value="value"
+
     label="건강분류"   
   >
+
   </v-select>
   <v-select
   type="text"
@@ -90,9 +120,11 @@
     :items="healthstatusList"
     item-text="name"
   item-value="value"
+
     label="건강상태" 
   >
   </v-select>
+
           <v-col cols="12" md="8" style="margin:0 auto;">
         <v-textarea
           solo
@@ -125,8 +157,13 @@
     :items="healthList"
     item-text="name"
     item-value="value"
-    label="건강분류"   
+
+    label="건강분류"
+      
   >
+    
+    
+
   </v-select>
   <v-select
   type="text"
@@ -134,16 +171,31 @@
     :items="healthstatusList"
     item-text="name"
   item-value="value"
-    label="건강상태" 
-  >    
+
+    label="건강상태"
+    
+  >
+  <!-- <v-select
+  type="text"
+  v-model="healthstatus"
+    :items="healthstatus1"
+    item-text="name"
+        item-value="value"
+    label="건강상태"> -->
+    
+    
+    
+
   </v-select>
 
           <v-col cols="12" md="8" style="margin:0 auto;">
         <v-textarea
           solo
           name="input-7-4"
-          label="내용을 입력해주세요"
-          v-model="content2"
+
+          placeholder="내용을 입력해주세요"
+          v-model="content1"
+
         ></v-textarea>
       </v-col>
           <v-divider style="margin:auto;"></v-divider>
@@ -220,21 +272,45 @@ export default {
             schedule:[],
             Dialog:false,
             Dialog01:false,
+            Dialog02:false,
+            Dialog03:false,
+            Dialog04:false,
             avatar:require('@/assets/writing.png'),
             file:this.file,
-            content:''
+            content:'',
+            content1:'',
+            content2:'',
+            health1:'',
+            healthstatus:'',
+            detailComment:'',
+            healthList:[
+                 { name: '신체기능', value: '1'},
+                { name: '식사기능', value: '2'},
+                { name: '인지기능', value: '3'}
+            ],
+             healthstatusList:[
+                 { name: '좋음', value: 'GOOD'},
+                { name: '보통', value: 'MAINTENANCE'},
+                { name: '나쁨', value: 'BAD'}
+            ],
+            healthRecordDTO:[],
+            id:this.id
         }
     },
     mounted(){
-        const id = this.$route.params.contentId;
-        console.log(id);
+
+        // const id = this.$route.params.contentId;
+         const carenoteId = this.$route.params.contentId;
+        
+        
+
         this.$http
-        .get(`/api/carenotes/${id}/schedules`,{
+        .get(`/api/carenotes/${ carenoteId}/schedules`,{
             withCredentail:true
         })
         .then((res)=>{
             this.schedule= res.data.body.activityInformationDTOs
-            console.log(this.schedule)
+            // console.log(this.schedule)
             // console.log("데이터" + res);
         })
         .catch((err)=>{
@@ -242,24 +318,59 @@ export default {
         })
 
         this.$http
-        .get(`/api/carenote/${id}/health-records`, {
+        .get(`/api/carenote/${carenoteId}/health-records`, {
             withCredentail:true
         })
         .then((res)=>{
+            // console.log(res.data.body);
             this.healthRecordDTO = res.data.body
+            console.log(this.healthRecordDTO);
+            console.log(this.healthRecordDTO[0].id);
+            
+            /*
+            for(let i = 0; i< Object.keys(res.data.body).length; i++){
+                console.log("기록"+res.data.body[i].id)
+            //  formData.append('id', res.data.body[0].id);
+            this.id = res.data.body[i].id
+            console.log(this.id)
+           } 
+           */
+            
+
         })
         .catch((err)=>{
             console.log(err);
         })
         
+
     },
+    
     methods:{
+        delete1(h){
+            const carenoteId = this.$route.params.contentId;
+            const id = h.id
+            
+            this.$http
+            .delete(`/api/carenote/${carenoteId}/health-records/${id}`,{
+                withCredentail:true
+            })
+            .then((res)=>{
+                console.log(res);
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        },
         closeDialog(){
             this.Dialog = false;
             this.Dialog01 = false;
+            this.Dialog02 = false;
+            this.Dialog03 = false;
+            this.Dialog04 = false
         },
         add(s){
             this.Dialog = true;
+            console.log(s.id);
             const caretarget ={
                 id : s.id,
                 name : s.name
@@ -267,6 +378,7 @@ export default {
             this.$store.commit('carenoteStore/caretarget', caretarget);
         },
         submit(){
+
             if(this.file == undefined){
                 alert("사진을 등록해주세요")
             }else{
@@ -306,9 +418,40 @@ export default {
         },
         healthview(){
             this.Dialog03 = true
+
+        },
+        upadte(h){
+             const carenoteId = this.$route.params.contentId;
+            this.Dialog04 = true
+            this.id = h.id
+            this.$http
+        .get(`/api/carenote/${carenoteId}/health-records/${h.id}`,{
+            withCredentail:true
+        })
+        .then((res)=>{
+            console.log(res.data.body);
+            console.log(res)
+            // this.schedule= res.data.body.activityInformationDTOs
+            // console.log(this.schedule)
+            // console.log("데이터" + res);
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+            // console.log(id)
+        },
+        health(){
+            this.Dialog02 = true
+            
+        },
+        healthview(){
+            this.Dialog03 = true
+            
+        
         },
         activity(s){
             this.Dialog01 = true
+            console.log(s.id);
             const caretarget ={
                 id : s.id,
                 name : s.name
@@ -370,9 +513,62 @@ export default {
            .catch((err)=>{
                console.log(err)
            })
-           }else{
-        return false;
-      }
+
+       },
+       addmit2(){
+            const carenoteId = this.$route.params.contentId;
+            
+
+            var formData = new FormData();
+            
+            formData.append('detailComment', this.content1);
+            formData.append('healthClassificationId', this.health1);
+            formData.append('healthStatus', this.healthstatus);
+           this.$http
+           .post(`/api/carenote/${carenoteId}/health-records`, formData,{
+               withCredentail:true
+           })
+           .then((res)=>{
+               console.log(res);
+           })
+           .catch((err)=>{
+               console.log(err);
+           })
+       },
+       addmit3(){
+            const carenoteId = this.$route.params.contentId;
+            const id = this.id
+
+            var formData = new FormData();
+            
+            formData.append('detailComment', this.content2);
+            formData.append('healthClassificationId', this.health1);
+            formData.append('healthStatus', this.healthstatus);
+           this.$http
+           .patch(`/api/carenote/${carenoteId}/health-records/${id}`, formData,{
+               withCredentail:true
+           })
+           .then((res)=>{
+               console.log(res);
+           })
+           .catch((err)=>{
+               console.log(err);
+           })
+       },
+       end(){
+           const carenoteId = this.$route.params.contentId;
+           console.log(carenoteId);
+           this.$http
+           .patch(`/api/carenotes/${carenoteId}/schedules/complition`,{
+               withCredentail:true
+           })
+           .then((res)=>{
+               console.log(res)
+           })
+           .catch((err)=>{
+               console.log(err)
+           })
+
        }
     }
 }
@@ -511,10 +707,12 @@ export default {
         width: 200px;
         /* float: right; */
     }
+
      /* .table{ */
         /* width: 100%; */
         /* padding: 20px; */
     /* } */
+
     .title01{
         text-align: center;
         color: black;
@@ -924,4 +1122,34 @@ input[type*=radio], button {
 li {
     list-style: none;
 }
+
+.btn-11 {
+  overflow: hidden;
+  transition: all 0.3s ease;
+  font-size:18px;
+  border: solid 1px;
+}
+.btn-11:hover {
+   background: #81C784;
+  color: #fff;
+}
+.btn-11:before {
+    position: absolute;
+    content: '';
+    display: inline-block;
+    top: -180px;
+    left: 0;
+    width: 30px;
+    height: 100%;
+    background-color: #fff;
+    animation: shiny-btn1 3s ease-in-out infinite;
+    font-size: 10;
+}
+.btn-11:active{
+  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
+              -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+    inset -4px -4px 6px 0 rgba(255,255,255,.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
+}
+
 </style>

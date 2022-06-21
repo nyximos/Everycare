@@ -15,6 +15,7 @@
                         </tr>
                     </thead>
                     <tbody class="tbody" v-for="(c,index) in certification" :key="index">
+
                       <!-- <tr v-if="!certification.length">
                         등록된 자격증이 없습니다.
                       </tr> -->
@@ -25,6 +26,7 @@
                         <td>{{certification[index].createdAt.slice(0,10)}}</td>
                         <td>{{certification[index].approvalDate.slice(0,10)}}</td>
                       </tr>
+
                     </tbody>
                 </table>
             </div>

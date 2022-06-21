@@ -46,30 +46,25 @@ public class CareTargetServiceImpl implements CareTargetService {
         List<CareTarget> careTargets = careTargetRepository.findAllByMember(user);
 
         List<CareTargetListViewDTO> careTargetListViewDTOs = new ArrayList<>();
-        List<ImageDTO> imageDTOs = new ArrayList<>();
 
         if (careTargets.isEmpty()) {
             return null;
         }
 
         for (CareTarget careTarget : careTargets) {
-            imageDTOs.clear();
 
             List<CareTargetImage> images = careTargetImageRepository.findAllByCareTarget(careTarget);
 
-            for (CareTargetImage image : images) {
                 ImageDTO imageDTO = ImageDTO.builder()
-                        .id(image.getId())
-                        .uploadFileName(image.getUploadFileName())
-                        .storeFileName(image.getStoreFileName())
+                        .id(images.get(0).getId())
+                        .uploadFileName(images.get(0).getUploadFileName())
+                        .storeFileName(images.get(0).getStoreFileName())
                         .build();
-                imageDTOs.add(imageDTO);
-            }
 
             CareTargetListViewDTO careTargetListViewDTO = CareTargetListViewDTO.builder()
                     .id(careTarget.getId())
                     .name(careTarget.getName())
-                    .imageDTOs(imageDTOs)
+                    .imageDTO(imageDTO)
                     .build();
 
             careTargetListViewDTOs.add(careTargetListViewDTO);

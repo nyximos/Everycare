@@ -36,7 +36,7 @@ public class JobOfferQueryRepository {
         return queryFactory
                 .select(jobOffer)
                 .from(jobOffer)
-                .where(jobOffer.startDate.after(startDate).and(jobOffer.endDate.before(endDate)))
+                .where(jobOffer.startDate.between(startDate, endDate))
                 .fetch();
     }
 

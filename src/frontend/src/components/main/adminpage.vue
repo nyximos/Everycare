@@ -42,9 +42,7 @@
                   <a class="dropdown-item" href="javascript:void(0)"><i class="mdi mdi-wallet me-1 ms-1"></i> My 1</a>
                   <a class="dropdown-item" href="javascript:void(0)"><i class="mdi mdi-email me-1 ms-1"></i> email</a>
                   <div class="dropdown-divider"></div>
-                  <!-- <div class="ps-4 p-10">
-                    <a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded text-white">Logout</a>
-                  </div> -->
+                  
                   <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-power-off me-1 ms-1"></i> Logout</a>
                 </ul>
               </li>
@@ -57,13 +55,13 @@
           <nav class="sidebar-nav">
             <ul id="sidebarnav" class="pt-4 in">
               <li class="sidebar-item">
-                <router-link to="/adminpage" class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="mdi mdi-account-box-outline"></i>&nbsp;&nbsp;<span class="hide-menu">회원 관리</span></router-link>
+                <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i class="mdi mdi-account-box-outline"></i>&nbsp;&nbsp;<button class="hide-menu" @click="member()">회원 관리</button></a>
               </li>
               <li class="sidebar-item">
-                <router-link to="/admin_report" class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="mdi mdi-alert-box"></i>&nbsp;&nbsp;<span class="hide-menu">신고 관리</span></router-link>
+                <router-link to="/admin_report" class="sidebar-link waves-effect waves-dark sidebar-link"  aria-expanded="false"><i class="mdi mdi-alert-box"></i>&nbsp;&nbsp;<span class="hide-menu">신고 관리</span></router-link>
               </li>
               <li class="sidebar-item">
-                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="mdi mdi-store"></i>&nbsp;&nbsp;<span class="hide-menu">스토어 관리</span></a>
+                <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i class="mdi mdi-store"></i>&nbsp;&nbsp;<button class="hide-menu" @click="store()">스토어 관리</button></a>
               </li>
               <li class="sidebar-item selected">
                 <a class="sidebar-link waves-effect waves-dark sidebar-link active" href="#" aria-expanded="false"><i class="mdi mdi-file-outline"></i>&nbsp;&nbsp;<span class="hide-menu">케어시터 자격증 승인</span></a>
@@ -105,7 +103,7 @@
                 </div>
                 <div class="table-responsive custom-table-responsive">
 
-        <table class="table custom-table" show-select :single-select="singleSelect">
+        <table class="table custom-table" show-select >
           <thead>
             <tr>  
 
@@ -153,7 +151,7 @@
               <td>{{p.activityStatus}}</td>
               <td><button class="custom-btn btn-11" @click="click(p)">관리자등록</button>
               <button class="custom-btn btn-11" @click="drop(p)">관리자삭제</button>
-              <button class="custom-btn btn-11">활동정지취소</button></td>
+              </td>
             </tr>
             
             
@@ -175,7 +173,7 @@
 <script>
 
   export default {
-    
+  
     data () {
       return {
         allSelected: false,
@@ -185,6 +183,16 @@
       }
     },
     methods: {
+      member(){
+      this.$router.push({
+            path: '/admin/members'
+          })
+      },
+      store(){
+        this.$router.push({
+          path: '/admin/stores'
+        })
+      },
       selectAll: function() {
             this.userIds = [];
 
@@ -202,6 +210,12 @@
           this.$http
           .patch(`/api/admin/members/${p.id}`, {
             withCredentials: true
+          })
+          .then((res)=> {
+            console.log(res);
+          })
+          .catch((err)=>{
+            console.log(err)
           })
         },
         
@@ -246,7 +260,7 @@
   font-size:12px;
 }
 .btn-11:hover {
-   background: #000;
+   background: #81C784;
   color: #fff;
 }
 .btn-11:before {
@@ -701,7 +715,7 @@ button {
       position: absolute;
       width: 250px;
       height: 100%;
-      top: 50px;
+
       z-index: 10;
       padding-top: 64px;
       /* background: #fff; */

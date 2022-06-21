@@ -559,6 +559,7 @@ export default {
             formData.append('attachFiles', this.img[i]);
           // console.log(this.img[i]);
           }
+
           //  if(this.img ==""){
           //   alert("사진");
           //   return;
@@ -599,14 +600,17 @@ export default {
              alert("자기소개를 입력해주세요!");
              return;
            }
+
            this.$http
             .patch(`/api/dashboard/caresitter/${this.id}`, formData,{
                 withCredentials:true
             })
             .then(res=>{
                 console.log(res);
+
               alert("프로필 수정완료");
               this.$router.push({ path: '/Main' })
+
             }).catch(err=> {
                 console.log(err);
             })
@@ -620,7 +624,9 @@ export default {
           })
           .then((res)=>{
             console.log(res)
+
             alert("이미지가 삭제되었습니다.")
+
           })
           .catch((err)=>{
             console.log(err)
@@ -641,6 +647,8 @@ export default {
        categoryChange(event){
         if(event =='서울'){
           this.detail_area = this.area1;
+
+
         }else if(event == '인천'){
           this.detail_area = this.area2;
         }else if(event =='경기'){

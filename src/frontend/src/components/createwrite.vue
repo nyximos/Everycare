@@ -212,6 +212,10 @@ name: 'Create',
        console.log(err);
        console.log(this.hi)
     });
+    alert('구인글이 등록 되었습니다.')
+                
+       this.$router.push({ path: '/recruitions' })
+       location.reload();
   },
   buttonClick(){
       var formData = new FormData()

@@ -94,7 +94,7 @@ public class JobOfferApiController {
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 //detail 완료
-    @GetMapping("/recruitions/recruition/{id}")
+    @GetMapping(" ")
     public ResponseEntity<MyResponse> getDetailJobOffer(@PathVariable("id") Long id) {
         ResponseEntity<MyResponse> detailJobOffer = jobOfferService.getDetailJobOffer(id);
         return detailJobOffer;
@@ -124,6 +124,7 @@ public class JobOfferApiController {
 
     @GetMapping("/recruitions/region")
     public ResponseEntity<MyResponse> searchRegion(@RequestParam String region){
+        System.out.println("region");
         ResponseEntity<MyResponse> searchRegion = jobOfferService.searchRegion(region);
         return searchRegion;
     }
@@ -131,6 +132,7 @@ public class JobOfferApiController {
     @GetMapping("/recruitions/date")
     public ResponseEntity<MyResponse> searchDate(@RequestParam String date){
         ResponseEntity<MyResponse> searchDate = jobOfferService.searchDate(date);
+        System.out.println("searchDate = " + searchDate);
         return searchDate;
     }
 

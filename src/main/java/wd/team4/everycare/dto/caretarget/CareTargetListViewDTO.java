@@ -15,5 +15,5 @@ public class CareTargetListViewDTO {
 
     private Long id;
     private String name;
-    private List<ImageDTO> imageDTOs;
+    private ImageDTO imageDTO;
 }

@@ -1,24 +1,149 @@
 <template>
+<body>
+    <div class="container">
+        <div class="py-5 text-center">
+
+            <h2>케어 대상인 등록</h2>
+            <!-- <p class="lead">케어 대상인 등록</p> -->
+        </div>
+
+        <div class="col-md-12 order-md-1">
+            <h4 class="mb-3">케어대상인 정보</h4>
+
+
+
+                <div class="mb-3">
+                    <label for="username">이름</label>
+                    <div class="input-group">
+                        
+                        <input type="text" class="form-control" id="username" placeholder="이름을 입력하세요" v-model="name" required name="user-id">
+                    </div>        
+                </div>
+                
+                <div class="mb-3">
+                    <label for="password">생년월일</label> 
+                    <input type="date" class="form-control" id="password" placeholder="" value="" required name="user-password">
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="firstName">성별</label> 
+                    <br>
+                    <input type="radio" v-model="gender" id="gender1" value="M" checked="checked">
+                            <label for="gender1">남</label>&nbsp;
+  <input type="radio" v-model="gender" id="gender2" value="W">
+                            <label for="gender2" >여</label>
+
+                </div>
+
+                <div class="mb-3" style="width: 336px;">
+                    <label for="email">키</label>
+                    <input type="email"  v-model="height" class="form-control" id="email" placeholder="키를 입력하세요" name="user-email" cm>
+                    
+                </div>
+                <div class="mb-3" style="width: 336px;">
+                    <label for="email">몸무게</label>
+                    <input type="email" class="form-control" v-model="weight" id="email" placeholder="몸무게를 입력하세요" name="user-email">
+                </div>
+
+                <div class="mb-3"> 
+                    <label for="address">주소</label> 
+
+                    <button @click="execDaumPostcode()">주소 찾기</button> 
+                    <input type="text" class="form-control" v-model="zipcode" style="width: 250px;" name="zipcode" placeholder = "우편번호" readonly />
+                    
+                    <input type="text" class="form-control" v-model="address" name="address" placeholder = "도로명주소" readonly />
+                    <input type="text" v-model="detailedAddress" name="detailedAddress" placeholder = "상세주소" class="form-control"/>
+                </div>
+                <div class="mb-3" style="width: 336px;">
+                    <label for="email">장기요양등급</label>
+                   
+        <v-select
+        v-model="longTermCareGrade"
+          :items="items"
+          label="Standard"
+          item-text="name"
+        item-value="value"
+        ></v-select>  
+                </div>
+                <div class="mb-3">
+                    <label for="email">특이사항</label>
+                    <v-col
+        cols="12"
+        md="6"
+      >
+        <v-textarea v-model="comment"
+          solo
+          name="input-7-4"
+          label="Solo textarea"
+        ></v-textarea>
+      </v-col>   
+                </div>
+                <div class="mb-3">
+                    <label for="firstName">반려동물유무</label> 
+                    <br>
+                    <input type="radio" v-model="pet" id="O" value="0" checked="checked">
+                            <label for="O">O</label>&nbsp;
+                        <input type="radio" v-model="pet" id="X" value="1">
+                            <label for="X">X</label>
+
+                </div>
+                <div class="mb-3">
+                    <label for="firstName">cctv 유무</label> 
+                    <br>
+                    <input type="radio" v-model="isCctvAgreement" id="O1" value="0" checked="checked">
+                            <label for="O1">O</label>&nbsp;
+                        <input type="radio" v-model="isCctvAgreement" id="X1" value="1">
+                            <label for="X1">X</label>
+
+                </div>
+                <div class="mb-3">
+                  <label for="firstName">케어유형</label> <br>
+     <input type="radio" v-model="careType" id="oldman" value="oldman" checked="checked">
+                            <label for="oldman">노인</label>&nbsp;
+                        <input type="radio" v-model="careType" id="child" value="child">
+                            <label for="child">아동</label>&nbsp;
+                        <input type="radio" v-model="careType" id="pregnantwomen" value="pregnantwomen">
+                            <label for="pregnantwomen">임산부</label>&nbsp;
+                        <input type="radio" v-model="careType" id="patient" value="patient">
+                            <label for="patient">환자</label>
+                </div>
+<div class="mb-3">
+  <label for="firstName">코로나검사여부</label> <br>
+                
+<input type="radio" v-model="coronaTest" id="O2" value="0" checked="checked ">
+                            <label for="O2">O</label>&nbsp;
+                        <input type="radio" v-model="coronaTest" id="X2" value="1">
+                            <label for="X2">X</label>
+</div>
+<div class="mb-3">
+  <label for="firstName">케어대상이미지 업로드</label> <br>
+ <v-file-input type="file" v-model="attachFiles" name="attachFiles" id="attachFiles" multiple="multiple"></v-file-input>
+ <!-- <div v-for="(i,index) in imgfile" :key="index">
+                              <img :src="'https://localhost:8086/api/images/' + i.storeFileName " width="250px" height="250px"  alt="@/assets/profile.png">
+                              <v-btn @click="del(i)">삭제하기</v-btn>
+                    </div> -->
+ </div>
+                <hr class="mb-4">
+                <v-btn class="ma-2" outlined color="indigo" id="clickme" @click="clickme">수정</v-btn>
+                <hr class="mb-4">
+
+                <footer th:replace="/fragments/semantic :: footer"></footer>
+
+        </div>
+
+    </div>
+
+</body>
+<!-- <v-container>
+  <v-card>
+  <v-card-text>
   <div class="content">
       <div class="join">
           <div class="div_join">
               <div class="contents">
     <div class="upload-box">
-      <div id="drop-file" class="drag-file">
-          <div class="div_img">
-                              <label for="input_file">
-                                  <img :src="avatar" class="img-avatar">                                  
-                              </label>
-                          </div>
-                         
-                              
-         <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일 아이콘" class="image" >
-        <p class="message">사진을 등록 해주세요.</p>
-        <span><input type="file" v-bind:src="attachFiles" accept="image/gif,image/jpg,image/png" @change="changeImage($event)" ref="avatarInput" class="preview"></span>
-         <img src="" alt="미리보기 이미지" class="preview"> 
-      </div>
-      <label class="file-label" for="attachFiles">이미지 찾기</label>
-      <v-file-input class="file" v-model="attachFiles" id="attachFiles" type="file" multiple="multiple" accept="image/png, image/jpeg, image/gif"></v-file-input>
+
     </div>
   </div>
   <br>
@@ -47,18 +172,11 @@
                     <button class="addressbutton" @click="execDaumPostcode()">주소 찾기</button>
                     <br><input type="text" v-model="address" name="address" placeholder = "도로명주소" class = 'box' readonly />
                     <br><input type="text" v-model="detailedAddress" name="detailedAddress" placeholder = "상세주소" class = 'box'/>
-                        <!-- <span>주소</span>
-                        &nbsp;&nbsp;<input type="text" v-model="address">
-                        <span>우편번호</span>
-                        &nbsp;&nbsp;<input type="text" v-model="zipcode">
-                        <span>상세주소</span>
-                        &nbsp;&nbsp;<input type="text" v-model="detailedAddress">
-                        <button>우편찾기</button> -->
+
                     </li>
                     <li>
                         <span>장기요양등급</span><br>
-                        <!-- <v-col class="d-flex" cols="12" sm="6">
-                        <v-select :items="longTermCareGrade" outlined></v-select></v-col> -->
+
                         
                         <select type="number" v-model="longTermCareGrade" class="box1">
                             
@@ -79,14 +197,7 @@
                             <label for="O">O</label>&nbsp;&nbsp;
                         <input type="radio" v-model="pet" id="X" value="1">
                             <label for="X">X</label>
-                        <!-- <span>반려동물 유무</span>
-                        <v-radio-group type="number" v-model="pet" mandatory row>
-                                    <v-radio label="O" value="0"></v-radio>
-                                    <v-radio label="X" value="1"></v-radio>
-                        </v-radio-group> -->
-                        <!--
-                        <v-btn class="ma-2" outlined small fab color="teal" v-model="pet">유</v-btn>
-                        <v-btn class="ma-2" outlined small fab color="teal" v-model="pet">무</v-btn> -->
+
                     </li>
                     <li>
                         <span>cctv 유무</span>
@@ -94,13 +205,7 @@
                             <label for="O1">O</label>&nbsp;&nbsp;
                         <input type="radio" v-model="isCctvAgreement" id="X1" value="1">
                             <label for="X1">X</label>
-                        <!-- <v-radio-group type="number" v-model="isCctvAgreement" mandatory row>
-                                    <v-radio label="O" value="0"></v-radio>
-                                    <v-radio label="X" value="1"></v-radio>
-                        </v-radio-group> -->
-                         <!--
-                        <v-btn class="ma-2" outlined small fab color="teal" v-model="cctv">O</v-btn>
-                        <v-btn class="ma-2" outlined small fab color="teal" v-model="cctv">X</v-btn> -->
+
                     </li>
                     <li>
                         <span>케어유형</span>
@@ -112,16 +217,7 @@
                             <label for="pregnantwomen">임산부</label>
                         <input type="radio" v-model="careType" id="patient" value="patient">
                             <label for="patient">환자</label>
-                        <!-- <v-radio-group type="text" v-model="careType" mandatory row>
-                                    <v-radio label="노인" value="oldman"></v-radio>
-                                    <v-radio label="아동" value="child"></v-radio>
-                                    <v-radio label="임산부" value="pregnantwomen"></v-radio>
-                                    <v-radio label="환자" value="patient"></v-radio>
-                        </v-radio-group> -->
-                        <!-- <v-btn class="ma-2" outlined small fab color="teal" v-model="caretype">노인</v-btn>
-                        <v-btn class="ma-2" outlined small fab color="teal" v-model="caretype">아동</v-btn>
-                        <v-btn class="ma-2" outlined small fab color="teal" v-model="caretype">임산부</v-btn>
-                        <v-btn class="ma-2" outlined small fab color="teal" v-model="caretype">환자</v-btn> -->
+
                     </li>
                     <li>
                         <span>코로나검사여부</span>
@@ -129,26 +225,36 @@
                             <label for="O2">O</label>&nbsp;&nbsp;
                         <input type="radio" v-model="coronaTest" id="X2" value="1">
                             <label for="X2">X</label>
-                        <!-- <v-radio-group type="number" v-model="coronaTest" mandatory row>
-                                    <v-radio label="O" value="0"></v-radio>
-                                    <v-radio label="X" value="1"></v-radio>
-                        </v-radio-group> -->
+
                     </li>
-                    <li>
-                    <span>파일 업로드</span>
-                    
-                    
- 
-                    <v-file-input type="file" v-model="attachFiles" name="attachFiles" id="attachFiles" multiple="multiple"></v-file-input>
-                    
-                    </li>
+                    <br>
+                    <h5>케어대상인 사진</h5>
+                    <div v-for="(i,index) in imgfile" :key="index">
+                              <img :src="'https://localhost:8086/api/images/' + i.storeFileName " width="250px" height="250px"  alt="@/assets/profile.png">
+                              <v-btn @click="del(i)">삭제하기</v-btn>
+                    </div>
+                    <v-file-input 
+                              v-model="attachFiles" 
+                              label="File input" 
+                              type="file"
+                              id="attachFiles"
+                              multiple="multiple"
+                              outlined dense>
+                              </v-file-input>
+    
                 </ul>
                 <v-btn class="ma-2" outlined color="indigo" @click="clickme">수정</v-btn>
+                
             </div>
         </div>
             
       </div>
+      
   </div>
+  </v-card-text>
+</v-card>
+</v-container> -->
+
 </template>
 
 <script>
@@ -174,8 +280,17 @@ data(){
         isCctvAgreement:'',
         careType:'',
         coronaTest:'',
-        attachFiles:'',
-        id:this.$route.params.caretargetsId
+        attachFiles:null,
+        img:[],
+        id:this.$route.params.caretargetsId,
+        imgfile:this.imgfile,
+        detailImg:[],
+        items:[
+          {name:'0',value:'null'},
+          {name:'1',value:'1'},
+      {name:'2',value:'2'},
+      {name:'3',value:'3'},
+        ]
     }
 },
 mounted(){
@@ -185,6 +300,7 @@ const id = this.$route.params.caretargetsId;
 	})
 	
     .then((res)=>{
+      console.log(res.data)
         console.log(res.data.body);
         this.name = res.data.body.name
         this.gender = res.data.body.gender
@@ -200,13 +316,35 @@ const id = this.$route.params.caretargetsId;
 		this.isCctvAgreement = res.data.body.isCctvAgreement
 		this.careType = res.data.body.careType
 		this.coronaTest = res.data.body.coronaTest
-		this.attachFiles = res.data.body.attachFiles
+		
+    this.imgfile = res.data.body.imageDTOs
+    
+    
+    console.log(this.imgfile)
+    
+    
+    
     })
     .catch((err)=>{
         console.log(err)
     })
 },
 methods:{  
+  del(i){
+          
+          
+          console.log(i.storeFileName)
+          this.$http
+          .delete(`/api/dashboard/caretargets/${this.id}/image/${i.storeFileName}`,{
+            withCredentials:true
+          })
+          .then((res)=>{
+            console.log(res)
+          })
+          .catch((err)=>{
+            console.log(err)
+          })
+        },
 execDaumPostcode() {
       new window.daum.Postcode({
         oncomplete: (data) => {
@@ -275,9 +413,21 @@ execDaumPostcode() {
                 formData.append('coronaTest',this.coronaTest);
                 
 
-                for (let i = 0; i < this.attachFiles.length; i++) {
-                formData.append('attachFiles', this.attachFiles[i]);
-                }
+                // for (let i = 0; i < this.attachFiles.length; i++) {
+                // formData.append('attachFiles', this.attachFiles[i]);
+                // }
+                if (this.attachFile!=null){
+          formData.append('attachFile', this.attachFile)
+        }
+          if (this.attachFiles===null) {
+          for (let i = 0; i < this.item.length; i++) {
+            formData.append('attachFiles', this.item.detailImg[i]);
+          }
+        }else{
+          for (let i = 0; i < this.attachFiles.length; i++) {
+            formData.append('attachFiles', this.attachFiles[i]);
+          }
+        }
                 
     this.$http
     .patch(`/api/dashboard/caretargets/${this.id}`,formData, {
@@ -288,9 +438,25 @@ execDaumPostcode() {
     })
       .catch(err => {
        console.log(err);
-    });    
+    });   
+    alert('대상인이 수정 되었습니다.')
+         this.$router.push({ path: '/carenote/caretargets' })       
+       
+       
         },        
     },
+    delImg(item){
+    // console.log(item.id)
+    this.$http
+    .delete(`/api/dashboard/caretargets/${this.id}/image/${item.id}`,{
+      withCredentials:true
+    })
+    .then((res)=>{
+      console.log(res)
+    }).catch((err)=>{
+      console.log(err)
+    })
+  }
 }
 
 </script>

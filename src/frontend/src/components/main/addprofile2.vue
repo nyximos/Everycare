@@ -6,6 +6,9 @@
             <div class="resumeType1-inner">
                <div id="ResumeBaseInfo" class="resumeView">
                   <h2 class="hide">기본정보</h2>
+                  <div v-for="(b,index) in badge" :key="index">
+                     <img :src="'https://localhost:8086/api/images/' + b.storeFileName">
+                  </div>
                   <div class="photoArea">
                      <span class="photo">
                         <!-- <div v-if="this.attachFile == ' ' ">  -->
@@ -143,7 +146,7 @@ export default {
          this.certification = res.data.body.certification
          this.badge = res.data.body.badge
          this.attachFile = res.data.body.attachFiles
-         console.log(this.badge)
+
          }).catch(err=>{
             console.log(err);
          })
