@@ -446,8 +446,6 @@ export default {
         },
         healthview(){
             this.Dialog03 = true
-            
-        
         },
         activity(s){
             this.Dialog01 = true
@@ -498,7 +496,7 @@ export default {
             }
        },
        end(){
-           if(confirm("활동종료하시겠습니까??") ==true){
+           if(confirm("활동을 종료하시겠습니까??") ==true){
            const carenoteId = this.$route.params.contentId;
            console.log(carenoteId);
            this.$http
@@ -513,7 +511,6 @@ export default {
            .catch((err)=>{
                console.log(err)
            })
-
        }
        },
        addmit2(){

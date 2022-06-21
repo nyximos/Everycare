@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div v-if="!target.length"><h2 class="text">계약서가 없습니다.</h2></div>
     <v-container class="fill-height" fluid style="min-height: 500px">
     <v-fade-transition mode="out-in">
       <v-row v-for="(c,index) in target" :key="index">
@@ -50,5 +51,8 @@ export default {
 </script>
 
 <style>
-
+  .text{
+    text-align: center;
+    padding-top: 40px;
+  }
 </style>

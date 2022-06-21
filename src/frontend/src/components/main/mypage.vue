@@ -24,15 +24,12 @@
   </div>   -->
    
   <div class="listContainer">
-    <div v-if="this.$store.state.userStore.careSitterId  !==null ||  this.$store.state.careprofileStore.activityTime !== ''" >
+    <div v-if="this.$store.state.userStore.careSitterId !== null" >
     <a  class="item" >
-         
         <div class="icon" >ii</div>
         <router-link :to="{name:'certification',params:{caresitterId:this.id}}"><div class="text">자격증 등록<span class="circle"></span></div></router-link>
         <div class="right"> > </div>
-        
     </a>
-    
     <a  class="item">
         <div class="icon">ii</div>
         <router-link :to="{name:'mypage_certi' ,params:{caresitterId:this.id}}"><div class="text">케어 자격증 조회</div></router-link>
@@ -43,11 +40,13 @@
         <router-link :to="{name:'mypage_profile' ,params:{caresitterId:this.id}}"> <div class="text">프로필 조회</div></router-link>
         <div class="right"> > </div>
     </a>
-    <a  class="item">
+    </div>
+    <div v-else>
+      <a  class="item">
         <div class="icon">ii</div>
         <router-link :to="{name:'careprofilecreate'}"><div class="text">케어 프로필 생성</div></router-link>
         <div class="right"> > </div>
-    </a>
+      </a>
     </div>
     <a  class="item">
         <div class="icon">ii</div>

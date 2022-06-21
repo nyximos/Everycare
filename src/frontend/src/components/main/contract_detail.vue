@@ -7,11 +7,11 @@
             <h3>계약서</h3>
             <br>
         <ul>
-          <li><h2>케어대상인 정보</h2></li>
-          <li>아이디:{{contract.careTargetDetailDTO.id}}</li>
-          <li>이름:{{contract.careTargetDetailDTO.name}}</li>
-            <li>주소:{{contract.careTargetDetailDTO.address}}</li>
-        <li>상세주소:{{contract.careTargetDetailDTO.detailedAddress}}</li>
+            <li><h2>케어대상인 정보</h2></li>
+            <li>아이디:{{contract.careTargetDetailDTO.id}}</li>
+            <li>이름:{{contract.careTargetDetailDTO.name}}</li>
+        <li>주소:{{contract.careTargetDetailDTO.address}}</li>
+            <li>상세주소:{{contract.careTargetDetailDTO.detailedAddress}}</li>
            <li>생년월일:{{contract.careTargetDetailDTO.birth}}</li>
           <li>성별:{{contract.careTargetDetailDTO.gender}}</li>
           <li>키:{{contract.careTargetDetailDTO.height}}</li>

@@ -6,16 +6,11 @@
             <div class="resumeType1-inner">
                <div id="ResumeBaseInfo" class="resumeView">
                   <h2 class="hide">기본정보</h2>
-                  <div v-for="(b,index) in badge" :key="index">
-                     <img :src="'https://localhost:8086/api/images/' + b.storeFileName">
-                  </div>
                   <div class="photoArea">
                      <span class="photo">
-                        <!-- <div v-if="this.attachFile == ' ' ">  -->
 								<a href="#ResumeBaseInfo" class="image" style="position:static;left:0;bottom:0;display:block;width:auto;height:auto;padding:0;border:0 none;background:none">
 									<img :src="'https://localhost:8086/api/images/' + detail.attachFiles[0].storeFileName" width="90" height="120" alt="프로필사진" id="per_pic">		
 								</a>
-								<!-- </div> -->
                      </span>
                   </div>
                      <ul class="infoList">

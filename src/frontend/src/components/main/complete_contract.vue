@@ -1,15 +1,10 @@
 <template>
   <div class="content">
 
-      <h2 class="subtitle">완료된 계약서</h2>
-
-      <v-card
-    class="mx-auto"
-    max-width="300"
-    v-for="(c,index) in contract" :key="index"
-  >
+        <div v-if="!contract.length" style="width:100%"><h4>완료된 계약서가 없습니다.</h4></div>
+      <v-card class="mx-auto" max-width="300" v-for="(c,index) in contract" :key="index">
+      <!-- <h2 class="subtitle">완료된 계약서</h2>   -->
     <v-img
-
       src="@/assets/handshake.png"
       height="200px"
       width="150px"
@@ -239,7 +234,9 @@ export default {
     /* .v-toolbar__content{
       height: 0px;
     } */
-
+    .main{
+        width: 100%;
+    }
   .content{
     width: 100%;
     height: 100%;

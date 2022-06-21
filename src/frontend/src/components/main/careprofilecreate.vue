@@ -13,32 +13,23 @@
                       </div>
                       <div class="con10_blank"></div>
                       <div class="area_profile">
-                        
                           <div class="div_img">
-                            <img :src="image" />
-                              <!-- <label for="input_file?> -->
-                                  <!-- <img :src="avatar" class="img-avatar">
-                                  <input type="file" name="avatar" id="uppic" accept="image/gif,image/gif,image/jpg,image/png" @change="changeImage($event)" ref="avatarInput" class="uppic" label="파일"> -->
-                              <!-- </label> -->
+                            <!-- <img :src="image" /> -->
+                            <label for="uppic">
+                              <v-img :src="avatar" width="225px" height="225px" alt="사진없음" style="margin:0 auto; padding:20px;" class="img-avatar" id="preview" />
+                           </label>
                           </div>
                           <div class="div_text">
-
                           <br><br>
-                          <!-- <div v-if="!image"> -->
-                              <v-file-input 
+                              <input type="file" name="avatar" id="uppic"  accept="image/gif,image/gif,image/jpg,image/png" @change="changeImage($event);" ref="avatarInput" class="uppic" multiple="multiple">
+                              <!-- <v-file-input 
                               v-model="attachFiles" 
                               label="File input" 
                               type="file"
                               id="attachFiles"
                               multiple="multiple"
                               outlined dense>
-                              </v-file-input>
-                              <!-- <input type="file"  @change="onFileChange"> -->
-                            <!-- </div> -->
-                            <!-- <div v-else>
-                                <img :src="image" />
-                                <button @click="removeImage">제거</button>
-                            </div> -->
+                              </v-file-input> -->
                           </div>
                           <div class="con10_blank"></div>
                           <div class="con10 con1">
@@ -561,7 +552,7 @@ methods:{
              formData.append('attachFiles', this.attachFiles[0]);
            } 
           if(this.attachFiles ==""){
-            alert("사진");
+            alert("사진을 추가해주세요");
             return;
           }
           if(this.hope_loc1 + this.hopeloc1_detail==""){
