@@ -6,8 +6,8 @@
                 <div class="tit">
                         <span class="name">케어대상인: OOO</span>
                         <span class="name">케어시터: OOO</span>
-                        <span class="button"><v-btn depressed>출근/퇴근 정보</v-btn></span>
-                        <span class="button"><v-btn depressed>후기작성 정보</v-btn></span>
+                        <!-- <span class="button"><v-btn depressed>출근/퇴근 정보</v-btn></span> -->
+                        <span class="button"><v-btn depressed @click="information">후기작성 정보</v-btn></span>
                 </div>
           
             </div>
@@ -35,9 +35,14 @@
                     <td>{{s.startTime}}</td>
                     <td>{{s.name}}</td>
                     <td>{{s.requirement}}</td>
-                    <td v-if="schedule.storeFileName=''"><img :src="'https://localhost:8086/api/images/' + s.storeFileName"></td>
-                    <td v-else>사진</td>
-                    <td>활동</td>
+                    <td v-if="s.storeFileName == null">사진</td>
+                    <td v-else>
+                        <img :src="'https://localhost:8086/api/images/' + s.storeFileName">
+                    </td>
+                    <td v-if="s.content == null">활동</td>
+                    <td v-else>
+                        {{s.content}}
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -125,21 +130,39 @@ export default {
             this.Dialog=false
         },
         submit(){
+            // if(this.rating == ''){
+            //     alert("별점을 넣어주세요")
+            //     return;
+            // }
+            // if(this.text ==''){
+            //     alert("comment를 입력해주세요")
+            //     return;
+            // }
+            // else{
             const id =this.$route.params.contentId;
             var formData = new FormData();
             formData.append('rating', this.rating)
             formData.append('comment', this.text)
-            formData.append('activityClassificationId', id)
+            formData.append('activityClassificationId', this.$store.state.carenoteStore.categoryId)
+            // console.log(this.rating)
+            // console.log(this.text)
+            // console.log(this.$store.state.carenoteStore.categoryId)
             this.$http
             .post(`/api/carenote/${id}/reviews`,formData,{
                 withCredentail:true
             })
             .then((res)=>{
                 console.log(res);
+                alert("등록완료")
             })
             .catch((err)=>{
                 console.log(err);
+                alert("실패")
             })
+            // }
+        },
+        information(c){
+            this.$router.push({name:'review_list' , params:{contentId:this.$route.params.contentId}})
         }
     }
 }   

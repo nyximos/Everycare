@@ -17,8 +17,46 @@ const routes = [
         name: 'Main',
         component: () => import('@/pages/Main.vue'),
     },
+/*    {
+        path: '/newNotice',
+        name: 'newNotice',
+        component: () => import('@/components/newNotice.vue'),
+    },
+    // 상품 등록
     {
-        // 관리자 자격증 조회 화면
+        path: '/store/account/{id}/products/new',
+        name: 'ProdCreate',
+        component: () => import('@/components/prodCreate.vue'),
+    },
+    // 상품 관리
+    {
+        path: '/store/account/:contentId/products',
+        name: 'prodEdit',
+        component: () => import('@/components/prodEdit.vue'),
+    },
+    {
+        path: '/prodcreate',
+        name: 'ProdCreate',
+        component: () => import('@/components/prodCreate.vue'),
+    },
+    {
+        path: '/prodedit/:contentId',
+        name: 'ProdEdit',
+        component: () => import('@/components/prodEdit.vue'),
+    },
+    {
+        path: '/dashboard/cart',
+        name: 'Cart',
+        component: () => import('@/components/cart.vue'),
+    },
+    {
+        path: '/payment',
+        name: 'Payment',
+        component: () => import('@/components/productPayment.vue'),
+    },
+    */
+    {
+        // 관리자 자격증 조회 화면(o)
         path: '/admin/caresitter-certifications',
         name: 'adminpage_certi',
         component: () => import('@/pages/Adminpage_certi.vue'),
@@ -103,17 +141,17 @@ const routes = [
         component: () => import('@/pages/Lastcontract'),
     },
     {
-        //케어 노트(케어시터) (o)
+        //케어 노트(케어시터)(o)
         path: '/carenote',
         name: 'carenote',
         component: () => import('@/pages/Carenote'),
     },
-    // {
-    //     //케어노트 출근 시작 시간/출근 시간 (o)
-    //     path: '/carenote/:contentId',
-    //     name: 'carenotestart',
-    //     component: () => import('@/components/main/carenotestart'),
-    // },
+    {
+        //케어노트 출근 시작 시간/출근 시간 (o)
+        path: '/carenote/:contentId',
+        name: 'carenotestart',
+        component: () => import('@/components/main/carenotestart'),
+    },
     {
         //케어노트 활동 스케줄(케어시터) (o)
         path: '/carenote/caretarget/:contentId/schedules',
@@ -137,6 +175,52 @@ const routes = [
         path:'/dashboard/contracts/completion',
         name:'complete_contract',
         component:()=> import('@/pages/Complete_contract')
+
+//         path: '/carenote/caretarget/:contentId/schedules',
+//         name: 'careschedule',
+//         component: () => import('@/components/main/careschedule'),
+    },
+    {
+        //완료된 케어노트(케어시터)
+        path:'/dashboard/contracts/completion/note/:contentId',
+        name:'complete_note',
+        component:()=> import('@/components/main/complete_note')
+    },
+    {
+        //완료된 케어노트 상세(케어시터)
+        path:'/dashboard/contracts/completion/note/detail/:noteId',
+        name:'note_detail',
+        component:()=> import('@/components/main/complete_note_detail')
+    },
+    {
+        //완료된 계약서 대상인 선택(멤버)
+        path:'/dashboard/complete_target',
+        name:'complete_target',
+        component:()=> import('@/pages/Complete_target')
+    },
+    {
+        //완료된 계약서(멤버)
+        path:'/dashboard/memcontracts/completion/:targetId',
+        name:'complete_memcontract',
+        component:()=> import('@/pages/Complete_memcontract')
+    },
+    {
+        //완료된 계약서 -> 노트(멤버)
+        path:'/dashboard/membernote/completion/',
+        name:'complete_membernote',
+        component:()=> import('@/components/main/complete_memnote')
+    },
+    {
+        // 시간 검색 모달창
+        path:'/timesearch',
+        name:'timesearch',
+        component:()=> import('@/components/main/timesearch')
+    },
+    {
+        // 후기 조회
+        path:'/review',
+        name:'review_list',
+        component:()=> import('@/components/main/review')
     },
     {
         path: '/admin_report',
@@ -377,17 +461,6 @@ const routes = [
             else next();
         },
     },
-
-    // {
-    //     path: '/profile',
-    //     name: 'profile',
-    //     component: Profile
-    // },
-    // {
-    //     path: '/dashboard/caresitter',
-    //     name: '케어시터 프로필생성',
-    //     component: () => import('@/pages/Careprofile.vue'),
-    // },
     {
         path: '/carepeople',
         name: 'carepeople',
@@ -398,11 +471,6 @@ const routes = [
         name: 'alarm',
         component: Alarm,
     },
-    // {
-    //     path: '/profile2',
-    //     name: 'profile2',
-    //     component: Profile2,
-    // },
     {
         path: '/test',
         name: 'Test',

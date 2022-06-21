@@ -11,10 +11,20 @@
                         <v-select name="certification1" id="certification1"
                             v-model="certification"
                             :items="certi"
-                            label="자격증"
+                            label="카테고리"
                             item-text="name"
-                            item-value="value" on>
+                            item-value="value" 
+                            @change="categoryChange($event)" onon>
                         </v-select>
+                        <v-select name="sido_detail" id="sido1_detail"
+                      v-model="detail"
+                      :items="certi_detail"
+                      label="자격증 이름"
+                      item-text="name"
+                      item-value="value"
+                    v-if="select1"
+                      >
+                    </v-select>
                     </li>
                     <br><br>
                     <li>
@@ -29,7 +39,7 @@
                     </li>
                 </ul>                          
                         <v-btn class="ma-2" outlined color="indigo" @click="submit">완료</v-btn>
-                        <router-link to="/"> <v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
+                              <router-link to="/mypage_profile"><v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
                          </div>
                       </div>
                   </div>
@@ -45,56 +55,70 @@ export default {
     data(){    
         return{
             certi:[
-                {name:'사회복지사1', value:'사회복지사1'},
-                {name:'사회복지사2', value:'사회복지사2'},
-                {name:'사회복지사3', value:'사회복지사3'},
+                {name:'아동', value:'아동'},
+                {name:'노인', value:'노인'},
+            ],
+            certi_01:[
+                {name:'아동심리상담사 1급', value:'아동심리상담사 1급'},
+                {name:'아동요리지도사 1급', value:'아동요리지도사 1급'},
+                {name:'독서논술지도사', value:'독서논술지도사'},
+            ],
+            certi_02:[
+                {name:'노양보호사', value:'노양보호사'},
+                {name:'생활지원사', value:'생활지원사'},
+                {name:'사회복지사', value:'사회복지사'},
+                {name:'운전면허', value:'운전면허'},
             ],
             attachFile:'',
             certification:'',
+            certi_detail:[],
+            detail:'',
             id:this.$store.state.userStore.careSitterId,
-            result:[]
+            result:[],
+            select1:false
         }   
     },
-    mounted(){
-    //  const id = this.$store.state.careSitterId;
-    //  this.$http
-    // .get(`/api/caresitters/${id}`, {
-    // withCredentials: true
-    // })
-    // .then(res => {
-    //   const result = res.data.body;
-    //   this.id =res.data.body.id
-    //   console.log(result)
-    // })
-    //   .catch(err => {
-    //    console.log(err);
-    // });
-},
     methods:{
         submit(){
             var formData = new FormData();
 
+            if(this.detail==""){
+            alert("자격증을 선택해주세요");
+            return;
+          }
+           if(this.attachFile==""){
+            alert("자격증 사진을 등록해주세요");
+            return;
+          }
             const id = this.$store.state.userStore.careSitterId;
-            console.log(this.id);
             formData.append('careSitterId',this.id);
-            formData.append('classification', this.certification);
+            formData.append('classification', this.detail);
             formData.append('attachFile', this.attachFile);
-            
-            console.log(this.id);
-            console.log(this.attachFile);
-            console.log(this.certification);
-            console.log(formData);
+
             
             this.$http
            .post(`/api/dashboard/caresitter/${id}/certifications`,formData,{
                withCredentials:true
            })
            .then(res=>{
+        
                console.log(res);
+               alert('자격증 등록완료');
+              this.$router.push({ path: '/Main' })
            }).catch(err=>{
                console.log(err);
            })
+        },
+        categoryChange(event){
+            
+        if(event =='아동'){
+            this.select1=true
+          this.certi_detail = this.certi_01;
+        }else if(event == '노인'){
+            this.select1=true
+          this.certi_detail = this.certi_02;
         }
+    }
     }
 }
 </script>
