@@ -138,8 +138,8 @@ data(){
           withCredentials:true
           })
         .then(res => {
-          console.log(res.data.body.a);
-          // this.jan = res.data.body.1;
+          console.log(res.data);
+          this.jan = res.data.body[1];
           // this.feb = res.data.body[0];
           // this.mar = res.data.body[0];
           // this.apr = res.data.body[0];

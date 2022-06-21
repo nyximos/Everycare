@@ -148,7 +148,6 @@ public class StoreServiceImpl implements StoreService {
         LocalDateTime startTime = StringToLocalDateTime(start);
         LocalDateTime endTime = StringToLocalDateTime(end);
 
-
         HashMap<String, Object> statisticsItem = new HashMap<>();
         statisticsItem.put("1",0);
         statisticsItem.put("2",0);
@@ -165,6 +164,7 @@ public class StoreServiceImpl implements StoreService {
 
         for (Store store : storeList) {
             List<Tuple> statistics = orderProductQueryRepository.findStatistics(startTime, endTime, store);
+            System.out.println("statistics = " + statistics);
 
             for (Tuple tuple : statistics) {
 
@@ -174,43 +174,44 @@ public class StoreServiceImpl implements StoreService {
 
                 switch (month) {
                     case 1:
-                        statisticsItem.put("1", new StatisticsDTO(amount, payTime));
+                        statisticsItem.put("1",result);
                         break;
                     case 2:
-                        statisticsItem.put("2", new StatisticsDTO(amount, payTime));
+                        statisticsItem.put("2", );
                         break;
                     case 3:
-                        statisticsItem.put("3", new StatisticsDTO(amount, payTime));
+                        statisticsItem.put("3", );
                         break;
                     case 4:
-                        statisticsItem.put("4", new StatisticsDTO(amount, payTime));
+                        statisticsItem.put("4", );
                         break;
                     case 5:
-                        statisticsItem.put("5", new StatisticsDTO(amount, payTime));
+                        statisticsItem.put("5",);
                         break;
                     case 6:
-                        statisticsItem.put("6", new StatisticsDTO(amount, payTime));
+                        statisticsItem.put("6", );
                         break;
                     case 7:
-                        statisticsItem.put("7", new StatisticsDTO(amount, payTime));
+                        statisticsItem.put("7", );
                         break;
                     case 8:
-                        statisticsItem.put("8", new StatisticsDTO(amount, payTime));
+                        statisticsItem.put("8", );
                         break;
                     case 9:
-                        statisticsItem.put("9", new StatisticsDTO(amount, payTime));
+                        statisticsItem.put("9", );
                         break;
                     case 10:
-                        statisticsItem.put("10", new StatisticsDTO(amount, payTime));
+                        statisticsItem.put("10", );
                         break;
                     case 11:
-                        statisticsItem.put("11", new StatisticsDTO(amount, payTime));
+                        statisticsItem.put("11", );
                         break;
                     case 12:
-                        statisticsItem.put("12", new StatisticsDTO(amount, payTime));
+                        statisticsItem.put("12",);
                         break;
                 }
-
+                System.out.println("statisticsItem = " + statisticsItem);
+                System.out.println("statisticsItem = " + statisticsItem.get("6"));
             }
         }
 
