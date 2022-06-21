@@ -63,7 +63,7 @@
 <script>
 import ListItem from '@/components/listItem'
 export default {
-    name: 'mypagejoblist',
+    name: 'mypagejoblist',  
     components:{
       ListItem
     },
