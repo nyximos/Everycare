@@ -50,18 +50,18 @@
         padding="16"
       ></v-sparkline>
     </v-sheet> -->
-    <h6>1 : <label>{{this.june}}</label> </h6>
-    <h6>2 : <label>{{this.june}}</label></h6>
-    <h6>3 : <label>{{this.june}}</label></h6>
-    <h6>4 : <label>{{this.june}}</label></h6>
-    <h6>5 : <label>{{this.june}}</label></h6>
+    <h6>1 : <label>{{this.jan}}</label> </h6>
+    <h6>2 : <label>{{this.feb}}</label></h6>
+    <h6>3 : <label>{{this.mar}}</label></h6>
+    <h6>4 : <label>{{this.apr}}</label></h6>
+    <h6>5 : <label>{{this.may}}</label></h6>
     <h6>6 : <label>{{this.june}}</label></h6>
-    <h6>7 : <label>{{this.june}}</label></h6>
-    <h6>8 : <label>{{this.june}}</label></h6>
-    <h6>9 : <label>{{this.june}}</label></h6>
-    <h6>10 : <label>{{this.june}}</label></h6>
-    <h6>11 : <label>{{this.june}}</label></h6>
-    <h6>12 : <label>{{this.june}}</label></h6>
+    <h6>7 : <label>{{this.jul}}</label></h6>
+    <h6>8 : <label>{{this.aug}}</label></h6>
+    <h6>9 : <label>{{this.sep}}</label></h6>
+    <h6>10 : <label>{{this.oct}}</label></h6>
+    <h6>11 : <label>{{this.nov}}</label></h6>
+    <h6>12 : <label>{{this.dec}}</label></h6>
 
     <v-card-text class="pt-0">
       <p>상품 별 통계</p>
@@ -160,8 +160,6 @@ data(){
           let sum6=0;
           for (let i = 0; i < Object.keys(this.june).length; i++) {
             sum6 += parseInt(Object.keys(this.june)[i])
-            // this.june = sum6
-            
           }
           console.log(sum6)
           let sum7=0;
@@ -188,9 +186,18 @@ data(){
           for (let i = 0; i < Object.keys(this.dec).length; i++) {
             sum12 += parseInt(Object.keys(this.dec)[i])
           }
-
+          this.jan= sum1;
+          this.feb= sum2; 
+          this.mar= sum3;
+          this.apr= sum4;
+          this.may= sum5;
           this.june= sum6;
-          console.log(this.june)
+          this.jul= sum7;
+          this.aug= sum8;
+          this.sep= sum9;
+          this.oct= sum10;
+          this.nov= sum11;
+          this.dec= sum12;
         })
         .catch(err => {
           console.log(err);
