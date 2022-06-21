@@ -1,16 +1,10 @@
 <template>
 <div>
-  <!--carousel-->
- <v-carousel
-  cycle
-  hide-delimiters
-  show-arrows-on-hover>
-    <v-carousel-item
-      v-for="(item,i) in items"
-      :key="i"
-      :src="item.src"
-    ></v-carousel-item>
-  </v-carousel>
+  <!--banner-->
+ <v-card color="gray">
+      <v-img
+        src="../images/store.png" height="300"/>
+    </v-card>
 
   <!--nav-->
   <v-card>
@@ -118,20 +112,9 @@ data(){
 		storeList:this.storeList,
     storeRank:this.storeRank,
     searchText:this.searchText,
-		items: [
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-          },
-        ],
-        result:this.result,
-        searchvalue:false,
-        cateResult:this.cateResult
+    result:this.result,
+    searchvalue:false,
+    cateResult:this.cateResult
 	}
 },
 methods:{
@@ -191,8 +174,5 @@ methods:{
 </script>
 
 <style>
-.ranking > img:hover{
-    transform:scale(1.2, 1.2);  /* 가로2배 새로 1.5배 로 커짐 */
-    transition: transform.5s;  /* 커지는 시간 */
-	}
+
 </style>

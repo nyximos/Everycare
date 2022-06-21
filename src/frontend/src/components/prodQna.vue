@@ -1,9 +1,10 @@
 <template>
     <div>
        <div v-if="!question.length">
-        문의글이 없습니다
-        <v-space></v-space>
-        <v-btn @click="goNewQna">문의 등록</v-btn>
+        <v-row>
+          <b class="fs-6">문의글이 없습니다</b>
+        </v-row> 
+        <v-btn class="mt-5" @click="goNewQna">문의 등록</v-btn>
         </div>
        <div v-else>Question({{question.length}})
        <hr>
