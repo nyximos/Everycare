@@ -11,10 +11,7 @@ import wd.team4.everycare.dto.careNote.ActivityInformationDTO;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.contract.ContractDTO;
-import wd.team4.everycare.dto.jobOffer_jobSearch.AnnounceJobOfferDTO;
-import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobOfferDTO;
-import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
-import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferListDTO;
+import wd.team4.everycare.dto.jobOffer_jobSearch.*;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.*;
@@ -48,15 +45,15 @@ public class JobOfferServiceImpl implements JobOfferService {
     public ResponseEntity<MyResponse> getJobOffer() {
         List<JobOffer> allList = jobOfferRepository.findAll();
 
+
         List<JobOfferListDTO> jobOfferDTOs = new ArrayList<>();
         allList.stream().map(jobOffer -> jobOffer.toJobOfferListDTO(jobOffer)).forEach(jobOfferDTOs::add);
-        for (JobOffer jobOffer:allList) {
-            CareTarget careTarget = jobOffer.getCareTarget();
-            List<CareTargetImage> careTargetImages = careTargetImageRepository.findAllByCareTarget(careTarget);
 
-            for (JobOfferListDTO jobOfferDTO : jobOfferDTOs) {
-                jobOfferDTO.setCareTargetImageList(careTargetImages);
-            }
+        for (JobOfferListDTO jobOfferDTO : jobOfferDTOs) {
+            JobOfferCareTargetDTO careTargetDTO = jobOfferDTO.getCareTarget();
+            CareTarget careTarget = careTargetDTO.toCareTarget();
+            List<CareTargetImage> allByCareTarget = careTargetImageRepository.findAllByCareTarget(careTarget);
+            jobOfferDTO.setCareTargetImageList(allByCareTarget);
         }
 
         MyResponse body = MyResponse.builder()
