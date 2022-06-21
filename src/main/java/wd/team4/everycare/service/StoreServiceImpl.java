@@ -11,6 +11,7 @@ import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.domain.OrderProduct;
 import wd.team4.everycare.domain.Store;
+import wd.team4.everycare.dto.StatisticsResultDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.dto.store.StatisticsDTO;
@@ -150,21 +151,25 @@ public class StoreServiceImpl implements StoreService {
 
 
         HashMap<String, Object> statisticsItem = new HashMap<>();
-        statisticsItem.put("1",0);
-        statisticsItem.put("2",0);
-        statisticsItem.put("3",0);
-        statisticsItem.put("4",0);
-        statisticsItem.put("5",0);
-        statisticsItem.put("6",0);
-        statisticsItem.put("7",0);
-        statisticsItem.put("8",0);
-        statisticsItem.put("9",0);
-        statisticsItem.put("10",0);
-        statisticsItem.put("11",0);
-        statisticsItem.put("12",0);
+        statisticsItem.put("1", 0);
+        statisticsItem.put("2", 0);
+        statisticsItem.put("3", 0);
+        statisticsItem.put("4", 0);
+        statisticsItem.put("5", 0);
+        statisticsItem.put("6", 0);
+        statisticsItem.put("7", 0);
+        statisticsItem.put("8", 0);
+        statisticsItem.put("9", 0);
+        statisticsItem.put("10", 0);
+        statisticsItem.put("11", 0);
+        statisticsItem.put("12", 0);
+
+        HashMap<Integer, LocalDateTime> result = new HashMap<>();
+
 
         for (Store store : storeList) {
             List<Tuple> statistics = orderProductQueryRepository.findStatistics(startTime, endTime, store);
+            System.out.println("statistics = " + statistics);
 
             for (Tuple tuple : statistics) {
 
@@ -174,43 +179,56 @@ public class StoreServiceImpl implements StoreService {
 
                 switch (month) {
                     case 1:
-                        statisticsItem.put("1", new StatisticsDTO(amount, payTime));
+                        result.put(amount, payTime);
+                        statisticsItem.put("1", result);
                         break;
                     case 2:
-                        statisticsItem.put("2", new StatisticsDTO(amount, payTime));
+                        result.put(amount, payTime);
+                        statisticsItem.put("2", result);
                         break;
                     case 3:
-                        statisticsItem.put("3", new StatisticsDTO(amount, payTime));
+                        result.put(amount, payTime);
+                        statisticsItem.put("3", result);
                         break;
                     case 4:
-                        statisticsItem.put("4", new StatisticsDTO(amount, payTime));
+                        result.put(amount, payTime);
+                        statisticsItem.put("4", result);
                         break;
                     case 5:
-                        statisticsItem.put("5", new StatisticsDTO(amount, payTime));
+                        result.put(amount, payTime);
+                        statisticsItem.put("5", result);
                         break;
                     case 6:
-                        statisticsItem.put("6", new StatisticsDTO(amount, payTime));
+                        result.put(amount, payTime);
+                        statisticsItem.put("6", result);
                         break;
                     case 7:
-                        statisticsItem.put("7", new StatisticsDTO(amount, payTime));
+                        result.put(amount, payTime);
+                        statisticsItem.put("7", result);
                         break;
                     case 8:
-                        statisticsItem.put("8", new StatisticsDTO(amount, payTime));
+                        result.put(amount, payTime);
+                        statisticsItem.put("8", result);
                         break;
                     case 9:
-                        statisticsItem.put("9", new StatisticsDTO(amount, payTime));
+                        result.put(amount, payTime);
+                        statisticsItem.put("9", result);
                         break;
                     case 10:
-                        statisticsItem.put("10", new StatisticsDTO(amount, payTime));
+                        result.put(amount, payTime);
+                        statisticsItem.put("10", result);
                         break;
                     case 11:
-                        statisticsItem.put("11", new StatisticsDTO(amount, payTime));
+                        result.put(amount, payTime);
+                        statisticsItem.put("11", result);
                         break;
                     case 12:
-                        statisticsItem.put("12", new StatisticsDTO(amount, payTime));
+                        result.put(amount, payTime);
+                        statisticsItem.put("12", result);
                         break;
                 }
-
+                System.out.println("statisticsItem = " + statisticsItem);
+                System.out.println("statisticsItem = " + statisticsItem.get("6"));
             }
         }
 
@@ -241,7 +259,7 @@ public class StoreServiceImpl implements StoreService {
         int sum = 0;
         for (Integer integer : list) {
             int i = integer.intValue();
-            sum+=i;
+            sum += i;
         }
 
         MyResponse<Integer> body = MyResponse.<Integer>builder()

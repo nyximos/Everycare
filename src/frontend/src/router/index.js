@@ -17,56 +17,6 @@ const routes = [
         name: 'Main',
         component: () => import('@/pages/Main.vue')
     },
-/*    {
-        path: '/newNotice',
-        name: 'newNotice',
-        component: () => import('@/components/newNotice.vue'),
-    },
-    // 상품 등록
-    {
-
-        path: '/store/account/{id}/products/new',
-        name: 'ProdCreate',
-        component: () => import('@/components/prodCreate.vue'),
-
-    },
-    // 상품 관리
-    {
-        path: '/store/account/:contentId/products',
-        name: 'prodEdit',
-
-        component: () => import('@/components/prodEdit.vue'),
-
-    },
-    {
-        path: '/prodcreate',
-        name: 'ProdCreate',
-
-        component: () => import('@/components/prodCreate.vue'),
-
-    },
-    {
-        path: '/prodedit/:contentId',
-        name: 'ProdEdit',
-
-        component: () => import('@/components/prodEdit.vue'),
-
-    },
-    {
-        path: '/dashboard/cart',
-        name: 'Cart',
-
-        component: () => import('@/components/cart.vue'),
-
-    },
-    {
-        path: '/payment',
-        name: 'Payment',
-
-        component: () => import('@/components/productPayment.vue'),
-    },
-    */
-
     {
         // 관리자 자격증 조회 화면(o)
         path: '/admin/caresitter-certifications',
@@ -423,7 +373,7 @@ const routes = [
     // 상품 문의 등록
     {
         path: '/store/:contentId/products/:contentId/qna/new',
-        name: 'FapNew',
+        name: 'QnaNew',
         component: () => import('@/components/qnaNew.vue')
     },
     // 상품 문의 상세

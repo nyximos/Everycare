@@ -217,6 +217,8 @@
           .catch((err)=>{
             console.log(err)
           })
+          alert('관리자 권한이 해제 되었습니다.')        
+       location.reload();
         },
         
         click(p){
@@ -231,6 +233,8 @@
           .catch((err)=>{
             console.log(err)
           })
+          alert('관리자 권한이 등록 되었습니다.')        
+       location.reload();
         },
       
     },

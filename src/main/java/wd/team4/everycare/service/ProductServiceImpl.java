@@ -41,6 +41,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductQueryRepository productQueryRepository;
     private final StoreRepository storeRepository;
     private final OrderProductQueryRepository orderProductQueryRepository;
+    private final BoardRepository boardRepository;
 
     @Override
     public List<MemberProductListViewDTO> webFindAll(Store store) {
@@ -295,8 +296,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ResponseEntity<MyResponse> deleteProduct(Long id) {
 
-        wishListRepository.deleteByProductId(id);
-        producImageRepository.deleteByProductId(id);
+        List<Board> boardList = boardRepository.findAllByProductId(id);
+
+        for (Board board : boardList) {
+            board.deleteProduct();
+        }
+
+        wishListRepository.deleteAllByProductId(id);
+        producImageRepository.deleteAllByProductId(id);
 
         productRepository.deleteById(id);
 

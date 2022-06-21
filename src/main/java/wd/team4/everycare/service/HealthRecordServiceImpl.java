@@ -82,6 +82,7 @@ public class HealthRecordServiceImpl implements HealthRecordService {
         HealthRecordDTO healthRecordDTO = HealthRecordDTO.builder()
                 .id(healthRecordEntity.getId())
                 .healthStatus(healthRecordEntity.getHealthStatus())
+                .detailComment(healthRecordEntity.getDetailComment())
                 .updatedAt(healthRecordEntity.getUpdatedAt())
                 .healthClassification(String.valueOf(healthRecordEntity.getHealthClassification()))
                 .build();
@@ -109,6 +110,7 @@ public class HealthRecordServiceImpl implements HealthRecordService {
                 .healthStatus(healthRecordFormDTO.getHealthStatus())
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
+                .detailComment(healthRecordFormDTO.getDetailComment())
                 .healthClassification(healthClassificationEntity)
                 .careTarget(careNoteEntity.getContract().getJobOffer().getCareTarget())
                 .careNote(careNoteEntity)

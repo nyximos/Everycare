@@ -28,6 +28,7 @@ public class DetailJobOfferDTO {
     private JobOfferCareTargetDTO careTarget;      //
     private CareTargetScheduleListDTO careTargetScheduleListDTO;
     private List<ActivityInformationDTO> activityInformationDTO;
+    private String careTargetImages;
 
     public JobOffer toJobOffer(){
         return JobOffer.builder()

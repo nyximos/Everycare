@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobOfferDTO;
 import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
+import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferListDTO;
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
@@ -101,7 +102,7 @@ public class JobOffer {
         if(jobOfferDTO.getCareTargetSchedule()!=null) this.careTargetSchedule = jobOfferDTO.getCareTargetSchedule().toCareTargetSchedule();
     }
 
-    public JobOfferDTO toJobOfferDTO(){
+    public JobOfferDTO  toJobOfferDTO(){
         return JobOfferDTO.builder()
                 .id(this.id)
                 .title(this.title)
@@ -133,6 +134,26 @@ public class JobOffer {
                 .desiredCareSitterGender(jobOffer.getDesiredCareSitterGender())
                 .careTarget(jobOffer.getCareTarget().toJobOfferCareTargetDTO())
                 .careTargetScheduleListDTO(this.careTargetSchedule.toListDTO())
+                .build();
+    }
+
+    public JobOfferListDTO toJobOfferListDTO(JobOffer jobOffer){
+
+        return JobOfferListDTO.builder()
+                .id(this.id)
+                .title(this.title)
+                .startDate(this.startDate)
+                .endDate(this.endDate)
+                .day(this.day)
+                .desiredCareSitterGender(this.desiredCareSitterGender)
+                .pay(this.pay)
+                .amount(this.amount)
+                .comment(this.comment)
+                .desiredStartTime(this.desiredStartTime)
+                .desiredEndTime(this.desiredEndTime)
+                .member(this.member.toMemberListViewDTO())
+                .careTarget(this.careTarget.toJobOfferCareTargetDTO())
+                .careTargetSchedule(this.careTargetSchedule.toListDTO())
                 .build();
     }
 

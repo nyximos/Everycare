@@ -1,7 +1,10 @@
 package wd.team4.everycare.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetViewDTO;

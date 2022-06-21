@@ -140,4 +140,8 @@ public class Board {
     public void updateRating(int rating) {
         this.rating = rating;
     }
+
+    public void deleteProduct() {
+        this.product = null;
+    }
 }

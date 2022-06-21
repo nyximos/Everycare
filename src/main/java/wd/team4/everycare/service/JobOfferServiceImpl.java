@@ -11,9 +11,7 @@ import wd.team4.everycare.dto.careNote.ActivityInformationDTO;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.contract.ContractDTO;
-import wd.team4.everycare.dto.jobOffer_jobSearch.AnnounceJobOfferDTO;
-import wd.team4.everycare.dto.jobOffer_jobSearch.DetailJobOfferDTO;
-import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
+import wd.team4.everycare.dto.jobOffer_jobSearch.*;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.*;
@@ -41,33 +39,72 @@ public class JobOfferServiceImpl implements JobOfferService {
     private final ActivityInformationRepository activityInformationRepository;
     private final JobOfferCareSitterRepository jobOfferCareSitterRepository;
     private final JobOfferQueryRepository jobOfferQueryRepository;
+    private final CareTargetImageRepository careTargetImageRepository;
 
     @Override
-    public List<JobOfferDTO> getJobOffer() {
+    public ResponseEntity<MyResponse> getJobOffer() {
         List<JobOffer> allList = jobOfferRepository.findAll();
-        List<JobOfferDTO> jobOfferDTOs = new ArrayList<>();
-        allList.stream().map(jobOffer -> jobOffer.toJobOfferDTO()).forEach(jobOfferDTOs::add);
-        return jobOfferDTOs;
+
+
+        List<JobOfferListDTO> jobOfferDTOs = new ArrayList<>();
+        allList.stream().map(jobOffer -> jobOffer.toJobOfferListDTO(jobOffer)).forEach(jobOfferDTOs::add);
+
+        System.out.println("jobOfferDTOs = " + jobOfferDTOs);
+        for (JobOfferListDTO jobOfferDTO : jobOfferDTOs) {
+            JobOfferCareTargetDTO careTarget = jobOfferDTO.getCareTarget();
+            List<CareTargetImage> careTargetImages = careTargetImageRepository.findAllByCareTargetId(careTarget.getId());
+            String careTargetImage = careTargetImages.get(0).getStoreFileName();
+            jobOfferDTO.setCareTargetImage(careTargetImage);
+        }
+
+
+        MyResponse body = MyResponse.builder()
+                .message("전체 구인 조회")
+                .header(StatusEnum.OK)
+                .body(jobOfferDTOs)
+                .build();
+
+        return new ResponseEntity<>(body,HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<MyResponse> getDetailJobOffer(Long id) {
         JobOffer findJobOffer = jobOfferRepository.findById(id).get();
-        DetailJobOfferDTO jobOfferDTO = findJobOffer.toDetailJobOfferDTO(findJobOffer);
 
-        Long careTargetScheduleId = jobOfferDTO.getCareTargetScheduleListDTO().getId();
+        DetailJobOfferDTO detailJobOfferDTO = DetailJobOfferDTO.builder()
+                .memberId(findJobOffer.getMember().getId())
+                .title(findJobOffer.getTitle())
+                .startDate(String.valueOf(findJobOffer.getStartDate()))
+                .endDate(String.valueOf(findJobOffer.getEndDate()))
+                .desiredDayWeek(findJobOffer.getDay())
+                .desiredStartTime(findJobOffer.getDesiredStartTime())
+                .desiredEndTime(findJobOffer.getDesiredEndTime())
+                .pay(findJobOffer.getPay())
+                .comment(findJobOffer.getComment())
+                .desiredCareSitterGender(findJobOffer.getDesiredCareSitterGender())
+                .careTarget(findJobOffer.getCareTarget().toJobOfferCareTargetDTO())
+                .careTargetScheduleListDTO(findJobOffer.toJobOfferDTO().getCareTargetSchedule())
+                .build();
+
+        Long careTargetScheduleId = findJobOffer.getCareTargetSchedule().getId();
         List<ActivityInformation> activityInformation = activityInformationRepository.findAllByCareTargetScheduleId(careTargetScheduleId);
 
         List<ActivityInformationDTO> activityInformationDTOs = new ArrayList<>();
 
         activityInformation.stream().map(activity -> activity.toActivityInformationDTO()).forEach(activityInformationDTOs::add);
 
-        jobOfferDTO.setActivityInformationDTO(activityInformationDTOs);
+        detailJobOfferDTO.setActivityInformationDTO(activityInformationDTOs);
 
+        CareTarget careTarget = findJobOffer.getCareTarget();
+        List<CareTargetImage> careTargetImages = careTargetImageRepository.findAllByCareTarget(careTarget);
+        String careTargetImage = careTargetImages.get(0).getStoreFileName();
+
+
+        detailJobOfferDTO.setCareTargetImages(careTargetImage);
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("구인글 상세조회")
-                .body(jobOfferDTO)
+                .body(detailJobOfferDTO)
                 .build();
 
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);

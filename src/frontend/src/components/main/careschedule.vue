@@ -99,7 +99,7 @@
             <v-card-text>
                 <h2 class="title01">건강기록수정</h2>
 
-                {{id}}
+
 
             </v-card-text>            
           </v-card-text>
@@ -360,6 +360,8 @@ export default {
             .catch((err)=>{
                 console.log(err);
             })
+            alert('건강 기록이 삭제되었습니다.')        
+       location.reload();
         },
         closeDialog(){
             this.Dialog = false;
@@ -532,6 +534,8 @@ export default {
            .catch((err)=>{
                console.log(err);
            })
+           alert('건강 기록이 등록되었습니다.')        
+       location.reload();
        },
        addmit3(){
             const carenoteId = this.$route.params.contentId;
@@ -552,6 +556,8 @@ export default {
            .catch((err)=>{
                console.log(err);
            })
+           alert('건강 기록이 수정되었습니다.')        
+       location.reload();
        },
        end(){
            const carenoteId = this.$route.params.contentId;
@@ -1131,18 +1137,7 @@ li {
    background: #81C784;
   color: #fff;
 }
-.btn-11:before {
-    position: absolute;
-    content: '';
-    display: inline-block;
-    top: -180px;
-    left: 0;
-    width: 30px;
-    height: 100%;
-    background-color: #fff;
-    animation: shiny-btn1 3s ease-in-out infinite;
-    font-size: 10;
-}
+
 .btn-11:active{
   box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
               -4px -4px 6px 0 rgba(116, 125, 136, .2), 

@@ -192,6 +192,8 @@ export default {
       .catch(err => {
        console.log(err);
     });
+    alert('신고 되었습니다.')        
+       location.reload();
         },
       closeDialog(){
             
