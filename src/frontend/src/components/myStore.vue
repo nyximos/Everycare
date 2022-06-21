@@ -29,37 +29,60 @@
   </v-card>
     </v-col>
     <v-col cols="10">
-      <v-card
-       elevation="0"
-       class="mt-5"
-  >
-  <v-card-title>월별 판매량</v-card-title>
-  <input type="date" name="" id="" v-model="startdate">
-      <input type="date" name="" id="" v-model="enddate">
-            <v-btn @click="searchh">search</v-btn>
+      <v-row></v-row>
+      <v-card class="mt-10">
+        <v-card-title class="fw-bold">총 판매 내역</v-card-title>
+        <v-card-text>
+          <v-row>
+            <v-col cols="2"><input type="date" name="" id="" v-model="startdate"></v-col>
+            <v-col cols="2"><v-btn @click="searchh">조회</v-btn></v-col>
+          </v-row>
+          <v-row>
+          <v-col cols="2">
+              <input type="date" name="" id="" v-model="enddate">
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-divider class="mx-2"></v-divider>
+        <v-card-text class="text-black">
+          <h6>1월 : <label>{{this.jan}}원</label> </h6>
+          <h6>2월 : <label>{{this.feb}}원</label></h6>
+          <h6>3월 : <label>{{this.mar}}원</label></h6>
+          <h6>4월 : <label>{{this.apr}}원</label></h6>
+          <h6>5월 : <label>{{this.may}}원</label></h6>
+          <h6>6월 : <label>{{this.june}}원</label></h6>
+          <h6>7월 : <label>{{this.jul}}원</label></h6>
+          <h6>8월 : <label>{{this.aug}}원</label></h6>
+          <h6>9월 : <label>{{this.sep}}원</label></h6>
+          <h6>10월 : <label>{{this.oct}}원</label></h6>
+          <h6>11월 : <label>{{this.nov}}원</label></h6>
+          <h6>12월 : <label>{{this.dec}}원</label></h6>
+        </v-card-text>
+      </v-card>
 
-    <h6>1 : <label>{{this.jan}}</label> </h6>
-    <h6>2 : <label>{{this.feb}}</label></h6>
-    <h6>3 : <label>{{this.mar}}</label></h6>
-    <h6>4 : <label>{{this.apr}}</label></h6>
-    <h6>5 : <label>{{this.may}}</label></h6>
-    <h6>6 : <label>{{this.june}}</label></h6>
-    <h6>7 : <label>{{this.jul}}</label></h6>
-    <h6>8 : <label>{{this.aug}}</label></h6>
-    <h6>9 : <label>{{this.sep}}</label></h6>
-    <h6>10 : <label>{{this.oct}}</label></h6>
-    <h6>11 : <label>{{this.nov}}</label></h6>
-    <h6>12 : <label>{{this.dec}}</label></h6>
-
-    <v-card-text class="pt-0">
-      <p>상품 별 통계</p>
-        <input v-model="searchValue" placeholder="상품 아이디 입력"/>
-    <input type="date" name="" id="" v-model="startsearch">
-      <input type="date" name="" id="" v-model="endsearch">
-            <v-btn @click="searchprod">search</v-btn><br>
-            {{prodTotal}}
-    </v-card-text>
-  </v-card>
+      <v-card class="mt-10">
+        <v-card-title class="fw-bold">상품 별 통계</v-card-title>
+        <v-card-text>
+          <v-row>
+          <v-col cols="2">
+              <input v-model="searchValue" placeholder="상품 아이디 입력" type="number"/>
+            </v-col>
+            <v-col cols="2"><v-btn @click="searchprod">조회</v-btn></v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="2"><input type="date" name="" id="" v-model="startsearch"></v-col>
+          </v-row>
+          <v-row>
+          <v-col cols="2">
+              <input type="date" name="" id="" v-model="endsearch">
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-divider class="mx-2"></v-divider>
+        <v-card-text class="text-black">
+          <h6>{{prodTotal}} 원</h6>
+        </v-card-text>
+      </v-card>
     </v-col>      
   </v-row>
 </div>
@@ -69,19 +92,19 @@
 export default {
 data(){
     return{
-        jan:this.jan,
-        feb:this.feb,
-        mar:this.mar,
-        apr:this.apr,
-        may:this.may,
-        june:this.june,
-        jul:this.jul,
-        aug:this.aug,
-        sep:this.sep,
-        oct:this.oct,
-        nov:this.nov,
-        dec:this.dec,
-        prodTotal:this.prodTotal,
+        jan:' - ',
+        feb:' - ',
+        mar:' - ',
+        apr:' - ',
+        may:' - ',
+        june:' - ',
+        jul:' - ',
+        aug:' - ',
+        sep:' - ',
+        oct:' - ',
+        nov:' - ',
+        dec:' - ',
+        prodTotal:' - ',
         search:this.search,
         startdate:this.startdate,
         enddate:this.enddate,
