@@ -20,7 +20,7 @@
 		<div class="list_more list_more1"><ul class="ul01"><li class="li01" v-for="(p, index) in listData" :key="index" @click="move(p)">
 
 	<span class="tab01">
-		<span class="img01"><img src="" class=""></span>
+		<span class="img01"><img :src="'https://localhost:8086/api/images/' + p.careTargetImage" class=""></span>
 		<span class="text01">{{p.careTargetSchedule.name}}</span>
 	</span>
 	<span class="tab02">
