@@ -14,22 +14,22 @@
                       <div class="con10_blank"></div>
                       <div class="area_profile">
                           <div class="div_img">
-                            <!-- <img :src="image" /> -->
-                            <label for="uppic">
+                            <img :src="image" />
+                            <!-- <label for="uppic">
                               <v-img :src="avatar" width="225px" height="225px" alt="사진없음" style="margin:0 auto; padding:20px;" class="img-avatar" id="preview" />
-                           </label>
+                           </label> -->
                           </div>
                           <div class="div_text">
                           <br><br>
-                              <input type="file" name="avatar" id="uppic"  accept="image/gif,image/gif,image/jpg,image/png" @change="changeImage($event);" ref="avatarInput" class="uppic" multiple="multiple">
-                              <!-- <v-file-input 
+                              <!-- <input type="file" name="avatar" id="uppic"  accept="image/gif,image/gif,image/jpg,image/png" @change="changeImage($event);" ref="avatarInput" class="uppic" multiple="multiple"> -->
+                              <v-file-input 
                               v-model="attachFiles" 
                               label="File input" 
                               type="file"
                               id="attachFiles"
                               multiple="multiple"
                               outlined dense>
-                              </v-file-input> -->
+                              </v-file-input>
                           </div>
                           <div class="con10_blank"></div>
                           <div class="con10 con1">
@@ -82,9 +82,6 @@
                               item-text="name"
                               item-value="value">
                           </v-select>
-                          <!-- <v-time-picker v-model="starttimepicker" ampm-in-title></v-time-picker>
-                         <v-time-picker v-model="endtimepicker" ampm-in-title></v-time-picker> -->
-                          <!-- <v-select :items="time" label="시간" v-model="starttimepicker" dense outlined item-text="name" item-value="value"></v-select> -->
                         </div>
                       </div>
                       <div class="area_pay">
@@ -113,12 +110,12 @@
                     </div>
                         <div class="r_seeking">
                           <div class="r_seeking_age">
-                            <v-checkbox v-model="preferredType" value="newborn" label="신생아(0-6 month)"></v-checkbox>
-                            <v-checkbox v-model="preferredType" value="baby" label="영아(7-36 month)"></v-checkbox>
-                            <v-checkbox v-model="preferredType" value="child" label="유아(4-7 year)"></v-checkbox>
-                            <v-checkbox v-model="preferredType" value="children" label="초등학생"></v-checkbox>
-                            <v-checkbox v-model="preferredType" value="student" label="중고등학생"></v-checkbox>
-                            <v-checkbox v-model="preferredType" value="anything" label="상관없음"></v-checkbox>
+                            <v-checkbox v-model="preferredType" value="아동" label="아동"></v-checkbox>
+                            <v-checkbox v-model="preferredType" value="노인" label="노인"></v-checkbox>
+                            <v-checkbox v-model="preferredType" value="임산부" label="임산부"></v-checkbox>
+                            <v-checkbox v-model="preferredType" value="환자" label="환자"></v-checkbox>
+                            <!-- <v-checkbox v-model="preferredType" value="student" label="중고등학생"></v-checkbox>
+                            <v-checkbox v-model="preferredType" value="anything" label="상관없음"></v-checkbox> -->
                           </div>
                       </div>
                       <br><br>

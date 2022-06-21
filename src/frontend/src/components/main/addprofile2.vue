@@ -26,10 +26,10 @@
                   <h2>정보</h2>
                   <div class="infoArea first">    
                      <div class="nameArea">
-                        <dt class="title">CCTV 동의여부:{{detail.cctvAgreement}}</dt>
+                        <dt class="title">CCTV 동의여부: {{cctvAgreement}}</dt>
                      </div>    
                      <dl class="infoDetail">       
-                        <dt class="title">백신접종:{{detail.is_vaccinated}} <span></span></dt> 
+                        <dt class="title">백신접종: {{vaccinated}} <span></span></dt> 
                         
                         <dt class="title">자격증:<span class="certi" v-for="(c,index) in certification" :key="index">{{c.name}}</span></dt> 
                         <dd class="kind">
@@ -65,7 +65,7 @@
                            </td>
                            <td>
                               <dl class="item">
-                                 <dt class="title">{{detail.activityTime}}</dt>
+                                 <dt class="title">{{detail.activityTime}}시간</dt>
                               </dl>
                            </td>
                            <td>
@@ -136,6 +136,18 @@ export default {
          this.email = res.data.body.memberDTO.email
          this.address = res.data.body.memberDTO.address
          this.detail = res.data.body;
+         if(res.data.body.is_vaccinated == 0){
+            this.vaccinated = "1차접종완료"
+         }else if(res.data.body.is_vaccinated ==1){
+            this.vaccinated = "추가접종완료"
+         }else if(res.data.body.is_vaccinated == 2){
+            this.vaccinated = "미접종"
+         }
+         if(res.data.body.cctvAgreement == 0){
+            this.cctvAgreement = "O"
+         }else{
+            this.cctvAgreement = "X"
+         }
          this.id = res.data.body.id;
          this.review = res.data.body.careSitterReviews
          this.certification = res.data.body.certification
@@ -153,9 +165,11 @@ export default {
             props:[
                'caresitterId'
             ],
+            vaccinated:this.vaccinated,
             certification:[],
             review:[],
             name:this.name,
+            cctvAgreement:this.cctvAgreement,
             birth:this.birth,
             gender:this.gender,
             phone:this.phone,
