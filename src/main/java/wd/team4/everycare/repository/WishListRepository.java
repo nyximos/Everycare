@@ -15,8 +15,9 @@ public interface WishListRepository extends JpaRepository<WishList, Long> {
     Optional<WishList> findByMemberAndProduct(Member member, Product product);
 
     @EntityGraph(attributePaths = {"product"})
-    void deleteByProductId(Long id);
+    void deleteAllByProductId(Long id);
 
     @EntityGraph(attributePaths = {"product"})
     void deleteByMemberAndProductId(Member user, Long id);
+
 }
