@@ -51,13 +51,11 @@ public class JobOfferServiceImpl implements JobOfferService {
         List<ImageDTO> imageDTO = new ArrayList<>();
         allList.stream().map(jobOffer -> jobOffer.toJobOfferListDTO(jobOffer)).forEach(jobOfferDTOs::add);
 
+        System.out.println("jobOfferDTOs = " + jobOfferDTOs);
         for (JobOfferListDTO jobOfferDTO : jobOfferDTOs) {
-            JobOfferCareTargetDTO careTargetDTO = jobOfferDTO.getCareTarget();
-            CareTarget careTarget = careTargetDTO.toCareTarget();
-            List<CareTargetImage> allByCareTarget = careTargetImageRepository.findAllByCareTarget(careTarget);
-            allByCareTarget.stream().map(image -> image.toImageDTO()).forEach(imageDTO::add);
-
-            jobOfferDTO.setCareTargetImageList(allByCareTarget);
+            Long id = jobOfferDTO.getCareTarget().getId();
+            List<CareTargetImage> careTargetImages = careTargetImageRepository.findAllByCareTargetId(id);
+            jobOfferDTO.setCareTargetImageList(careTargetImages);
         }
 
         MyResponse body = MyResponse.builder()
