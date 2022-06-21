@@ -38,18 +38,6 @@
       <input type="date" name="" id="" v-model="enddate">
             <v-btn @click="searchh">search</v-btn>
 
-    <!-- <v-sheet
-      color="blue"
-      max-width="calc(100% - 32px)"
-    >
-      <v-sparkline
-        :labels="labels"
-        :value="value"
-        color="white"
-        line-width="2"
-        padding="16"
-      ></v-sparkline>
-    </v-sheet> -->
     <h6>1 : <label>{{this.jan}}</label> </h6>
     <h6>2 : <label>{{this.feb}}</label></h6>
     <h6>3 : <label>{{this.mar}}</label></h6>

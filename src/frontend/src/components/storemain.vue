@@ -191,8 +191,5 @@ methods:{
 </script>
 
 <style>
-.ranking > img:hover{
-    transform:scale(1.2, 1.2);  /* 가로2배 새로 1.5배 로 커짐 */
-    transition: transform.5s;  /* 커지는 시간 */
-	}
+
 </style>
