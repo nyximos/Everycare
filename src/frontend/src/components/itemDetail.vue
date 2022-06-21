@@ -67,8 +67,7 @@
           <div class="con0202">
 
             <span class="head">스케줄</span>
-            <span class="con">{{ start1 }} ~ {{ end1 }} 요구사항 : {{ requirement1 }} <br>{{ start2 }} ~ {{ end2 }} 요구사항 :
-              {{ requirement2 }} <br>{{ start3 }} ~ {{ end3 }} 요구사항 : {{ requirement3 }}&nbsp;</span>
+            <span class="con">{{ start1 }} ~ {{ end1 }} 요구사항 : {{ requirement1 }} </span>
 
             <span class="head">추가사항</span>
             <span class="con"><span>{{ comment }}</span>&nbsp;</span>
@@ -124,15 +123,20 @@ export default {
         this.detailAddress = res.data.body.careTarget.detailAddress
         this.careTargetSchedule = res.data.body.careTargetScheduleListDTO
         this.activity = res.data.body.careTargetScheduleListDTO.name
-        this.start1 = res.data.body.activityInformationDTO[0].startTime
-        this.end1 = res.data.body.activityInformationDTO[0].endTime
-        this.requirement1 = res.data.body.activityInformationDTO[0].requirement
-        this.start2 = res.data.body.activityInformationDTO[1].startTime
-        this.end2 = res.data.body.activityInformationDTO[1].endTime
-        this.requirement2 = res.data.body.activityInformationDTO[1].requirement
-        this.start3 = res.data.body.activityInformationDTO[2].startTime
-        this.end3 = res.data.body.activityInformationDTO[2].endTime
-        this.requirement3 = res.data.body.activityInformationDTO[2].requirement
+        this.start1 = res.data.body.careTargetScheduleListDTO.startTime
+        this.end1 = res.data.body.careTargetScheduleListDTO.endTime
+        this.requirement1 = res.data.body.careTargetScheduleListDTO.name
+        // this.end1 = res.data.body.activityInformationDTO[0].endTime
+        // this.requirement1 = res.data.body.activityInformationDTO[0].requirement
+        // this.start1 = res.data.body.activityInformationDTO[0].startTime
+        // this.end1 = res.data.body.activityInformationDTO[0].endTime
+        // this.requirement1 = res.data.body.activityInformationDTO[0].requirement
+        // this.start2 = res.data.body.activityInformationDTO[1].startTime
+        // this.end2 = res.data.body.activityInformationDTO[1].endTime
+        // this.requirement2 = res.data.body.activityInformationDTO[1].requirement
+        // this.start3 = res.data.body.activityInformationDTO[2].startTime
+        // this.end3 = res.data.body.activityInformationDTO[2].endTime
+        // this.requirement3 = res.data.body.activityInformationDTO[2].requirement
         this.careTargetImages = res.data.body.careTargetImages
         console.log(this.careTargetImages)
 
@@ -184,10 +188,10 @@ export default {
           alert(err);
           console.log(err);
         })
-      alert('계약신청 되었습니다.')
+      // alert('계약신청 되었습니다.')
 
-      this.$router.push({ path: '/recruitions' })
-      location.reload();
+      // this.$router.push({ path: '/recruitions' })
+      // location.reload();
       // location.href = '/';
     },
     back() {

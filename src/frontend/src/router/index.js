@@ -520,6 +520,11 @@ const routes = [
         path: '/mypage_joblist',
         name: 'mypage_joblist',
         component: () => import('@/components/main/mypage_joblist')
+    },
+    {
+        path: '/carepayment',
+        name: 'carepayment',
+        component: () => import('@/components/main/carepayment')
     }
 ];
 
