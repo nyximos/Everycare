@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.*;
-import wd.team4.everycare.dto.ImageDTO;
 import wd.team4.everycare.dto.careNote.ActivityInformationDTO;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
@@ -48,7 +47,6 @@ public class JobOfferServiceImpl implements JobOfferService {
 
 
         List<JobOfferListDTO> jobOfferDTOs = new ArrayList<>();
-        List<ImageDTO> imageDTO = new ArrayList<>();
         allList.stream().map(jobOffer -> jobOffer.toJobOfferListDTO(jobOffer)).forEach(jobOfferDTOs::add);
 
         System.out.println("jobOfferDTOs = " + jobOfferDTOs);

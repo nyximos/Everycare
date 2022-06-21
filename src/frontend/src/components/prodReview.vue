@@ -149,6 +149,8 @@ methods:{
       .catch(err => {
        console.log(err);
     });
+    alert('신고 되었습니다.')        
+       location.reload();
         },
   report(item){
           this.id = item.id

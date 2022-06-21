@@ -441,7 +441,7 @@ execDaumPostcode() {
     });   
     alert('대상인이 수정 되었습니다.')
          this.$router.push({ path: '/carenote/caretargets' })       
-       
+       location.reload();
        
         },        
     },

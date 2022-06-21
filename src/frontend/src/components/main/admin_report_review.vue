@@ -213,7 +213,17 @@ this.$router.push({
           .delete(`/api/admin/reports/review?boardId=${r.boardId}&reportId=${r.id}`, {
             withCredentials: true
           })
+          .then((res) => {
+        console.log(res);
+          // console.log(res.data.body)
+          // this.profiles = res.data.body
+          
+  }).catch(err => {
+    alert(err);
+    console.log(err);
+  })
         },
+        
         
        
       
