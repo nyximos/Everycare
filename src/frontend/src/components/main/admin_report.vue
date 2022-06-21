@@ -222,6 +222,8 @@
           .catch((err)=>{
             console.log(err)
           })
+          alert('활동정지 되었습니다.')        
+       location.reload();
         },
          drop(r){
           
@@ -235,6 +237,8 @@
           .catch((err)=>{
             console.log(err)
           })
+          alert('활동정지해제 되었습니다.')        
+       location.reload();
         },
         // /api/admin/members/member6/activites/stop
        

@@ -7,14 +7,14 @@
 
  
 	<div class="tit">내 구인글 목록
-		<span class="sort01">
+		<!-- <span class="sort01">
 		<v-btn @click="gocreate">
           <v-icon left>
             mdi-pencil
           </v-icon>
             Create
         </v-btn>
-		</span>
+		</span> -->
 	</div>
 	<div class="rlist">
 		<div class="list_more list_more1"><ul class="ul01"><li class="li01" v-for="(p, index) in listData" :key="index" @click="move(p)">
