@@ -38,7 +38,7 @@
       <input type="date" name="" id="" v-model="enddate">
             <v-btn @click="searchh">search</v-btn>
 
-    <v-sheet
+    <!-- <v-sheet
       color="blue"
       max-width="calc(100% - 32px)"
     >
@@ -49,7 +49,19 @@
         line-width="2"
         padding="16"
       ></v-sparkline>
-    </v-sheet>
+    </v-sheet> -->
+    <h6>1 : <label>{{this.june}}</label> </h6>
+    <h6>2 : <label>{{this.june}}</label></h6>
+    <h6>3 : <label>{{this.june}}</label></h6>
+    <h6>4 : <label>{{this.june}}</label></h6>
+    <h6>5 : <label>{{this.june}}</label></h6>
+    <h6>6 : <label>{{this.june}}</label></h6>
+    <h6>7 : <label>{{this.june}}</label></h6>
+    <h6>8 : <label>{{this.june}}</label></h6>
+    <h6>9 : <label>{{this.june}}</label></h6>
+    <h6>10 : <label>{{this.june}}</label></h6>
+    <h6>11 : <label>{{this.june}}</label></h6>
+    <h6>12 : <label>{{this.june}}</label></h6>
 
     <v-card-text class="pt-0">
       <p>상품 별 통계</p>
@@ -89,39 +101,12 @@ data(){
         searchValue:this.searchValue,
         startsearch:this.startsearch,
         endsearch:this.endsearch,
+        sum1: this.sum1,
         items: [
           { title: '상품 등록', icon: 'mdi-home-city', name:'ProdCreate'},
           { title: '상품 관리', icon: 'mdi-home-city', name:'storeProdList'},
           { title: '스토어 관리', icon: 'mdi-account-group-outline', name:'storeEdit' },
         ],
- labels: [
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-        '9',
-        '10',
-        '11',
-        '12'
-      ],
-      value: [
-        200,
-        675,
-        410,
-        390,
-        310,
-        460,
-        250,
-        240,
-        100,
-        100,
-        150,
-        100
-      ],
       }
     },
     methods:{
@@ -140,18 +125,73 @@ data(){
         .then(res => {
           console.log(res.data);
           this.jan = res.data.body[1];
-          // this.feb = res.data.body[0];
-          // this.mar = res.data.body[0];
-          // this.apr = res.data.body[0];
-          // this.may = res.data.body[0];
-          // this.june = res.data.body[0];
-          // this.jul = res.data.body[0];
-          // this.aug = res.data.body[0];
-          // this.sep = res.data.body[0];
-          // this.oct = res.data.body[0];
-          // this.nov = res.data.body[0];
-          // this.dec = res.data.body[0];
-          })
+          this.feb = res.data.body[2];
+          this.mar = res.data.body[3];
+          this.apr = res.data.body[4];
+          this.may = res.data.body[5];
+          this.june = res.data.body[6];
+          this.jul = res.data.body[7];
+          this.aug = res.data.body[8];
+          this.sep = res.data.body[9];
+          this.oct = res.data.body[10];
+          this.nov = res.data.body[11];
+          this.dec = res.data.body[12];
+          let sum1=0;
+          for (let i = 0; i < Object.keys(this.jan).length; i++) {
+            sum1 += parseInt(Object.keys(this.jan)[i])
+            this.jan = sum1
+          }
+          let sum2=0;
+          for (let i = 0; i < Object.keys(this.feb).length; i++) {
+            sum2 += parseInt(Object.keys(this.feb)[i])
+          }
+          let sum3=0;
+          for (let i = 0; i < Object.keys(this.mar).length; i++) {
+            sum3 += parseInt(Object.keys(this.mar)[i])
+          }
+          let sum4=0;
+          for (let i = 0; i < Object.keys(this.apr).length; i++) {
+            sum4 += parseInt(Object.keys(this.apr)[i])
+          }
+          let sum5=0;
+          for (let i = 0; i < Object.keys(this.may).length; i++) {
+            sum5 += parseInt(Object.keys(this.may)[i])
+          }
+          let sum6=0;
+          for (let i = 0; i < Object.keys(this.june).length; i++) {
+            sum6 += parseInt(Object.keys(this.june)[i])
+            // this.june = sum6
+            
+          }
+          console.log(sum6)
+          let sum7=0;
+          for (let i = 0; i < Object.keys(this.jul).length; i++) {
+            sum7 += parseInt(Object.keys(this.jul)[i])
+          }
+          let sum8=0;
+          for (let i = 0; i < Object.keys(this.aug).length; i++) {
+            sum8 += parseInt(Object.keys(this.aug)[i])
+          }
+          let sum9=0;
+          for (let i = 0; i < Object.keys(this.sep).length; i++) {
+            sum9 += parseInt(Object.keys(this.sep)[i])
+          }
+          let sum10=0;
+          for (let i = 0; i < Object.keys(this.oct).length; i++) {
+            sum10 += parseInt(Object.keys(this.oct)[i])
+          }
+          let sum11=0;
+          for (let i = 0; i < Object.keys(this.nov).length; i++) {
+            sum11 += parseInt(Object.keys(this.nov)[i])
+          }
+          let sum12=0;
+          for (let i = 0; i < Object.keys(this.dec).length; i++) {
+            sum12 += parseInt(Object.keys(this.dec)[i])
+          }
+
+          this.june= sum6;
+          console.log(this.june)
+        })
         .catch(err => {
           console.log(err);
         });

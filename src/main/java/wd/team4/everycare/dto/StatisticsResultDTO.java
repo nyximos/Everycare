@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 public class StatisticsResultDTO {
 
-    List<LocalDateTime> time = new ArrayList<>();
-    List<Integer> amount = new ArrayList<>();
+    public List<LocalDateTime> time = new ArrayList<>();
+    public List<Integer> amount = new ArrayList<>();
 
 }
