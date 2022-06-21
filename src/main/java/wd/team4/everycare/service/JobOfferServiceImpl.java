@@ -132,10 +132,13 @@ public class JobOfferServiceImpl implements JobOfferService {
         Member member = principalDetails.getUser();
         Long careTargetId = jobOfferDTO.getCareTarget().getId();
         Long scheduleId = jobOfferDTO.getCareTargetSchedule().getId();
+        System.out.println("jobOfferDTO.getDesiredStartTime() = " + jobOfferDTO.getDesiredStartTime().getClass());
 
+        System.out.println("jobOfferDTO.getDesiredEndTime() = " + jobOfferDTO.getDesiredEndTime());
         CareTarget careTarget = careTargetRepository.findById(careTargetId).orElse(null);
         CareTargetSchedule careTargetSchedule = careTargetScheduleRepository.findById(scheduleId).orElse(null);
         CareSitter careSitter = careSitterRepository.findByMember(member);
+
 
         JobOffer jobOffer = JobOffer.builder()
                 .title(jobOfferDTO.getTitle())
@@ -143,6 +146,7 @@ public class JobOfferServiceImpl implements JobOfferService {
                 .endDate(jobOfferDTO.getEndDate())
                 .day(jobOfferDTO.getDesiredDayWeek())
                 .desiredEndTime(jobOfferDTO.getDesiredEndTime())
+                .desiredStartTime(jobOfferDTO.getDesiredStartTime())
                 .pay(jobOfferDTO.getPay())
                 .amount(jobOfferDTO.getAmount())
                 .desiredCareSitterGender(jobOfferDTO.getDesiredCareSitterGender())
