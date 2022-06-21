@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.*;
+import wd.team4.everycare.dto.ImageDTO;
 import wd.team4.everycare.dto.careNote.ActivityInformationDTO;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
@@ -47,12 +48,15 @@ public class JobOfferServiceImpl implements JobOfferService {
 
 
         List<JobOfferListDTO> jobOfferDTOs = new ArrayList<>();
+        List<ImageDTO> imageDTO = new ArrayList<>();
         allList.stream().map(jobOffer -> jobOffer.toJobOfferListDTO(jobOffer)).forEach(jobOfferDTOs::add);
 
         for (JobOfferListDTO jobOfferDTO : jobOfferDTOs) {
             JobOfferCareTargetDTO careTargetDTO = jobOfferDTO.getCareTarget();
             CareTarget careTarget = careTargetDTO.toCareTarget();
             List<CareTargetImage> allByCareTarget = careTargetImageRepository.findAllByCareTarget(careTarget);
+            allByCareTarget.stream().map(image -> image.toImageDTO()).forEach(imageDTO::add);
+
             jobOfferDTO.setCareTargetImageList(allByCareTarget);
         }
 
@@ -95,6 +99,8 @@ public class JobOfferServiceImpl implements JobOfferService {
 
         CareTarget careTarget = findJobOffer.getCareTarget();
         List<CareTargetImage> careTargetImages = careTargetImageRepository.findAllByCareTarget(careTarget);
+        List<ImageDTO> imageDTOs = new ArrayList<>();
+        careTargetImages.stream().map(image -> image.toImageDTO()).forEach(imageDTOs::add);
 
         detailJobOfferDTO.setCareTargetImages(careTargetImages);
         MyResponse body = MyResponse.builder()
