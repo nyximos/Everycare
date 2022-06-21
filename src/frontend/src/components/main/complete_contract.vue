@@ -682,8 +682,8 @@ input[type*=radio], button {
     height: 18px;
     background: url(https://ssl.pstatic.net/static/help/support/sp_ly_help.png) no-repeat -75px 0;
     background-size: 95px 24px;
-
+}
 .v-card__subtitle{
   padding-top: 20px;
-
+}
 </style>

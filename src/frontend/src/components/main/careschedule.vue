@@ -514,6 +514,7 @@ export default {
                console.log(err)
            })
 
+       }
        },
        addmit2(){
             const carenoteId = this.$route.params.contentId;

@@ -94,7 +94,7 @@ public class JobOfferApiController {
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
     }
 //detail 완료
-    @GetMapping(" ")
+    @GetMapping("/recruitions/recruition/{id}")
     public ResponseEntity<MyResponse> getDetailJobOffer(@PathVariable("id") Long id) {
         ResponseEntity<MyResponse> detailJobOffer = jobOfferService.getDetailJobOffer(id);
         return detailJobOffer;

@@ -7,7 +7,7 @@
 			<div class="con0101">
 			<!-- <span class="icon03" id="btn_alert" @click="update">수정하기</span>			<span class="file"> -->
 				<span style="display:inline-block; width:200px; height:200px; border-radius:200px; overflow:hidden;">
-								<img :src="'https://localhost:8086/api/images/'+this.attachFiles" class="main_img img_sample">
+								<!-- <img :src="'https://localhost:8086/api/images/'+this.attachFiles" class="main_img img_sample"> -->
 								</span>
 			
 			
