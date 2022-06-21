@@ -16,17 +16,20 @@
     ></v-img>
     <v-img 
       v-else
-      :src="'https://localhost:8086/api/images/' + n.storeName"
+      :src="'https://localhost:8086/api/images/' + n.storeFileName"
+      width="250px"
       height="250px"
+      style="margin:0 auto;"
     ></v-img>
+    <!-- <v-card-title>
+        <h4 class="write">날짜:{{n.date}}</h4>
+    </v-card-title> -->
     <v-card-title>
-        <h4 class="write">{{n.date}}</h4>
+      <!-- <h5 class="write">케어시터:</h5> -->
     </v-card-title>
     <v-card-title>
-      <h5 class="write">케어시터:</h5>
-    </v-card-title>
-    <v-card-title>
-      <h5 class="write" format="yyyy-MM-dd HH:mm:ss">{{n.startTime}} ~ {{n.endTime}}</h5>
+      <h6 class="write">시작일/종료일</h6>
+      <h5 class="write">{{n.startTime.slice(0,10)}} ~ {{n.endTime.slice(0,10)}}</h5>
     </v-card-title>
     <v-card-actions>
       <v-btn
@@ -97,4 +100,24 @@ export default {
     .v-card__title .write{
         margin: 0 auto;
     }
+    .table{
+    font-size :15px;
+    border-collapse: collapse;
+    width: 1200px;
+    margin-top:20px;
+    border: 1px solid gray;    
+    text-align: center;
+}
+
+.thead td {
+    background: #B2B2B2;
+    height: 60px;
+    font-size: 20px;
+}
+
+td{
+    height: 40px;
+    border-bottom:1px solid black;
+}
+
 </style>

@@ -9,7 +9,7 @@
       </v-card-title>
       <v-card-subtitle>
         날짜: {{c.day}}<br>
-        {{c.payDateTime}}
+        계약 날짜:{{c.payDateTime.slice(0,10)}}
       </v-card-subtitle>
     <v-card-actions>
       <div style="margin:0 auto;">

@@ -141,7 +141,7 @@ const routes = [
         component: () => import('@/pages/Lastcontract'),
     },
     {
-        //케어 노트(케어시터) (o)
+        //케어 노트(케어시터)(o)
         path: '/carenote',
         name: 'carenote',
         component: () => import('@/pages/Carenote'),

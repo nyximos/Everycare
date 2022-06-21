@@ -29,7 +29,7 @@
     </v-card-title>
     <v-card-subtitle>
       날짜: {{c.day}}<br>
-      결제날짜: {{c.payDateTime}}
+      결제날짜: {{c.payDateTime.slice(0,10)}}
     </v-card-subtitle>
  
 

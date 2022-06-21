@@ -21,7 +21,7 @@
                         uploadName: <span>{{ detail.uploadName }}</span>
                     </div> -->
                     <div class="font-weight-light grey--text text-h7 mb-2">
-                        등록일: <span>{{ detail.createdAt }}</span>
+                        등록일: <span>{{ detail.createdAt.slice(0,10) }}</span>
                     </div>
                 </v-card-text>
             </v-card>

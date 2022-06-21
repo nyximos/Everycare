@@ -31,9 +31,24 @@
 
       <v-spacer></v-spacer>
     <div class="list">
-                <v-btn text>케어매칭</v-btn>
-                <v-btn text>케어노트</v-btn>
-                <v-btn text to="/store">케어스토어</v-btn>
+    <v-btn text to="/caresitters">케어매칭</v-btn>
+    <v-menu bottom offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn text v-bind="attrs" v-on="on">케어노트</v-btn>
+        </template>
+        <v-list>
+          <!-- <v-list-item v-for="(item, i) in items" :key="i" @click="() => {}"> -->
+            <!-- <v-list-item-title>{{ item.title }}</v-list-item-title> -->
+          <!-- </v-list-item> -->
+          <v-list-item>
+            <router-link :to="{name:'carenote'}"><v-list-item-title>케어노트(케어시터용)</v-list-item-title></router-link>
+          </v-list-item>
+          <v-list-item>
+            <router-link :to="{name:'membernote'}"><v-list-item-title>케어노트(멤버용)</v-list-item-title></router-link>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+        <v-btn text to="/store">케어스토어</v-btn>
             </div>
             <v-spacer></v-spacer>
             
@@ -58,6 +73,18 @@
 import $ from 'jquery';
 
 export default {
+    data(){
+        return{
+             items: [
+          {
+            title: '케어노트(시터용)', 
+          },
+          {
+            title: '케어노트(멤버용)',
+          }
+        ],
+        }
+    },
     methods: {
         goMain() {
             if (this.$router.history.current.fullPath == '/') {
