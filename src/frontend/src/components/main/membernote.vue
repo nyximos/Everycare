@@ -1,13 +1,15 @@
 <template>
   <div class="content">
-    <h1 class="title">완료된 케어노트</h1>
-    <v-card class="mx-auto" max-width="344" v-for="(n,index) in note" :key="index">
-    <div v-if="storeName=''" class="img_div">
-        <v-img src="@/assets/writing.png" width="75%" alt="사진없음"></v-img>
-    </div>
-    <div v-else class="img_div">
-        <img :src="'https://localhost:8086/api/images/' + n.storeName" width="75%"  class="img">
-    </div>
+    <div v-if="!note.length">당일케어노트가 없습니다.</div>
+    <v-card class="mx-auto" max-width="300" v-for="(n,index) in note" :key="index">
+    <!-- <div v-if="n.storeName==null"> -->
+        <v-img v-if="n.storeName==null" src="@/assets/writing.png" width="200px" alt="사진없음" style="margin:0 auto;"></v-img>
+    <!-- </div> -->
+    <!-- <div v-else class="img_div"> -->
+        <!-- <div style="margin 0 auto;"> -->
+        <v-img v-else :src="'https://localhost:8086/api/images/' + n.storeName" width="200px"  style="margin:0 auto;"></v-img>
+        <!-- </div> -->
+    <!-- </div> -->
     <v-card-title>
       <h2 class="name">{{n.careTargetName}} 님</h2>
     </v-card-title>
@@ -69,8 +71,11 @@ export default {
     .button{
         margin: 0 auto;
     }
+    .img_div{
+        width: 100%;
+    }
     .img{
-        margin: 0 auto;
+        margin: 0 auto;;
     }
     /* .img_div{
         text-align: center;

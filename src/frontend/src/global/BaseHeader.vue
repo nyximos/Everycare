@@ -21,6 +21,7 @@
             </div>
         </div>
     </header> -->
+
     <div class="pt-15">
         <v-app-bar color="green lighten-2" dark fixed>
             <v-toolbar-title @click="goMain" class="logo">Everycare</v-toolbar-title>
@@ -30,6 +31,7 @@
                 <v-btn text>케어매칭</v-btn>
                 <v-btn text>케어노트</v-btn>
                 <v-btn text to="/store">케어스토어</v-btn>
+
 
             </div>
 
@@ -96,6 +98,7 @@
 import $ from 'jquery';
 
 export default {
+
     data() {
         return {
             profiles: [],
@@ -114,6 +117,22 @@ export default {
                 console.log(err)
             });
     },
+
+     /* data(){
+        return{
+             
+             : [
+          {
+            title: '케어노트(시터용)', 
+          },
+          {
+            title: '케어노트(멤버용)',
+          }
+        ],
+        }
+    },
+    */
+
     methods: {
         move(p) {
             
@@ -159,8 +178,10 @@ export default {
                     console.log(err);
                 });
         },
-        match() {
-            this.$router.push({ name: 'caresitters' })
+
+        match(){
+            this.$router.push({name:'caresitters'})
+
         }
     }
 }

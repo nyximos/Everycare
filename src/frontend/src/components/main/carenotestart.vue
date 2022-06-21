@@ -1,7 +1,7 @@
 <template>
     <div class="content">
         <h2 class="title">출근 사진 등록</h2>
-        <h5 class="title1">케어 대상인:{{start.careTargetName}}</h5>
+        <h5 class="title1">케어 대상인:{{this.$store.state.caretargetStore.targetName}}</h5>
             <br>
             <v-card class="mx-auto" max-width="344" >
                 <label for="uppic">
@@ -14,8 +14,8 @@
             </v-card-subtitle>
         <v-card-actions>
             <div class="button" >
-                <v-btn class="ma-2" outlined color="indigo" @click="add">추가</v-btn>
-                <v-btn class="ma-2" outlined color="indigo" @click="move">등록</v-btn>
+                <v-btn class="ma-2" outlined color="success" @click="add">추가</v-btn>
+                <v-btn v-if="btn01" class="ma-2" outlined color="success" @click="move">스케줄 보기</v-btn>
             </div>
         </v-card-actions>
      </v-card>
@@ -33,7 +33,8 @@ export default {
             sId:this.id,
             avatar:require('@/assets/user.png'),
             avatarInput:'',
-            file:this.file
+            file:this.file,
+            btn01:false
         }
     },
     mounted(){
@@ -47,8 +48,7 @@ export default {
             console.log(res.data.body);
             this.start = res.data.body
             this.sId = res.data.body.id
-            console.log(this.sId)
-            // console.log(this.sId);
+
         })
         .catch((err)=>{
             console.log(err);
@@ -56,34 +56,40 @@ export default {
     },
     methods:{
         add(){
-            // const id = this.$route.params.contentId;
-            const sId = this.sId;
-
-            console.log(this.file)
-        //    console.log(this.avatar)
-            var formData = new FormData();
-
-            // formData.append('attachFile', this.avatar);
-             formData.append('attachFile', this.file);
-            
-            this.$http
-            .patch(`/api/carenotes/${sId}/photo`, formData,{
-                withCredentail:true
-            })
-            .then(res=>{
-                console.log(res);
-            }).catch(err=>{
-                console.log(err);
-            })
+            if(this.file == undefined){
+                alert("이미지를 등록해주세요")
+            }else{
+                const sId = this.sId;
+    
+                var formData = new FormData();
+                 formData.append('attachFile', this.file);
+                
+                this.$http
+                .patch(`/api/carenotes/${sId}/photo`, formData,{
+                    withCredentail:true
+                })
+                .then(res=>{
+                    console.log(res);
+                    alert("출근 사진 등록완료")
+                    this.btn01 = true
+                }).catch(err=>{
+                    console.log(err);
+                })
+            }
         },
         move(){
-            this.$router.push({name:'careschedule' , params:{contentId:this.sId}  })
+            if(this.file == undefined){
+                alert('출근 사진을 등록해주세요')
+                return
+            }else{
+                this.$router.push({name:'careschedule' , params:{contentId:this.sId}})
+            }
         },
         changeImage(e) {
          document.getElementById("uppic").click();   
         
          var file = e.target.files[0]
-         console.log(file)
+        //  console.log(file)
          this.file = file
          var reader = new FileReader()
          var that = this

@@ -8,7 +8,7 @@
   >
     <v-card-text>
       <div>아이디:{{c.id}}</div>
-      <p class="text-h4 text--primary">
+      <p class="text-h6 text--primary">
         제목:{{c.title}}
       </p>
       급여:<span>{{c.amount}}</span>
@@ -19,7 +19,7 @@
     <v-card-actions>
       <v-btn
         text
-        color="deep-purple accent-4"
+        color="success"
         @click="move(c)"
       >
         상세보기
@@ -51,9 +51,6 @@ export default {
     },
     methods:{
         move(c){
-            // const id = c.id;
-            // console.log(id);
-
             this.$router.push({name:'contract_detail',params:{contractId:c.id}})
         }
     }

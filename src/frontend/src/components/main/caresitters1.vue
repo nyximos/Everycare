@@ -213,7 +213,7 @@
                             <span class="icon03">{{ p.isVaccinated }}</span>
                             <span class="text01">{{ p.gender }}</span>
                             <span class="text01">{{ p.preferredType }}</span>
-                            <span class="text01">{{ p.activityTime }}</span>
+                            <span class="text01">{{ p.activityTime }}시간</span>
                         </span>
                     </li>
                 </ul>

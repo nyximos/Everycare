@@ -4,8 +4,12 @@
             <div class="title">
                 <h2> 스케줄</h2>
                 <div>
-                    <span class="tit"><h4>케어대상인: OOO</h4></span>
-                    <v-btn class="ma-2" outlined color="indigo" @click="end">활동 종료</v-btn>
+
+                    <span class="tit"><h4>케어대상인: {{this.$store.state.caretargetStore.targetName}}</h4></span>
+                    <div class="btn">
+                        <v-btn class="ma-2" outlined color="success" @click="end">활동 종료</v-btn>
+                    </div>
+
                 </div>
             </div>
             <div class="review">
@@ -36,16 +40,21 @@
                     <td>{{s.startTime}}</td>
                     <td>{{s.name}}</td>
                     <td>{{s.requirement}}</td>
-                    <td v-if="schedule.storeFileName=''"><img :src="'https://localhost:8086/api/images/' + s.storeFileName"></td>
-                    <td v-else @click="add(s)">사진</td>
-                    <td @click="activity(s)">활동</td>
-                    
+
+                    <td v-if="s.storeFileName == null" @click="add(s)">사진</td>
+                    <td v-else><img :src="'https://localhost:8086/api/images/' + s.storeFileName" width="15px" height="20px"></td>
+                    <td v-if="s.content == null" @click="activity(s)">활동</td>
+                    <td v-else>{{s.content}}</td>
+
                 </tr>
             </tbody>
         </table>
         </div>
         <br><br><br><br><br><br><br><br>
         </div>
+
+        
+
         <!-- 건강 조회 -->
          <v-dialog v-model="Dialog03" max-width="1000px" @click:outside="closeDialog" @keydown.esc="closeDialog">
          <v-card style="background:#f8f8f8;">
@@ -57,19 +66,18 @@
           <table class="table custom-table" show-select >
           <thead>
             <tr>  
-              
+
                     <th>건강분류 </th>
                     <th>건강상태</th>
-                    <th>건강기록</th>
-                    
-                
+                    <th>건강기록</th> 
             </tr>
           </thead>
-          
+
              <tbody v-for="(h ,index) in healthRecordDTO" :key="index">
                 <tr>
                     <td @click="upadte(h)">{{h.healthClassification}}</td>
                     <td>{{h.healthStatus}}</td>
+
                     <td>{{h.detailComment}}</td>
                     <td ><button class="custom-btn btn-11" @click="delete1(h)">삭제</button></td>
                 </tr>
@@ -81,6 +89,7 @@
           <v-card-actions>
             
           </v-card-actions>
+
         </v-card>
     </v-dialog>
     <!-- 상세조회 -->
@@ -89,7 +98,9 @@
           <v-card-text style="max-height: 550px; padding-bottom:0px;">
             <v-card-text>
                 <h2 class="title01">건강기록수정</h2>
-                
+
+                {{id}}
+
             </v-card-text>            
           </v-card-text>
 
@@ -98,10 +109,10 @@
     :items="healthList"
     item-text="name"
     item-value="value"
-    label="건강분류" 
+
+    label="건강분류"   
   >
- 
-    
+
   </v-select>
   <v-select
   type="text"
@@ -109,13 +120,9 @@
     :items="healthstatusList"
     item-text="name"
   item-value="value"
-    label="건강상태"
-    
-  >
 
- 
-    
-    
+    label="건강상태" 
+  >
   </v-select>
 
           <v-col cols="12" md="8" style="margin:0 auto;">
@@ -150,11 +157,13 @@
     :items="healthList"
     item-text="name"
     item-value="value"
+
     label="건강분류"
       
   >
     
     
+
   </v-select>
   <v-select
   type="text"
@@ -162,6 +171,7 @@
     :items="healthstatusList"
     item-text="name"
   item-value="value"
+
     label="건강상태"
     
   >
@@ -175,14 +185,17 @@
     
     
     
+
   </v-select>
 
           <v-col cols="12" md="8" style="margin:0 auto;">
         <v-textarea
           solo
           name="input-7-4"
+
           placeholder="내용을 입력해주세요"
           v-model="content1"
+
         ></v-textarea>
       </v-col>
           <v-divider style="margin:auto;"></v-divider>
@@ -285,16 +298,17 @@ export default {
         }
     },
     mounted(){
+
         // const id = this.$route.params.contentId;
          const carenoteId = this.$route.params.contentId;
         
         
+
         this.$http
         .get(`/api/carenotes/${ carenoteId}/schedules`,{
             withCredentail:true
         })
         .then((res)=>{
-            // console.log(res.data.body);
             this.schedule= res.data.body.activityInformationDTOs
             // console.log(this.schedule)
             // console.log("데이터" + res);
@@ -302,6 +316,7 @@ export default {
         .catch((err)=>{
             console.log(err);
         })
+
         this.$http
         .get(`/api/carenote/${carenoteId}/health-records`, {
             withCredentail:true
@@ -321,14 +336,13 @@ export default {
            } 
            */
             
+
         })
         .catch((err)=>{
             console.log(err);
         })
         
-        
-        
-        
+
     },
     
     methods:{
@@ -364,23 +378,47 @@ export default {
             this.$store.commit('carenoteStore/caretarget', caretarget);
         },
         submit(){
-            const carenoteId = this.$route.params.contentId;
-            const activityId = this.$store.state.carenoteStore.id;
-            
-            
-            var formData = new FormData();
-            formData.append('attachFile', this.file);
 
-            this.$http
-            .patch(`/api/carenote/${carenoteId}/schedules/${activityId}/photo`,formData,{
-                withCredentail:true
-            })
-            .then((res)=>{
-                console.log(res);
-            })
-            .catch((err)=>{
-                console.log(err);
-            })
+            if(this.file == undefined){
+                alert("사진을 등록해주세요")
+            }else{
+                const carenoteId = this.$route.params.contentId;
+                const activityId = this.$store.state.carenoteStore.id;
+                
+                var formData = new FormData();
+                formData.append('attachFile', this.file);
+    
+                this.$http
+                .patch(`/api/carenote/${carenoteId}/schedules/${activityId}/photo`,formData,{
+                    withCredentail:true
+                })
+                .then((res)=>{
+                    console.log(res);
+                    alert("등록완료")
+                    this.Dialog =false
+                    
+                })
+                .catch((err)=>{
+                    console.log(err);
+                })
+            }
+        },
+        upadte(h){
+            this.Dialog04 = true
+            this.id = h.id
+            console.log(id)
+        },
+        health(s){
+            this.Dialog02 = true
+            const caretarget ={
+                id : s.id,
+                name : s.name
+            };
+            this.$store.commit('carenoteStore/caretarget', caretarget);
+        },
+        healthview(){
+            this.Dialog03 = true
+
         },
         upadte(h){
              const carenoteId = this.$route.params.contentId;
@@ -434,22 +472,48 @@ export default {
          }
        },
        addmit(){
-            const carenoteId = this.$route.params.contentId;
-            const activityId = this.$store.state.carenoteStore.id;
+            if(this.content == ""){
+                alert("content를 적어주세요")
+            }
+            else{
 
-            var formData = new FormData();
-            formData.append('content', this.content);
-
+                const carenoteId = this.$route.params.contentId;
+                const activityId = this.$store.state.carenoteStore.id;
+    
+                var formData = new FormData();
+                formData.append('content', this.content);
+    
+               this.$http
+               .patch(`/api/carenote/${carenoteId}/schedules/${activityId}/content`, formData,{
+                   withCredentail:true
+               })
+               .then((res)=>{
+                   console.log(res);
+                   alert("등록완료")
+                   this.Dialog01 = false
+               })
+               .catch((err)=>{
+                   console.log(err);
+               })
+            }
+       },
+       end(){
+           if(confirm("활동종료하시겠습니까??") ==true){
+           const carenoteId = this.$route.params.contentId;
+           console.log(carenoteId);
            this.$http
-           .patch(`/api/carenote/${carenoteId}/schedules/${activityId}/content`, formData,{
+           .patch(`/api/carenotes/${carenoteId}/schedules/complition`,{
                withCredentail:true
            })
            .then((res)=>{
-               console.log(res);
+            console.log(res)
+            alert("활동이 종료되었습니다.")
+            this.$router.push({ path: '/Main' })
            })
            .catch((err)=>{
-               console.log(err);
+               console.log(err)
            })
+
        },
        addmit2(){
             const carenoteId = this.$route.params.contentId;
@@ -504,6 +568,7 @@ export default {
            .catch((err)=>{
                console.log(err)
            })
+
        }
     }
 }
@@ -539,13 +604,14 @@ export default {
         width: 200px;
         /* float: right; */
     }
+    
     .file{
     }
     /* .btn{
     } */
     .table{
         width: 100%;
-        padding: 20px;
+        padding-top: 10px;
     }
     .title01{
         text-align: center;
@@ -584,7 +650,7 @@ export default {
         text-align: center;
     }
     .btn{
-        align-items: center;
+        width:100%;
     }
      input[type="file"]{
         position: absolute;
@@ -641,10 +707,12 @@ export default {
         width: 200px;
         /* float: right; */
     }
-     .table{
-        width: 100%;
-        padding: 20px;
-    }
+
+     /* .table{ */
+        /* width: 100%; */
+        /* padding: 20px; */
+    /* } */
+
     .title01{
         text-align: center;
         color: black;
@@ -1054,6 +1122,7 @@ input[type*=radio], button {
 li {
     list-style: none;
 }
+
 .btn-11 {
   overflow: hidden;
   transition: all 0.3s ease;
@@ -1082,4 +1151,5 @@ li {
     inset -4px -4px 6px 0 rgba(255,255,255,.2),
     inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
 }
+
 </style>

@@ -35,8 +35,10 @@
           <li>금액:{{contract.contractJobOfferDTO.amount}}</li>
           <li>pay:{{contract.contractJobOfferDTO.pay}}</li>
       </ul>  
-      <v-btn class="ma-2" outlined color="indigo" @click="submit">수락</v-btn>
-     <v-btn class="ma-2" outlined color="indigo" @click="pay">결제</v-btn>
+      <div class="btn">
+        <v-btn class="ma-2" outlined color="indigo" @click="submit">수락</v-btn>
+        <router-link to="/dashboard/caresitter/contracts"><v-btn class="ma-2" outlined color="indigo">취소</v-btn></router-link>
+     </div>
         </div>
   </div>
   </div>
@@ -46,12 +48,7 @@
 export default {
     data(){
         return{
-            // target:[
-            // ],
-            // id:this.address,
-            // address:this.address,
             contract:[
-
             ],
         }
     },
@@ -65,18 +62,13 @@ export default {
         .then((res)=>{
             console.log(res.data.body);
             this.contract = res.data.body;
-            // console.log(this.contract)
-            // this.target = res.data.body.careTargetDetailDTO;
-            // this.address = res.data.body.careTargetDetailDTO.address;
-            // console.log(this.address);
-            // console.log(res.data.body.careTargetDetailDTO);
-
         }).catch(err=>{
             console.log(err);
         })
     },
     methods:{
         submit(){
+            if(confirm("수락하시겠습니까??") ==true){
             const id = this.$route.params.contractId;
             console.log(id);
             this.$http
@@ -84,9 +76,14 @@ export default {
 
             }).then((res)=>{
                 console.log(res);
+                alert("수락완료");
+                this.$router.push({ path: '/Main' })
             }).catch(err=>{
                 console.log(err);
             })
+            }else{
+                return false;
+            }
         },
         pay(){
             var tossPayments = TossPayments("test_ck_Lex6BJGQOVDGPJNGkJq3W4w2zNbg");
@@ -148,4 +145,7 @@ export default {
     /* .wrapper .inputBox:last-child{
         margin-bottom: 0;
     } */
+    .btn{
+        width: 100%;
+    }
 </style>

@@ -9,11 +9,14 @@
       </v-card-title>
       <v-card-subtitle>
         날짜: {{c.day}}<br>
-        {{c.payDateTime.slice(0,10)}}
+
+        계약 날짜:{{c.payDateTime.slice(0,10)}}
+
       </v-card-subtitle>
     <v-card-actions>
       <div style="margin:0 auto;">
         <v-btn color="#69f0ae" text @click="note(c)">노트</v-btn>
+
           <v-btn
         class="ma-2"
         color="red"
@@ -78,6 +81,7 @@
             class="btn_close" @click="closeDialog"><span class="blind">닫기</span></button>
     </div>
     </v-dialog>
+
   </div>
   
 </template>
@@ -86,9 +90,11 @@
 export default {
     data(){
         return{
+
             contract:[],
             Dialog01:false,
             reports:''
+
         }
     },
     mounted(){
@@ -101,16 +107,19 @@ export default {
         .then((res)=>{
             console.log(res.data.body);
             this.contract = res.data.body
+
             
             
             
             
+
         })
         .catch((err)=>{
             console.log(err);
         })
     },
     methods:{
+
         closeDialog(){
             
             this.Dialog01 = false;
@@ -147,16 +156,20 @@ export default {
       .catch(err => {
        console.log(err);
     });
+
         }
     }
 }
 </script>
 
+
 <style scoped>
+
   .content{
     padding: 40px;
     display: flex;
   }
+
   /* Common */
 
 table {
@@ -568,4 +581,5 @@ input[type*=radio], button {
 }
 
 /*# sourceMappingURL=srp_pc.css.map */
+
 </style>

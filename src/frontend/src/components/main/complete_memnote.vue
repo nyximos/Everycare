@@ -1,27 +1,35 @@
 <template>
   <div class="content">
-      
+
+
+
       <v-card
     class="mx-auto"
     max-width="300"
     v-for="(n,index) in note" :key="index">
     <v-img 
-    v-if="n.storename != null"
-      src="'https://localhost:8086/api/images/' + n.storeName"
-      height="250px"
-    ></v-img>
-    <v-img 
-    v-else
+
+    v-if="n.storeFileName==null"
+
     src="@/assets/note.png"
     height="200px"
     width="200px"
     style="margin:0 auto;"
     ></v-img>
-    <v-card-title>
+
+    <v-img 
+    v-else
+    :src="'https://localhost:8086/api/images/' + n.storeFileName"
+    height="250px"
+    width="250px"
+    style="margin:0 auto;"
+    ></v-img>
+    <!-- <v-card-title>
         <h4 class="write">{{n.date}}</h4>
-    </v-card-title>
+    </v-card-title> -->
     <v-card-title>
-      시간:<h5 class="write" format="yyyy-MM-dd HH:mm:ss">{{n.startTime}} ~ {{n.endTime}}</h5>
+      <h5 class="write">{{n.startTime.slice(0,10)}} ~ {{n.endTime.slice(0,10)}}</h5>
+
     </v-card-title>
     <v-card-actions>
       <v-btn
@@ -61,23 +69,22 @@
           three-line
           subheader
         >
-          <v-subheader>케어 대상인 이름:{{notedetail.careTargetName}}</v-subheader>
+
+          <h3 class="title01">케어 대상인 이름:{{notedetail.careTargetName}}</h3>
           <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>날짜</v-list-item-title>
-              <v-list-item-subtitle>{{notedetail.date}}</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-content>
+            <!-- <v-list-item-content>
               <v-list-item-title>시간</v-list-item-title>
               <v-list-item-subtitle>{{notedetail.startTime}} ~ {{notedetail.endTime}}</v-list-item-subtitle>
-            </v-list-item-content>
+            </v-list-item-content> -->
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
-          <table border="2px">
-            <thead>
+              <section class="main">
+            <div class="board">
+              <h2 class="subtitle">활동</h2>
+                <table class="table">
+                    <thead>
+
                 <tr>
                     <th>Id</th>
                     <th>시간</th>
@@ -93,7 +100,11 @@
                     <td>{{a.requirement}}</td>
                 </tr>
             </tbody>
-        </table>
+
+                </table>
+            </div>
+    </section>
+
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -102,11 +113,41 @@
           three-line
           subheader
         >
-          <v-subheader>리뷰</v-subheader>
+
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>Notifications</v-list-item-title>
-              <v-list-item-subtitle>Notify me about updates to apps or games that I downloaded</v-list-item-subtitle>
+            <section class="main">
+            <div class="board">
+              <h2 class="subtitle">리뷰</h2>
+                <table class="table">
+                    <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>name</th>
+                    <th>수정 날짜</th>
+                    <th>comment</th>
+                    <th>review</th>
+                </tr>
+            </thead>
+            <tbody v-for="( r ,index) in review" :key="index">
+                <tr>
+                    <td>{{ index+1 }}</td>
+                    <td>{{r.categoryName}}</td>
+                    <td>{{r.updatedAt.slice(0,10)}}</td>
+                    <td>{{r.comment}}</td>
+                    <td><v-rating v-model="review[index].rating"
+                            background-color="green lighten-2"
+                            color="green lighten-2"
+                            size="30"
+                            readonly
+                            ></v-rating>
+                    </td>
+                </tr>
+            </tbody>
+                </table>
+            </div>
+    </section>
+
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -135,6 +176,7 @@ export default {
         }).then((res)=>{
             console.log(res.data.body)
             this.note = res.data.body
+
         }).catch((err)=>{
             console.log(err)
         })
@@ -165,5 +207,54 @@ export default {
 </script>
 
 <style>
+
+.title01{
+  padding-top: 10px;
+  text-align: center;
+}
+    html{
+    height:100%;
+}
+
+body{
+    margin: 0px;
+    height:100%;
+}
+
+.main{
+    height:100%;
+    width: 100%;
+}
+
+
+.d-none{
+    display: none;
+}
+
+.board{
+    width: 1200px;
+    height: 100%;
+    margin: auto;
+}
+
+ 
+
+.table{
+    font-size :15px;
+    border-collapse: collapse;
+    width: 1200px;
+    margin-top:20px;
+    border: 1px solid gray;    
+    text-align: center;
+}
+
+.thead td {
+    background: #B2B2B2;
+}
+
+td{
+    height: 20px;
+    border-bottom:1px solid black;
+}
 
 </style>

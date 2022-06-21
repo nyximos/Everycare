@@ -100,12 +100,15 @@
                   <h2>자기소개서</h2>
                   <div class="ResumeOpenBox"><span class="lockIcon">{{detail.introduction}}</span><p class="first"></p></div>
                </div>
-                    <div id="#" class="resumeView">
+                    <div id="#" class="resumeView"> 
                         <h2>후기</h2>
                   <div class="ResumeOpenBox"><span class="lockIcon" v-for="(r,index) in review" :key="index">{{r.member.name}}:{{r.comment}}<br></span><p class="first"></p></div>
                     </div>
                     <div id="#" class="resumeView">
                         <h2>활동내역</h2>
+                        <div v-for="(b,index) in badge" :key="index">
+                           <img :src="'https://localhost:8086/api/images/' + b.fileName" width="50px" height="50px" style="float:left;"pp>
+                        </div>
                     </div>
             </div>
             <br><br><br><br><br><br><br><br>
@@ -143,7 +146,7 @@ export default {
          this.certification = res.data.body.certification
          this.badge = res.data.body.badge
          this.attachFile = res.data.body.attachFiles
-         console.log(this.attachFile)
+
          }).catch(err=>{
             console.log(err);
          })

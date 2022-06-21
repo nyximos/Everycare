@@ -1,17 +1,30 @@
 <template>
   <div class="content">
-      <h2>완료된 계약서</h2>
+
+      <h2 class="subtitle">완료된 계약서</h2>
+
       <v-card
     class="mx-auto"
     max-width="300"
     v-for="(c,index) in contract" :key="index"
   >
     <v-img
-      
+
+      src="@/assets/handshake.png"
       height="200px"
       width="150px"
       style="margin:0 auto;"
+      v-if="c.careTargetImage == null"
     ></v-img>
+    <v-img
+      v-else
+      :src="'https://localhost:8086/api/images/'+ c.careTargetImage"
+      height="200px"
+      width="200px"
+      style="margin:0 auto;"
+    ></v-img>
+
+
 
     <v-card-title>
         회원 아이디:{{c.memberId}} <br>
@@ -20,7 +33,9 @@
     </v-card-title>
     <v-card-subtitle>
       날짜: {{c.day}}<br>
-      {{c.payDateTime}}
+
+      결제날짜: {{c.payDateTime.slice(0,10)}}
+
     </v-card-subtitle>
  
 
@@ -29,6 +44,7 @@
       <div style="margin:0 auto;">
         <v-btn color="#69f0ae" text @click="note(c)">노트</v-btn>
         <v-btn text color="#69f0ae" @click="reveal = true">계약서</v-btn>
+
          <v-btn
         class="ma-2"
         color="red"
@@ -43,6 +59,7 @@
           mdi-cancel
         </v-icon>
       </v-btn>
+
       </div>
     </v-card-actions>
     <v-expand-transition>
@@ -77,6 +94,7 @@
         </v-card-actions>
       </v-card>
     </v-expand-transition>
+
     
   </v-card>
  <v-dialog v-model="Dialog01" max-width="560px" @click:outside="closeDialog" @keydown.esc="closeDialog">
@@ -126,6 +144,8 @@
             class="btn_close" @click="closeDialog"><span class="blind">닫기</span></button>
     </div>
     </v-dialog>
+
+
   </div>
   
 </template>
@@ -138,8 +158,10 @@ export default {
             // contractdialog:false,
               // show: false,
               reveal : false,
+
               Dialog01:false,
               reports:'',
+
         }
     },
     mounted(){
@@ -156,6 +178,7 @@ export default {
         });
     },
     methods:{
+
       report2(){
             const memberId = this.$store.state.userStore.id;
           let formData = new FormData() 
@@ -188,6 +211,7 @@ export default {
           console.log(this.caresitterid)
           this.Dialog01 = true
         },
+
       note(c){     
          const caretarget ={
                 contractId : c.id,
@@ -197,6 +221,7 @@ export default {
         this.$router.push({ name: 'complete_note', params: { contentId: c.id }})
       },
       
+
       // dialog(c){
       //   this.contractdialog = true;
       //   // console.log(c.pet)
@@ -204,19 +229,29 @@ export default {
       // close(){
       //   this.contractdialog = false;
       // }
+
     }
 }
 </script>
 
 <style>
+
     /* .v-toolbar__content{
       height: 0px;
     } */
+
   .content{
     width: 100%;
     height: 100%;
     margin-bottom: 20px;
   }
+
+  .subtitle{
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 30px;
+  }
+
   .v-card--reveal {
   bottom: 0;
   opacity: 1 !important;
@@ -234,6 +269,7 @@ export default {
   text-align: center;
   /* font-size: 10px; */
 }
+
  .content{
     padding: 40px;
     display: flex;
@@ -646,5 +682,8 @@ input[type*=radio], button {
     height: 18px;
     background: url(https://ssl.pstatic.net/static/help/support/sp_ly_help.png) no-repeat -75px 0;
     background-size: 95px 24px;
-}
+
+.v-card__subtitle{
+  padding-top: 20px;
+
 </style>

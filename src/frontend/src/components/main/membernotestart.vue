@@ -19,7 +19,8 @@
                     <th>사진</th>
                     <th>활동</th>
                     <th>후기</th>
-                    <th>건강</th>
+
+
                 </tr>
             </thead>
             <tbody v-for="(s,index) in schedule" :key="index">
@@ -114,7 +115,7 @@ export default {
         }
     },
     mounted(){
-        
+
         const id = this.$route.params.contentId;
         this.$http
         .get(`/api/carenotes/${id}/schedules`,{
@@ -130,7 +131,7 @@ export default {
             console.log(err);
         })
 
-        
+
     },
     methods:{
         closeDialog(){
