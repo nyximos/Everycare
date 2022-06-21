@@ -3,7 +3,6 @@ package wd.team4.everycare.dto.jobOffer_jobSearch;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import wd.team4.everycare.domain.CareTargetImage;
 import wd.team4.everycare.domain.Gender;
 import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.dto.careNote.ActivityInformationDTO;
@@ -29,7 +28,7 @@ public class DetailJobOfferDTO {
     private JobOfferCareTargetDTO careTarget;      //
     private CareTargetScheduleListDTO careTargetScheduleListDTO;
     private List<ActivityInformationDTO> activityInformationDTO;
-    private List<CareTargetImage> careTargetImages;
+    private String careTargetImages;
 
     public JobOffer toJobOffer(){
         return JobOffer.builder()

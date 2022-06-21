@@ -4,13 +4,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-import wd.team4.everycare.domain.CareTargetImage;
 import wd.team4.everycare.domain.Gender;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.member.MemberListViewDTO;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter
@@ -33,5 +31,5 @@ public class JobOfferListDTO {
     private MemberListViewDTO member;
     private JobOfferCareTargetDTO careTarget;                      //케어 대상인
     private CareTargetScheduleListDTO careTargetSchedule;      //스케줄
-    private List<CareTargetImage> careTargetImageList;
+    private String careTargetImage;
 }

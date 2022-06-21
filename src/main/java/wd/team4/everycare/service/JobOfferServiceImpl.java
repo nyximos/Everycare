@@ -53,10 +53,12 @@ public class JobOfferServiceImpl implements JobOfferService {
 
         System.out.println("jobOfferDTOs = " + jobOfferDTOs);
         for (JobOfferListDTO jobOfferDTO : jobOfferDTOs) {
-            Long id = jobOfferDTO.getCareTarget().getId();
-            List<CareTargetImage> careTargetImages = careTargetImageRepository.findAllByCareTargetId(id);
-            jobOfferDTO.setCareTargetImageList(careTargetImages);
+            JobOfferCareTargetDTO careTarget = jobOfferDTO.getCareTarget();
+            List<CareTargetImage> careTargetImages = careTargetImageRepository.findAllByCareTargetId(careTarget.getId());
+            String careTargetImage = careTargetImages.get(0).getStoreFileName();
+            jobOfferDTO.setCareTargetImage(careTargetImage);
         }
+
 
         MyResponse body = MyResponse.builder()
                 .message("전체 구인 조회")
@@ -97,10 +99,10 @@ public class JobOfferServiceImpl implements JobOfferService {
 
         CareTarget careTarget = findJobOffer.getCareTarget();
         List<CareTargetImage> careTargetImages = careTargetImageRepository.findAllByCareTarget(careTarget);
-        List<ImageDTO> imageDTOs = new ArrayList<>();
-        careTargetImages.stream().map(image -> image.toImageDTO()).forEach(imageDTOs::add);
+        String careTargetImage = careTargetImages.get(0).getStoreFileName();
 
-        detailJobOfferDTO.setCareTargetImages(careTargetImages);
+
+        detailJobOfferDTO.setCareTargetImages(careTargetImage);
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("구인글 상세조회")

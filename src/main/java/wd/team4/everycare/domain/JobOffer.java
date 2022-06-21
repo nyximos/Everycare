@@ -138,6 +138,7 @@ public class JobOffer {
     }
 
     public JobOfferListDTO toJobOfferListDTO(JobOffer jobOffer){
+
         return JobOfferListDTO.builder()
                 .id(this.id)
                 .title(this.title)
