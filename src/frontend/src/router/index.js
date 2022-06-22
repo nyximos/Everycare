@@ -488,7 +488,7 @@ const routes = [
     },
     {
         path: '/dashboard/memberschedule',
-        name: 'memberschedule',
+        name: 'memberSchedule',
         component: () => import('@/pages/Member_Schedule.vue')
     },
     {
