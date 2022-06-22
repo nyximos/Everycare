@@ -1,69 +1,88 @@
 <template>
-<v-container>
-  <header class="blog-header py-3">
-    <div class="row flex-nowrap justify-content-between align-items-center">
-      <div class="col-4 text-center">
-        <p class="display-5 fw-bold">Carestore</p>
-      </div>
-      <div class="col-4 d-grid gap-2 d-md-flex justify-content-md-end">
-      <button class="position-relative" @click="goCart">
-		🛒
-		</button>
-          <button class="position-relative btn-danger" @click="wish">
-		❤
-		</button>
-		<button class="btn btn-warning" type="button" @click="goCreateStore">입점하기</button>
-      </div>
-    </div>
-  </header>
-  
-<nav class="nav d-flex justify-content-between">
-      <a class="p-2 text-black" href="#">패션/잡화</a>
-      <a class="p-2 text-black" href="#">화장품/미용</a>
-      <a class="p-2 text-black" href="#">출산/육아</a>
-      <a class="p-2 text-black" href="#">생활/건강</a>
-      <a class="p-2 text-black" href="#">스포츠/레저</a>
-    </nav>
-<!--carousel-->
-<div class="container">
- <v-carousel hide-delimiters>
-    <v-carousel-item
-      v-for="(item,i) in items"
-      :key="i"
-      :src="item.src"
-    ></v-carousel-item>
-  </v-carousel>
-</div>
+<div>
+  <!--banner-->
+ <v-card color="gray">
+      <v-img
+        src="../images/store.png" height="300"/>
+    </v-card>
 
-<!--ranking-->
+  <!--nav-->
+  <v-card>
+    <v-tabs
+      background-color="green lighten-3"
+      center-active
+      dark
+      class="fw-bold"
+    >
+      <v-tab v-for="item in prodCategory" :key="item.index" @click="nav(item)">{{item.name}}</v-tab>  
+    </v-tabs>
+  </v-card>
 
-<div class="row">
-	<p class="fs-2 mt-5 fw-bold">Top 3</p>
-      <div class="ranking col" v-for="index in 3" :key="index">
-	<img src="../images/ear.jpg" class="rounded-circle mx-auto d-block" width="140" height="140">
-        <div class="text-center">
-		<h2 class="mt-2">체온계</h2>
-<button class="btn btn-secondary" href="#">View details &raquo;</button>
-		</div>
-      </div>
-</div>
-
+ <!--ranking-->
+  <ProdRank :storeRank="storeRank" @detail="detailShot" class="mb-10"/>
+    
 <!--body-->
-		<p class="display-6 text-center mt-5">Menu</p>
-			<ProdList v-for="(storeList, index) in storeList"
-        :key="index"
-        mb-2 :storeList="storeList" @detail="detailShot" />		
-</v-container>   
+  <v-row class="mt-10">
+    <v-toolbar class="elevation-0">
+      <v-spacer></v-spacer>
+      <v-col cols="1">
+        <v-text-field
+        v-model="searchText"
+        @input="search"
+        hide-details
+        prepend-icon="mdi-magnify"
+        single-line
+      ></v-text-field>
+      </v-col>
+      
+      <v-btn icon @click="goCart">
+        <v-icon>mdi-cart</v-icon>
+          <v-badge v-if="!this.$store.state.cart.cart.length==0" :content="this.$store.state.cart.cart.length" />
+      </v-btn>
+
+      <v-btn icon @click="wish">
+        <v-icon>mdi-heart</v-icon>
+          <v-badge v-if="!this.$store.state.wish.wish.length==0" :content="this.$store.state.wish.wish.length" />
+      </v-btn>
+      
+      <v-btn icon @click="goCreateStore">
+        <v-icon>mdi-login</v-icon>
+      </v-btn>
+    </v-toolbar>
+    </v-row>  
+	
+  <ProdList v-if="!cateResult && !searchText" :storeList="storeList" @detail="detailShot" />
+  <CateResult :cateResult="cateResult" @detail="detailShot"/>
+  <SearchResult v-if="searchText" :result="result" @detail="detailShot"/>	
+ 
+</div>  
 </template>
 
 <script>
+import CateResult from '@/components/cateResult'
+import SearchResult from '@/components/searchResult'
+import ProdRank from '@/components/prodRank'
 import ProdList from '@/components/prodList'
 export default {
 name: 'storeMain',
 components:{
- ProdList
+ CateResult,
+ ProdList,
+ ProdRank,
+ SearchResult
 },
 mounted(){
+  this.$http
+	.get('/api/store/products/best',{
+		withCredential: true
+	})
+	.then((res)=>{
+		console.log(res)
+		this.storeRank= res.data.body
+	})
+	.catch((err)=>{
+		console.log(err)
+	});
 	this.$http
 	.get('/api/store/products',{
 		withCredential: true
@@ -74,28 +93,59 @@ mounted(){
 	})
 	.catch((err)=>{
 		console.log(err)
-	})
+	});
+  this.$http
+        .get('/api/product-categories',{
+          withCredentials: true
+        })
+        .then(res => {
+          console.log(res);
+          this.prodCategory= res.data.body
+        })
+        .catch(err => {
+          console.log(err);
+        })
 },
 data(){
 	return{
+    prodCategory:this.prodCategory,
 		storeList:this.storeList,
-		items: [
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
-          },
-        ],
+    storeRank:this.storeRank,
+    searchText:this.searchText,
+    result:this.result,
+    searchvalue:false,
+    cateResult:this.cateResult
 	}
 },
 methods:{
+  nav(item){
+    this.$http
+     .get('/api/store/products/category',
+     {params: {categoryId: item.id}},{
+        withCredentials:true
+      })
+		.then((res)=>{
+        this.cateResult=res.data.body
+        console.log(res.data);
+        this.searchvalue=true
+      }).catch(err =>{
+				console.log(err);
+			})
+  },
+  search(){
+     this.$http
+     .get('/api/store/products/name',
+     {params: {name: this.searchText}},{
+        withCredentials:true
+      })
+		.then((res)=>{
+        this.result=res.data.body
+        console.log(res.data);
+        this.searchvalue=true
+      }).catch(err =>{
+				console.log(err);
+			})
+  },
 	goCreateStore(){
 		this.$router.push({
 			path:'/store/new'
@@ -124,8 +174,5 @@ methods:{
 </script>
 
 <style>
-.ranking > img:hover{
-    transform:scale(1.2, 1.2);  /* 가로2배 새로 1.5배 로 커짐 */
-    transition: transform.5s;  /* 커지는 시간 */
-	}
+
 </style>

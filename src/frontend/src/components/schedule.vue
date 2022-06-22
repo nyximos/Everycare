@@ -3,7 +3,7 @@
         <li class="sche_list" v-for="(postItem, i) in postItems" :key="i">
             <v-card class="mx-auto" max-width="300">
                 <v-card-text>
-                    {{ postItem.name }}님 <br />
+                    {{ postItem.name }} <br />
                     {{ postItem.startTime }} -
                     {{ postItem.endTime }}
                 </v-card-text>
@@ -16,7 +16,7 @@
         </li>
         <v-dialog v-model="dialogPg" @click:outside="closeDialog" width="500">
             <template v-slot:activator="{ on, attrs }">
-                <v-btn class="sc-add-btn" color="#69f0ae" dark v-bind="attrs" v-on="on"> 스케줄 추가 </v-btn>
+                <v-btn class="sc-add-btn" color="green lighten-2"  dark v-bind="attrs" v-on="on"> 스케줄 추가 </v-btn>
             </template>
             <div>
                 <v-card class="mx-auto my-12" max-width="374">

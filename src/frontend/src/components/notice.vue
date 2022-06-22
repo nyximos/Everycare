@@ -2,6 +2,7 @@
 <v-container>
   <div class="text-end">
   <v-btn
+    v-if="$store.state.userStore.id==='admin'"
     color="primary"
     dark
     class="mb-2"

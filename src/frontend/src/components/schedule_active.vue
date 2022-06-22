@@ -2,7 +2,7 @@
   <div class="main_content">
     <div class="content01">
       <div class="item">
-    <v-card class="mx-auto" width="250" height="250" v-for="(p,index) in postItems" :key="index">
+    <v-card class="mx-auto" v-for="(p,index) in postItems" :key="index">
     <v-card-text class="write">
       <p class="text-h5 text--primary">
         {{p.activityClassificationDTO.name}}
@@ -13,7 +13,7 @@
       </div>
     </v-card-text>
     <v-card-actions>
-      <br><br>
+      <br>
       <div class="button">
         <v-btn text color="teal accent-4" @click="onEdit(p)">수정</v-btn>
         <v-btn text color="teal accent-4" @click="del(p)">삭제</v-btn>
@@ -32,7 +32,6 @@
     <!-- 수정 모달창  -->
     <div class="modal1">
      <v-dialog v-model="editDialog"
-          
               max-width="500px"
               @click:outside="closeDialog"
               @keydown.esc="closeDialog"
@@ -57,9 +56,9 @@
           </div>
             </v-card-text>
             <v-container fluid>
-              <v-select name="cate" id="cate" v-model="category" :items="cate_level1" label="카테고리" item-text="name" item-value="value" @change="catego($event)"></v-select>
-              <v-select name="cate1" id="cate1" v-model="category1" :items="cate_level2" label="카테고리" item-text="name" item-value="value" @change="catego1($event)" v-if="select1" required></v-select>
-              <v-select name="cate2" id="cate2" v-model="category2" :items="cate_level3" label="카테고리" item-text="name" item-value="value" v-if="select2" required></v-select>
+              <v-select name="cate" id="cate" v-model="update_category" :items="cate_level1" label="카테고리" item-text="name" item-value="value" @change="catego($event)"></v-select>
+              <v-select name="cate1" id="cate1" v-model="update_category1" :items="cate_level2" label="카테고리" item-text="name" item-value="value" @change="catego1($event)" v-if="select1" required></v-select>
+              <v-select name="cate2" id="cate2" v-model="update_category2" :items="cate_level3" label="카테고리" item-text="name" item-value="value" v-if="select2" required></v-select>
               <br>
             </v-container>
             <v-container fluid>
@@ -340,9 +339,11 @@ export default {
     const id = this.$route.params.caretargetsId;
     const scid = this.$route.params.scheduleId;
     const actid = this.$store.state.caretargetStore.actid
+    console.log(this.update_category2);
     console.log(actid)
     var actformData = new FormData();
       actformData.append("activityClassificationId", this.update_category2);
+      console.log(this.update_category2)
       actformData.append("startTime", this.update_startTime);
       actformData.append("endTime", this.update_endTime);
       actformData.append("requirement", this.update_requirement);

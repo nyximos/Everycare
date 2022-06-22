@@ -9,16 +9,22 @@ public interface ReportService {
 
     ResponseEntity<MyResponse> saveCareReports(PrincipalDetails principalDetails, ReportFormDTO reportForm);
 
+    ResponseEntity<MyResponse> saveCareSitterReports(PrincipalDetails principalDetails, ReportFormDTO reportForm);
+
     ResponseEntity<MyResponse> saveBoardReports(PrincipalDetails principalDetails, ReportFormDTO reportForm);
 
     ResponseEntity<MyResponse> getAll();
 
-    ResponseEntity<MyResponse> getCompletion();
-
-    ResponseEntity<MyResponse> getHold();
-
     ResponseEntity<MyResponse> stop(String id);
 
     ResponseEntity<MyResponse> active(String id);
+
+    ResponseEntity<MyResponse> getAllContracts();
+
+    ResponseEntity<MyResponse> getAllReviews();
+
+    ResponseEntity<MyResponse> getAllReviewsByStatus(int status);
+
+    ResponseEntity<MyResponse> getAllContractsByStatus(int status);
 
 }

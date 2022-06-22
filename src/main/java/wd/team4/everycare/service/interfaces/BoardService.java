@@ -2,6 +2,7 @@ package wd.team4.everycare.service.interfaces;
 
 import org.springframework.http.ResponseEntity;
 import wd.team4.everycare.config.auth.PrincipalDetails;
+import wd.team4.everycare.dto.CommentFormDTO;
 import wd.team4.everycare.dto.board.BoardDTO;
 import wd.team4.everycare.dto.board.BoardInquiryDTO;
 import wd.team4.everycare.dto.board.CommentDTO;
@@ -26,7 +27,7 @@ public interface BoardService {
     //후기
     ResponseEntity<MyResponse> getComment(Long productId);
     ResponseEntity<MyResponse> getDetailComment(Long boardId);
-    ResponseEntity<MyResponse> createComment(PrincipalDetails principalDetails, CommentDTO commentDTO) throws IOException;
+    ResponseEntity<MyResponse> createComment(PrincipalDetails principalDetails, CommentFormDTO commentFormDTO) throws IOException;
     ResponseEntity<MyResponse> updateComment(Long boardId, BoardDTO boardDTO);
     ResponseEntity<MyResponse> removeComment(Long boardId);
 }

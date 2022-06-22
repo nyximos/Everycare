@@ -14,5 +14,8 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     List<Board> findByCategoryAndProductId(BoardCategory category, Long id);
 
     @EntityGraph(attributePaths = {"product"})
-    List<Board> findByProductId(Long productId);
+    List<Board> findByProductIdAndCategory(Long productId, BoardCategory boardCategory);
+
+    @EntityGraph(attributePaths = {"product"})
+    List<Board> findAllByProductId(Long id);
 }

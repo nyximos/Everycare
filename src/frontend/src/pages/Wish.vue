@@ -1,6 +1,5 @@
 <template>
- <v-container>
-   WishList
+ <v-container fluid>
     <wish />
  </v-container> 
 </template>

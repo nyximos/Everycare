@@ -11,14 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.config.jwt.JwtProperties;
-import wd.team4.everycare.domain.CareSitter;
-import wd.team4.everycare.domain.JobOffer;
-import wd.team4.everycare.domain.Member;
-import wd.team4.everycare.domain.Store;
-import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
+import wd.team4.everycare.domain.*;
+import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferListDTO;
 import wd.team4.everycare.dto.member.*;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
+import wd.team4.everycare.repository.CareTargetImageRepository;
 import wd.team4.everycare.repository.JobOfferRepository;
 import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.service.exception.MemberHasExistException;
@@ -39,6 +37,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final JobOfferRepository jobOfferRepository;
+    private final CareTargetImageRepository careTargetImageRepository;
 //    private final PrincipalDetails principalDetails;
 
     public MyResponse<SignupDTO> join(SignupDTO signupDTO) {
@@ -57,20 +56,21 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Optional<Member> isPresent(String id){
+    public Optional<Member> isPresent(String id) {
         Optional<Member> member = memberRepository.findById(id);
-        if(member.isPresent()){
+        if (member.isPresent()) {
             return member;
-        } else{
+        } else {
             throw new MemberNotFoundException();
         }
     }
 
     @Override
-    public boolean isEmpty(String id){
-        if(memberRepository.findById(id).isEmpty()) {
+    public boolean isEmpty(String id) {
+        if (memberRepository.findById(id).isEmpty()) {
             return true;
-        } throw new MemberHasExistException(id);
+        }
+        throw new MemberHasExistException(id);
     }
 
 
@@ -92,7 +92,7 @@ public class MemberServiceImpl implements MemberService {
                     .activityStatus(member.getActivityStatus())
                     .build();
             memberListViewDTOs.add(memberListViewDTO);
-         }
+        }
 
         MyResponse<List<MemberListViewDTO>> body = MyResponse.<List<MemberListViewDTO>>builder()
                 .header(StatusEnum.OK)
@@ -113,7 +113,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member signupDtoToEntity(SignupDTO signupDTO){
+    public Member signupDtoToEntity(SignupDTO signupDTO) {
         return MemberService.super.signupDtoToEntity(signupDTO);
     }
 
@@ -132,14 +132,14 @@ public class MemberServiceImpl implements MemberService {
                 .role(memberEntity.getRole())
                 .build();
 
-        if(careSitter!=null) {
+        if (careSitter != null) {
             memberInfoDTO.setCareSitterId(memberEntity.getCareSitter().getId());
         }
-        if(store!=null) {
+        if (store != null) {
             memberInfoDTO.setStoreId(memberEntity.getStore().getId());
         }
 
-            MyResponse<MemberInfoDTO> body = MyResponse.<MemberInfoDTO>builder()
+        MyResponse<MemberInfoDTO> body = MyResponse.<MemberInfoDTO>builder()
                 .header(StatusEnum.OK)
                 .message("성공했슴다~")
                 .body(memberInfoDTO)
@@ -196,7 +196,6 @@ public class MemberServiceImpl implements MemberService {
         return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
 
 
-
     }
 
 //    @Override
@@ -219,9 +218,15 @@ public class MemberServiceImpl implements MemberService {
     public ResponseEntity<MyResponse> getMyJobOffer(PrincipalDetails principalDetails) {
         Member user = principalDetails.getUser();
         List<JobOffer> jobOfferList = jobOfferRepository.findByMember(user);
-        List<JobOfferDTO> jobOfferDTOs = new ArrayList<>();
+        List<JobOfferListDTO> jobOfferDTOs = new ArrayList<>();
 
-        jobOfferList.stream().map(jobOffer -> jobOffer.toJobOfferDTO()).forEach(jobOfferDTOs::add);
+        jobOfferList.stream().map(jobOffer -> jobOffer.toJobOfferListDTO(jobOffer)).forEach(jobOfferDTOs::add);
+        for (JobOfferListDTO jobOfferDTO : jobOfferDTOs) {
+            Long careTargetId = jobOfferDTO.getCareTarget().getId();
+            List<CareTargetImage> careTargetImages = careTargetImageRepository.findAllByCareTargetId(careTargetId);
+            String storeFileName = careTargetImages.get(0).getStoreFileName();
+            jobOfferDTO.setCareTargetImage(storeFileName);
+        }
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
@@ -237,7 +242,7 @@ public class MemberServiceImpl implements MemberService {
 
         Optional<Member> member = memberRepository.findById(id);
 
-        if(member.isEmpty()) {
+        if (member.isEmpty()) {
             MyResponse body = MyResponse.builder()
                     .header(StatusEnum.OK)
                     .message("성공")
@@ -262,15 +267,29 @@ public class MemberServiceImpl implements MemberService {
         Optional<Member> member = memberRepository.findById(id);
         Member memberEntity = member.orElse(null);
 
-        String password = bCryptPasswordEncoder.encode(passwordDTO.getNewPassword());
-        memberEntity.updatePassword(password);
 
-        MyResponse body = MyResponse.builder()
-                .header(StatusEnum.OK)
-                .message("변경 성공")
-                .build();
+        if (bCryptPasswordEncoder.matches(passwordDTO.getPassword(), memberEntity.getPassword())) {
 
-        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+            String password = bCryptPasswordEncoder.encode(passwordDTO.getNewPassword());
+            memberEntity.updatePassword(password);
+
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.OK)
+                    .message("변경 성공")
+                    .build();
+
+            return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+
+
+        } else {
+
+            MyResponse body = MyResponse.builder()
+                    .header(StatusEnum.BAD_REQUEST)
+                    .message("변경 실패")
+                    .build();
+
+            return new ResponseEntity<MyResponse>(body, HttpStatus.BAD_REQUEST);
+        }
     }
-
 }
+

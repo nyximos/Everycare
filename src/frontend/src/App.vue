@@ -2,8 +2,7 @@
     <v-app>
         <BaseHeader v-if="!$route.meta.hideNavbar"/>
         <router-view />
-        <BaseFooter v-if="!$route.meta.hideFooter"/>
-        <BaseAlert/>
+        <BaseAlert />
     </v-app>
 </template>
 <script>

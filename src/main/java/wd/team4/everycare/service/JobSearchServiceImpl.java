@@ -148,6 +148,7 @@ public class JobSearchServiceImpl implements JobSearchService {
 
         for (CareSitterImage careSitterImage : careSitterImages) {
             CareSitterImageDTO careSitterImageDTO = CareSitterImageDTO.builder()
+                    .id(careSitterImage.getId())
                     .uploadFileName(careSitterImage.getUploadFileName())
                     .storeFileName(careSitterImage.getStoreFileName())
                     .build();

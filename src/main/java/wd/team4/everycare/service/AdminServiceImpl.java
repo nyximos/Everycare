@@ -16,10 +16,7 @@ import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.dto.store.StoreAdminDetailDTO;
 import wd.team4.everycare.dto.store.StoreAdminListDTO;
-import wd.team4.everycare.repository.BoardRepository;
-import wd.team4.everycare.repository.CertificationRepository;
-import wd.team4.everycare.repository.MemberRepository;
-import wd.team4.everycare.repository.StoreRepository;
+import wd.team4.everycare.repository.*;
 import wd.team4.everycare.service.interfaces.AdminService;
 
 import java.time.LocalDateTime;
@@ -36,6 +33,7 @@ public class AdminServiceImpl implements AdminService {
     private final StoreRepository storeRepository;
     private final CertificationRepository certificationRepository;
     private final BoardRepository boardRepository;
+    private final ReportRepository reportRepository;
 
     @Override
     public ResponseEntity<MyResponse> approveAdmin(String id) {
@@ -293,6 +291,18 @@ public class AdminServiceImpl implements AdminService {
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("FAQ 삭제")
+                .build();
+        return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<MyResponse> removeReview(Long boardId, Long reportId) {
+        boardRepository.deleteById(boardId);
+        reportRepository.deleteById(reportId);
+
+        MyResponse body = MyResponse.builder()
+                .header(StatusEnum.OK)
+                .message("후기 삭제")
                 .build();
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
     }

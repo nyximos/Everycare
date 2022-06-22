@@ -1,6 +1,7 @@
 package wd.team4.everycare.dto.careTargetSchedule;
 
 import lombok.*;
+import wd.team4.everycare.domain.ActivityClassification;
 import wd.team4.everycare.domain.CareTargetSchedule;
 
 @Builder

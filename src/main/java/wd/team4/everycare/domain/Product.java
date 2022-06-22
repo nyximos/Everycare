@@ -139,7 +139,7 @@ public class Product {
             this.price = productFormDTO.getPrice();
         }
         if(StringUtils.isNotBlank(String.valueOf(productFormDTO.getInventoryQuantity()))) {
-            this.price = productFormDTO.getInventoryQuantity();
+            this.inventoryQuantity = productFormDTO.getInventoryQuantity();
         }
         if(StringUtils.isNotBlank(productFormDTO.getComment())) {
             this.comment = productFormDTO.getComment();

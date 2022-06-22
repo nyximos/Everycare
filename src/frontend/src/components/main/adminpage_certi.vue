@@ -68,7 +68,7 @@
                     <nav class="sidebar-nav">
                         <ul id="sidebarnav" class="pt-4 in">
                             <li class="sidebar-item">
-                                <router-link to="/adminpage" class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"
+                                <router-link to="/admin/members" class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"
                                     ><i class="mdi mdi-account-box-outline"></i>&nbsp;&nbsp;<span class="hide-menu">회원 관리</span></router-link
                                 >
                             </li>
@@ -128,27 +128,14 @@
                                     <table class="table">
                                         <thead class="thead-light">
                                             <tr>
-                                                <th>
-                                                    <label class="customcheckbox mb-3">
-                                                        <input type="checkbox" id="mainCheckbox" v-model="checkAll" />
-                                                        <span class="checkmark"></span>
-                                                    </label>
-                                                </th>
                                                 <th scope="col">#</th>
                                                 <th scope="col">회원 아이디</th>
                                                 <th scope="col">이름</th>
                                                 <th scope="col">자격증 이름</th>
-                                                <!-- <th scope="col">등록일</th> -->
                                             </tr>
                                         </thead>
                                         <tbody class="customtable" v-for="(c, index) in certifications" :key="index" @click="move(c)">
                                             <tr>
-                                                <th>
-                                                    <label class="customcheckbox">
-                                                        <input type="checkbox" class="listCheckbox" />
-                                                        <span class="checkmark"></span>
-                                                    </label>
-                                                </th>
                                                 <td>{{ c.id }}</td>
                                                 <td>{{ c.memberId }}</td>
                                                 <td>{{ c.memberName }}</td>

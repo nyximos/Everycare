@@ -12,6 +12,7 @@ public class ReportFormDTO {
 
     private String reason;
     private String reportedUserId;
+    private Long reportedCareSitterId;
     private Long boardId;
     private Long contractId;
 

@@ -122,6 +122,7 @@ export default {
                         this.useid=true;
                     }else if(res.data.message == '실패'){
                         alert('이미 존재하는 아이디입니다.');
+                        this.useid=false;
                     }
                 })
                 .catch(err => {
@@ -203,7 +204,7 @@ export default {
 .signup-box {
     position: relative;
     display: inline-block;
-    top: 47%;
+    top: 60%;
     left: 50%;
     align-items: center;
     transform: translate(-50%, -50%);

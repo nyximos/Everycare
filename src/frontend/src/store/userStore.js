@@ -11,6 +11,7 @@ export default {
     mutations: {
         userInfo(state, userinfo) {
             state.id = userinfo.username;
+            state.name = userinfo.username;
         },
         userData(state, userData) {
             state.careSitterId = userData.caresitterId;

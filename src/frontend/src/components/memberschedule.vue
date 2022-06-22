@@ -2,17 +2,19 @@
     <div class="sc-component">
     <li class="sche_list" v-for="(postItem, i) in postItems" :key="i">
             <v-card 
+            id="memschcard"
             class="mx-auto" 
-            max-width="300" 
+            max-width="1000" 
             >
-            <v-card-text>
-                {{postItem.name}}
+            <v-card-text id="schname">
+                <h3>{{postItem.name}}</h3>
                 <br>
                 </v-card-text>
+                <v-divider id='line' class="mx-4"></v-divider>
                 <v-card-actions>
-                    <v-btn x-small color="blue" dark @click="update(postItem)"> 수정 </v-btn>
-                <v-btn x-small color="error" dark @click="delet(postItem)"> 삭제 </v-btn>
-                 <v-btn x-small color="gray" dark @click="detailPage(postItem)"> 상세 </v-btn>
+                    <v-btn color="blue" id="btn" fab text @click="update(postItem)"> 수정 </v-btn>
+                <v-btn color="red" id="btn" fab text @click="delet(postItem)"> 삭제 </v-btn>
+                 <v-btn color="gray" id="btn" fab text @click="detailPage(postItem)"> 상세 </v-btn>
            </v-card-actions>
            </v-card>
         </li> 
@@ -34,14 +36,14 @@
                                     <v-col cols="15" lg="20">
                         
                                         <v-card-text>
-                                      <v-datetime-picker id="" label="시작 일시"  v-model="startDatetime2"> </v-datetime-picker>
-                                      <v-datetime-picker label="종료 일시"  v-model="endDatetime2"> </v-datetime-picker>
+                                      <!-- <v-datetime-picker id="" label="시작 일시"  v-model="startDatetime2"> </v-datetime-picker>
+                                      <v-datetime-picker label="종료 일시"  v-model="endDatetime2"> </v-datetime-picker> -->
                                       </v-card-text>  
                                     </v-col>
                                 </v-row>
                                 <v-card-text>
                                         <v-col cols="15" class="pb-0">
-                                           <v-datetime-picker label="알람 시간"  v-model="alarmTime2"> </v-datetime-picker>
+                                           <!-- <v-datetime-picker label="알람 시간"  v-model="alarmTime2"> </v-datetime-picker> -->
                                         </v-col>
                                        
                                     <v-text-field label="장소" v-model="addressName2"></v-text-field>
@@ -64,10 +66,12 @@
         </v-dialog>
         <v-dialog v-model="dialogPg" @click:outside="closeDialog" width="500">
             <template v-slot:activator="{ on, attrs }">
+            <v-container>
                 <v-btn class="mx-2" id="memschbtn"
-      fab color="#69f0ae" dark v-bind="attrs" v-on="on"><v-icon dark>
+      fab color="green lighten-3" dark v-bind="attrs" v-on="on"><v-icon dark>
         mdi-plus
       </v-icon></v-btn>
+      </v-container>
             </template>
             <div>
                 <v-card class="mx-auto my-12" max-width="374">
@@ -85,14 +89,14 @@
                                     <v-col cols="15" lg="20">
                         
                                         <v-card-text>
-                                      <v-datetime-picker id="" label="시작 일시"  v-model="startDatetime"> </v-datetime-picker>
-                                      <v-datetime-picker label="종료 일시"  v-model="endDatetime"> </v-datetime-picker>
+                                      <!-- <v-datetime-picker id="" label="시작 일시"  v-model="startDatetime"> </v-datetime-picker>
+                                      <v-datetime-picker label="종료 일시"  v-model="endDatetime"> </v-datetime-picker> -->
                                       </v-card-text>  
                                     </v-col>
                                 </v-row>
                                 <v-card-text>
                                         <v-col cols="15" class="pb-0">
-                                           <v-datetime-picker label="알람 시간"  v-model="alarmTime"> </v-datetime-picker>
+                                           <!-- <v-datetime-picker label="알람 시간"  v-model="alarmTime"> </v-datetime-picker> -->
                                         </v-col>
                                        
                                     <v-text-field label="장소" v-model="addressName"></v-text-field>
@@ -118,7 +122,7 @@
 
 <script>
 import Vue from 'vue'
-import DatetimePicker from 'vuetify-datetime-picker'
+// import DatetimePicker from 'vuetify-datetime-picker'
 
 Vue.use(DatetimePicker)
 export default {
@@ -284,8 +288,22 @@ export default {
 }
 #memschbtn{
     position: absolute;
-    left: 95%;
-    top: 75%;
+    left: 98%;
+    top: 98%;
      transform: translate(-80%, -70%);
+}
+#memschcard{
+    width: 700px;
+    height: 160px;
+}
+#btn{
+ position: relative;
+ left: 500px;
+ bottom: 33px;
+}
+#line{
+    position: relative;
+    bottom: 15px;
+
 }
 </style>

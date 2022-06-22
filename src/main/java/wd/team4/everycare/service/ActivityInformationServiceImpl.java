@@ -91,8 +91,13 @@ public class ActivityInformationServiceImpl implements ActivityInformationServic
 
         Optional<ActivityInformation> activityInformation = activityInformationRepository.findById(id);
         ActivityInformation activityInformationEntity = activityInformation.orElse(null);
+
+        Long activityClassificationId = activityInformationFormDTO.getActivityClassificationId();
+        Optional<ActivityClassification> activityClassification = activityClassificationRepository.findById(activityClassificationId);
+        ActivityClassification activityClassificationEntity = activityClassification.orElse(null);
+
         if(activityInformationEntity!=null) {
-            activityInformationEntity.update(activityInformationFormDTO);
+            activityInformationEntity.update(activityInformationFormDTO, activityClassificationEntity);
         }
 
         MyResponse body = MyResponse.builder()

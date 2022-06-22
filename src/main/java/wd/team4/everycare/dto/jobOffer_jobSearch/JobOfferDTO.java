@@ -1,9 +1,6 @@
 package wd.team4.everycare.dto.jobOffer_jobSearch;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import wd.team4.everycare.domain.Gender;
 import wd.team4.everycare.domain.JobOffer;
@@ -15,6 +12,8 @@ import java.time.LocalDate;
 @ToString
 @Getter @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class JobOfferDTO {
     private Long id;
     private String title;

@@ -11,7 +11,7 @@ import wd.team4.everycare.domain.ActivityClassification;
 import wd.team4.everycare.domain.Bedge;
 import wd.team4.everycare.domain.CareSitter;
 import wd.team4.everycare.domain.CareSitterBedge;
-import wd.team4.everycare.dto.badge.CareSitterBadgeDTO;
+import wd.team4.everycare.dto.badge.BadgeNameDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.repository.ActivityClassificationRepository;
@@ -76,16 +76,21 @@ public class BadgeServiceImpl implements BadgeService {
     public ResponseEntity<MyResponse> findBadge(PrincipalDetails principalDetails) {
         CareSitter careSitter = principalDetails.getUser().getCareSitter();
 
+        List<BadgeNameDTO> badgeNameDTOs = new ArrayList<>();
+
         List<CareSitterBedge> careSitterBadgeList = careSitterBadgeRepository.findByCareSitter(careSitter);
+        for (CareSitterBedge careSitterBedge:careSitterBadgeList) {
+            Long badgeId = careSitterBedge.getBedge().getId();
+            Bedge bedge = badgeRepository.findById(badgeId).orElse(null);
+            BadgeNameDTO badgeNameDTO = bedge.toBadgeNameDTO();
+            badgeNameDTOs.add(badgeNameDTO);
+        }
 
-        List<CareSitterBadgeDTO> careSitterBadgeDTOs = new ArrayList<>();
-
-        careSitterBadgeList.stream().map(careSitterBadge -> careSitterBadge.toCareSitterBadgeDTO()).forEach(careSitterBadgeDTOs::add);
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("보유 뱃지 조회")
-                .body(careSitterBadgeDTOs)
+                .body(badgeNameDTOs)
                 .build();
 
         return new ResponseEntity<MyResponse>(body, HttpStatus.OK);
