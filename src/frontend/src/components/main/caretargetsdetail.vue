@@ -62,6 +62,7 @@
                             >&nbsp;</span
                         >
                     </div>
+                    <v-btn @click="back">돌아가기</v-btn>
                 </div>
             </div>
         </div>
@@ -194,13 +195,18 @@ export default {
     methods: {
         clickme() {
             location.href = '/caretargets';
-        }
+        },
         // update(){
         //       this.$router.push({
         //         path: '/dashboard/caretargets/1/update'
         //       })
 
         // }
+        back() {
+            this.$router.push({
+        path:'/carenote/caretargets'
+    })
+        }
     }
 };
 // data(){

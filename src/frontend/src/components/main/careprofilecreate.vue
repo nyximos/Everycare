@@ -13,18 +13,15 @@
                       </div>
                       <div class="con10_blank"></div>
                       <div class="area_profile">
-                        
                           <div class="div_img">
                             <img :src="image" />
-                              <!-- <label for="input_file?> -->
-                                  <!-- <img :src="avatar" class="img-avatar">
-                                  <input type="file" name="avatar" id="uppic" accept="image/gif,image/gif,image/jpg,image/png" @change="changeImage($event)" ref="avatarInput" class="uppic" label="파일"> -->
-                              <!-- </label> -->
+                            <!-- <label for="uppic">
+                              <v-img :src="avatar" width="225px" height="225px" alt="사진없음" style="margin:0 auto; padding:20px;" class="img-avatar" id="preview" />
+                           </label> -->
                           </div>
                           <div class="div_text">
-
                           <br><br>
-                          <!-- <div v-if="!image"> -->
+                              <!-- <input type="file" name="avatar" id="uppic"  accept="image/gif,image/gif,image/jpg,image/png" @change="changeImage($event);" ref="avatarInput" class="uppic" multiple="multiple"> -->
                               <v-file-input 
                               v-model="attachFiles" 
                               label="File input" 
@@ -33,12 +30,6 @@
                               multiple="multiple"
                               outlined dense>
                               </v-file-input>
-                              <!-- <input type="file"  @change="onFileChange"> -->
-                            <!-- </div> -->
-                            <!-- <div v-else>
-                                <img :src="image" />
-                                <button @click="removeImage">제거</button>
-                            </div> -->
                           </div>
                           <div class="con10_blank"></div>
                           <div class="con10 con1">
@@ -50,7 +41,6 @@
              <div>
               <ul class="work_area" style="display:block;">
                 <li>
-                  <span class="area_stitle">1지망</span>
                   <v-select name="sido1" id="sido1"
                       v-model="hope_loc1"
                       :items="hope_location1"
@@ -91,9 +81,6 @@
                               item-text="name"
                               item-value="value">
                           </v-select>
-                          <!-- <v-time-picker v-model="starttimepicker" ampm-in-title></v-time-picker>
-                         <v-time-picker v-model="endtimepicker" ampm-in-title></v-time-picker> -->
-                          <!-- <v-select :items="time" label="시간" v-model="starttimepicker" dense outlined item-text="name" item-value="value"></v-select> -->
                         </div>
                       </div>
                       <div class="area_pay">
@@ -122,12 +109,12 @@
                     </div>
                         <div class="r_seeking">
                           <div class="r_seeking_age">
-                            <v-checkbox v-model="preferredType" value="newborn" label="신생아(0-6 month)"></v-checkbox>
-                            <v-checkbox v-model="preferredType" value="baby" label="영아(7-36 month)"></v-checkbox>
-                            <v-checkbox v-model="preferredType" value="child" label="유아(4-7 year)"></v-checkbox>
-                            <v-checkbox v-model="preferredType" value="children" label="초등학생"></v-checkbox>
-                            <v-checkbox v-model="preferredType" value="student" label="중고등학생"></v-checkbox>
-                            <v-checkbox v-model="preferredType" value="anything" label="상관없음"></v-checkbox>
+                            <v-checkbox v-model="preferredType" value="아동" label="아동"></v-checkbox>
+                            <v-checkbox v-model="preferredType" value="노인" label="노인"></v-checkbox>
+                            <v-checkbox v-model="preferredType" value="임산부" label="임산부"></v-checkbox>
+                            <v-checkbox v-model="preferredType" value="환자" label="환자"></v-checkbox>
+                            <!-- <v-checkbox v-model="preferredType" value="student" label="중고등학생"></v-checkbox>
+                            <v-checkbox v-model="preferredType" value="anything" label="상관없음"></v-checkbox> -->
                           </div>
                       </div>
                       <br><br>
@@ -461,30 +448,30 @@ export default {
       {name:'제주시', value:'제주시'},
     ],
     activity:[
-      {name:'1시간', value:'1시간'},
-      {name:'2시간', value:'2시간'},
-      {name:'3시간', valu:'3시간'},
-      {name:'4시간', value:'4시간'},
-      {name:'5시간', value:'5시간'},
-      {name:'6시간', value:'6시간'},
-      {name:'7시간', value:'7시간'},
-      {name:'8시간', value:'8시간'},
-      {name:'9시간', value:'9시간'},
-      {name:'10시간', value:'10시간'},
-      {name:'11시간', value:'11시간'},
-      {name:'12시간', value:'12시간'},
-      {name:'13시간', value:'13시간'},
-      {name:'14시간', value:'14시간'},
-      {name:'15시간', value:'15시간'},
-      {name:'16시간', value:'16시간'},
-      {name:'17시간', value:'17시간'},
-      {name:'18시간', value:'18시간'},
-      {name:'19시간', value:'19시간'},
-      {name:'20시간', value:'20시간'},
-      {name:'21시간', value:'21시간'},
-      {name:'22시간', value:'22시간'},
-      {name:'23시간', value:'23시간'},
-      {name:'24시간', value:'24시간 '},
+      {name:'1시간', value:'1'},
+      {name:'2시간', value:'2'},
+      {name:'3시간', valu:'3'},
+      {name:'4시간', value:'4'},
+      {name:'5시간', value:'5'},
+      {name:'6시간', value:'6'},
+      {name:'7시간', value:'7'},
+      {name:'8시간', value:'8'},
+      {name:'9시간', value:'9'},
+      {name:'10시간', value:'10'},
+      {name:'11시간', value:'11'},
+      {name:'12시간', value:'12'},
+      {name:'13시간', value:'13'},
+      {name:'14시간', value:'14'},
+      {name:'15시간', value:'15'},
+      {name:'16시간', value:'16'},
+      {name:'17시간', value:'17'},
+      {name:'18시간', value:'18'},
+      {name:'19시간', value:'19'},
+      {name:'20시간', value:'20'},
+      {name:'21시간', value:'21'},
+      {name:'22시간', value:'22'},
+      {name:'23시간', value:'23'},
+      {name:'24시간', value:'24 '},
     ],
       id:'',
       image:[],
@@ -561,7 +548,7 @@ methods:{
              formData.append('attachFiles', this.attachFiles[0]);
            } 
           if(this.attachFiles ==""){
-            alert("사진");
+            alert("사진을 추가해주세요");
             return;
           }
           if(this.hope_loc1 + this.hopeloc1_detail==""){

@@ -3,27 +3,22 @@
   <div class="content">
 	<div class="match">
 <link rel="stylesheet" href="/css/cupertino.datepicker.css?v=202103040001">
-
-
 	<div class="match_div"> 
 		<h3 class="tit">채용내역</h3>
-
 		<div class="con_blank01"></div>
 		<div class="con_bar01"></div>
 		<div class="con02">
-		
 			<ul class="tab01">
-				<!-- <a href="javascript:tab_list(1);"><li class="menu01">받은 내역</li></a> -->
 				<a href="javascript:tab_list(2);"><li class="menu02 on">받은 내역</li></a>
 			</ul>
 		</div>
 		<div class="con_bar02"></div>
 		<div class="con03 tab1" id="div01" style="display: none;">
 			<ul class="list01">
-												<li class="con0302">
-				현재 받은 내역이 없습니다.
+				<li class="con0302">
+				  현재 받은 내역이 없습니다.
 				</li>
-							</ul>
+			</ul>
 		</div>
     
 		<div class="con03 tab2" id="div02" style="display: block;"  v-for="(p,index) in profiles" :key="index"
@@ -31,62 +26,23 @@
 			<ul class="list01">
 								<li class="con0301">
 					<a><span class="more01" @click="move(p)">상세보기</span></a>
-					<!-- <a href="/resume/view.php?encrypt_id=bldQVktKbmhtanRQM1F4K3ErR1NOUT09" target="_BLANK"><span class="date01">2022-06-18 19:23:09</span> -->
 					<span class="name01">{{p.careSitterDTO.name}}</span>
 					<span class="sex01">{{p.memberDTO.gender}} <span class="bar01">|</span> {{p.memberDTO.birth}}</span>
 					<span class="pay01">* 희망급여 <span>시급 : <span style="color: #3c3c3c">{{p.pay}}원</span></span></span>
-          					<span class="pay01">* 케어날짜 <span>시작일 : <span style="color: #3c3c3c">{{p.startDate}}</span></span> <span class="bar01">|</span> <span>종료일 : {{p.endDate}}</span></span>
-					
+          <span class="pay01">* 케어날짜 <span>시작일 : <span style="color: #3c3c3c">{{p.startDate}}</span></span> <span class="bar01">|</span> <span>종료일 : {{p.endDate}}</span></span>
 					<span class="subject01">{{p.careSitterDTO.introduction}}</span>
 					<span class="con_bar04"></span>
-										<span class="btn01">
+					<span class="btn01">
 					<input type="button" value="승낙 및 결제" class="btn0103" @click="payment(p)">
-          <!-- <input type="button" value="승낙 및 결제" class="btn0103" onclick="javascript:alert('신청해주신 내역이 아직 처리되지 않았습니다.');"></input> -->
 					</span>
-									</li>
-											</ul>
+        	</li>
+				</ul>
 		</div>
 
 		<div class="layer01" id="layer_match_list">
 		</div>
 	</div>	</div>
 </div>
-  <!-- <v-card v-for="(p,index) in profiles" :key="index"
-    class="mx-auto" 
-    max-width="344"
-    outlined
-  >
-    <v-list-item three-line>
-      <v-list-item-content>
-        <div class="text-overline mb-4">
-          {{p.name}}
-        </div>
-        <v-list-item-title class="text-h5 mb-1">
-          {{p.startDate}}~{{p.endDate}}
-        </v-list-item-title>
-        <v-list-item-subtitle>급여 : {{p.pay}}원</v-list-item-subtitle>
-      </v-list-item-content>
-
-      <v-list-item-avatar
-        tile
-        size="80"
-        :src="'https://localhost:8086/api/images/'+ p.careSitterImage[0].storeFileName"
-      ></v-list-item-avatar>
-    </v-list-item>
-
-    <v-card-actions>
-      <v-btn
-        outlined
-        rounded
-        text
-        @click="payment(p)"
-      >
-        승낙
-      </v-btn>
-    </v-card-actions>
-  
-  </v-card> -->
-  
 </div>
 
 </template>
@@ -97,23 +53,14 @@ export default {
     data() {
         return {
           profiles: [],
-            // id: this.id
-            // id: this.$route.params.caresitterId,
           tossPayments : TossPayments("test_ck_Lex6BJGQOVDGPJNGkJq3W4w2zNbg"),
           orderId : new Date().getTime(),
           customDate : new Date(),
-  
-        }
-        
+        }   
     },
     methods:{
       move(p) {
-            
-            
-            this.$router.push({ name: 'addprofile2', params: { caresitterId: p.careSitterDTO.id } });
-           
-           
-            
+            this.$router.push({ name: 'addprofile2', params: { caresitterId: p.careSitterDTO.id } });   
         },
        payment(p){
         var tossPayments = TossPayments("test_ck_Lex6BJGQOVDGPJNGkJq3W4w2zNbg");
@@ -154,30 +101,12 @@ export default {
           console.log(res.data.body)
           
         this.profiles = res.data.body
-        // console.log(typeof res.body.id)
-        // console.log(typeof res.body.body[0].pay)
-        // console.log(typeof res.body.body[0].id)
           
   }).catch(err => {
     alert(err);
     console.log(err);
   })
 },
-// methods:{
-//    payment(){
-//         var tossPayments = TossPayments("test_ck_Lex6BJGQOVDGPJNGkJq3W4w2zNbg");
-//         var customDate = new Date()
-//         var paymentData = {
-//             amount: 15000,
-//             orderId: this.orderId,
-//             orderName: '토스 티셔츠 외 2건',
-//             customerName: '박토스',
-//             successUrl: 'https://localhost:8086/api/cart/orders/payments?orderTableId=여기는 값',
-//             failUrl: 'https://localhost:8080/fail',
-//         };
-//          tossPayments.requestPayment("카드", paymentData);
-//     }
-// }
 }
 
 </script>

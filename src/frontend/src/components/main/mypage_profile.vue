@@ -28,16 +28,12 @@
 						<h2>정보</h2>
 						<div class="infoArea first"> 	
 							<div class="nameArea">
-								<dt class="title">CCTV 동의여부:{{details.cctvAgreement}}	</dt>
+								<dt class="title">CCTV 동의여부: {{cctvAgreement}}	</dt>
 								<!-- <p class="date">CCTV 동의여부:{{this.$store.state.careprofileStore.cctv}}</p> -->
 							</div> 	
 							<dl class="infoDetail"> 		
-								<dt class="title">백신접종:{{details.is_vaccinated}} <span></span></dt> 
-								
-								<dt class="title">자격증:
-									<!-- <div v-if="certification=''"> -->
-										<!-- {{details.certification[0].name}} -->
-										</dt> 
+								<dt class="title">백신접종: {{vaccinated}} <span></span></dt> 
+                        		<dt class="title">자격증:<span class="certi" v-for="(c,index) in certification" :key="index">{{c.name}}</span></dt> 
 									<!-- </div> -->
 								<dd class="kind">
 									<ul>
@@ -72,7 +68,7 @@
 									</td>
 									<td>
 										<dl class="item">
-											<dt class="title">{{details.activityTime}}</dt>
+											<dt class="title">{{details.activityTime}}시간</dt>
 										</dl>
 									</td>
 									<td>
@@ -90,11 +86,7 @@
 								<span class="title">희망근무지</span>
 								<p class="result">
 									{{details.hopefulRegion}} 
-									<!-- {{img}} -->
-									<!-- 2순위:&nbsp;&nbsp;&nbsp;
-									3순위: -->
 								</p>
-						
 							</li>
 							<li>
 								<span class="title">희망업직종</span>
@@ -124,7 +116,9 @@ export default {
         return{
             details:[
 
-            ]
+            ],
+			vaccinated:this.vaccinated,
+			cctvAgreement:this.cctvAgreement
         }
     },
     mounted(){
@@ -137,6 +131,18 @@ export default {
         .then((res)=>{
             console.log(res.data.body);
             this.details = res.data.body;
+			if(res.data.body.is_vaccinated == 0){
+            this.vaccinated = "1차접종완료"
+         	}else if(res.data.body.is_vaccinated ==1){
+            this.vaccinated = "추가접종완료"
+         	}else if(res.data.body.is_vaccinated == 2){
+            this.vaccinated = "미접종"
+         	}
+         	if(res.data.body.cctvAgreement == 0){
+            this.cctvAgreement = "O"
+         	}else{
+            this.cctvAgreement = "X"
+         }
         }).catch(err=>{
             console.log(err);
         })

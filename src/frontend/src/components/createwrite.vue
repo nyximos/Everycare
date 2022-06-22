@@ -191,7 +191,8 @@
       <v-card-actions>
         <v-btn
           text
-          :to="{name:'Main'}">
+          :to="{name:'Main'}" @click="back()">
+          
           Cancel
         </v-btn>
         <v-spacer></v-spacer>
@@ -275,11 +276,16 @@ name: 'Create',
        console.log(err);
        console.log(this.hi)
     });
-    // alert('구인글이 등록 되었습니다.')
+    alert('구인글이 등록 되었습니다.')
                 
-    //    this.$router.push({ path: '/recruitions' })
-    //    location.reload();
+       this.$router.push({ path: '/recruitions' })
+       location.reload();
   },
+  back(){
+    this.$router.push({
+        path:'/recruitions'
+    })
+},
   buttonClick(){
       var formData = new FormData()
       formData.append('id', this.caretarget);

@@ -140,6 +140,7 @@
                                                 <td>{{ c.memberId }}</td>
                                                 <td>{{ c.memberName }}</td>
                                                 <td>{{ c.name }}</td>
+                                                <!-- <td>{{c.createdAt.slice(0,10)}}</td> -->
                                             </tr>
                                         </tbody>
                                     </table>
@@ -681,6 +682,7 @@ nav {
 }
 .col-12 {
     flex: 0 0 auto;
+    padding: 10px;
     width: 100%;
 }
 .row > * {
