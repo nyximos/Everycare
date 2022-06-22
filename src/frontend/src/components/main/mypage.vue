@@ -24,7 +24,7 @@
   </div>   -->
    
   <div class="listContainer">
-    <div v-if="this.$store.state.userStore.careSitterId !== null" >
+    <div v-if="this.$store.state.userStore.careSitterId !== null || this.$store.state.careprofileStore.activityTime !== null" >
     <a  class="item" >
         <div class="icon" >ii</div>
         <router-link :to="{name:'certification',params:{caresitterId:this.id}}"><div class="text">자격증 등록<span class="circle"></span></div></router-link>
