@@ -122,6 +122,7 @@
  </div>
                 <hr class="mb-4">
                 <v-btn class="ma-2" outlined color="indigo" id="clickme" @click="clickme">등록</v-btn>
+                <v-btn class="ma-2" outlined color="indigo" id="clickme" @click="back">돌아가기</v-btn>
                 <hr class="mb-4">
 
                 <footer th:replace="/fragments/semantic :: footer"></footer>
@@ -217,6 +218,11 @@ execDaumPostcode() {
             that.avatar = this.result
         }
     },
+     back() {
+            this.$router.push({
+        path:'/carenote/caretargets'
+    })
+  },
     clickme(){ 
       
         let formData = new FormData() 

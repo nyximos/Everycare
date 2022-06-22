@@ -188,6 +188,10 @@ export default {
           alert(err);
           console.log(err);
         })
+         alert('계약이 신청 되었습니다.')
+                
+       this.$router.push({ path: '/recruitions' })
+       location.reload();
       // alert('계약신청 되었습니다.')
 
       // this.$router.push({ path: '/recruitions' })
@@ -196,7 +200,7 @@ export default {
     },
     back() {
       this.$router.push({
-        path: '/joblist'
+        path: '/recruitions'
       })
     }
   },
