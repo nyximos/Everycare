@@ -68,13 +68,13 @@
             계약정보
           </p>
           <p class="text-h6 text--primary" style="font-style:bold; margin-bottom:10px;">회원정보</p>
-          <p class="text-h8 text--primary">이름:{{c.careTargetName}}({{c.gender}}) / 생년월일:{{c.birth}}</p>
+          <p class="text-h8 text--primary">이름:{{c.careTargetName}}({{gender}}) / 생년월일:{{c.birth}}</p>
           <p class="text-h8 text--primary">주소: {{c.address}} {{c.detailedAddress}}</p>
-          <p class="text-h8 text--primary">반려동물:<span class="check">{{c.pet}}</span> / CCTV:<span class="check">{{c.isCctvAgreement}}</span> / 백신: <span class="check">{{c.coronaTest}}</span></p>
-          <p class="text-h8 text--primary">케어타입:{{c.careTpe}} / 장기요양등급: {{c.longTermCareGrade}}</p>
+          <p class="text-h8 text--primary">반려동물:<span class="check">{{pet}}</span> / CCTV:<span class="check">{{isCctvAgreement}}</span> / 백신: <span class="check">{{coronaTest}}</span></p>
+          <p class="text-h8 text--primary">케어타입:{{c.careType}} / 장기요양등급: {{c.longTermCareGrade}}</p>
           <p class="text-h6 text--primary" style="font-style:bold; margin-bottom:10px;">계약정보</p>
-          <p class="text-h9 text--primary">시작시간: {{c.startDate}}</p>
-          <p class="text-h9 text--primary">종료시간: {{c.endDate}}</p>
+          <p class="text-h9 text--primary">시작날짜: {{c.startDate}}</p>
+          <p class="text-h9 text--primary">종료날짜: {{c.endDate}}</p>
           <p class="text-h9 text--primary">금여: {{c.amount}}</p>
         </v-card-text>
         <v-card-actions class="pt-0">
@@ -156,6 +156,10 @@ export default {
 
               Dialog01:false,
               reports:'',
+              pet:this.pet,
+              isCctvAgreement:this.isCctvAgreement,
+              coronaTest:this.coronaTest,
+              gender:this.gender,
 
         }
     },
@@ -167,6 +171,28 @@ export default {
         .then((res) => {
             console.log(res.data.body)
             this.contract = res.data.body;
+            if(res.data.body.pet == 0){
+                this.pet = "O"
+            }else{
+                this.pet = "X"
+            }
+            if(res.data.body.isCctvAgreement == 0){
+                this.isCctvAgreement = "O"
+            }else{
+                this.isCctvAgreement = "X"
+            }
+            if(res.data.body.gender == "M"){
+                this.gender = "남"
+            }else{
+                this.gender ="여"
+            }
+            if(res.data.body.coronaTest == 0){
+                this.coronaTest = "1차접종"
+            }else if(res.data.body.coronaTest == 1){
+                this.coronaTest = "추가접종"
+            }else{
+                this.coronaTest = "미접종"
+            }
 
         }).catch((err) => {
             console.log(err) 

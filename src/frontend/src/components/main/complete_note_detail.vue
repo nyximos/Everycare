@@ -21,12 +21,11 @@
             </thead>
             <tbody v-for="( n ,index) in note" :key="index">
                 <tr>
-                    <td>{{ n.id }}</td>
+                    <td>{{ index+1 }}</td>
                     <td>{{n.startTime}}</td>
                     <td>{{n.endTime}}</td>
                     <td>{{n.name}}</td>
                     <td>{{n.requirement}}</td>
-
                 </tr>
             </tbody>
         </table>

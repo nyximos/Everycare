@@ -232,7 +232,10 @@ body{
     margin: auto;
 }
 
- 
+ .mx-auto{
+  /* padding-top: 20px; */
+  margin-top:50px ;
+ }
 
 .table{
     font-size :15px;

@@ -237,6 +237,7 @@ export default {
         return {
           profiles: [],
             img: this.img,
+            isVaccinated:this.isVaccinated,
             regiondialog:false,
             timedialog:false,
             catedialog:false,
@@ -254,7 +255,6 @@ export default {
               required:false,
               default:10
             },
-            isVaccinated:this.isVaccinated,
 
       select: [
         {name: '서울', value: '서울특별시'},
@@ -655,21 +655,14 @@ export default {
             .then((res) => {
                 console.log(res.data.body);
                 this.profiles = res.data.body;
-
                 if(res.data.body.isVaccinated == 0){
                   this.isVaccinated = "1차접종"
                 }else if(res.data.body.isVaccinated == 1){
-                  this.isVaccinated ="추가접종"
+                  this.isVaccinated = "추가접종"
                 }else{
                   this.isVaccinated = "미접종"
                 }
-                // if(res.data.body.isVaccinated == 0){
-                //   this.isVaccinated = "1차접종"
-                // }else if(res.data.body.isVaccinated == 1){
-                //   this.isVaccinated = "추가접종"
-                // }else{
-                //   this.isVaccinated = "미접종"
-                // }
+                
             })
             .catch((err) => {
                 console.log(err);

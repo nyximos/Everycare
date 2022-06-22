@@ -96,12 +96,12 @@
     </a>
     <a  class="item">
         <div class="icon">ii</div>
-         <router-link :to="{name:'membernote'}"><div class="text">케어노트(멤버용)</div></router-link>
+         <router-link :to="{name:'carenote'}"><div class="text">케어노트(케어시터)</div></router-link>
         <div class="right"> > </div>
     </a>
      <a  class="item">
         <div class="icon">ii</div>
-         <router-link :to="{name:'carenote'}"><div class="text">케어노트(시터용)</div></router-link>
+         <router-link :to="{name:'membernote'}"><div class="text">케어노트(회원)</div></router-link>
         <div class="right"> > </div>
     </a>
     <a  class="item">
