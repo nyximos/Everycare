@@ -16,7 +16,7 @@
         </li>
         <v-dialog v-model="dialogPg" @click:outside="closeDialog" width="500">
             <template v-slot:activator="{ on, attrs }">
-                <v-btn class="sc-add-btn" color="#69f0ae" dark v-bind="attrs" v-on="on"> 스케줄 추가 </v-btn>
+                <v-btn class="sc-add-btn" color="green lighten-2"  dark v-bind="attrs" v-on="on"> 스케줄 추가 </v-btn>
             </template>
             <div>
                 <v-card class="mx-auto my-12" max-width="374">

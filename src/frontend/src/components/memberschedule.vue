@@ -68,7 +68,7 @@
             <template v-slot:activator="{ on, attrs }">
             <v-container>
                 <v-btn class="mx-2" id="memschbtn"
-      fab color="#69f0ae" dark v-bind="attrs" v-on="on"><v-icon dark>
+      fab color="green lighten-3" dark v-bind="attrs" v-on="on"><v-icon dark>
         mdi-plus
       </v-icon></v-btn>
       </v-container>

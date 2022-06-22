@@ -204,7 +204,7 @@ export default {
 .signup-box {
     position: relative;
     display: inline-block;
-    top: 47%;
+    top: 60%;
     left: 50%;
     align-items: center;
     transform: translate(-50%, -50%);

@@ -6,7 +6,7 @@
                 <v-text-field id="newpw" v-model="password" label="기존 비밀번호 입력" outlined></v-text-field>
                 <v-text-field id="newpw" v-model="newpassword" label="새 비밀번호 입력" outlined></v-text-field>
                 <v-card-actions>
-                    <v-btn class="chpw" color="#69f0ae" @click="chpw">비밀번호 변경</v-btn>
+                    <v-btn class="chpw" color="green lighten-3" @click="chpw">비밀번호 변경</v-btn>
                 </v-card-actions>
             </v-col>
         </v-card>
