@@ -17,7 +17,6 @@ import wd.team4.everycare.repository.CareTargetRepository;
 import wd.team4.everycare.repository.CareTargetScheduleRepository;
 import wd.team4.everycare.service.JobOfferServiceImpl;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -83,15 +82,8 @@ public class JobOfferApiController {
     @GetMapping("/recruitions")
     public ResponseEntity<MyResponse> getJobOffer() {
 
-        List<JobOfferDTO> jobOffers = jobOfferService.getJobOffer();
-
-        MyResponse<Object> body = MyResponse.<Object>builder()
-                .header(StatusEnum.OK)
-                .message("조회 성공")
-                .body(jobOffers)
-                .build();
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<MyResponse>(body, headers, HttpStatus.OK);
+        ResponseEntity<MyResponse> jobOffer = jobOfferService.getJobOffer();
+        return jobOffer;
     }
 //detail 완료
     @GetMapping("/recruitions/recruition/{id}")
@@ -124,6 +116,7 @@ public class JobOfferApiController {
 
     @GetMapping("/recruitions/region")
     public ResponseEntity<MyResponse> searchRegion(@RequestParam String region){
+        System.out.println("region");
         ResponseEntity<MyResponse> searchRegion = jobOfferService.searchRegion(region);
         return searchRegion;
     }
@@ -131,6 +124,7 @@ public class JobOfferApiController {
     @GetMapping("/recruitions/date")
     public ResponseEntity<MyResponse> searchDate(@RequestParam String date){
         ResponseEntity<MyResponse> searchDate = jobOfferService.searchDate(date);
+        System.out.println("searchDate = " + searchDate);
         return searchDate;
     }
 

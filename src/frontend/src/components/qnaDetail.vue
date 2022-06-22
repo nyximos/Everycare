@@ -19,7 +19,7 @@
             </v-textarea>
           </v-row>
       </v-container>
-      <v-card-actions v-if="$store.state.userStore.id==='admin'">
+      <v-card-actions>
         <v-btn
           text
           @click="edit"
@@ -76,7 +76,7 @@ methods:{
     formData.append('title', this.title);
     formData.append('content', this.comment);
     this.$http
-    .patch(`/api/admin/faq`, formData, {
+    .patch(`/api/store/products/qna/${this.id}`, formData, {
     withCredentials: true
     })
      .then(res => {
@@ -91,7 +91,7 @@ methods:{
            id:this.id,
            }
     this.$http
-    .delete(`/api/admin/faq/${this.id}`, {
+    .delete(`/api/store/products/qna/${this.id}`, {
       withCredentials: true
     })
     .then((res)=> {

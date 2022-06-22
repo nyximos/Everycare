@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import wd.team4.everycare.dto.ImageDTO;
 
 import javax.persistence.*;
 
@@ -34,5 +35,13 @@ public class CareTargetImage {
         this.uploadFileName = uploadFileName;
         this.storeFileName = storeFileName;
         this.careTarget = careTarget;
+    }
+
+    public ImageDTO toImageDTO(){
+        return ImageDTO.builder()
+                .id(this.id)
+                .storeFileName(this.storeFileName)
+                .uploadFileName(this.uploadFileName)
+                .build();
     }
 }

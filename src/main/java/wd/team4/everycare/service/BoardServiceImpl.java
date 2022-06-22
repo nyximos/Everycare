@@ -53,7 +53,7 @@ public class BoardServiceImpl implements BoardService {
                 .title(boardInquiryDTO.getTitle())
                 .content(boardInquiryDTO.getContent())
                 .category(BoardCategory.문의)
-                .createdAt(boardInquiryDTO.getCreatedAt())
+                .createdAt(LocalDateTime.now())
                 .updatedAt(boardInquiryDTO.getUpdatedAt())
                 .count(0)
                 .filePath(uploadFileName)
@@ -82,7 +82,6 @@ public class BoardServiceImpl implements BoardService {
 
         getInquiry.stream().map(board -> board.toBoardDTO()).forEach(inquiryDTO::add);
 
-        /* TODO */
         for (BoardDTO boardDTO : inquiryDTO) {
             String yyyyMMdd = boardDTO.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             boardDTO.setCreatedAt(boardDTO.getCreatedAt());
@@ -252,9 +251,10 @@ public class BoardServiceImpl implements BoardService {
     public ResponseEntity<MyResponse> updateComment(Long boardId, BoardDTO boardDTO) {
         Board board = boardRepository.findById(boardId).orElse(null);
         board.updateInfo(boardDTO);
+        board.updateRating(boardDTO.getRating());
 
         CommentDTO commentDTO = board.toCommentDTO();
-
+        board.updateRating(boardDTO.getRating());
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)
                 .message("후기 업데이트")

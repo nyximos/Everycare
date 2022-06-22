@@ -133,9 +133,15 @@
                                     <v-radio label="O" value="0"></v-radio>
                                     <v-radio label="X" value="1"></v-radio>
                         </v-radio-group> -->
+                         <div v-for="(i,index) in imgfile" :key="index">
+                              <img :src="'https://localhost:8086/api/images/' +i.storeFilename, " width="250px" height="250px" alt="">
+                              <v-btn @click="del(i)">삭제하기</v-btn>
+                      </div>
                     </li>
                     <li>
+                      
                     <span>파일 업로드</span>
+                    
                     
                     
  
@@ -174,7 +180,8 @@ data(){
         careType:'',
         coronaTest:'',
         attachFiles:'',
-        id:this.$route.params.caretargetsId
+        id:this.$route.params.caretargetsId,
+        imgfile:''
     }
 },
 mounted(){
@@ -200,7 +207,8 @@ const id = this.$route.params.caretargetsId;
 		this.careType = res.data.body.careType
 		this.coronaTest = res.data.body.coronaTest
 		// this.attachFiles = res.data.body.attachFiles
-    this.attachFiles = res.data.body.imageDTOs[0].storeFileName
+    this.imgfile = res.data.body.imageDTOs
+    console.log(this.imgfile)
     })
     .catch((err)=>{
         console.log(err)

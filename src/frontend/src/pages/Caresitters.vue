@@ -2,7 +2,7 @@
   <v-container class="content">
     <div class="list">
       <div class="div_list">
-        <Caresitters />
+        <!-- <Caresitters /> -->
         <Caresitters1 />
       </div>
     </div>
@@ -11,12 +11,12 @@
 </template>
 
 <script>
-import Caresitters from '@/components/main/caresitters'
+// import Caresitters from '@/components/main/caresitters'
 import Caresitters1 from '@/components/main/caresitters1'
 
 export default {
   components: {
-       Caresitters,
+      //  Caresitters,
        Caresitters1
        },
 

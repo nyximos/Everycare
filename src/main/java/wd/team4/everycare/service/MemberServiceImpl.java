@@ -11,14 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.config.jwt.JwtProperties;
-import wd.team4.everycare.domain.CareSitter;
-import wd.team4.everycare.domain.JobOffer;
-import wd.team4.everycare.domain.Member;
-import wd.team4.everycare.domain.Store;
-import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferDTO;
+import wd.team4.everycare.domain.*;
+import wd.team4.everycare.dto.jobOffer_jobSearch.JobOfferListDTO;
 import wd.team4.everycare.dto.member.*;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
+import wd.team4.everycare.repository.CareTargetImageRepository;
 import wd.team4.everycare.repository.JobOfferRepository;
 import wd.team4.everycare.repository.MemberRepository;
 import wd.team4.everycare.service.exception.MemberHasExistException;
@@ -39,6 +37,7 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final JobOfferRepository jobOfferRepository;
+    private final CareTargetImageRepository careTargetImageRepository;
 //    private final PrincipalDetails principalDetails;
 
     public MyResponse<SignupDTO> join(SignupDTO signupDTO) {
@@ -219,9 +218,15 @@ public class MemberServiceImpl implements MemberService {
     public ResponseEntity<MyResponse> getMyJobOffer(PrincipalDetails principalDetails) {
         Member user = principalDetails.getUser();
         List<JobOffer> jobOfferList = jobOfferRepository.findByMember(user);
-        List<JobOfferDTO> jobOfferDTOs = new ArrayList<>();
+        List<JobOfferListDTO> jobOfferDTOs = new ArrayList<>();
 
-        jobOfferList.stream().map(jobOffer -> jobOffer.toJobOfferDTO()).forEach(jobOfferDTOs::add);
+        jobOfferList.stream().map(jobOffer -> jobOffer.toJobOfferListDTO(jobOffer)).forEach(jobOfferDTOs::add);
+        for (JobOfferListDTO jobOfferDTO : jobOfferDTOs) {
+            Long careTargetId = jobOfferDTO.getCareTarget().getId();
+            List<CareTargetImage> careTargetImages = careTargetImageRepository.findAllByCareTargetId(careTargetId);
+            String storeFileName = careTargetImages.get(0).getStoreFileName();
+            jobOfferDTO.setCareTargetImage(storeFileName);
+        }
 
         MyResponse body = MyResponse.builder()
                 .header(StatusEnum.OK)

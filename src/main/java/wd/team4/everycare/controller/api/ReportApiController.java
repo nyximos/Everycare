@@ -16,10 +16,17 @@ public class ReportApiController {
 
     private final ReportServiceImpl reportService;
 
-    @PostMapping("/reports/care")
+    @PostMapping("/reports/care/member")
     public ResponseEntity<MyResponse> saveCareReport(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                                      @ModelAttribute ReportFormDTO reportForm){
         ResponseEntity<MyResponse> responseEntity = reportService.saveCareReports(principalDetails, reportForm);
+        return responseEntity;
+    }
+
+    @PostMapping("/reports/care/sitter")
+    public ResponseEntity<MyResponse> saveCareSitterReport(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                                     @ModelAttribute ReportFormDTO reportForm){
+        ResponseEntity<MyResponse> responseEntity = reportService.saveCareSitterReports(principalDetails, reportForm);
         return responseEntity;
     }
 

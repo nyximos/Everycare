@@ -57,12 +57,13 @@ data(){
 },
 methods:{
     submit(){
+      const id = Number(this.$route.params.contentId);
       var formData = new FormData();
       formData.append('title',this.title);
       formData.append('content',this.comment);
       formData.append('attachFile', this.file);
       this.$http
-      .post('/api/admin/notice', formData,{
+      .post(`/api/store/products/${id}/qna/new`, formData,{
        withCredentials:true
       })
      .then(res => {

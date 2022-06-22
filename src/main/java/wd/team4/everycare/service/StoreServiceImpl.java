@@ -9,12 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.Member;
-import wd.team4.everycare.domain.Store;
-import wd.team4.everycare.dto.product.ProductListViewDTO;
-import wd.team4.everycare.dto.store.StoreAdminViewDTO;
-import wd.team4.everycare.dto.store.StoreFormDTO;
 import wd.team4.everycare.domain.OrderProduct;
-import wd.team4.everycare.dto.order.OrderProductDTO;
+import wd.team4.everycare.domain.Store;
+import wd.team4.everycare.dto.StatisticsResultDTO;
 import wd.team4.everycare.dto.response.MyResponse;
 import wd.team4.everycare.dto.response.StatusEnum;
 import wd.team4.everycare.dto.store.StatisticsDTO;
@@ -30,6 +27,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -151,28 +149,96 @@ public class StoreServiceImpl implements StoreService {
         LocalDateTime startTime = StringToLocalDateTime(start);
         LocalDateTime endTime = StringToLocalDateTime(end);
 
-        List<StatisticsDTO> statisticsDTOs = new ArrayList<>();
+
+        HashMap<String, Object> statisticsItem = new HashMap<>();
+        statisticsItem.put("1", 0);
+        statisticsItem.put("2", 0);
+        statisticsItem.put("3", 0);
+        statisticsItem.put("4", 0);
+        statisticsItem.put("5", 0);
+        statisticsItem.put("6", 0);
+        statisticsItem.put("7", 0);
+        statisticsItem.put("8", 0);
+        statisticsItem.put("9", 0);
+        statisticsItem.put("10", 0);
+        statisticsItem.put("11", 0);
+        statisticsItem.put("12", 0);
+
+        HashMap<Integer, LocalDateTime> result = new HashMap<>();
+
 
         for (Store store : storeList) {
             List<Tuple> statistics = orderProductQueryRepository.findStatistics(startTime, endTime, store);
+            System.out.println("statistics = " + statistics);
+
             for (Tuple tuple : statistics) {
+
                 Integer amount = tuple.get(0, Integer.class);
                 LocalDateTime payTime = tuple.get(1, LocalDateTime.class);
+                int month = payTime.getMonthValue();
 
-                System.out.println("payTime = " + payTime);
-                StatisticsDTO statisticsItem = new StatisticsDTO(amount, payTime);
-
-                statisticsDTOs.add(statisticsItem);
+                switch (month) {
+                    case 1:
+                        result.put(amount, payTime);
+                        statisticsItem.put("1", result);
+                        break;
+                    case 2:
+                        result.put(amount, payTime);
+                        statisticsItem.put("2", result);
+                        break;
+                    case 3:
+                        result.put(amount, payTime);
+                        statisticsItem.put("3", result);
+                        break;
+                    case 4:
+                        result.put(amount, payTime);
+                        statisticsItem.put("4", result);
+                        break;
+                    case 5:
+                        result.put(amount, payTime);
+                        statisticsItem.put("5", result);
+                        break;
+                    case 6:
+                        result.put(amount, payTime);
+                        statisticsItem.put("6", result);
+                        break;
+                    case 7:
+                        result.put(amount, payTime);
+                        statisticsItem.put("7", result);
+                        break;
+                    case 8:
+                        result.put(amount, payTime);
+                        statisticsItem.put("8", result);
+                        break;
+                    case 9:
+                        result.put(amount, payTime);
+                        statisticsItem.put("9", result);
+                        break;
+                    case 10:
+                        result.put(amount, payTime);
+                        statisticsItem.put("10", result);
+                        break;
+                    case 11:
+                        result.put(amount, payTime);
+                        statisticsItem.put("11", result);
+                        break;
+                    case 12:
+                        result.put(amount, payTime);
+                        statisticsItem.put("12", result);
+                        break;
+                }
+                System.out.println("statisticsItem = " + statisticsItem);
+                System.out.println("statisticsItem = " + statisticsItem.get("6"));
             }
         }
-        System.out.println("statisticsDTOs = " + statisticsDTOs);
 
         MyResponse body = MyResponse.builder()
+
                 .header(StatusEnum.OK)
                 .message("총 매출 통계")
-                .body(statisticsDTOs)
+                .body(statisticsItem)
                 .build();
-
+        System.out.println(statisticsItem.get("1"));
         return new ResponseEntity<>(body, HttpStatus.OK);
     }
 
@@ -182,7 +248,7 @@ public class StoreServiceImpl implements StoreService {
         LocalDate endDate = LocalDate.parse(end);
 
         LocalDateTime startTime = startDate.atStartOfDay();
-        LocalDateTime endTime = endDate.atStartOfDay();
+        LocalDateTime endTime = StringToLocalDateTime(end);
 
         System.out.println("startDateTime = " + startTime);
         System.out.println("endDateTime = " + endTime);
@@ -193,7 +259,7 @@ public class StoreServiceImpl implements StoreService {
         int sum = 0;
         for (Integer integer : list) {
             int i = integer.intValue();
-            sum+=i;
+            sum += i;
         }
 
         MyResponse<Integer> body = MyResponse.<Integer>builder()

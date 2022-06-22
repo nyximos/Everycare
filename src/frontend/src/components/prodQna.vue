@@ -1,13 +1,18 @@
 <template>
     <div>
-       <div v-if="!question.length">문의글이 없습니다</div>
+       <div v-if="!question.length">
+        <v-row>
+          <b class="fs-6">문의글이 없습니다</b>
+        </v-row> 
+        <v-btn class="mt-5" @click="goNewQna">문의 등록</v-btn>
+        </div>
        <div v-else>Question({{question.length}})
        <hr>
        <v-container>
         <div class="text-end">
           <v-btn @click="goNewQna">문의 등록</v-btn>
         </div>
-        <v-card v-for="item in question" :key="item.index" class="mt-4" @click="QnaDetail(item)">
+        <v-card v-for="item in calData" :key="item.index" class="mt-4" @click="QnaDetail(item)">
             <v-card-title>{{item.title}}</v-card-title>
             
             <v-card-text>
@@ -49,7 +54,7 @@ mounted() {
 data(){
     return{
         question:[],
-        dataPerPage:4,
+        dataPerPage:2,
         curPageNum:1,
     }
 },
