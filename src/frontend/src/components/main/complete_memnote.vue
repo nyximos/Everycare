@@ -1,16 +1,8 @@
 <template>
   <div class="content">
-
-
-
-      <v-card
-    class="mx-auto"
-    max-width="300"
-    v-for="(n,index) in note" :key="index">
-    <v-img 
-
-    v-if="n.storeFileName==null"
-
+    <div v-if="!note.length"><h2 class="text">완료된 노트가 없습니다.</h2></div>
+    <v-card class="mx-auto" max-width="300" v-for="(n,index) in note" :key="index">
+    <v-img v-if="n.storeFileName==null"
     src="@/assets/note.png"
     height="200px"
     width="200px"
@@ -207,7 +199,10 @@ export default {
 </script>
 
 <style>
-
+.text{
+  text-align: center;
+  padding-top: 40px;
+}
 .title01{
   padding-top: 10px;
   text-align: center;

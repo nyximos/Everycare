@@ -70,4 +70,8 @@ export default {
     .button{
         margin: 0 auto;
     }
+    .mx-auto{
+        /* margin: 0 auto; */
+        margin-bottom: 30px;
+    }
 </style>

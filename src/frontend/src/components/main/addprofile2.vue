@@ -6,16 +6,11 @@
             <div class="resumeType1-inner">
                <div id="ResumeBaseInfo" class="resumeView">
                   <h2 class="hide">기본정보</h2>
-                  <div v-for="(b,index) in badge" :key="index">
-                     <img :src="'https://localhost:8086/api/images/' + b.storeFileName">
-                  </div>
                   <div class="photoArea">
                      <span class="photo">
-                        <!-- <div v-if="this.attachFile == ' ' ">  -->
 								<a href="#ResumeBaseInfo" class="image" style="position:static;left:0;bottom:0;display:block;width:auto;height:auto;padding:0;border:0 none;background:none">
 									<img :src="'https://localhost:8086/api/images/' + detail.attachFiles[0].storeFileName" width="90" height="120" alt="프로필사진" id="per_pic">		
 								</a>
-								<!-- </div> -->
                      </span>
                   </div>
                      <ul class="infoList">
@@ -31,10 +26,10 @@
                   <h2>정보</h2>
                   <div class="infoArea first">    
                      <div class="nameArea">
-                        <dt class="title">CCTV 동의여부:{{detail.cctvAgreement}}</dt>
+                        <dt class="title">CCTV 동의여부: {{cctvAgreement}}</dt>
                      </div>    
                      <dl class="infoDetail">       
-                        <dt class="title">백신접종:{{detail.is_vaccinated}} <span></span></dt> 
+                        <dt class="title">백신접종: {{vaccinated}} <span></span></dt> 
                         
                         <dt class="title">자격증:<span class="certi" v-for="(c,index) in certification" :key="index">{{c.name}}</span></dt> 
                         <dd class="kind">
@@ -70,7 +65,7 @@
                            </td>
                            <td>
                               <dl class="item">
-                                 <dt class="title">{{detail.activityTime}}</dt>
+                                 <dt class="title">{{detail.activityTime}}시간</dt>
                               </dl>
                            </td>
                            <td>
@@ -141,6 +136,18 @@ export default {
          this.email = res.data.body.memberDTO.email
          this.address = res.data.body.memberDTO.address
          this.detail = res.data.body;
+         if(res.data.body.is_vaccinated == 0){
+            this.vaccinated = "1차접종완료"
+         }else if(res.data.body.is_vaccinated ==1){
+            this.vaccinated = "추가접종완료"
+         }else if(res.data.body.is_vaccinated == 2){
+            this.vaccinated = "미접종"
+         }
+         if(res.data.body.cctvAgreement == 0){
+            this.cctvAgreement = "O"
+         }else{
+            this.cctvAgreement = "X"
+         }
          this.id = res.data.body.id;
          this.review = res.data.body.careSitterReviews
          this.certification = res.data.body.certification
@@ -158,9 +165,11 @@ export default {
             props:[
                'caresitterId'
             ],
+            vaccinated:this.vaccinated,
             certification:[],
             review:[],
             name:this.name,
+            cctvAgreement:this.cctvAgreement,
             birth:this.birth,
             gender:this.gender,
             phone:this.phone,

@@ -1,6 +1,7 @@
 <template>
   <div>
     <br><br><br>
+    <div v-if="!contract.length">신청된 계약서가 없습니다.</div>
       <v-card
       v-for="(c,index) in contract" :key="index"
     class="mx-auto"

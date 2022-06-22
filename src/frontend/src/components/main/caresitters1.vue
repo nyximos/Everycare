@@ -149,6 +149,10 @@
               value="노인"
             ></v-radio>
             <v-radio
+              label="임산부"
+              value="임산부"
+            ></v-radio>
+            <v-radio
               label="환자"
               value="환자"
             ></v-radio>
@@ -199,7 +203,7 @@
                         <span class="tab02">
                             <span class="name"
                                 >{{ p.name }}
-                                <span class="age"> 나이:{{ p.birth }}</span>
+                                <span class="age"> {{ p.birth }}</span>
                             </span>
                             <span class="area">{{ p.hopefulRegion }}</span>
                             <span class="pay">
@@ -210,7 +214,7 @@
                         </span>
                         <div class="bar01"></div>
                         <span class="tab03">
-                            <span class="icon03">{{ p.isVaccinated }}</span>
+                            <span class="icon03">{{ isVaccinated }}</span>
                             <span class="text01">{{ p.gender }}</span>
                             <span class="text01">{{ p.preferredType }}</span>
                             <span class="text01">{{ p.activityTime }}시간</span>
@@ -250,12 +254,13 @@ export default {
               required:false,
               default:10
             },
+            isVaccinated:this.isVaccinated,
 
       select: [
-        {name: '서울', value: '서울'},
-        {name: '인천', value: '인천'},
+        {name: '서울', value: '서울특별시'},
+        {name: '인천', value: '인천광역시'},
         {name: '경기', value: '경기'},
-        {name: '부산', value: '부산'},
+        {name: '부산', value: '부산광역시'},
         {name: '대구', value: '대구광역시'},
         {name: '대전', value: '대전'},
         {name: '세종', value: '세종'},
@@ -650,9 +655,23 @@ export default {
             .then((res) => {
                 console.log(res.data.body);
                 this.profiles = res.data.body;
+
+                if(res.data.body.isVaccinated == 0){
+                  this.isVaccinated = "1차접종"
+                }else if(res.data.body.isVaccinated == 1){
+                  this.isVaccinated ="추가접종"
+                }else{
+                  this.isVaccinated = "미접종"
+                }
+                // if(res.data.body.isVaccinated == 0){
+                //   this.isVaccinated = "1차접종"
+                // }else if(res.data.body.isVaccinated == 1){
+                //   this.isVaccinated = "추가접종"
+                // }else{
+                //   this.isVaccinated = "미접종"
+                // }
             })
             .catch((err) => {
-                alert(err);
                 console.log(err);
             });
     },
