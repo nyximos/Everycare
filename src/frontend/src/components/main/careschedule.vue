@@ -82,14 +82,10 @@
                     <td ><button class="custom-btn btn-11" @click="delete1(h)">삭제</button></td>
                 </tr>
             </tbody>
-
         </table>
-          
           <v-divider style="margin:auto;"></v-divider>
           <v-card-actions>
-            
           </v-card-actions>
-
         </v-card>
     </v-dialog>
     <!-- 상세조회 -->
@@ -98,9 +94,6 @@
           <v-card-text style="max-height: 550px; padding-bottom:0px;">
             <v-card-text>
                 <h2 class="title01">건강기록수정</h2>
-
-
-
             </v-card-text>            
           </v-card-text>
 
@@ -175,19 +168,7 @@
     label="건강상태"
     
   >
-  <!-- <v-select
-  type="text"
-  v-model="healthstatus"
-    :items="healthstatus1"
-    item-text="name"
-        item-value="value"
-    label="건강상태"> -->
-    
-    
-    
-
   </v-select>
-
           <v-col cols="12" md="8" style="margin:0 auto;">
         <v-textarea
           solo
@@ -559,21 +540,20 @@ export default {
            alert('건강 기록이 수정되었습니다.')        
        location.reload();
        },
-       end(){
-           const carenoteId = this.$route.params.contentId;
-           console.log(carenoteId);
-           this.$http
-           .patch(`/api/carenotes/${carenoteId}/schedules/complition`,{
-               withCredentail:true
-           })
-           .then((res)=>{
-               console.log(res)
-           })
-           .catch((err)=>{
-               console.log(err)
-           })
-
-       }
+    //    end(){
+    //        const carenoteId = this.$route.params.contentId;
+    //     //    console.log(carenoteId);
+    //        this.$http
+    //        .patch(`/api/carenotes/${carenoteId}/schedules/complition`,{
+    //            withCredentail:true
+    //        })
+    //        .then((res)=>{
+    //            console.log(res)
+    //        })
+    //        .catch((err)=>{
+    //            console.log(err)
+    //        })
+    //    }
     }
 }
 </script>
