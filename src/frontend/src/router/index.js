@@ -13,6 +13,10 @@ const routes = [
         redirect: '/'
     },
     {
+        path: '/successproductpage',
+        component: () => import('@/pages/SuccessproductPage.vue')
+    },
+    {
         path: '/',
         name: 'Main',
         component: () => import('@/pages/Main.vue')

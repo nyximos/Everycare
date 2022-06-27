@@ -126,7 +126,7 @@ export default {
             orderId: this.orderId,
             orderName: this.firstName,
             customerName: this.$store.state.userStore.id,
-            successUrl: `https://localhost:8086/api/cart/orders/payments?orderTableId=${this.Order_Id}`,
+            successUrl: `https://localhost:8086/test/?orderTableId=${this.Order_Id}`,
             failUrl: 'https://localhost:8080/fail',
         };
          tossPayments.requestPayment("카드", paymentData);
