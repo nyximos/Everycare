@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import wd.team4.everycare.domain.ActivityStatus;
 import wd.team4.everycare.domain.Member;
 import wd.team4.everycare.repository.MemberRepository;
+import wd.team4.everycare.service.exception.LoginException;
 
 import java.util.Optional;
 
@@ -26,9 +27,14 @@ public class PrincipalDetailsService implements UserDetailsService {
 
         // 활동 정지된 멤버 로그인 실패
         Member memberEntity = member.orElse(null);
+
+        if (member == null) {
+            throw new LoginException(username);
+        }
+
         ActivityStatus activityStatus = memberEntity.getActivityStatus();
         if (activityStatus == ActivityStatus.STOP) {
-            return null;
+            throw new LoginException();
         }
 
         // session.setAttribute("loginUser", user);
