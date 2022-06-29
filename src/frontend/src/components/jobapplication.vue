@@ -71,11 +71,12 @@ export default {
             orderName: p.name,
             
             
-            successUrl: `https://localhost:8086/api/dashboard/contracts/payments?contractId=${p.id}`,
+            // successUrl: `https://localhost:8086/api/dashboard/contracts/payments?contractId=${p.id}`,
+            successUrl: `https://localhost:8086/test/?contractId=${p.id}`,
             // successUrl:`https://localhost:8086/`,
             failUrl: 'https://localhost:8080/fail',
         };
-        
+
          tossPayments.requestPayment("카드", paymentData);
 
          

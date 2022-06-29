@@ -23,6 +23,6 @@ public class TestWebController {
                            @RequestParam Long amount, @RequestParam Long orderTableId) throws JsonProcessingException {
         PayResponse payment = paymentService.payment(paymentKey, orderId, amount);
         ResponseEntity<MyResponse> signOrder = orderService.signOrder(orderTableId, payment);
-        return "redirect:https://localhost:8081/successproductpage";
+        return "redirect:https://localhost:8081/carepayment";
     }
 }
