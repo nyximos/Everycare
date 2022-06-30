@@ -2,38 +2,38 @@
     <div class="profile-page">
         <br><br>
     <div class="wrapper">
+            <h3>계약서</h3>
         
         <div class="inputBox">
-            <h3>계약서</h3>
             <br>
         <ul>
-          <li><h2>케어대상인 정보</h2></li>
-          <li>아이디:{{contract.careTargetDetailDTO.id}}</li>
-          <li>이름:{{contract.careTargetDetailDTO.name}}</li>
-            <li>주소:{{contract.careTargetDetailDTO.address}}</li>
-        <li>상세주소:{{contract.careTargetDetailDTO.detailedAddress}}</li>
-           <li>생년월일:{{contract.careTargetDetailDTO.birth}}</li>
-          <li>성별:{{contract.careTargetDetailDTO.gender}}</li>
-          <li>키:{{contract.careTargetDetailDTO.height}}</li>
-          <li>몸무게:{{contract.careTargetDetailDTO.weight}}</li>
-           <li>타입:{{contract.careTargetDetailDTO.careType}}</li>
-          <li>comment:{{contract.careTargetDetailDTO.comment}}</li>
-          <li>백신: {{contract.careTargetDetailDTO.coronaTest}}</li>
-          <li>cctv:{{contract.careTargetDetailDTO.isCctvAgreement}}</li>
-          <li>케어등급:{{contract.careTargetDetailDTO.longTermCareGrade}}</li>
-          <li>펫:{{contract.careTargetDetailDTO.pet}}</li>
-          <li>zipcode:{{contract.careTargetDetailDTO.zipcode}}</li>
+            <li><h2>케어대상인 정보</h2></li>
+            <!-- <li>아이디: {{contract.careTargetDetailDTO.id}}</li> -->
+            <li>이름: {{contract.careTargetDetailDTO.name}}</li>
+            <li>주소: {{contract.careTargetDetailDTO.address}}</li>
+            <li>상세주소: {{contract.careTargetDetailDTO.detailedAddress}}</li>
+            <li>생년월일: {{contract.careTargetDetailDTO.birth}}</li>
+            <li>성별: {{gender}}</li>
+            <li>키: {{contract.careTargetDetailDTO.height}}cm</li>
+            <li>몸무게: {{contract.careTargetDetailDTO.weight}}kg</li>
+            <li>타입: {{contract.careTargetDetailDTO.careType}}</li>
+            <li>comment: {{contract.careTargetDetailDTO.comment}}</li>
+            <li>백신: {{vaccinated}}</li>
+            <li>cctv: {{cctvAgreement}}</li>
+            <li>케어등급: {{contract.careTargetDetailDTO.longTermCareGrade}}등급</li>
+            <li>펫: {{pet}}</li>
+            <li>zipcode: {{contract.careTargetDetailDTO.zipcode}}</li>
             <br><br><br>
-          <li><h2>계약정보</h2></li>
-          <li>title:{{contract.contractJobOfferDTO.title}}</li>
-          <li>아이디:{{contract.contractJobOfferDTO.id}}</li>
-          <li>날짜:{{contract.contractJobOfferDTO.day}}</li>
-          <li>시작시간:{{contract.contractJobOfferDTO.desiredStartTime}}</li>
-          <li>끝나는시간{{contract.contractJobOfferDTO.desiredEndTime}}</li>
-          <li>시작날짜:{{contract.contractJobOfferDTO.startDate}}</li>
-          <li>끝나는 날짜{{contract.contractJobOfferDTO.endDate}}</li>
-          <li>금액:{{contract.contractJobOfferDTO.amount}}</li>
-          <li>pay:{{contract.contractJobOfferDTO.pay}}</li>
+            <li><h2>계약정보</h2></li>
+            <li>title: {{contract.contractJobOfferDTO.title}}</li>
+            <!-- <li>아이디: {{contract.contractJobOfferDTO.id}}</li> -->
+            <li>날짜: {{contract.contractJobOfferDTO.day}}</li>
+            <li>시간: {{contract.contractJobOfferDTO.desiredStartTime}} ~ {{contract.contractJobOfferDTO.desiredEndTime}}</li>
+            <!-- <li>끝나는시간: {{contract.contractJobOfferDTO.desiredEndTime}}</li> -->
+            <li>시작날짜: {{contract.contractJobOfferDTO.startDate}} ~ {{contract.contractJobOfferDTO.endDate}}</li>
+            <!-- <li>끝나는 날짜: {{contract.contractJobOfferDTO.endDate}}</li> -->
+            <li>금액:{{contract.contractJobOfferDTO.amount}}</li>
+            <li>pay:{{contract.contractJobOfferDTO.pay}}</li>
       </ul>  
       <div class="btn">
         <v-btn class="ma-2" outlined color="indigo" @click="submit">수락</v-btn>
@@ -50,6 +50,9 @@ export default {
         return{
             contract:[
             ],
+            gender:this.gender,
+            cctvAgreement:this.cctvAgreement,
+            vaccinated:this.vaccinated
         }
     },
     mounted(){
@@ -62,10 +65,36 @@ export default {
         .then((res)=>{
             console.log(res.data.body);
             this.contract = res.data.body;
+
+            if(res.data.body.careTargetDetailDTO.gender == "M"){
+                this.gender = "남자"
+            }else{
+                this.gender = "여자"
+            }
+            if(res.data.body.careTargetDetailDTO.coronaTest == 0){
+                this.vaccinated = "1차접종완료"
+            }else if(res.data.body.careTargetDetailDTO.coronaTest ==1){
+                this.vaccinated = "추가접종완료"
+            }else if(res.data.body.careTargetDetailDTO.coronaTest == 2){
+                this.vaccinated = "미접종"
+            } 
+
+            if(res.data.body.careTargetDetailDTO.isCctvAgreement == 0){
+            this.cctvAgreement = "O"
+            }else{
+            this.cctvAgreement = "X"
+            }
+            if(res.data.body.careTargetDetailDTO.pet == 0){
+                this.pet = "O"
+            }else{
+                this.pet = "X"
+            }
+            // this.gender = res.data.body.careTargetDetailDTO.gender
         }).catch(err=>{
             console.log(err);
         })
     },
+
     methods:{
         submit(){
             if(confirm("수락하시겠습니까??") ==true){
@@ -85,30 +114,6 @@ export default {
                 return false;
             }
         },
-        pay(){
-            var tossPayments = TossPayments("test_ck_Lex6BJGQOVDGPJNGkJq3W4w2zNbg");
-            var orderId = new Date().getTime();
-            let customDate = new Date();
-            const id = this.$route.params.contractId;
-            
-            console.log(id);
-            console.log(orderId);
-            console.log(customDate);
-            
-            var paymentData = {
-                amount:this.contract.contractJobOfferDTO.amount,
-                orderId:new Date().getTime(),
-                orderName:this.contract.careTargetDetailDTO.name+'계약서',
-                customerName:'박토스',
-                successUrl: `https://localhost:8086/api/dashboard/contracts/payments?contractId=${id}`,
-                failUrl: 'https://localhost:8080/fail'
-            };
-            // console.log(paymentData)
-            tossPayments.requestPayment("카드", paymentData);
-        
-            // this.$http
-            // .get('/api/success',)
-        }
     }
 }
 </script>

@@ -110,7 +110,7 @@ const routes = [
     },
     {
         //케어노트 출근 시작 시간/출근 시간 (o)
-        path: '/carenote/1234',
+        path: '/carenote/start',
         name: 'carenotestart',
         component: () => import('@/components/main/carenotestart'),
     },
@@ -488,7 +488,7 @@ const routes = [
     },
     {
         path: '/dashboard/memberschedule',
-        name: 'memberschedule',
+        name: 'memberSchedule',
         component: () => import('@/pages/Member_Schedule.vue')
     },
     {
