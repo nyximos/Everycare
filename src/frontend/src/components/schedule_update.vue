@@ -1,14 +1,6 @@
-<!-- <template>
+<template>
   <div>
-      <v-btn
-            class="back_btn"
-            color="grey"
-            dark
-            @click="back_pg"
-          >
-            뒤로
-          </v-btn>  
-       <v-card class="mx-auto my-12" max-width="374">
+       <v-card id="update_card" class="mx-auto my-12" max-width="374">
                     <template slot="progress"> </template>
                     <v-card-title>스케줄 수정</v-card-title>
                     <v-divider class="mx-4"></v-divider>
@@ -98,12 +90,16 @@ export default {
       .catch(err => {
        console.log(err);
     }); 
-      this.$router.go();
+      this.$router.go(-1);
      }
   }
 }
 </script>
 
 <style>
-
-</style> -->
+#update_card{
+    position: relative;
+    top: 300px;
+    left: 20px;
+}
+</style>

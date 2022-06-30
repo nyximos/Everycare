@@ -1,7 +1,12 @@
 <template>
     <div class="sc-component">
-        <li class="sche_list" v-for="(postItem, i) in postItems" :key="i">
-            <v-card class="mx-auto" max-width="300">
+        <div id="card_border">
+        <div id="sch_card">
+            <v-row justify="start"
+            class="bg-purple mt-5">
+        <v-col class="sche_list" v-for="(postItem, i) in postItems" :key="i" cols="auto">
+            <v-card 
+            class="mx-auto" max-width="300">
                 <v-card-text>
                     {{ postItem.name }} <br />
                     {{ postItem.startTime }} -
@@ -13,10 +18,18 @@
                     <v-btn x-small color="green" dark @click="actPage(postItem)"> 활동 </v-btn>
                 </v-card-actions>
             </v-card>
-        </li>
+        </v-col>
+        </v-row>
+        </div>
+        </div>
         <v-dialog v-model="dialogPg" @click:outside="closeDialog" width="500">
             <template v-slot:activator="{ on, attrs }">
-                <v-btn class="sc-add-btn" color="green lighten-2"  dark v-bind="attrs" v-on="on"> 스케줄 추가 </v-btn>
+                <v-container>
+                <v-btn class="mx-2" id="sc-add-btn"
+      fab color="green lighten-3" dark v-bind="attrs" v-on="on"><v-icon dark>
+        mdi-plus
+      </v-icon></v-btn>
+      </v-container>
             </template>
             <div>
                 <v-card class="mx-auto my-12" max-width="374">
@@ -115,6 +128,7 @@ export default {
                     console.log(res);
                     this.dialogPg = false;
                     this.$router.go();
+                    this.postItems.slice(4);
                 })
                 .catch(err => {
                     console.log(err);
@@ -145,19 +159,16 @@ export default {
     position: relative;
     bottom: 35px;
 }
-.sc-add-btn {
+#sc-add-btn {
     position: absolute;
-    top: 10%;
-    left: 10%;
+    top: 97%;
+    left: 96%;
+    transform: translate(-95%, -95%);
 }
 .v-time {
     width: 200px;
 }
-.sc-add-btn {
-    position: absolute;
-    top: 10%;
-    left: 10%;
-}
+
 .sche_list {
     list-style-type: none;
     margin: 30px;
@@ -166,5 +177,8 @@ export default {
     position: relative;
     left: 180px;
     bottom: 74px;
+}
+#sch_card{
+    display: flex;
 }
 </style>
