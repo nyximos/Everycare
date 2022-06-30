@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.everycare">
-
     <!-- 인터넷 접속 활성화 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,6 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Everycare">
+        <activity
+            android:name=".SitterDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SitterListActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

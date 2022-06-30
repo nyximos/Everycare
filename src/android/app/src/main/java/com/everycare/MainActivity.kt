@@ -1,5 +1,6 @@
 package com.everycare
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -32,8 +33,9 @@ class MainActivity : AppCompatActivity() {
             }
             if(username!!.isNotEmpty() && password!!.isNotBlank()) {
                 viewModel.login(username.toString(), password.toString())
-                if (viewModel.loginStatus==1){
-                    
+                if (viewModel.id!=null){
+                    val intent = Intent(this, SitterListActivity::class.java)
+                    startActivity(intent)
                 }
             }
         }

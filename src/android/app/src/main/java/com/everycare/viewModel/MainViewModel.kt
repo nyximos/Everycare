@@ -15,7 +15,7 @@ import javax.security.auth.callback.Callback
 class MainViewModel : ViewModel() {
 
     val error = MutableLiveData<String>()
-    var loginStatus = 0
+    var id: String? = null
 
     fun login(username: String, password: String) = viewModelScope.launch {
         val loginDTO = LoginDTO(username, password)
@@ -23,7 +23,7 @@ class MainViewModel : ViewModel() {
         request.enqueue(object : retrofit2.Callback<ResponseDTO> {
             override fun onResponse(call: Call<ResponseDTO>, response: Response<ResponseDTO>) {
                 Log.d("RESPONSE", "성공 : ${response.raw()}")
-                loginStatus = 1
+                id = username
             }
 
             override fun onFailure(call: Call<ResponseDTO>, t: Throwable) {
