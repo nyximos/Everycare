@@ -4,14 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.everycare.databinding.ActivityMainBinding
-import com.everycare.databinding.ActivitySitterDetailBinding
+import com.everycare.databinding.ActivitySitterContractListBinding
 import com.everycare.viewModel.MainViewModel
 import com.everycare.viewModel.SitterViewModel
 
-class SitterDetailActivity : AppCompatActivity() {
+class SitterContractListActivity : AppCompatActivity() {
 
     private val binding by lazy {
-        ActivitySitterDetailBinding.inflate(layoutInflater)
+        ActivitySitterContractListBinding.inflate(layoutInflater)
     }
 
     private val viewModel by viewModels<MainViewModel>()
@@ -20,6 +20,6 @@ class SitterDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sitter_detail)
+        setContentView(R.layout.activity_sitter_contract_list)
     }
 }

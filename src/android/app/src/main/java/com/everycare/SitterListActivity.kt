@@ -4,13 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.everycare.databinding.ActivityMainBinding
+import com.everycare.databinding.ActivitySitterListBinding
 import com.everycare.viewModel.MainViewModel
 import com.everycare.viewModel.SitterViewModel
 
 class SitterListActivity : AppCompatActivity() {
 
     private val binding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
+        ActivitySitterListBinding.inflate(layoutInflater)
     }
 
     private val viewModel by viewModels<MainViewModel>()
