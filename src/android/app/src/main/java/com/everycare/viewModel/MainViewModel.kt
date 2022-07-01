@@ -10,7 +10,6 @@ import eu.tutorials.anonymousboard.dto.ResponseDTO
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Response
-import javax.security.auth.callback.Callback
 
 class MainViewModel : ViewModel() {
 
@@ -18,6 +17,7 @@ class MainViewModel : ViewModel() {
     var id: String? = null
 
     fun login(username: String, password: String) = viewModelScope.launch {
+
         val loginDTO = LoginDTO(username, password)
         val request = Server.api.login(loginDTO)
         request.enqueue(object : retrofit2.Callback<ResponseDTO> {
@@ -27,6 +27,7 @@ class MainViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<ResponseDTO>, t: Throwable) {
+                Log.d("RESPONSE", " 실패 : ${t.message}")
                 error.value = t.localizedMessage
             }
 

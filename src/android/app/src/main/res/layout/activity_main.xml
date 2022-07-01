@@ -60,7 +60,7 @@
                     android:inputType="textCapWords"
                     android:textColor="#363A43"
                     android:textColorHint="#7A8089"
-                    />
+                    tools:ignore="SpeakableTextPresentCheck" />
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -73,10 +73,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="비밀번호를 입력하세요."
-                    android:inputType="textCapWords"
+                    android:inputType="textPassword"
                     android:textColor="#363A43"
                     android:textColorHint="#7A8089"
-                    />
+                    tools:ignore="SpeakableTextPresentCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -87,9 +87,10 @@
                 android:layout_marginTop="16dp"
                 android:background="@color/design_default_color_on_primary"
                 android:text="Login"
+                android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textSize="18dp"
-                />
+                tools:ignore="TextContrastCheck" />
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
