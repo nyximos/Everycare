@@ -11,7 +11,9 @@ import wd.team4.everycare.dto.jobOffer_jobSearch.JobSearchDTO;
 import wd.team4.everycare.util.StringUtils;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -169,5 +171,13 @@ public class CareSitter {
         if (StringUtils.isNotBlank(String.valueOf(careSitterFormDTO.getDisclosureStatus())))
             this.disclosureStatus = careSitterFormDTO.getDisclosureStatus();
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public int calculateAge(LocalDate birthDate, LocalDate currentDate) {
+        if ((birthDate != null) && (currentDate != null)) {
+            return Period.between(birthDate, currentDate).getYears();
+        } else {
+            return 0;
+        }
     }
 }

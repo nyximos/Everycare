@@ -13,9 +13,9 @@ import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
 class Server {
-    companion object{
+    companion object {
         var url = "https://10.30.3.62:8086"
-        private var server:Retrofit=Retrofit.Builder()
+        private var server: Retrofit = Retrofit.Builder()
             .baseUrl(url)
             .client(getUnsafeOkHttpClient().build()) //SSL 우회
             .addConverterFactory(NullOnEmptyConverterFactory())
@@ -28,11 +28,17 @@ class Server {
          */
         fun getUnsafeOkHttpClient(): OkHttpClient.Builder {
             val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
-                override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {
+                override fun checkClientTrusted(
+                    chain: Array<out X509Certificate>?,
+                    authType: String?
+                ) {
 
                 }
 
-                override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {
+                override fun checkServerTrusted(
+                    chain: Array<out X509Certificate>?,
+                    authType: String?
+                ) {
 
                 }
 
@@ -71,6 +77,5 @@ class Server {
         }
 
     }
-
 
 }

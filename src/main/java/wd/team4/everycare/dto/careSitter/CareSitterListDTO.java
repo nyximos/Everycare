@@ -27,6 +27,7 @@ public class CareSitterListDTO {
     private String preferredType;
 
     private String name;
+    private int age;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birth;
     private Gender gender;

@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"
     android:layout_marginStart="25dp"
+    android:layout_marginTop="5dp"
     android:layout_marginEnd="25dp"
+    android:layout_marginBottom="5dp"
     android:background="@drawable/border_shadow"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <LinearLayout
         android:id="@+id/first"
@@ -36,20 +36,19 @@
 
 
             <TextView
-                android:id="@+id/category"
+                android:id="@+id/preferredType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
                 android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxWidth="100dp"
                 android:maxLines="1"
-                android:text="카테고리"
+                android:text="선호 유형"
                 android:textColor="@color/black"
                 android:textSize="10sp"
-                android:maxWidth="100dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/idText"
                 app:layout_constraintTop_toTopOf="parent" />
-
 
 
             <LinearLayout
@@ -87,21 +86,6 @@
                     app:layout_constraintStart_toEndOf="@id/idText"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/rating"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:maxWidth="100dp"
-                    android:maxLines="1"
-                    android:text="별점"
-                    android:textColor="@color/black"
-                    android:textSize="10sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/idText"
-                    app:layout_constraintTop_toTopOf="parent" />
-
             </LinearLayout>
 
             <TextView
@@ -119,46 +103,92 @@
                 app:layout_constraintStart_toEndOf="@id/idText"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/pay"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxWidth="100dp"
-                android:maxLines="1"
-                android:text="시급"
-                android:textColor="@color/black"
-                android:textSize="10sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/idText"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxWidth="100dp"
+                    android:maxLines="1"
+                    android:text="희망 시급"
+                    android:textColor="@color/black"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/idText"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/desiredHourlyWage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxWidth="100dp"
+                    android:maxLines="1"
+                    android:text="시급"
+                    android:textColor="@color/black"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/idText"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxWidth="100dp"
+                    android:maxLines="1"
+                    android:text="희망 월급"
+                    android:textColor="@color/black"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/idText"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/desiredMonthlyWage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxWidth="100dp"
+                    android:maxLines="1"
+                    android:text="월급"
+                    android:textColor="@color/black"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/idText"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
 
         </LinearLayout>
-
-
 
 
         <TextView
             android:id="@+id/id"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            app:layout_constraintTop_toTopOf="parent"
             android:gravity="left"
             android:text="143"
+            android:textColor="#7A8089"
             android:textSize="10sp"
-            android:textColor="#7A8089" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/idText"
             android:layout_width="80dp"
             android:layout_height="20dp"
             android:layout_weight="1"
-            android:text="번째 글"
-            android:textSize="10sp"
-            android:textColor="#7A8089"
             android:gravity="right"
+            android:text="번째 글"
+            android:textColor="#7A8089"
+            android:textSize="10sp"
             app:layout_constraintStart_toStartOf="@id/id" />
 
     </LinearLayout>
@@ -167,26 +197,26 @@
         android:id="@+id/second"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="@id/first"
         app:layout_constraintTop_toBottomOf="@id/first"
-        tools:layout_editor_absoluteX="8dp"
 
-        android:orientation="horizontal">
+        tools:layout_editor_absoluteX="8dp">
 
 
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="뱃지"
-            android:textSize="10sp"
-            android:textColor="#7A8089"
-            android:layout_marginStart="5dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
+        <!--        <TextView-->
+        <!--            android:id="@+id/date"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="뱃지"-->
+        <!--            android:textSize="10sp"-->
+        <!--            android:textColor="#7A8089"-->
+        <!--            android:layout_marginStart="5dp"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            />-->
 
     </LinearLayout>
 

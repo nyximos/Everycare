@@ -18,6 +18,7 @@ import wd.team4.everycare.repository.*;
 import wd.team4.everycare.service.interfaces.JobSearchService;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,6 +97,7 @@ public class JobSearchServiceImpl implements JobSearchService {
 
             CareSitterListDTO dto = CareSitterListDTO.builder()
                     .id(careSitter.getId())
+                    .age(careSitter.calculateAge(careSitter.getMember().getBirth(), LocalDate.now()))
                     .cctvAgreement(careSitter.getCctvAgreement())
                     .isVaccinated(careSitter.getVaccination())
                     .desiredDayWeek(careSitter.getDesiredDayWeek())

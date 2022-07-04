@@ -59,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="케어시터 신청내역"
+        android:text="케어시터 찾기"
         android:textColor="@color/e"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -80,11 +80,11 @@
 
         <Button
             android:id="@+id/btn_region"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:background="@drawable/button_background"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="지역"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

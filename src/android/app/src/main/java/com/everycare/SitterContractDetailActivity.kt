@@ -19,6 +19,6 @@ class SitterContractDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sitter_contract_detail)
+        setContentView(binding.root)
     }
 }
