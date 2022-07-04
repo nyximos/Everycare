@@ -14,7 +14,7 @@ import retrofit2.Response
 class MainViewModel : ViewModel() {
 
     val error = MutableLiveData<String>()
-    var id: String? = null
+    val id = MutableLiveData<String>()
 
     fun login(username: String, password: String) = viewModelScope.launch {
 
@@ -23,7 +23,9 @@ class MainViewModel : ViewModel() {
         request.enqueue(object : retrofit2.Callback<ResponseDTO> {
             override fun onResponse(call: Call<ResponseDTO>, response: Response<ResponseDTO>) {
                 Log.d("RESPONSE", "성공 : ${response.raw()}")
-                id = username
+                id.value= username
+                Log.d("RESPONSE", "성공 : $id")
+
             }
 
             override fun onFailure(call: Call<ResponseDTO>, t: Throwable) {

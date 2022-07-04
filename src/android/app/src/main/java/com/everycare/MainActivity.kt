@@ -37,11 +37,13 @@ class MainActivity : AppCompatActivity() {
             if(username!!.isNotBlank() && password!!.isNotBlank()) {
 
                 viewModel.login(username.toString(), password.toString())
-                if (viewModel.id!=null){
-                    val intent = Intent(this, SitterListActivity::class.java)
+            }
+            viewModel.id.observe(this){
+                Toast.makeText(this, "${viewModel.id.value}", Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(this, SitterListActivity::class.java)
                     startActivity(intent)
                 }
-            }
         }
 
     }
