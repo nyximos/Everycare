@@ -3,7 +3,8 @@
     package="com.everycare">
     <!-- 인터넷 접속 활성화 -->
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
