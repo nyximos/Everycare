@@ -1,10 +1,12 @@
 package com.everycare.api
 
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
 import java.lang.reflect.Type
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
@@ -18,10 +20,19 @@ class Server {
         private var server: Retrofit = Retrofit.Builder()
             .baseUrl(url)
             .client(getUnsafeOkHttpClient().build()) //SSL 우회
+//            .client(createOkHttpClient())
             .addConverterFactory(NullOnEmptyConverterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         var api: Api = server.create(Api::class.java)
+
+
+//        fun createOkHttpClient(): OkHttpClient? {
+//            val helper: SelfSigningHelper = SelfSigningHelper.getInstance()
+//            val builder = OkHttpClient.Builder()
+//            helper.setSSLOkHttp(builder)
+//            return builder.build()
+//        }
 
         /**
          * Retrofit SSL 우회 접속 통신

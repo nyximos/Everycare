@@ -2,6 +2,7 @@ package com.everycare.adapter
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.everycare.BuildConfig
 import com.everycare.R
 import com.everycare.dto.SitterListDTO
 
@@ -38,7 +40,10 @@ class SittersRecyclerViewAdapter(val context: Context, val sitterList: ArrayList
             desiredMonthlyWage?.text = sitter?.monthlyWage.toString()
 
             Glide.with(context)
-                .load(uri(sitter?.storeFileNames?.get(0)))
+                .load(sitter?.storeFileNames?.get(0)?.let { getURLForResource(it) })
+//                .load(findImage(context, sitter?.storeFileNames?.get(0)))
+//                .load(uri(sitter?.storeFileNames?.get(0)))
+                .error(R.drawable.sitter10)
 //                .load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_Ih6HsXZiSdvWwpUraD2QUVqyu7U067mFHHPn_d98p2LVZLEwVWSPR7H61VmGJ3wVu6o&usqp=CAU")
                 .into(profile!!)
 
@@ -50,8 +55,33 @@ class SittersRecyclerViewAdapter(val context: Context, val sitterList: ArrayList
             }
         }
 
-        private fun uri(fileName: String?): Uri? {
-            return Uri.parse("https://localhost:8086/api/images/" + fileName.toString())
+        private fun getURLForResource(fileName: String): Any? {
+
+            Log.d("경로", "경로명 : ${"android.resource://" + R::class.java.getPackage().getName() + "/" + "src/main/res/drawable/" + fileName}")
+
+//            return "android.resource://" + R::class.java.getPackage().getName() + "/drawable/" + fileName
+//            return "android.resource://" + R::class.java.getPackage().getName() + "/src/main/res/drawable/" + fileName
+//            return Uri.parse("android.resource://" + R::class.java.getPackage().getName() + "/src/main/res/drawable/" + fileName)
+
+
+            return Uri.parse("android.resource://" + BuildConfig.APPLICATION_ID +"/"  + fileName).toString()
+
+//            Log.d("경로", "경로명 : ${Environment.getExternalStorageDirectory().getAbsolutePath()}")
+//            return Environment.getExternalStorageDirectory().getAbsolutePath()+fileName
+//            return context.resources.getIdentifier(fileName, "drawable", context.packageName)
+//            return Uri.parse(
+//                "android.resource://" + R::class.java.getPackage().getName() + "/" + fileName
+//            ).toString()
+
+
+        }
+
+//        fun findImage(context: Context, fileName: String?): Any {
+//            return context.getResources().getIdentifier(fileName, "drawable", context.getPackageName());
+//        }
+
+        fun uri(fileName: String?): Uri? {
+            return Uri.parse("https://10.30.3.62:8086/api/images/" + fileName.toString())
         }
     }
 
