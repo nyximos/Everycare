@@ -64,7 +64,7 @@
                 <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"><i class="mdi mdi-store"></i>&nbsp;&nbsp;<button class="hide-menu" @click="store()">스토어 관리</button></a>
               </li>
               <li class="sidebar-item selected">
-                <a class="sidebar-link waves-effect waves-dark sidebar-link active" href="#" aria-expanded="false"><i class="mdi mdi-file-outline"></i>&nbsp;&nbsp;<span class="hide-menu">케어시터 자격증 승인</span></a>
+                <a class="sidebar-link waves-effect waves-dark sidebar-link active" aria-expanded="false"><i class="mdi mdi-file-outline"></i>&nbsp;&nbsp;<button class="hide-menu" @click="certifi()">케어시터 자격증 승인</button></a>
               </li>
               <li class="sidebar-item">
                 <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="mdi mdi-filter-outline"></i>&nbsp;&nbsp;<span class="hide-menu">케어 활동 분류 관리</span></a>
@@ -191,6 +191,11 @@
       store(){
         this.$router.push({
           path: '/admin/stores'
+        })
+      },
+      certifi(){
+        this.$router.push({
+          path: '/admin/caresitter-certifications'
         })
       },
       selectAll: function() {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <!-- <div>
     <br><br><br>
     <div v-if="!contract.length">신청된 계약서가 없습니다.</div>
       <v-card
@@ -28,7 +28,24 @@
     </v-card-actions>
   </v-card>
   <br><br><br><br><br><br><br><br><br><br>
+  </div> -->
+  <div class="cPrdlists_wrap cPrdlists_wrap_respon">
+  <div class="cPrdlists_rows">
+    <h2 class="cPrdlists_title">계약서</h2>
+  
   </div>
+  <div class="cPrdlists_rows basic cPrdlists_section">
+    <div class="cPrdlists_rowsgrp">
+      <div class="cPrdlists_box">
+        <div class="cPrdlists_box_pos">
+          <div class="cPRdlists_box_text">
+            <div class="cCpName">asd</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </template>
 
 <script>
@@ -59,7 +76,49 @@ export default {
 </script>
 
 <style>
-  .mx-auto{
+  /* .mx-auto{
     margin-bottom: 50px;
+  } */
+  .cPrdlists_wrap{
+    width: 100%;
+    font-size: 15px;
+    letter-spacing: -0.05em;
+    margin: 0 auto;
+    padding: 23px 0 0 0;
   }
+  .cPrdlists_section{
+    padding-bottom: 12px;
+  }
+  .cPrdlists_rows{
+    max-width: 1260px;
+    margin: 0 auto;
+  }
+  .cPrdlists_title{
+    position: relative;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 33px;
+    color: #121212;
+    margin: 0 0 12px 0;
+  }
+  .cPrdlists_rows:after{
+    content: "";
+    display: block;
+    clear: both;
+  }
+  .cPrdlists_rowsgrp{
+    width: calc(100% - 16px);
+  }
+  .cPrdlists_rows.basic .cPrdlists_cols{
+    margin-bottom: 16px;
+    height: 156px;
+  }
+  .cPrdlists_cols .cPrdlist_box_text{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0 20px;
+}
 </style>

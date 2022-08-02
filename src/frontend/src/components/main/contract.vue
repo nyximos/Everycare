@@ -1,8 +1,7 @@
 <template>
-<div>
+<div class="content0101">
   <div class="box">
-    <br><br>
-      <v-card class="mx-auto" height="230" width="400" v-for="(j,index) in joboffer" v-bind:key="index" @click="choose(j)">
+    <v-card class="mx-auto" height="250" width="265" v-for="(j,index) in joboffer" v-bind:key="index" @click="choose(j)">
     <v-card-text>
       <div>희망시간: {{j.endTime}}</div>
       <p class="text-h6 text--primary">
@@ -15,17 +14,12 @@
         <h6>스케줄: {{j.scheduleName}}</h6>
       </div>
     </v-card-text>
-	<!-- <v-btn class="ma-2" outlined color="indigo" @click="choose">선택</v-btn> -->
   </v-card>
   </div>
-  <br><br><br><br><br><br><br><br>  
 </div>
 </template>
 
 <script>
-// import { param } from 'jquery';
-// import 'url-search-params-polyfill';
-
 export default {
   data(){
     return{
@@ -75,14 +69,22 @@ export default {
 </script>
 
 <style>
+  /* .content0101{
+    width: 70%;
+    margin: 0 auto;
+  }
   .box{
     display: flex;
-    padding: 10px; 
+    margin: 2px;
+    margin-top: 30px;
+    overflow: hidden;
+    flex-wrap: wrap;
   }
   .mx-auto{
-    margin:20px;
+    margin:3px;
+    margin-top: 25px;
   }
   .text--primary{
     margin-bottom:10px;
-  }
+  } */
 </style>
