@@ -126,6 +126,7 @@
  </div>
                 <hr class="mb-4">
                 <v-btn class="ma-2" outlined color="indigo" id="clickme" @click="clickme">수정</v-btn>
+                <v-btn class="ma-2" outlined color="indigo" id="clickme" @click="back">돌아가기</v-btn>
                 <hr class="mb-4">
 
                 <footer th:replace="/fragments/semantic :: footer"></footer>
@@ -330,6 +331,11 @@ const id = this.$route.params.caretargetsId;
     })
 },
 methods:{  
+  back() {
+            this.$router.push({
+        path:'/carenote/caretargets'
+    })
+  },
   del(i){
           
           

@@ -37,6 +37,67 @@
           </v-col>
         </v-row>
         <v-row>
+    <v-col
+      cols="12"
+      sm="6"
+    >
+      <v-date-picker
+        v-model="desiredDayWeek"
+        multiple
+      ></v-date-picker>
+    </v-col>
+    <v-col
+      cols="12"
+      sm="6"
+    >
+      <v-menu
+        ref="menu"
+        v-model="menu"
+        :close-on-content-click="false"
+        :return-value.sync="desiredDayWeek"
+        transition="scale-transition"
+        offset-y
+        min-width="auto"
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-combobox
+            v-model="desiredDayWeek"
+            multiple
+            chips
+            small-chips
+            label="Multiple picker in menu"
+            prepend-icon="mdi-calendar"
+            readonly
+            v-bind="attrs"
+            v-on="on"
+          ></v-combobox>
+        </template>
+        <v-date-picker
+          v-model="desiredDayWeek"
+          multiple
+          no-title
+          scrollable
+        >
+          <v-spacer></v-spacer>
+          <v-btn
+            text
+            color="primary"
+            @click="menu = false"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            text
+            color="primary"
+            @click="$refs.menu.save(dates)"
+          >
+            OK
+          </v-btn>
+        </v-date-picker>
+      </v-menu>
+    </v-col>
+  </v-row>
+        <v-row>
             <v-col cols="4">
               <v-subheader>시작일</v-subheader>
            <input type="date" v-model="startDay">
@@ -130,13 +191,14 @@
       <v-card-actions>
         <v-btn
           text
-          :to="{name:'Main'}">
+          :to="{name:'Main'}" @click="back()">
+          
           Cancel
         </v-btn>
         <v-spacer></v-spacer>
         
         <v-btn
-          :disabled="!formIsValid"
+
           text
           color="primary"
           @click="submit">
@@ -181,7 +243,9 @@ name: 'Create',
         comment: this.comment,
         showbtn: true,
         showSchedule: false,
-        btnLock: false
+        btnLock: false,
+        desiredDayWeek: [],
+        menu: false,
       }
     },
     methods: {
@@ -194,7 +258,7 @@ name: 'Create',
            title: this.title,
            startDate: this.startDay,
            endDate: this.endDay,
-           desiredDayWeek: this.day.toString(),
+           desiredDayWeek: this.desiredDayWeek.toString(),
            desiredCareSitterGender: this.sitterSex,
            pay: this.pay,
            comment: this.comment,
@@ -217,6 +281,11 @@ name: 'Create',
        this.$router.push({ path: '/recruitions' })
        location.reload();
   },
+  back(){
+    this.$router.push({
+        path:'/recruitions'
+    })
+},
   buttonClick(){
       var formData = new FormData()
       formData.append('id', this.caretarget);
@@ -238,6 +307,7 @@ name: 'Create',
   computed: {
     formIsValid(){
       return (
+        this.desiredDayWeek &&
         this.title &&
         this.caretarget &&
         this.pickSchedule &&

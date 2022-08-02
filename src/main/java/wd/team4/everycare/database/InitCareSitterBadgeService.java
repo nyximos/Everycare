@@ -10,7 +10,6 @@ import wd.team4.everycare.repository.BadgeRepository;
 import wd.team4.everycare.repository.CareSitterRepository;
 
 import javax.persistence.EntityManager;
-import java.util.List;
 
 @Component
 @Transactional
@@ -23,15 +22,11 @@ public class InitCareSitterBadgeService {
 
     public void dbInit(){
 
-        List<CareSitter> all = careSitterRepository.findAll();
 
-        for (CareSitter careSitters: all) {
-            careSitters.toString();
-        }
 
-        CareSitter careSitter = careSitterRepository.findById(1L).get();
+        CareSitter caresitter1 = careSitterRepository.findById(1L).get();
+        CareSitter caresitter2 = careSitterRepository.findById(2L).get();
 
-        System.out.println("careSitter = " + careSitter);
         Bedge bedge1 = badgeRepository.findById(1L).orElse(null);
         Bedge bedge2 = badgeRepository.findById(2L).orElse(null);
         Bedge bedge3 = badgeRepository.findById(3L).orElse(null);
@@ -41,14 +36,14 @@ public class InitCareSitterBadgeService {
         Bedge bedge7 = badgeRepository.findById(7L).orElse(null);
         Bedge bedge8 = badgeRepository.findById(8L).orElse(null);
 
-        CareSitterBedge careSitterBedge1 = careSitterBedge(careSitter, bedge1);
-        CareSitterBedge careSitterBedge2 = careSitterBedge(careSitter, bedge2);
-        CareSitterBedge careSitterBedge3 = careSitterBedge(careSitter, bedge3);
-        CareSitterBedge careSitterBedge4 = careSitterBedge(careSitter, bedge4);
-        CareSitterBedge careSitterBedge5 = careSitterBedge(careSitter, bedge5);
-        CareSitterBedge careSitterBedge6 = careSitterBedge(careSitter, bedge6);
-        CareSitterBedge careSitterBedge7 = careSitterBedge(careSitter, bedge7);
-        CareSitterBedge careSitterBedge8 = careSitterBedge(careSitter, bedge8);
+        CareSitterBedge careSitterBedge1 = careSitterBedge(caresitter1, bedge1);
+        CareSitterBedge careSitterBedge2 = careSitterBedge(caresitter1, bedge2);
+        CareSitterBedge careSitterBedge3 = careSitterBedge(caresitter1, bedge3);
+        CareSitterBedge careSitterBedge4 = careSitterBedge(caresitter1, bedge4);
+        CareSitterBedge careSitterBedge5 = careSitterBedge(caresitter2, bedge5);
+        CareSitterBedge careSitterBedge6 = careSitterBedge(caresitter2, bedge6);
+        CareSitterBedge careSitterBedge7 = careSitterBedge(caresitter2, bedge7);
+        CareSitterBedge careSitterBedge8 = careSitterBedge(caresitter2, bedge8);
 
     }
 

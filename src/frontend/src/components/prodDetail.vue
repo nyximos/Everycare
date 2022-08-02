@@ -171,7 +171,7 @@ cart(){
      .then(res => {
       console.log(res.data);
       this.$store.commit('cart/pushProductToCart', product)
-      console.log(this.$store.state.cart.cart);
+      // console.log(this.$store.state.cart.cart);
     })
       .catch(err => {
        console.log(err);

@@ -3,7 +3,7 @@
               <transition name="fade">
           <toast  v-if="showToast" :message="toastMessage" :type="toastAlertType" />
         </transition>
-        <div v-if="this.$store.state.cart.cart.length==0">장바구니가 비었습니다.</div>
+        <div v-if="this.cartList==null">장바구니가 비었습니다.</div>
         <v-card v-else>
             <v-btn @click="removeAll">전체삭제</v-btn>
                 <v-simple-table>
@@ -14,15 +14,15 @@
                                 <th class="text-left">id</th>
                                 <th class="text-left">name</th>
                                 <th class="text-left">quantity</th>
-                                <th class="text-left">amount</th>
+                                <th class="text-left"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(item,index) in $store.state.cart.cart" :key="index">
+                            <tr v-for="(item,index) in cartList" :key="index">
                                 <td><v-img id="divProfile" :src="'https://localhost:8086/api/images/'+item.image" 
                                     alt="사진" width="100" height="100"/></td>
-                                <td>{{index}}/{{ item.productId }}</td>
-                                <td>{{item.name}}</td>
+                                <td>{{ item.id }}</td>
+                                <!-- <td>{{item.name}}</td> -->
                                 <td>{{ item.quantity }}</td>
                                 <td>{{ item.amount * item.quantity }}</td>
                                 <td><v-btn @click="remove(index)">x</v-btn></td>
@@ -75,7 +75,9 @@ export default {
         withCredentials:true
       })
 		.then((res)=>{
-        console.log(res.data);
+        // console.log(res.data);
+        this.cartList = res.data.body
+        console.log(this.cartList)
       }).catch(err =>{
 				console.log(err);
 			})
@@ -96,7 +98,8 @@ export default {
       Order_Id:this.Order_Id,
       showToast : false,
       toastMessage: '',
-      toastAlertType: ''
+      toastAlertType: '',
+      cartList : this.cartList
     }
   },
     methods:{
@@ -126,7 +129,7 @@ export default {
             orderId: this.orderId,
             orderName: this.firstName,
             customerName: this.$store.state.userStore.id,
-            successUrl: `https://localhost:8086/api/cart/orders/payments?orderTableId=${this.Order_Id}`,
+            successUrl: `https://localhost:8086/test/?orderTableId=${this.Order_Id}`,
             failUrl: 'https://localhost:8080/fail',
         };
          tossPayments.requestPayment("카드", paymentData);
@@ -214,7 +217,7 @@ export default {
       })
       .then((res)=> {
         console.log(res)
-        this.$store.commit("cart/remoteList", index)
+        // this.$store.commit("cart/remoteList", index)
         this.triggerToast('Successfully saved!')
       }).catch((err)=>{
         console.log(err)
@@ -228,7 +231,7 @@ export default {
       })
       .then((res)=> {
         console.log(res)
-        this.$store.state.cart.cart=[]
+        this.cartList=[]
         this.triggerToast('Successfully saved!')
       }).catch((err)=>{
         console.log(err)
@@ -238,14 +241,14 @@ export default {
     },
     computed: {
         firstName(){
-          return this.$store.state.cart.cart[0].name+' 외 '+(this.$store.state.cart.cart.length-1)+'건';
+          return this.cartList[0].id+' 외 '+(this.cartList.length-1)+'건';
         },
         length() {
-            return this.$store.state.cart.cart.length;
+            return this.cartList.length;
         },
         total() {
             var total = 0;
-            this.$store.state.cart.cart.forEach((item) => {
+            this.cartList.forEach((item) => {
                 total += item.quantity * item.amount;
             });
             return total;

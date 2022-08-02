@@ -122,6 +122,7 @@
  </div>
                 <hr class="mb-4">
                 <v-btn class="ma-2" outlined color="indigo" id="clickme" @click="clickme">등록</v-btn>
+                <v-btn class="ma-2" outlined color="indigo" id="clickme" @click="back">돌아가기</v-btn>
                 <hr class="mb-4">
 
                 <footer th:replace="/fragments/semantic :: footer"></footer>
@@ -159,7 +160,7 @@ data(){
         coronaTest:'',
         attachFiles:'',
         items:[
-          {name:'없음',value:'null'},
+          {name:'없음',value:'0'},
           {name:'1',value:'1'},
       {name:'2',value:'2'},
       {name:'3',value:'3'},
@@ -217,6 +218,11 @@ execDaumPostcode() {
             that.avatar = this.result
         }
     },
+     back() {
+            this.$router.push({
+        path:'/carenote/caretargets'
+    })
+  },
     clickme(){ 
       
         let formData = new FormData() 
