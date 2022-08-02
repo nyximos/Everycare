@@ -1,32 +1,34 @@
 <template>
   <div>
-
     <section class="main">
             <div class="board">
+            <div class="title">
               <h2 class="subtitle">리뷰 보기</h2>
-                <table class="table">
-                    <thead class="thead">
+            </div>
+                <table>
+                    <thead>
                         <tr>
-                            <td>Id</td>
-                            <td>name</td>
-                            <td>comment</td>
-                            <td>rating</td>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Comment</th>
+                            <th>Rating</th>
                         </tr>
                     </thead>
                     <tbody v-for="(r,index) in review" :key="index">
-                    <tr @click="move(r)">
-                        <td>{{index+1}}</td>
-                        <td>{{r.activityClassificationName}}</td>
-                        <td>{{r.comment}}</td>
-                        <td><v-rating v-model="review[index].rating"
-                            background-color="teal"
-                            color="teal"
-                            size="30"
-                            readonly
-                            ></v-rating>
-                        </td>
-                    </tr>
-                </tbody>
+                        <tr @click="move(r)">
+                            <td>{{index+1}}</td>
+                            <td>{{r.activityClassificationName}}</td>
+                            <td>{{r.comment}}</td>
+                            <td>
+                                <v-rating v-model="review[index].rating"
+                                background-color="#FFC400"
+                                color="#FFC400"
+                                size="28"
+                                readonly
+                                ></v-rating>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
     </section>
@@ -48,8 +50,8 @@
             <v-card-text v-if="commentform">
                 <div class="text-h4 pa-2"><h2 class="text-h4" style="text-align:center;">{{review_detail.activityClassificationName}}</h2></div>
                 <div class="text-h5 pa-2"> <v-rating v-model="review_detail.rating"
-                    background-color="teal"
-                    color="teal"
+                    background-color="#FFC400"
+                    color="#FFC400"
                     size="35"
                     readonly
                     ></v-rating>
@@ -66,8 +68,8 @@
             <v-card-text v-if="commentform01">
                 <div class="text-h4 pa-4" style="margin:0 auto;"><h2 class="text-h4" style="text-align:center;">{{review_detail.activityClassificationName}}</h2></div>
                 <div class="text-h5 pa-3"> <v-rating v-model="rating"
-                    background-color="teal"
-                    color="teal"
+                    background-color="#FFC400"
+                    color="#FFC400"
                     size="35"
                     ></v-rating>
                 </div>
@@ -197,55 +199,97 @@ export default {
 }
 </script>
 
-<style>
-
-      html{
-    height:100%;
-}
+<style scoped>
 .subtitle{
-    padding-top: 70px;
-    padding-bottom: 30px;
+    margin-top:30px;
+    margin-bottom: 40px;
 }
-body{
-    margin: 0px;
-    height:100%;
-}
-
-.main{
-    height:100%;
-    width: 100%;
-}
-
-
-.d-none{
-    display: none;
-}
-
 .board{
-    width: 1200px;
-    height: 100%;
-    margin: auto;
+  padding:1.5em;
+  background: #f5f5f5
+}
+.title{
+    width: 60%;
+    margin: 0 auto;
 }
 
-.table{
-    font-size :15px;
-    border-collapse: collapse;
-    width: 1200px;
-    margin-top:20px;
-    border: 1px solid gray;    
-    text-align: center;
+table {
+  margin: 0 auto;
+  border: 1px #a39485 solid;
+  font-size: .9em;
+  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+  width: 60%;
+  border-collapse: collapse;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
-.thead td {
-    background: #B2B2B2;
-    height: 60px;
-    font-size: 20px;
+th {
+  text-align: center;
+}
+  
+thead {
+  font-weight: bold;
+  color: #fff;
+  background: teal;
+}
+  
+ td, th {
+  padding: 1em .5em;
+  vertical-align: middle;
+  text-align: center;
+}
+  
+ td {
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  background: #fff;
 }
 
-td{
-    height: 40px;
-    border-bottom:1px solid black;
+a {
+  color: #73685d;
 }
-
+  
+ @media all and (max-width: 768px) {
+    
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+  
+  th {
+    text-align: right;
+  }
+  
+  table {
+    position: relative; 
+    padding-bottom: 0;
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+  }
+  
+  thead {
+    float: left;
+    white-space: nowrap;
+  }
+  
+  tbody {
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: relative;
+    white-space: nowrap;
+  }
+  
+  tr {
+    display: inline-block;
+    vertical-align: top;
+  }
+  
+  th {
+    border-bottom: 1px solid #a39485;
+  }
+  
+  td {
+    border-bottom: 1px solid #e5e5e5;
+  }  
+  }
 
 </style>

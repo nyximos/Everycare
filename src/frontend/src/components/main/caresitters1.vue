@@ -655,6 +655,7 @@ export default {
             .then((res) => {
                 console.log(res.data.body);
                 this.profiles = res.data.body;
+
                 if(res.data.body.isVaccinated == 0){
                   this.isVaccinated = "1차접종"
                 }else if(res.data.body.isVaccinated == 1){
@@ -662,7 +663,6 @@ export default {
                 }else{
                   this.isVaccinated = "미접종"
                 }
-                
             })
             .catch((err) => {
                 console.log(err);

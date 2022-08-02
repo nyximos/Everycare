@@ -3,34 +3,25 @@
 <div class="wrap">
   <div class="greenContainer">
     <div>
-
       <div class="name">{{ this.$store.state.userStore.id }} 님</div>
+      {{this.$store.state.careprofileStore.activityTime}} 
     </div>    
-
   </div>
-  <!-- <div class="summaryContainer">
-    <div class="item">
-        <div class="number">354</div>
-        <div>ㅁㅁㅁ</div>
-      </div>
-      <div class="item">
-        <div class="number">354</div>
-        <div>ㄴㄴㄴ</div>
-      </div>
-      <div class="item">
-        <div class="number">354</div>
-        <div>ㄷㄷㄷ</div>
-      </div>
-  </div>   -->
-   
   <div class="listContainer">
-    <div v-if="this.$store.state.userStore.careSitterId !== null || this.$store.state.careprofileStore.activityTime !== null" >
-    <a  class="item" >
+    <div v-if="this.$store.state.userStore.careSitterId == null || this.$store.state.careprofileStore.activityTime == null" >
+      <a  class="item">
+        <div class="icon">ii</div>
+        <router-link :to="{name:'careprofilecreate'}"><div class="text">케어 프로필 생성</div></router-link>
+        <div class="right"> > </div>
+      </a>
+    </div>
+    <div v-else>
+      <a  class="item" >
         <div class="icon" >ii</div>
         <router-link :to="{name:'certification',params:{caresitterId:this.id}}"><div class="text">자격증 등록<span class="circle"></span></div></router-link>
         <div class="right"> > </div>
     </a>
-    <a  class="item">
+    <a  class="item"> 
         <div class="icon">ii</div>
         <router-link :to="{name:'mypage_certi' ,params:{caresitterId:this.id}}"><div class="text">케어 자격증 조회</div></router-link>
         <div class="right"> > </div>
@@ -40,13 +31,6 @@
         <router-link :to="{name:'mypage_profile' ,params:{caresitterId:this.id}}"> <div class="text">프로필 조회</div></router-link>
         <div class="right"> > </div>
     </a>
-    </div>
-    <div v-else>
-      <a  class="item">
-        <div class="icon">ii</div>
-        <router-link :to="{name:'careprofilecreate'}"><div class="text">케어 프로필 생성</div></router-link>
-        <div class="right"> > </div>
-      </a>
     </div>
     <a  class="item">
         <div class="icon">ii</div>

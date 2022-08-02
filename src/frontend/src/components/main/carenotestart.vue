@@ -6,10 +6,8 @@
             <v-card class="mx-auto" max-width="344" >
                 <label for="uppic">
                     <v-img :src="avatar" width="225px" height="225px" alt="사진없음" style="margin:0 auto; padding:20px;" class="img-avatar" id="preview" />
-                    <!-- <input id="coverRoute" type="text" placeholder="Cover"> -->
                 </label>
             <v-card-subtitle style="margin-top:-10px;" class="subtitle">
-                <!-- <v-file-input label="File input" outlined dense></v-file-input> -->
                 <input type="file" name="avatar" id="uppic"  accept="image/gif,image/gif,image/jpg,image/png" @change="changeImage($event);" ref="avatarInput" class="uppic" multiple="multiple">
             </v-card-subtitle>
         <v-card-actions>

@@ -13,15 +13,11 @@
                       </div>
                       <div class="con10_blank"></div>
                       <div class="area_profile">
-                          <div class="div_img">
+                          <!-- <div class="div_img">
                             <img :src="image" />
-                            <!-- <label for="uppic">
-                              <v-img :src="avatar" width="225px" height="225px" alt="사진없음" style="margin:0 auto; padding:20px;" class="img-avatar" id="preview" />
-                           </label> -->
                           </div>
                           <div class="div_text">
                           <br><br>
-                              <!-- <input type="file" name="avatar" id="uppic"  accept="image/gif,image/gif,image/jpg,image/png" @change="changeImage($event);" ref="avatarInput" class="uppic" multiple="multiple"> -->
                               <v-file-input 
                               v-model="attachFiles" 
                               label="File input" 
@@ -30,7 +26,11 @@
                               multiple="multiple"
                               outlined dense>
                               </v-file-input>
-                          </div>
+                          </div> -->
+                          <label for="uppic">
+                            <v-img :src="avatar" width="225px" height="225px" alt="사진없음" style="margin:0 auto; padding:20px;" class="img-avatar" id="preview" />
+                          </label>
+                          <input type="file" name="avatar" id="uppic"  accept="image/gif,image/gif,image/jpg,image/png" @change="changeImage($event);" ref="avatarInput" class="uppic" multiple="multiple">
                           <div class="con10_blank"></div>
                           <div class="con10 con1">
               <h3 class="profile_title">Hope</h3>
@@ -86,13 +86,7 @@
                       <div class="area_pay">
                         <h5 class="sub_title">급여</h5>
                         <div class="r_pay">
-                            <v-radio-group v-model="radios" mandatory row>
-                          <v-radio label="시급" value="hourpay">
-                          </v-radio>
-                          <v-radio label="월급" value="monthpay">
-                          </v-radio>
-                          </v-radio-group>
-                           <v-text-field type="number" v-model="desiredHourlyWage" label="시급제"></v-text-field>
+                          <v-text-field type="number" v-model="desiredHourlyWage" label="시급제"></v-text-field>
                           <v-text-field type="number" v-model="desiredMonthlyWage" label="월급제"></v-text-field>
                         </div>
                       </div>
@@ -113,8 +107,6 @@
                             <v-checkbox v-model="preferredType" value="노인" label="노인"></v-checkbox>
                             <v-checkbox v-model="preferredType" value="임산부" label="임산부"></v-checkbox>
                             <v-checkbox v-model="preferredType" value="환자" label="환자"></v-checkbox>
-                            <!-- <v-checkbox v-model="preferredType" value="student" label="중고등학생"></v-checkbox>
-                            <v-checkbox v-model="preferredType" value="anything" label="상관없음"></v-checkbox> -->
                           </div>
                       </div>
                       <br><br>
@@ -489,7 +481,9 @@ export default {
       attachFiles: [],
       disclosureStatus:'',
       preferredType:[],
-      avatar: require('@/assets/user.png')
+      avatar: require('@/assets/user.png'),
+      avatarInput:'',
+      file:this.file,
       }
     },
 methods:{
@@ -533,7 +527,7 @@ methods:{
       },
         submit(){
             var formData= new FormData();
-
+            console.log(this.file);
             formData.append('cctvAgreement', this.cctvAgreement);
             formData.append('introduction', this.introduction);
             formData.append('desiredDayWeek', this.desiredDayWeek);
@@ -544,10 +538,10 @@ methods:{
             formData.append('preferredType',this.preferredType);
             formData.append('vaccination',this.vaccination)
             formData.append('activityTime', this.activityTime);
-           for(let i = 0; i< this.attachFiles.length; i++){
-             formData.append('attachFiles', this.attachFiles[0]);
-           } 
-          if(this.attachFiles ==""){
+          //  for(let i = 0; i< this.file.length; i++){
+             formData.append('attachFiles', this.file);
+          //  } 
+          if(this.file ==""){
             alert("사진을 추가해주세요");
             return;
           }
@@ -607,6 +601,19 @@ methods:{
             })
            }
         },
+         changeImage(e) {
+         document.getElementById("uppic").click();   
+        
+         var file = e.target.files[0]
+         console.log(file)
+         this.file = file
+         var reader = new FileReader()
+         var that = this
+         reader.readAsDataURL(file)
+         reader.onload = function(e) {
+           that.avatar = this.result
+         }
+       },
     }
 }
 </script>
@@ -618,6 +625,14 @@ div{
 ul{
   list-style: none;
 }
+label{
+        display: block;
+    }
+    input[type="file"]{
+        position: absolute;
+        overflow: hidden;
+        clip: rect(0,0,0,0);
+    }
     .content{
         width: 100%;
         min-height: 800px;
