@@ -32,15 +32,15 @@ public class InitJobOfferService {
 
 
 
-        JobOffer jobOffer1 = jobOffer("케어시터분 구합니다.", LocalDate.parse("2022-06-21"), LocalDate.parse("2022-06-30"), "2022-08-02,2022-08-02", "09:00", "18:00", 10000, 130000, Gender.M, "잘 부탁 드립니다.", member, careTarget, careTargetSchedule);
+        JobOffer jobOffer1 = jobOffer("케어시터분 구합니다.", LocalDate.parse("2022-08-03"), LocalDate.parse("2022-08-04"), "2022-08-03,2022-08-04,2022-08-05,2022-08-06,2022-08-06,2022-08-07", "09:00", "18:00", 10000, 130000, Gender.M, "잘 부탁 드립니다.", member, careTarget, careTargetSchedule);
 
 
 
-        JobOffer jobOffer2 = jobOffer("title1", LocalDate.now(), LocalDate.now(), "2022-06-21,2022-06-22,2022-06-23,2022-06-24,2022-06-25,2022-06-30", "10:00", "10:30", 1, 10, Gender.M, "comment1", member, careTarget, careTargetSchedule);
-        JobOffer jobOffer3 = jobOffer("title2", LocalDate.now(), LocalDate.now(), "2022-06-21,2022-06-22,2022-06-23,2022-06-24,2022-06-25,2022-06-30", "11:00", "11:30", 2, 20, Gender.M, "comment2", member, careTarget, careTargetSchedule);
-        JobOffer jobOffer4 = jobOffer("title3", LocalDate.now(), LocalDate.now(), "2022-06-21,2022-06-22,2022-06-23,2022-06-24,2022-06-25,2022-06-30", "12:00", "12:30", 3, 20, Gender.M, "comment3", member, careTarget2, careTargetSchedule);
-        JobOffer jobOffer5 = jobOffer("title4", LocalDate.now(), LocalDate.now(), "2022-06-21,2022-06-22,2022-06-23,2022-06-24,2022-06-25,2022-06-30", "13:00", "13:30", 4, 40, Gender.M, "comment4", member, careTarget2, careTargetSchedule);
-        JobOffer jobOffer6 = jobOffer("title5", LocalDate.now(), LocalDate.now(), "2022-06-21,2022-06-22,2022-06-23,2022-06-24,2022-06-25,2022-06-30", "14:00", "14:30", 5, 50, Gender.M, "comment5", member, careTarget, careTargetSchedule);
+        JobOffer jobOffer2 = jobOffer("title1", LocalDate.now(), LocalDate.now(), "2022-08-03,2022-08-04,2022-08-05,2022-08-06,2022-08-06,2022-08-07", "10:00", "10:30", 1, 10, Gender.M, "comment1", member, careTarget, careTargetSchedule);
+        JobOffer jobOffer3 = jobOffer("title2", LocalDate.now(), LocalDate.now(), "2022-08-03,2022-08-04,2022-08-05,2022-08-06,2022-08-06,2022-08-07", "11:00", "11:30", 2, 20, Gender.M, "comment2", member, careTarget, careTargetSchedule);
+        JobOffer jobOffer4 = jobOffer("title3", LocalDate.now(), LocalDate.now(), "2022-08-03,2022-08-04,2022-08-05,2022-08-06,2022-08-06,2022-08-07", "12:00", "12:30", 3, 20, Gender.M, "comment3", member, careTarget2, careTargetSchedule);
+        JobOffer jobOffer5 = jobOffer("title4", LocalDate.now(), LocalDate.now(), "2022-08-03,2022-08-04,2022-08-05,2022-08-06,2022-08-06,2022-08-07", "13:00", "13:30", 4, 40, Gender.M, "comment4", member, careTarget2, careTargetSchedule);
+        JobOffer jobOffer6 = jobOffer("title5", LocalDate.now(), LocalDate.now(), "2022-08-03,2022-08-04,2022-08-05,2022-08-06,2022-08-06,2022-08-07", "14:00", "14:30", 5, 50, Gender.M, "comment5", member, careTarget, careTargetSchedule);
         System.out.println("jobOffer1 = " + jobOffer1);
     }
 

@@ -17,7 +17,7 @@
       item-value="id"
       chips
       label="케어대상인 선택">
-    </v-select>{{this.caretarget}}
+    </v-select>
           </v-col>
           <v-col
             cols="6">
@@ -33,7 +33,7 @@
           item-text="name"
           item-value="id"
           chips
-        ></v-select>{{this.pickSchedule}}
+        ></v-select>
           </v-col>
         </v-row>
         <v-row>
