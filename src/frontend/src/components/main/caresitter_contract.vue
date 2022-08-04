@@ -1,5 +1,5 @@
 <template>
-  <!-- <div>
+  <div>
     <br><br><br>
     <div v-if="!contract.length">신청된 계약서가 없습니다.</div>
       <v-card
@@ -28,11 +28,10 @@
     </v-card-actions>
   </v-card>
   <br><br><br><br><br><br><br><br><br><br>
-  </div> -->
-  <div class="cPrdlists_wrap cPrdlists_wrap_respon">
+  </div>
+  <!-- <div class="cPrdlists_wrap cPrdlists_wrap_respon">
   <div class="cPrdlists_rows">
     <h2 class="cPrdlists_title">계약서</h2>
-  
   </div>
   <div class="cPrdlists_rows basic cPrdlists_section">
     <div class="cPrdlists_rowsgrp">
@@ -45,7 +44,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 </template>
 
 <script>

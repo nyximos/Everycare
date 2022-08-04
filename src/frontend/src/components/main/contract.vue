@@ -69,7 +69,7 @@ export default {
 </script>
 
 <style>
-  /* .content0101{
+  .content0101{
     width: 70%;
     margin: 0 auto;
   }
@@ -86,5 +86,5 @@ export default {
   }
   .text--primary{
     margin-bottom:10px;
-  } */
+  }
 </style>
