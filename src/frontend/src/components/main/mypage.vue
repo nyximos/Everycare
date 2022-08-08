@@ -4,18 +4,18 @@
   <div class="greenContainer">
     <div>
       <div class="name">{{ this.$store.state.userStore.id }} 님</div>
-      {{this.$store.state.careprofileStore.activityTime}} 
+
     </div>    
   </div>
   <div class="listContainer">
-    <div v-if="this.$store.state.userStore.careSitterId == null || this.$store.state.careprofileStore.activityTime == null" >
+    <!-- <div v-if="this.$store.state.userStore.careSitterId == '' || this.$store.state.careprofileStore.activityTime == '' "> -->
       <a  class="item">
         <div class="icon">ii</div>
         <router-link :to="{name:'careprofilecreate'}"><div class="text">케어 프로필 생성</div></router-link>
         <div class="right"> > </div>
       </a>
-    </div>
-    <div v-else>
+    <!-- </div>
+    <div v-else> -->
       <a  class="item" >
         <div class="icon" >ii</div>
         <router-link :to="{name:'certification',params:{caresitterId:this.id}}"><div class="text">자격증 등록<span class="circle"></span></div></router-link>
@@ -31,7 +31,7 @@
         <router-link :to="{name:'mypage_profile' ,params:{caresitterId:this.id}}"> <div class="text">프로필 조회</div></router-link>
         <div class="right"> > </div>
     </a>
-    </div>
+    <!-- </div> -->
     <a  class="item">
         <div class="icon">ii</div>
         <router-link :to="{name:'Caretargets'}"><div class="text">케어 대상인 조회</div></router-link>
@@ -134,10 +134,13 @@ export default {
         return{
             id:this.$store.state.userStore.careSitterId,
             memid:this.$store.state.userStore.id,
+            activity:this.$store.state.careprofileStore.activityTime,
             result:[],
         }
     },
-    
+    mounted(){
+      console.log(this.activity);
+    }
 }
 </script>
 

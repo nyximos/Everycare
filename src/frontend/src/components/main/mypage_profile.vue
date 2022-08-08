@@ -123,7 +123,6 @@ export default {
     },
     mounted(){
         const id = this.$store.state.userStore.careSitterId
-		console.log(this.$route)
         this.$http
         .get(`/api/caresitters/${id}`,{
             withCredentials:true

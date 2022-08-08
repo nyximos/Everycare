@@ -39,7 +39,6 @@
              <div>
               <ul class="work_area" style="display:block;">
                 <li>
-                  <span class="area_stitle">1지망</span>
                   <v-select name="sido1" id="sido1"
                       v-model="hope_loc1"
                       :items="hope_location1"
@@ -61,21 +60,27 @@
                  <div class="area_day">
                     <h5>희망근무요일</h5>
                     <br>
-                        <div class="area6_r_day">
-                          <v-checkbox v-model="desiredDayWeek" value="월" label="월"></v-checkbox>
-                          <v-checkbox v-model="desiredDayWeek" value="화" label="화"></v-checkbox>
-                          <v-checkbox v-model="desiredDayWeek" value="수" label="수"></v-checkbox>
-                          <v-checkbox v-model="desiredDayWeek" value="목" label="목"></v-checkbox>
-                          <v-checkbox v-model="desiredDayWeek" value="금" label="금"></v-checkbox>
-                          <v-checkbox v-model="desiredDayWeek" value="토" label="토"></v-checkbox>
-                          <v-checkbox v-model="desiredDayWeek" value="일" label="일"></v-checkbox>
-                        </div>
-                      </div>
-                      <div class="area_time">
-                         <h5>희망시간</h5>
-                         <br>
-                        <div class="r_time_text" >
-                          <v-select name="time" id="time"
+                <div class="area6_r_day">
+                  <v-row>
+            <v-col cols="4">
+            <v-subheader>요일 선택</v-subheader>
+            </v-col>
+          </v-row>
+          <v-container fluid>
+    <v-checkbox v-model="desiredDayWeek" label="월요일" value="월" multiple></v-checkbox>
+    <v-checkbox v-model="desiredDayWeek" label="화요일" value="화" multiple></v-checkbox>
+    <v-checkbox v-model="desiredDayWeek" label="수요일" value="수" multiple></v-checkbox>
+    <v-checkbox v-model="desiredDayWeek" label="목요일" value="목" multiple></v-checkbox>
+    <v-checkbox v-model="desiredDayWeek" label="금요일" value="금" multiple></v-checkbox>
+    <v-checkbox v-model="desiredDayWeek" label="토요일" value="토" multiple></v-checkbox>
+    <v-checkbox v-model="desiredDayWeek" label="일요일" value="일" multiple></v-checkbox>
+  </v-container>
+            </div>
+          </div>
+        <div class="area_time">
+          <h5>희망시간</h5><br>
+            <div class="r_time_text" >
+              <v-select name="time" id="time"
                               v-model="activityTime"
                               :items="activity"
                               label="활동시간"
@@ -88,11 +93,11 @@
                         <h5>급여</h5>
                         <br>
                         <div class="r_pay">
-                            <v-radio-group v-model="radios" mandatory row>
-                          <v-radio label="시급" value="hourpay">
-                          </v-radio>
-                          <v-radio label="월급" value="monthpay">
-                          </v-radio>
+                          <v-radio-group v-model="radios" mandatory row>
+                            <v-radio label="시급" value="hourpay">
+                            </v-radio>
+                            <v-radio label="월급" value="monthpay">
+                            </v-radio>
                           </v-radio-group>
                            <v-text-field v-model="desiredHourlyWage" label="시급제"></v-text-field>
                           <v-text-field v-model="monthlyWage" label="월급제"></v-text-field>
@@ -106,12 +111,10 @@
                     </div>
                         <div class="r_seeking">
                           <div class="r_seeking_age">
-                            <v-checkbox v-model="preferredType" value="newborn" label="신생아(0-6 month)"></v-checkbox>
-                            <v-checkbox v-model="preferredType" value="baby" label="영아(7-36 month)"></v-checkbox>
-                            <v-checkbox v-model="preferredType" value="child" label="유아(4-7 year)"></v-checkbox>
-                            <v-checkbox v-model="preferredType" value="children" label="초등학생"></v-checkbox>
-                            <v-checkbox v-model="preferredType" value="student" label="중고등학생"></v-checkbox>
-                            <v-checkbox v-model="preferredType" value="anything" label="상관없음"></v-checkbox>
+                            <v-checkbox v-model="preferredType" value="아동" label="아동"></v-checkbox>
+                            <v-checkbox v-model="preferredType" value="노인" label="노인"></v-checkbox>
+                            <v-checkbox v-model="preferredType" value="임산부" label="임산부"></v-checkbox>
+                            <v-checkbox v-model="preferredType" value="환자" label="환자"></v-checkbox>
                           </div>
                       </div>
                       <br><br>
@@ -141,8 +144,8 @@
                           <br>
                           <div class="cInner_02">
                         <v-radio-group v-model="disclosureStatus" mandatory row>
-                          <v-radio label="O" value="0"></v-radio>
-                          <v-radio label="X" value="1"></v-radio>
+                          <v-radio label="O" value="1"></v-radio>
+                          <v-radio label="X" value="0"></v-radio>
                           </v-radio-group>
                           </div>
                           </div>
@@ -446,57 +449,31 @@ export default {
       {name:'서귀포시', value:'서귀포시'},
       {name:'제주시', value:'제주시'},
     ],
-    activity:[
-      {name:'1시간', value:'1시간'},
-      {name:'2시간', value:'2시간'},
-      {name:'3시간', valu:'3시간'},
-      {name:'4시간', value:'4시간'},
-      {name:'5시간', value:'5시간'},
-      {name:'6시간', value:'6시간'},
-      {name:'7시간', value:'7시간'},
-      {name:'8시간', value:'8시간'},
-      {name:'9시간', value:'9시간'},
-      {name:'10시간', value:'10시간'},
-      {name:'11시간', value:'11시간'},
-      {name:'12시간', value:'12시간'},
-      {name:'13시간', value:'13시간'},
-      {name:'14시간', value:'14시간'},
-      {name:'15시간', value:'15시간'},
-      {name:'16시간', value:'16시간'},
-      {name:'17시간', value:'17시간'},
-      {name:'18시간', value:'18시간'},
-      {name:'19시간', value:'19시간'},
-      {name:'20시간', value:'20시간'},
-      {name:'21시간', value:'21시간'},
-      {name:'22시간', value:'22시간'},
-      {name:'23시간', value:'23시간'},
-      {name:'24시간', value:'24시간 '},
-    ],
           activity:[
-              {name:'1시간', value:'1시간'},
-              {name:'2시간', value:'2시간'},
-              {name:'3시간', valu:'3시간'},
-              {name:'4시간', value:'4시간'},
-              {name:'5시간', value:'5시간'},
-              {name:'6시간', value:'6시간'},
-              {name:'7시간', value:'7시간'},
-              {name:'8시간', value:'8시간'},
-              {name:'9시간', value:'9시간'},
-              {name:'10시간', value:'10시간'},
-              {name:'11시간', value:'11시간'},
-              {name:'12시간', value:'12시간'},
-              {name:'13시간', value:'13시간'},
-              {name:'14시간', value:'14시간'},
-              {name:'15시간', value:'15시간'},
-              {name:'16시간', value:'16시간'},
-              {name:'17시간', value:'17시간'},
-              {name:'18시간', value:'18시간'},
-              {name:'19시간', value:'19시간'},
-              {name:'20시간', value:'20시간'},
-              {name:'21시간', value:'21시간'},
-              {name:'22시간', value:'22시간'},
-              {name:'23시간', value:'23시간'},
-              {name:'24시간', value:'24시간'},
+              {name:'1시간', value:'1'},
+              {name:'2시간', value:'2'},
+              {name:'3시간', valu:'3'},
+              {name:'4시간', value:'4'},
+              {name:'5시간', value:'5'},
+              {name:'6시간', value:'6'},
+              {name:'7시간', value:'7'},
+              {name:'8시간', value:'8'},
+              {name:'9시간', value:'9'},
+              {name:'10시간', value:'10'},
+              {name:'11시간', value:'11'},
+              {name:'12시간', value:'12'},
+              {name:'13시간', value:'13'},
+              {name:'14시간', value:'14'},
+              {name:'15시간', value:'15'},
+              {name:'16시간', value:'16'},
+              {name:'17시간', value:'17'},
+              {name:'18시간', value:'18'},
+              {name:'19시간', value:'19'},
+              {name:'20시간', value:'20'},
+              {name:'21시간', value:'21'},
+              {name:'22시간', value:'22'},
+              {name:'23시간', value:'23'},
+              {name:'24시간', value:'24'},
             ],
             introduction:'',
             hope_loc1:'', 
