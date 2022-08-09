@@ -17,7 +17,7 @@
                           <br><br>
                           <h5>프로필 사진</h5>
                           <div v-for="(i,index) in imgfile" :key="index">
-                              <img :src="'https://localhost:8086/api/images/' + i.storeFileName" width="250px" height="250px" alt="@/assets/profile.png">
+                              <img :src="'https://localhost:8080/api/images/' + i.storeFileName" width="250px" height="250px" alt="@/assets/profile.png">
                               <v-btn @click="del(i)">삭제하기</v-btn>
                           </div>
                           <br>        

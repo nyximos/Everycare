@@ -2,12 +2,15 @@ package wd.team4.everycare.dto.jobOffer_jobSearch;
 
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
+import wd.team4.everycare.domain.CareTargetImage;
 import wd.team4.everycare.domain.Gender;
 import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
+import wd.team4.everycare.dto.caretarget.CareTargetDTO;
 import wd.team4.everycare.dto.member.MemberListViewDTO;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @ToString
 @Getter @Setter
@@ -34,6 +37,7 @@ public class JobOfferDTO {
     private MemberListViewDTO member;
     private JobOfferCareTargetDTO careTarget;                      //케어 대상인
     private CareTargetScheduleListDTO careTargetSchedule;      //스케줄
+    private String careTargetImage;
 
     public JobOffer toJobOffer(){
         return JobOffer.builder()

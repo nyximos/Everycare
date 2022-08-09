@@ -7,7 +7,7 @@
           <div class="con0101">
             <!-- <span class="icon03" id="btn_alert" @click="update">수정하기</span>			<span class="file"> -->
             <span style=" width:100px; height:100px;  overflow:hidden;">
-              <img :src="'https://localhost:8086/api/images/'+ careTargetImages " class="main_img img_sample">
+              <img :src="'https://localhost:8080/api/images/'+ careTargetImages " class="main_img img_sample">
             </span>
 
 
@@ -67,7 +67,23 @@
           <div class="con0202">
 
             <span class="head">스케줄</span>
-            <span class="con">{{ start1 }} ~ {{ end1 }} 요구사항 : {{ requirement1 }} </span>
+            <span class="con">총 활동시간 : {{ start1 }} ~ {{ end1 }} </span>
+            <div class="c0">
+            <div class="c1">
+              <p v-for="(r,index) in activity123" :key="index">
+                {{r.name}}
+              </p>
+            </div>
+            
+            
+            <div class="c2">
+              <p v-for="(m,index) in member1" :key="index">
+                {{m.requirement}}
+              </p>
+            </div>
+            </div>
+
+
 
             <span class="head">추가사항</span>
             <span class="con"><span>{{ comment }}</span>&nbsp;</span>
@@ -103,7 +119,11 @@ export default {
         withCredentials: true
       })
       .then((res) => {
-        console.log(res)
+        console.log(res.data.bdo)
+        this.activity123 = res.data.body.activityClassificationsDTO
+        console.log(this.activity123)
+        this.member1= res.data.body.activityInformationDTO
+
         this.member = res.data.body.member
         this.title = res.data.body.title
         this.comment = res.data.body.comment
@@ -125,7 +145,8 @@ export default {
         this.activity = res.data.body.careTargetScheduleListDTO.name
         this.start1 = res.data.body.careTargetScheduleListDTO.startTime
         this.end1 = res.data.body.careTargetScheduleListDTO.endTime
-        this.requirement1 = res.data.body.careTargetScheduleListDTO.name
+        this.requirement1 = res.data.body.activityClassificationsDTO
+        
         // this.end1 = res.data.body.activityInformationDTO[0].endTime
         // this.requirement1 = res.data.body.activityInformationDTO[0].requirement
         // this.start1 = res.data.body.activityInformationDTO[0].startTime
@@ -163,7 +184,9 @@ export default {
       pay: this.pay,
       comment: this.comment,
       id: this.id,
-      careTargetImages: this.careTargetImages
+      careTargetImages: this.careTargetImages,
+      requirement: this.requirement1,
+      // member1:this.member1
     }
   },
   methods: {
@@ -210,6 +233,22 @@ export default {
 </script>
 
 <style>
+.c0{
+
+}
+.c1{
+/*  float:left;  */
+width: 30%;
+display: flex;
+flex-direction: row;
+justify-content: center;
+}
+
+.c2{
+/*  float: right; */
+margin-left:10px;
+width: 30%;
+}
 .content {
   width: 100%;
   position: relative;

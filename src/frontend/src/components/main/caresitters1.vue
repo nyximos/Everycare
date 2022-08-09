@@ -197,7 +197,7 @@
                     <li class="li01" v-for="(p, index) in profiles" :key="index" @click="move(p)">
                         <span class="tab01">
                             <span class="img01">
-                                <img :src="'https://localhost:8086/api/images/' + p.storeFileNames[0]" alt="사진" class="vertical" />
+                                <img :src="'https://localhost:8080/api/images/' + p.storeFileNames[0]" alt="사진" class="vertical" />
                             </span>
                         </span>
                         <span class="tab02">

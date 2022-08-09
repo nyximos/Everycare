@@ -16,8 +16,8 @@
    
             <ul>
                 <li class="item item1" v-for="(p,index) in profiles" :key="index" >
-                <v-img height="250" :src="'https://localhost:8086/api/images/' + p.imageDTO.storeFileName"> </v-img>
-                    <!-- <div class="image" :src="'https://localhost:8086/api/images/' + p.imageDTO.storeFileName">사진</div> -->
+                <v-img height="250" :src="'https://localhost:8080/api/images/' + p.imageDTO.storeFileName"> </v-img>
+                    <!-- <div class="image" :src="'https://localhost:8080/api/images/' + p.imageDTO.storeFileName">사진</div> -->
                     <div class="cont">
                         <strong>{{p.name}}님</strong>
                         
@@ -61,7 +61,7 @@
                         <v-progress-linear color="deep-purple" height="10" indeterminate></v-progress-linear>
                     </template>
 
-                    <v-img height="250" :src="'https://localhost:8086/api/images/' + p.imageDTO.storeFileName"> </v-img>
+                    <v-img height="250" :src="'https://localhost:8080/api/images/' + p.imageDTO.storeFileName"> </v-img>
 
                     <v-card-title text-align="center">{{ p.name }}님</v-card-title>
 

@@ -13,7 +13,7 @@
     ></v-img>
     <v-img
       v-else
-      :src="'https://localhost:8086/api/images/'+ c.careTargetImage"
+      :src="'https://localhost:8080/api/images/'+ c.careTargetImage"
       height="200px"
       width="200px"
       style="margin:0 auto;"

@@ -8,7 +8,7 @@
     </div>
     <article class="resume-field resume-field-personal">
         <div class="photo ">
-                <img :src="'https://localhost:8086/api/images/' + image[0].storeFileName"  alt="프로필사진" id="resumeimg" class="pic">
+                <img :src="'https://localhost:8080/api/images/' + image[0].storeFileName"  alt="프로필사진" id="resumeimg" class="pic">
                 </div>
         <div class="personal-info">
             <div class="profile">

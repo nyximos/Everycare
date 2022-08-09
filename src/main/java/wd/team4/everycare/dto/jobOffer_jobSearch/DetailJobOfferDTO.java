@@ -3,9 +3,11 @@ package wd.team4.everycare.dto.jobOffer_jobSearch;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import wd.team4.everycare.domain.ActivityClassification;
 import wd.team4.everycare.domain.Gender;
 import wd.team4.everycare.domain.JobOffer;
 import wd.team4.everycare.dto.careNote.ActivityInformationDTO;
+import wd.team4.everycare.dto.careTargetSchedule.ActivityClassificationDTO;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 
 import java.time.LocalDate;
@@ -28,6 +30,7 @@ public class DetailJobOfferDTO {
     private JobOfferCareTargetDTO careTarget;      //
     private CareTargetScheduleListDTO careTargetScheduleListDTO;
     private List<ActivityInformationDTO> activityInformationDTO;
+    private List<ActivityClassificationDTO> activityClassificationsDTO;
     private String careTargetImages;
 
     public JobOffer toJobOffer(){

@@ -13,7 +13,7 @@
             large
           ></v-rating>
           <v-card-text>
-          <v-img id="divProfile" :src="'https://localhost:8086/api/images/'+item.fileName" 
+          <v-img id="divProfile" :src="'https://localhost:8080/api/images/'+item.fileName" 
                   class="mb-4"  alt="사진" width="80" height="80"/>
             <h6 class="fw-bold text-black text-start" @click="detail(item)">
               {{item.title}}

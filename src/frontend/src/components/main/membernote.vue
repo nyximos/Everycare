@@ -7,7 +7,7 @@
     <!-- </div> -->
     <!-- <div v-else class="img_div"> -->
         <!-- <div style="margin 0 auto;"> -->
-        <v-img v-else :src="'https://localhost:8086/api/images/' + n.storeName" width="200px"  style="margin:0 auto;"></v-img>
+        <v-img v-else :src="'https://localhost:8080/api/images/' + n.storeName" width="200px"  style="margin:0 auto;"></v-img>
         <!-- </div> -->
     <!-- </div> -->
     <v-card-title>

@@ -47,7 +47,7 @@
 
                     <td v-if="s.storeFileName == null">사진</td>
                     <td v-else>
-                        <img :src="'https://localhost:8086/api/images/' + s.storeFileName">
+                        <img :src="'https://localhost:8080/api/images/' + s.storeFileName">
                     </td>
                     <td v-if="s.content == null">활동</td>
                     <td v-else>

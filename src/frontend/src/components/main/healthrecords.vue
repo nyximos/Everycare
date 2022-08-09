@@ -26,7 +26,7 @@
                     <td>{{s.startTime}}</td>
                     <td>{{s.name}}</td>
                     <td>{{s.requirement}}</td>
-                    <td v-if="schedule.storeFileName=''"><img :src="'https://localhost:8086/api/images/' + s.storeFileName"></td>
+                    <td v-if="schedule.storeFileName=''"><img :src="'https://localhost:8080/api/images/' + s.storeFileName"></td>
                     <td v-else @click="add(s)">사진</td>
                     <td @click="activity(s)">활동</td>
                 </tr>

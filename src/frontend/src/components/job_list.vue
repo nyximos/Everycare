@@ -114,13 +114,13 @@
 	<span class="tab01">
 		<span class="img01">
       
-      <img img :src="'https://localhost:8086/api/images/' + p.careTargetImage" class=""></span>
+      <img img :src="'https://localhost:8080/api/images/' + p.careTargetImage" class=""></span>
 		<span class="text01">{{p.careTargetSchedule.name}}</span>
 	</span>
 	<span class="tab02">
 		
 		<span class="sphere"> {{p.careTarget.address}}</span>
-		<span class="subject">{{p.title}}</span>
+		<span class="subject">{{p.title}}</span>  
 
 		<span class="pay">시급 {{p.pay}}원 <span class="bar0101">&nbsp;&nbsp;월급 {{p.amount}} 원</span></span>
     <span class="subject">희망날짜 : {{p.startDate}} ~ {{p.endDate}}</span>

@@ -7,7 +7,7 @@
         <v-col cols="2" style="margin:0 auto;">
           <v-card @click="move(c)">
             <v-img
-              :src="'https://localhost:8086/api/images/'+c.imageDTO.storeFileName"
+              :src="'https://localhost:8080/api/images/'+c.imageDTO.storeFileName"
               height="250"
               class="grey darken-4"
             ></v-img>

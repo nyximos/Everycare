@@ -5,7 +5,7 @@
           <v-card-text class="text-black">
             <p>{{item.product.name}}</p>
             <b>{{item.product.store.name}}</b>
-            <v-img id="divProfile" :src="'https://localhost:8086/api/images/'+item.product.storeFileName" 
+            <v-img id="divProfile" :src="'https://localhost:8080/api/images/'+item.product.storeFileName" 
                                     alt="사진" width="100" height="100"/>
             <div class="mt-3">{{item.name}}</div>
             <p>{{item.amount}} 원</p>

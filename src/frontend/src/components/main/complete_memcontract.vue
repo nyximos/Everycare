@@ -2,7 +2,7 @@
   <div class="content">
       <v-card class="mx-auto" max-width="500" v-for="(c,index) in contract" :key="index">
         <h5>계약서: {{index+1}}</h5>
-        <v-img :src="'https://localhost:8086/api/images/'+ c.careSitterStoreFileName" height="250px" width="300px" style="margin:0 auto;"></v-img>
+        <v-img :src="'https://localhost:8080/api/images/'+ c.careSitterStoreFileName" height="250px" width="300px" style="margin:0 auto;"></v-img>
       <v-card-title>
         시터 이름:{{c.careSitterName}} <br>
         amount:{{c.amount}}

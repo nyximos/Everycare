@@ -42,7 +42,7 @@
                     <td>{{s.requirement}}</td>
 
                     <td v-if="s.storeFileName == null" @click="add(s)">사진</td>
-                    <td v-else><img :src="'https://localhost:8086/api/images/' + s.storeFileName" width="15px" height="20px"></td>
+                    <td v-else><img :src="'https://localhost:8080/api/images/' + s.storeFileName" width="15px" height="20px"></td>
                     <td v-if="s.content == null" @click="activity(s)">활동</td>
                     <td v-else>{{s.content}}</td>
 

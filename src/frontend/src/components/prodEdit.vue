@@ -5,7 +5,7 @@
   <v-card>
   <v-card-text>
       <div style="float:right">
-      <v-img id="divProfile" :src="'https://localhost:8086/api/images/'+this.thumbnail" 
+      <v-img id="divProfile" :src="'https://localhost:8080/api/images/'+this.thumbnail" 
       alt="사진" width="300" height="170"/>
     </div>
         <v-text-field
@@ -47,7 +47,7 @@
     <v-btn icon @click="delImg(item)">
       <v-icon>mdi-close</v-icon>
     </v-btn>
-    <v-img id="divProfile" :src="'https://localhost:8086/api/images/'+item.storeFileName" alt="사진" width="150px" height="200px"/>
+    <v-img id="divProfile" :src="'https://localhost:8080/api/images/'+item.storeFileName" alt="사진" width="150px" height="200px"/>
     </div>
     </v-col>
     </v-row>

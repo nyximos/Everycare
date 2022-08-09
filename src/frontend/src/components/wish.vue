@@ -30,7 +30,7 @@
                 size="125"
                 tile
               >
-                <v-img :src="'https://localhost:8086/api/images/'+item.storeFileName" alt="사진"></v-img>
+                <v-img :src="'https://localhost:8080/api/images/'+item.storeFileName" alt="사진"></v-img>
               </v-avatar>
             
           </v-card>

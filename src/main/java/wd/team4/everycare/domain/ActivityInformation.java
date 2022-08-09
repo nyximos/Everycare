@@ -83,6 +83,7 @@ public class ActivityInformation {
                 .requirement(this.requirement)
                 .content(this.content)
                 .storeFileName(this.storeFileName)
+                .ACId(this.activityClassification.getId())
                 .build();
     }
 
