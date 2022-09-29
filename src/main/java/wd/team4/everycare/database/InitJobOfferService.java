@@ -32,7 +32,7 @@ public class InitJobOfferService {
 
 
 
-        JobOffer jobOffer1 = jobOffer("케어시터분 구합니다.", LocalDate.parse("2022-08-03"), LocalDate.parse("2022-08-04"), "2022-08-03,2022-08-04,2022-08-05,2022-08-06,2022-08-06,2022-08-07", "09:00", "18:00", 10000, 130000, Gender.M, "잘 부탁 드립니다.", member, careTarget, careTargetSchedule);
+        JobOffer jobOffer1 = jobOffer("케어시터분 구합니다.", LocalDate.parse("2022-08-03"), LocalDate.parse("2022-08-04"), "2022-09-29,2022-09-30","09:00", "18:00", 10000, 130000, Gender.M, "잘 부탁 드립니다.", member, careTarget, careTargetSchedule);
 
 
 
