@@ -21,7 +21,7 @@
                       </tr> -->
                       <tr>
                         <td>{{certification[index].id}}</td>
-                        <td><img id="divProfile" :src="'https://localhost:8086/api/images/' + certification[index].storeName" alt="사진" width="50px" height="30px" @click="picture(c)"></td>
+                        <td><img id="divProfile" :src="'https://localhost:8080/api/images/' + certification[index].storeName" alt="사진" width="50px" height="30px" @click="picture(c)"></td>
                         <td>{{certification[index].name}}</td>
                         <td>{{certification[index].createdAt.slice(0,10)}}</td>
                         <td>{{certification[index].approvalDate.slice(0,10)}}</td>
@@ -38,7 +38,7 @@
         </v-card-title>
 
         <v-card-text>
-          <img :src="'https://localhost:8086/api/images/' + this.$store.state.careprofileStore.certification_img" width="350px" height="350px">
+          <img :src="'https://localhost:8080/api/images/' + this.$store.state.careprofileStore.certification_img" width="350px" height="350px">
         </v-card-text>
 
         <v-card-actions>

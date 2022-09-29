@@ -134,7 +134,7 @@
                                     <v-radio label="X" value="1"></v-radio>
                         </v-radio-group> -->
                          <div v-for="(i,index) in imgfile" :key="index">
-                              <img :src="'https://localhost:8086/api/images/' +i.storeFilename, " width="250px" height="250px" alt="">
+                              <img :src="'https://localhost:8080/api/images/' +i.storeFilename, " width="250px" height="250px" alt="">
                               <v-btn @click="del(i)">삭제하기</v-btn>
                       </div>
                     </li>

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import wd.team4.everycare.config.auth.PrincipalDetails;
 import wd.team4.everycare.domain.*;
 import wd.team4.everycare.dto.careNote.ActivityInformationDTO;
+import wd.team4.everycare.dto.careTargetSchedule.ActivityClassificationDTO;
 import wd.team4.everycare.dto.careTargetSchedule.CareTargetScheduleListDTO;
 import wd.team4.everycare.dto.caretarget.CareTargetFormDTO;
 import wd.team4.everycare.dto.contract.ContractDTO;
@@ -40,6 +41,7 @@ public class JobOfferServiceImpl implements JobOfferService {
     private final JobOfferCareSitterRepository jobOfferCareSitterRepository;
     private final JobOfferQueryRepository jobOfferQueryRepository;
     private final CareTargetImageRepository careTargetImageRepository;
+    private final ActivityClassificationRepository activityClassificationRepository;
 
     @Override
     public ResponseEntity<MyResponse> getJobOffer() {
@@ -94,6 +96,17 @@ public class JobOfferServiceImpl implements JobOfferService {
         activityInformation.stream().map(activity -> activity.toActivityInformationDTO()).forEach(activityInformationDTOs::add);
 
         detailJobOfferDTO.setActivityInformationDTO(activityInformationDTOs);
+
+        List<ActivityClassificationDTO> activityClassificationDTOS = new ArrayList<>();
+
+        for (ActivityInformationDTO ac : activityInformationDTOs) {
+            Long acId = ac.getACId();
+            ActivityClassification activityClassification = activityClassificationRepository.findById(acId).orElse(null);
+            ActivityClassificationDTO activityClassificationDTO = activityClassification.toDTO();
+            activityClassificationDTOS.add(activityClassificationDTO);
+        }
+
+        detailJobOfferDTO.setActivityClassificationsDTO(activityClassificationDTOS);
 
         CareTarget careTarget = findJobOffer.getCareTarget();
         List<CareTargetImage> careTargetImages = careTargetImageRepository.findAllByCareTarget(careTarget);
@@ -295,6 +308,27 @@ public class JobOfferServiceImpl implements JobOfferService {
             List<JobOfferDTO> jobOfferDTOs = new ArrayList<>();
             findByRegion.stream().map(jobOffer -> jobOffer.toJobOfferDTO()).forEach(jobOfferDTOs::add);
             System.out.println("jobOfferDTOs = " + jobOfferDTOs);
+            for (JobOfferDTO jobOfferDTO:jobOfferDTOs) {
+                    System.out.println("A");
+                Long id = jobOfferDTO.getCareTarget().getId();
+                    System.out.println("B");
+                List<CareTargetImage> allByCareTargetId = careTargetImageRepository.findAllByCareTargetId(id);
+                    System.out.println("C");
+                for (CareTargetImage careSitterImage : allByCareTargetId) {
+                    System.out.println("D");
+                    CareTargetImage careSitterImage1 = CareTargetImage.builder()
+                            .uploadFileName(careSitterImage.getUploadFileName())
+                            .storeFileName(careSitterImage.getStoreFileName())
+                            .build();
+                    System.out.println("E");
+                    jobOfferDTO.setCareTargetImage(careSitterImage1.getStoreFileName());
+                    System.out.println("careSitterImage1 = " + careSitterImage1.getUploadFileName());
+                    System.out.println("careSitterImage1 = " + careSitterImage1.getStoreFileName());
+                    System.out.println("F");
+            }
+                    System.out.println("G");
+
+            }
             MyResponse body = MyResponse.builder()
                     .header(StatusEnum.OK)
                     .message("지역에 따른 조회")

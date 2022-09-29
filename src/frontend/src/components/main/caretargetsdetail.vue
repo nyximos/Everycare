@@ -6,7 +6,7 @@
                     <div class="con0101">
                         <!-- <span class="icon03" id="btn_alert" @click="update">수정하기</span>			<span class="file"> -->
                         <span style="display:inline-block; width:300px; height:300px; border-radius:100px; overflow:hidden;">
-                            <img :src="'https://localhost:8086/api/images/' + attachFiles.imageDTOs[0].storeFileName" class="main_img img_sample" />
+                            <img :src="'https://localhost:8080/api/images/' + attachFiles.imageDTOs[0].storeFileName" class="main_img img_sample" />
                         </span>
 
                         <div class="layer01" id="layer_alert"></div>
@@ -78,7 +78,7 @@
 						<div class="photoArea">
 							<span class="photo">
 								<a href="#ResumeBaseInfo" class="image" style="position:static;left:0;bottom:0;display:block;width:auto;height:auto;padding:0;border:0 none;background:none">
-									<img id="divProfile" :src="'https://localhost:8086/api/images/'+this.attachFiles" alt="사진">
+									<img id="divProfile" :src="'https://localhost:8080/api/images/'+this.attachFiles" alt="사진">
 									
 								</a>
 							</span>

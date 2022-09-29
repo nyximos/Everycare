@@ -21,7 +21,7 @@
 
     <v-img 
       v-else
-      :src="'https://localhost:8086/api/images/' + n.storeFileName"
+      :src="'https://localhost:8080/api/images/' + n.storeFileName"
       width="250px"
       height="250px"
       style="margin:0 auto;"

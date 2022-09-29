@@ -3,7 +3,7 @@
         <br /><br /><br />
         <v-hover>
             <v-card class="mx-auto" color="grey lighten-4" max-width="400">
-                <v-img :aspect-ratio="16 / 10" :src="'https://localhost:8086/api/images/' + storeFile"> </v-img>
+                <v-img :aspect-ratio="16 / 10" :src="'https://localhost:8080/api/images/' + storeFile"> </v-img>
                 <v-card-text class="pt-6" style="position: relative">
                     <v-btn absolute color="white" class="white--text" fab large right top @click="submit()">
                         <v-icon color="black">mdi-card-plus</v-icon>

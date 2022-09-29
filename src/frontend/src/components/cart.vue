@@ -19,7 +19,7 @@
                         </thead>
                         <tbody>
                             <tr v-for="(item,index) in cartList" :key="index">
-                                <td><v-img id="divProfile" :src="'https://localhost:8086/api/images/'+item.image" 
+                                <td><v-img id="divProfile" :src="'https://localhost:8080/api/images/'+item.image" 
                                     alt="사진" width="100" height="100"/></td>
                                 <td>{{ item.id }}</td>
                                 <!-- <td>{{item.name}}</td> -->

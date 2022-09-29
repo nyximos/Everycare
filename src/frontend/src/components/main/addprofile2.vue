@@ -9,7 +9,7 @@
                   <div class="photoArea">
                      <span class="photo">
 								<a href="#ResumeBaseInfo" class="image" style="position:static;left:0;bottom:0;display:block;width:auto;height:auto;padding:0;border:0 none;background:none">
-									<img :src="'https://localhost:8086/api/images/' + detail.attachFiles[0].storeFileName" width="90" height="120" alt="프로필사진" id="per_pic">		
+									<img :src="'https://localhost:8080/api/images/' + detail.attachFiles[0].storeFileName" width="90" height="120" alt="프로필사진" id="per_pic">		
 								</a>
                      </span>
                   </div>
@@ -102,7 +102,7 @@
                     <div id="#" class="resumeView">
                         <h2>활동내역</h2>
                         <div v-for="(b,index) in badge" :key="index">
-                           <img :src="'https://localhost:8086/api/images/' + b.fileName" width="50px" height="50px" style="float:left;"pp>
+                           <img :src="'https://localhost:8080/api/images/' + b.fileName" width="50px" height="50px" style="float:left;"pp>
                         </div>
                     </div>
             </div>

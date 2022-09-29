@@ -3,7 +3,7 @@
         <v-card flat>
     <v-card-text>
         
-          <v-img id="divProfile" :src="'https://localhost:8086/api/images/'+this.fileName" 
+          <v-img id="divProfile" :src="'https://localhost:8080/api/images/'+this.fileName" 
                   class="mb-4"  alt="사진" width="300" height="300"/>
       <v-container fluid>
         <v-rating

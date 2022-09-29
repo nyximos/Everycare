@@ -3,7 +3,7 @@
 <Toast />
 <v-container>
  <v-card>
-    <v-img :src="'https://localhost:8086/api/images/'+storeFileName" alt="사진" height="600"/>
+    <v-img :src="'https://localhost:8080/api/images/'+storeFileName" alt="사진" height="600"/>
       <v-card-title class="fw-bold">{{store.name}}</v-card-title>
       <v-card-text class="text-black">
         <p>{{name}}</p>
@@ -31,7 +31,7 @@
        <v-row>
          <p class="fs-4 text-center">Details</p>
             <v-col>
-                 <v-img v-for="item in this.imagesDTOs" :key="item.id" :src="'https://localhost:8086/api/images/'+item.storeFileName" alt="사진" />
+                 <v-img v-for="item in this.imagesDTOs" :key="item.id" :src="'https://localhost:8080/api/images/'+item.storeFileName" alt="사진" />
             </v-col>
         </v-row>
       </v-card-text>

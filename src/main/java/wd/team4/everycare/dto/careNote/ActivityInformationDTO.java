@@ -16,4 +16,5 @@ public class ActivityInformationDTO {
     private String requirement;
     private String content;
     private String storeFileName;
+    private Long ACId;
 }

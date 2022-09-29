@@ -10,7 +10,7 @@
 							<span class="photo">
 								<!-- <div v-if="details.attachFiles[0]==''">  -->
 								<a href="#ResumeBaseInfo" class="image" style="position:static;left:0;bottom:0;display:block;width:auto;height:auto;padding:0;border:0 none;background:none">
-									<img :src="'https://localhost:8086/api/images/' + details.attachFiles[0].storeFileName" width="90" height="120" alt="프로필사진" id="per_pic">		
+									<img :src="'https://localhost:8080/api/images/' + details.attachFiles[0].storeFileName" width="90" height="120" alt="프로필사진" id="per_pic">		
 								</a>
 								<!-- </div> -->
 							</span>

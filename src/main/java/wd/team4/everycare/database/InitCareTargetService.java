@@ -22,11 +22,11 @@ public class InitCareTargetService {
         Optional<Member> member1 = memberRepository.findById("member1");
         Optional<Member> member3 = memberRepository.findById("member14");
 
-        CareTarget careTarget1 = createCareTarget("표철진", Gender.M, "1954-09-14", 170, 70, "12345", "대전광역시 동구 판교1길 ", "1234", 2, "거동이 불편합니다.", 0, 0, "노인", 1, member1.get());
+        CareTarget careTarget1 = createCareTarget("표철진", Gender.M, "1954-09-14", 170, 70, "12345", "서울 강남구 가로수길 5", "1234", 2, "거동이 불편합니다.", 0, 0, "노인", 1, member1.get());
         em.persist(careTarget1);
         CareTargetImage careTargetImage1 = createCareTargetImage("target1.png", "target1.png", careTarget1);
         em.persist(careTargetImage1);
-        CareTarget careTarget2 = createCareTarget("나담비", Gender.W, "2018-12-09", 101, 16, "73434", "대구광역시", "중구", 0, "잘 부탁 드립니다.", 0, 1, "아동", 1, member3.get());
+        CareTarget careTarget2 = createCareTarget("나담비", Gender.W, "2018-12-09", 101, 16, "73434", "서울 강남구 가로수길 5", "중구", 0, "잘 부탁 드립니다.", 0, 1, "아동", 1, member3.get());
         em.persist(careTarget2);
         CareTargetImage careTargetImage2 = createCareTargetImage("target2.jpg", "target2.jpg", careTarget2);
         em.persist(careTargetImage2);
